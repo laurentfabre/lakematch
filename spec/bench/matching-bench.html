@@ -1,0 +1,528 @@
+<meta charset="utf-8">
+<title>Zingg + Jev Matching Bench</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #eef2f5; --surface: #ffffff; --surface-2: #f6f8fa; --ink: #13202a; --muted: #5a6b77; --line: #d4dde4;
+  --accent: #1f6f8b; --accent-soft: #dbeaf0; --s1: #2a78d6; --s2: #eb6834;
+  --ok: #2b7a4b; --ok-bg: #e2f0e7; --warn: #9a6a10; --warn-bg: #f6ecd6; --bad: #b3402e; --bad-bg: #f7e4e0;
+  --display: "Bricolage Grotesque", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e171d; --surface: #152229; --surface-2: #1b2b34; --ink: #e4ecf0; --muted: #8ea3ae; --line: #253943;
+    --accent: #5fb3cf; --accent-soft: #163541; --s1: #3987e5; --s2: #d95926;
+    --ok: #63c48a; --ok-bg: #173126; --warn: #dca43c; --warn-bg: #352b16; --bad: #e07f68; --bad-bg: #38221c;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e171d; --surface: #152229; --surface-2: #1b2b34; --ink: #e4ecf0; --muted: #8ea3ae; --line: #253943;
+  --accent: #5fb3cf; --accent-soft: #163541; --s1: #3987e5; --s2: #d95926;
+  --ok: #63c48a; --ok-bg: #173126; --warn: #dca43c; --warn-bg: #352b16; --bad: #e07f68; --bad-bg: #38221c;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); margin: 0; font-family: var(--body); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 34px 64px; padding-inline: 22px; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.eyebrow { font: 500 11.5px/1 var(--mono); letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(32px, 5.2vw, 50px); line-height: 1; letter-spacing: -0.028em; margin: 10px 0 14px; text-wrap: balance; font-variation-settings: "opsz" 96; }
+.lede { font-size: 17px; max-width: 66ch; color: var(--ink); margin: 0; }
+.meta { font: 400 12.5px/1.7 var(--mono); color: var(--muted); margin-top: 14px; }
+nav { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 24px 0 0; }
+nav a { font: 500 12.5px/1 var(--body); text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--line); padding: 7px 11px; border-radius: 999px; }
+nav a:hover { border-color: var(--accent); }
+section { margin-top: 46px; }
+h2 { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: -0.018em; margin: 0 0 6px; text-wrap: balance; }
+h3 { font-family: var(--display); font-weight: 700; font-size: 17px; margin: 26px 0 8px; letter-spacing: -0.01em; }
+p { max-width: 70ch; margin: 8px 0; }
+.sub { color: var(--muted); max-width: 70ch; margin: 0 0 16px; }
+.verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(225px, 1fr)); gap: 12px; margin-top: 22px; }
+.verdict { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 15px 16px 16px; }
+.verdict .n { font-family: var(--display); font-weight: 800; font-size: 34px; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.verdict .n small { font: 500 13px var(--mono); color: var(--muted); letter-spacing: 0; margin-left: 4px; }
+.verdict p { font-size: 13.5px; line-height: 1.45; margin: 9px 0 0; color: var(--muted); }
+.verdict p b { color: var(--ink); font-weight: 600; }
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 11px/1.3 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; white-space: nowrap; font-family: var(--mono); font-size: 12.5px; }
+td.gp, th.gp { color: var(--muted); border-left: 1px dashed var(--line); }
+td.best { font-weight: 600; color: var(--ink); background: var(--accent-soft); }
+tr.total td { font-weight: 600; background: var(--surface-2); }
+.tag { display: inline-block; font: 500 10.5px/1 var(--mono); letter-spacing: 0.05em; padding: 3px 6px; border-radius: 4px; vertical-align: 1px; }
+.tag.ok { background: var(--ok-bg); color: var(--ok); } .tag.warn { background: var(--warn-bg); color: var(--warn); } .tag.bad { background: var(--bad-bg); color: var(--bad); }
+figure { margin: 14px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 16px 12px; }
+figure h4 { font: 600 14px/1.3 var(--body); margin: 0; } figure .fsub { font-size: 12.5px; color: var(--muted); margin: 2px 0 10px; }
+.chartbox { overflow-x: auto; position: relative; } .chartbox svg { display: block; width: 100%; min-width: 560px; height: auto; font-family: var(--body); }
+.ax { fill: var(--muted); font-size: 11px; font-family: var(--mono); } .lab { fill: var(--ink); font-size: 12.5px; } .val { fill: var(--ink); font-size: 11.5px; font-family: var(--mono); }
+.grid { stroke: var(--line); stroke-width: 1; } .bar1 { fill: var(--s1); } .bar2 { fill: var(--s2); } .barA { fill: var(--accent); } .barM { fill: var(--muted); fill-opacity: 0.55; }
+.ref { stroke: var(--ink); stroke-width: 2; } .hit { fill: transparent; cursor: default; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.legend i.tick { width: 16px; height: 2px; border-radius: 0; background: var(--ink); vertical-align: 4px; }
+#tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font: 500 12px/1.4 var(--body); padding: 6px 9px; border-radius: 6px; max-width: 260px; z-index: 5; }
+.callout { border-left: 3px solid var(--accent); background: var(--surface); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 14px 0; max-width: 78ch; }
+.callout.warn { border-color: var(--warn); }
+ol.plan { padding-left: 20px; max-width: 74ch; } ol.plan li { margin: 9px 0; } ol.plan b { font-weight: 600; }
+code { font-family: var(--mono); font-size: 12.5px; background: var(--surface-2); border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; }
+pre.mermaid { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; overflow-x: auto; }
+footer { margin-top: 52px; border-top: 1px solid var(--line); padding-top: 14px; color: var(--muted); font-size: 12.5px; max-width: 80ch; }
+@media (max-width: 560px) { .wrap { padding-inline: 16px; } th, td { padding: 8px 9px; } }
+
+/* scoreboard */
+.score { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; margin-top: 18px; }
+.card { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px 15px; display: grid; gap: 10px; align-content: start; }
+.card.hero { grid-column: 1 / -1; border-color: var(--accent); }
+.card .task { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.card .task b { font: 700 16px/1.2 var(--display); letter-spacing: -0.01em; }
+.card .task span { font: 400 11.5px/1.3 var(--mono); color: var(--muted); }
+.card .win { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.card .f1 { font: 800 44px/0.95 var(--display); letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
+.card.hero .f1 { font-size: 56px; }
+.card .who { font-size: 13.5px; line-height: 1.35; max-width: 34ch; }
+.card .who em { font-style: normal; display: block; font: 500 10.5px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 12px; margin: 0; border-top: 1px solid var(--line); padding-top: 10px; }
+.facts div { min-width: 0; } .facts dt { font: 500 10px/1.3 var(--mono); letter-spacing: 0.05em; overflow-wrap: anywhere; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 3px 0 0; font: 500 13.5px/1.25 var(--mono); font-variant-numeric: tabular-nums; }
+.facts dd small { display: block; font: 400 11.5px/1.3 var(--body); color: var(--muted); }
+.chip { display: inline-block; font: 600 11.5px/1.35 var(--body); padding: 5px 10px; border-radius: 10px; justify-self: start; }
+.chip.up { background: var(--ok-bg); color: var(--ok); } .chip.down { background: var(--warn-bg); color: var(--warn); }
+/* leaderboards */
+.board { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 10px; margin-top: 14px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.tabs, .vols { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tabs button, .vols button { font: 500 12.5px/1 var(--body); color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); padding: 7px 11px; border-radius: 999px; cursor: pointer; }
+.tabs button[aria-selected="true"], .vols button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.vols label { font: 500 11px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
+.rows { display: grid; gap: 2px; }
+.row { display: grid; grid-template-columns: 26px minmax(150px, 1.5fr) minmax(120px, 2fr) 56px 84px 96px; gap: 10px; align-items: center; padding: 7px 6px; border-radius: 8px; font-size: 13.5px; }
+.row.head { font: 500 10.5px/1.25 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding-block: 2px 6px; align-items: end; }
+.row.head .num { font: inherit; white-space: normal; }
+.row.head .scale { display: flex; justify-content: space-between; }
+.row.win { background: var(--accent-soft); } .row.pub { color: var(--muted); }
+.row .rk { font: 500 12px var(--mono); color: var(--muted); text-align: right; }
+.row .nm { min-width: 0; } .row .nm small { display: block; font-size: 11.5px; color: var(--muted); }
+.row .track { height: 14px; position: relative; margin-inline: 7px; }
+.row .track::before { content: ""; position: absolute; inset: 6px -7px auto -7px; height: 2px; border-radius: 1px; background: var(--line); }
+.row .dot { position: absolute; top: 0; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--s1); box-shadow: 0 0 0 2px var(--surface); }
+.row.win .dot { background: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); width: 16px; height: 16px; top: -1px; margin-left: -8px; }
+.row.pub .dot { background: var(--surface); box-shadow: inset 0 0 0 2px var(--muted); }
+.row .num { font: 500 13px var(--mono); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row.win .num.f { font-weight: 700; }
+.badge { display: inline-block; font: 600 9.5px/1 var(--mono); letter-spacing: 0.07em; padding: 3px 5px; border-radius: 4px; margin-left: 6px; vertical-align: 1px; white-space: nowrap; }
+.badge.w { background: var(--accent); color: var(--bg); } .badge.v { background: var(--ok-bg); color: var(--ok); } .badge.p { border: 1px solid var(--line); color: var(--muted); }
+.boardnote { font-size: 12.5px; color: var(--muted); margin: 10px 2px 4px; max-width: 86ch; }
+@media (max-width: 700px) { .row { grid-template-columns: 20px minmax(0, 1fr) 52px 78px; } .row .track, .row .tok { display: none; } .facts { grid-template-columns: 1fr 1fr; } }
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Personal lake · master data · benchmark of 19 Sept 2026</span>
+  <h1>How good is Zingg + Jev, and what makes it drastically better</h1>
+  <p class="lede">The entity-resolution stack planned for the lake (Zingg on Spark 4.1, with TypeSafe's Jev as labeller) was measured on public labelled corpora against the published state of the art, then audited by an independent model (Codex on gpt-6-astra), whose findings are folded in below. Under its default configuration Zingg recovered 75 % of the true links on 10 000 person records; a nearest-neighbour candidate step recovers all of them. Jev's labels, never wrong when confident, are what let a pipeline reject non-matches without any human label. Every experiment together cost about two dollars.</p>
+  <p class="meta">jev-1.13.0 · $0.042 per million input tokens, output free · thresholds always chosen on validation, frozen on test · only public or synthetic data was sent to Jev<br>grey dashed columns reprice the same prompts at GPT-4o list prices ($2.50 in / $10.00 out per million, as supplied, not re-verified): same input tokens, 5 output tokens per answer, 30 for attribute questions · an estimate, not a run</p>
+  <nav aria-label="Sections">
+    <a href="#verdict">Scoreboard</a><a href="#leaders">Leaderboards</a><a href="#sota">State of the art</a><a href="#endtoend">End to end</a><a href="#pairs">Jev on pairs</a><a href="#fewshot">Few-shot &amp; other methods</a><a href="#best">Best system</a><a href="#gpt4o">vs GPT-4o</a><a href="#costs">Costs</a><a href="#plan">What to change</a><a href="#audit">Independent verification</a><a href="#caveats">Caveats</a>
+  </nav>
+</header>
+
+<section id="verdict">
+  <h2>Scoreboard</h2>
+  <p class="sub">Our pick on each task, what it costs, and how it stands against the best published result. Every threshold, and every choice between methods, was fixed on validation data before the test score was read. An earlier version of this page picked the best of 15 stacks by test score, which flattered them by 0.5 to 2.6 points; those figures are corrected here. "Above the best published" compares point estimates on different test subsets and selection protocols: it does not establish superiority.</p>
+  <div class="score">
+    <article class="card hero">
+      <div class="task"><b>People, end to end · FEBRL4 with half the partners removed</b><span>5 000 records to link · 2 500 true links · 2 500 must be rejected</span></div>
+      <div class="win"><span class="f1">0.964–0.994</span><div class="who"><em>Our pipeline, no human label</em>Top-5 text-similarity candidates → classifier trained on Jev's labels → Jev arbitrates the unsure anchors. Range over three field sets (all fields / no SSN / no SSN and no birth date).</div><span class="chip up">▲ nearest neighbour alone: 0.667 · Zingg: 0.841–0.862 (precision ≈ 1.000, recall 0.73–0.76)</span></div>
+      <dl class="facts"><div><dt>Cost of a run</dt><dd>$0.015–0.023<small>400 Jev labels + 100–300 arbitrations</small></dd></div><div><dt>Jev's confident labels</dt><dd>2 173 kept, 0 wrong<small>of 2 400 asked, six runs</small></dd></div><div><dt>On the original FEBRL4</dt><dd>1.000 without Jev<small>every record has a partner, so "always link the nearest" wins; that task cannot show Jev's value</small></dd></div></dl>
+    </article>
+    <article class="card">
+      <div class="task"><b>Ambiguous people · BPID</b><span>800 test pairs</span></div>
+      <div class="win"><span class="f1">0.830</span><div class="who"><em>Our pick</em>Classifier + Jev zero-shot + 10 related demonstrations, the stack chosen on validation data</div></div>
+      <span class="chip up">▲ above the best published (0.788) by 4.2 points, on our own split</span>
+      <dl class="facts"><div><dt>Cost / 1 000 pairs</dt><dd>$0.153</dd></div><div><dt>Jev alone</dt><dd>0.813<small>$0.028 · gap to the stack not significant</small></dd></div><div><dt>Classifier alone</dt><dd>0.734</dd></div></dl>
+    </article>
+    <article class="card">
+      <div class="task"><b>Software products · Amazon-Google</b><span>1 161 test pairs</span></div>
+      <div class="win"><span class="f1">0.800</span><div class="who"><em>Winner</em>Classifier + Jev zero-shot + 10 related demonstrations, the stack chosen on validation data</div></div>
+      <span class="chip up">▲ above the best published (GPT-4, 0.764) by 3.6 points, different test subset</span>
+      <dl class="facts"><div><dt>Cost / 1 000 pairs</dt><dd>$0.098</dd></div><div><dt>Jev alone</dt><dd>0.705<small>stack gain +9.5, 95 % CI [+4.6, +14.5]</small></dd></div><div><dt>Caveat</dt><dd>71 leaked pairs<small>test pairs that also sit in train met their own labelled copy among the demos; without them the demo gain is +7.5 [+2.7, +12.6]</small></dd></div></dl>
+    </article>
+    <article class="card">
+      <div class="task"><b>Electronics · Walmart-Amazon</b><span>999 test pairs</span></div>
+      <div class="win"><span class="f1">0.916</span><div class="who"><em>Our pick</em>Jev zero-shot. The validation-chosen stack scores 0.919: no measurable gain for five times the cost.</div></div>
+      <span class="chip up">▲ above the best published (GPT-4, 0.897) by 1.9 points, different test subset</span>
+      <dl class="facts"><div><dt>Cost / 1 000 pairs</dt><dd>$0.025</dd></div><div><dt>Stack on validation</dt><dd>0.919<small>diff +0.3, CI [−3.0, +3.8]</small></dd></div><div><dt>Classifier alone</dt><dd>0.831</dd></div></dl>
+    </article>
+    <article class="card">
+      <div class="task"><b>Electronics, long text · Abt-Buy</b><span>1 027 test pairs</span></div>
+      <div class="win"><span class="f1">0.930</span><div class="who"><em>Our best</em>Jev zero-shot, nothing added. Every addition scored lower.</div></div>
+      <span class="chip down">▼ 2.8 points below the best published (GPT-4, 0.958); above Ditto (0.893)</span>
+      <dl class="facts"><div><dt>Cost / 1 000 pairs</dt><dd>$0.027</dd></div><div><dt>Stack on validation</dt><dd>0.910<small>diff −2.0, CI [−5.7, +1.5]</small></dd></div><div><dt>Classifier alone</dt><dd>0.768</dd></div></dl>
+    </article>
+    <article class="card">
+      <div class="task"><b>Total spend</b><span>every experiment on this page</span></div>
+      <div class="win"><span class="f1">$2.04</span><div class="who"><em>Jev, input tokens only</em>≈ 36 500 requests, ≈ 48.5 M tokens at $0.042 per million. Output tokens are free.</div></div>
+      <dl class="facts"><div><dt>Zero-shot pair</dt><dd>$0.00003</dd></div><div><dt>Same work at GPT-4o prices</dt><dd>≈ $123<small>59.5 × on input tokens</small></dd></div><div><dt>All 11 091 lake people × 5 candidates</dt><dd>≈ $1.90</dd></div></dl>
+    </article>
+  </div>
+</section>
+
+<section id="leaders">
+  <h2>Leaderboards</h2>
+  <p class="sub">Every method tried, ranked by test F1, next to the published results for the same benchmark. Pick a dataset, then a volume to reprice the cost column. Dots sit on a zoomed F1 scale (its ends are printed above the column); hollow dots are published results. Rows are test scores; "our pick" is the method chosen on validation data, which is why it is not always the top row. Picking the top row after the fact is optimistic by 0.5 to 2.6 points. GPT-4o rows carry an estimated cost at $2.50 / $10.00 per million tokens.</p>
+  <div class="board">
+    <div class="controls">
+      <div class="tabs" role="tablist" aria-label="Dataset" id="tabs"></div>
+      <div class="vols" role="group" aria-label="Price list"><label>price as</label><button id="pl-jev" data-pl="jev" aria-pressed="true">Jev</button><button id="pl-gpt" data-pl="gpt" aria-pressed="false">GPT-4o, same prompts</button></div>
+      <div class="vols" role="group" aria-label="Number of pairs to price" id="volgroup"><label>price for</label><button id="vol-1k" data-n="1000" aria-pressed="true">1 000 pairs</button><button id="vol-100k" data-n="100000" aria-pressed="false">100 000</button><button id="vol-1m" data-n="1000000" aria-pressed="false">1 million</button></div>
+    </div>
+    <div class="rows" id="rows" aria-live="polite"></div>
+    <p class="boardnote" id="boardnote"></p>
+  </div>
+</section>
+
+<section id="sota">
+  <h2>State of the art</h2>
+  <p class="sub">Published test F1 (×100) on the standard benchmarks. Zingg has no published accuracy benchmark anywhere; its classifier belongs to the Magellan family, the first column.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dataset</th><th class="num">Magellan (Zingg-class)</th><th class="num">DeepMatcher</th><th class="num">Ditto, fine-tuned</th><th class="num">GPT-4 zero-shot, best of 10 prompts</th><th class="num">GPT-4o-mini zero-shot</th></tr></thead>
+    <tbody>
+      <tr><td>Abt-Buy</td><td class="num">43.6</td><td class="num">62.8</td><td class="num">89.3</td><td class="num">95.8</td><td class="num">91.9</td></tr>
+      <tr><td>Amazon-Google</td><td class="num">49.1</td><td class="num">69.3</td><td class="num">75.6</td><td class="num">76.4</td><td class="num">72.2</td></tr>
+      <tr><td>Walmart-Amazon</td><td class="num">71.9</td><td class="num">67.6</td><td class="num">86.8</td><td class="num">89.7</td><td class="num">86.6</td></tr>
+      <tr><td>Beer / Fodors-Zagats / iTunes-Amazon</td><td class="num">78.8 / 100 / 91.2</td><td class="num">72.7 / 100 / 88.5</td><td class="num">94.4 / 100 / 97.1</td><td class="num">n/a</td><td class="num">n/a</td></tr>
+      <tr><td>BPID, person identity</td><td class="num">rules ≈ 60.8</td><td class="num">n/a</td><td class="num">75.2 (Sudowoodo 78.8 is best)</td><td class="num">GPT-4-turbo 68.7</td><td class="num">Llama3-70B 72.9</td></tr>
+    </tbody></table></div>
+  <p class="sub">Sources: Mudgal et al., SIGMOD 2018 · Li et al., VLDB 2021 · Peeters, Steiner &amp; Bizer, EDBT 2025 · BPID, EMNLP 2024 Industry. What the literature ranks highest: candidate-generation recall (Sparkly, VLDB 2023), a language model as labelling oracle, a cascade on the uncertain band, selecting among candidates instead of judging pairs independently (ComEM, COLING 2025), related rather than random demonstrations, and verified clustering instead of connected components.</p>
+  <h3>Corpora used</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Corpus</th><th>Why</th><th>Size used</th><th>Licence</th></tr></thead>
+    <tbody>
+      <tr><td>Magellan / DeepMatcher (Ditto repository mirror)</td><td>fixed splits, comparable with published F1</td><td>9 datasets, 20 MB</td><td>mirror Apache-2.0; upstream states none</td></tr>
+      <tr><td>FEBRL4 (<code>recordlinkage</code>)</td><td>person records, end to end against ground truth</td><td>5 000 + 5 000 records, 5 000 true links</td><td>BSD-3</td></tr>
+      <tr><td>BPID (zenodo 13932202)</td><td>closest public analogue of the lake's people: names, e-mails, phones, addresses, birth dates, multi-valued and often missing</td><td>10 000 labelled pairs</td><td>Apache-2.0</td></tr>
+    </tbody></table></div>
+  <p class="sub">Found and reachable, not yet run: OpenSanctions <code>sample_1000.json</code> (real multilingual people and companies), Leipzig Affiliations (organisation names, the merchant analogue), Splink <code>fake_1000</code> and <code>historical_50k</code> (cluster-level metrics).</p>
+</section>
+
+<section id="endtoend">
+  <h2>The complete system, end to end</h2>
+  <p class="sub">FEBRL4: link 5 000 person records to their 5 000 corrupted duplicates. Zingg does everything it does in production; only the labeller changes. Then the same data through a nearest-neighbour candidate step, alone and with a classifier trained on Jev's labels. Because every record has a partner, this task never requires rejecting anything; the harder variant below removes half the partners.</p>
+  <figure>
+    <h4>End-to-end F1 on FEBRL4</h4><div class="fsub">Every system had precision ≥ 0.998; the whole difference is recall.</div>
+    <div class="chartbox"><svg id="c1" viewBox="0 0 900 292" role="img" aria-label="Bar chart of end-to-end F1 on FEBRL4 for five Zingg runs and three runs of the replacement pipeline."></svg></div>
+    <div class="legend"><span><i style="background:var(--muted);opacity:.55"></i>Zingg on Spark 4.1</span><span><i style="background:var(--accent)"></i>top-k candidates + classifier on Jev labels</span></div>
+  </figure>
+  <div class="tablewrap"><table>
+    <thead><tr><th>System</th><th class="num">labels</th><th class="num">P</th><th class="num">R</th><th class="num">F1</th><th class="num">time</th><th class="num">Jev tokens</th><th class="num">Jev cost</th><th class="num gp">same labels at GPT-4o prices</th></tr></thead>
+    <tbody>
+      <tr><td>Zingg, labels from Jev, 6 rounds</td><td class="num">100 Jev</td><td class="num">1.000</td><td class="num">0.744</td><td class="num">0.853</td><td class="num">≈ 4 min</td><td class="num">77 669</td><td class="num">$0.0033</td><td class="num gp">$0.20</td></tr>
+      <tr><td>Zingg, labels from ground truth, 6 rounds</td><td class="num">122 perfect</td><td class="num">1.000</td><td class="num">0.751</td><td class="num">0.858</td><td class="num">≈ 4 min</td><td class="num">0</td><td class="num">$0</td><td class="num gp">$0</td></tr>
+      <tr><td>Zingg, Jev + ground truth on the pairs Jev deferred</td><td class="num">126</td><td class="num">0.999</td><td class="num">0.703</td><td class="num">0.825</td><td class="num">≈ 4 min</td><td class="num">82 330</td><td class="num">$0.0035</td><td class="num gp">$0.21</td></tr>
+      <tr><td>Zingg, ground truth, 12 rounds</td><td class="num">246 perfect</td><td class="num">1.000</td><td class="num">0.752</td><td class="num">0.858</td><td class="num">≈ 8 min</td><td class="num">0</td><td class="num">$0</td><td class="num gp">$0</td></tr>
+      <tr><td>Zingg, ground truth, SSN hidden</td><td class="num">116 perfect</td><td class="num">0.999</td><td class="num">0.729</td><td class="num">0.843</td><td class="num">≈ 4 min</td><td class="num">0</td><td class="num">$0</td><td class="num gp">$0</td></tr>
+      <tr><td><b>Control: nearest neighbour alone, always link</b> (all fields / no SSN / no SSN, no birth date)</td><td class="num">none</td><td class="num">1.000</td><td class="num">1.000</td><td class="num best">1.0000 / 1.0000 / 0.9998</td><td class="num">&lt; 5 s</td><td class="num">0</td><td class="num">$0</td><td class="num gp">$0</td></tr>
+      <tr><td><b>Top-k candidates + classifier on Jev labels</b></td><td class="num">365 Jev, 0 human</td><td class="num">1.000</td><td class="num">0.998</td><td class="num best">0.9992</td><td class="num">19 s</td><td class="num">253 768</td><td class="num">$0.0107</td><td class="num gp">$0.65</td></tr>
+      <tr><td>same, SSN hidden</td><td class="num">353 Jev, 0 human</td><td class="num">1.000</td><td class="num">0.998</td><td class="num best">0.9991</td><td class="num">19 s</td><td class="num">240 557</td><td class="num">$0.0101</td><td class="num gp">$0.62</td></tr>
+      <tr><td>same, SSN and birth date hidden</td><td class="num">333 Jev, 0 human</td><td class="num">1.000</td><td class="num">0.993</td><td class="num best">0.9966</td><td class="num">19 s</td><td class="num">227 369</td><td class="num">$0.0095</td><td class="num gp">$0.59</td></tr>
+    </tbody></table></div>
+  <p>The control is the lesson of this table: on a task where every record has exactly one partner, linking each record to its nearest neighbour by character-trigram similarity is perfect, and a classifier can only lose links. The learned pipeline is evaluated transductively (its training pairs are among the scored pairs); excluding them changes F1 by less than 0.0003.</p>
+  <h3>The harder task: half the partners removed</h3>
+  <p class="sub">2 500 of the 5 000 records now have no match and must be rejected. No ground truth is used except to score. The decision threshold (0.5), the confidence level (0.9) and the arbitration bands are constants, and the rule "Jev overrides only when confident" was adopted after seeing test results on the easy task, so read the last two columns as tuned on this family of data.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Fields available</th><th class="num">nearest neighbour, always link</th><th class="num">nearest neighbour + similarity cut learnt from Jev labels</th><th class="num">classifier on Jev labels</th><th class="num">+ Jev arbitrates the unsure band (0.02–0.98)</th><th class="num">same, wider band (0.005–0.995)</th><th class="num">Zingg, perfect labels</th><th class="num">Jev tokens · cost</th></tr></thead>
+    <tbody>
+      <tr><td>all ten fields</td><td class="num">0.667</td><td class="num best">0.9992</td><td class="num">0.9748</td><td class="num">0.9748</td><td class="num">0.9944</td><td class="num">0.841 (P 1.000, R 0.726)</td><td class="num">499 k · $0.021</td></tr>
+      <tr><td>SSN hidden</td><td class="num">0.667</td><td class="num">0.761</td><td class="num">0.9356</td><td class="num best">0.9637</td><td class="num best">0.9637</td><td class="num">0.862 (P 0.999, R 0.758)</td><td class="num">556 k · $0.023</td></tr>
+      <tr><td>SSN and birth date hidden</td><td class="num">0.667</td><td class="num">0.919</td><td class="num">0.9833</td><td class="num best">0.9848</td><td class="num best">0.9848</td><td class="num">not run</td><td class="num">349 k · $0.015</td></tr>
+    </tbody></table></div>
+  <p>Zingg rejects the unmatched records almost perfectly (precision 0.999 to 1.000) and again recovers about three quarters of the true links; trained on Jev's labels instead of perfect ones it scores 0.849 (P 1.000, R 0.738), so here too Jev's labels cost it nothing.</p>
+  <p>Here Jev earns its place. Nearest neighbour alone collapses to 0.667 because it cannot say no. Jev's labels (1 122 confident answers kept out of 1 200 asked in these three runs, none wrong) are what teach the pipeline to reject: a single similarity cut learnt from them is enough when the SSN is present, the classifier is needed once it is hidden (0.761 → 0.936), and Jev's arbitration of the unsure anchors adds another 0.2 to 2.8 points.</p>
+  <h3>Where Zingg loses links</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Field that differs between the two records of a true link</th><th class="num">links</th><th class="num">recall when it differs</th><th class="num">recall when it is equal</th></tr></thead>
+    <tbody>
+      <tr><td><code>given_name</code></td><td class="num">1 611</td><td class="num best">0.320</td><td class="num best">0.956</td></tr>
+      <tr><td><code>surname</code></td><td class="num">1 632</td><td class="num">0.636</td><td class="num">0.807</td></tr>
+      <tr><td>any other field (address, postcode, birth date, SSN…)</td><td class="num">—</td><td class="num">0.72–0.78</td><td class="num">0.73–0.76</td></tr>
+    </tbody></table></div>
+  <div class="callout warn">Under the tested configuration (default settings, 6 to 12 labelling rounds, exact match on postcode and state) Zingg recovered 75.1 % of the links: 32.0 % when the first names differed and 95.6 % when they were equal. The final links cannot tell a pair that was never compared from one the classifier rejected, so this shows <b>where</b> Zingg loses links, not <b>why</b>. Blocking is the likeliest cause (doubling the labels recovered 4 more links out of 1 245 missing) but no candidate-level evidence or configuration sweep confirms it. For contacts, where the same person is "Jean", "J." and "Dupont, Jean", a first-name-sensitive failure is the worst kind either way.</div>
+</section>
+
+<section id="pairs">
+  <h2>Jev on labelled pairs</h2>
+  <p class="sub">Zero-shot, one request per pair, a three-level Score (different / cannot tell / same). Sections A to C use samples of about 600 test pairs; with 57 to 67 matches a 95 % interval on an F1 difference spans roughly ±5 to ±7 points, and the three small sets hold only 14 to 27 matches.</p>
+  <h3>A. Jev alone, by question wording</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dataset (pairs both wordings judged)</th><th class="num">generic wording</th><th class="num">+ domain identity rule</th><th class="num">difference, 95 % CI</th><th class="num">tokens / pair</th><th class="num">$ / 1 000 pairs</th><th class="num gp">$ / 1 000 at GPT-4o prices</th></tr></thead>
+    <tbody>
+      <tr><td>Beer (91 pairs, 14 matches)</td><td class="num">0.933</td><td class="num">0.933</td><td class="num">0.0</td><td class="num">491</td><td class="num">$0.021</td><td class="num gp">$1.28</td></tr>
+      <tr><td>Fodors-Zagats (189, 22)</td><td class="num">0.952</td><td class="num">0.927</td><td class="num">−2.6 [−9.1, 0.0]</td><td class="num">524</td><td class="num">$0.022</td><td class="num gp">$1.36</td></tr>
+      <tr><td>iTunes-Amazon (109, 27)</td><td class="num">0.962</td><td class="num">0.920</td><td class="num">−4.2 [−14.9, +5.8]</td><td class="num">624</td><td class="num">$0.026</td><td class="num gp">$1.61</td></tr>
+      <tr><td>Walmart-Amazon (600, 57)</td><td class="num">0.860</td><td class="num best">0.926</td><td class="num">+6.6 [+1.5, +12.4]</td><td class="num">511 → 597</td><td class="num">$0.021 → $0.025</td><td class="num gp">$1.33 → $1.54</td></tr>
+      <tr><td>Abt-Buy (603, 64)</td><td class="num">0.887</td><td class="num">0.926</td><td class="num">+3.9 [−0.9, +8.9]</td><td class="num">543 → 637</td><td class="num">$0.023 → $0.027</td><td class="num gp">$1.41 → $1.64</td></tr>
+      <tr><td>Amazon-Google (616, 67)</td><td class="num">0.667</td><td class="num">0.662</td><td class="num">−0.4 [−6.5, +5.1]</td><td class="num">452 → 552</td><td class="num">$0.019 → $0.023</td><td class="num gp">$1.18 → $1.43</td></tr>
+    </tbody></table></div>
+  <p>Both wordings are scored on exactly the same pairs. A hand-written identity rule is a significant gain on Walmart-Amazon only; elsewhere the difference is inside the noise, and on the small sets it leans negative, which matches the literature.</p>
+  <h3>B. What Jev adds to a Zingg-class classifier</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dataset (sample)</th><th class="num">classifier alone</th><th class="num">Jev alone</th><th class="num">cascade</th><th class="num">pairs sent to Jev</th><th class="num">cascade $ / 1 000</th><th class="num">stacked</th><th class="num">stacked $ / 1 000</th><th class="num gp">cascade · stacked at GPT-4o prices</th></tr></thead>
+    <tbody>
+      <tr><td>Abt-Buy</td><td class="num">0.797</td><td class="num">0.902</td><td class="num">0.902</td><td class="num">32 %</td><td class="num">$0.0073</td><td class="num best">0.944</td><td class="num">$0.023</td><td class="num gp">$0.45 · $1.41</td></tr>
+      <tr><td>Amazon-Google</td><td class="num">0.702</td><td class="num">0.649</td><td class="num">0.715</td><td class="num">24 %</td><td class="num">$0.0046</td><td class="num best">0.745</td><td class="num">$0.019</td><td class="num gp">$0.28 · $1.18</td></tr>
+      <tr><td>Walmart-Amazon</td><td class="num">0.830</td><td class="num">0.852</td><td class="num best">0.877</td><td class="num">19 %</td><td class="num">$0.0041</td><td class="num">0.870</td><td class="num">$0.021</td><td class="num gp">$0.25 · $1.33</td></tr>
+      <tr><td>iTunes-Amazon / Fodors-Zagats</td><td class="num">0.982 / 1.000</td><td class="num">0.962 / 0.952</td><td class="num">0.982 / 1.000</td><td class="num">0 %</td><td class="num">$0</td><td class="num best">1.000 / 1.000</td><td class="num">$0.026 / $0.022</td><td class="num gp">$0 · $1.61 / $1.36</td></tr>
+    </tbody></table></div>
+  <p>Generic wording. The classifier is per-field similarities plus character-trigram cosine and model-number tokens, gradient-boosted on the gold train split, at no token cost. The cascade sends Jev only the band the classifier is unsure about. These 600-pair figures were not confirmed on the larger evaluation further down (Abt-Buy stacked: 0.944 here, 0.910 there), so treat the stacked column as optimistic.</p>
+  <h3>C. Select among an anchor's candidates instead of judging pairs one by one</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dataset</th><th class="num">pairs</th><th class="num">pairwise F1</th><th class="num">select F1</th><th class="num">requests</th><th class="num">tokens / pair</th><th class="num">$ / 1 000 pairs</th><th class="num gp">select vs pairwise at GPT-4o prices</th></tr></thead>
+    <tbody>
+      <tr><td>Amazon-Google</td><td class="num">727</td><td class="num">0.711</td><td class="num best">0.777</td><td class="num">317 vs 727</td><td class="num">298 vs 552</td><td class="num">$0.0125 vs $0.0232</td><td class="num gp">$0.77 vs $1.43</td></tr>
+      <tr><td>Walmart-Amazon</td><td class="num">563</td><td class="num">0.925</td><td class="num">0.927</td><td class="num">288 vs 563</td><td class="num">373 vs 597</td><td class="num">$0.0157 vs $0.0251</td><td class="num gp">$0.96 vs $1.54</td></tr>
+      <tr><td>Abt-Buy</td><td class="num">646</td><td class="num">0.931</td><td class="num">0.917</td><td class="num">295 vs 643</td><td class="num">357 vs 637</td><td class="num">$0.0150 vs $0.0268</td><td class="num gp">$0.92 vs $1.64</td></tr>
+    </tbody></table></div>
+  <p>A significant win where near-duplicate candidates compete (Amazon-Google: +6.5, 95 % CI [+1.8, +11.7], the independent review's bootstrap), no measurable difference on the other two ([−4.3, +5.1] and [−6.3, +3.2]), and about 40 % cheaper everywhere.</p>
+</section>
+
+<section id="fewshot">
+  <h2>Few-shot and other prompt-side methods</h2>
+  <p class="sub">Tested on larger evaluation sets (about 1 000 test pairs, 94 to 349 matches). Demonstrations come from the train split only and travel in the request's state, which TypeSafe's documentation endorses.</p>
+  
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dataset</th><th>Method</th><th class="num">P</th><th class="num">R</th><th class="num">F1</th><th class="num">tokens / pair</th><th class="num">$ / 1 000 pairs</th><th class="num gp">$ / 1 000 at GPT-4o prices</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="6">Amazon-Google<br><span class="tag ok">few-shot helps</span></td><td>zero-shot</td><td class="num">0.633</td><td class="num">0.795</td><td class="num">0.705</td><td class="num">552</td><td class="num">$0.0232</td><td class="num gp">$1.43</td></tr>
+      <tr><td>6 random demonstrations</td><td class="num">0.636</td><td class="num">0.902</td><td class="num">0.746</td><td class="num">1 229</td><td class="num">$0.0516</td><td class="num gp">$3.12</td></tr>
+      <tr><td>20 random demonstrations</td><td class="num">0.633</td><td class="num">0.902</td><td class="num">0.744</td><td class="num">2 708</td><td class="num">$0.1138</td><td class="num gp">$6.82</td></tr>
+      <tr><td>6 related demonstrations</td><td class="num">0.750</td><td class="num">0.841</td><td class="num">0.793</td><td class="num">1 308</td><td class="num">$0.0550</td><td class="num gp">$3.32</td></tr>
+      <tr><td>10 related demonstrations</td><td class="num">0.781</td><td class="num">0.811</td><td class="num best">0.796</td><td class="num">1 773</td><td class="num">$0.0745</td><td class="num gp">$4.48</td></tr>
+      <tr><td>attribute questions, stacked</td><td class="num">0.663</td><td class="num">0.833</td><td class="num">0.738</td><td class="num">699</td><td class="num">$0.0294</td><td class="num gp">$2.05</td></tr>
+      <tr><td rowspan="3">Walmart-Amazon<br><span class="tag warn">no gain</span></td><td>zero-shot</td><td class="num">0.965</td><td class="num">0.872</td><td class="num">0.916</td><td class="num">597</td><td class="num">$0.0251</td><td class="num gp">$1.54</td></tr>
+      <tr><td>10 related demonstrations</td><td class="num">0.954</td><td class="num">0.883</td><td class="num best">0.917</td><td class="num">2 335</td><td class="num">$0.0981</td><td class="num gp">$5.89</td></tr>
+      <tr><td>attribute questions, stacked</td><td class="num">0.896</td><td class="num">0.915</td><td class="num">0.905</td><td class="num">743</td><td class="num">$0.0312</td><td class="num gp">$2.16</td></tr>
+      <tr><td rowspan="3">Abt-Buy<br><span class="tag warn">no measurable change</span></td><td>zero-shot</td><td class="num">0.989</td><td class="num">0.877</td><td class="num best">0.930</td><td class="num">637</td><td class="num">$0.0268</td><td class="num gp">$1.64</td></tr>
+      <tr><td>10 related demonstrations</td><td class="num">0.893</td><td class="num">0.943</td><td class="num">0.917</td><td class="num">2 646</td><td class="num">$0.1111</td><td class="num gp">$6.67</td></tr>
+      <tr><td>attribute questions, stacked</td><td class="num">1.000</td><td class="num">0.783</td><td class="num">0.878</td><td class="num">784</td><td class="num">$0.0329</td><td class="num gp">$2.26</td></tr>
+      <tr><td rowspan="5">BPID, people<br><span class="tag ok">decomposition helps</span></td><td>zero-shot</td><td class="num">0.739</td><td class="num">0.903</td><td class="num">0.813</td><td class="num">660</td><td class="num">$0.0277</td><td class="num gp">$1.70</td></tr>
+      <tr><td>6 random demonstrations</td><td class="num">0.751</td><td class="num">0.880</td><td class="num">0.810</td><td class="num">2 073</td><td class="num">$0.0871</td><td class="num gp">$5.23</td></tr>
+      <tr><td>10 related demonstrations</td><td class="num">0.738</td><td class="num">0.848</td><td class="num">0.789</td><td class="num">2 976</td><td class="num">$0.1250</td><td class="num gp">$7.49</td></tr>
+      <tr><td>20 related demonstrations</td><td class="num">0.744</td><td class="num">0.891</td><td class="num">0.811</td><td class="num">5 273</td><td class="num">$0.2215</td><td class="num gp">$13.23</td></tr>
+      <tr><td>attribute questions, stacked</td><td class="num">0.789</td><td class="num">0.900</td><td class="num best">0.841</td><td class="num">824</td><td class="num">$0.0346</td><td class="num gp">$2.36</td></tr>
+    </tbody></table></div>
+  <div class="callout"><b>Reading.</b> The Amazon-Google gain is significant: +9.1 points, 95 % interval [+4.1, +14.0]. The independent review found that 71 of its 1 161 test pairs also exist verbatim in the training split, so they met their own labelled copy among the demonstrations; without them (and without 25 more that overlap validation) the gain is +7.5 [+2.7, +12.6], still significant. On Abt-Buy the same clean-up turns the apparent loss into +1.3 [−2.6, +5.3]: no measurable effect. Beyond exact copies, most test pairs share at least one <i>record</i> with their demonstrations (1 127 of 1 161 on Amazon-Google), so this measures matching among familiar records, not unseen entities; fine-tuned baselines such as Ditto share that property. The BPID attribute-question gain (+2.8) was read on test and is inside the noise: a lead, not a result. Demonstrations teach a benchmark's conventions; where Jev already understands the domain they add nothing and cost four times more.</div>
+</section>
+
+<section id="best">
+  <h2>Does stacking pay? With confidence intervals</h2>
+  <p class="sub">The stack is a logistic regression over the classifier's score and Jev's answers. Which signals enter it is chosen by 5-fold cross-validation on validation data only, then scored once on test. Intervals are paired bootstraps over the test pairs (2 000 resamples).</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dataset</th><th>Stack chosen on validation</th><th class="num">classifier</th><th class="num">Jev zero-shot</th><th class="num">stack</th><th class="num">stack − zero-shot, 95 % CI</th><th class="num">stack $ / 1 000</th><th class="num">best-by-test (optimism)</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Amazon-Google</td><td>classifier + zero-shot + 10 related demos</td><td class="num">0.684</td><td class="num">0.705</td><td class="num best">0.800</td><td class="num">+9.5 [+4.6, +14.5]</td><td class="num">$0.098</td><td class="num">0.826 (+2.6)</td><td><span class="tag ok">real gain</span></td></tr>
+      <tr><td>Walmart-Amazon</td><td>classifier + attribute questions + 10 related demos</td><td class="num">0.831</td><td class="num best">0.916</td><td class="num">0.919</td><td class="num">+0.3 [−3.0, +3.8]</td><td class="num">$0.129</td><td class="num">0.924 (+0.5)</td><td><span class="tag warn">no gain</span></td></tr>
+      <tr><td>Abt-Buy</td><td>classifier + zero-shot</td><td class="num">0.768</td><td class="num best">0.930</td><td class="num">0.910</td><td class="num">−2.0 [−5.7, +1.5]</td><td class="num">$0.027</td><td class="num">0.922 (+1.2)</td><td><span class="tag bad">zero-shot is better</span></td></tr>
+      <tr><td>BPID, people</td><td>classifier + zero-shot + 10 related demos</td><td class="num">0.734</td><td class="num">0.813</td><td class="num best">0.830</td><td class="num">+1.7 [−0.3, +3.8]</td><td class="num">$0.153</td><td class="num">0.849 (+1.9)</td><td><span class="tag warn">likely, not significant</span></td></tr>
+    </tbody></table></div>
+  <p>What is statistically solid: Jev zero-shot beats the similarity classifier on Walmart-Amazon (+8.7, CI [+3.5, +14.3]), Abt-Buy (+16.2, [+9.3, +23.6]) and BPID (+8.0, [+4.1, +11.9]) but not on Amazon-Google (+1.6, [−5.4, +8.7]); and ten related demonstrations lift Amazon-Google by 9.1 points ([+4.1, +14.0]; +7.5 once leaked duplicates are removed). Stacking is worth its cost on Amazon-Google only. The Amazon-Google stack includes the demonstration signal, so it inherits that leak.</p>
+</section>
+
+<section id="gpt4o">
+  <h2>Against GPT-4o, on price and score</h2>
+  <p class="sub">GPT-4o list price as supplied by Laurent on 19 Sept 2026 and not re-verified here: $2.50 per million input tokens, $10.00 per million output tokens. Jev: $0.042 per million input tokens, output free. On input tokens alone that is a factor of <b>59.5</b>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dataset</th><th class="num">Jev zero-shot F1</th><th class="num">Jev pick F1</th><th class="num">GPT-4o zero-shot F1 (published)</th><th class="num">Jev zero-shot, $ / 1 000</th><th class="num">Jev pick, $ / 1 000</th><th class="num">GPT-4o, $ / 1 000 (estimate)</th><th class="num">GPT-4o ÷ Jev pick</th></tr></thead>
+    <tbody>
+      <tr><td>Amazon-Google</td><td class="num">0.705</td><td class="num best">0.800</td><td class="num">0.736</td><td class="num">$0.023</td><td class="num">$0.098</td><td class="num">$1.43</td><td class="num">15 ×</td></tr>
+      <tr><td>Walmart-Amazon</td><td class="num best">0.916</td><td class="num best">0.916</td><td class="num">0.867</td><td class="num">$0.025</td><td class="num">$0.025</td><td class="num">$1.54</td><td class="num">62 ×</td></tr>
+      <tr><td>Abt-Buy</td><td class="num">0.930</td><td class="num">0.930</td><td class="num best">0.940</td><td class="num">$0.027</td><td class="num">$0.027</td><td class="num">$1.64</td><td class="num">61 ×</td></tr>
+      <tr><td>BPID, people</td><td class="num">0.813</td><td class="num best">0.830</td><td class="num">n/a (GPT-4-turbo: 0.687)</td><td class="num">$0.028</td><td class="num">$0.153</td><td class="num">$1.70</td><td class="num">11 ×</td></tr>
+    </tbody></table></div>
+  <p class="sub">The GPT-4o cost is an estimate: the same input token count Jev measured for a zero-shot pair (tokenizers differ, so ±15 % is plausible) plus 5 output tokens for a forced yes/no answer. A prompt that lets the model explain itself costs more: 100 output tokens add $1.00 per 1 000 pairs. GPT-4o scores are Peeters, Steiner &amp; Bizer (EDBT 2025), zero-shot, on their downsampled test sets, so the score comparison is indicative.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Job</th><th class="num">tokens in</th><th class="num">Jev</th><th class="num">GPT-4o (estimate)</th></tr></thead>
+    <tbody>
+      <tr><td>Every experiment on this page</td><td class="num">≈ 48.5 M</td><td class="num">$2.04</td><td class="num">≈ $123</td></tr>
+      <tr><td>Ask Jev for 400 labels to train the FEBRL4 classifier (365 confident ones kept)</td><td class="num">253 768</td><td class="num">$0.011</td><td class="num">≈ $0.65</td></tr>
+      <tr><td>Judge all 11 091 lake people × 5 candidates, one request carrying the Score and the attribute questions (824 tokens a pair)</td><td class="num">≈ 45.7 M</td><td class="num">≈ $1.92</td><td class="num">≈ $131</td></tr>
+      <tr><td>One million product pairs, zero-shot</td><td class="num">≈ 600 M</td><td class="num">≈ $25</td><td class="num">≈ $1 550</td></tr>
+    </tbody></table></div>
+  <div class="callout"><b>Reading.</b> Jev's pick beats GPT-4o's published zero-shot score on Amazon-Google and Walmart-Amazon and trails it by one point on Abt-Buy, at 11 to 62 times less per pair. The price gap is what makes the expensive-looking methods here (ten demonstrations, attribute questions, judging every candidate) affordable: the priciest Jev configuration on this page, $0.22 per 1 000 pairs, is still more than six times cheaper than a bare GPT-4o zero-shot call.</div>
+</section>
+
+<section id="costs">
+  <h2>What it all cost</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Experiment</th><th class="num">Jev requests</th><th class="num">input tokens</th><th class="num">cost</th><th class="num gp">same work at GPT-4o prices</th></tr></thead>
+    <tbody>
+      <tr><td>A. zero-shot, three small sets, three wordings</td><td class="num">2 330</td><td class="num">≈ 1.3 M</td><td class="num">$0.06</td><td class="num gp">$3.37</td></tr>
+      <tr><td>A. zero-shot, three hard product sets, two wordings</td><td class="num">5 400</td><td class="num">2.96 M</td><td class="num">$0.12</td><td class="num gp">$7.67</td></tr>
+      <tr><td>C. select against pairwise</td><td class="num">3 391</td><td class="num">2.32 M</td><td class="num">$0.10</td><td class="num gp">$5.97</td></tr>
+      <tr><td>D. Zingg with Jev labels (toy febrl and FEBRL4)</td><td class="num">≈ 700</td><td class="num">0.33 M</td><td class="num">$0.01</td><td class="num gp">$0.86</td></tr>
+      <tr><td>D. replacement pipeline, three variants</td><td class="num">≈ 1 900</td><td class="num">≈ 1.43 M</td><td class="num">$0.06</td><td class="num gp">$3.67</td></tr>
+      <tr><td>E. BPID zero-shot</td><td class="num">1 700</td><td class="num">1.12 M</td><td class="num">$0.05</td><td class="num gp">$2.89</td></tr>
+      <tr><td>F. few-shot and attribute questions, four datasets</td><td class="num">21 024</td><td class="num">39.04 M</td><td class="num">$1.64</td><td class="num gp">$98.65</td></tr>
+      <tr class="total"><td>Total</td><td class="num">≈ 36 500</td><td class="num">≈ 48.5 M</td><td class="num">≈ $2.04</td><td class="num gp">≈ $123</td></tr>
+    </tbody></table></div>
+  <p class="sub">Only row F is auditable from a ledger (<code>cache/usage.jsonl</code>: 39 035 991 tokens, $1.6395, confirmed by the independent review). The other rows come from totals each run printed at the time, and the two "≈" rows include runs whose totals were not kept and are estimated from tokens per pair, so the $2.04 total is an estimate. The later control runs (harder FEBRL4 variants) added about 1.4 M tokens, $0.06. Every judgment is cached, so re-scoring with a new threshold or metric is free.</p>
+  <div class="callout">At the lake's scale cost is not a constraint: judging every candidate pair of 11 091 people records at five candidates each with the best people stack would cost about <b>$1.90</b>; labelling a few hundred pairs to train a classifier costs about <b>one cent</b>.</div>
+</section>
+
+<section id="plan">
+  <h2>What to change in the MDM</h2>
+  <pre class="mermaid">flowchart LR
+  v["entity view<br/>(people, merchants)"] --> b["top-k candidates<br/>character-trigram TF-IDF, k = 5–10"]
+  b --> f["similarity features<br/>+ gradient boosting"]
+  j["Jev labels a few hundred<br/>candidate pairs"] --> f
+  f -- "sure" --> d["decision"]
+  f -- "unsure band" --> q["Jev: Score + attribute questions<br/>(+ related demos where conventions matter)"]
+  q --> s["stacker<br/>logistic regression"]
+  f --> s
+  s --> d
+  d --> c["clusters → mdm_id,<br/>crosswalk, merge/split log"]</pre>
+  <ol class="plan">
+    <li><b>Generate candidates by nearest neighbour, and measure their recall first.</b> Top-k character-trigram TF-IDF over the concatenated match fields kept every true link within five candidates on FEBRL4, where Zingg under default settings recovered 75 %. Whether Zingg's loss is blocking or classification is not established; either way Zingg cannot accept outside candidate pairs, so this replaces its train and match steps.</li>
+    <li><b>Use Jev's confident labels to learn when to say no.</b> 2 173 confident labels across six FEBRL4 runs, none wrong, and no human label. On the task with unmatched records they lift nearest-neighbour matching from 0.667 to 0.94–0.999.</li>
+    <li><b>Stack only where validation says it pays.</b> Similarity features → gradient boosting → its score plus Jev's answers → logistic regression gave +10 points on Amazon-Google, a probable +1.7 on people, and nothing on the two electronics sets, where plain zero-shot Jev is the pick. Choose on validation data, never on test.</li>
+    <li><b>Send Jev only the uncertain band</b> when cost or latency matters: 19 to 32 % of pairs on the product sets, 1 to 11 % on FEBRL4.</li>
+    <li><b>Let Jev label when the data is clean and judge when it is ambiguous.</b> One number tells them apart: the share of pairs on which Jev is confident at 0.9 (about 90 % on FEBRL4, 9 % on BPID). Training a classifier on Jev's labels fails on ambiguous data (0.44 to 0.64).</li>
+    <li><b>For people, test the attribute questions on your own labelled pairs before adopting them:</b> +2.8 F1 on BPID for 25 % more tokens, but inside the noise. Demonstrations alone lowered the people score.</li>
+    <li><b>For merchants and product-like strings, add about ten related demonstrations</b> from pairs you have already labelled, and consider select-among-top-4 where near-duplicates compete.</li>
+    <li><b>Override only on confidence.</b> Jev replaces the classifier's decision when it is sure; otherwise the classifier stands. Dropping a link whenever Jev hesitated cost 52 true links.</li>
+  </ol>
+</section>
+
+<section id="audit">
+  <h2>Independent verification</h2>
+  <p class="sub">Codex on <code>gpt-6-astra</code>, high reasoning, read-only sandbox, no network, on an isolated copy holding only code, cached judgments and public data. It re-ran every report script, recomputed the statistics with 20 000 bootstrap resamples and audited the costs. Its full report is <code>ASTRA_REVIEW.md</code> next to this page.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Finding</th><th>Severity</th><th>What it changed here</th></tr></thead>
+    <tbody>
+      <tr><td>Every headline number reproduces from the caches (Zingg 0.853 / 0.858 / 0.858 / 0.843, pipeline 0.9992 / 0.9991 / 0.9966, first-name recall 515 / 1 611 vs 3 240 / 3 389).</td><td><span class="tag ok">confirmed</span></td><td>Nothing.</td></tr>
+      <tr><td>Nearest neighbour alone scores 1.0000 / 1.0000 / 0.9998 on FEBRL4, above the learned pipeline: the task cannot show the value of Jev's labels.</td><td><span class="tag bad">critical</span></td><td>Control added to the table; a harder task with half the partners removed was built and run, where nearest neighbour alone falls to 0.667.</td></tr>
+      <tr><td>Test pairs appear among their own demonstrations (71 on Amazon-Google, 16 on Abt-Buy), because the benchmark splits contain identical pairs.</td><td><span class="tag bad">critical</span></td><td>Few-shot re-scored without them: +7.5 [+2.7, +12.6] on Amazon-Google, still significant; Abt-Buy's loss disappears. <code>bench_audit.py</code>.</td></tr>
+      <tr><td>"Best stack" was the best of 15 combinations by test score.</td><td><span class="tag bad">critical</span></td><td>Already corrected before the review landed, and confirmed by it to the third decimal: 0.800 / 0.919 / 0.910 / 0.830. <code>bench_stats.py</code>.</td></tr>
+      <tr><td>"Blocking is the ceiling" is consistent with the data, not demonstrated by it.</td><td><span class="tag warn">major</span></td><td>Reworded throughout; no configuration sweep was run.</td></tr>
+      <tr><td>Stacks that use both the zero-shot answer and the attribute answers were priced as one request.</td><td><span class="tag warn">major</span></td><td>Leaderboard token counts corrected (for example BPID 824 → 1 484). None of the picks was affected.</td></tr>
+      <tr><td>The wording comparison used different samples; two report scripts crashed on unrelated cache files; a floating-point threshold grid shifted two baselines by half a point; "1 051 labels asked" was 1 200 asked, 1 051 kept; some BPID results had no script.</td><td><span class="tag warn">minor</span></td><td>All fixed: table A is now a same-pairs comparison with intervals, baselines are 0.705 and 0.916, <code>bench_bpid_students.py</code> reproduces the BPID figures exactly.</td></tr>
+      <tr><td>Only experiment F is auditable from a token ledger; GPT-4o figures are hypothetical arithmetic, not a bill.</td><td><span class="tag warn">minor</span></td><td>Stated in the cost section.</td></tr>
+    </tbody></table></div>
+  <p>Not acted on: the review notes that the parser strips apostrophes from 1 013 Abt-Buy test rows ("8.5 ' portable" becomes "8.5 portable"); measuring its effect needs new judgments. It also could not verify Zingg's label counts and timings, because the isolated copy left out Zingg's model directories and logs.</p>
+</section>
+
+<section id="caveats">
+  <h2>Caveats</h2>
+  <ul class="plan" style="padding-left:20px;max-width:74ch">
+    <li>Published language-model numbers use the best of ten prompts chosen on the test set and downsampled test sets; BPID has no official split, so this report made a deterministic 70 / 10 / 20 one. Comparisons with the literature are between different test subsets and protocols: indicative only, never proof of superiority.</li>
+    <li>The Magellan splits themselves are not clean: identical pairs appear in train and test (96 on Amazon-Google, 16 on Abt-Buy), and 18, 1 and 13 identical pairs carry contradictory labels on Amazon-Google, Walmart-Amazon and Abt-Buy.</li>
+    <li>Sections A to C use samples of about 600 test pairs; the few-shot and best-stack sections use about 1 000. Read the printed confidence intervals, not the point estimates.</li>
+    <li>FEBRL4 is synthetic and one-to-one. Real contact data has clusters larger than two records; how to group them (verified merge or centre clustering instead of connected components) is not tested yet.</li>
+    <li>The classifier is scikit-learn code written for this bench and is stronger than the published Magellan numbers; it stands in for Zingg's classifier, not for Zingg's blocking.</li>
+    <li>Zingg ran on default settings with 6 to 12 active-learning rounds and no sweep of its sampling, partitioning, field types or thresholds. An expert might configure it better, and these runs do not establish a structural ceiling.</li>
+    <li>Nothing here has touched the lake's real people data. Sending it to Jev is still an open decision recorded in <code>goals/goal_mdm.md</code>.</li>
+  </ul>
+</section>
+
+<footer>Reproduce from <code>Lake/mdm/bench/</code>: <code>bench_pairs.py</code>, <code>bench_cascade.py</code>, <code>bench_select.py</code>, <code>bench_febrl.py</code>, <code>bench_pipeline.py</code>, <code>bench_bpid.py</code>, <code>bench_fewshot.py</code>, <code>bench_stack.py</code>; the markdown twin of this page is <code>README.md</code> in the same folder. Zingg 0.7.0 ran on the Spark 4.1.3 port published at github.com/laurentfabre/zingg.</footer>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg", tip = document.getElementById("tip");
+  function el(svg, name, attrs, text) { var e = document.createElementNS(NS, name); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; svg.appendChild(e); return e; }
+  function hover(node, html) {
+    node.setAttribute("tabindex", "0");
+    function show(x, y) { tip.innerHTML = html; tip.hidden = false; tip.style.left = Math.min(x + 12, window.innerWidth - 270) + "px"; tip.style.top = (y + 14) + "px"; }
+    node.addEventListener("mousemove", function (e) { show(e.clientX, e.clientY); });
+    node.addEventListener("mouseleave", function () { tip.hidden = true; });
+    node.addEventListener("focus", function () { var r = node.getBoundingClientRect(); show(r.left, r.bottom); });
+    node.addEventListener("blur", function () { tip.hidden = true; });
+  }
+  // rounded top / right end only, square at the baseline
+  function hbar(x, y, w, h) { var r = Math.min(4, w); return "M" + x + " " + y + "h" + (w - r) + "q" + r + " 0 " + r + " " + r + "v" + (h - 2 * r) + "q0 " + r + " -" + r + " " + r + "h-" + (w - r) + "z"; }
+  function vbar(x, y, w, h) { var r = Math.min(4, h); return "M" + x + " " + (y + h) + "v-" + (h - r) + "q0 -" + r + " " + r + " -" + r + "h" + (w - 2 * r) + "q" + r + " 0 " + r + " " + r + "v" + (h - r) + "z"; }
+
+  // chart 1: horizontal bars, F1 0..1
+  (function () {
+    var svg = document.getElementById("c1"), rows = [
+      ["Zingg · Jev labels", 0.853, "M", "P 1.000 · R 0.744 · 100 Jev labels · $0.0033"],
+      ["Zingg · perfect labels", 0.858, "M", "P 1.000 · R 0.751 · 122 ground-truth labels"],
+      ["Zingg · Jev + human on deferred", 0.825, "M", "P 0.999 · R 0.703 · 126 labels"],
+      ["Zingg · perfect labels, 12 rounds", 0.858, "M", "P 1.000 · R 0.752 · 246 labels"],
+      ["Zingg · perfect labels, no SSN", 0.843, "M", "P 0.999 · R 0.729"],
+      ["Top-k + classifier on Jev labels", 0.9992, "A", "P 1.000 · R 0.998 · 0 human labels · 19 s · $0.0107"],
+      ["… no SSN", 0.9991, "A", "P 1.000 · R 0.998 · $0.0101"],
+      ["… no SSN, no birth date", 0.9966, "A", "P 1.000 · R 0.993 · $0.0095"]
+    ], x0 = 270, x1 = 840, top = 14, rh = 30;
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (t) { var x = x0 + (x1 - x0) * t; el(svg, "line", { class: "grid", x1: x, x2: x, y1: top, y2: top + rows.length * rh }); el(svg, "text", { class: "ax", x: x, y: top + rows.length * rh + 16, "text-anchor": "middle" }, t.toFixed(2)); });
+    rows.forEach(function (r, i) {
+      var y = top + i * rh + 5, w = (x1 - x0) * r[1];
+      el(svg, "text", { class: "lab", x: x0 - 10, y: y + 14, "text-anchor": "end" }, r[0]);
+      el(svg, "path", { class: r[2] === "A" ? "barA" : "barM", d: hbar(x0, y, w, 20) });
+      el(svg, "text", { class: "val", x: x0 + w + 6, y: y + 14 }, r[1].toFixed(r[1] > 0.99 ? 4 : 3));
+      hover(el(svg, "rect", { class: "hit", x: 0, y: y - 5, width: 900, height: rh }), "<b>" + r[0] + "</b><br>F1 " + r[1] + "<br>" + r[3]);
+    });
+  })();
+
+  // leaderboards
+  var PRICE = 0.042 / 1e6, DATA = {
+    "BPID · people": { n: "800 test pairs, 349 matches", rows: [
+      ["Stack chosen on validation: classifier + zero-shot + 10 related demos", 0.830, 3636, 1], ["Classifier + zero-shot + attribute questions", 0.849, 1484], ["Jev attribute questions, stacked", 0.841, 824], ["Full stack, all four signals", 0.841, 4460],
+      ["Classifier + Jev zero-shot", 0.834, 660], ["Classifier + 10 related demos", 0.831, 2976], ["Jev zero-shot", 0.813, 660], ["Jev + 20 related demos", 0.811, 5273],
+      ["Jev + 6 random demos", 0.810, 2073], ["Jev + 6 related demos", 0.804, 2063], ["Jev + 10 related demos", 0.789, 2976], ["Classifier alone (7 000 gold labels)", 0.756, 0]],
+      pub: [["Sudowoodo", 0.788], ["Ditto", 0.752], ["Llama3-70B", 0.729], ["GPT-4-turbo", 0.687], ["Rules", 0.608]],
+      note: "The validation-chosen stack beats zero-shot by 1.7 points, 95 % interval [−0.4, +3.7]: likely, not proven. Demonstrations alone lower the score (−2.4). BPID has no official split, so the comparison with the paper is indicative." },
+    "Amazon-Google": { n: "1 161 test pairs, 132 matches", rows: [
+      ["Stack chosen on validation: classifier + zero-shot + 10 related demos", 0.800, 2325, 1], ["Full stack, all four signals", 0.826, 3024], ["Classifier + 10 related demos", 0.810, 1773], ["Jev + 10 related demos", 0.796, 1773], ["Jev + 6 related demos", 0.793, 1308],
+      ["Classifier + Jev zero-shot", 0.759, 552], ["Classifier + zero-shot + attribute questions", 0.757, 1251], ["Jev + 6 random demos", 0.746, 1229], ["Jev + 20 random demos", 0.744, 2708],
+      ["Jev attribute questions, stacked", 0.738, 699], ["Jev zero-shot", 0.705, 552], ["Classifier alone", 0.689, 0]],
+      pub: [["GPT-4 zero-shot, best of 10 prompts", 0.764], ["Ditto, fine-tuned", 0.756], ["GPT-4o zero-shot", 0.736, 0.00143], ["GPT-4o-mini zero-shot", 0.722], ["DeepMatcher", 0.693], ["Magellan (Zingg-class)", 0.491]],
+      note: "71 test pairs also sit in the training split and met their own labelled copy among the demonstrations; without them the demonstration gain is +7.5 points instead of +9.1, still significant. The one dataset where few-shot pays: related demonstrations teach which software editions count as the same product. On a separate 727-pair sample, asking Jev to select among an anchor's top-4 candidates scored 0.777 at 298 tokens per pair, the cheapest strong option." },
+    "Walmart-Amazon": { n: "999 test pairs, 94 matches", rows: [
+      ["Classifier + zero-shot + attribute questions", 0.924, 1340], ["Jev zero-shot + 10 related demos", 0.924, 2932], ["Full stack, all four signals", 0.923, 3675], ["Classifier + 10 related demos", 0.920, 2335],
+      ["Jev zero-shot", 0.916, 597, 1], ["Stack chosen on validation: classifier + attribute questions + 10 related demos", 0.919, 3078], ["Jev + 10 related demos", 0.917, 2335], ["Classifier + Jev zero-shot", 0.905, 597], ["Jev attribute questions, stacked", 0.905, 743], ["Classifier alone", 0.835, 0]],
+      pub: [["GPT-4 zero-shot, best of 10 prompts", 0.897], ["Ditto, fine-tuned", 0.868], ["GPT-4o zero-shot", 0.867, 0.00154], ["GPT-4o-mini zero-shot", 0.866], ["Magellan (Zingg-class)", 0.719], ["DeepMatcher", 0.676]],
+      note: "Everything Jev-based lands within a point of 0.92 and no difference at the top is significant (stack vs zero-shot: +0.3, 95 % interval [−3.0, +3.8]). Zero-shot at $0.025 per 1 000 pairs is the pick." },
+    "Abt-Buy": { n: "1 027 test pairs, 106 matches", rows: [
+      ["Jev zero-shot", 0.930, 637, 1], ["Full stack, all four signals", 0.922, 4067], ["Classifier + 10 related demos", 0.919, 2646], ["Jev + 10 related demos", 0.917, 2646],
+      ["Classifier + zero-shot + attribute questions", 0.914, 1421], ["Stack chosen on validation: classifier + Jev zero-shot", 0.910, 637], ["Jev attribute questions, stacked", 0.878, 784], ["Classifier alone", 0.775, 0]],
+      pub: [["GPT-4 zero-shot, best of 10 prompts", 0.958], ["GPT-4o zero-shot", 0.940, 0.00164], ["GPT-4o-mini zero-shot", 0.919], ["Ditto, fine-tuned", 0.893], ["DeepMatcher", 0.628], ["Magellan (Zingg-class)", 0.436]],
+      note: "The one task still below the published best. Nothing added to zero-shot Jev improved it, and demonstrations cost four times more for a lower score." }
+  };
+  var current = Object.keys(DATA)[0], volume = 1000, plist = "jev", rowsEl = document.getElementById("rows"), tabsEl = document.getElementById("tabs");
+  function money(v) { return v === 0 ? "$0" : v < 0.01 ? "$" + v.toFixed(4) : v < 1 ? "$" + v.toFixed(3) : v < 10 ? "$" + v.toFixed(2) : "$" + Math.round(v).toLocaleString("en-US"); }
+  function draw() {
+    var d = DATA[current], ours = d.rows.map(function (r) { return { name: r[0], f: r[1], tok: r[2], pick: !!r[3] }; });
+    var winner = ours.filter(function (r) { return r.pick; })[0];
+    var cheap = ours.filter(function (r) { return r.tok > 0 && r.tok <= 700; }).reduce(function (a, b) { return !a || b.f > a.f ? b : a; }, null);
+    var all = ours.concat(d.pub.map(function (p) { return { name: p[0], f: p[1], pub: true, usd: p[2] }; })).sort(function (a, b) { return b.f - a.f || (a.pub ? 1 : b.pub ? -1 : a.tok - b.tok); });
+    var beaten = d.pub.some(function (p) { return p[1] > winner.f; });
+    var lo = Math.floor(Math.min.apply(null, all.map(function (r) { return r.f; })) * 10) / 10, hi = Math.ceil(Math.max.apply(null, ours.map(function (r) { return r.f; })) * 10 + 1e-9) / 10; if (d.pub.some(function (p) { return p[1] > hi - 0.02; })) hi = 1;
+    var html = '<div class="row head"><span></span><span>Method</span><span class="scale"><span>F1 ' + lo.toFixed(2) + '</span><span>' + ((lo + hi) / 2).toFixed(2) + '</span><span>' + hi.toFixed(2) + '</span></span><span class="num">F1</span><span class="num tok">tokens / pair</span><span class="num">cost, ' + (volume >= 1e6 ? "1 M" : volume >= 1e5 ? "100 k" : "1 000") + " pairs</span></div>";
+    all.forEach(function (r, i) {
+      var badges = (r === winner ? '<span class="badge w">OUR PICK' + (beaten ? "" : " · BEATS PUBLISHED") + "</span>" : "") + (r === cheap ? '<span class="badge v">BEST AT ZERO-SHOT PRICE</span>' : "") + (r.pub ? '<span class="badge p">PUBLISHED</span>' : "");
+      html += '<div class="row' + (r === winner ? " win" : "") + (r.pub ? " pub" : "") + '"><span class="rk">' + (i + 1) + '</span><span class="nm">' + r.name + badges + '</span><span class="track"><span class="dot" style="left:' + (100 * (r.f - lo) / (hi - lo)).toFixed(1) + '%"></span></span><span class="num f">' + r.f.toFixed(3) + '</span><span class="num tok">' + (r.pub ? "—" : r.tok.toLocaleString("en-US").replace(/,/g, " ")) + '</span><span class="num">' + (r.pub ? (r.usd ? "≈ " + money(r.usd * volume) : "—") : plist === "jev" ? money(r.tok * PRICE * volume) : (r.tok ? "≈ " : "") + money((r.tok * 2.5e-6 + (r.tok ? (/attribute|Full stack/.test(r.name) ? 3e-4 : 5e-5) : 0)) * volume)) + "</span></div>";
+    });
+    rowsEl.innerHTML = html;
+    document.getElementById("boardnote").textContent = d.n + ". " + d.note;
+  }
+  Object.keys(DATA).forEach(function (k, i) {
+    var b = document.createElement("button"); b.id = "tab-" + i; b.type = "button"; b.setAttribute("role", "tab"); b.textContent = k; b.setAttribute("aria-selected", i === 0 ? "true" : "false");
+    b.addEventListener("click", function () { current = k; [].forEach.call(tabsEl.children, function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); }); draw(); });
+    tabsEl.appendChild(b);
+  });
+  [].forEach.call(document.querySelectorAll("[data-pl]"), function (b) {
+    b.addEventListener("click", function () { plist = b.dataset.pl; [].forEach.call(document.querySelectorAll("[data-pl]"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); draw(); });
+  });
+  [].forEach.call(document.querySelectorAll("#volgroup button"), function (b) {
+    b.addEventListener("click", function () { volume = +b.dataset.n; [].forEach.call(document.querySelectorAll("#volgroup button"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); draw(); });
+  });
+  draw();
+})();
+</script>

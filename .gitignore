@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+mlflow.db
+mlruns/
+data/
+spec/bench/data/
+spec/bench/work/
+.databricks/
+.env
+*.env

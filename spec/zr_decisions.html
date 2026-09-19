@@ -1,0 +1,238 @@
+<meta charset="utf-8">
+<title>Matching Engine Decisions</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #eef2f5; --surface: #ffffff; --surface-2: #f6f8fa; --ink: #13202a; --muted: #5a6b77; --line: #d4dde4;
+  --accent: #1f6f8b; --accent-soft: #dbeaf0; --accent-ink: #ffffff;
+  --ok: #2b7a4b; --ok-bg: #e2f0e7; --no: #b3402e; --no-bg: #f7e4e0; --ask: #7d4bb0; --ask-bg: #ede4f6; --mod: #9a6a10; --mod-bg: #f6ecd6;
+  --display: "Bricolage Grotesque", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e171d; --surface: #152229; --surface-2: #1b2b34; --ink: #e4ecf0; --muted: #8ea3ae; --line: #253943;
+    --accent: #5fb3cf; --accent-soft: #163541; --accent-ink: #0b1a21;
+    --ok: #63c48a; --ok-bg: #173126; --no: #e07f68; --no-bg: #38221c; --ask: #b993e0; --ask-bg: #2c2238; --mod: #dca43c; --mod-bg: #352b16;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e171d; --surface: #152229; --surface-2: #1b2b34; --ink: #e4ecf0; --muted: #8ea3ae; --line: #253943;
+  --accent: #5fb3cf; --accent-soft: #163541; --accent-ink: #0b1a21;
+  --ok: #63c48a; --ok-bg: #173126; --no: #e07f68; --no-bg: #38221c; --ask: #b993e0; --ask-bg: #2c2238; --mod: #dca43c; --mod-bg: #352b16;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); margin: 0; font-family: var(--body); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 32px 72px; padding-inline: 20px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.eyebrow { font: 500 11.5px/1 var(--mono); letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 5vw, 46px); line-height: 1.02; letter-spacing: -0.028em; margin: 10px 0 12px; text-wrap: balance; font-variation-settings: "opsz" 96; }
+.lede { font-size: 16.5px; max-width: 68ch; margin: 0; }
+.how { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+.how span b { color: var(--ink); font-weight: 600; }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 3; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); margin: 22px -20px 0; padding: 10px 20px; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.pill { font: 600 12.5px/1 var(--body); padding: 7px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; display: inline-flex; gap: 7px; align-items: center; }
+.pill .n { font-family: var(--mono); font-weight: 500; }
+.pill[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--muted)); display: inline-block; }
+.sync { margin-left: auto; font: 400 12px/1.3 var(--mono); color: var(--muted); }
+.sync.warn { color: var(--mod); }
+h2 { font-family: var(--display); font-weight: 700; font-size: 21px; letter-spacing: -0.015em; margin: 34px 0 4px; }
+.gsub { color: var(--muted); font-size: 13.5px; margin: 0 0 12px; max-width: 72ch; }
+.list { display: grid; gap: 10px; }
+.d { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--c, var(--line)); border-radius: 10px; padding: 14px 16px 12px; display: grid; gap: 9px; }
+.d[data-status="validated"] { --c: var(--ok); } .d[data-status="discarded"] { --c: var(--no); } .d[data-status="details"] { --c: var(--ask); } .d[data-status="modify"] { --c: var(--mod); }
+.d[data-status="discarded"] .choice { text-decoration: line-through; text-decoration-color: var(--no); }
+.top { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.id { font: 500 11.5px/1 var(--mono); color: var(--muted); letter-spacing: 0.04em; }
+.q { font: 700 16px/1.25 var(--display); letter-spacing: -0.01em; margin: 0; flex: 1 1 300px; text-wrap: balance; }
+.state { font: 600 10.5px/1 var(--mono); letter-spacing: 0.07em; padding: 4px 7px; border-radius: 4px; background: var(--surface-2); color: var(--muted); white-space: nowrap; }
+.d[data-status="validated"] .state { background: var(--ok-bg); color: var(--ok); } .d[data-status="discarded"] .state { background: var(--no-bg); color: var(--no); }
+.d[data-status="details"] .state { background: var(--ask-bg); color: var(--ask); } .d[data-status="modify"] .state { background: var(--mod-bg); color: var(--mod); }
+.choice { font-size: 14.5px; margin: 0; max-width: 78ch; } .choice b { font-weight: 600; }
+.why { font-size: 13.5px; color: var(--muted); margin: 0; max-width: 80ch; }
+.alts { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.alts .lbl { font: 500 10.5px/1 var(--mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
+.alt { font: 500 12.5px/1.2 var(--body); padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); cursor: pointer; text-align: left; }
+.alt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.alt small { color: var(--muted); font-weight: 400; }
+.acts { display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid var(--line); padding-top: 10px; }
+.act { font: 600 12.5px/1 var(--body); padding: 8px 11px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.act:hover { border-color: var(--k); } .act[aria-pressed="true"] { background: var(--kb); border-color: var(--k); color: var(--k); }
+.act.v { --k: var(--ok); --kb: var(--ok-bg); } .act.x { --k: var(--no); --kb: var(--no-bg); } .act.a { --k: var(--ask); --kb: var(--ask-bg); } .act.m { --k: var(--mod); --kb: var(--mod-bg); }
+.note { display: grid; gap: 6px; }
+.note textarea { width: 100%; min-height: 58px; resize: vertical; font: 400 13.5px/1.45 var(--body); color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.note .row { display: flex; gap: 8px; align-items: center; font-size: 12px; color: var(--muted); }
+.save { font: 600 12px/1 var(--body); padding: 7px 10px; border-radius: 7px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.export { margin-top: 40px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.export h3 { font: 700 15px/1.2 var(--display); margin: 0 0 4px; } .export p { font-size: 13px; color: var(--muted); margin: 0 0 8px; max-width: 72ch; }
+.export textarea { width: 100%; min-height: 150px; font: 400 12px/1.5 var(--mono); color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; }
+footer { margin-top: 28px; color: var(--muted); font-size: 12.5px; max-width: 78ch; }
+code { font-family: var(--mono); font-size: 12.5px; background: var(--surface-2); border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; }
+@media (max-width: 560px) { .wrap { padding-inline: 16px; } .bar { margin-inline: -16px; padding-inline: 16px; } .sync { margin-left: 0; width: 100%; } }
+</style>
+
+<div class="wrap">
+  <span class="eyebrow">Clean-room matching engine · goals/goal_zingg_rewrite.md · 19 Sept 2026</span>
+  <h1>Twenty-eight choices, waiting for your call</h1>
+  <p class="lede">Every decision the brief makes, with what I chose, why, and what the alternatives were. Validate it, discard it, ask me for details, or tell me what to change. Your answers are saved as you click; when you are done, tell me and I will read them back and rewrite the brief accordingly.</p>
+  <div class="how"><span><b>Validate</b> keep it as written</span><span><b>Discard</b> drop it from the brief</span><span><b>Details</b> I explain before you decide</span><span><b>Modify</b> keep it, changed as your note says</span><span>Picking an alternative marks the card <b>Modify</b></span></div>
+
+  <div class="bar" role="group" aria-label="Filter decisions">
+    <button class="pill" id="f-all" data-f="all" aria-pressed="true"><span class="n" id="n-all">0</span> all</button>
+    <button class="pill" id="f-pending" data-f="pending" aria-pressed="false"><i></i><span class="n" id="n-pending">0</span> pending</button>
+    <button class="pill" id="f-validated" data-f="validated" aria-pressed="false" style="--c:var(--ok)"><i></i><span class="n" id="n-validated">0</span> validated</button>
+    <button class="pill" id="f-modify" data-f="modify" aria-pressed="false" style="--c:var(--mod)"><i></i><span class="n" id="n-modify">0</span> to modify</button>
+    <button class="pill" id="f-details" data-f="details" aria-pressed="false" style="--c:var(--ask)"><i></i><span class="n" id="n-details">0</span> details asked</button>
+    <button class="pill" id="f-discarded" data-f="discarded" aria-pressed="false" style="--c:var(--no)"><i></i><span class="n" id="n-discarded">0</span> discarded</button>
+    <span class="sync" id="sync">connecting…</span>
+  </div>
+
+  <div id="groups"></div>
+
+  <div class="export">
+    <h3>Your decisions as text</h3>
+    <p id="export-help">A plain summary of every card you touched. If saving is unavailable in this view, copy this and paste it to me.</p>
+    <textarea id="export" readonly aria-label="Summary of your decisions"></textarea>
+  </div>
+  <footer>Cards marked "decided by you" reflect what you already said in the conversation; you can still change them. Evidence: <code>Lake/mdm/bench/README.md</code>, <code>Lake/mdm/PORTING.md</code>, <code>Lake/mdm/research/similarity_sota.md</code>, <code>Lake/mdm/research/platform_facts.md</code>.</footer>
+</div>
+
+<script>
+(function () {
+  var GROUPS = [
+    ["Direction", "What the project is, legally and by name.", [
+      { id: "d01", preset: true, q: "Rewrite, or adapt Zingg?", choice: "<b>A clean-room rewrite in PySpark.</b> Zingg's Spark 4.1 fork stays published as it is, separately.", why: "Zingg cannot run inside a pipeline (JVM libraries are forbidden there) nor on Free Edition (no Scala). Under default settings it recovered 73–76 % of true links where a nearest-neighbour candidate step plus a small classifier recovered 96–99 %.", alts: ["Thin adapter: run Zingg's JAR as a job task on classic compute (Astra estimated 6–10 person-weeks, versus 16–28 for the rewrite)", "Do both: adapter first, rewrite behind a controlled benchmark"] },
+      { id: "d02", preset: true, q: "What makes it a clean room?", choice: "<b>Two sides, kept apart.</b> The brief, the research digests and the benchmarks are the specification. Every build session works only from them, the papers and public docs, and never opens Zingg's source, its fork or its internals documentation. The verify script greps for it.", why: "Only the sessions that wrote the specification ever looked at Zingg's code, and their work ends at the specification. No name in the new code comes from Zingg's vocabulary.", alts: ["Also hand the build to a different model or agent than the one that wrote the spec", "Drop the verify-script check; keep it as a written rule only"] },
+      { id: "d03", preset: true, q: "Licence", choice: "<b>AGPL-3.0-or-later.</b> Mandatory dependencies are PySpark, MLflow and PyYAML (Apache-2.0 / MIT, compatible).", why: "Your instruction. It also means a service built on it must share its changes.", alts: ["AGPL-3.0-only", "Apache-2.0 (easier adoption, no copyleft)"] },
+      { id: "d04", q: "A name", choice: "<b>gimmal</b> — a gimmal ring is two separate hoops made to interlock into a single ring. Two records that turn out to be one.", why: "Free on PyPI, one empty repository on GitHub, short, pronounceable, searchable. It says what the engine does without the word 'match'.", alts: ["sosie — French for a lookalike, from Sosia in Plautus; free on PyPI; a small oceanography tool shares the name on GitHub", "twinlake — descriptive, free", "lakematch — the plain working name, free", "None of these: I will suggest one in the note"], pick: true },
+      { id: "d05", q: "Where it lives, and when it goes public", choice: "<b>~/Projects/Pro/&lt;name&gt;</b>, its own git repository. <b>Publishing to GitHub is not a goal</b>: you trigger it by hand once the benchmark phase is green; PyPI is a second, separate decision.", why: "A goal loop must never perform an outward-facing act on its own. The benchmarks are what make a public README credible.", alts: ["Publish from day one and build in the open", "Keep it private indefinitely"] }
+    ]],
+    ["How it matches", "The algorithmic choices, each tied to something measured or published.", [
+      { id: "d06", q: "How candidate pairs are found", choice: "<b>Top-k nearest neighbours on IDF-weighted character 3-grams</b>, with optional extra field blocks. Never gated on a single exact key. Candidate recall is reported on every benchmark.", why: "Zingg lost links whenever the first name differed (recall 0.32 versus 0.956). Top-k candidates kept every true link within five candidates on FEBRL4. Published: top-k TF-IDF blocking reaches 92–100 % recall at k = 10 (Sparkly, VLDB 2023).", alts: ["A learned, label-informed blocker designed from the literature (must beat top-k at equal budget)", "MinHashLSH from Spark MLlib", "Both top-k and field blocks by default, unioned"] },
+      { id: "d07", preset: true, q: "Default string similarity", choice: "<b>Levenshtein, the Spark SQL built-in</b>: normalised, per token, with its early-exit threshold. <b>Jaro-Winkler is an optional feature only</b>, off by default, a UDF until Spark 4.3 ships it as a built-in.", why: "Your decision. The evidence agrees: real Jaro-Winkler is worth ±0.01–0.04 and changes sign between given names and surnames, while normalised Levenshtein beat Jaro by 0.14 on typo-heavy person data. A built-in keeps Photon in play; a UDF does not.", alts: [] },
+      { id: "d08", q: "What replaces the 'affine gap'", choice: "For multi-token fields: <b>IDF-weighted token cosine, character 3-gram overlap, and a symmetric token-level Monge-Elkan with m = 2</b>, all from built-ins. The character alignment survives only as an optional UDF feature.", why: "What Zingg calls affine gap is a character-level alignment: no robustness to reordered tokens, and a short string contained in a long one scores about 1.0. IDF-weighted token measures won on multi-token strings (0.89 versus 0.73, Cohen 2003) but lose on typo-heavy single tokens, hence Levenshtein for names.", alts: ["Drop the alignment entirely, even as an option", "Make the alignment a default for address fields"] },
+      { id: "d09", q: "The classifier and the decision", choice: "<b>Spark MLlib gradient-boosted trees</b> over a feature family per field type (person name, address, organisation, title, code, date, number). Threshold chosen on validation data only. An explicit cardinality policy, <b>one-to-one by default</b>.", why: "The largest measured gain in the literature is several complementary measures in a learned classifier (+24 F1). Choosing by test score flattered my own stacks by 0.5–2.6 points. Without a cardinality rule, 31 records were claimed by two anchors in the prototype.", alts: ["Logistic regression (smaller, more explainable)", "Default cardinality many-to-one", "Let the config choose the estimator with no default"] },
+      { id: "d10", q: "Clusters and identities", choice: "<b>Verified merge</b>: before two clusters join, re-score representative pairs; one veto blocks. Convergence is tested, never assumed. <b>mdm_id</b> is a deterministic hash of the cluster's canonical key, with a crosswalk and a merge/split log.", why: "Connected components chain false positives into giant clusters (published: lowest F-measure on every dataset in the FAMER study). Pair prediction is not identity: reruns must not renumber.", alts: ["Connected components, simplest", "Centre or star clustering", "Defer clusters larger than two to a later version"] },
+      { id: "d11", q: "The LLM labeller", choice: "<b>A plug-in, off by default</b>: none, Jev, or Databricks ai_query. Two roles: labeller when it is confident on most pairs, judge on the unsure band when it is not. It trains the matcher and never grades it: the evaluation sample stays human.", why: "On clean data Jev's confident labels were 2 173 of 2 400 asked, none wrong; on ambiguous profiles it was confident on 9 % only. It costs about one cent per 400 labels, so cost is not the issue; privacy is.", alts: ["Jev on by default for public corpora", "No LLM plug-in in version 1"] },
+      { id: "d12", q: "Embeddings", choice: "<b>An optional feature plug-in, not a default.</b>", why: "They clearly win on cross-script names, company aliases and product titles (0.55 → 0.83 top-1 when fine-tuned), not on same-script person names with typos, and they need a GPU or a paid endpoint.", alts: ["Make them a default for organisation and title fields", "Leave them out entirely"] }
+    ]],
+    ["Platform", "One codebase for the laptop, serverless and classic compute.", [
+      { id: "d13", preset: true, q: "Workspace", choice: "<b>fourth-pat</b> (Free Edition, LinkedIn-verified), always passed explicitly. <b>Public or synthetic corpora only</b>: no real personal data goes to Databricks without your say. The warehouse is stopped after every run.", why: "Your instruction, plus your standing rules. It has one serverless 2X-Small warehouse, three free app slots, and one active pipeline per type.", alts: [] },
+      { id: "d14", q: "Portability rules", choice: "No <code>sparkContext</code>, no <code>_jvm</code>, no RDD, no JVM UDF, no <code>spark.udf.register</code>, no global temp views, no reliance on <code>cache()</code> or <code>checkpoint()</code>. A <b>materialize()</b> helper writes a table where caching is forbidden. <b>The test suite runs twice</b>: classic session and a local Spark Connect server.", why: "Serverless is Spark Connect only, and cache, persist and checkpoint raise there. Running both session kinds on the laptop catches Connect-only breakage before it reaches the workspace.", alts: ["Test over Connect only, since serverless is the primary target"] },
+      { id: "d15", q: "What goes inside Declarative Pipelines", choice: "<b>Flows</b>: quality gate, entity view, candidates, features, scoring, links. <b>Job tasks</b>: labels, training, clustering, identity. One pipeline holding all datasets.", why: "Measured on open-source SDP: a flow refuses count(), df.columns and MLlib fit, and accepts UDFs and a model loaded at import. Free Edition allows one active pipeline per type.", alts: ["Keep everything in jobs, no pipeline", "Also try fixed-round clustering inside a flow"] },
+      { id: "d16", q: "Photon", choice: "<b>Built-in expressions only on the default path.</b> Coverage is measured from the query profile and written to a report; nothing is assumed.", why: "Photon does not run UDFs, and Databricks publishes no per-function list, so whether levenshtein or the array lambdas are accelerated has to be observed. It cannot be toggled on serverless.", alts: ["Skip the Photon report until a paid workspace exists"] },
+      { id: "d17", q: "MLflow", choice: "<b>One composite model</b>: Spark pipeline + config + thresholds + label-set digest, with a pair-level signature, logged datasets and evaluation metrics. <b>SQLite on the laptop, Unity Catalog with an @champion alias on Databricks</b>, same code.", why: "A classifier alone is not the matcher: the features sit outside it. The file store cannot host the registry, so SQLite locally. Serverless caps a model at 100 MB.", alts: ["Log the Spark ML model only", "Skip the registry locally"] },
+      { id: "d18", q: "Data quality: DQX", choice: "<b>A native check engine is the default; DQX is an optional adapter</b> with the same interface (valid and quarantined rows with reasons). Lakeflow expectations are a Databricks-only extra.", why: "You asked for DQX. Its licence is the proprietary 'Databricks License', valid only within or connecting to Databricks services: it cannot be a dependency of an AGPL project, and using it on a laptop with no Databricks connection is arguably outside its grant.", alts: ["DQX as the default whenever the runtime is Databricks, native only on the laptop", "DQX only, and accept that laptop runs skip quality checks"] },
+      { id: "d19", q: "Paid features", choice: "<b>One <code>paid_features:</code> block, everything false by default</b>: Photon on classic, serverless performance mode, LLM labeller, AI functions, AI Search blocking, Lakebase label store, the app, Genie, predictive optimisation, data-quality monitoring, LLM judges. A <code>doctor</code> command prints what is on and its billing product.", why: "Your instruction. Bundles have no conditional resources, so the switches live in the engine's own config and travel as job parameters.", alts: ["Default the app and Genie to on for the Databricks profile"] },
+      { id: "d20", q: "Predictive optimisation", choice: "<b>Off by default</b>: the deployment emits ALTER SCHEMA … DISABLE PREDICTIVE OPTIMIZATION.", why: "It is on by default for new accounts and billed as serverless jobs, which makes it the one paid feature that turns itself on.", alts: ["Leave the platform default alone"] },
+      { id: "d21", q: "Classic compute", choice: "<b>Proved by proxy</b>: classic-session test run, a bundle that validates for a classic target, a lint against serverless-only and Photon-hostile constructs, and a written note of what was not executed and the one command that proves it on a paid workspace.", why: "Free Edition cannot run classic compute at all; LinkedIn verification unlocks only outbound internet and limited GPU.", alts: ["Use a 14-day paid trial workspace for the classic phase", "Drop classic from version 1"] }
+    ]],
+    ["App and Genie", "The human side: arbitration, statistics, questions in plain language.", [
+      { id: "d22", q: "App stack", choice: "<b>FastAPI + HTMX</b>, the same code on the laptop and as a Databricks App.", why: "Keyboard-first review needs more control than Streamlit gives; one Python stack shared with the engine; no Node build; far under the 10 MB app limit.", alts: ["Streamlit (fastest to build, clumsier for rapid review)", "Dash", "React with AppKit (best UI, separate stack, Databricks-only)"] },
+      { id: "d23", q: "Where labels are stored", choice: "<b>A Delta table</b> by default; Lakebase behind a paid switch.", why: "Labels are low-volume and must be versioned with the data. The cost is that every app write wakes the warehouse.", alts: ["Lakebase by default on Databricks (Free Edition allows one project)"] },
+      { id: "d24", q: "Genie", choice: "<b>A Genie Agent over the gold tables</b>, built from versioned instructions and ten reference questions, embedded in the app, <b>called on behalf of the user</b>.", why: "You confirmed Genie works on Free Edition. Since July 2026 Genie is billed, and a service principal gets no free allowance while users do until January 2027. Still untested: the Conversation API from an app there.", alts: ["Call it as the app's service principal", "Link out to the Genie space instead of embedding it"] }
+    ]],
+    ["Proof and order of work", "How we know it works, and in what order it gets built.", [
+      { id: "d25", q: "Benchmarks and thresholds", choice: "FEBRL4 (with half the partners removed, and original), FEBRL3, BPID, Abt-Buy, Amazon-Google, Walmart-Amazon, DBLP-ACM, Splink historical_50k, Leipzig Affiliations, a synthetic million-record run. Every row: precision, recall, F1 with a bootstrap interval, candidate recall, latency, cost, next to Zingg, Splink and published figures. <b>Only numeric gate: F1 ≥ 0.97 (all fields), ≥ 0.96 (SSN hidden), under 60 s</b> on the rejection task.", why: "Those three numbers are what the prototype measured today (0.978, 0.975–0.978, 13–22 s). Your rule: a threshold must come from a measurement, never an estimate. The trivial baseline is always in the table, because on the original FEBRL4 it scores 1.000.", alts: ["Add measured floors on the product benchmarks too, once first measured", "Drop the million-record run from version 1"] },
+      { id: "d26", q: "Nine phases", choice: "ZR-1 package and laptop engine → ZR-2 similarity library → ZR-3 benchmarks → ZR-4 clusters and identity → ZR-5 MLflow → ZR-6 serverless deployment → ZR-7 app → ZR-8 Genie → ZR-9 classic by proxy. One <code>/goal</code> line each, judged by <code>verify_zr.sh N</code>.", why: "Each is one state transition with one command that decides it, per your goal rules. Laptop first, so nothing depends on quota until ZR-5.", alts: ["Bring the app forward, right after the benchmarks", "Merge ZR-1 and ZR-2"] },
+      { id: "d27", q: "What is out of scope", choice: "Zig; any JVM or Scala code; GraphFrames; Spark Connect server plugins; Agent Bricks, our own serving endpoints and AI Search until a benchmark shows they pay; real personal data on the workspace.", why: "Each either breaks serverless or the dependency rule, or has no measured benefit yet.", alts: ["Keep a Zig local matcher as a parallel side project in the brief"] },
+      { id: "d28", q: "The lake's own people and merchants", choice: "They become the engine's first real user <b>after ZR-4</b>, on the laptop. Whether their data may go to Jev or to Databricks stays your separate, open decision.", why: "The privacy rule in the MDM brief is unchanged: nothing about a person leaves the Mac without your say.", alts: ["Start on merchants (business names) in parallel, earlier"] }
+    ]]
+  ];
+
+  var STATUS = { validated: "VALIDATED", discarded: "DISCARDED", details: "DETAILS ASKED", modify: "TO MODIFY" };
+  var state = {}, filter = "all", db = null, queues = {}, all = [];
+  GROUPS.forEach(function (g) { g[2].forEach(function (d) { all.push(d); state[d.id] = { status: d.preset ? "validated" : "pending", option: null, note: "", touched: false }; }); });
+
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+  function build() {
+    var root = document.getElementById("groups");
+    GROUPS.forEach(function (g) {
+      root.appendChild(el("h2", null, g[0])); root.appendChild(el("p", "gsub", g[1]));
+      var list = el("div", "list");
+      g[2].forEach(function (d) {
+        var card = el("article", "d"); card.id = "card-" + d.id;
+        var top = el("div", "top"); top.appendChild(el("span", "id", d.id.toUpperCase())); top.appendChild(el("h3", "q", d.q));
+        var st = el("span", "state"); st.id = "state-" + d.id; top.appendChild(st); card.appendChild(top);
+        card.appendChild(el("p", "choice", d.choice)); card.appendChild(el("p", "why", d.why));
+        if (d.alts.length) {
+          var alts = el("div", "alts"); alts.appendChild(el("span", "lbl", d.pick ? "or pick" : "instead"));
+          d.alts.forEach(function (a, i) {
+            var parts = a.split(" — "), b = el("button", "alt"); b.type = "button"; b.id = "alt-" + d.id + "-" + i;
+            b.innerHTML = parts.length > 1 ? parts[0] + " <small>— " + parts.slice(1).join(" — ") + "</small>" : a;
+            b.setAttribute("aria-pressed", "false");
+            b.addEventListener("click", function () { var s = state[d.id]; var on = s.option === a; commit(d.id, { option: on ? null : a, status: on ? "pending" : "modify" }); });
+            alts.appendChild(b);
+          });
+          card.appendChild(alts);
+        }
+        var acts = el("div", "acts");
+        [["validated", "v", "Validate"], ["discarded", "x", "Discard"], ["details", "a", "Ask for details"], ["modify", "m", "Modify"]].forEach(function (k) {
+          var b = el("button", "act " + k[1], k[2]); b.type = "button"; b.id = "act-" + d.id + "-" + k[0]; b.setAttribute("aria-pressed", "false");
+          b.addEventListener("click", function () { var s = state[d.id]; commit(d.id, { status: s.status === k[0] && s.touched ? "pending" : k[0] }); });
+          acts.appendChild(b);
+        });
+        card.appendChild(acts);
+        var note = el("div", "note"), ta = el("textarea"); ta.id = "note-" + d.id; ta.placeholder = "What should change, or what do you want explained?"; ta.setAttribute("aria-label", "Note for " + d.q);
+        var row = el("div", "row"), save = el("button", "save", "Save note"); save.type = "button"; save.id = "save-" + d.id;
+        var hint = el("span"); hint.id = "hint-" + d.id;
+        save.addEventListener("click", function () { commit(d.id, { note: ta.value.trim() }); });
+        ta.addEventListener("input", function () { hint.textContent = ta.value.trim() === state[d.id].note ? "" : "not saved yet"; });
+        row.appendChild(save); row.appendChild(hint); note.appendChild(ta); note.appendChild(row); card.appendChild(note);
+        list.appendChild(card);
+      });
+      root.appendChild(list);
+    });
+  }
+
+  function render() {
+    var counts = { all: all.length, pending: 0, validated: 0, discarded: 0, details: 0, modify: 0 };
+    all.forEach(function (d) {
+      var s = state[d.id], card = document.getElementById("card-" + d.id);
+      counts[s.status]++;
+      card.dataset.status = s.status;
+      card.hidden = filter !== "all" && filter !== s.status;
+      document.getElementById("state-" + d.id).textContent = s.status === "pending" ? "PENDING" : STATUS[s.status] + (d.preset && !s.touched ? " · DECIDED BY YOU" : "");
+      ["validated", "discarded", "details", "modify"].forEach(function (k) { document.getElementById("act-" + d.id + "-" + k).setAttribute("aria-pressed", s.status === k ? "true" : "false"); });
+      d.alts.forEach(function (a, i) { document.getElementById("alt-" + d.id + "-" + i).setAttribute("aria-pressed", s.option === a ? "true" : "false"); });
+      var ta = document.getElementById("note-" + d.id);
+      if (document.activeElement !== ta && ta.value.trim() === "" && s.note) ta.value = s.note;
+      if (ta.value.trim() === s.note) document.getElementById("hint-" + d.id).textContent = s.note ? "saved" : "";
+    });
+    Object.keys(counts).forEach(function (k) { document.getElementById("n-" + k).textContent = counts[k]; });
+    var lines = [];
+    all.forEach(function (d) { var s = state[d.id]; if (!s.touched) return; lines.push(d.id.toUpperCase() + " " + d.q + " -> " + s.status.toUpperCase() + (s.option ? " | option: " + s.option : "") + (s.note ? " | note: " + s.note : "")); });
+    document.getElementById("export").value = lines.length ? lines.join("\n") : "(nothing changed yet)";
+  }
+
+  function commit(id, patch) {
+    var s = state[id]; Object.keys(patch).forEach(function (k) { s[k] = patch[k]; }); s.touched = true; render();
+    try { localStorage.setItem("zr-decisions", JSON.stringify(state)); } catch (e) { /* storage is a convenience only */ }
+    if (!db) return;
+    var body = { status: s.status, option: s.option, note: s.note, question: all.filter(function (d) { return d.id === id; })[0].q, updatedAt: new Date().toISOString() };
+    queues[id] = (queues[id] || Promise.resolve()).then(function () { return db.doc("decisions/" + id).set(body); }).then(function () { sync("saved " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })); }, function (e) { sync("could not save (" + ((e && e.code) || "error") + "): copy the text summary at the bottom instead", true); });
+  }
+
+  function sync(text, warn) { var n = document.getElementById("sync"); n.textContent = text; n.className = "sync" + (warn ? " warn" : ""); }
+
+  function apply(id, body) { if (!state[id] || !body) return; state[id] = { status: body.status || "pending", option: body.option || null, note: body.note || "", touched: true }; }
+
+  build();
+  try { var saved = JSON.parse(localStorage.getItem("zr-decisions") || "null"); if (saved) Object.keys(saved).forEach(function (k) { if (state[k] && saved[k].touched) state[k] = saved[k]; }); } catch (e) { /* ignore */ }
+  render();
+  [].forEach.call(document.querySelectorAll(".pill[data-f]"), function (b) {
+    b.addEventListener("click", function () { filter = b.dataset.f; [].forEach.call(document.querySelectorAll(".pill[data-f]"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); render(); });
+  });
+
+  var use = window.claude && window.claude.use ? window.claude.use("db") : Promise.resolve(null);
+  use.then(function (handle) {
+    if (!handle) { sync("saving is unavailable in this view: copy the text summary at the bottom", true); return; }
+    db = handle; sync("connected: answers save as you click");
+    db.collection("decisions").onSnapshot(function (snap) { snap.docs.forEach(function (doc) { if (doc.exists) apply(doc.id, doc.data()); }); render(); },
+      function (e) { sync("live sync stopped (" + e.code + "): your clicks still save", true); });
+  }, function () { sync("saving is unavailable in this view: copy the text summary at the bottom", true); });
+})();
+</script>

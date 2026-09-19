@@ -1,0 +1,14 @@
+{"in": 2257267, "out": 31212, "req": 1836, "err": 0, "tag": "fs:Structured_Amazon-Google:r6", "seconds": 45.8, "at": "2026-09-19T16:47:58"}
+{"in": 4972711, "out": 31212, "req": 1836, "err": 0, "tag": "fs:Structured_Amazon-Google:r20", "seconds": 49.0, "at": "2026-09-19T16:48:47"}
+{"in": 2402325, "out": 31212, "req": 1836, "err": 0, "tag": "fs:Structured_Amazon-Google:k6", "seconds": 47.4, "at": "2026-09-19T16:49:36"}
+{"in": 3255728, "out": 31212, "req": 1836, "err": 0, "tag": "fs:Structured_Amazon-Google:k10", "seconds": 47.9, "at": "2026-09-19T16:50:25"}
+{"in": 1284187, "out": 190944, "req": 1836, "err": 0, "tag": "fs:Structured_Amazon-Google:dec", "seconds": 48.5, "at": "2026-09-19T16:51:14"}
+{"in": 2280246, "out": 18700, "req": 1100, "err": 0, "tag": "fs:bpid:r6", "seconds": 29.5, "at": "2026-09-19T16:52:07"}
+{"in": 2269545, "out": 18700, "req": 1100, "err": 0, "tag": "fs:bpid:k6", "seconds": 29.0, "at": "2026-09-19T16:52:38"}
+{"in": 3273126, "out": 18700, "req": 1100, "err": 0, "tag": "fs:bpid:k10", "seconds": 28.1, "at": "2026-09-19T16:53:08"}
+{"in": 5800222, "out": 18700, "req": 1100, "err": 0, "tag": "fs:bpid:k20", "seconds": 30.1, "at": "2026-09-19T16:53:39"}
+{"in": 906346, "out": 134200, "req": 1100, "err": 0, "tag": "fs:bpid:dec", "seconds": 27.5, "at": "2026-09-19T16:54:07"}
+{"in": 3626822, "out": 26401, "req": 1553, "err": 0, "tag": "fs:Structured_Walmart-Amazon:k10", "seconds": 41.3, "at": "2026-09-19T16:54:51"}
+{"in": 1153703, "out": 161512, "req": 1553, "err": 0, "tag": "fs:Structured_Walmart-Amazon:dec", "seconds": 39.8, "at": "2026-09-19T16:55:31"}
+{"in": 4283872, "out": 27523, "req": 1619, "err": 0, "tag": "fs:Textual_Abt-Buy:k10", "seconds": 42.3, "at": "2026-09-19T16:56:16"}
+{"in": 1269891, "out": 168376, "req": 1619, "err": 0, "tag": "fs:Textual_Abt-Buy:dec", "seconds": 41.7, "at": "2026-09-19T16:56:58"}
