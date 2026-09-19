@@ -18,6 +18,27 @@ def altered(config, section, **values):
     return from_dict(data)
 
 
+def test_csv_header_names_override_config_field_order(spark, config, tmp_path):
+    from lakematch.engine import read_records
+    path = tmp_path / "reordered.csv"
+    path.write_text('code,rec_id,name\n75,a1,"Alice, Martin"\n')
+    row = read_records(spark, str(path), config).first()
+    assert row.rec_id == "a1" and row.name == "Alice, Martin" and row.code == "75"
+
+
+def test_label_headers_and_both_endpoint_partition_checks(spark, tmp_path):
+    from lakematch.engine import read_labels, assert_disjoint_labels
+    path = tmp_path / "labels.csv"
+    path.write_text("label,reason,b_id,a_id\n0,noncandidate,shared-right,train-a\n")
+    training = read_labels(spark, str(path))
+    assert training.first().asDict() == {"a_id": "train-a", "b_id": "shared-right", "label": 0.}
+    schema = "a_id string, b_id string, label double"
+    for pair in (("eval-a", "shared-right", 1.), ("train-a", "eval-right", 1.)):
+        with pytest.raises(ValueError, match="record-disjoint"):
+            assert_disjoint_labels(training, spark.createDataFrame([pair], schema))
+    assert_disjoint_labels(training, spark.createDataFrame([("eval-a", "eval-b", 1.)], schema))
+
+
 def test_quarantine_duplicates_warnings_and_row_checks(spark, config):
     config = altered(config, "quality", checks=[
         {"name": "name_required", "kind": "not_null", "column": "name"},

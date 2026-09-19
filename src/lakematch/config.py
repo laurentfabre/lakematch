@@ -58,11 +58,12 @@ DEFAULTS = {
     "quality": {"engine": "native", "checks": []},
     "labels": {"llm": "none", "llm_tau": 0.90},
     "mlflow": {"tracking_uri": "sqlite:///mlflow.db", "registry": False,
-               "model_name": "lakematch_person", "registry_uri": None, "alias": None},
+               "model_name": "lakematch_person", "registry_uri": None, "alias": None,
+               "experiment": "lakematch", "acceptance_f1": None},
     "paid_features": {**dict.fromkeys(PAID, False), "genie_auth_mode": "user"},
-    "input": {"left": None, "right": None, "labels": None, "format": "csv"},
+    "input": {"left": None, "right": None, "labels": None, "validation_labels": None, "format": "csv"},
     "output": {"root": "./data/output"},
-    "model": {"path": "./data/model"},
+    "model": {"path": "./data/model", "pointer": "models/current.json"},
 }
 DB_OVERRIDES = {
     "runtime": {"mode": "serverless"}, "quality": {"engine": "dqx"},
@@ -169,6 +170,11 @@ def from_dict(raw):
     threshold = cfg["decision"]["threshold"]
     if threshold != "from_validation" and (type(threshold) not in (int, float) or not 0 <= threshold <= 1):
         raise ConfigError("decision.threshold must be from_validation or a number in [0, 1]")
+    acceptance = cfg["mlflow"]["acceptance_f1"]
+    if acceptance is not None and (type(acceptance) not in (float, int) or not 0 <= acceptance <= 1):
+        raise ConfigError("mlflow.acceptance_f1 must be null or a number in [0, 1]")
+    if cfg["profile"] == "databricks" and cfg["matcher"]["max_model_mb"] > 100:
+        raise ConfigError("Databricks composite models must remain under the 100 MB runtime limit")
     tokens = cfg["features"]["multi_token"]
     if not isinstance(tokens, list) or any(t not in TOKEN_FEATURES for t in tokens) or len(tokens) != len(set(tokens)):
         raise ConfigError(f"features.multi_token must be a unique list from {sorted(TOKEN_FEATURES)}")

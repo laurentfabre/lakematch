@@ -125,3 +125,16 @@ smoke evidence and does not satisfy the separate ZR-3 held-out latency gate.
 Run IDs are `20260919T223809Z-package-build-1ae404`,
 `20260919T223810Z-tests-classic-90537b`, `20260919T223838Z-tests-connect-11ba06`,
 `20260919T223904Z-offline-run-d1c9ec`, and `20260919T223916Z-febrl4-run-ff4b60`.
+
+## Composite-model integration verification
+
+Source `66f76bd952fbe0d32028a5e82fb5bbef1e8f86fbc5884a1fe0ee8ef85340cdcd`
+passes ZR-1 with **71 tests in each mode**, zero skipped. The package, OS-enforced
+offline synthetic CLI and full original FEBRL4 development smoke also pass.
+The smoke now logs the full composite MLflow model and its consumed-label lineage;
+its process wall time is **86.29 seconds**, not a passing ZR-3 latency measurement.
+Final source run IDs: `20260919T231201Z-package-build-bcba13`,
+`20260919T231203Z-tests-classic-395a00`, `20260919T231242Z-tests-connect-b81ca9`,
+`20260919T231319Z-offline-run-bee095`, `20260919T231339Z-febrl4-run-f05518`.
+The added regressions cover reordered CSV record/label headers, validation endpoint
+separation, real composite prediction/lineage and fail-closed model acceptance.

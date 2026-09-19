@@ -52,6 +52,7 @@ def main():
     parser.add_argument("--baseline", default="specification; no accepted implementation baseline")
     parser.add_argument("--primary-metric", default="command exit status plus recorded assertions/artifacts")
     parser.add_argument("--seed", type=int, action="append")
+    parser.add_argument("--workspace", help="Explicit remote workspace profile, when the child submits remote work")
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     command = args.command[1:] if args.command[:1] == ["--"] else args.command
@@ -71,9 +72,9 @@ def main():
         "command": command, "started_at": started.isoformat(), "status": "running",
         "versions": {"python": platform.python_version(), **{p: importlib.metadata.version(p) for p in ("pyspark", "mlflow", "pyyaml", "pytest")}},
         "runtime": {"platform": platform.platform(), "test_mode": os.environ.get("LAKEMATCH_TEST_MODE", "classic"),
-                    "java_home": os.environ.get("JAVA_HOME"), "workspace": None},
-        "budget": {"timeout_seconds": args.timeout, "remote_spend": None if args.phase == "ENV" else 0,
-                   "cost_status": "unreconciled" if args.phase == "ENV" else "local only", "parallel_experiments": 1},
+                    "java_home": os.environ.get("JAVA_HOME"), "workspace": args.workspace},
+        "budget": {"timeout_seconds": args.timeout, "remote_spend": None if args.workspace or args.phase == "ENV" else 0,
+                   "cost_status": "unreconciled" if args.workspace or args.phase == "ENV" else "local only", "parallel_experiments": 1},
         "config": {"path": args.config, "sha256": sha256(args.config)} if args.config else None,
         "seeds": args.seed or [0], "model_run_ids": [], "artifacts": [], "cleanup": "pending",
     }

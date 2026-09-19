@@ -1,6 +1,6 @@
 # Goal: bring lakematch to its specified feature level through FEVM experiments
 
-Created: 2026-09-19. Status: in progress; ZR-1 passed against source 1d9451e2f33e; ZR-2 passed with complete field-family ablations (iteration 4/8); STANDARD serverless canary passed; ZR-9 parked at ENV.
+Created: 2026-09-19. Status: in progress; ZR-1 passed against source 66f76bd952fb; ZR-2 passed with complete field-family ablations (iteration 5/8); ZR-5 passed (iteration 3/8); classic compute confirmed unsupported on the selected workspace; ZR-9 parked at ENV.
 
 Build, run, measure and improve lakematch until **ZR-1 through ZR-9 in
 [the brief](spec/BRIEF.md#phases) pass with reproducible evidence**, using an explicitly selected
@@ -100,16 +100,16 @@ acceptance evidence exists. The detailed phase clauses in the brief also apply.
 
 | ID | Acceptance gate | Status | Evidence |
 |---|---|---|---|
-| ENV | Explicit FEVM target(s), capability report, isolated resources and bounded run configuration are recorded. | In progress | [Environment](experiments/ENVIRONMENT.md); auth and owned schema/volume work; classic-create timeout under investigation; serverless native engine/model canary passes; delegated Genie still untested. |
-| ZR-1 | Installable package, YAML config and CLI; native quality checks split valid/quarantined rows with reasons; deterministic candidates/features/matcher/decision produce links. Tests pass on local Spark and local Spark Connect, including all-paid-features-off offline execution. Implement capability-aware materialization and phase verifiers. | Passed | [Engine evidence](bench/ENGINE.md); source `1d9451e2f33e`; 65 tests pass in each mode with no skips; offline and full FEBRL4 CLI, wheel installation/private-repository check pass; `bash verify_zr.sh 1` exits 0. |
-| ZR-2 | Feature families cover every configured field type. Default matching plans have no `PythonUDF`, `BatchEvalPython` or `ArrowEvalPython`; optional Jaro-Winkler and affine-gap features are gated. Ablations cover FEBRL4-half-unmatched, BPID, Leipzig Affiliations and Abt-Buy, including local embeddings for organisation/title, accuracy and preprocessing cost. | Passed | [Ablations](bench/ABLATION.md), [feature contract](bench/FEATURES.md), [run index](bench/ablation_index.json). All seven field types and individual removals, native plans, optional UDFs and actual offline MiniLM execution verified. Source `83b70fdf673b`; `bash verify_zr.sh 2` exits 0. 65 tests pass in both modes. Embeddings default off after inconclusive paired gains; confirmation remains unscored. |
+| ENV | Explicit FEVM target(s), capability report, isolated resources and bounded run configuration are recorded. | In progress | [Environment](experiments/ENVIRONMENT.md); auth, owned schema/volume, serverless native engine and UC model checks pass; classic Jobs submission explicitly reports serverless-only workspace; delegated Genie still untested. |
+| ZR-1 | Installable package, YAML config and CLI; native quality checks split valid/quarantined rows with reasons; deterministic candidates/features/matcher/decision produce links. Tests pass on local Spark and local Spark Connect, including all-paid-features-off offline execution. Implement capability-aware materialization and phase verifiers. | Passed | [Engine evidence](bench/ENGINE.md); source `66f76bd952fb`; 71 tests pass in each mode with no skips; offline and full FEBRL4 CLI, wheel installation/private-repository check pass; `bash verify_zr.sh 1` exits 0. |
+| ZR-2 | Feature families cover every configured field type. Default matching plans have no `PythonUDF`, `BatchEvalPython` or `ArrowEvalPython`; optional Jaro-Winkler and affine-gap features are gated. Ablations cover FEBRL4-half-unmatched, BPID, Leipzig Affiliations and Abt-Buy, including local embeddings for organisation/title, accuracy and preprocessing cost. | Passed | [Ablations](bench/ABLATION.md), [feature contract](bench/FEATURES.md), [run index](bench/ablation_index.json). All seven field types and individual removals, native plans, optional UDFs and actual offline MiniLM execution verified. Source `89407f97a43b`; `bash verify_zr.sh 2` exits 0. 71 tests pass in both modes. Embeddings default off after inconclusive paired gains; confirmation remains unscored. |
 | ZR-3 | Reproducible harness runs every brief corpus, compares every required method on validation and ships the documented winners. On held-out FEBRL4-half-unmatched: F1 >= 0.97 with all fields and >= 0.96 with SSN hidden; each local end-to-end run is under 60 seconds including Spark startup. Publish candidate recall, confidence intervals, baselines and cost. Include the scale evidence specified below. | Pending | — |
 | ZR-4 | Compare verified merge, connected components, center and star on FEBRL3 and `historical_50k`, reporting pairwise and B-cubed metrics. Demonstrate convergence, unchanged-input stable `mdm_id`, and an exactly reconciled crosswalk/merge/split log after 1% additions, changes and deletions. | Pending | — |
-| ZR-5 | Composite MLflow model includes classifier/pipeline, candidate and feature specs/order, config, thresholds and label-set digest, with signature, dataset lineage and evaluation. Local SQLite tracking resolves `runs:/<id>/model` without a registry. FEVM registers in UC, resolves the champion alias to an immutable version, and reloads with equivalent predictions in a fresh session. Respect the runtime model-size limit. | Pending | — |
+| ZR-5 | Composite MLflow model includes classifier/pipeline, candidate and feature specs/order, config, thresholds and label-set digest, with signature, dataset lineage and evaluation. Local SQLite tracking resolves `runs:/<id>/model` without a registry. FEVM registers in UC, resolves the champion alias to an immutable version, and reloads with equivalent predictions in a fresh session. Respect the runtime model-size limit. | Passed | [Composite models](bench/MODELS.md): offline SQLite and CLI accepted-run reload, dataset lineage/evaluation, 71 classic/Connect tests, UC `pair_model/2` and fresh-task predictions pass. FEVM run `429596527159022`; complete package 142,284 bytes; delta < 1e-12; `bash verify_zr.sh 5` exits 0. No confirmation scores used. |
 | ZR-6 | Bundle validates and an actual FEVM serverless run completes. SDP holds candidates, features, scoring and links; training/clustering are tasks. DQX and native quality engines agree on seeded bad rows. Each FEBRL4 variant is within 0.01 absolute F1 of its frozen local reference. Default config and all-paid-features-off config both deploy/run; query profiles support the Photon report. | Pending | — |
 | ZR-7 | APX confirmed still maintained and the built bundle is under the Databricks App file-size limit (checked before UI work). APX app runs locally and as a Databricks App. Uncertainty-ordered, keyboard-first review supports match/no-match/unsure; statistics and provenance persist. End-to-end review of 20 pairs writes user/time/model/reason, the next training run consumes the labels, and predictions or documented training inputs reflect them. Restart preserves the queue and labels. | Pending | — |
 | ZR-8 | Versioned Genie instructions and ten reference questions are deployed over gold tables. The app uses on-behalf-of-user auth; all ten queries have the expected tables/aggregations and correct fixture results. The panel disappears when `paid_features.genie` is off. Prove the Conversation API from the deployed app. **If the Conversation API does not answer for the app on behalf of the user on this workspace (see ENV), the phase parks with that finding — it does not loop.** | Pending | — |
-| ZR-9 | Bundle runs on explicitly selected FEVM classic compute with the same engine and passing suite. Each FEBRL4 variant is within 0.01 absolute F1 of local. PHOTON versus STANDARD comparison reports wall time, DBUs and operator fallbacks; prove classic materialization behavior and final cluster termination. | Parked at ENV | Two create requests timed out (90s/240s), no cluster returned or found afterward. Resolve classic creation before ZR-9; do not substitute workspace. |
+| ZR-9 | Bundle runs on explicitly selected FEVM classic compute with the same engine and passing suite. Each FEBRL4 variant is within 0.01 absolute F1 of local. PHOTON versus STANDARD comparison reports wall time, DBUs and operator fallbacks; prove classic materialization behavior and final cluster termination. | Parked at ENV | Classic Jobs submission explicitly rejected: “Only serverless compute is supported in the workspace.” [Finding](experiments/classic-capability.json). No cluster created. Classic capability must be enabled on this selected workspace; do not substitute profiles. |
 
 The 60-second gate belongs to the **local FEBRL4 reproduction**, not FEVM provisioning or startup.
 Record remote startup and execution time separately. Historical prototype timing is not a passing
@@ -267,28 +267,31 @@ expanding the feature target once these requirements pass.
 - `fevm-gdpr2` explicitly reconfirmed in this conversation; OAuth refreshed and authenticated.
 - ZR-1 now has an installable engine, config, CLI, quality quarantine, corrected IDF candidates,
   pre-join budgets, three estimators, cardinality policies, capability materialization and read-only
-  phase verifier. Expanded classic and Connect suites passed the same 65 checks each with no skips;
-  source `1d9451e2f33e` passes `bash verify_zr.sh 1`.
+  phase verifier. Expanded classic and Connect suites passed the same 71 checks each with no skips;
+  source `66f76bd952fb` passes `bash verify_zr.sh 1`.
 - Offline synthetic CLI passed under OS-enforced external egress denial: 6 links, 1 quarantine.
   Full original FEBRL4 development smoke completed; this is not ZR-3 holdout evidence.
 - Owned schema/volume: `gdpr2_catalog.lakematch_20260919` / `.artifacts`. Remote metadata lists
   classic policies, Apps, Genie and pipelines. Listing is not execution proof.
 - First classic-create request timed out at 90 seconds, with empty cluster inventory afterward;
-  the bounded retry also timed out at 240 seconds, and inventory was empty again. ZR-9 is parked pending resolution of classic creation; serverless/local work continues.
+  the bounded retry also timed out at 240 seconds, and inventory was empty again. The distinct Job Compute probe then returned “Only serverless compute is supported in the workspace.” ZR-9 is parked on this confirmed capability limit; serverless/local work continues.
 - The user waived quota/expiry as prerequisites (“FEVM are dev workspace so do not worry about that”).
   Resource/time bounds and eight experiment iterations per phase remain. No model-selection sweep
   has started; environment and verification attempts are individually retained in the run ledger.
-- ZR-2 is complete after iteration 4: all field types, individual family removals, optional UDFs and
+- ZR-2 is complete after iteration 5 (unchanged integration verification repeat): all field types, individual family removals, optional UDFs and
   offline embeddings are measured on the four required corpora. Validation native-all F1: FEBRL4 1.000,
   BPID 0.757, Abt-Buy 0.639, Leipzig 0.939; these are not confirmation scores. Embeddings stay off by
   default because both paired improvement intervals include zero. Failures remain in the run ledger.
-- Next eligible work: ZR-3 method comparison/latency harness and early ZR-5 composite MLflow tracking,
-  using the [predeclared protocol](bench/PROTOCOL.md). Classic creation remains an external ENV
-  dependency. ZR-3–8 remain pending and ZR-9 is parked. See [environment](experiments/ENVIRONMENT.md),
+- ZR-5 passes: models-from-code artifact, signature, label/IDF snapshots, evaluation and CLI acceptance;
+  FEVM run `429596527159022` resolves champion to UC version 2 with fresh-task prediction equivalence.
+- Next eligible work: ZR-3 method comparison/latency harness,
+  using the [predeclared protocol](bench/PROTOCOL.md). Classic capability remains an external ENV
+  dependency, now confirmed serverless-only by the Jobs API. ZR-3/4/6/7/8 remain pending and ZR-9 is parked on the confirmed serverless-only workspace restriction. See [environment](experiments/ENVIRONMENT.md),
   [engine observations](bench/ENGINE.md), and [run ledger](experiments/runs.jsonl).
 - Resume: `$goal /Users/laurent.fabre/Projects/Claude/lakematch/goal.md`.
 
 The updated-engine STANDARD canary succeeded as remote run `667945925462279` (176s setup,
 268s task execution); all three expected links and equivalent reloaded predictions were observed.
 Final campaign resource inventory is [here](experiments/final-resource-state.json). Billing and
-query-profile evidence, UC registration, pipeline execution and delegated Genie remain unproven.
+query-profile evidence, pipeline execution and delegated Genie remain unproven. UC registration
+and fresh-task composite-model loading now pass ZR-5.

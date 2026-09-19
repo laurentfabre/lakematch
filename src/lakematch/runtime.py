@@ -11,6 +11,20 @@ from pyspark.sql import SparkSession
 LOCAL_JAVA_OPTIONS = "-Djava.net.preferIPv4Stack=true"
 
 
+def active_or_create(config):
+    """Reuse a notebook/Connect session; create a session only for a fresh client."""
+    return SparkSession.getActiveSession() or create_session(config)
+
+
+def model_artifact_path(path):
+    """Model artifacts are on shared UC volumes remotely, local paths locally.
+
+    Callers stage remote downloads on MLFLOW_DFS_TMP before loading the model.
+    Never use driver-local file URIs on serverless workers.
+    """
+    return str(Path(path).resolve())
+
+
 def is_remote(spark):
     return type(spark).__module__.startswith("pyspark.sql.connect")
 

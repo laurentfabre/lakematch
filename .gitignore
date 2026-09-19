@@ -3,6 +3,7 @@ __pycache__/
 .venv/
 mlflow.db
 mlruns/
+models/current.json
 data/
 spec/bench/data/
 spec/bench/work/

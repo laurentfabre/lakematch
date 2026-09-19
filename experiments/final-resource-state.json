@@ -1,31 +1,85 @@
 {
-  "observed_at": "2026-09-19T21:55:14.683366+00:00",
+  "observed_at": "2026-09-19T23:21:50.639092+00:00",
   "profile": "fevm-gdpr2",
-  "owned_clusters": [],
-  "campaign_tables": [],
-  "shared_warehouse": {
-    "id": "4aaa742e4712c3c9",
-    "state": "STOPPED",
-    "ownership": "shared; read only, never started or stopped by this campaign"
+  "commands": {
+    "clusters": [
+      "databricks",
+      "clusters",
+      "list",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    "active_runs": [
+      "databricks",
+      "jobs",
+      "list-runs",
+      "--active-only",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    "owned_tables": [
+      "databricks",
+      "tables",
+      "list",
+      "gdpr2_catalog",
+      "lakematch_20260919",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    "shared_warehouse": [
+      "databricks",
+      "warehouses",
+      "get",
+      "4aaa742e4712c3c9",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ]
   },
-  "serverless_runs": [
-    {
-      "run_id": 280837437066970,
-      "state": "TERMINATED",
-      "result": "SUCCESS"
-    },
-    {
-      "run_id": 954441146199150,
-      "state": "INTERNAL_ERROR",
-      "result": "TIMEDOUT"
-    },
-    {
-      "run_id": 667945925462279,
-      "state": "TERMINATED",
-      "result": "SUCCESS"
-    }
+  "owned_resources_policy": "Do not start or stop the unrelated shared warehouse",
+  "model_runs": [
+    1068365812709755,
+    429596527159022
   ],
-  "campaign_apps_created": [],
-  "billing": "unreconciled; no zero-cost claim",
-  "durable_artifacts": "preserved in the campaign UC volume and local experiment evidence"
+  "classic_capability": "unsupported: Only serverless compute is supported in the workspace.",
+  "clusters": [],
+  "active_runs": [],
+  "owned_tables": [],
+  "shared_warehouse": {
+    "auto_stop_mins": 10,
+    "channel": {
+      "name": "CHANNEL_NAME_CURRENT"
+    },
+    "cluster_size": "Small",
+    "creator_name": "aec5be3d-de3c-404c-8e60-feed0f265fd3",
+    "enable_photon": true,
+    "enable_serverless_compute": true,
+    "health": {
+      "status": "HEALTHY"
+    },
+    "id": "4aaa742e4712c3c9",
+    "jdbc_url": "jdbc:spark://fevm-gdpr2.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/4aaa742e4712c3c9;",
+    "max_num_clusters": 1,
+    "min_num_clusters": 1,
+    "name": "Serverless Starter Warehouse",
+    "num_active_sessions": 0,
+    "num_clusters": 1,
+    "odbc_params": {
+      "hostname": "fevm-gdpr2.cloud.databricks.com",
+      "path": "/sql/1.0/warehouses/4aaa742e4712c3c9",
+      "port": 443,
+      "protocol": "https"
+    },
+    "spot_instance_policy": "COST_OPTIMIZED",
+    "state": "RUNNING",
+    "tags": {},
+    "warehouse_type": "PRO"
+  }
 }

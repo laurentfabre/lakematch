@@ -1,0 +1,1253 @@
+{
+  "profile": "fevm-gdpr2",
+  "workspace_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z",
+  "volume_root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z",
+  "started_at": "20260919T230816Z",
+  "run_id": 429596527159022,
+  "commands": [
+    [
+      "databricks",
+      "jobs",
+      "list-runs",
+      "--active-only",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "import-dir",
+      "src",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/src",
+      "--overwrite",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "mkdirs",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tools",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "import",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tools/tracking_canary.py",
+      "--file",
+      "tools/tracking_canary.py",
+      "--format",
+      "RAW",
+      "--overwrite",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "import",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking",
+      "--file",
+      "tools/tracking_notebook.py",
+      "--format",
+      "SOURCE",
+      "--language",
+      "PYTHON",
+      "--overwrite",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "submit",
+      "--no-wait",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json",
+      "--json",
+      "{\"run_name\": \"lakematch-20260919-zr5-20260919T230816Z\", \"timeout_seconds\": 1500, \"performance_target\": \"STANDARD\", \"tasks\": [{\"task_key\": \"train\", \"timeout_seconds\": 600, \"notebook_task\": {\"notebook_path\": \"/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking\", \"base_parameters\": {\"mode\": \"train\", \"root\": \"/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z\", \"workspace_root\": \"/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z\"}}, \"environment_key\": \"model\"}, {\"task_key\": \"reload\", \"timeout_seconds\": 600, \"notebook_task\": {\"notebook_path\": \"/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking\", \"base_parameters\": {\"mode\": \"reload\", \"root\": \"/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z\", \"workspace_root\": \"/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z\"}}, \"environment_key\": \"model\", \"depends_on\": [{\"task_key\": \"train\"}]}], \"environments\": [{\"environment_key\": \"model\", \"spec\": {\"client\": \"4\", \"dependencies\": [\"mlflow==3.16.0\", \"pyyaml==6.0.3\"]}}]}"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "429596527159022",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run-output",
+      "994304813138118",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run-output",
+      "331156293211327",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "fs",
+      "cp",
+      "dbfs:/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z",
+      "data/remote_models/20260919T230816Z",
+      "--recursive",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ]
+  ],
+  "observed_cost": null,
+  "request": {
+    "run_name": "lakematch-20260919-zr5-20260919T230816Z",
+    "timeout_seconds": 1500,
+    "performance_target": "STANDARD",
+    "tasks": [
+      {
+        "task_key": "train",
+        "timeout_seconds": 600,
+        "notebook_task": {
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking",
+          "base_parameters": {
+            "mode": "train",
+            "root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z",
+            "workspace_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z"
+          }
+        },
+        "environment_key": "model"
+      },
+      {
+        "task_key": "reload",
+        "timeout_seconds": 600,
+        "notebook_task": {
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking",
+          "base_parameters": {
+            "mode": "reload",
+            "root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z",
+            "workspace_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z"
+          }
+        },
+        "environment_key": "model",
+        "depends_on": [
+          {
+            "task_key": "train"
+          }
+        ]
+      }
+    ],
+    "environments": [
+      {
+        "environment_key": "model",
+        "spec": {
+          "client": "4",
+          "dependencies": [
+            "mlflow==3.16.0",
+            "pyyaml==6.0.3"
+          ]
+        }
+      }
+    ]
+  },
+  "run": {
+    "cleanup_duration": 0,
+    "creator_user_name": "laurent.fabre@databricks.com",
+    "effective_performance_target": "STANDARD",
+    "end_time": 1789859834364,
+    "execution_duration": 0,
+    "job_id": 1008795551309030,
+    "job_run_id": 429596527159022,
+    "number_in_job": 429596527159022,
+    "run_duration": 527677,
+    "run_id": 429596527159022,
+    "run_name": "lakematch-20260919-zr5-20260919T230816Z",
+    "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1008795551309030/run/429596527159022",
+    "run_type": "SUBMIT_RUN",
+    "setup_duration": 0,
+    "start_time": 1789859306687,
+    "state": {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "state_message": "",
+      "user_cancelled_or_timedout": false
+    },
+    "status": {
+      "state": "TERMINATED",
+      "termination_details": {
+        "code": "SUCCESS",
+        "message": "",
+        "type": "SUCCESS"
+      }
+    },
+    "tasks": [
+      {
+        "attempt_number": 0,
+        "cleanup_duration": 1000,
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789859765750,
+        "environment_key": "model",
+        "execution_duration": 323000,
+        "notebook_task": {
+          "base_parameters": {
+            "mode": "train",
+            "root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z",
+            "workspace_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z"
+          },
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking",
+          "source": "WORKSPACE"
+        },
+        "run_id": 994304813138118,
+        "run_if": "ALL_SUCCESS",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1008795551309030/run/994304813138118",
+        "setup_duration": 135000,
+        "start_time": 1789859306714,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "task_key": "train"
+      },
+      {
+        "attempt_number": 0,
+        "cleanup_duration": 0,
+        "depends_on": [
+          {
+            "task_key": "train"
+          }
+        ],
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789859833912,
+        "environment_key": "model",
+        "execution_duration": 65000,
+        "notebook_task": {
+          "base_parameters": {
+            "mode": "reload",
+            "root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z",
+            "workspace_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z"
+          },
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking",
+          "source": "WORKSPACE"
+        },
+        "run_id": 331156293211327,
+        "run_if": "ALL_SUCCESS",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1008795551309030/run/331156293211327",
+        "setup_duration": 2000,
+        "start_time": 1789859766229,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "task_key": "reload"
+      }
+    ]
+  },
+  "outputs": {
+    "train": {
+      "metadata": {
+        "cleanup_duration": 1000,
+        "creator_user_name": "laurent.fabre@databricks.com",
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789859765750,
+        "execution_duration": 323000,
+        "job_id": 1008795551309030,
+        "job_run_id": 429596527159022,
+        "number_in_job": 994304813138118,
+        "run_id": 994304813138118,
+        "run_name": "train",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1008795551309030/run/994304813138118",
+        "run_type": "SUBMIT_RUN",
+        "setup_duration": 135000,
+        "start_time": 1789859306714,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "tasks": [
+          {
+            "attempt_number": 0,
+            "cleanup_duration": 1000,
+            "effective_performance_target": "STANDARD",
+            "end_time": 1789859765750,
+            "environment_key": "model",
+            "execution_duration": 323000,
+            "notebook_task": {
+              "base_parameters": {
+                "mode": "train",
+                "root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z",
+                "workspace_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z"
+              },
+              "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking",
+              "source": "WORKSPACE"
+            },
+            "run_id": 994304813138118,
+            "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1008795551309030/run/994304813138118",
+            "setup_duration": 135000,
+            "start_time": 1789859306714,
+            "state": {
+              "life_cycle_state": "TERMINATED",
+              "result_state": "SUCCESS",
+              "state_message": "",
+              "user_cancelled_or_timedout": false
+            },
+            "status": {
+              "state": "TERMINATED",
+              "termination_details": {
+                "code": "SUCCESS",
+                "message": "",
+                "type": "SUCCESS"
+              }
+            },
+            "task_key": "train"
+          }
+        ]
+      },
+      "notebook_output": {
+        "result": "{\"run_id\": \"d6ee845c458942679aa4d34bc0db3bc1\", \"model_uri\": \"runs:/d6ee845c458942679aa4d34bc0db3bc1/model\", \"logged_model_uri\": \"models:/m-8cd47eb7ccf646728a91eed3a595edbc\", \"label_set_sha256\": \"c68345a45f8c39a642d79169471653db30f9a1076e7dc262fdbe485484c58cd1\", \"artifact_bytes\": 142284, \"registry\": true, \"evaluation\": {\"true_negatives\": 12.0, \"false_positives\": 0.0, \"false_negatives\": 0.0, \"true_positives\": 4.0, \"example_count\": 16.0, \"accuracy_score\": 1.0, \"recall_score\": 1.0, \"precision_score\": 1.0, \"f1_score\": 1.0, \"pairwise_precision\": 1.0, \"pairwise_recall\": 1.0, \"pairwise_f1\": 1.0}, \"native_pyfunc_equivalence\": true, \"config\": {\"profile\": \"databricks\", \"runtime\": {\"mode\": \"serverless\", \"connect\": false, \"remote\": \"sc://localhost:15002\", \"materialize\": \"auto\", \"master\": \"local[2]\", \"cli_profile\": \"fevm-gdpr2\"}, \"classic\": {\"profile\": null}, \"storage\": {\"catalog\": null, \"root\": \"./data\", \"scratch_schema\": null}, \"entity\": {\"name\": \"tracking_canary\", \"id_column\": \"rec_id\", \"fields\": {\"name\": {\"type\": \"person_name\"}, \"code\": {\"type\": \"code\"}}}, \"candidates\": {\"method\": \"gram_topk\", \"q\": 3, \"k\": 5, \"idf_weighted\": true, \"gram_cap\": 400, \"max_join_rows\": 5000000, \"max_pairs\": 100, \"union_of\": [], \"field_blocks\": []}, \"features\": {\"string_similarity\": \"levenshtein\", \"multi_token\": [\"idf_token_cosine\"], \"udf_features\": false, \"field_families\": true, \"exclude_field_types\": [], \"max_tokens\": 64, \"max_chars\": 512, \"levenshtein_threshold\": 64, \"embeddings\": {\"fields_of_type\": [], \"provider\": \"none\", \"model\": \"data/models/all-MiniLM-L6-v2\"}}, \"matcher\": {\"estimator\": \"gbt\", \"max_model_mb\": 100, \"max_iter\": 3, \"max_depth\": 2, \"seed\": 0}, \"decision\": {\"threshold\": 0.5, \"cardinality\": \"one_to_one\"}, \"cluster\": {\"method\": \"verified_merge\", \"max_rounds\": 20}, \"quality\": {\"engine\": \"native\", \"checks\": []}, \"labels\": {\"llm\": \"none\", \"llm_tau\": 0.9}, \"mlflow\": {\"tracking_uri\": \"databricks\", \"registry\": true, \"model_name\": \"gdpr2_catalog.lakematch_20260919.pair_model\", \"registry_uri\": \"databricks-uc\", \"alias\": \"champion\", \"experiment\": \"lakematch\", \"acceptance_f1\": null}, \"paid_features\": {\"photon_on_classic\": false, \"serverless_performance_mode\": false, \"llm_labeller\": false, \"ai_functions\": false, \"embedding_endpoint\": false, \"ai_search_blocking\": false, \"lakebase_label_store\": false, \"app\": false, \"genie\": false, \"predictive_optimization\": false, \"data_quality_monitoring\": false, \"llm_judges_in_evaluation\": false, \"genie_auth_mode\": \"user\"}, \"input\": {\"left\": null, \"right\": null, \"labels\": null, \"validation_labels\": null, \"format\": \"csv\"}, \"output\": {\"root\": \"./data/output\"}, \"model\": {\"path\": \"./data/model\", \"pointer\": \"models/current.json\"}}, \"training_evaluation_records_disjoint\": true, \"spark\": \"4.2.0\", \"execution_seconds\": 288.5752332909999, \"name\": \"gdpr2_catalog.lakematch_20260919.pair_model\", \"version\": \"2\", \"alias\": \"champion\", \"immutable_model_uri\": \"models:/gdpr2_catalog.lakematch_20260919.pair_model/2\"}",
+        "truncated": false
+      }
+    },
+    "reload": {
+      "metadata": {
+        "cleanup_duration": 0,
+        "creator_user_name": "laurent.fabre@databricks.com",
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789859833912,
+        "execution_duration": 65000,
+        "job_id": 1008795551309030,
+        "job_run_id": 429596527159022,
+        "number_in_job": 331156293211327,
+        "run_id": 331156293211327,
+        "run_name": "reload",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1008795551309030/run/331156293211327",
+        "run_type": "SUBMIT_RUN",
+        "setup_duration": 2000,
+        "start_time": 1789859766229,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "tasks": [
+          {
+            "attempt_number": 0,
+            "cleanup_duration": 0,
+            "effective_performance_target": "STANDARD",
+            "end_time": 1789859833912,
+            "environment_key": "model",
+            "execution_duration": 65000,
+            "notebook_task": {
+              "base_parameters": {
+                "mode": "reload",
+                "root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/tracking_20260919T230816Z",
+                "workspace_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z"
+              },
+              "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/tracking_20260919T230816Z/tracking",
+              "source": "WORKSPACE"
+            },
+            "run_id": 331156293211327,
+            "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1008795551309030/run/331156293211327",
+            "setup_duration": 2000,
+            "start_time": 1789859766229,
+            "state": {
+              "life_cycle_state": "TERMINATED",
+              "result_state": "SUCCESS",
+              "state_message": "",
+              "user_cancelled_or_timedout": false
+            },
+            "status": {
+              "state": "TERMINATED",
+              "termination_details": {
+                "code": "SUCCESS",
+                "message": "",
+                "type": "SUCCESS"
+              }
+            },
+            "task_key": "reload"
+          }
+        ]
+      },
+      "notebook_output": {
+        "result": "{\"run_id\": \"d6ee845c458942679aa4d34bc0db3bc1\", \"model_uri\": \"runs:/d6ee845c458942679aa4d34bc0db3bc1/model\", \"logged_model_uri\": \"models:/m-8cd47eb7ccf646728a91eed3a595edbc\", \"label_set_sha256\": \"c68345a45f8c39a642d79169471653db30f9a1076e7dc262fdbe485484c58cd1\", \"artifact_bytes\": 142284, \"registry\": true, \"evaluation\": {\"true_negatives\": 12.0, \"false_positives\": 0.0, \"false_negatives\": 0.0, \"true_positives\": 4.0, \"example_count\": 16.0, \"accuracy_score\": 1.0, \"recall_score\": 1.0, \"precision_score\": 1.0, \"f1_score\": 1.0, \"pairwise_precision\": 1.0, \"pairwise_recall\": 1.0, \"pairwise_f1\": 1.0}, \"native_pyfunc_equivalence\": true, \"config\": {\"profile\": \"databricks\", \"runtime\": {\"mode\": \"serverless\", \"connect\": false, \"remote\": \"sc://localhost:15002\", \"materialize\": \"auto\", \"master\": \"local[2]\", \"cli_profile\": \"fevm-gdpr2\"}, \"classic\": {\"profile\": null}, \"storage\": {\"catalog\": null, \"root\": \"./data\", \"scratch_schema\": null}, \"entity\": {\"name\": \"tracking_canary\", \"id_column\": \"rec_id\", \"fields\": {\"name\": {\"type\": \"person_name\"}, \"code\": {\"type\": \"code\"}}}, \"candidates\": {\"method\": \"gram_topk\", \"q\": 3, \"k\": 5, \"idf_weighted\": true, \"gram_cap\": 400, \"max_join_rows\": 5000000, \"max_pairs\": 100, \"union_of\": [], \"field_blocks\": []}, \"features\": {\"string_similarity\": \"levenshtein\", \"multi_token\": [\"idf_token_cosine\"], \"udf_features\": false, \"field_families\": true, \"exclude_field_types\": [], \"max_tokens\": 64, \"max_chars\": 512, \"levenshtein_threshold\": 64, \"embeddings\": {\"fields_of_type\": [], \"provider\": \"none\", \"model\": \"data/models/all-MiniLM-L6-v2\"}}, \"matcher\": {\"estimator\": \"gbt\", \"max_model_mb\": 100, \"max_iter\": 3, \"max_depth\": 2, \"seed\": 0}, \"decision\": {\"threshold\": 0.5, \"cardinality\": \"one_to_one\"}, \"cluster\": {\"method\": \"verified_merge\", \"max_rounds\": 20}, \"quality\": {\"engine\": \"native\", \"checks\": []}, \"labels\": {\"llm\": \"none\", \"llm_tau\": 0.9}, \"mlflow\": {\"tracking_uri\": \"databricks\", \"registry\": true, \"model_name\": \"gdpr2_catalog.lakematch_20260919.pair_model\", \"registry_uri\": \"databricks-uc\", \"alias\": \"champion\", \"experiment\": \"lakematch\", \"acceptance_f1\": null}, \"paid_features\": {\"photon_on_classic\": false, \"serverless_performance_mode\": false, \"llm_labeller\": false, \"ai_functions\": false, \"embedding_endpoint\": false, \"ai_search_blocking\": false, \"lakebase_label_store\": false, \"app\": false, \"genie\": false, \"predictive_optimization\": false, \"data_quality_monitoring\": false, \"llm_judges_in_evaluation\": false, \"genie_auth_mode\": \"user\"}, \"input\": {\"left\": null, \"right\": null, \"labels\": null, \"validation_labels\": null, \"format\": \"csv\"}, \"output\": {\"root\": \"./data/output\"}, \"model\": {\"path\": \"./data/model\", \"pointer\": \"models/current.json\"}}, \"training_evaluation_records_disjoint\": true, \"spark\": \"4.2.0\", \"execution_seconds\": 288.5752332909999, \"name\": \"gdpr2_catalog.lakematch_20260919.pair_model\", \"version\": \"2\", \"alias\": \"champion\", \"immutable_model_uri\": \"models:/gdpr2_catalog.lakematch_20260919.pair_model/2\", \"fresh_session_equivalence\": true, \"maximum_probability_difference\": 4.579669976578771e-16, \"resolved_model_uri\": \"models:/gdpr2_catalog.lakematch_20260919.pair_model/2\", \"status\": \"completed\", \"cleanup\": \"succeeded\"}",
+        "truncated": false
+      }
+    }
+  },
+  "result": {
+    "run_id": "d6ee845c458942679aa4d34bc0db3bc1",
+    "model_uri": "runs:/d6ee845c458942679aa4d34bc0db3bc1/model",
+    "logged_model_uri": "models:/m-8cd47eb7ccf646728a91eed3a595edbc",
+    "label_set_sha256": "c68345a45f8c39a642d79169471653db30f9a1076e7dc262fdbe485484c58cd1",
+    "artifact_bytes": 142284,
+    "registry": true,
+    "evaluation": {
+      "true_negatives": 12.0,
+      "false_positives": 0.0,
+      "false_negatives": 0.0,
+      "true_positives": 4.0,
+      "example_count": 16.0,
+      "accuracy_score": 1.0,
+      "recall_score": 1.0,
+      "precision_score": 1.0,
+      "f1_score": 1.0,
+      "pairwise_precision": 1.0,
+      "pairwise_recall": 1.0,
+      "pairwise_f1": 1.0
+    },
+    "native_pyfunc_equivalence": true,
+    "config": {
+      "profile": "databricks",
+      "runtime": {
+        "mode": "serverless",
+        "connect": false,
+        "remote": "sc://localhost:15002",
+        "materialize": "auto",
+        "master": "local[2]",
+        "cli_profile": "fevm-gdpr2"
+      },
+      "classic": {
+        "profile": null
+      },
+      "storage": {
+        "catalog": null,
+        "root": "./data",
+        "scratch_schema": null
+      },
+      "entity": {
+        "name": "tracking_canary",
+        "id_column": "rec_id",
+        "fields": {
+          "name": {
+            "type": "person_name"
+          },
+          "code": {
+            "type": "code"
+          }
+        }
+      },
+      "candidates": {
+        "method": "gram_topk",
+        "q": 3,
+        "k": 5,
+        "idf_weighted": true,
+        "gram_cap": 400,
+        "max_join_rows": 5000000,
+        "max_pairs": 100,
+        "union_of": [],
+        "field_blocks": []
+      },
+      "features": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "matcher": {
+        "estimator": "gbt",
+        "max_model_mb": 100,
+        "max_iter": 3,
+        "max_depth": 2,
+        "seed": 0
+      },
+      "decision": {
+        "threshold": 0.5,
+        "cardinality": "one_to_one"
+      },
+      "cluster": {
+        "method": "verified_merge",
+        "max_rounds": 20
+      },
+      "quality": {
+        "engine": "native",
+        "checks": []
+      },
+      "labels": {
+        "llm": "none",
+        "llm_tau": 0.9
+      },
+      "mlflow": {
+        "tracking_uri": "databricks",
+        "registry": true,
+        "model_name": "gdpr2_catalog.lakematch_20260919.pair_model",
+        "registry_uri": "databricks-uc",
+        "alias": "champion",
+        "experiment": "lakematch",
+        "acceptance_f1": null
+      },
+      "paid_features": {
+        "photon_on_classic": false,
+        "serverless_performance_mode": false,
+        "llm_labeller": false,
+        "ai_functions": false,
+        "embedding_endpoint": false,
+        "ai_search_blocking": false,
+        "lakebase_label_store": false,
+        "app": false,
+        "genie": false,
+        "predictive_optimization": false,
+        "data_quality_monitoring": false,
+        "llm_judges_in_evaluation": false,
+        "genie_auth_mode": "user"
+      },
+      "input": {
+        "left": null,
+        "right": null,
+        "labels": null,
+        "validation_labels": null,
+        "format": "csv"
+      },
+      "output": {
+        "root": "./data/output"
+      },
+      "model": {
+        "path": "./data/model",
+        "pointer": "models/current.json"
+      }
+    },
+    "training_evaluation_records_disjoint": true,
+    "spark": "4.2.0",
+    "execution_seconds": 288.5752332909999,
+    "name": "gdpr2_catalog.lakematch_20260919.pair_model",
+    "version": "2",
+    "alias": "champion",
+    "immutable_model_uri": "models:/gdpr2_catalog.lakematch_20260919.pair_model/2",
+    "fresh_session_equivalence": true,
+    "maximum_probability_difference": 4.579669976578771e-16,
+    "resolved_model_uri": "models:/gdpr2_catalog.lakematch_20260919.pair_model/2",
+    "status": "completed",
+    "cleanup": "succeeded"
+  },
+  "exported_artifacts": {
+    "data/remote_models/20260919T230816Z/config.json": "fb59d57bad02e6b238b454ec3b82070569a0eded0dc94d5d5161c8e0a8262603",
+    "data/remote_models/20260919T230816Z/expected.json": "d307884f87fc2c1a19366e7887af89b0af3a7da5509e8cc10b151d26c5f51b33",
+    "data/remote_models/20260919T230816Z/fresh_loaded/MLmodel": "e81dd8c292135c948cb9509b5ac278b0ed892bc9d8e5886d0a6c37bc7418a58f",
+    "data/remote_models/20260919T230816Z/fresh_loaded/__pycache__/composite_model.cpython-312.pyc": "f8eddd52066d83fc151a708379794e3fc9e4dfd21f79ae84a6be19c6a87dbccd",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/contract.json": "1e6a89813197274e2b5b72092ba005dee8a0407308cb74ab6ce04aa241a260c6",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/integrity.json": "c60e35383955a398004f8c8447acca6670b02e66f0f6b68f7ae6b186fb1a9814",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/labels.json": "7e274146a280b21094ea21c39969ab6223730824629fde9507ce097e581d1c0f",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/metadata/_committed_93715992725261772": "d48dacd98a01d0198389656158c9efcb1f95d9b8cc2c04c3c523c5e47917993a",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/metadata/_started_93715992725261772": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/metadata/part-00000-tid-93715992725261772-bb8dd49f-1ab5-456e-ac54-e65c8e256b47-292-1-c000.txt": "06574b8f4d675de1a88125cff3750070964913ebee1cf26489b5e5d52e00db34",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/0_VectorAssembler_6c5d7dde224e/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/0_VectorAssembler_6c5d7dde224e/metadata/_committed_8024309366520049547": "ba773b32b75f11892aacb3d577f4fc6413f7e5c996d293e61e4d80e7b61d423b",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/0_VectorAssembler_6c5d7dde224e/metadata/_started_8024309366520049547": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/0_VectorAssembler_6c5d7dde224e/metadata/part-00000-tid-8024309366520049547-c41d7f2f-ba4b-451f-a1e6-41c40c9da6f9-293-1-c000.txt": "73c62c037f9d16e918e99cb504cf75efa9175503b4cc36d34b2371857203b414",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/data/_committed_6006313449654105250": "cffc72db145a98c1be89168448759ec352a9f08b55195d38081ad289a8e7f92b",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/data/_started_6006313449654105250": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/data/part-00000-tid-6006313449654105250-6deb3316-88ba-4162-b3b1-07db31f52c5e-307-1.c000.snappy.parquet": "e991612c5b39f73522b9f54101da490ad8f64002754e676c7269892b1ddad913",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/metadata/_committed_3792879497393061985": "6805eba279205ca9f9556017097938d7f4fe2431e3425edc9902204000409744",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/metadata/_started_3792879497393061985": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/metadata/part-00000-tid-3792879497393061985-35e43bfe-8afe-4813-95d3-771cd65f30fe-294-1-c000.txt": "dfe7b218dce7c859c00bf8f71c3a2c0e6ab0c19f11d2a82d9a117b141539d939",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/treesMetadata/_committed_8862829587171972557": "66d020890bcb9f29aca2a58c8ee1ef7cd57009b988d122b707fd85e7ccdff4cd",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/treesMetadata/_started_8862829587171972557": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/treesMetadata/part-00000-tid-8862829587171972557-ca49534a-012d-4458-9c84-9c1244b17414-298-1.c000.snappy.parquet": "5d25b1076519635da92d45a106cf4431c149376b0a2ea8a8f019f4c76dff6100",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/training_idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/training_idf/_committed_6160122370188140517": "e5db02b50b9409bd6a952bdbfebf7206b2ed1167bc534703e36a9d6b44e0c8eb",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/training_idf/_started_6160122370188140517": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/training_idf/part-00000-tid-6160122370188140517-3686c30a-336f-4fbd-a48e-d9130b8e67ce-145-1.c000.snappy.parquet": "9ea7c95305ec7c09be6c6b4897066109a22153cda126f02e239ca4f5682606cc",
+    "data/remote_models/20260919T230816Z/fresh_loaded/artifacts/training_idf/part-00001-tid-6160122370188140517-3686c30a-336f-4fbd-a48e-d9130b8e67ce-146-1.c000.snappy.parquet": "362628d99d20d011899af0c9c81de292652c960e5152fb63856395140e8558a8",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/candidates.py": "3c6f9971e4a742354a68828d6adcb11ba7dd2127d1288d0d6d4a8177587034ca",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/cli.py": "d78b9b24c7c41de10e469c30a779995a212b7e2a0ddbbbf65e4b08db1087458c",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/config.py": "9c34844eb0e10f2c1d1b7d74bba03518c7387f99b736550aa4d0ef48c42a8d79",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/engine.py": "f6dc551b62d6b04ca0e78ba74cf7fd50bf440c5a33eb70842a5f79e9a0f26353",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/runtime.py": "ee8e530fed3b2c7d235e6ed20d83ca38f305233cde5c7034df9901db84c7b483",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+    "data/remote_models/20260919T230816Z/fresh_loaded/code/lakematch/tracking.py": "8d93883c49d8f1cd7e734fd3b83967bd95201b9a85d2b5400fb08847ddc1eedf",
+    "data/remote_models/20260919T230816Z/fresh_loaded/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+    "data/remote_models/20260919T230816Z/fresh_loaded/conda.yaml": "a2f9493b65750e1d6b5e92ac317bf91f5a6971701d42ff0f8ba5cbb03232de65",
+    "data/remote_models/20260919T230816Z/fresh_loaded/input_example.json": "c52e7a7543578595d11697dd4e4779a8b61ba101ad29a734da1acfaeabb30364",
+    "data/remote_models/20260919T230816Z/fresh_loaded/metadata/MLmodel": "e81dd8c292135c948cb9509b5ac278b0ed892bc9d8e5886d0a6c37bc7418a58f",
+    "data/remote_models/20260919T230816Z/fresh_loaded/metadata/conda.yaml": "a2f9493b65750e1d6b5e92ac317bf91f5a6971701d42ff0f8ba5cbb03232de65",
+    "data/remote_models/20260919T230816Z/fresh_loaded/metadata/python_env.yaml": "a128c1697a6de7420b5a68c8ab640438b38fcc14f7d3dd69d5d161f9a4a219b7",
+    "data/remote_models/20260919T230816Z/fresh_loaded/metadata/requirements.txt": "1c27e4b280e59a1cbe6ef0ce22e3d23deba5921d8fd6281d61a9181aebee136e",
+    "data/remote_models/20260919T230816Z/fresh_loaded/python_env.yaml": "a128c1697a6de7420b5a68c8ab640438b38fcc14f7d3dd69d5d161f9a4a219b7",
+    "data/remote_models/20260919T230816Z/fresh_loaded/registered_model_meta": "0a27832091ddf073d100e42f6032b2239b553d78bd1c720017db58e8bdc935e7",
+    "data/remote_models/20260919T230816Z/fresh_loaded/requirements.txt": "1c27e4b280e59a1cbe6ef0ce22e3d23deba5921d8fd6281d61a9181aebee136e",
+    "data/remote_models/20260919T230816Z/fresh_loaded/serving_input_example.json": "321502711dbbc700a38bddfdf62e2835b932e94139e47a2dba83461625ab20a0",
+    "data/remote_models/20260919T230816Z/labels.json": "0681fb7591bb8d69e09c5187ec52d83ff99adc5bf79887127df3013b61617750",
+    "data/remote_models/20260919T230816Z/loaded/model/MLmodel": "e81dd8c292135c948cb9509b5ac278b0ed892bc9d8e5886d0a6c37bc7418a58f",
+    "data/remote_models/20260919T230816Z/loaded/model/__pycache__/composite_model.cpython-312.pyc": "eac5be18442f91aefd7cabd85573cd5446d1325c06a2bf74648ae5c140371693",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/contract.json": "1e6a89813197274e2b5b72092ba005dee8a0407308cb74ab6ce04aa241a260c6",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/integrity.json": "c60e35383955a398004f8c8447acca6670b02e66f0f6b68f7ae6b186fb1a9814",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/labels.json": "7e274146a280b21094ea21c39969ab6223730824629fde9507ce097e581d1c0f",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/metadata/_committed_93715992725261772": "d48dacd98a01d0198389656158c9efcb1f95d9b8cc2c04c3c523c5e47917993a",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/metadata/_started_93715992725261772": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/metadata/part-00000-tid-93715992725261772-bb8dd49f-1ab5-456e-ac54-e65c8e256b47-292-1-c000.txt": "06574b8f4d675de1a88125cff3750070964913ebee1cf26489b5e5d52e00db34",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/0_VectorAssembler_6c5d7dde224e/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/0_VectorAssembler_6c5d7dde224e/metadata/_committed_8024309366520049547": "ba773b32b75f11892aacb3d577f4fc6413f7e5c996d293e61e4d80e7b61d423b",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/0_VectorAssembler_6c5d7dde224e/metadata/_started_8024309366520049547": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/0_VectorAssembler_6c5d7dde224e/metadata/part-00000-tid-8024309366520049547-c41d7f2f-ba4b-451f-a1e6-41c40c9da6f9-293-1-c000.txt": "73c62c037f9d16e918e99cb504cf75efa9175503b4cc36d34b2371857203b414",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/data/_committed_6006313449654105250": "cffc72db145a98c1be89168448759ec352a9f08b55195d38081ad289a8e7f92b",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/data/_started_6006313449654105250": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/data/part-00000-tid-6006313449654105250-6deb3316-88ba-4162-b3b1-07db31f52c5e-307-1.c000.snappy.parquet": "e991612c5b39f73522b9f54101da490ad8f64002754e676c7269892b1ddad913",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/metadata/_committed_3792879497393061985": "6805eba279205ca9f9556017097938d7f4fe2431e3425edc9902204000409744",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/metadata/_started_3792879497393061985": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/metadata/part-00000-tid-3792879497393061985-35e43bfe-8afe-4813-95d3-771cd65f30fe-294-1-c000.txt": "dfe7b218dce7c859c00bf8f71c3a2c0e6ab0c19f11d2a82d9a117b141539d939",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/treesMetadata/_committed_8862829587171972557": "66d020890bcb9f29aca2a58c8ee1ef7cd57009b988d122b707fd85e7ccdff4cd",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/treesMetadata/_started_8862829587171972557": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_acaf4cdeb970/treesMetadata/part-00000-tid-8862829587171972557-ca49534a-012d-4458-9c84-9c1244b17414-298-1.c000.snappy.parquet": "5d25b1076519635da92d45a106cf4431c149376b0a2ea8a8f019f4c76dff6100",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/training_idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/training_idf/_committed_6160122370188140517": "e5db02b50b9409bd6a952bdbfebf7206b2ed1167bc534703e36a9d6b44e0c8eb",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/training_idf/_started_6160122370188140517": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/training_idf/part-00000-tid-6160122370188140517-3686c30a-336f-4fbd-a48e-d9130b8e67ce-145-1.c000.snappy.parquet": "9ea7c95305ec7c09be6c6b4897066109a22153cda126f02e239ca4f5682606cc",
+    "data/remote_models/20260919T230816Z/loaded/model/artifacts/training_idf/part-00001-tid-6160122370188140517-3686c30a-336f-4fbd-a48e-d9130b8e67ce-146-1.c000.snappy.parquet": "362628d99d20d011899af0c9c81de292652c960e5152fb63856395140e8558a8",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/candidates.py": "3c6f9971e4a742354a68828d6adcb11ba7dd2127d1288d0d6d4a8177587034ca",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/cli.py": "d78b9b24c7c41de10e469c30a779995a212b7e2a0ddbbbf65e4b08db1087458c",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/config.py": "9c34844eb0e10f2c1d1b7d74bba03518c7387f99b736550aa4d0ef48c42a8d79",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/engine.py": "f6dc551b62d6b04ca0e78ba74cf7fd50bf440c5a33eb70842a5f79e9a0f26353",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/runtime.py": "ee8e530fed3b2c7d235e6ed20d83ca38f305233cde5c7034df9901db84c7b483",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+    "data/remote_models/20260919T230816Z/loaded/model/code/lakematch/tracking.py": "8d93883c49d8f1cd7e734fd3b83967bd95201b9a85d2b5400fb08847ddc1eedf",
+    "data/remote_models/20260919T230816Z/loaded/model/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+    "data/remote_models/20260919T230816Z/loaded/model/conda.yaml": "a2f9493b65750e1d6b5e92ac317bf91f5a6971701d42ff0f8ba5cbb03232de65",
+    "data/remote_models/20260919T230816Z/loaded/model/input_example.json": "c52e7a7543578595d11697dd4e4779a8b61ba101ad29a734da1acfaeabb30364",
+    "data/remote_models/20260919T230816Z/loaded/model/metadata/MLmodel": "e81dd8c292135c948cb9509b5ac278b0ed892bc9d8e5886d0a6c37bc7418a58f",
+    "data/remote_models/20260919T230816Z/loaded/model/metadata/conda.yaml": "a2f9493b65750e1d6b5e92ac317bf91f5a6971701d42ff0f8ba5cbb03232de65",
+    "data/remote_models/20260919T230816Z/loaded/model/metadata/python_env.yaml": "a128c1697a6de7420b5a68c8ab640438b38fcc14f7d3dd69d5d161f9a4a219b7",
+    "data/remote_models/20260919T230816Z/loaded/model/metadata/requirements.txt": "1c27e4b280e59a1cbe6ef0ce22e3d23deba5921d8fd6281d61a9181aebee136e",
+    "data/remote_models/20260919T230816Z/loaded/model/python_env.yaml": "a128c1697a6de7420b5a68c8ab640438b38fcc14f7d3dd69d5d161f9a4a219b7",
+    "data/remote_models/20260919T230816Z/loaded/model/registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+    "data/remote_models/20260919T230816Z/loaded/model/requirements.txt": "1c27e4b280e59a1cbe6ef0ce22e3d23deba5921d8fd6281d61a9181aebee136e",
+    "data/remote_models/20260919T230816Z/loaded/model/serving_input_example.json": "321502711dbbc700a38bddfdf62e2835b932e94139e47a2dba83461625ab20a0",
+    "data/remote_models/20260919T230816Z/pairs.json": "459cc7cd5f44856e4604c7aa576da888bbe419c14a411c5cfc0288ce7e6b4959",
+    "data/remote_models/20260919T230816Z/report.json": "71e58c8d6581c0e323e2f5d0b4b96eeeeea8e1aee90e6e37da828566bab3dfbd",
+    "data/remote_models/20260919T230816Z/train.json": "a617c5ae6e68275b19349697ed551e82184df68fd01b89e59db91020a083e5af",
+    "data/remote_models/20260919T230816Z/training_idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/training_idf/_committed_6160122370188140517": "e5db02b50b9409bd6a952bdbfebf7206b2ed1167bc534703e36a9d6b44e0c8eb",
+    "data/remote_models/20260919T230816Z/training_idf/_started_6160122370188140517": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/remote_models/20260919T230816Z/training_idf/part-00000-tid-6160122370188140517-3686c30a-336f-4fbd-a48e-d9130b8e67ce-145-1.c000.snappy.parquet": "9ea7c95305ec7c09be6c6b4897066109a22153cda126f02e239ca4f5682606cc",
+    "data/remote_models/20260919T230816Z/training_idf/part-00001-tid-6160122370188140517-3686c30a-336f-4fbd-a48e-d9130b8e67ce-146-1.c000.snappy.parquet": "362628d99d20d011899af0c9c81de292652c960e5152fb63856395140e8558a8"
+  },
+  "status": "completed",
+  "cleanup": "terminal serverless run; no persistent compute",
+  "ended_at": "2026-09-19T23:17:29.024628+00:00"
+}

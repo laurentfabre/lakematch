@@ -79,3 +79,11 @@ The resulting finite pass repeats the prior configurations and adds only these
 predeclared removals. Same partitions, seeds, model parameters and 900-second
 per-corpus limits; confirmation remains unscored. No threshold or default is
 selected from the historical invalid attempt. This is iteration 4 of the cap of 8.
+
+## Integration verification repeat (iteration 5)
+
+Repeat the exact iteration-4 variants after adding composite MLflow tracking,
+CLI integration and session reuse helpers. Native comparison expressions and
+feature-family settings are unchanged. This supplies compatible-source evidence
+after the shared config/runtime changed. There is no new selection sweep, no
+confirmation scoring and no change to any corpus, partition, seed or run limit.

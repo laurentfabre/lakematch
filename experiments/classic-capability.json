@@ -1,0 +1,12 @@
+{
+  "profile": "fevm-gdpr2",
+  "status": "unsupported",
+  "operation": "Jobs submit with a policy-compatible classic job cluster",
+  "error": "Only serverless compute is supported in the workspace.",
+  "run_id": null,
+  "cluster_id": null,
+  "experiment": "20260919T231841Z-classic-job-preflight-05d439",
+  "manifest": "experiments/20260919T231841Z-classic-job-preflight-05d439/manifest.json",
+  "stderr_sha256": "998569625a83c9758a4ec64e286a6d5fe1e619537e04b3e3c6dd624cbf1e8dfe",
+  "next_requirement": "Classic compute must be enabled on the selected workspace; do not substitute another profile without explicit user selection."
+}

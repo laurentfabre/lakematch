@@ -13,7 +13,7 @@ def verifier():
     return module
 
 
-@pytest.mark.parametrize("phase", range(3, 10))
+@pytest.mark.parametrize("phase", [3, 4, 6, 7, 8, 9])
 def test_unimplemented_phases_cannot_pass(phase):
     assert verifier().verify(phase)
 
@@ -30,3 +30,10 @@ def test_phase2_requires_compatible_hashed_experiment_artifacts(monkeypatch):
     monkeypatch.setattr(module, "sha256", lambda *args: "changed-content")
     errors = module.verify(2)
     assert sum("Missing compatible-source ablation-" in message for message in errors) == 4
+
+
+def test_phase5_requires_hashed_local_and_remote_model_evidence(monkeypatch):
+    module = verifier()
+    monkeypatch.setattr(module, "sha256", lambda *args: "changed-content")
+    errors = module.verify(5)
+    assert sum("Missing compatible-source tracking-" in message for message in errors) == 4

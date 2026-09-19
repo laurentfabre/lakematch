@@ -10,6 +10,93 @@ import xml.etree.ElementTree as ET
 from evidence import ROOT, sha256, source_digest
 
 
+def verify_tracking():
+    errors = verify(1)
+    ledger = ROOT / "experiments" / "runs.jsonl"
+    records = [json.loads(line) for line in ledger.read_text().splitlines() if line]
+    package = {"src/lakematch/" + name + ".py" for name in (
+        "__init__", "composite_model", "tracking", "config", "runtime", "entity", "features", "feature_stats",
+        "similarity", "embeddings", "matcher", "decision")}
+    shared = package | {"pyproject.toml", "tools/tracking_canary.py"}
+    results = {}
+    for kind, specific in {
+        "tracking-train": {"tools/offline.sb", "tools/offline_run.py"},
+        "tracking-reload": {"tools/offline.sb", "tools/offline_run.py"},
+        "tracking-cli": {"src/lakematch/engine.py", "src/lakematch/candidates.py", "src/lakematch/cli.py",
+                         "src/lakematch/quality/native.py", "src/lakematch/quality/__init__.py", "tools/tracking_cli_check.py"},
+        "tracking-serverless": {"tools/run_tracking_remote.py", "tools/tracking_notebook.py"},
+    }.items():
+        dependencies = shared | specific
+        eligible = []
+        for event in records:
+            if event["phase"] != "ZR-5" or event["kind"] != kind:
+                continue
+            manifest = json.loads((ROOT / event["manifest"]).read_text())
+            recorded = manifest["source_files"]
+            if all(p in recorded and (ROOT / p).is_file() and sha256(ROOT / p) == recorded[p] for p in dependencies):
+                eligible.append((event, manifest))
+        if not eligible:
+            errors.append(f"Missing compatible-source {kind} evidence")
+            continue
+        event, manifest = eligible[-1]
+        if event["status"] != "passed" or manifest["exit_code"] != 0 or "no live members" not in manifest["cleanup"]:
+            errors.append(f"Latest {kind} did not complete with cleanup")
+            continue
+        stdout, report = "", None
+        for artifact in manifest["artifacts"]:
+            path = ROOT / artifact["path"]
+            if not path.is_file() or sha256(path) != artifact["sha256"]:
+                errors.append(f"Missing or changed tracking evidence: {path}")
+                continue
+            if path.name == "stdout.txt":
+                stdout = path.read_text()
+            if path.name in {"train.json", "report.json", "tracking-remote.json"}:
+                report = json.loads(path.read_text())
+        if not report:
+            errors.append(f"Missing structured {kind} report")
+            continue
+        if kind != "tracking-serverless" and "Verified OS denies non-loopback network access" not in stdout:
+            errors.append(f"Missing offline assertion: {kind}")
+        if kind == "tracking-cli":
+            if (report.get("status") != "completed" or report.get("cleanup") != "succeeded" or
+                    report.get("fresh_cli_prediction_equivalence") is not True or not report["train"]["model"]["accepted"]):
+                errors.append("CLI did not accept then reload the same evaluated model")
+            continue
+        if kind == "tracking-serverless":
+            if (report.get("profile") != "fevm-gdpr2" or report.get("status") != "completed" or
+                    report.get("cleanup") != "terminal serverless run; no persistent compute" or
+                    report.get("run", {}).get("state", {}).get("result_state") != "SUCCESS"):
+                errors.append("Remote tracking did not complete on the selected workspace")
+            tasks = report.get("run", {}).get("tasks", [])
+            if len(tasks) != 2 or len({t.get("run_id") for t in tasks}) != 2 or any(
+                    t.get("state", {}).get("result_state") != "SUCCESS" for t in tasks):
+                errors.append("Missing separate successful train/reload task evidence")
+            exported = report.get("exported_artifacts", {})
+            if not exported or any(not (ROOT / p).is_file() or sha256(ROOT / p) != h for p, h in exported.items()):
+                errors.append("Remote model/evidence export is missing or changed")
+            report = report.get("result", {})
+            if (not report.get("registry") or report.get("alias") != "champion" or
+                    report.get("resolved_model_uri") != f"models:/{report.get('name')}/{report.get('version')}"):
+                errors.append("Champion alias did not resolve to the immutable UC version")
+        if (report.get("native_pyfunc_equivalence") is not True or
+                report.get("training_evaluation_records_disjoint") is not True or
+                report.get("evaluation", {}).get("pairwise_f1") != 1. or not report.get("label_set_sha256") or
+                not 0 < report.get("artifact_bytes", 0) < 100 * 1024 * 1024):
+            errors.append(f"Incomplete composite model/evaluation/size evidence: {kind}")
+        if kind != "tracking-train" and (report.get("fresh_session_equivalence") is not True or
+                report.get("maximum_probability_difference", 1.) >= 1e-12):
+            errors.append(f"Fresh-session predictions differ: {kind}")
+        if kind == "tracking-reload" and (report.get("local_registered_models") != 0 or not report.get("accepted_pointer")):
+            errors.append("Local model did not use accepted-run tracking without a registry")
+        results[kind] = report
+    if "tracking-train" in results and "tracking-reload" in results and (
+            results["tracking-train"]["run_id"] != results["tracking-reload"]["run_id"]):
+        errors.append("Fresh-session evidence reloads a different local MLflow run")
+    if not (ROOT / "bench/MODELS.md").is_file():
+        errors.append("Missing composite model report")
+    return errors
+
+
 def verify_features():
     errors = verify(1)
     ledger = ROOT / "experiments" / "runs.jsonl"
@@ -85,6 +172,8 @@ def verify(phase):
         return ["Phase must be an integer from 1 to 9"]
     if phase == 2:
         return verify_features()
+    if phase == 5:
+        return verify_tracking()
     if phase != 1:
         return [f"ZR-{phase}: implementation and full acceptance evidence are pending; see goal.md"]
     package = tomllib.loads((ROOT / "pyproject.toml").read_text())
