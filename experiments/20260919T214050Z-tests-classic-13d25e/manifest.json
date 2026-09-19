@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T214050Z-tests-classic-13d25e",
+  "phase": "ZR-1",
+  "kind": "tests-classic",
+  "hypothesis": "The complete suite passes with no skips on classic local Spark",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "6978d122f5ffa682fcd84e98d270e2f2942c57c9956c96f0e45052584fcb49ef",
+  "source_files": {
+    ".python-version": "aa0d6581054e6e4ff3f91839deca7a854ad37221b8784d060b42d0f847ff1a3b",
+    "examples/data/labels.csv": "c465224c3f85ecac8b6a0f7458183df2fb5b3fe30224e18faa0078dd688fedf2",
+    "examples/data/left.csv": "74212e14006a782ae7593b874e887d254e5aa5dfa048fbfeb3de1dfce9348587",
+    "examples/data/right.csv": "b00c96532331c34b441fb805039a2039fb89682bdea9a1862544f28f2a79c54c",
+    "examples/febrl4.yaml": "208afa147ffd7e3e9a57c0a01544ab1e32d3c7a149c5ea3c5c154788e5fd7bd8",
+    "examples/synthetic.yaml": "40a09a87cf0485121ad32b2eb6d038d349259831d443a83aac0f19e5abe142be",
+    "pyproject.toml": "209719814195b5efd21142380ee5fbf1ca6cdf862c96acb09c67e2e6852b576d",
+    "requirements-local.lock": "d9e11d0af481b13fb9c31fb52016d02fca097badb872f46f1b195bb837f49b4c",
+    "src/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "src/lakematch/candidates.py": "3c6f9971e4a742354a68828d6adcb11ba7dd2127d1288d0d6d4a8177587034ca",
+    "src/lakematch/cli.py": "e034ec6cd152b501312642d55df99ed8a0e37d216b8b705e84d1da4defc3f000",
+    "src/lakematch/config.py": "b356f180927f47cd20d7936b560b851eb484fc5977a7e24a2884b31bc458fb13",
+    "src/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "src/lakematch/engine.py": "5b14247f3e6fa00d41a2a5d932ec083e023ac1b52d73768a597a29bd9e18f0ca",
+    "src/lakematch/entity.py": "e1529f3d8a95366363c427e07b1121695d3fe9c04b1d97c0d013c034c441e399",
+    "src/lakematch/features.py": "5cde85fb0084fd473ef1935d540c2241a2575c48f2957c32097008eb78514eef",
+    "src/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "src/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+    "src/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "src/lakematch/runtime.py": "99a39ee010ce088d8dc3545f15cf7734517c2070148e96a9e1bec01ca2440e4e",
+    "tests/conftest.py": "e5c6d18f2583442e4c8b19872b76347a955b4b8c866db7928596f37f3e5abb46",
+    "tests/test_config.py": "6680b338b1e07e4820fa1034a3c19b6cdcb2b60dcad0ac049309ebfc2b6ebabe",
+    "tests/test_engine.py": "562d7ec4fa85712b426c69daa8445a55625deaf8088109810e56d8a2a5e38f0e",
+    "tests/test_verifier.py": "73cc7957e7b39522979d7828972b6fc561a6600d558f9400d92fa15711ab676e",
+    "tools/accept_zr1.py": "5e1ce80f11ddd7522f1039e129803b937342259dc5798c63ec9171b0e07d100d",
+    "tools/connect_tests.py": "c8622ee76bc8fa1cb459f8329c69d79aaaf0aef83d3a790e8b727885d443fad6",
+    "tools/evidence.py": "441692f94f915641d89bf75c7ed4702b62929b77bb2f3465c0d13e258e8fd43f",
+    "tools/experiment.py": "d5bf1677e888ee76f41b751c9358c14be601c6677f46ca4b77b56a3b988e3470",
+    "tools/offline.sb": "cf35cca89f2e1b677995e788c0fe365bf627c641f260a3e4ea80cbde31a0c60e",
+    "tools/offline_run.py": "6654e62deb0eccb1328b0f7b6637b32104574dfae9fbc8d95733ef4a25b1db9c",
+    "tools/package_check.py": "244cfa21513ce2c895f9b89c0237be7ccecd387b17d9d6f43d1374f83178f1ad",
+    "tools/prepare_febrl.py": "284b007bc73143eb3067c85ffecb68bdda828f92283e170489657bd338d5aa32",
+    "tools/verify.py": "2bd1044cb29f4e2e88ae42325a09b4841babca529736e208892cb67b1a9dac9f",
+    "verify_zr.sh": "38545cbae71a64e7b29845738dd645bf0732fcda548b653e2e3ede52901495a9"
+  },
+  "command": [
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--junitxml=experiments/tests-classic.xml"
+  ],
+  "started_at": "2026-09-19T21:40:50.563757+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 300,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T214050Z-tests-classic-13d25e/stdout.txt",
+      "sha256": "0b2b5dbf3cbce4a3406c8041126a872c9bbf49e82f8a626be294ec2c3e67e967",
+      "bytes": 100
+    },
+    {
+      "path": "experiments/20260919T214050Z-tests-classic-13d25e/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T214050Z-tests-classic-13d25e/evidence/tests-classic.xml",
+      "sha256": "84612f4d0047f50cf8ca1cb5084fd29c4eab79fab1ec4836111cefd7e8e916e1",
+      "bytes": 4714
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 22.288186624995433,
+  "ended_at": "2026-09-19T21:41:12.903640+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T212733Z-package-build-ed4b8c",
+  "phase": "ZR-1",
+  "kind": "package-build",
+  "hypothesis": "The wheel installs independently and the repository remains private",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "b207875989358f2aef9ad91936ee1bdd5c96cf1752ad4be9086188a4da56f5fe",
+  "command": [
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "tools/package_check.py"
+  ],
+  "started_at": "2026-09-19T21:27:33.750933+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 300,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T212733Z-package-build-ed4b8c/stdout.txt",
+      "sha256": "da338ce7946705a14302f42b7a57f24f0f7a2429dc22e14835874b1cb4d224d4",
+      "bytes": 246
+    },
+    {
+      "path": "experiments/20260919T212733Z-package-build-ed4b8c/stderr.txt",
+      "sha256": "6cc938010c4be96a5ed4f5ea509ac37b0637f329f94f21ad61ecd3dd4359c731",
+      "bytes": 331
+    },
+    {
+      "path": "experiments/20260919T212733Z-package-build-ed4b8c/evidence/lakematch-0.1.0-py3-none-any.whl",
+      "sha256": "31c01dc08932e47933dfd09ff5da700af7007297032986e025ae01fb3050005f",
+      "bytes": 20064
+    },
+    {
+      "path": "experiments/20260919T212733Z-package-build-ed4b8c/evidence/repository.json",
+      "sha256": "0fe075e48aaf7e773f04f634e214a342ccb176856acff55057bd1a9dbc1f7f4d",
+      "bytes": 105
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 1.5844316249713302,
+  "ended_at": "2026-09-19T21:27:35.375991+00:00"
+}

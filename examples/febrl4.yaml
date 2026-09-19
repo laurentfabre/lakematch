@@ -1,0 +1,29 @@
+profile: laptop
+entity:
+  name: febrl4
+  fields:
+    given_name: {type: person_name}
+    surname: {type: person_name}
+    street_number: {type: code}
+    address_1: {type: address}
+    address_2: {type: address}
+    suburb: {type: address}
+    postcode: {type: code}
+    state: {type: code}
+    date_of_birth: {type: date}
+    soc_sec_id: {type: code}
+candidates:
+  k: 5
+  gram_cap: 400
+  max_join_rows: 50000000
+  max_pairs: 25000
+features:
+  embeddings: {provider: none}
+matcher: {estimator: gbt, max_iter: 20, max_depth: 3}
+decision: {threshold: 0.5, cardinality: one_to_one}
+input:
+  left: data/febrl4/left.csv
+  right: data/febrl4/right.csv
+  labels: data/febrl4/labels.csv
+model: {path: data/febrl4/model}
+output: {root: data/febrl4/output}

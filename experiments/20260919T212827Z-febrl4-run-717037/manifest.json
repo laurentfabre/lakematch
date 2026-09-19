@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T212827Z-febrl4-run-717037",
+  "phase": "ZR-1",
+  "kind": "febrl4-run",
+  "hypothesis": "Full prepared original FEBRL4 produces links within the predeclared candidate budgets",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "b207875989358f2aef9ad91936ee1bdd5c96cf1752ad4be9086188a4da56f5fe",
+  "command": [
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "-m",
+    "lakematch.cli",
+    "run",
+    "--config",
+    "examples/febrl4.yaml"
+  ],
+  "started_at": "2026-09-19T21:28:27.093818+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 300,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": {
+    "path": "examples/febrl4.yaml",
+    "sha256": "208afa147ffd7e3e9a57c0a01544ab1e32d3c7a149c5ea3c5c154788e5fd7bd8"
+  },
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T212827Z-febrl4-run-717037/stdout.txt",
+      "sha256": "ac58fe5580357429f3bd86fe9e556329de407b10822d6eaddb73416239ac854a",
+      "bytes": 832
+    },
+    {
+      "path": "experiments/20260919T212827Z-febrl4-run-717037/stderr.txt",
+      "sha256": "dd5da781dab6017d553ef9ce0bd1cc3cc78640432d9f7b693a1d4567dcb09dd9",
+      "bytes": 3329
+    },
+    {
+      "path": "experiments/20260919T212827Z-febrl4-run-717037/evidence/metrics.json",
+      "sha256": "ac58fe5580357429f3bd86fe9e556329de407b10822d6eaddb73416239ac854a",
+      "bytes": 832
+    },
+    {
+      "path": "experiments/20260919T212827Z-febrl4-run-717037/evidence/manifest.json",
+      "sha256": "148e704b9bee3e5d619fa72b787eb864c2132b06ec58e6d86dc29340b167db5f",
+      "bytes": 802
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 69.96397466596682,
+  "ended_at": "2026-09-19T21:29:37.098081+00:00"
+}

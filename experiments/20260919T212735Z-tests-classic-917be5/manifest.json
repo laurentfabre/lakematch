@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T212735Z-tests-classic-917be5",
+  "phase": "ZR-1",
+  "kind": "tests-classic",
+  "hypothesis": "The complete suite passes with no skips on classic local Spark",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "b207875989358f2aef9ad91936ee1bdd5c96cf1752ad4be9086188a4da56f5fe",
+  "command": [
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--junitxml=experiments/tests-classic.xml"
+  ],
+  "started_at": "2026-09-19T21:27:35.431429+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 300,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T212735Z-tests-classic-917be5/stdout.txt",
+      "sha256": "947ae4cc7a12b6b1b8db3f6acaeb831c0eebd407a74b924458b9a94fc3e6d532",
+      "bytes": 100
+    },
+    {
+      "path": "experiments/20260919T212735Z-tests-classic-917be5/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T212735Z-tests-classic-917be5/evidence/tests-classic.xml",
+      "sha256": "35ff1e9d1519307ae3914ebce8e4d4cc57378cf0a6d96b9ec3b493e80a4c265b",
+      "bytes": 4593
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 20.694381166948006,
+  "ended_at": "2026-09-19T21:27:56.171046+00:00"
+}

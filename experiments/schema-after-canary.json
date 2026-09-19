@@ -1,0 +1,23 @@
+{
+  "browse_only": false,
+  "catalog_name": "gdpr2_catalog",
+  "catalog_type": "MANAGED_CATALOG",
+  "comment": "lakematch campaign; public/synthetic corpora only; owned by Laurent Fabre",
+  "created_at": 1789852679381,
+  "created_by": "laurent.fabre@databricks.com",
+  "effective_predictive_optimization_flag": {
+    "value": "DISABLE"
+  },
+  "enable_predictive_optimization": "DISABLE",
+  "full_name": "gdpr2_catalog.lakematch_20260919",
+  "metastore_id": "9e4a709c-7388-4208-b90f-206a61cb2c40",
+  "name": "lakematch_20260919",
+  "owner": "laurent.fabre@databricks.com",
+  "properties": {
+    "owner": "laurent.fabre@databricks.com",
+    "unity.catalog.resourceId": "504b32bc-479d-439e-8783-bfbf8ab92389"
+  },
+  "schema_id": "504b32bc-479d-439e-8783-bfbf8ab92389",
+  "updated_at": 1789853666571,
+  "updated_by": "laurent.fabre@databricks.com"
+}

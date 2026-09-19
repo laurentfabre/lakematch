@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T211515Z-tests-classic-436a1b",
+  "phase": "ZR-1",
+  "kind": "tests-classic",
+  "hypothesis": "Allowing localhost sockets resolves sandbox startup failure; native engine satisfies numerical and lifecycle contracts",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "b3a9fcab4bb21b98953410dc8704790a401e9818899c5838287640a524fed2a3",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--junitxml=experiments/tests-classic.xml"
+  ],
+  "started_at": "2026-09-19T21:15:15.390312+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 600,
+    "remote_spend": 0,
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T211515Z-tests-classic-436a1b/stdout.txt",
+      "sha256": "844aee10ec21067d3594300328f68377ebc4211a4c79e335a4b265c4d0b9782e",
+      "bytes": 100
+    },
+    {
+      "path": "experiments/20260919T211515Z-tests-classic-436a1b/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/tests-classic.xml",
+      "sha256": "a6bad76a6400c3974fc2f825f1843699ee8c708f2510a005fa48e22aa1723488",
+      "bytes": 3641
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 21.07875391689595,
+  "ended_at": "2026-09-19T21:15:36.505700+00:00"
+}

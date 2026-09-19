@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-09-19T21:55:14.683366+00:00",
+  "profile": "fevm-gdpr2",
+  "owned_clusters": [],
+  "campaign_tables": [],
+  "shared_warehouse": {
+    "id": "4aaa742e4712c3c9",
+    "state": "STOPPED",
+    "ownership": "shared; read only, never started or stopped by this campaign"
+  },
+  "serverless_runs": [
+    {
+      "run_id": 280837437066970,
+      "state": "TERMINATED",
+      "result": "SUCCESS"
+    },
+    {
+      "run_id": 954441146199150,
+      "state": "INTERNAL_ERROR",
+      "result": "TIMEDOUT"
+    },
+    {
+      "run_id": 667945925462279,
+      "state": "TERMINATED",
+      "result": "SUCCESS"
+    }
+  ],
+  "campaign_apps_created": [],
+  "billing": "unreconciled; no zero-cost claim",
+  "durable_artifacts": "preserved in the campaign UC volume and local experiment evidence"
+}

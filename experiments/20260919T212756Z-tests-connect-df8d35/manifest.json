@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T212756Z-tests-connect-df8d35",
+  "phase": "ZR-1",
+  "kind": "tests-connect",
+  "hypothesis": "The identical suite passes with no skips through local Spark Connect",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "b207875989358f2aef9ad91936ee1bdd5c96cf1752ad4be9086188a4da56f5fe",
+  "command": [
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "tools/connect_tests.py"
+  ],
+  "started_at": "2026-09-19T21:27:56.225475+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 300,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T212756Z-tests-connect-df8d35/stdout.txt",
+      "sha256": "6917bc7639a11fa2ae90d8c45b329e53bd078fed352c81faa3ca471f3a82af7c",
+      "bytes": 100
+    },
+    {
+      "path": "experiments/20260919T212756Z-tests-connect-df8d35/stderr.txt",
+      "sha256": "d01f4fa8628cd1afc564f9aaf03f43e8ce6561914250ad5fd8b51f16200ad8bf",
+      "bytes": 1380152
+    },
+    {
+      "path": "experiments/20260919T212756Z-tests-connect-df8d35/evidence/tests-connect.xml",
+      "sha256": "37dad202ec4e5daade06e9f3d2717e5d013c97620321b1f8bc865583321c89b0",
+      "bytes": 4593
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 18.77466929203365,
+  "ended_at": "2026-09-19T21:28:15.042600+00:00"
+}

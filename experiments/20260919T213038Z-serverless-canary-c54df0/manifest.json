@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T213038Z-serverless-canary-c54df0",
+  "phase": "ENV",
+  "kind": "serverless-canary",
+  "hypothesis": "FEVM serverless supports the same native engine, table materialization and MLlib model round-trip on a bounded synthetic fixture",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "b207875989358f2aef9ad91936ee1bdd5c96cf1752ad4be9086188a4da56f5fe",
+  "command": [
+    ".venv/bin/python",
+    "tools/run_serverless_canary.py",
+    "--profile",
+    "fevm-gdpr2",
+    "--report",
+    "experiments/serverless-canary.json"
+  ],
+  "started_at": "2026-09-19T21:30:38.702385+00:00",
+  "status": "failed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": null,
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 1200,
+    "remote_spend": null,
+    "cost_status": "unreconciled",
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T213038Z-serverless-canary-c54df0/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T213038Z-serverless-canary-c54df0/stderr.txt",
+      "sha256": "d44a28bed0f0fab6a54316bf5a5357337cad836623f389d70bbbff290c4a8a21",
+      "bytes": 1015
+    },
+    {
+      "path": "experiments/20260919T213038Z-serverless-canary-c54df0/evidence/serverless-canary.json",
+      "sha256": "0492dda1f5f0b38abda6328a6b444b405cd1107011c4a1d169a27dfd08bfe723",
+      "bytes": 538
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 1,
+  "wall_seconds": 4.202151207951829,
+  "ended_at": "2026-09-19T21:30:42.949428+00:00"
+}

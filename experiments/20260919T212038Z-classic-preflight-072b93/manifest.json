@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T212038Z-classic-preflight-072b93",
+  "phase": "ENV",
+  "kind": "classic-preflight",
+  "hypothesis": "A longer bounded API request window resolves the initial cluster-create timeout; existing campaign resources are reused",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "2da8edb5905940fcad1f89362481c8f379bfb57e0f645d3accd3d06d6c35da12",
+  "command": [
+    ".venv/bin/python",
+    "tools/env_preflight.py",
+    "--profile",
+    "fevm-gdpr2",
+    "--report",
+    "experiments/env-preflight.json"
+  ],
+  "started_at": "2026-09-19T21:20:38.911907+00:00",
+  "status": "failed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": null,
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 1500,
+    "remote_spend": null,
+    "cost_status": "unreconciled",
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T212038Z-classic-preflight-072b93/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T212038Z-classic-preflight-072b93/stderr.txt",
+      "sha256": "9821a7a87e5374c00ba4f8f048bde061b79229f22e6f641bc0ce5ae1a3134cac",
+      "bytes": 2382
+    },
+    {
+      "path": "experiments/20260919T212038Z-classic-preflight-072b93/evidence/env-preflight.json",
+      "sha256": "92f6d4f9b3321c9cf045d0a3cdacebe813c1c8d7434a3cfb19530fd84669e8da",
+      "bytes": 12486
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 1,
+  "wall_seconds": 241.07938708295114,
+  "ended_at": "2026-09-19T21:24:40.040469+00:00"
+}

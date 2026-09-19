@@ -9,3 +9,27 @@ spec/bench/work/
 .databricks/
 .env
 *.env
+
+# Experiment evidence: commit the spine (runs.jsonl, manifest.json, ENVIRONMENT.md, bench/*.md),
+# ignore the bulk per-run artifacts.
+experiments/*/predictions*
+experiments/*/stdout*
+experiments/*/stderr*
+experiments/*/*profile*
+experiments/*/artifacts/
+
+# Local toolchains, build outputs and Spark state.
+.tools/
+.pytest_cache/
+.cache/
+dist/
+build/
+*.egg-info/
+spark-warehouse/
+artifacts/
+derby.log
+metastore_db/
+
+# Tiny synthetic fixtures are source inputs, not downloaded corpus data.
+!examples/data/
+!examples/data/*.csv

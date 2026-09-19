@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T211756Z-classic-preflight-7982c4",
+  "phase": "ENV",
+  "kind": "classic-preflight",
+  "hypothesis": "Selected FEVM permits owned UC resources and a policy-compatible single-node classic cluster, followed by verified termination",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "99ad5820cd7eb17d91d15c4604baa6e5230f9a30605313fe9fbf6affc3316b07",
+  "command": [
+    ".venv/bin/python",
+    "tools/env_preflight.py",
+    "--profile",
+    "fevm-gdpr2",
+    "--report",
+    "experiments/env-preflight.json"
+  ],
+  "started_at": "2026-09-19T21:17:56.366423+00:00",
+  "status": "failed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": null,
+    "workspace": "https://fevm-gdpr2.cloud.databricks.com"
+  },
+  "budget": {
+    "timeout_seconds": 1400,
+    "remote_spend": null,
+    "parallel_experiments": 1,
+    "cost_status": "unreconciled; no cluster found after request timeout"
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T211756Z-classic-preflight-7982c4/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T211756Z-classic-preflight-7982c4/stderr.txt",
+      "sha256": "df3cd2804f9135419fb8ddd4785a9cee903eba930f21df3709d13ed54c74b885",
+      "bytes": 2285
+    },
+    {
+      "path": "experiments/20260919T211756Z-classic-preflight-7982c4/evidence/env-preflight.json",
+      "sha256": "f83a3a5404d18274852e2145da9751c3973e274326d9d67be7940ea56d8269cd",
+      "bytes": 11894
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 1,
+  "wall_seconds": 91.44070508296136,
+  "ended_at": "2026-09-19T21:19:27.851635+00:00",
+  "evidence_correction": "Initial generic runner incorrectly used local-only zero-spend default; corrected to unknown for remote preflight."
+}

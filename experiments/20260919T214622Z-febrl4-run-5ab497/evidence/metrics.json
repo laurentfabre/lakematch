@@ -1,0 +1,39 @@
+{
+  "capabilities": {
+    "spark_version": "4.1.3",
+    "connect": false,
+    "cache": true,
+    "cache_observation": "cache and count succeeded",
+    "photon": "untested: requires query-profile evidence"
+  },
+  "candidate_budget": {
+    "join_rows_before_cap": 143404079,
+    "join_rows_after_cap": 34238182,
+    "dropped_grams": 115,
+    "candidate_pairs": 25000,
+    "max_join_rows": 50000000,
+    "max_pairs": 25000
+  },
+  "links": 5000,
+  "quarantine": {
+    "left": 0,
+    "right": 0
+  },
+  "enabled_paid_features": {},
+  "materialization": [
+    {
+      "name": "left",
+      "strategy": "cache"
+    },
+    {
+      "name": "right",
+      "strategy": "cache"
+    },
+    {
+      "name": "features",
+      "strategy": "cache"
+    }
+  ],
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark_start_stop": 69.68469733407255
+}

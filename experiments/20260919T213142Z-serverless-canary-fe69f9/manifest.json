@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T213142Z-serverless-canary-fe69f9",
+  "phase": "ENV",
+  "kind": "serverless-canary",
+  "hypothesis": "Handle import-dir progress as a stream; submit the bounded synthetic canary after successful source upload",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "6731bc3b1fd696773f91652a013525c2572e626471c1b45d1f08178e6a3d1d5f",
+  "command": [
+    ".venv/bin/python",
+    "tools/run_serverless_canary.py",
+    "--profile",
+    "fevm-gdpr2",
+    "--report",
+    "experiments/serverless-canary.json"
+  ],
+  "started_at": "2026-09-19T21:31:42.004730+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": null,
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 1200,
+    "remote_spend": null,
+    "cost_status": "unreconciled",
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T213142Z-serverless-canary-fe69f9/stdout.txt",
+      "sha256": "38f97ad48c34d9cab7bc058d678147dd4c36aedfbf3a904e4ce8d9cd48cfe1ef",
+      "bytes": 867
+    },
+    {
+      "path": "experiments/20260919T213142Z-serverless-canary-fe69f9/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T213142Z-serverless-canary-fe69f9/evidence/serverless-canary.json",
+      "sha256": "e8859f8cfada03156db2611a723eb1eb3297b4531e33025155b20bac9ce5163c",
+      "bytes": 14016
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 240.70906104205642,
+  "ended_at": "2026-09-19T21:35:42.754647+00:00"
+}

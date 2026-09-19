@@ -1,0 +1,673 @@
+{
+  "profile": "fevm-gdpr2",
+  "started_at": "2026-09-19T21:45:33.688833+00:00",
+  "commands": [
+    [
+      "databricks",
+      "workspace",
+      "import-dir",
+      "src",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/src",
+      "--overwrite",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "import",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/serverless_canary",
+      "--file",
+      "tools/serverless_canary.py",
+      "--format",
+      "SOURCE",
+      "--language",
+      "PYTHON",
+      "--overwrite",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "submit",
+      "--no-wait",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json",
+      "--json",
+      "{\"run_name\": \"lakematch-20260919-platform-canary\", \"timeout_seconds\": 900, \"performance_target\": \"STANDARD\", \"tasks\": [{\"task_key\": \"canary\", \"timeout_seconds\": 600, \"notebook_task\": {\"notebook_path\": \"/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/serverless_canary\"}, \"environment_key\": \"canary\"}], \"environments\": [{\"environment_key\": \"canary\", \"spec\": {\"client\": \"4\", \"dependencies\": [\"mlflow==3.16.0\", \"pyyaml==6.0.3\"]}}]}"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "667945925462279",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run-output",
+      "1012120172554360",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ]
+  ],
+  "run_id": 667945925462279,
+  "state": "TERMINATED",
+  "observed_cost": null,
+  "request": {
+    "run_name": "lakematch-20260919-platform-canary",
+    "timeout_seconds": 900,
+    "performance_target": "STANDARD",
+    "tasks": [
+      {
+        "task_key": "canary",
+        "timeout_seconds": 600,
+        "notebook_task": {
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/serverless_canary"
+        },
+        "environment_key": "canary"
+      }
+    ],
+    "environments": [
+      {
+        "environment_key": "canary",
+        "spec": {
+          "client": "4",
+          "dependencies": [
+            "mlflow==3.16.0",
+            "pyyaml==6.0.3"
+          ]
+        }
+      }
+    ]
+  },
+  "run": {
+    "cleanup_duration": 1000,
+    "creator_user_name": "laurent.fabre@databricks.com",
+    "effective_performance_target": "STANDARD",
+    "end_time": 1789854787075,
+    "execution_duration": 268000,
+    "job_id": 62296562977964,
+    "job_run_id": 667945925462279,
+    "number_in_job": 667945925462279,
+    "run_duration": 445512,
+    "run_id": 667945925462279,
+    "run_name": "lakematch-20260919-platform-canary",
+    "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/62296562977964/run/667945925462279",
+    "run_type": "SUBMIT_RUN",
+    "setup_duration": 176000,
+    "start_time": 1789854341563,
+    "state": {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "state_message": "",
+      "user_cancelled_or_timedout": false
+    },
+    "status": {
+      "state": "TERMINATED",
+      "termination_details": {
+        "code": "SUCCESS",
+        "message": "",
+        "type": "SUCCESS"
+      }
+    },
+    "tasks": [
+      {
+        "attempt_number": 0,
+        "cleanup_duration": 1000,
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789854786645,
+        "environment_key": "canary",
+        "execution_duration": 268000,
+        "notebook_task": {
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/serverless_canary",
+          "source": "WORKSPACE"
+        },
+        "run_id": 1012120172554360,
+        "run_if": "ALL_SUCCESS",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/62296562977964/run/1012120172554360",
+        "setup_duration": 176000,
+        "start_time": 1789854341599,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "task_key": "canary"
+      }
+    ]
+  },
+  "output": {
+    "metadata": {
+      "cleanup_duration": 1000,
+      "creator_user_name": "laurent.fabre@databricks.com",
+      "effective_performance_target": "STANDARD",
+      "end_time": 1789854786645,
+      "execution_duration": 268000,
+      "job_id": 62296562977964,
+      "job_run_id": 667945925462279,
+      "number_in_job": 1012120172554360,
+      "run_id": 1012120172554360,
+      "run_name": "canary",
+      "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/62296562977964/run/1012120172554360",
+      "run_type": "SUBMIT_RUN",
+      "setup_duration": 176000,
+      "start_time": 1789854341599,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS",
+        "state_message": "",
+        "user_cancelled_or_timedout": false
+      },
+      "status": {
+        "state": "TERMINATED",
+        "termination_details": {
+          "code": "SUCCESS",
+          "message": "",
+          "type": "SUCCESS"
+        }
+      },
+      "tasks": [
+        {
+          "attempt_number": 0,
+          "cleanup_duration": 1000,
+          "effective_performance_target": "STANDARD",
+          "end_time": 1789854786645,
+          "environment_key": "canary",
+          "execution_duration": 268000,
+          "notebook_task": {
+            "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/serverless_canary",
+            "source": "WORKSPACE"
+          },
+          "run_id": 1012120172554360,
+          "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/62296562977964/run/1012120172554360",
+          "setup_duration": 176000,
+          "start_time": 1789854341599,
+          "state": {
+            "life_cycle_state": "TERMINATED",
+            "result_state": "SUCCESS",
+            "state_message": "",
+            "user_cancelled_or_timedout": false
+          },
+          "status": {
+            "state": "TERMINATED",
+            "termination_details": {
+              "code": "SUCCESS",
+              "message": "",
+              "type": "SUCCESS"
+            }
+          },
+          "task_key": "canary"
+        }
+      ]
+    },
+    "notebook_output": {
+      "result": "{\"spark\": \"4.2.0\", \"python\": \"3.12.3\", \"mlflow\": \"3.16.0\", \"capabilities\": {\"spark_version\": \"4.2.0\", \"connect\": true, \"cache\": false, \"cache_observation\": \"AnalysisException: NOT_SUPPORTED_WITH_SERVERLESS\", \"photon\": \"untested: requires query-profile evidence\"}, \"config\": {\"profile\": \"databricks\", \"runtime\": {\"mode\": \"serverless\", \"connect\": false, \"remote\": \"sc://localhost:15002\", \"materialize\": \"auto\", \"master\": \"local[2]\", \"cli_profile\": \"fevm-gdpr2\"}, \"classic\": {\"profile\": null}, \"storage\": {\"catalog\": null, \"root\": \"./data\", \"scratch_schema\": \"gdpr2_catalog.lakematch_20260919\"}, \"entity\": {\"name\": \"person\", \"id_column\": \"rec_id\", \"fields\": {\"name\": {\"type\": \"person_name\"}, \"code\": {\"type\": \"code\"}}}, \"candidates\": {\"method\": \"gram_topk\", \"q\": 2, \"k\": 3, \"idf_weighted\": true, \"gram_cap\": 400, \"max_join_rows\": 1000, \"max_pairs\": 50, \"union_of\": [], \"field_blocks\": []}, \"features\": {\"string_similarity\": \"levenshtein\", \"multi_token\": [], \"udf_features\": false, \"embeddings\": {\"fields_of_type\": [\"organisation\", \"title\"], \"provider\": \"none\", \"model\": null}}, \"matcher\": {\"estimator\": \"gbt\", \"max_model_mb\": 100, \"max_iter\": 3, \"max_depth\": 2, \"seed\": 0}, \"decision\": {\"threshold\": 0.5, \"cardinality\": \"one_to_one\"}, \"cluster\": {\"method\": \"verified_merge\", \"max_rounds\": 20}, \"quality\": {\"engine\": \"native\", \"checks\": []}, \"labels\": {\"llm\": \"none\", \"llm_tau\": 0.9}, \"mlflow\": {\"tracking_uri\": \"databricks\", \"registry\": true, \"model_name\": \"lakematch_person\", \"registry_uri\": \"databricks-uc\", \"alias\": \"champion\"}, \"paid_features\": {\"photon_on_classic\": false, \"serverless_performance_mode\": false, \"llm_labeller\": false, \"ai_functions\": false, \"embedding_endpoint\": false, \"ai_search_blocking\": false, \"lakebase_label_store\": false, \"app\": false, \"genie\": false, \"predictive_optimization\": false, \"data_quality_monitoring\": false, \"llm_judges_in_evaluation\": false, \"genie_auth_mode\": \"user\"}, \"input\": {\"left\": null, \"right\": null, \"labels\": null, \"format\": \"csv\"}, \"output\": {\"root\": \"./data/output\"}, \"model\": {\"path\": \"./data/model\"}}, \"run_name\": \"canary_1789854539\", \"volume_round_trip\": \"passed\", \"candidate_budget\": {\"join_rows_before_cap\": 37, \"join_rows_after_cap\": 37, \"dropped_grams\": 0, \"candidate_pairs\": 5, \"max_join_rows\": 1000, \"max_pairs\": 50}, \"prediction_reload_equivalence\": \"passed (same task; fresh-session acceptance still pending)\", \"links\": [{\"a_id\": \"a1\", \"b_id\": \"b1\", \"p\": 0.8987125799288505}, {\"a_id\": \"a2\", \"b_id\": \"b2\", \"p\": 0.8987125799288505}, {\"a_id\": \"a3\", \"b_id\": \"b3\", \"p\": 0.8987125799288505}], \"materialization\": [{\"name\": \"left\", \"strategy\": \"table\", \"table\": \"`gdpr2_catalog`.`lakematch_20260919`.`lm_5d983df87fc040dc8467d023c5056115_left_0`\"}, {\"name\": \"right\", \"strategy\": \"table\", \"table\": \"`gdpr2_catalog`.`lakematch_20260919`.`lm_5d983df87fc040dc8467d023c5056115_right_1`\"}, {\"name\": \"features\", \"strategy\": \"table\", \"table\": \"`gdpr2_catalog`.`lakematch_20260919`.`lm_5d983df87fc040dc8467d023c5056115_features_2`\"}], \"scratch_cleanup\": \"passed\", \"mlflow_run_id\": \"a8f8a13d5253422c98cefecef4deff9d\", \"execution_seconds\": 244.01240731899998}",
+      "truncated": false
+    }
+  },
+  "cleanup": "terminal serverless run; no persistent compute",
+  "ended_at": "2026-09-19T21:53:10.056165+00:00"
+}

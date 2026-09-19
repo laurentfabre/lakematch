@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T211625Z-tests-connect-2683b4",
+  "phase": "ZR-1",
+  "kind": "tests-connect",
+  "hypothesis": "The same suite passes through an owned local Spark Connect server without client JVM access",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "a4f9439c024de8922d6108677367f600d1b479ab311e3a151367fa6aaed32640",
+  "command": [
+    ".venv/bin/python",
+    "tools/connect_tests.py"
+  ],
+  "started_at": "2026-09-19T21:16:25.629402+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 600,
+    "remote_spend": 0,
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T211625Z-tests-connect-2683b4/stdout.txt",
+      "sha256": "97eb1f52d86656acde6fb63850cf8a6f4618e63a7f1eaf68a9b9e45132725518",
+      "bytes": 100
+    },
+    {
+      "path": "experiments/20260919T211625Z-tests-connect-2683b4/stderr.txt",
+      "sha256": "a01483ee3ac72c11b31f1a647b0404999cdb3227429ede7caef7357402c7a6df",
+      "bytes": 1378240
+    },
+    {
+      "path": "experiments/tests-connect.xml",
+      "sha256": "95c7d9ceef35aeb7621246a4767ade86b7a453d1ed14119978ff47d877b92733",
+      "bytes": 3641
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 20.179614083026536,
+  "ended_at": "2026-09-19T21:16:45.853022+00:00"
+}

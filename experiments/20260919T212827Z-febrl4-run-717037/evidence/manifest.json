@@ -1,0 +1,17 @@
+{
+  "corpus": "FEBRL4 original",
+  "source": "recordlinkage.datasets.load_febrl4 (0.16)",
+  "source_url": "https://recordlinkage.readthedocs.io/en/latest/ref-datasets.html#febrl-datasets",
+  "license": "FEBRL synthetic example data distributed by recordlinkage (BSD-3-Clause)",
+  "purpose": "ZR-1 development smoke, not holdout acceptance",
+  "seed": 0,
+  "labels": "all partners for the first 80 lexicographically sorted anchors; closed-world synthetic truth",
+  "left_rows": 5000,
+  "right_rows": 5000,
+  "truth_pairs": 5000,
+  "sha256": {
+    "labels.csv": "e4aa50ee7c08cfaf69d958fcf4cf4b7e8db1d07e36d161fca4881e43822e2de1",
+    "right.csv": "fcc06d1a971058f261050db6daa0bbc7cd2edb1326b55579fb26f2df301d8e02",
+    "left.csv": "a5a05f30655ee574e1dabef6864f5ab787cc0ce89b921d370e214a17f65e6ebf"
+  }
+}

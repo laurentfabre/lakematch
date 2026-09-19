@@ -1,0 +1,25 @@
+profile: laptop
+entity:
+  name: synthetic_person
+  fields:
+    name: {type: person_name}
+    postcode: {type: code}
+candidates:
+  q: 2
+  k: 3
+  gram_cap: 30
+  max_join_rows: 100000
+  max_pairs: 1000
+features:
+  embeddings: {provider: none}
+matcher: {estimator: gbt, max_iter: 4, max_depth: 2}
+decision: {threshold: 0.5, cardinality: one_to_one}
+quality:
+  checks:
+    - {name: name_required, kind: not_null, column: name, criticality: error}
+input:
+  left: examples/data/left.csv
+  right: examples/data/right.csv
+  labels: examples/data/labels.csv
+model: {path: data/synthetic/model}
+output: {root: data/synthetic/output}

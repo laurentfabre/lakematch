@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T212815Z-offline-run-78e12c",
+  "phase": "ZR-1",
+  "kind": "offline-run",
+  "hypothesis": "OS-denied external egress permits only local execution, producing links and quarantine",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "b207875989358f2aef9ad91936ee1bdd5c96cf1752ad4be9086188a4da56f5fe",
+  "command": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "tools/offline.sb",
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "tools/offline_run.py"
+  ],
+  "started_at": "2026-09-19T21:28:15.104846+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 300,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": {
+    "path": "examples/synthetic.yaml",
+    "sha256": "40a09a87cf0485121ad32b2eb6d038d349259831d443a83aac0f19e5abe142be"
+  },
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T212815Z-offline-run-78e12c/stdout.txt",
+      "sha256": "36d804ec2fbfdcb8304f5b9db1e010060f3b400de8680582c815e0f7c14ab2b2",
+      "bytes": 858
+    },
+    {
+      "path": "experiments/20260919T212815Z-offline-run-78e12c/stderr.txt",
+      "sha256": "c7330504d35bb9d9475d6b662d04498e01d3e71c37431796d4a5fdc16b45fcfb",
+      "bytes": 857
+    },
+    {
+      "path": "experiments/20260919T212815Z-offline-run-78e12c/evidence/metrics.json",
+      "sha256": "b680474c485f5de5642175046658a624497bc78863de124cf33faf456516fe00",
+      "bytes": 811
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 11.885675499914214,
+  "ended_at": "2026-09-19T21:28:27.041154+00:00"
+}

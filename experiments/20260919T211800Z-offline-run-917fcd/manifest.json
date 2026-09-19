@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T211800Z-offline-run-917fcd",
+  "phase": "ZR-1",
+  "kind": "offline-run",
+  "hypothesis": "All-paid-features-off CLI completes with OS-enforced external network denial and only localhost Spark sockets allowed",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "99ad5820cd7eb17d91d15c4604baa6e5230f9a30605313fe9fbf6affc3316b07",
+  "command": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "tools/offline.sb",
+    ".venv/bin/python",
+    "tools/offline_run.py"
+  ],
+  "started_at": "2026-09-19T21:18:00.212629+00:00",
+  "status": "failed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 300,
+    "remote_spend": 0,
+    "parallel_experiments": 1
+  },
+  "config": {
+    "path": "examples/synthetic.yaml",
+    "sha256": "40a09a87cf0485121ad32b2eb6d038d349259831d443a83aac0f19e5abe142be"
+  },
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T211800Z-offline-run-917fcd/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T211800Z-offline-run-917fcd/stderr.txt",
+      "sha256": "7056bc0721b24649c2c0ff754fbe95d00f785709a63e3cf16557be423b1ad0b9",
+      "bytes": 434
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 1,
+  "wall_seconds": 0.07286387495696545,
+  "ended_at": "2026-09-19T21:18:00.331093+00:00"
+}

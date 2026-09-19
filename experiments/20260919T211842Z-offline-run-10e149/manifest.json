@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T211842Z-offline-run-10e149",
+  "phase": "ZR-1",
+  "kind": "offline-run",
+  "hypothesis": "Directional loopback-only OS network rules deny external egress while the synthetic engine completes",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "7eafa16a386bfa9bcf483ad35a7dc6c7bc288094",
+  "source_digest": "b82062e44d12d415b8104085db6789f2d7beb20fb20f6eaf4b743da447308a67",
+  "command": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "tools/offline.sb",
+    ".venv/bin/python",
+    "tools/offline_run.py"
+  ],
+  "started_at": "2026-09-19T21:18:42.758409+00:00",
+  "status": "failed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 300,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": {
+    "path": "examples/synthetic.yaml",
+    "sha256": "40a09a87cf0485121ad32b2eb6d038d349259831d443a83aac0f19e5abe142be"
+  },
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T211842Z-offline-run-10e149/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T211842Z-offline-run-10e149/stderr.txt",
+      "sha256": "dc428128a16158ebcb1accb156a4e417304dcd8d0a39a92d7b774cbfd800d13c",
+      "bytes": 172
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 65,
+  "wall_seconds": 0.010212875087745488,
+  "ended_at": "2026-09-19T21:18:42.811577+00:00"
+}
