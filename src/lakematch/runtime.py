@@ -6,6 +6,10 @@ from uuid import uuid4
 
 from pyspark.sql import SparkSession
 
+# Match the local IPv4 bind address and macOS offline sandbox's loopback rule.
+# Java's dual-stack IPv4-mapped sockets are not recognized as localhost there.
+LOCAL_JAVA_OPTIONS = "-Djava.net.preferIPv4Stack=true"
+
 
 def is_remote(spark):
     return type(spark).__module__.startswith("pyspark.sql.connect")
@@ -21,6 +25,7 @@ def create_session(config):
             builder = builder.remote(runtime["remote"])
         else:
             builder = (builder.master(runtime["master"]).config("spark.ui.enabled", "false")
+                       .config("spark.driver.extraJavaOptions", LOCAL_JAVA_OPTIONS)
                        .config("spark.driver.bindAddress", "127.0.0.1"))
         for key, value in settings.items():
             builder = builder.config(key, value)

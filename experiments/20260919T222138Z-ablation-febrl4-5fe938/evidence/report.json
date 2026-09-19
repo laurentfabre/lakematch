@@ -1,0 +1,483 @@
+{
+  "corpus": "febrl4_half_all",
+  "protocol": "bench/PROTOCOL.md and bench/ABLATION_PLAN.md",
+  "split_manifest": "data/bench/febrl4_half_all/manifest.json",
+  "manifest": {
+    "source": "recordlinkage 0.16 FEBRL4",
+    "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+    "split_method": "SHA-256 ranked whole truth entities 3000/1000/1000; independent namespaced partner-removal ranking",
+    "exposure": "Historical corpus and 80 smoke anchors exposed; new split/removal outcomes, not independent population",
+    "universe": "5000 left / 2500 right; full-universe transductive candidates; supervised IDF fits train only",
+    "hidden_fields": [],
+    "closed_world_truth": true,
+    "corpus": "febrl4_half_all",
+    "seed": 2026091901,
+    "fields": {
+      "given_name": {
+        "type": "person_name"
+      },
+      "surname": {
+        "type": "person_name"
+      },
+      "street_number": {
+        "type": "code"
+      },
+      "address_1": {
+        "type": "address"
+      },
+      "address_2": {
+        "type": "address"
+      },
+      "suburb": {
+        "type": "address"
+      },
+      "postcode": {
+        "type": "code"
+      },
+      "state": {
+        "type": "code"
+      },
+      "date_of_birth": {
+        "type": "date",
+        "date_format": "yyyyMMdd"
+      },
+      "soc_sec_id": {
+        "type": "code"
+      }
+    },
+    "retrieval": true,
+    "files": {
+      "left": {
+        "path": "data/bench/febrl4_half_all/left.jsonl",
+        "sha256": "e63cf16cbfec77c5a8ab04c0930edce6317b6a9342acff89161aca9816f64fd9",
+        "rows": 5000
+      },
+      "right": {
+        "path": "data/bench/febrl4_half_all/right.jsonl",
+        "sha256": "0d8cf31c830e8a0e58035e4b8fef43f85079e3484b8ba5b4bb3119254788628b",
+        "rows": 2500
+      },
+      "pairs": {
+        "path": "data/bench/febrl4_half_all/pairs.jsonl",
+        "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+        "rows": 2500
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "febrl4_half_all",
+      "id_column": "rec_id",
+      "fields": {
+        "given_name": {
+          "type": "person_name"
+        },
+        "surname": {
+          "type": "person_name"
+        },
+        "street_number": {
+          "type": "code"
+        },
+        "address_1": {
+          "type": "address"
+        },
+        "address_2": {
+          "type": "address"
+        },
+        "suburb": {
+          "type": "address"
+        },
+        "postcode": {
+          "type": "code"
+        },
+        "state": {
+          "type": "code"
+        },
+        "date_of_birth": {
+          "type": "date",
+          "date_format": "yyyyMMdd"
+        },
+        "soc_sec_id": {
+          "type": "code"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": []
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [
+          "organisation",
+          "title"
+        ],
+        "provider": "none",
+        "model": null
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "one_to_one"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:///mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model"
+    }
+  },
+  "variants_declared": [
+    "native_all",
+    "without_field_families",
+    "without_idf",
+    "without_grams",
+    "without_monge",
+    "plus_jaro_winkler",
+    "plus_affine",
+    "embedding_on"
+  ],
+  "confirmation_scored": false,
+  "cost": {
+    "remote_spend": 0,
+    "llm_spend": 0,
+    "mode": "offline local"
+  },
+  "rows": [
+    {
+      "variant": "native_all",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "threshold": 0.95,
+      "feature_seconds": 3.8386352920206264,
+      "train_seconds": 4.166834583040327,
+      "score_seconds": 0.534751084051095,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 102
+    },
+    {
+      "variant": "without_field_families",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "threshold": 0.95,
+      "feature_seconds": 3.1291572080226615,
+      "train_seconds": 3.1219477499835193,
+      "score_seconds": 0.4029385839821771,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 73
+    },
+    {
+      "variant": "without_idf",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "threshold": 0.95,
+      "feature_seconds": 2.9672799999825656,
+      "train_seconds": 2.9936492919223383,
+      "score_seconds": 0.3762931249802932,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 92
+    },
+    {
+      "variant": "without_grams",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "threshold": 0.95,
+      "feature_seconds": 2.375899542006664,
+      "train_seconds": 2.9606530419550836,
+      "score_seconds": 0.4081952499691397,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 92
+    },
+    {
+      "variant": "without_monge",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "threshold": 0.95,
+      "feature_seconds": 2.369386582984589,
+      "train_seconds": 2.7822983330115676,
+      "score_seconds": 0.3652056669816375,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 92
+    },
+    {
+      "variant": "plus_jaro_winkler",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "threshold": 0.95,
+      "feature_seconds": 3.7805215830449015,
+      "train_seconds": 3.0322938750032336,
+      "score_seconds": 0.41992270795162767,
+      "embedding_preparation": {},
+      "native_plan": false,
+      "feature_count": 112
+    },
+    {
+      "variant": "plus_affine",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "threshold": 0.95,
+      "feature_seconds": 3.5881013750331476,
+      "train_seconds": 3.0366938749793917,
+      "score_seconds": 0.4028784589609131,
+      "embedding_preparation": {},
+      "native_plan": false,
+      "feature_count": 112
+    }
+  ],
+  "status": "completed",
+  "candidate_budget": {
+    "join_rows_before_cap": 71355234,
+    "join_rows_after_cap": 17252022,
+    "dropped_grams": 114,
+    "candidate_pairs": 25000,
+    "max_join_rows": 50000000,
+    "max_pairs": 100000
+  },
+  "training_record_partition_assertion": "both endpoints train; validation uses full-universe retrieval",
+  "candidate_recall_validation": 1.0,
+  "candidate_recall_scope": "validation true links; no confirmation quality calculated",
+  "idf_fit_and_apply_seconds": 3.1935889170272276,
+  "shared_preparation_seconds": 36.30253112502396,
+  "baselines": [
+    {
+      "variant": "nearest_neighbour",
+      "threshold": 0.0,
+      "tp": 500,
+      "fp": 500,
+      "fn": 0,
+      "tn": 4000,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "f1_95ci": [
+        0.6376021798365122,
+        0.6962190352020861
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "variant": "cosine_threshold",
+      "threshold": 0.54,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    }
+  ],
+  "cleanup": "succeeded",
+  "total_seconds_including_start_stop": 93.23083120898809
+}

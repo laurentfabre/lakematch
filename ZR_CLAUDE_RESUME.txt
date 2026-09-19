@@ -4,7 +4,7 @@ Profile explicitly selected in this session: fevm-gdpr2.
 Laurent waived quota/expiry as prerequisites: FEVM is a dev workspace. Bounded runs and cleanup still apply.
 
 ZR-1 engine, CLI, quality, candidate budgets, tests and verifier are implemented.
-ZR-1 passed on source 87bb4c9923c7: 39 tests in both modes, offline CLI, FEBRL4 CLI, wheel/private checks.
+ZR-1 passed on source 1d9451e2f33e: 65 tests in both modes, offline CLI, FEBRL4 CLI, wheel/private checks.
 Read experiments/runs.jsonl, experiments/ENVIRONMENT.md and bench/ENGINE.md for observations.
 Classic create API timed out twice (90s, 240s) before returning an ID; inventory showed no cluster after both.
 ZR-9 is parked at ENV. Do not repeat the same creation request; serverless/local work can continue.
@@ -12,7 +12,13 @@ ZR-9 is parked at ENV. Do not repeat the same creation request; serverless/local
 Early serverless canary succeeded (run 280837437066970): native engine, Delta fallback, model reload and MLflow.
 STANDARD confirmation succeeded on updated engine: run 667945925462279 (176s setup, 268s execution).
 Final resource inventory confirms no campaign clusters or scratch tables and shared warehouse STOPPED.
-Next: ZR-2 feature families and ablations, then the ZR-3 harness; bench/PROTOCOL.md is predeclared.
+ZR-2 passes at source 83b70fdf673b after iteration 4/8. See bench/ABLATION.md and ablation_index.json.
+Next: ZR-3 method harness and early ZR-5 tracking; bench/PROTOCOL.md is predeclared.
+All confirmation records remain unscored. Validation scores must not be relabeled as confirmation.
+An unvalidated ZR-5 draft is in /private/tmp/lakematch-zr5/; it is not installed or acceptance evidence.
+Native features and optional UDF/embedding providers are implemented. See bench/FEATURES.md and ABLATION_PLAN.md.
+Embeddings default off: neither title nor organisation paired validation gain excluded zero.
+Local Spark uses IPv4 for OS-enforced offline Python workers; runner cleanup verifies live group membership.
 Do not count prototype timing, smoke labels or resource creation as later-phase acceptance.
 Keep all datasets public/synthetic; preserve the user-authored .gitignore entries, .isaac and .DS_Store.
 Resume: $goal /Users/laurent.fabre/Projects/Claude/lakematch/goal.md

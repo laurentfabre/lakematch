@@ -114,3 +114,14 @@ three expected links, equal reloaded predictions and scratch cleanup. MLflow run
 `a8f8a13d5253422c98cefecef4deff9d`. The final inventory contains no campaign clusters or tables;
 the shared warehouse is STOPPED. Billing remains unreconciled. The startup and execution figures
 are individual observations, not a paired performance/DBU comparison.
+# Expanded-engine revalidation (2026-09-20 local date)
+
+Source `1d9451e2f33e052816efc6421fd0433006d84046308d89b10ca5df3369dcc0f6`
+passes the read-only ZR-1 verifier after the typed-feature additions. Classic and
+Connect run the same **65 tests**, with zero skips. Wheel/private-repository,
+OS-denied-egress synthetic execution and full original FEBRL4 smoke pass.
+The original FEBRL process wall time is **71.21 seconds**; it remains development
+smoke evidence and does not satisfy the separate ZR-3 held-out latency gate.
+Run IDs are `20260919T223809Z-package-build-1ae404`,
+`20260919T223810Z-tests-classic-90537b`, `20260919T223838Z-tests-connect-11ba06`,
+`20260919T223904Z-offline-run-d1c9ec`, and `20260919T223916Z-febrl4-run-ff4b60`.

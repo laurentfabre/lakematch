@@ -10,7 +10,7 @@ entity:
     suburb: {type: address}
     postcode: {type: code}
     state: {type: code}
-    date_of_birth: {type: date}
+    date_of_birth: {type: date, date_format: yyyyMMdd}
     soc_sec_id: {type: code}
 candidates:
   k: 5

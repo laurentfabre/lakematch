@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T221608Z-ablation-febrl4-5bee28",
+  "phase": "ZR-2",
+  "kind": "ablation-febrl4",
+  "hypothesis": "Predeclared feature removals and optional similarities change validation F1 relative to native_all; supervised records obey split boundaries; confirmation is not scored",
+  "baseline": "native_all",
+  "dataset": "febrl4_half_all",
+  "primary_metric": "validation F1 and paired 95% bootstrap intervals",
+  "source_commit": "a580229e1709673a422fdc967fdeeb4d857bd195",
+  "source_digest": "b9c3d7edfb5817fc645f2f9124f5d30bfc0a92068de3aba7b36c881d98add78d",
+  "source_files": {
+    ".python-version": "aa0d6581054e6e4ff3f91839deca7a854ad37221b8784d060b42d0f847ff1a3b",
+    "bench/ABLATION_PLAN.md": "498050cf157c46bf5eb0b35547c8c5dc0a05378b088da31a2d811f26672c8d09",
+    "bench/PROTOCOL.md": "7fc881e1d8e4bce6a9223e0d6222c1e04f82cbfef609d3a1727b612d88237a36",
+    "examples/data/labels.csv": "c465224c3f85ecac8b6a0f7458183df2fb5b3fe30224e18faa0078dd688fedf2",
+    "examples/data/left.csv": "74212e14006a782ae7593b874e887d254e5aa5dfa048fbfeb3de1dfce9348587",
+    "examples/data/right.csv": "b00c96532331c34b441fb805039a2039fb89682bdea9a1862544f28f2a79c54c",
+    "examples/febrl4.yaml": "ddbde03342c832ac7edd5e6921c5fa4f17f650f06d2e8920ed2c671e12aea9c8",
+    "examples/synthetic.yaml": "40a09a87cf0485121ad32b2eb6d038d349259831d443a83aac0f19e5abe142be",
+    "pyproject.toml": "ac5c881ded9d9b7c71546556e53315c6a794a7af71973c7caf29150e4a00e868",
+    "requirements-local.lock": "d9e11d0af481b13fb9c31fb52016d02fca097badb872f46f1b195bb837f49b4c",
+    "src/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "src/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+    "src/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+    "src/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+    "src/lakematch/candidates.py": "3c6f9971e4a742354a68828d6adcb11ba7dd2127d1288d0d6d4a8177587034ca",
+    "src/lakematch/cli.py": "d78b9b24c7c41de10e469c30a779995a212b7e2a0ddbbbf65e4b08db1087458c",
+    "src/lakematch/config.py": "1c7cb7969b9e6efd45d4fc544ec5d1a1613b497224bc61b4d0b94a2936083de5",
+    "src/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "src/lakematch/embeddings.py": "e74c43aa9b4cfdcce6d4c53f5dc9e34a0fb2972b78d9d62aa5568ff99969aba3",
+    "src/lakematch/engine.py": "eaf18ddaf9a7888d16348737afc6ea1bd7d1f20a20cf417d4ef5845e889488e0",
+    "src/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+    "src/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+    "src/lakematch/features.py": "de231b7437010d3456f8d22f0ac9c324cc1f176d161a16bdc53b608639fcf468",
+    "src/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "src/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+    "src/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "src/lakematch/runtime.py": "99a39ee010ce088d8dc3545f15cf7734517c2070148e96a9e1bec01ca2440e4e",
+    "src/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+    "tests/conftest.py": "e5c6d18f2583442e4c8b19872b76347a955b4b8c866db7928596f37f3e5abb46",
+    "tests/test_benchmark.py": "3dcadff699a74a32f46f5264a2c09e4cc9c7612117227b9d040bf3351e3fb5d7",
+    "tests/test_config.py": "6680b338b1e07e4820fa1034a3c19b6cdcb2b60dcad0ac049309ebfc2b6ebabe",
+    "tests/test_engine.py": "562d7ec4fa85712b426c69daa8445a55625deaf8088109810e56d8a2a5e38f0e",
+    "tests/test_features.py": "79241bd593fd2e5bc5324d0d2aab53d5142ff208aa2807b0d65e0824d0521f2a",
+    "tests/test_verifier.py": "73cc7957e7b39522979d7828972b6fc561a6600d558f9400d92fa15711ab676e",
+    "tools/accept_zr1.py": "5e1ce80f11ddd7522f1039e129803b937342259dc5798c63ec9171b0e07d100d",
+    "tools/connect_tests.py": "c8622ee76bc8fa1cb459f8329c69d79aaaf0aef83d3a790e8b727885d443fad6",
+    "tools/env_preflight.py": "155062c10746fa2cf85b0e8bcd648fe7d528a60d6c50ffb0f2cd3f8654f697da",
+    "tools/evidence.py": "cfacbf9be380f6aabe16489b7513295f79f6cb6b4d0c1aae54a275494b37ed88",
+    "tools/experiment.py": "ba2ecabf436e38211c69aaf5b2a00df34f067d9d5cbee6009c44db6aaf14e1a2",
+    "tools/offline.sb": "cf35cca89f2e1b677995e788c0fe365bf627c641f260a3e4ea80cbde31a0c60e",
+    "tools/offline_run.py": "6654e62deb0eccb1328b0f7b6637b32104574dfae9fbc8d95733ef4a25b1db9c",
+    "tools/package_check.py": "244cfa21513ce2c895f9b89c0237be7ccecd387b17d9d6f43d1374f83178f1ad",
+    "tools/prepare_febrl.py": "284b007bc73143eb3067c85ffecb68bdda828f92283e170489657bd338d5aa32",
+    "tools/prepare_sources.py": "2933317b3afb14e9398d7f1659e1c388abb446047765dfea7e209db8715dd776",
+    "tools/run_ablation.py": "b689331eda2c381f7b0e272a54b1d41a1c1f260e46f6a5d4d502d680bb4a717a",
+    "tools/run_serverless_canary.py": "6757e9b90f885c53cf35148bb26736bf670dc66b796a12bdbba58d6a3ced560a",
+    "tools/serverless_canary.py": "d76dd4b9112eb8d00e898ec6cac0ba69d6709dd686e12ee971cc2143c271df1e",
+    "tools/spark43_watch.py": "650ac60ae072318b65020d6f0e6c8b39a69c743de2bfd8d549122dbf4f4cfdf2",
+    "tools/verify.py": "2bd1044cb29f4e2e88ae42325a09b4841babca529736e208892cb67b1a9dac9f",
+    "verify_zr.sh": "38545cbae71a64e7b29845738dd645bf0732fcda548b653e2e3ede52901495a9"
+  },
+  "command": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "tools/offline.sb",
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "tools/run_ablation.py",
+    "febrl4"
+  ],
+  "started_at": "2026-09-19T22:16:08.121659+00:00",
+  "status": "failed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 900,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": {
+    "path": "data/bench/febrl4_half_all/manifest.json",
+    "sha256": "123dbe6fa8dc8930c50e858f2ce0c4723a632f3d2bab30163450d0c358241430"
+  },
+  "seeds": [
+    0,
+    2026091901,
+    2026091902
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/stderr.txt",
+      "sha256": "e5310d32d4e25749c4157d5b7c8913e212afe17b690c93c9461d51452c5c9ef5",
+      "bytes": 31518
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/report.json",
+      "sha256": "b3741e509b19d2091442da4cb894639197c7271dea10456044be8937536f252c",
+      "bytes": 5542
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/native_all.predictions.json",
+      "sha256": "017895a191e8a3de99591001340afb8c409cf73332eb9c47c7df647dc9ecbd95",
+      "bytes": 563565
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/native_all.plan.txt",
+      "sha256": "347a1309f75adef71dd2ad601496728bcfc53180dd3dbef9b609043ff3815307",
+      "bytes": 2776218
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/without_field_families.predictions.json",
+      "sha256": "4abe8ac36448dc2e967dda3bdbe1eb028f285b9a370b2c1a3d33b4feb7d71801",
+      "bytes": 563015
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/without_field_families.plan.txt",
+      "sha256": "9dd58c393d3b29a5088352f3150ba24180ed006ca19dc61e05791998f653762e",
+      "bytes": 2783388
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/without_idf.predictions.json",
+      "sha256": "0e179b0bedd4eb82868e4ce85be9cf84e986e2e42c54ef3a2efc0ccf95cfaac9",
+      "bytes": 564001
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/without_idf.plan.txt",
+      "sha256": "b96f44bbf7556a3c3b8fd80737653f6716b58d040979b0b452696c77420349ad",
+      "bytes": 2761741
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/without_grams.predictions.json",
+      "sha256": "fffb324b659a8105e1530329297ca808e5b33812423b21741748b6faf838d948",
+      "bytes": 568323
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/without_grams.plan.txt",
+      "sha256": "470d5b9393ef8cb5065939036249e9a6e47139151418f3fa7cd5a0f745263517",
+      "bytes": 2758673
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/without_monge.predictions.json",
+      "sha256": "10846b069f2d02ff6a55fc8c9b385290c41bb2a28fd192351d2d1257fb1ac92a",
+      "bytes": 568211
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/without_monge.plan.txt",
+      "sha256": "0ca68050416bf59ac7994cff77c2cafa91ed14b404a9891fec120f29fb83b093",
+      "bytes": 2759069
+    },
+    {
+      "path": "experiments/20260919T221608Z-ablation-febrl4-5bee28/evidence/plus_jaro_winkler.plan.txt",
+      "sha256": "220c7a3708acee31a24367dafb79073a2faf3ee8238568f5a2d75e4eeb4c8101",
+      "bytes": 2766497
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 1,
+  "wall_seconds": 7.467390207923017,
+  "ended_at": "2026-09-19T22:16:15.644060+00:00"
+}

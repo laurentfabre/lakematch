@@ -49,7 +49,9 @@ DEFAULTS = {
                    "gram_cap": 400, "max_join_rows": 5_000_000, "max_pairs": 100_000,
                    "union_of": [], "field_blocks": []},
     "features": {"string_similarity": "levenshtein", "multi_token": [], "udf_features": False,
-                 "embeddings": {"fields_of_type": ["organisation", "title"], "provider": "auto", "model": None}},
+                 "field_families": True, "exclude_field_types": [], "max_tokens": 64, "max_chars": 512,
+                 "levenshtein_threshold": 64,
+                 "embeddings": {"fields_of_type": [], "provider": "auto", "model": "data/models/all-MiniLM-L6-v2"}},
     "matcher": {"estimator": "gbt", "max_model_mb": 100, "max_iter": 20, "max_depth": 3, "seed": 0},
     "decision": {"threshold": "from_validation", "cardinality": "one_to_one"},
     "cluster": {"method": "verified_merge", "max_rounds": 20},
@@ -102,16 +104,14 @@ class Config:
         return json.dumps(self.data, sort_keys=True, separators=(",", ":"))
 
     def require_implemented(self):
-        supported = {"candidates.method": {"gram_topk"}, "features.string_similarity": {"levenshtein"},
+        supported = {"candidates.method": {"gram_topk"},
                      "quality.engine": {"native"}, "labels.llm": {"none"}}
         for key, values in supported.items():
             value = _get(self.data, key)
             if value not in values:
                 raise MethodUnavailable(f"{key}={value} is a declared choice, not implemented in ZR-1")
-        if self["features"]["multi_token"]:
-            raise MethodUnavailable("Multi-token feature families require ZR-2")
-        if self["features"]["embeddings"]["provider"] not in {"auto", "none"}:
-            raise MethodUnavailable("Embedding providers require ZR-2")
+        if self["features"]["embeddings"]["provider"] == "databricks_endpoint":
+            raise MethodUnavailable("Remote embedding provider is not implemented")
         if self.enabled_paid:
             raise MethodUnavailable("Paid integrations are not implemented in ZR-1")
 
@@ -140,17 +140,25 @@ def from_dict(raw):
     for name, spec in fields.items():
         if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", name) or name.startswith("lm_"):
             raise ConfigError(f"Invalid or reserved field name: {name}")
-        if not isinstance(spec, dict) or set(spec) != {"type"} or spec["type"] not in FIELD_TYPES:
+        if (not isinstance(spec, dict) or "type" not in spec or
+                set(spec) - {"type", "date_format", "multiple"} or spec["type"] not in FIELD_TYPES):
             raise ConfigError(f"{name}: expected type in {sorted(FIELD_TYPES)}")
+        if "multiple" in spec and type(spec["multiple"]) is not bool:
+            raise ConfigError(f"{name}.multiple must be boolean")
+        if "date_format" in spec and (spec["type"] != "date" or not isinstance(spec["date_format"], str) or not spec["date_format"]):
+            raise ConfigError(f"{name}.date_format requires a nonempty Spark date pattern on a date field")
+        if spec.get("multiple") and spec["type"] in {"date", "number"}:
+            raise ConfigError("Multi-valued date/number fields require explicit upstream scalar extraction")
     ident = cfg["entity"]["id_column"]
     if not isinstance(ident, str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", ident) or ident in fields:
         raise ConfigError("entity.id_column must be a simple identifier separate from fields")
     for key in ("candidates.q", "candidates.k", "candidates.gram_cap", "candidates.max_join_rows",
-                "candidates.max_pairs", "matcher.max_iter", "matcher.max_depth", "matcher.max_model_mb", "cluster.max_rounds"):
+                "candidates.max_pairs", "matcher.max_iter", "matcher.max_depth", "matcher.max_model_mb", "cluster.max_rounds",
+                "features.max_tokens", "features.max_chars", "features.levenshtein_threshold"):
         value = _get(cfg, key)
         if type(value) is not int or value <= 0:
             raise ConfigError(f"{key} must be a positive integer")
-    for key in ["runtime.connect", "features.udf_features", "candidates.idf_weighted", "mlflow.registry"]:
+    for key in ["runtime.connect", "features.udf_features", "features.field_families", "candidates.idf_weighted", "mlflow.registry"]:
         if type(_get(cfg, key)) is not bool:
             raise ConfigError(f"{key} must be boolean")
     for name in PAID:
@@ -167,6 +175,18 @@ def from_dict(raw):
     needs_udf = cfg["features"]["string_similarity"] != "levenshtein" or "affine_gap_udf" in tokens
     if needs_udf and not cfg["features"]["udf_features"]:
         raise ConfigError("Optional similarities require features.udf_features=true")
+    excluded = cfg["features"]["exclude_field_types"]
+    if (not isinstance(excluded, list) or any(t not in FIELD_TYPES for t in excluded) or len(excluded) != len(set(excluded))):
+        raise ConfigError("features.exclude_field_types must contain unique field types")
+    embedding = cfg["features"]["embeddings"]
+    if (not isinstance(embedding["fields_of_type"], list) or
+            any(t not in FIELD_TYPES for t in embedding["fields_of_type"]) or
+            len(embedding["fields_of_type"]) != len(set(embedding["fields_of_type"]))):
+        raise ConfigError("features.embeddings.fields_of_type must contain unique field types")
+    if embedding["model"] is not None and (not isinstance(embedding["model"], str) or not embedding["model"]):
+        raise ConfigError("features.embeddings.model must be a prepared local path or null")
+    if cfg["paid_features"]["photon_on_classic"] and needs_udf:
+        raise ConfigError("Optional UDF similarities cannot be selected for the Photon classic comparison")
     if cfg["profile"] == "laptop":
         if any(cfg["paid_features"][x] for x in PAID):
             raise ConfigError("Laptop profile requires every paid feature off")

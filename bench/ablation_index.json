@@ -1,0 +1,58 @@
+{
+  "febrl4": {
+    "run_id": "20260919T224028Z-ablation-febrl4-08728c",
+    "report": {
+      "path": "experiments/20260919T224028Z-ablation-febrl4-08728c/evidence/report.json",
+      "sha256": "970c916444938980845ea6ff37d1a69bf2ba455536527aabbfd919368afbf603",
+      "bytes": 20537
+    },
+    "source_digest": "83b70fdf673bc225b94923784c9db46c2ab4edcb2a2be3631cefb92dce5dabf4"
+  },
+  "bpid": {
+    "run_id": "20260919T224228Z-ablation-bpid-67a740",
+    "report": {
+      "path": "experiments/20260919T224228Z-ablation-bpid-67a740/evidence/report.json",
+      "sha256": "1fe8740d3fa325540115dbe7d0460406cb987eb7de9648ea348983ddd8ba4967",
+      "bytes": 20731
+    },
+    "source_digest": "83b70fdf673bc225b94923784c9db46c2ab4edcb2a2be3631cefb92dce5dabf4"
+  },
+  "abt_buy": {
+    "run_id": "20260919T224353Z-ablation-abt_buy-9f9d5c",
+    "report": {
+      "path": "experiments/20260919T224353Z-ablation-abt_buy-9f9d5c/evidence/report.json",
+      "sha256": "4e31b031902c039e26373f58d024d377441ff01f204c5f7e5512f69c8f8cb318",
+      "bytes": 19965
+    },
+    "source_digest": "83b70fdf673bc225b94923784c9db46c2ab4edcb2a2be3631cefb92dce5dabf4",
+    "embedding": {
+      "paired_delta_95ci": [
+        -0.04597701149425282,
+        0.02314814814814814
+      ],
+      "positive_interval": false,
+      "records": 2103,
+      "seconds": 7.611882666940801,
+      "seconds_per_100000_extrapolated": 361.95352672091303
+    }
+  },
+  "affiliations": {
+    "run_id": "20260919T224556Z-ablation-affiliations-e9f006",
+    "report": {
+      "path": "experiments/20260919T224556Z-ablation-affiliations-e9f006/evidence/report.json",
+      "sha256": "5aaf357ab6564a07ef5d2f87515258a7826febdb192da7bdc332b7e77fc25ead",
+      "bytes": 18574
+    },
+    "source_digest": "83b70fdf673bc225b94923784c9db46c2ab4edcb2a2be3631cefb92dce5dabf4",
+    "embedding": {
+      "paired_delta_95ci": [
+        -0.00043270512889925783,
+        0.0073649975515593935
+      ],
+      "positive_interval": false,
+      "records": 4512,
+      "seconds": 6.4405521671287715,
+      "seconds_per_100000_extrapolated": 142.74273420054902
+    }
+  }
+}

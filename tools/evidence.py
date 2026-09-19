@@ -15,10 +15,12 @@ LOCAL_TOOLS = {"accept_zr1.py", "connect_tests.py", "evidence.py", "experiment.p
 
 def source_files(phase=None):
     paths = [ROOT / n for n in ("pyproject.toml", ".python-version", "requirements-local.lock", "verify_zr.sh")]
-    for directory in ("src", "tests", "tools", "examples"):
+    for directory in ("src", "tests", "tools", "examples", "bench"):
         paths += [p for p in (ROOT / directory).rglob("*") if p.is_file() and
                   "__pycache__" not in p.parts and p.suffix in {".py", ".yaml", ".csv", ".sb"} and
                   (phase != "ZR-1" or directory != "tools" or p.name in LOCAL_TOOLS)]
+    if phase != "ZR-1":
+        paths += [ROOT / "bench" / n for n in ("PROTOCOL.md", "ABLATION_PLAN.md")]
     return [p for p in sorted(set(paths)) if p.exists()]
 
 

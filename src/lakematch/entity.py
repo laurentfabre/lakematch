@@ -15,5 +15,16 @@ def grams(value, q):
 
 
 def prepare(frame, config):
-    return frame.select(F.col(config["entity"]["id_column"]).cast("string").alias("rec_id"),
-                        *[normalize(F.col(name)).alias(name) for name in config.fields])
+    expressions = []
+    for name, spec in config["entity"]["fields"].items():
+        raw = F.col(name)
+        if spec.get("multiple"):
+            values = F.array_distinct(F.filter(F.transform(raw, normalize), lambda x: F.length(x) > 0))
+            values = F.coalesce(values, F.array().cast("array<string>"))
+            expressions += [F.concat_ws(" ", values).alias(name), values.alias(f"lm_values_{name}")]
+        else:
+            expressions.append(normalize(raw).alias(name))
+        if spec["type"] in {"date", "number"}:
+            # Typed comparisons must retain signs, decimal points and date separators.
+            expressions.append(F.trim(raw.cast("string")).alias(f"lm_raw_{name}"))
+    return frame.select(F.col(config["entity"]["id_column"]).cast("string").alias("rec_id"), *expressions)

@@ -1,0 +1,231 @@
+{
+  "corpus": "febrl4_half_all",
+  "protocol": "bench/PROTOCOL.md and bench/ABLATION_PLAN.md",
+  "split_manifest": "data/bench/febrl4_half_all/manifest.json",
+  "manifest": {
+    "source": "recordlinkage 0.16 FEBRL4",
+    "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+    "split_method": "SHA-256 ranked whole truth entities 3000/1000/1000; independent namespaced partner-removal ranking",
+    "exposure": "Historical corpus and 80 smoke anchors exposed; new split/removal outcomes, not independent population",
+    "universe": "5000 left / 2500 right; full-universe transductive candidates; supervised IDF fits train only",
+    "hidden_fields": [],
+    "closed_world_truth": true,
+    "corpus": "febrl4_half_all",
+    "seed": 2026091901,
+    "fields": {
+      "given_name": {
+        "type": "person_name"
+      },
+      "surname": {
+        "type": "person_name"
+      },
+      "street_number": {
+        "type": "code"
+      },
+      "address_1": {
+        "type": "address"
+      },
+      "address_2": {
+        "type": "address"
+      },
+      "suburb": {
+        "type": "address"
+      },
+      "postcode": {
+        "type": "code"
+      },
+      "state": {
+        "type": "code"
+      },
+      "date_of_birth": {
+        "type": "date",
+        "date_format": "yyyyMMdd"
+      },
+      "soc_sec_id": {
+        "type": "code"
+      }
+    },
+    "retrieval": true,
+    "files": {
+      "left": {
+        "path": "data/bench/febrl4_half_all/left.jsonl",
+        "sha256": "e63cf16cbfec77c5a8ab04c0930edce6317b6a9342acff89161aca9816f64fd9",
+        "rows": 5000
+      },
+      "right": {
+        "path": "data/bench/febrl4_half_all/right.jsonl",
+        "sha256": "0d8cf31c830e8a0e58035e4b8fef43f85079e3484b8ba5b4bb3119254788628b",
+        "rows": 2500
+      },
+      "pairs": {
+        "path": "data/bench/febrl4_half_all/pairs.jsonl",
+        "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+        "rows": 2500
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "febrl4_half_all",
+      "id_column": "rec_id",
+      "fields": {
+        "given_name": {
+          "type": "person_name"
+        },
+        "surname": {
+          "type": "person_name"
+        },
+        "street_number": {
+          "type": "code"
+        },
+        "address_1": {
+          "type": "address"
+        },
+        "address_2": {
+          "type": "address"
+        },
+        "suburb": {
+          "type": "address"
+        },
+        "postcode": {
+          "type": "code"
+        },
+        "state": {
+          "type": "code"
+        },
+        "date_of_birth": {
+          "type": "date",
+          "date_format": "yyyyMMdd"
+        },
+        "soc_sec_id": {
+          "type": "code"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": []
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [
+          "organisation",
+          "title"
+        ],
+        "provider": "none",
+        "model": null
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "one_to_one"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:///mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model"
+    }
+  },
+  "variants_declared": [
+    "native_all",
+    "without_field_families",
+    "without_idf",
+    "without_grams",
+    "without_monge",
+    "plus_jaro_winkler",
+    "plus_affine",
+    "embedding_on"
+  ],
+  "confirmation_scored": false,
+  "cost": {
+    "remote_spend": 0,
+    "llm_spend": 0,
+    "mode": "offline local"
+  },
+  "rows": [],
+  "status": "running"
+}

@@ -17,6 +17,29 @@ from uuid import uuid4
 from evidence import ROOT, sha256, source_digest, source_files
 
 
+def live_group_members(pgid):
+    """macOS may return EPERM while a just-exited group's zombies are reaped."""
+    result = subprocess.run(["ps", "-axo", "pid=,pgid=,stat="], check=True, capture_output=True, text=True)
+    members = []
+    for line in result.stdout.splitlines():
+        pid, group, state = line.split()
+        if int(group) == pgid and not state.startswith("Z"):
+            members.append(int(pid))
+    return members
+
+
+def signal_owned_group(pgid, sig):
+    try:
+        os.killpg(pgid, sig)
+    except ProcessLookupError:
+        pass
+    except PermissionError:
+        # Never interpret permission denial as successful cleanup without an
+        # independent process inventory. A live owned process remains an error.
+        if live_group_members(pgid):
+            raise
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--phase", required=True)
@@ -25,6 +48,10 @@ def main():
     parser.add_argument("--timeout", type=int, default=600)
     parser.add_argument("--artifact", action="append", default=[])
     parser.add_argument("--config")
+    parser.add_argument("--dataset", default="synthetic unit fixtures unless command/config declares a prepared public corpus")
+    parser.add_argument("--baseline", default="specification; no accepted implementation baseline")
+    parser.add_argument("--primary-metric", default="command exit status plus recorded assertions/artifacts")
+    parser.add_argument("--seed", type=int, action="append")
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     command = args.command[1:] if args.command[:1] == ["--"] else args.command
@@ -37,9 +64,8 @@ def main():
     git = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True)
     manifest = {
         "schema_version": 1, "run_id": run_id, "phase": args.phase, "kind": args.kind,
-        "hypothesis": args.hypothesis, "baseline": "specification; no accepted implementation baseline",
-        "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
-        "primary_metric": "command exit status plus recorded assertions/artifacts",
+        "hypothesis": args.hypothesis, "baseline": args.baseline, "dataset": args.dataset,
+        "primary_metric": args.primary_metric,
         "source_commit": git.stdout.strip(), "source_digest": source_digest(args.phase),
         "source_files": {str(p.relative_to(ROOT)): sha256(p) for p in source_files(args.phase)},
         "command": command, "started_at": started.isoformat(), "status": "running",
@@ -49,14 +75,20 @@ def main():
         "budget": {"timeout_seconds": args.timeout, "remote_spend": None if args.phase == "ENV" else 0,
                    "cost_status": "unreconciled" if args.phase == "ENV" else "local only", "parallel_experiments": 1},
         "config": {"path": args.config, "sha256": sha256(args.config)} if args.config else None,
-        "seeds": [0], "model_run_ids": [], "artifacts": [], "cleanup": "pending",
+        "seeds": args.seed or [0], "model_run_ids": [], "artifacts": [], "cleanup": "pending",
     }
+    for optional in ("sentence-transformers", "torch", "transformers", "recordlinkage"):
+        try:
+            manifest["versions"][optional] = importlib.metadata.version(optional)
+        except importlib.metadata.PackageNotFoundError:
+            pass
     path = directory / "manifest.json"
     path.write_text(json.dumps(manifest, indent=2) + "\n")
     print(run_id, flush=True)
     t0 = time.perf_counter()
     exit_code = 1
     child = None
+    cleanup = "not started"
     try:
         with (directory / "stdout.txt").open("w") as out, (directory / "stderr.txt").open("w") as err:
             child = subprocess.Popen(command, cwd=ROOT, stdout=out, stderr=err, start_new_session=True)
@@ -68,37 +100,36 @@ def main():
             except KeyboardInterrupt:
                 manifest["status"] = "canceled"
             finally:
+                cleanup = "pending owned-process cleanup"
                 # Terminate any JVM children, including orphaned Connect servers, in
                 # this experiment's process group only, even after the parent exits.
-                try:
-                    os.killpg(child.pid, signal.SIGTERM)
-                except ProcessLookupError:
-                    pass
+                signal_owned_group(child.pid, signal.SIGTERM)
                 if child.poll() is None:
                     try:
                         child.wait(timeout=10)
                     except subprocess.TimeoutExpired:
-                        os.killpg(child.pid, signal.SIGKILL)
+                        signal_owned_group(child.pid, signal.SIGKILL)
                         child.wait()
                 # The Python parent may exit before the JVM finishes its shutdown
                 # hooks. Wait for the entire owned group before hashing its logs.
                 # Otherwise a late JVM log write invalidates a sealed manifest.
                 deadline = time.monotonic() + 10
                 while True:
-                    try:
-                        os.killpg(child.pid, 0)
-                    except ProcessLookupError:
+                    if not live_group_members(child.pid):
                         break
                     if time.monotonic() >= deadline:
-                        os.killpg(child.pid, signal.SIGKILL)
+                        signal_owned_group(child.pid, signal.SIGKILL)
                         time.sleep(.2)  # SIGKILL closes inherited output descriptors.
+                        if live_group_members(child.pid):
+                            raise RuntimeError("Owned processes remain alive after SIGKILL")
                         break
                     time.sleep(.1)
+                cleanup = "owned process group terminated; no live members in process inventory"
     except Exception as exc:
         manifest.update(status="failed", error=f"{type(exc).__name__}: {exc}")
     finally:
         manifest.update(exit_code=exit_code, wall_seconds=time.perf_counter() - t0,
-                        ended_at=datetime.now(timezone.utc).isoformat(), cleanup="owned process group terminated")
+                        ended_at=datetime.now(timezone.utc).isoformat(), cleanup=cleanup)
         for artifact in [str(directory / "stdout.txt"), str(directory / "stderr.txt"), *args.artifact]:
             p = Path(artifact).resolve()
             if p.is_file():
@@ -114,7 +145,7 @@ def main():
         with (ROOT / "experiments" / "runs.jsonl").open("a") as ledger:
             ledger.write(json.dumps(event, sort_keys=True) + "\n")
         print(json.dumps(event), flush=True)
-    return exit_code if manifest["status"] in {"passed", "failed"} else 1
+    return 0 if manifest["status"] == "passed" and exit_code == 0 else (exit_code or 1)
 
 
 if __name__ == "__main__":

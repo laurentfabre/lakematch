@@ -15,10 +15,11 @@ def main():
         config = load(args.config)
         print(json.dumps({"enabled_paid_features": config.enabled_paid}), file=sys.stderr)
         if args.command == "doctor":
+            from .embeddings import availability
             report = {"runtime": config["runtime"], "methods": {n: config[n] for n in ("candidates", "features", "matcher", "decision", "cluster", "quality")},
                       "default_status": "starting hypotheses; no ZR-3 validation winners yet",
                       "enabled_paid_features": config.enabled_paid, "capabilities": "untested; use --probe",
-                      "warnings": ["Embedding auto provider is unavailable until ZR-2; no embeddings computed"]}
+                      "warnings": [reason] if (reason := availability(config)) else []}
             if args.probe:
                 from .runtime import create_session, probe
                 spark = create_session(config)

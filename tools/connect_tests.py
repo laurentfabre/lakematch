@@ -8,6 +8,7 @@ import sys
 import time
 
 import pyspark
+from lakematch.runtime import LOCAL_JAVA_OPTIONS
 
 
 def main():
@@ -16,6 +17,7 @@ def main():
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
     command = [str(root / "bin" / "spark-submit"), "--master", "local[2]",
+               "--driver-java-options", LOCAL_JAVA_OPTIONS,
                "--conf", f"spark.connect.grpc.binding.port={port}",
                "--conf", "spark.connect.grpc.binding.address=127.0.0.1",
                "--conf", "spark.sql.shuffle.partitions=4", "--conf", "spark.ui.enabled=false",

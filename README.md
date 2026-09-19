@@ -10,9 +10,11 @@ Spark Declarative Pipelines where the platform allows it, tracked in MLflow, wit
 Genie agent. The full specification, the nine bounded phases ZR-1..9 and the ledger of the 28 design decisions are in
 [`spec/BRIEF.md`](spec/BRIEF.md).
 
-**State on 2026-09-19: ZR-1 passes its verifier; the serverless engine canary also passes.** The engine now includes YAML configuration,
+**State on 2026-09-20: ZR-1 and ZR-2 pass their verifiers; serverless has a successful engine canary.** The engine includes YAML configuration,
 native quality checks, bounded IDF candidates, comparison features, MLlib estimators and deterministic links.
-The same 39-test suite passes on classic local Spark and Spark Connect, and an offline synthetic CLI run passes.
+The same 65-test suite passes on classic local Spark and Spark Connect, and an offline synthetic CLI run passes.
+Typed native comparisons, optional similarities and an offline embedding provider are implemented;
+see the [feature contract](bench/FEATURES.md) and measured [ablations](bench/ABLATION.md).
 Later phases are pending. [goal.md](goal.md) is the authoritative acceptance ledger;
 [bench/ENGINE.md](bench/ENGINE.md) records development evidence and limitations.
 
@@ -35,7 +37,13 @@ Every run logs its enabled paid features; laptop configs reject paid integration
 
 Run `pytest` with local Spark, or `python tools/connect_tests.py` to own a temporary local Connect server and
 run the same tests. `tools/experiment.py` captures bounded commands and evidence; `bash verify_zr.sh 1` only
-reads that evidence and fails when it is missing or stale. Phases 2–9 remain nonzero until implemented.
+reads that evidence and fails when it is missing or stale. `bash verify_zr.sh 2` also checks all four corpus ablations. Phases 3–9 remain pending.
+
+Prepare additional public corpora and the optional embedding snapshot with
+`python tools/prepare_sources.py --model` after installing `.[embeddings]`.
+`python tools/accept_zr2.py` runs the fixed local validation sweep; its four Spark runs each
+have a 15-minute limit and deny external egress at the OS level. Embeddings remain off by default
+because their paired validation improvement was inconclusive on both tested domains.
 
 ## What is here
 

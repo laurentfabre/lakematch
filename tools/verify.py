@@ -10,10 +10,81 @@ import xml.etree.ElementTree as ET
 from evidence import ROOT, sha256, source_digest
 
 
+def verify_features():
+    errors = verify(1)
+    ledger = ROOT / "experiments" / "runs.jsonl"
+    records = [json.loads(line) for line in ledger.read_text().splitlines() if line]
+    expected = {"native_all", "without_field_families", "without_idf", "without_grams", "without_monge", "plus_jaro_winkler", "plus_affine"}
+    for corpus in ("febrl4", "bpid", "abt_buy", "affiliations"):
+        kind = "ablation-" + corpus
+        found = []
+        for event in records:
+            if event["phase"] != "ZR-2" or event["kind"] != kind:
+                continue
+            manifest = json.loads((ROOT / event["manifest"]).read_text())
+            # Reports/verifier-only edits do not change the measured engine. Compare
+            # every actual execution dependency recorded by the experiment runner.
+            dependencies = {p: h for p, h in manifest["source_files"].items() if p.startswith("src/") or p in {
+                "tools/run_ablation.py", "tools/offline_run.py", "tools/offline.sb", "pyproject.toml", "bench/ABLATION_PLAN.md"}}
+            if dependencies and all((ROOT / p).is_file() and sha256(ROOT / p) == h for p, h in dependencies.items()):
+                found.append((event, manifest))
+        if not found:
+            errors.append(f"Missing compatible-source {kind} evidence")
+            continue
+        event, manifest = found[-1]
+        if event["status"] != "passed" or manifest["exit_code"] != 0:
+            errors.append(f"Latest compatible {kind} did not pass")
+            continue
+        report, plans, predictions, stdout = None, {}, set(), ""
+        for artifact in manifest["artifacts"]:
+            path = ROOT / artifact["path"]
+            if not path.is_file() or sha256(path) != artifact["sha256"]:
+                errors.append(f"Missing or modified {kind} artifact: {path}")
+                continue
+            if path.name == "report.json":
+                report = json.loads(path.read_text())
+            elif path.name.endswith(".plan.txt"):
+                plans[path.name[:-9]] = path.read_text()
+            elif path.name.endswith(".predictions.json"):
+                predictions.add(path.name[:-17])
+            elif path.name == "stdout.txt":
+                stdout = path.read_text()
+        required = expected | ({"embedding_on"} if corpus in {"abt_buy", "affiliations"} else set())
+        if (not report or report.get("status") != "completed" or report.get("cleanup") != "succeeded" or
+                report.get("confirmation_scored") is not False):
+            errors.append(f"Incomplete or confirmation-contaminated {kind} report")
+            continue
+        required |= {f"without_{spec['type']}_fields" for spec in report["config"]["entity"]["fields"].values()}
+        rows = {r["variant"]: r for r in report["rows"]}
+        if not required <= rows.keys() or not required <= predictions or not required <= plans.keys():
+            errors.append(f"Missing variant report, predictions or explain plan for {kind}")
+        for name in required & rows.keys():
+            row = rows[name]
+            if row.get("resamples") != 2000 or row.get("seed") != 2026091902 or not row.get("f1_95ci") or not row.get("paired_delta_95ci"):
+                errors.append(f"Missing paired bootstrap evidence: {kind}/{name}")
+            if name not in {"plus_jaro_winkler", "plus_affine"} and (not row.get("native_plan") or any(
+                    token in plans.get(name, "") for token in ("PythonUDF", "BatchEvalPython", "ArrowEvalPython"))):
+                errors.append(f"Default feature plan has a Python UDF: {kind}/{name}")
+        if "embedding_on" in required and "embedding_on" in rows:
+            observations = rows["embedding_on"].get("embedding_preparation", {})
+            if set(observations) != {"left", "right"} or any(o.get("status") != "prepared" or not o.get("records") or
+                    not o.get("seconds_per_100000_records_extrapolated") for o in observations.values()):
+                errors.append(f"Missing actual local embedding execution/cost: {kind}")
+        if "Verified OS denies non-loopback network access" not in stdout:
+            errors.append(f"Missing offline assertion: {kind}")
+        if corpus == "febrl4" and not report.get("training_record_partition_assertion"):
+            errors.append("FEBRL supervised training partition was not asserted")
+    if not (ROOT / "bench" / "ABLATION.md").is_file():
+        errors.append("Missing bench/ABLATION.md")
+    return errors
+
+
 def verify(phase):
     errors = []
     if phase not in range(1, 10):
         return ["Phase must be an integer from 1 to 9"]
+    if phase == 2:
+        return verify_features()
     if phase != 1:
         return [f"ZR-{phase}: implementation and full acceptance evidence are pending; see goal.md"]
     package = tomllib.loads((ROOT / "pyproject.toml").read_text())

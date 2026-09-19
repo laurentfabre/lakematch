@@ -4,9 +4,20 @@ import errno
 import socket
 import subprocess
 import sys
+import tempfile
+from pathlib import Path
 
 
-def main():
+def assert_offline():
+    with tempfile.TemporaryDirectory(prefix="lakematch-worker-socket-") as root:
+        path = str(Path(root) / "worker.sock")
+        with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as server, socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
+            server.bind(path)
+            server.listen(1)
+            client.connect(path)
+            accepted, _ = server.accept()
+            accepted.close()
+        print("Verified local Unix worker sockets are available", flush=True)
     with socket.socket() as sock:
         sock.settimeout(2)
         try:
@@ -17,6 +28,10 @@ def main():
             print("Verified OS denies non-loopback network access", flush=True)
         else:
             raise RuntimeError("Offline proof failed: external network connection was allowed")
+
+
+def main():
+    assert_offline()
     return subprocess.run([sys.executable, "-m", "lakematch.cli", "run", "--config", "examples/synthetic.yaml"]).returncode
 
 

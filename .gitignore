@@ -17,6 +17,8 @@ experiments/*/stdout*
 experiments/*/stderr*
 experiments/*/*profile*
 experiments/*/artifacts/
+experiments/*/evidence/*.predictions.json
+experiments/*/evidence/*.plan.txt
 
 # Local toolchains, build outputs and Spark state.
 .tools/

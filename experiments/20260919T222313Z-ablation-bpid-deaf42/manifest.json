@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T222313Z-ablation-bpid-deaf42",
+  "phase": "ZR-2",
+  "kind": "ablation-bpid",
+  "hypothesis": "Predeclared feature removals and optional similarities change validation F1 relative to native_all; both training endpoints obey partitions; confirmation is unscored",
+  "baseline": "native_all",
+  "dataset": "bpid",
+  "primary_metric": "validation F1 and paired 95% bootstrap intervals",
+  "source_commit": "a580229e1709673a422fdc967fdeeb4d857bd195",
+  "source_digest": "8845718419aa896edc3c431500ee67a207157303435e41e51fa285edbe630a80",
+  "source_files": {
+    ".python-version": "aa0d6581054e6e4ff3f91839deca7a854ad37221b8784d060b42d0f847ff1a3b",
+    "bench/ABLATION_PLAN.md": "498050cf157c46bf5eb0b35547c8c5dc0a05378b088da31a2d811f26672c8d09",
+    "bench/PROTOCOL.md": "7fc881e1d8e4bce6a9223e0d6222c1e04f82cbfef609d3a1727b612d88237a36",
+    "examples/data/labels.csv": "c465224c3f85ecac8b6a0f7458183df2fb5b3fe30224e18faa0078dd688fedf2",
+    "examples/data/left.csv": "74212e14006a782ae7593b874e887d254e5aa5dfa048fbfeb3de1dfce9348587",
+    "examples/data/right.csv": "b00c96532331c34b441fb805039a2039fb89682bdea9a1862544f28f2a79c54c",
+    "examples/febrl4.yaml": "ddbde03342c832ac7edd5e6921c5fa4f17f650f06d2e8920ed2c671e12aea9c8",
+    "examples/synthetic.yaml": "40a09a87cf0485121ad32b2eb6d038d349259831d443a83aac0f19e5abe142be",
+    "pyproject.toml": "ac5c881ded9d9b7c71546556e53315c6a794a7af71973c7caf29150e4a00e868",
+    "requirements-local.lock": "4a592cc85e84118cabdbe7dacaef069d6bc6f8642e7f99ccc897804ff1a2b319",
+    "src/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "src/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+    "src/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+    "src/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+    "src/lakematch/candidates.py": "3c6f9971e4a742354a68828d6adcb11ba7dd2127d1288d0d6d4a8177587034ca",
+    "src/lakematch/cli.py": "d78b9b24c7c41de10e469c30a779995a212b7e2a0ddbbbf65e4b08db1087458c",
+    "src/lakematch/config.py": "1c7cb7969b9e6efd45d4fc544ec5d1a1613b497224bc61b4d0b94a2936083de5",
+    "src/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "src/lakematch/embeddings.py": "e74c43aa9b4cfdcce6d4c53f5dc9e34a0fb2972b78d9d62aa5568ff99969aba3",
+    "src/lakematch/engine.py": "eaf18ddaf9a7888d16348737afc6ea1bd7d1f20a20cf417d4ef5845e889488e0",
+    "src/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+    "src/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+    "src/lakematch/features.py": "de231b7437010d3456f8d22f0ac9c324cc1f176d161a16bdc53b608639fcf468",
+    "src/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "src/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+    "src/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "src/lakematch/runtime.py": "11082be49f7e2a47a76049f4e457b6fa4e1657724fb2f7800545f24467c0facd",
+    "src/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+    "tests/conftest.py": "e5c6d18f2583442e4c8b19872b76347a955b4b8c866db7928596f37f3e5abb46",
+    "tests/test_benchmark.py": "3dcadff699a74a32f46f5264a2c09e4cc9c7612117227b9d040bf3351e3fb5d7",
+    "tests/test_config.py": "6680b338b1e07e4820fa1034a3c19b6cdcb2b60dcad0ac049309ebfc2b6ebabe",
+    "tests/test_engine.py": "562d7ec4fa85712b426c69daa8445a55625deaf8088109810e56d8a2a5e38f0e",
+    "tests/test_features.py": "79241bd593fd2e5bc5324d0d2aab53d5142ff208aa2807b0d65e0824d0521f2a",
+    "tests/test_verifier.py": "52323434ca99fc2664ea859ab21272ec993c03535824cc4f5ac0d36307d235ea",
+    "tools/accept_zr1.py": "5e1ce80f11ddd7522f1039e129803b937342259dc5798c63ec9171b0e07d100d",
+    "tools/connect_tests.py": "62a8f178903bdc9077c95fa7d9e686586083634a6c78b2969482c75f0d67d0c5",
+    "tools/env_preflight.py": "155062c10746fa2cf85b0e8bcd648fe7d528a60d6c50ffb0f2cd3f8654f697da",
+    "tools/evidence.py": "cfacbf9be380f6aabe16489b7513295f79f6cb6b4d0c1aae54a275494b37ed88",
+    "tools/experiment.py": "34906d52742b2d5813b78681a60faff53b3bedfca35b030f58f84aeb87842986",
+    "tools/offline.sb": "0e50c559fe8a054a0f02351576f95a568a773f013980bf2a68a730b527448852",
+    "tools/offline_run.py": "8ac5e71a2c79464e5c14ecfc2ce3a94bcd9ecb7430e017b237acb955c0c27e07",
+    "tools/package_check.py": "244cfa21513ce2c895f9b89c0237be7ccecd387b17d9d6f43d1374f83178f1ad",
+    "tools/prepare_febrl.py": "284b007bc73143eb3067c85ffecb68bdda828f92283e170489657bd338d5aa32",
+    "tools/prepare_sources.py": "2933317b3afb14e9398d7f1659e1c388abb446047765dfea7e209db8715dd776",
+    "tools/run_ablation.py": "59c951d316dc9b46d8f01b2e70338b7b0ff7f8abb4f562e9e8afbf85dbb2e3f8",
+    "tools/run_serverless_canary.py": "6757e9b90f885c53cf35148bb26736bf670dc66b796a12bdbba58d6a3ced560a",
+    "tools/serverless_canary.py": "d76dd4b9112eb8d00e898ec6cac0ba69d6709dd686e12ee971cc2143c271df1e",
+    "tools/spark43_watch.py": "650ac60ae072318b65020d6f0e6c8b39a69c743de2bfd8d549122dbf4f4cfdf2",
+    "tools/verify.py": "9bd958778407f238da63e9d020acdedb76acc914e95d99f4ed8b08641b9d9d78",
+    "verify_zr.sh": "38545cbae71a64e7b29845738dd645bf0732fcda548b653e2e3ede52901495a9"
+  },
+  "command": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "tools/offline.sb",
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "tools/run_ablation.py",
+    "bpid"
+  ],
+  "started_at": "2026-09-19T22:23:13.214728+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1",
+    "sentence-transformers": "5.7.0",
+    "torch": "2.14.0",
+    "transformers": "5.17.0",
+    "recordlinkage": "0.16"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 900,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": {
+    "path": "data/bench/bpid/manifest.json",
+    "sha256": "68b37873ff994c578b325c431ca04484525db5230eeec1b63decf61d8b2e469c"
+  },
+  "seeds": [
+    0,
+    2026091901,
+    2026091902
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/stdout.txt",
+      "sha256": "2658b4cc8d355dbe567ba8f0240c1720880a88a133e9b32c88e2d160efc3e1c3",
+      "bytes": 4338
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/stderr.txt",
+      "sha256": "df7daaeee45c74479fef0fad33e8a331264d5c422dc36c7fe91ecd4657761267",
+      "bytes": 7177
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/report.json",
+      "sha256": "f45ac33845247fd55ce4519021e21e8b81aeccd30e2987d41c1e4e6f64a99b6f",
+      "bytes": 10974
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/native_all.predictions.json",
+      "sha256": "f31598499ddf9fe16e46b640cd125389f6334b5b3d1ff3e99fffe9a2a8e06588",
+      "bytes": 769731
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/native_all.plan.txt",
+      "sha256": "9c6c66fb67b78c1afe03408ed8ee62db46c6623ff41775f9ebf1757aa1e55ccb",
+      "bytes": 1615298
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/without_field_families.predictions.json",
+      "sha256": "a979835103acb3c28300570b5faf484294d0fbac937ebc23c1f9fb043e2806df",
+      "bytes": 769683
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/without_field_families.plan.txt",
+      "sha256": "e01332863a26377d04bafc31b24805fab1e03498a443d4501594b17da9ae2110",
+      "bytes": 1615089
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/without_idf.predictions.json",
+      "sha256": "c77cb235570cf6e1ee0ff878fbddc5224b8b81cae8348355df31176088446736",
+      "bytes": 769690
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/without_idf.plan.txt",
+      "sha256": "6860f2805728897dd0088cf3368f9d2c55f63023eed33f3f0c49e4e0f50b9bdf",
+      "bytes": 1607936
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/without_grams.predictions.json",
+      "sha256": "291390e7943114aa49e6bf64d7ceaa3945a167b0d97ef78c0d0c8fb58c9ff69a",
+      "bytes": 769692
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/without_grams.plan.txt",
+      "sha256": "6e43b417ce1c656f5a823976ec9048c75a196bc1abb52fc1780a4ee9a09f4dca",
+      "bytes": 1601468
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/without_monge.predictions.json",
+      "sha256": "dae57465f7fde39392b7238fe847ac71010057441519fb808aa918b333aa24b2",
+      "bytes": 769715
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/without_monge.plan.txt",
+      "sha256": "acb203644e3a00c65251cdb3952030ce9e5d004e892f1a7e13adeec29be05b3e",
+      "bytes": 1601512
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/plus_jaro_winkler.predictions.json",
+      "sha256": "67bae841024a2cbadc87012c56ae5dd558df7979c67a24c36d2682ca59846fdd",
+      "bytes": 769687
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/plus_jaro_winkler.plan.txt",
+      "sha256": "c04677835cc2b35e2eb5c033202f0a4e1ae9e1987eb23ff28c3bd33a28e615f0",
+      "bytes": 1602930
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/plus_affine.predictions.json",
+      "sha256": "b983f91cf5b3d9a8d641df8a4b6e5a17af1c73abdb97adbd577b0d2dc6eae802",
+      "bytes": 769712
+    },
+    {
+      "path": "experiments/20260919T222313Z-ablation-bpid-deaf42/evidence/plus_affine.plan.txt",
+      "sha256": "04fd08ba7a58e3f249401c0cfa0c219191ca78c1cc82f66da857b1cf8b355631",
+      "bytes": 1613028
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 62.3704403329175,
+  "ended_at": "2026-09-19T22:24:15.641055+00:00"
+}

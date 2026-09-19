@@ -1,0 +1,587 @@
+{
+  "corpus": "bpid",
+  "protocol": "bench/PROTOCOL.md and bench/ABLATION_PLAN.md",
+  "split_manifest": "data/bench/bpid/manifest.json",
+  "manifest": {
+    "source": "Zenodo 13932202",
+    "license": "Apache-2.0",
+    "raw_sha256": "3ac6b206513a45dbc860e05570dbb7a1ac97a210311ec2edb89cb2a22e18b6fe",
+    "date_note": "ISO dates parsed; other/ambiguous formats remain missing typed features, raw text comparisons retained",
+    "split_method": "record_components",
+    "duplicate_or_reversed_pairs_removed": 0,
+    "conflicting_pair_keys_excluded": 0,
+    "shared_records_between_splits": {
+      "confirmation/train": 0,
+      "confirmation/valid": 0,
+      "train/valid": 0
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "confirmation": 1966,
+      "train": 5994,
+      "valid": 2040
+    },
+    "corpus": "bpid",
+    "seed": 2026091901,
+    "fields": {
+      "fullname": {
+        "type": "person_name"
+      },
+      "email": {
+        "type": "code",
+        "multiple": true
+      },
+      "phone": {
+        "type": "code",
+        "multiple": true
+      },
+      "addr": {
+        "type": "address",
+        "multiple": true
+      },
+      "dob": {
+        "type": "date",
+        "date_format": "yyyy-MM-dd"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/bpid/left.jsonl",
+        "sha256": "14c1758eec3a520f1a5d7142d5e27619b3c5c7cafa6ef001e09285243eb46083",
+        "rows": 10000
+      },
+      "right": {
+        "path": "data/bench/bpid/right.jsonl",
+        "sha256": "28e4a3016f7a69c4f48db8c46d738c7296fd2ced763cfbfd0d3885bd882691d6",
+        "rows": 10000
+      },
+      "pairs": {
+        "path": "data/bench/bpid/pairs.jsonl",
+        "sha256": "d310543e1293fe922dc50e246ab4a0d63ff499020ce3189d36a2c99c94364ad7",
+        "rows": 10000
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "bpid",
+      "id_column": "rec_id",
+      "fields": {
+        "fullname": {
+          "type": "person_name"
+        },
+        "email": {
+          "type": "code",
+          "multiple": true
+        },
+        "phone": {
+          "type": "code",
+          "multiple": true
+        },
+        "addr": {
+          "type": "address",
+          "multiple": true
+        },
+        "dob": {
+          "type": "date",
+          "date_format": "yyyy-MM-dd"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": []
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [
+          "organisation",
+          "title"
+        ],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:///mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model"
+    }
+  },
+  "variants_declared": [
+    "native_all",
+    "without_field_families",
+    "without_idf",
+    "without_grams",
+    "without_monge",
+    "plus_jaro_winkler",
+    "plus_affine",
+    "embedding_on"
+  ],
+  "confirmation_scored": false,
+  "cost": {
+    "remote_spend": 0,
+    "llm_spend": 0,
+    "mode": "offline local"
+  },
+  "rows": [
+    {
+      "variant": "native_all",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 785,
+      "fp": 390,
+      "fn": 114,
+      "tn": 751,
+      "precision": 0.6680851063829787,
+      "recall": 0.8731924360400445,
+      "f1": 0.7569913211186113,
+      "f1_95ci": [
+        0.7357563850687623,
+        0.7776717557251909
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "threshold": 0.41,
+      "feature_seconds": 3.3956918749026954,
+      "train_seconds": 3.20479433296714,
+      "score_seconds": 0.37670166708994657,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 60
+    },
+    {
+      "variant": "without_field_families",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": false,
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 808,
+      "fp": 450,
+      "fn": 91,
+      "tn": 691,
+      "precision": 0.6422893481717011,
+      "recall": 0.8987764182424917,
+      "f1": 0.7491886879925823,
+      "f1_95ci": [
+        0.7260663507109004,
+        0.7691609977324263
+      ],
+      "paired_delta_95ci": [
+        -0.019293253442063563,
+        0.002652239359613451
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "threshold": 0.38,
+      "feature_seconds": 2.9382221249397844,
+      "train_seconds": 2.4725138749927282,
+      "score_seconds": 0.2643068750621751,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 44
+    },
+    {
+      "variant": "without_idf",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 777,
+      "fp": 404,
+      "fn": 122,
+      "tn": 737,
+      "precision": 0.6579170194750211,
+      "recall": 0.864293659621802,
+      "f1": 0.7471153846153846,
+      "f1_95ci": [
+        0.7246943765281174,
+        0.76699484294421
+      ],
+      "paired_delta_95ci": [
+        -0.020825532657818835,
+        0.0005731921166760579
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "threshold": 0.41,
+      "feature_seconds": 2.776240707957186,
+      "train_seconds": 2.449628458940424,
+      "score_seconds": 0.24934479093644768,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 55
+    },
+    {
+      "variant": "without_grams",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 767,
+      "fp": 362,
+      "fn": 132,
+      "tn": 779,
+      "precision": 0.6793622674933569,
+      "recall": 0.8531701890989989,
+      "f1": 0.7564102564102564,
+      "f1_95ci": [
+        0.7340267459138187,
+        0.7772883015173764
+      ],
+      "paired_delta_95ci": [
+        -0.010787155441886909,
+        0.00940122973920543
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "threshold": 0.42,
+      "feature_seconds": 1.8889223750447854,
+      "train_seconds": 2.34524291602429,
+      "score_seconds": 0.23658816702663898,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 55
+    },
+    {
+      "variant": "without_monge",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 801,
+      "fp": 423,
+      "fn": 98,
+      "tn": 718,
+      "precision": 0.6544117647058824,
+      "recall": 0.8909899888765295,
+      "f1": 0.754592557701366,
+      "f1_95ci": [
+        0.7334593572778828,
+        0.7744960150023441
+      ],
+      "paired_delta_95ci": [
+        -0.01341392262934038,
+        0.008472036484897028
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "threshold": 0.39,
+      "feature_seconds": 2.2855022499570623,
+      "train_seconds": 2.321851957938634,
+      "score_seconds": 0.2371675829635933,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 55
+    },
+    {
+      "variant": "plus_jaro_winkler",
+      "features_config": {
+        "string_similarity": "both",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": true,
+        "field_families": true,
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 782,
+      "fp": 389,
+      "fn": 117,
+      "tn": 752,
+      "precision": 0.667805294619983,
+      "recall": 0.8698553948832035,
+      "f1": 0.7555555555555555,
+      "f1_95ci": [
+        0.7337220602526725,
+        0.7756874095513748
+      ],
+      "paired_delta_95ci": [
+        -0.009712947005600991,
+        0.005909026193232636
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "threshold": 0.41,
+      "feature_seconds": 3.589621333987452,
+      "train_seconds": 2.4669906250201166,
+      "score_seconds": 0.25839341699611396,
+      "embedding_preparation": {},
+      "native_plan": false,
+      "feature_count": 65
+    },
+    {
+      "variant": "plus_affine",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token",
+          "affine_gap_udf"
+        ],
+        "udf_features": true,
+        "field_families": true,
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 752,
+      "fp": 349,
+      "fn": 147,
+      "tn": 792,
+      "precision": 0.6830154405086285,
+      "recall": 0.8364849833147943,
+      "f1": 0.752,
+      "f1_95ci": [
+        0.7292759706190975,
+        0.7727272727272727
+      ],
+      "paired_delta_95ci": [
+        -0.018130313240840135,
+        0.0083751773341888
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "threshold": 0.42,
+      "feature_seconds": 5.486875124974176,
+      "train_seconds": 2.427907250006683,
+      "score_seconds": 0.27154120802879333,
+      "embedding_preparation": {},
+      "native_plan": false,
+      "feature_count": 65
+    }
+  ],
+  "status": "completed",
+  "candidate_recall_validation": null,
+  "candidate_recall_scope": "supplied labeled pairs; no retrieval claim",
+  "idf_fit_and_apply_seconds": 4.124444165965542,
+  "shared_preparation_seconds": 6.310393916908652,
+  "baselines": [
+    {
+      "variant": "mean_levenshtein_threshold",
+      "threshold": 0.18,
+      "tp": 884,
+      "fp": 1086,
+      "fn": 15,
+      "tn": 55,
+      "precision": 0.44873096446700506,
+      "recall": 0.9833147942157954,
+      "f1": 0.6162425932380621,
+      "f1_95ci": [
+        0.5941155618574974,
+        0.6366427840327533
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040
+    }
+  ],
+  "cleanup": "succeeded",
+  "total_seconds_including_start_stop": 61.35697225003969
+}

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "run_id": "20260919T220450Z-feature-correctness-d834d0",
+  "phase": "ZR-2",
+  "kind": "feature-correctness",
+  "hypothesis": "All seven typed feature families, training-only IDF, bounded native token expressions, explicit optional UDFs and materialized embedding arrays pass correctness checks",
+  "baseline": "specification; no accepted implementation baseline",
+  "dataset": "synthetic unit fixtures unless command/config declares a prepared public corpus",
+  "primary_metric": "command exit status plus recorded assertions/artifacts",
+  "source_commit": "a580229e1709673a422fdc967fdeeb4d857bd195",
+  "source_digest": "8a928f3c7255f0d14e539992a6162f479162ca8362af108e4b834f9795ae1eb3",
+  "source_files": {
+    ".python-version": "aa0d6581054e6e4ff3f91839deca7a854ad37221b8784d060b42d0f847ff1a3b",
+    "examples/data/labels.csv": "c465224c3f85ecac8b6a0f7458183df2fb5b3fe30224e18faa0078dd688fedf2",
+    "examples/data/left.csv": "74212e14006a782ae7593b874e887d254e5aa5dfa048fbfeb3de1dfce9348587",
+    "examples/data/right.csv": "b00c96532331c34b441fb805039a2039fb89682bdea9a1862544f28f2a79c54c",
+    "examples/febrl4.yaml": "ddbde03342c832ac7edd5e6921c5fa4f17f650f06d2e8920ed2c671e12aea9c8",
+    "examples/synthetic.yaml": "40a09a87cf0485121ad32b2eb6d038d349259831d443a83aac0f19e5abe142be",
+    "pyproject.toml": "ac5c881ded9d9b7c71546556e53315c6a794a7af71973c7caf29150e4a00e868",
+    "requirements-local.lock": "d9e11d0af481b13fb9c31fb52016d02fca097badb872f46f1b195bb837f49b4c",
+    "src/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "src/lakematch/candidates.py": "3c6f9971e4a742354a68828d6adcb11ba7dd2127d1288d0d6d4a8177587034ca",
+    "src/lakematch/cli.py": "d78b9b24c7c41de10e469c30a779995a212b7e2a0ddbbbf65e4b08db1087458c",
+    "src/lakematch/config.py": "1c7cb7969b9e6efd45d4fc544ec5d1a1613b497224bc61b4d0b94a2936083de5",
+    "src/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "src/lakematch/embeddings.py": "e74c43aa9b4cfdcce6d4c53f5dc9e34a0fb2972b78d9d62aa5568ff99969aba3",
+    "src/lakematch/engine.py": "eaf18ddaf9a7888d16348737afc6ea1bd7d1f20a20cf417d4ef5845e889488e0",
+    "src/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+    "src/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+    "src/lakematch/features.py": "de231b7437010d3456f8d22f0ac9c324cc1f176d161a16bdc53b608639fcf468",
+    "src/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "src/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+    "src/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "src/lakematch/runtime.py": "99a39ee010ce088d8dc3545f15cf7734517c2070148e96a9e1bec01ca2440e4e",
+    "src/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+    "tests/conftest.py": "e5c6d18f2583442e4c8b19872b76347a955b4b8c866db7928596f37f3e5abb46",
+    "tests/test_config.py": "6680b338b1e07e4820fa1034a3c19b6cdcb2b60dcad0ac049309ebfc2b6ebabe",
+    "tests/test_engine.py": "562d7ec4fa85712b426c69daa8445a55625deaf8088109810e56d8a2a5e38f0e",
+    "tests/test_features.py": "79241bd593fd2e5bc5324d0d2aab53d5142ff208aa2807b0d65e0824d0521f2a",
+    "tests/test_verifier.py": "73cc7957e7b39522979d7828972b6fc561a6600d558f9400d92fa15711ab676e",
+    "tools/accept_zr1.py": "5e1ce80f11ddd7522f1039e129803b937342259dc5798c63ec9171b0e07d100d",
+    "tools/connect_tests.py": "c8622ee76bc8fa1cb459f8329c69d79aaaf0aef83d3a790e8b727885d443fad6",
+    "tools/env_preflight.py": "155062c10746fa2cf85b0e8bcd648fe7d528a60d6c50ffb0f2cd3f8654f697da",
+    "tools/evidence.py": "441692f94f915641d89bf75c7ed4702b62929b77bb2f3465c0d13e258e8fd43f",
+    "tools/experiment.py": "29d85bfd080025b8590f210c5a0e9641e8752c48cda7a11f45ead2ee1c9caa71",
+    "tools/offline.sb": "cf35cca89f2e1b677995e788c0fe365bf627c641f260a3e4ea80cbde31a0c60e",
+    "tools/offline_run.py": "6654e62deb0eccb1328b0f7b6637b32104574dfae9fbc8d95733ef4a25b1db9c",
+    "tools/package_check.py": "244cfa21513ce2c895f9b89c0237be7ccecd387b17d9d6f43d1374f83178f1ad",
+    "tools/prepare_febrl.py": "284b007bc73143eb3067c85ffecb68bdda828f92283e170489657bd338d5aa32",
+    "tools/run_serverless_canary.py": "6757e9b90f885c53cf35148bb26736bf670dc66b796a12bdbba58d6a3ced560a",
+    "tools/serverless_canary.py": "d76dd4b9112eb8d00e898ec6cac0ba69d6709dd686e12ee971cc2143c271df1e",
+    "tools/spark43_watch.py": "650ac60ae072318b65020d6f0e6c8b39a69c743de2bfd8d549122dbf4f4cfdf2",
+    "tools/verify.py": "2bd1044cb29f4e2e88ae42325a09b4841babca529736e208892cb67b1a9dac9f",
+    "verify_zr.sh": "38545cbae71a64e7b29845738dd645bf0732fcda548b653e2e3ede52901495a9"
+  },
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_features.py",
+    "tests/test_config.py",
+    "-q",
+    "--junitxml=experiments/features-classic.xml"
+  ],
+  "started_at": "2026-09-19T22:04:50.874681+00:00",
+  "status": "passed",
+  "versions": {
+    "python": "3.12.13",
+    "pyspark": "4.1.3",
+    "mlflow": "3.16.0",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "runtime": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "test_mode": "classic",
+    "java_home": "/Users/laurent.fabre/Projects/Claude/lakematch/.tools/jdk/jdk-17.0.20.1+1/Contents/Home",
+    "workspace": null
+  },
+  "budget": {
+    "timeout_seconds": 180,
+    "remote_spend": 0,
+    "cost_status": "local only",
+    "parallel_experiments": 1
+  },
+  "config": null,
+  "seeds": [
+    0
+  ],
+  "model_run_ids": [],
+  "artifacts": [
+    {
+      "path": "experiments/20260919T220450Z-feature-correctness-d834d0/stdout.txt",
+      "sha256": "d3cf9ef22d0897baa2eab91007aa69f195a48366282adc96f1d4bbd21b4972a7",
+      "bytes": 100
+    },
+    {
+      "path": "experiments/20260919T220450Z-feature-correctness-d834d0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/20260919T220450Z-feature-correctness-d834d0/evidence/features-classic.xml",
+      "sha256": "112b96ccaab983345ec0f74ececd854b9f186f8225603d8aecf954d3b676fcd0",
+      "bytes": 3819
+    }
+  ],
+  "cleanup": "owned process group terminated",
+  "exit_code": 0,
+  "wall_seconds": 14.161827582982369,
+  "ended_at": "2026-09-19T22:05:05.087868+00:00"
+}

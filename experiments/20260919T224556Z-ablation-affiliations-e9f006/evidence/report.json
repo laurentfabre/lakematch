@@ -1,0 +1,699 @@
+{
+  "corpus": "affiliations",
+  "protocol": "bench/PROTOCOL.md and bench/ABLATION_PLAN.md",
+  "split_manifest": "data/bench/affiliations/manifest.json",
+  "manifest": {
+    "source": "Leipzig affiliationstrings.zip",
+    "license": "CC BY 4.0",
+    "identity_components": 330,
+    "negative_sampling": "5 per anchor, same split, different released component",
+    "raw_sha256": {
+      "affiliationstrings_ids.csv": "884305d8fdc164cd86b3128efdfce2d1415875657d92644559001f3110daa886",
+      "affiliationstrings_mapping.csv": "9a3e1cb99b8b6d44f3ab3423efc10f46323371d2f1e5a241fb58c609f9f02770"
+    },
+    "split_method": "released identity components 60/20/20, SHA-256 ranking",
+    "duplicate_or_reversed_pairs_removed": 145,
+    "conflicting_pair_keys_excluded": 0,
+    "shared_records_between_splits": {
+      "confirmation/train": 0,
+      "confirmation/valid": 0,
+      "train/valid": 0
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "confirmation": 6896,
+      "train": 17078,
+      "valid": 3976
+    },
+    "corpus": "affiliations",
+    "seed": 2026091901,
+    "fields": {
+      "name": {
+        "type": "organisation"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/affiliations/left.jsonl",
+        "sha256": "3bdb23a83013e7eff14aaf1153a75f3a967657ea5b767c15e5155bf7114a01b0",
+        "rows": 2257
+      },
+      "right": {
+        "path": "data/bench/affiliations/right.jsonl",
+        "sha256": "74ce49499fe66b374027f440f209ea330fe00e7892dfa8de61f06ba082a14899",
+        "rows": 2255
+      },
+      "pairs": {
+        "path": "data/bench/affiliations/pairs.jsonl",
+        "sha256": "854397cd05955cb6ccdc5f987f45fe53fd7f7917bd1b1a18d51daece4cb9fbb5",
+        "rows": 27950
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "affiliations",
+      "id_column": "rec_id",
+      "fields": {
+        "name": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": []
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [
+          "organisation",
+          "title"
+        ],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:///mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model"
+    }
+  },
+  "variants_declared": [
+    "native_all",
+    "without_field_families",
+    "without_idf",
+    "without_grams",
+    "without_monge",
+    "plus_jaro_winkler",
+    "plus_affine",
+    "embedding_on",
+    "without_address_fields",
+    "without_code_fields",
+    "without_date_fields",
+    "without_number_fields",
+    "without_organisation_fields",
+    "without_person_name_fields",
+    "without_title_fields"
+  ],
+  "confirmation_scored": false,
+  "cost": {
+    "remote_spend": 0,
+    "llm_spend": 0,
+    "mode": "offline local"
+  },
+  "rows": [
+    {
+      "variant": "native_all",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 1901,
+      "fp": 28,
+      "fn": 217,
+      "tn": 1830,
+      "precision": 0.9854847071021254,
+      "recall": 0.8975448536355052,
+      "f1": 0.9394613293797875,
+      "f1_95ci": [
+        0.929172857850421,
+        0.9484946504105499
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.64,
+      "feature_seconds": 3.2795813749544322,
+      "train_seconds": 3.285089792101644,
+      "score_seconds": 0.345206290949136,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 13
+    },
+    {
+      "variant": "without_field_families",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": false,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 1907,
+      "fp": 38,
+      "fn": 211,
+      "tn": 1820,
+      "precision": 0.9804627249357326,
+      "recall": 0.9003777148253069,
+      "f1": 0.9387152350479941,
+      "f1_95ci": [
+        0.9280107647454586,
+        0.9481924936679714
+      ],
+      "paired_delta_95ci": [
+        -0.0029957471715671424,
+        0.0014880889666482044
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.57,
+      "feature_seconds": 2.798334041959606,
+      "train_seconds": 2.5463567910483107,
+      "score_seconds": 0.26087287499103695,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 10
+    },
+    {
+      "variant": "without_idf",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 1812,
+      "fp": 262,
+      "fn": 306,
+      "tn": 1596,
+      "precision": 0.8736740597878495,
+      "recall": 0.8555240793201133,
+      "f1": 0.8645038167938931,
+      "f1_95ci": [
+        0.8451676528599605,
+        0.8807420494699647
+      ],
+      "paired_delta_95ci": [
+        -0.09172363730503086,
+        -0.06041906376371231
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.59,
+      "feature_seconds": 2.9203007499454543,
+      "train_seconds": 2.4481093750800937,
+      "score_seconds": 0.21810512500815094,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 12
+    },
+    {
+      "variant": "without_grams",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 1909,
+      "fp": 37,
+      "fn": 209,
+      "tn": 1821,
+      "precision": 0.9809866392600206,
+      "recall": 0.9013220018885741,
+      "f1": 0.9394685039370079,
+      "f1_95ci": [
+        0.9289836888331242,
+        0.9485193621867881
+      ],
+      "paired_delta_95ci": [
+        -0.0019052579519730495,
+        0.002021187205144992
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.55,
+      "feature_seconds": 1.3748147080186754,
+      "train_seconds": 2.3259895419469103,
+      "score_seconds": 0.24862629198469222,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 12
+    },
+    {
+      "variant": "without_monge",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 1909,
+      "fp": 37,
+      "fn": 209,
+      "tn": 1821,
+      "precision": 0.9809866392600206,
+      "recall": 0.9013220018885741,
+      "f1": 0.9394685039370079,
+      "f1_95ci": [
+        0.9289836888331242,
+        0.9485193621867881
+      ],
+      "paired_delta_95ci": [
+        -0.0019052579519730495,
+        0.002021187205144992
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.55,
+      "feature_seconds": 2.2645853330614045,
+      "train_seconds": 2.292304042028263,
+      "score_seconds": 0.21591425000224262,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 12
+    },
+    {
+      "variant": "plus_jaro_winkler",
+      "features_config": {
+        "string_similarity": "both",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": true,
+        "field_families": true,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 1904,
+      "fp": 34,
+      "fn": 214,
+      "tn": 1824,
+      "precision": 0.9824561403508771,
+      "recall": 0.898961284230406,
+      "f1": 0.9388560157790927,
+      "f1_95ci": [
+        0.928538283062645,
+        0.948051948051948
+      ],
+      "paired_delta_95ci": [
+        -0.0021425455051948816,
+        0.0008172261592134245
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.57,
+      "feature_seconds": 3.712262292043306,
+      "train_seconds": 2.440263250027783,
+      "score_seconds": 0.21010166709311306,
+      "embedding_preparation": {},
+      "native_plan": false,
+      "feature_count": 14
+    },
+    {
+      "variant": "plus_affine",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token",
+          "affine_gap_udf"
+        ],
+        "udf_features": true,
+        "field_families": true,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 1939,
+      "fp": 49,
+      "fn": 179,
+      "tn": 1809,
+      "precision": 0.9753521126760564,
+      "recall": 0.9154863078375827,
+      "f1": 0.9444715051144666,
+      "f1_95ci": [
+        0.934430195983547,
+        0.9530567685589519
+      ],
+      "paired_delta_95ci": [
+        0.001152144260648691,
+        0.008365126900776731
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.43,
+      "feature_seconds": 9.234058290952817,
+      "train_seconds": 2.332923375070095,
+      "score_seconds": 0.20133008295670152,
+      "embedding_preparation": {},
+      "native_plan": false,
+      "feature_count": 14
+    },
+    {
+      "variant": "embedding_on",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "exclude_field_types": [],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "local",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 1932,
+      "fp": 48,
+      "fn": 186,
+      "tn": 1810,
+      "precision": 0.9757575757575757,
+      "recall": 0.9121813031161473,
+      "f1": 0.9428989751098097,
+      "f1_95ci": [
+        0.933142311365807,
+        0.9515190691661279
+      ],
+      "paired_delta_95ci": [
+        -0.00043270512889925783,
+        0.0073649975515593935
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.58,
+      "feature_seconds": 3.5841579999541864,
+      "train_seconds": 2.5303697920171544,
+      "score_seconds": 0.31878500001039356,
+      "embedding_preparation": {
+        "left": {
+          "status": "prepared",
+          "provider": "local",
+          "model_sha256": "c65a4c9cb8f8ffb771bcd368e967562a7674bd61c084232c1fd0745be7d1fce4",
+          "records": 2257,
+          "dimension": 384,
+          "seconds": 4.698688083095476,
+          "seconds_per_100000_records_extrapolated": 208.18290133342828,
+          "batch_size": 128,
+          "output_sha256": "2d0220f0560e2fdeb564d9821247df38ce0a958b1ef6be9512bcb58a2e435e4d"
+        },
+        "right": {
+          "status": "prepared",
+          "provider": "local",
+          "model_sha256": "c65a4c9cb8f8ffb771bcd368e967562a7674bd61c084232c1fd0745be7d1fce4",
+          "records": 2255,
+          "dimension": 384,
+          "seconds": 1.7418640840332955,
+          "seconds_per_100000_records_extrapolated": 77.2445270081284,
+          "batch_size": 128,
+          "output_sha256": "e938c37a51fd73b8ff41e925d8ae7dae7c4c83727f533466d2dfd038078e9861"
+        }
+      },
+      "native_plan": true,
+      "feature_count": 15
+    },
+    {
+      "variant": "without_organisation_fields",
+      "features_config": {
+        "string_similarity": "levenshtein",
+        "multi_token": [
+          "idf_token_cosine",
+          "gram_overlap",
+          "monge_elkan_token"
+        ],
+        "udf_features": false,
+        "field_families": true,
+        "exclude_field_types": [
+          "organisation"
+        ],
+        "max_tokens": 64,
+        "max_chars": 512,
+        "levenshtein_threshold": 64,
+        "embeddings": {
+          "fields_of_type": [
+            "organisation",
+            "title"
+          ],
+          "provider": "none",
+          "model": "data/models/all-MiniLM-L6-v2"
+        }
+      },
+      "tp": 2118,
+      "fp": 1858,
+      "fn": 0,
+      "tn": 0,
+      "precision": 0.5326961770623743,
+      "recall": 1.0,
+      "f1": 0.6951099442074171,
+      "f1_95ci": [
+        0.6651028509563335,
+        0.7216309398890721
+      ],
+      "paired_delta_95ci": [
+        -0.27514621830797736,
+        -0.21586049673631924
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "threshold": 0.59,
+      "feature_seconds": 0.2979506659321487,
+      "train_seconds": 1.6503866250859573,
+      "score_seconds": 0.1848777080886066,
+      "embedding_preparation": {},
+      "native_plan": true,
+      "feature_count": 3
+    }
+  ],
+  "status": "completed",
+  "candidate_recall_validation": null,
+  "candidate_recall_scope": "supplied labeled pairs; no retrieval claim",
+  "idf_fit_and_apply_seconds": 2.669589333003387,
+  "shared_preparation_seconds": 4.459283416974358,
+  "baselines": [
+    {
+      "variant": "mean_levenshtein_threshold",
+      "threshold": 0.26,
+      "tp": 1602,
+      "fp": 496,
+      "fn": 516,
+      "tn": 1362,
+      "precision": 0.763584366062917,
+      "recall": 0.7563739376770539,
+      "f1": 0.7599620493358634,
+      "f1_95ci": [
+        0.7386640663091175,
+        0.7805189281156955
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373
+    }
+  ],
+  "cleanup": "succeeded",
+  "total_seconds_including_start_stop": 78.79226162505802
+}
