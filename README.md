@@ -1,6 +1,6 @@
 # lakematch
 
-*A clean-room entity-resolution engine for the lakehouse: one PySpark codebase for a laptop, Databricks serverless and
+*An entity-resolution engine for the lakehouse: one PySpark codebase for a laptop, Databricks serverless and
 classic compute. Apache-2.0. **Private repository** — not for publication.*
 
 ## What / why
@@ -22,6 +22,7 @@ lakematch/
 │   ├── BRIEF.md             the brief: rules, config, method choices, phases, benchmarks, decisions
 │   ├── zr_decisions.html    the 28-card decision board (open locally in a browser)
 │   ├── research/            similarity_sota.md · platform_facts.md
+│   ├── porting/             PORTING.md (adapt vs rewrite study) · PORTING_ASTRA_OPINION.md (adversarial review)
 │   └── bench/               the measurement harness, the ~90-line pure-Spark prototype (proto_spark_native.py),
 │                            README.md (results), ASTRA_REVIEW.md (independent review), cache/ (LLM judgments on
 │                            public corpora, so reruns cost nothing)
@@ -30,9 +31,8 @@ lakematch/
 
 Not here, on purpose:
 
-- **Anything that describes Zingg's internals** (`PORTING.md`, `PORTING_ASTRA_OPINION.md`, the Spark 4.1 port and its
-  patch). They stay in the personal workspace: the clean-room rule in the brief forbids implementation sessions from
-  opening them, and under Apache-2.0 that rule is the project's legal footing. The brief still cites them as evidence.
+- **Zingg code**: the Spark 4.1 port and its patch live in the public fork `github.com/laurentfabre/zingg` (AGPL v3).
+  AGPL code cannot be mixed into this Apache-2.0 repository; reading it is fine, copying it is not.
 - `goals/goal_mdm.md` and every personal dataset. Only public or synthetic corpora are used, here and on any workspace.
 - The corpora themselves (`spec/bench/data/`, `spec/bench/work/`, ~90 MB): `spec/bench/README.md` says where each one
   comes from; the loaders download them again.

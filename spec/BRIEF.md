@@ -1,12 +1,12 @@
-# A clean-room entity-resolution engine for the lakehouse
+# An entity-resolution engine for the lakehouse
 
 *One PySpark codebase that matches, links and masters records on a laptop, on Databricks serverless and on classic
 compute — inside Spark Declarative Pipelines where the platform allows it, tracked end to end in MLflow, with a human
 arbitration app and a Genie agent on top. Apache-2.0, private repository.*
 
 Written 2026-09-19 after a day of measurement (`spec/bench/README.md`), an independent review by Codex on
-gpt-6-astra (`spec/bench/ASTRA_REVIEW.md`, `Lake/mdm/PORTING_ASTRA_OPINION.md`) and three research passes
-(`spec/research/`). Laurent's decision: a **clean-room rewrite**, not an adaptation of Zingg — **no Zingg JAR, adapter or code
+gpt-6-astra (`spec/bench/ASTRA_REVIEW.md`, `spec/porting/PORTING_ASTRA_OPINION.md`) and three research passes
+(`spec/research/`). Laurent's decision: a **rewrite from scratch**, not an adaptation of Zingg — **no Zingg JAR, adapter or code
 anywhere**, classic / pro compute included: it gets the same native PySpark engine, and Zingg appears only as recorded
 figures in the controlled benchmark. Name: **`lakematch`**. The 28 design decisions were arbitrated by Laurent on
 2026-09-19 (`spec/zr_decisions.html`; ledger in *Decisions* below). Nothing here is built yet except the ~90-line
@@ -42,7 +42,7 @@ see *Distribution*.
 - [Platform compatibility matrix](#platform-compatibility-matrix)
 - [Phases](#phases)
 - [Benchmarks and known tests](#benchmarks-and-known-tests)
-- [Licence and clean-room discipline](#licence-and-clean-room-discipline)
+- [Licence](#licence)
 - [Distribution](#distribution)
 - [Decisions](#decisions)
 - [What is explicitly out](#what-is-explicitly-out)
@@ -84,10 +84,10 @@ A day of benchmarks and an adversarial review changed it:
 
 ## Rules (hard)
 
-- **Clean room.** Implementation sessions never open Zingg's source, fork or internals documentation; they build from
-  this brief, the research digests, the papers and the benchmarks. It is a **written rule, not a scripted check**
-  (D02): `verify_zr.sh` does not grep for it. Under Apache-2.0 it is what keeps the code free of AGPL material, so it
-  matters more, not less. See *Licence and clean-room discipline*.
+- **No Zingg code.** lakematch is an independent implementation: no Zingg JAR, no adapter, no copied or translated
+  Zingg source (Zingg is AGPL v3, lakematch is Apache-2.0 — the two cannot be mixed). The earlier clean-room protocol
+  was **dropped by Laurent on 2026-09-19**: sessions may read anything, the porting study and Zingg's source included,
+  to understand behaviour. See *Licence*.
 - **One codebase, three runtimes.** Laptop (open-source Spark 4.1, no Databricks), Databricks serverless, Databricks
   classic. No `sparkContext`, no `_jvm`, no RDD, no JVM UDF, no `spark.udf.register`, no global temp views, no reliance
   on `cache()` / `persist()` / `checkpoint()` — a `materialize(df, name)` helper writes a table where caching is
@@ -484,14 +484,13 @@ goal **parks** with that one ask — it never picks a profile.
 Every row reports precision, recall, F1 with a 95 % bootstrap interval, candidate recall@k, wall time including session
 start, peak shuffle, Jev tokens and dollars when the labeller is on, and — on Databricks — DBUs from the billing table.
 
-## Licence and clean-room discipline
+## Licence
 
 - **Apache-2.0** (D03, replacing the earlier AGPL choice). Mandatory dependencies are Apache-2.0 (PySpark, MLflow) or
   MIT (PyYAML): compatible. Optional: `rapidfuzz` (MIT), `typesafe_sdk` (plug-in, never bundled), a local embedding
   model (licence checked when it is picked in ZR-2).
-- **What Apache-2.0 changes.** Zingg is AGPL v3. Under AGPL a stray borrowed line was a nuisance; under Apache-2.0 it
-  would put AGPL code inside a permissively licensed work. The clean-room rule below is therefore the project's legal
-  footing, even while the repository is private.
+- **Zingg is AGPL v3.** Reading it is fine; copying or translating its code into this Apache-2.0 work is not. That is
+  the only constraint left after the clean-room protocol was dropped.
 - **APX and DQX carry the Databricks licence** (use only in connection with Databricks services). Neither may become a
   dependency of the Apache-2.0 engine: DQX stays behind a lazy adapter, APX stays in `app/`, a separate sub-project
   with its own licence note.
@@ -499,23 +498,12 @@ start, peak shuffle, Jev tokens and dollars when the labeller is on, and — on 
   It is imported lazily by `quality/dqx_adapter.py`, never vendored, never a mandatory dependency (an extra, `dqx`).
   It **is the default whenever the runtime is Databricks** (D18); the native engine is the laptop engine and the
   reference the adapter must agree with on the valid/quarantine split.
-- **Clean room, by process (Laurent's decision, 2026-09-19).** lakematch is built as a clean-room implementation,
-  with the two classic roles kept apart:
-  - *Specification side* — this brief, `spec/research/*.md` and `spec/bench/` (benchmark harness, prototype,
-    measurements). They describe **behaviour, published algorithms and measured results**, never Zingg's code. The
-    sessions that wrote them are the only ones that ever looked at Zingg's source, and their work ends here.
-  - *Implementation side* — every ZR session. It works **only** from the specification side, the cited papers and the
-    public documentation of Spark, MLflow and Databricks. It must **never open**: `~/Tools/src/zingg*`,
-    `~/Tools/zingg-*`, `~/Tools/ref/`, `~/Tools/verify/zingg-porting/zingg-src/`, `github.com/zinggAI/zingg`,
-    `github.com/laurentfabre/zingg`, Zingg's documentation of its internals, or the sections of `Lake/mdm/PORTING.md`
-    and `PORTING_ASTRA_OPINION.md` that walk through Zingg's classes. This is a written rule that each session
-    acknowledges in its resume note; no script polices it (D02).
-  - Nothing is named after a Zingg concept (`z_cluster`, `zinggDir`, `findTrainingData`…): the vocabulary comes from
-    the record-linkage literature (candidates, comparison vector, match weight, cluster, crosswalk).
-  - The README credits prior art — Zingg, Splink, the Magellan group, SecondString, Fellegi and Sunter — as
-    inspiration for the *problem*, not as a source.
-  - Zingg is never installed, imported or run by lakematch or its harness. Its benchmark figures are the ones recorded
-    on 2026-09-19 in `spec/bench/README.md`, copied as numbers.
+- **No clean room** (Laurent, 2026-09-19, reversing D02). The porting study and its adversarial review are part of
+  the working material: `spec/porting/PORTING.md`, `spec/porting/PORTING_ASTRA_OPINION.md`. Vocabulary still comes from the
+  record-linkage literature (candidates, comparison vector, match weight, cluster, crosswalk), and the README credits
+  prior art — Zingg, Splink, the Magellan group, SecondString, Fellegi and Sunter.
+- Zingg is never a runtime dependency of lakematch or its harness. Its benchmark figures are the ones recorded on
+  2026-09-19 in the bench `README.md`.
 - The published Spark 4.1 port (`github.com/laurentfabre/zingg`) stays as it is: a separate, unofficial fork.
 
 ## Distribution
@@ -531,7 +519,7 @@ Laurent's arbitration of the 28 cards, 2026-09-19 (`spec/zr_decisions.html`).
 | # | Topic | Outcome |
 |---|---|---|
 | D01 | Rewrite or adapt | Rewrite. **No Zingg JAR kept anywhere; classic / pro support is rewritten too.** Zingg only as recorded benchmark figures |
-| D02 | Clean room | Written rule only; the verify-script check is dropped |
+| D02 | Clean room | **Dropped entirely** (2026-09-19, after the board): no protocol, only "no Zingg code copied" |
 | D03 | Licence | **Apache-2.0** |
 | D04 | Name | **lakematch** |
 | D05 | Publication | **Private indefinitely** |
@@ -576,5 +564,5 @@ Laurent's arbitration of the 28 cards, 2026-09-19 (`spec/zr_decisions.html`).
 ## Resume note
 
 `ZR_CLAUDE_RESUME.txt` from the ZR-1 session on (state, gates, traps, the next `/goal` line). Evidence and
-research that this brief rests on: `spec/bench/README.md`, `spec/bench/ASTRA_REVIEW.md`, `Lake/mdm/PORTING.md`,
-`Lake/mdm/PORTING_ASTRA_OPINION.md`, `spec/research/similarity_sota.md`, `spec/research/platform_facts.md`.
+research that this brief rests on: `spec/bench/README.md`, `spec/bench/ASTRA_REVIEW.md`, `spec/porting/PORTING.md`,
+`spec/porting/PORTING_ASTRA_OPINION.md`, `spec/research/similarity_sota.md`, `spec/research/platform_facts.md`.
