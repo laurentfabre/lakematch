@@ -1,0 +1,34 @@
+{
+  "status": "partial",
+  "confirmation_scored": false,
+  "runs": {
+    "splink-febrl3": {
+      "run_id": "20260920T005517Z-splink-febrl3-0a57a2",
+      "manifest": "experiments/20260920T005517Z-splink-febrl3-0a57a2/manifest.json",
+      "report": "experiments/20260920T005517Z-splink-febrl3-0a57a2/evidence/report.json",
+      "report_sha256": "62d65ae9e869109123c64c2904f54c06c992cfc5b1c1b61591c5b62e356d5a46"
+    },
+    "splink-historical_50k": {
+      "run_id": "20260920T005520Z-splink-historical_50k-df150d",
+      "manifest": "experiments/20260920T005520Z-splink-historical_50k-df150d/manifest.json",
+      "report": "experiments/20260920T005520Z-splink-historical_50k-df150d/evidence/report.json",
+      "report_sha256": "c265473942badba1a392dd257e0bc198ae2316f635bf98b380d7eb2357fdfd0f"
+    }
+  },
+  "missing": [
+    "cluster-febrl3",
+    "cluster-historical_50k"
+  ],
+  "failures": [
+    {
+      "run_id": "20260920T005314Z-splink-febrl3-7aa05c",
+      "manifest": "experiments/20260920T005314Z-splink-febrl3-7aa05c/manifest.json",
+      "status": "failed"
+    },
+    {
+      "run_id": "20260920T005352Z-splink-febrl3-ade5ac",
+      "manifest": "experiments/20260920T005352Z-splink-febrl3-ade5ac/manifest.json",
+      "status": "failed"
+    }
+  ]
+}

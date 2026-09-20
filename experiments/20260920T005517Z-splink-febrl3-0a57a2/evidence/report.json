@@ -1,0 +1,137 @@
+{
+  "status": "completed",
+  "corpus": "febrl3",
+  "manifest": {
+    "sources": {
+      "sources": [
+        {
+          "name": "historical_50k",
+          "url": "https://raw.githubusercontent.com/moj-analytical-services/splink_datasets/75876d806d9eff72072d21878150ee50a96d5f41/data/historical_figures_with_errors_50k.parquet",
+          "revision": "75876d806d9eff72072d21878150ee50a96d5f41",
+          "path": "data/sources/clustering/historical_figures_with_errors_50k.parquet",
+          "sha256": "b8b748402ff37b15c2d5e8a5b9374abe269b9d297aacb7f4c9498365b7cace43",
+          "provenance": "Public Wikidata historical figures with introduced duplicate errors, per Splink 4.0.16 metadata",
+          "license": "MIT repository distribution; original Wikidata source CC0"
+        },
+        {
+          "name": "febrl3",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3.csv",
+          "sha256": "5b0443f2568a0e258e52ab015b34fc1736a6ee1863086617f08b2e6997e92458",
+          "license": "BSD-3-Clause distribution"
+        },
+        {
+          "name": "febrl3_links",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3_links.json",
+          "sha256": "d85cd011c5f57f386feb2c27428883663ef08a1c858f9de418fca6be3a39bc99",
+          "license": "BSD-3-Clause distribution"
+        }
+      ]
+    },
+    "split_seed": 2026091901,
+    "split_method": "SHA-256 ranked whole truth entities; floor 60/20/20; no record crosses a split",
+    "evaluation_scope": "partition-specific clustering; confirmation remains unscored",
+    "name": "febrl3",
+    "fields": {
+      "given_name": {
+        "type": "person_name"
+      },
+      "surname": {
+        "type": "person_name"
+      },
+      "street_number": {
+        "type": "code"
+      },
+      "address_1": {
+        "type": "address"
+      },
+      "address_2": {
+        "type": "address"
+      },
+      "suburb": {
+        "type": "address"
+      },
+      "postcode": {
+        "type": "code"
+      },
+      "state": {
+        "type": "code"
+      },
+      "date_of_birth": {
+        "type": "date",
+        "date_format": "yyyyMMdd"
+      },
+      "soc_sec_id": {
+        "type": "code"
+      }
+    },
+    "records": 5000,
+    "record_digest": "181754e4e87f43cbb6cf89dd11133df2c75b9e20192a72f37356a3f52899e0bb",
+    "splits": {
+      "train": 2939,
+      "confirmation": 1011,
+      "valid": 1050
+    },
+    "entities": 2000,
+    "confirmation_scored": false
+  },
+  "confirmation_scored": false,
+  "versions": {
+    "splink": "4.0.16",
+    "duckdb": "1.3.2",
+    "pandas": "2.3.2"
+  },
+  "scope": "training-only supervised m/prior and sampled u; disjoint validation connected components",
+  "max_random_u_pairs": 1000000,
+  "seed": 0,
+  "max_validation_pairs": 1000000,
+  "max_prejoin_rows": 5000000,
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "prejoin_rows_upper_bound": 10530.0,
+  "fit_seconds": 1.3783047499600798,
+  "prediction_endpoint_audit": "all endpoints belong to the disjoint validation partition",
+  "scoring_seconds": 0.07119062507990748,
+  "candidate_recall": 0.9890185312285518,
+  "metrics": {
+    "tp": 1451,
+    "fp": 0,
+    "fn": 6,
+    "tn": 0,
+    "precision": 1.0,
+    "recall": 0.9958819492107069,
+    "f1": 0.9979367262723521,
+    "bcubed_precision": 1.0,
+    "bcubed_recall": 0.9972063492063491,
+    "bcubed_f1": 0.9986012207527976,
+    "records": 1050,
+    "truth_clusters": 400,
+    "predicted_clusters": 402
+  },
+  "threshold": 0.99,
+  "candidate_pairs": 8574,
+  "uncertainty": {
+    "pairwise_f1_95ci": [
+      0.994263862332696,
+      1.0
+    ],
+    "bcubed_f1_95ci": [
+      0.996400796966386,
+      1.0
+    ],
+    "pairwise_delta_95ci": null,
+    "bcubed_delta_95ci": null,
+    "bootstrap_seed": 2026091902,
+    "bootstrap_resamples": 2000,
+    "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+  },
+  "cleanup": "DuckDB connection closed in finally",
+  "wall_seconds": 1.862641290994361,
+  "evidence_files": {
+    "model.json": "f9ccf5a0b2f13e2048462598fdaf7bb17f36c6990256b569dfb1e37d9556fd25",
+    "predictions.json": "603840e823cbb027a7077b1b194f391076f2c3b48b008f95658477e9da23cc79"
+  }
+}

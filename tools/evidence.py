@@ -22,7 +22,8 @@ def source_files(phase=None):
                   "__pycache__" not in p.parts and p.suffix in {".py", ".yaml", ".csv", ".sb"} and
                   (phase != "ZR-1" or directory != "tools" or p.name in LOCAL_TOOLS)]
     if phase != "ZR-1":
-        paths += [ROOT / "bench" / n for n in ("PROTOCOL.md", "ABLATION_PLAN.md", "METHOD_PLAN.md", "CLASSIFIER_PLAN.md", "CLUSTER_PLAN.md", "requirements-splink.lock")]
+        paths += [ROOT / "bench" / n for n in ("PROTOCOL.md", "requirements-splink.lock")]
+        paths += list((ROOT / "bench").glob("*PLAN.md"))
     return [p for p in sorted(set(paths)) if p.exists()]
 
 

@@ -1,0 +1,660 @@
+{
+  "status": "completed",
+  "iteration": 2,
+  "corpus": "amazon_google",
+  "manifest": {
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "raw_sha256": {
+      "train": "84ef5f7747296990a3775d2c8774949e720df643106b1b447682265f41929b26",
+      "valid": "baa53c43706e979441aaf653698bb477294b6fa16328fd272fcdc56ca040c094",
+      "test": "fb4a50692f296435d9ecd4b310acc1318ff7d6d1e13924f0b211d1f906dacbef"
+    },
+    "split_method": "official",
+    "duplicate_or_reversed_pairs_removed": 483,
+    "conflicting_pair_keys_excluded": 18,
+    "shared_records_between_splits": {
+      "test/train": 1486,
+      "test/valid": 1101,
+      "train/valid": 1514
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "test": 2127,
+      "train": 6653,
+      "valid": 2161
+    },
+    "corpus": "amazon_google",
+    "seed": 2026091901,
+    "fields": {
+      "manufacturer": {
+        "type": "organisation"
+      },
+      "price": {
+        "type": "number"
+      },
+      "title": {
+        "type": "title"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/amazon_google/left.jsonl",
+        "sha256": "f74ad08692686516f0aea58b39e707d8e5188b0b4a978a91864a66b167ed8319",
+        "rows": 1288
+      },
+      "right": {
+        "path": "data/bench/amazon_google/right.jsonl",
+        "sha256": "18946ca435c931520f228851440ad94c5342fa936b08c9316bf58ed5ab630671",
+        "rows": 2071
+      },
+      "pairs": {
+        "path": "data/bench/amazon_google/pairs.jsonl",
+        "sha256": "92b17485f68a17df1b9519f54a26dc96a67f8067cfc0fc643e3c685c95bbd420",
+        "rows": 10941
+      }
+    },
+    "confirmation_scored": false
+  },
+  "plan": "bench/CLASSIFIER_PLAN.md",
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "amazon_google",
+      "id_column": "rec_id",
+      "fields": {
+        "manufacturer": {
+          "type": "organisation"
+        },
+        "price": {
+          "type": "number"
+        },
+        "title": {
+          "type": "title"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": [],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/methods/amazon_google/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-methods",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "confirmation_scored": false,
+  "rows": [
+    {
+      "variant": "levenshtein__gbt",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "cardinality": "unrestricted",
+      "threshold": 0.27,
+      "tp": 155,
+      "fp": 119,
+      "fn": 60,
+      "tn": 1827,
+      "precision": 0.5656934306569343,
+      "recall": 0.7209302325581395,
+      "f1": 0.6339468302658486,
+      "f1_95ci": [
+        0.587991718426501,
+        0.6788617886178862
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 2.084297833032906,
+      "train_seconds": 3.080849334015511,
+      "score_seconds": 0.32432200002949685,
+      "logging_seconds": 5.587266459013335,
+      "native_plan": true,
+      "feature_count": 33,
+      "model": {
+        "run_id": "3a336b0ffc9b40099cce86d0cac3b72d",
+        "model_uri": "runs:/3a336b0ffc9b40099cce86d0cac3b72d/model",
+        "logged_model_uri": "models:/m-049bc3d940b84777b2a97c3f5629eb31",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1194017,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.27
+    },
+    {
+      "variant": "levenshtein__logistic_regression",
+      "similarity": "levenshtein",
+      "estimator": "logistic_regression",
+      "cardinality": "unrestricted",
+      "threshold": 0.32,
+      "tp": 147,
+      "fp": 86,
+      "fn": 68,
+      "tn": 1860,
+      "precision": 0.630901287553648,
+      "recall": 0.6837209302325581,
+      "f1": 0.65625,
+      "f1_95ci": [
+        0.6066838046272494,
+        0.702576112412178
+      ],
+      "paired_delta_95ci": [
+        -0.013825937916587372,
+        0.0571605637621585
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 2.084297833032906,
+      "train_seconds": 2.270329499966465,
+      "score_seconds": 0.2802402910310775,
+      "logging_seconds": 2.493580083013512,
+      "native_plan": true,
+      "feature_count": 33,
+      "model": {
+        "run_id": "647fa1ddcc774cb0b7aa1eb93739ed28",
+        "model_uri": "runs:/647fa1ddcc774cb0b7aa1eb93739ed28/model",
+        "logged_model_uri": "models:/m-455de5ecb27240cdbeaf7000f552ac9b",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1175736,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.32
+    },
+    {
+      "variant": "levenshtein__random_forest",
+      "similarity": "levenshtein",
+      "estimator": "random_forest",
+      "cardinality": "unrestricted",
+      "threshold": 0.17,
+      "tp": 158,
+      "fp": 144,
+      "fn": 57,
+      "tn": 1802,
+      "precision": 0.5231788079470199,
+      "recall": 0.7348837209302326,
+      "f1": 0.6112185686653772,
+      "f1_95ci": [
+        0.562874251497006,
+        0.6575342465753424
+      ],
+      "paired_delta_95ci": [
+        -0.058252097991014606,
+        0.012507972503720488
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 2.084297833032906,
+      "train_seconds": 1.9463464169530198,
+      "score_seconds": 0.31381058297120035,
+      "logging_seconds": 2.777248915983364,
+      "native_plan": true,
+      "feature_count": 33,
+      "model": {
+        "run_id": "02dd92799abe4ea79e50ab69635787a5",
+        "model_uri": "runs:/02dd92799abe4ea79e50ab69635787a5/model",
+        "logged_model_uri": "models:/m-b399a52339c44a7ea1f9af46beadaa2d",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1185582,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.17
+    },
+    {
+      "variant": "jaro_winkler__gbt",
+      "similarity": "jaro_winkler",
+      "estimator": "gbt",
+      "cardinality": "unrestricted",
+      "threshold": 0.25,
+      "tp": 157,
+      "fp": 123,
+      "fn": 58,
+      "tn": 1823,
+      "precision": 0.5607142857142857,
+      "recall": 0.7302325581395349,
+      "f1": 0.6343434343434343,
+      "f1_95ci": [
+        0.5894308943089431,
+        0.6802443991853361
+      ],
+      "paired_delta_95ci": [
+        -0.023137358645855644,
+        0.023330388403520752
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 2.2464909580303356,
+      "train_seconds": 2.405589957954362,
+      "score_seconds": 0.2307911249808967,
+      "logging_seconds": 2.75863425002899,
+      "native_plan": false,
+      "feature_count": 33,
+      "model": {
+        "run_id": "f575631495ad4217839cd6165daaad61",
+        "model_uri": "runs:/f575631495ad4217839cd6165daaad61/model",
+        "logged_model_uri": "models:/m-7caad2a57f2c439aab4e7175710a8b24",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1194016,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.25
+    },
+    {
+      "variant": "jaro_winkler__logistic_regression",
+      "similarity": "jaro_winkler",
+      "estimator": "logistic_regression",
+      "cardinality": "unrestricted",
+      "threshold": 0.24,
+      "tp": 166,
+      "fp": 129,
+      "fn": 49,
+      "tn": 1817,
+      "precision": 0.5627118644067797,
+      "recall": 0.772093023255814,
+      "f1": 0.6509803921568628,
+      "f1_95ci": [
+        0.6051660516605166,
+        0.6946983546617916
+      ],
+      "paired_delta_95ci": [
+        -0.02024338419934335,
+        0.0554200443257471
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 2.2464909580303356,
+      "train_seconds": 1.5942540830001235,
+      "score_seconds": 0.22896954196039587,
+      "logging_seconds": 2.5106348750414327,
+      "native_plan": false,
+      "feature_count": 33,
+      "model": {
+        "run_id": "586817746c5243aa8abe99148443fd6c",
+        "model_uri": "runs:/586817746c5243aa8abe99148443fd6c/model",
+        "logged_model_uri": "models:/m-a02da8cf0bf846cfb43889b5527dd5de",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1175731,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.24
+    },
+    {
+      "variant": "jaro_winkler__random_forest",
+      "similarity": "jaro_winkler",
+      "estimator": "random_forest",
+      "cardinality": "unrestricted",
+      "threshold": 0.21,
+      "tp": 157,
+      "fp": 139,
+      "fn": 58,
+      "tn": 1807,
+      "precision": 0.5304054054054054,
+      "recall": 0.7302325581395349,
+      "f1": 0.6144814090019569,
+      "f1_95ci": [
+        0.5680473372781065,
+        0.6587771203155819
+      ],
+      "paired_delta_95ci": [
+        -0.05483583651041246,
+        0.015515324353457371
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 2.2464909580303356,
+      "train_seconds": 1.7736759580438957,
+      "score_seconds": 0.237524832948111,
+      "logging_seconds": 2.7548358750063926,
+      "native_plan": false,
+      "feature_count": 33,
+      "model": {
+        "run_id": "d00e708c56244086879ed6e389f92af4",
+        "model_uri": "runs:/d00e708c56244086879ed6e389f92af4/model",
+        "logged_model_uri": "models:/m-7e11d9c81b714d99a3ef4841d6377860",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1185884,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.21
+    },
+    {
+      "variant": "both__gbt",
+      "similarity": "both",
+      "estimator": "gbt",
+      "cardinality": "unrestricted",
+      "threshold": 0.24,
+      "tp": 160,
+      "fp": 129,
+      "fn": 55,
+      "tn": 1817,
+      "precision": 0.5536332179930796,
+      "recall": 0.7441860465116279,
+      "f1": 0.6349206349206349,
+      "f1_95ci": [
+        0.588,
+        0.6795366795366795
+      ],
+      "paired_delta_95ci": [
+        -0.014507193072303193,
+        0.017637310606060552
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 1.9703779170522466,
+      "train_seconds": 2.389013541978784,
+      "score_seconds": 0.20344841701444238,
+      "logging_seconds": 2.9080632081022486,
+      "native_plan": false,
+      "feature_count": 36,
+      "model": {
+        "run_id": "b0e7c0bb6b0641299f5335f1908609ec",
+        "model_uri": "runs:/b0e7c0bb6b0641299f5335f1908609ec/model",
+        "logged_model_uri": "models:/m-d7acb35199864145b03435688c0ab7c2",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1194235,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.24
+    },
+    {
+      "variant": "both__logistic_regression",
+      "similarity": "both",
+      "estimator": "logistic_regression",
+      "cardinality": "unrestricted",
+      "threshold": 0.27,
+      "tp": 162,
+      "fp": 117,
+      "fn": 53,
+      "tn": 1829,
+      "precision": 0.5806451612903226,
+      "recall": 0.7534883720930232,
+      "f1": 0.6558704453441295,
+      "f1_95ci": [
+        0.6075949367088608,
+        0.7008547008547008
+      ],
+      "paired_delta_95ci": [
+        -0.015381769167745918,
+        0.05936734197579363
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 1.9703779170522466,
+      "train_seconds": 1.7056262500118464,
+      "score_seconds": 0.22568687493912876,
+      "logging_seconds": 2.720004166010767,
+      "native_plan": false,
+      "feature_count": 36,
+      "model": {
+        "run_id": "f8322eb78c2e412cbc01932a5a5b0db5",
+        "model_uri": "runs:/f8322eb78c2e412cbc01932a5a5b0db5/model",
+        "logged_model_uri": "models:/m-8fc4e96aa09b4e8283b10a4e0a84774c",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1175840,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.27
+    },
+    {
+      "variant": "both__random_forest",
+      "similarity": "both",
+      "estimator": "random_forest",
+      "cardinality": "unrestricted",
+      "threshold": 0.16,
+      "tp": 176,
+      "fp": 192,
+      "fn": 39,
+      "tn": 1754,
+      "precision": 0.4782608695652174,
+      "recall": 0.8186046511627907,
+      "f1": 0.6037735849056604,
+      "f1_95ci": [
+        0.5584642233856894,
+        0.6481481481481481
+      ],
+      "paired_delta_95ci": [
+        -0.06596723196320786,
+        0.006292245974611199
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 1.9703779170522466,
+      "train_seconds": 1.8327788749011233,
+      "score_seconds": 0.2377525420160964,
+      "logging_seconds": 3.01564420806244,
+      "native_plan": false,
+      "feature_count": 36,
+      "model": {
+        "run_id": "2d76562602614ed591f5c27978eba4e1",
+        "model_uri": "runs:/2d76562602614ed591f5c27978eba4e1/model",
+        "logged_model_uri": "models:/m-60b741da7c8d4355bee5f1abd01b8808",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1185676,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.16
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "score": "mean present-field Levenshtein",
+      "tp": 161,
+      "fp": 598,
+      "fn": 54,
+      "tn": 1348,
+      "precision": 0.21212121212121213,
+      "recall": 0.7488372093023256,
+      "f1": 0.33059548254620125,
+      "f1_95ci": [
+        0.2907216494845361,
+        0.366
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759
+    },
+    {
+      "name": "scalar_threshold",
+      "threshold": 0.6,
+      "cardinality": "unrestricted",
+      "score": "mean present-field Levenshtein",
+      "tp": 92,
+      "fp": 248,
+      "fn": 123,
+      "tn": 1698,
+      "precision": 0.27058823529411763,
+      "recall": 0.42790697674418604,
+      "f1": 0.33153153153153153,
+      "f1_95ci": [
+        0.27889908256880735,
+        0.3811129848229342
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759
+    }
+  ],
+  "evaluation_scope": "supplied labelled pairs only",
+  "cardinalities": [
+    "unrestricted"
+  ],
+  "spark_event_root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/methods/amazon_google/spark-events/cedb70f61b9d481382ce07bc85dd8c7e",
+  "spark_submit_args": "--conf spark.eventLog.enabled=true --conf spark.eventLog.compress=false --conf spark.eventLog.dir=file:///Users/laurent.fabre/Projects/Claude/lakematch/data/methods/amazon_google/spark-events/cedb70f61b9d481382ce07bc85dd8c7e pyspark-shell",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "both.plan.txt": "061058a5707e2046c3ba35f2cf856d8669503d0fa81ff31468f1dd903a00affb",
+    "both__gbt.predictions.json": "1c4a408664422ba22d2280582ae6cdd8d4c135b16f19175710849cd32e6e65c9",
+    "both__logistic_regression.predictions.json": "5785aca6d91ef49266afafe883df027f271660f8ef2fae38b35211b2a23b3187",
+    "both__random_forest.predictions.json": "cffa32e7d3776dfc4f39e011003ac88e1f09c14ed190815bfe92d63ecc93589a",
+    "jaro_winkler.plan.txt": "49b317c021096f728c53fabcecded26f9318efd4840402d061f0dd71e41163a4",
+    "jaro_winkler__gbt.predictions.json": "6cfe38190755c85f5277fbecd0811a6a0d078d1fee5b3a0b46785fef0171590a",
+    "jaro_winkler__logistic_regression.predictions.json": "3aceebe40b77824d7a02afbeee4219767b9f23d0ef880ec3714566f1e2e5dc35",
+    "jaro_winkler__random_forest.predictions.json": "cc981265fadad2ed031681081b1e146a0fe8720d9a6c0b1db49974f36321b9ed",
+    "levenshtein.plan.txt": "02dacade16d4255f4264ccfbf0c724f0224f1f61dc34290e04df874df3a5a89f",
+    "levenshtein__gbt.predictions.json": "18469e52ce4059eb45ad809bcb31873aa6def56a630c3f241a0a5cb08dca225d",
+    "levenshtein__logistic_regression.predictions.json": "d9b92432948f6cca83b00eb080e20f89ba53415bf8a6b59ea44286194321469f",
+    "levenshtein__random_forest.predictions.json": "2f3e33a1f897b833cdb25ac72d887d8026b60590b1b12afc88c281085a781e60",
+    "spark-events/cedb70f61b9d481382ce07bc85dd8c7e/eventlog_v2_local-1789865211824/.appstatus_local-1789865211824.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "spark-events/cedb70f61b9d481382ce07bc85dd8c7e/eventlog_v2_local-1789865211824/appstatus_local-1789865211824": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spark-events/cedb70f61b9d481382ce07bc85dd8c7e/eventlog_v2_local-1789865211824/events_1_local-1789865211824": "a022663d1f5dbd8330f512124413ac9d2081ab54dd0bf53413c3dd4ed7a52fef",
+    "spark-events/cedb70f61b9d481382ce07bc85dd8c7e/eventlog_v2_local-1789865211824/events_2_local-1789865211824": "cef72165914d22455359dfc8554058c4e5240df66a6875f0276be7e9af9dd067",
+    "spark-events/cedb70f61b9d481382ce07bc85dd8c7e/eventlog_v2_local-1789865211824/events_3_local-1789865211824": "4a83e76104e7b288d42a25c649347c958a34ff986704e7a5ea94ab74af8babad",
+    "spark-events/cedb70f61b9d481382ce07bc85dd8c7e/eventlog_v2_local-1789865211824/events_4_local-1789865211824": "180446ade8d838c17f1d713af4ffe68a44a2371be904cbdc800ab074e9b4a810",
+    "spark-events/cedb70f61b9d481382ce07bc85dd8c7e/eventlog_v2_local-1789865211824/events_5_local-1789865211824": "ea5120fe82409868ff0d2761e2688e1fb7b1e09e57eb21e1fef7b689badf5326",
+    "spark-metrics.json": "6358235e2109f23da0a3053a1cf77d5c07c21b866cbf5753f0d3c1a6a7529a01"
+  },
+  "candidate_recall": null,
+  "shared_preparation_seconds": 4.787150166928768,
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 68.73574508307502,
+  "spark_metrics": {
+    "applications": [
+      "local-1789865211824"
+    ],
+    "completed_log_directories": [
+      "eventlog_v2_local-1789865211824"
+    ],
+    "tasks": 1575,
+    "failed_or_killed_tasks": 0,
+    "total_shuffle_read_bytes": 135324730,
+    "total_shuffle_write_bytes": 111674881,
+    "maximum_task_shuffle_read_bytes": 1884161,
+    "maximum_task_peak_execution_memory_bytes": 25693136,
+    "total_memory_spilled_bytes": 0,
+    "total_disk_spilled_bytes": 0,
+    "maximum_to_median_task_duration": 251.0,
+    "scope": "whole application, all task attempts; execution-memory peak is per task, not process RSS"
+  }
+}

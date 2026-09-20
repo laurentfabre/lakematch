@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import tarfile
 import time
 import unicodedata
 
@@ -19,6 +20,7 @@ import splink.comparison_library as cl
 from lakematch.benchmark.clusters import cluster_bootstrap, cluster_group_counts, cluster_metrics
 from lakematch.benchmark.corpora import Components, digest
 from offline_run import assert_offline
+from evidence import sha256
 
 
 def normalized(value):
@@ -70,6 +72,8 @@ def main():
         raise ValueError('Supervised positive-pair training budget exceeded')
     out=Path('data/splink')/args.corpus
     out.mkdir(parents=True,exist_ok=True)
+    for filename in ('model.json', 'predictions.json'):
+        (out/filename).unlink(missing_ok=True)
     report={'status':'running','corpus':args.corpus,'manifest':manifest,'confirmation_scored':False,
         'versions':{p:importlib.metadata.version(p) for p in ('splink','duckdb','pandas')},
         'scope':'training-only supervised m/prior and sampled u; disjoint validation connected components',
@@ -97,13 +101,21 @@ def main():
         linker.training.estimate_m_from_label_column('truth_entity')
         frozen=linker.misc.save_model_to_json(str(out/'model.json'),overwrite=True)
         report['fit_seconds']=time.perf_counter()-fit_start
-        # Fresh Linker, fresh table alias, frozen parameters. No validation truth enters it.
-        scoring=Linker(valid,frozen,db_api=db,input_table_aliases='validation')
+        # Splink's SQL cache belongs to DuckDBAPI, not Linker. Reusing it can
+        # retrieve the training concat table even with a new input alias.
+        connection.close()
+        connection=duckdb.connect(':memory:')
+        connection.execute("SET threads=2")
+        connection.execute("SET memory_limit='2GB'")
+        scoring=Linker(valid,frozen,db_api=DuckDBAPI(connection),input_table_aliases='validation')
         score_start=time.perf_counter()
         predictions=scoring.inference.predict(threshold_match_probability=0.).as_pandas_dataframe()
         if len(predictions)>report['max_validation_pairs']:
             raise ValueError('Splink final-pair budget exceeded')
         edges=[(str(r.unique_id_l),str(r.unique_id_r),float(r.match_probability)) for r in predictions.itertuples()]
+        if any(a not in truth or b not in truth for a,b,_ in edges):
+            raise AssertionError('Splink scoring returned an endpoint outside validation')
+        report['prediction_endpoint_audit']='all endpoints belong to the disjoint validation partition'
         report['scoring_seconds']=time.perf_counter()-score_start
         positive_pairs=sum(n*(n-1)//2 for n in Counter(truth.values()).values())
         report['candidate_recall']=sum(truth[a]==truth[b] for a,b,_ in edges)/positive_pairs
@@ -124,7 +136,12 @@ def main():
     finally:
         connection.close()
         report['wall_seconds']=time.perf_counter()-started
+        evidence=[out/name for name in ('model.json','predictions.json') if (out/name).is_file()]
+        report['evidence_files']={path.name:sha256(path) for path in evidence}
         (out/'report.json').write_text(json.dumps(report,indent=2)+'\n')
+        with tarfile.open(out/'splink-evidence.tar.gz','w:gz') as archive:
+            for path in [*evidence,out/'report.json']:
+                archive.add(path,arcname=path.name)
     print(json.dumps({k:report[k] for k in ('status','corpus','metrics','threshold','candidate_recall','wall_seconds')}))
 
 

@@ -1,0 +1,649 @@
+{
+  "status": "completed",
+  "iteration": 2,
+  "corpus": "affiliations",
+  "manifest": {
+    "source": "Leipzig affiliationstrings.zip",
+    "license": "CC BY 4.0",
+    "identity_components": 330,
+    "negative_sampling": "5 per anchor, same split, different released component",
+    "raw_sha256": {
+      "affiliationstrings_ids.csv": "884305d8fdc164cd86b3128efdfce2d1415875657d92644559001f3110daa886",
+      "affiliationstrings_mapping.csv": "9a3e1cb99b8b6d44f3ab3423efc10f46323371d2f1e5a241fb58c609f9f02770"
+    },
+    "split_method": "released identity components 60/20/20, SHA-256 ranking",
+    "duplicate_or_reversed_pairs_removed": 145,
+    "conflicting_pair_keys_excluded": 0,
+    "shared_records_between_splits": {
+      "confirmation/train": 0,
+      "confirmation/valid": 0,
+      "train/valid": 0
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "confirmation": 6896,
+      "train": 17078,
+      "valid": 3976
+    },
+    "corpus": "affiliations",
+    "seed": 2026091901,
+    "fields": {
+      "name": {
+        "type": "organisation"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/affiliations/left.jsonl",
+        "sha256": "3bdb23a83013e7eff14aaf1153a75f3a967657ea5b767c15e5155bf7114a01b0",
+        "rows": 2257
+      },
+      "right": {
+        "path": "data/bench/affiliations/right.jsonl",
+        "sha256": "74ce49499fe66b374027f440f209ea330fe00e7892dfa8de61f06ba082a14899",
+        "rows": 2255
+      },
+      "pairs": {
+        "path": "data/bench/affiliations/pairs.jsonl",
+        "sha256": "854397cd05955cb6ccdc5f987f45fe53fd7f7917bd1b1a18d51daece4cb9fbb5",
+        "rows": 27950
+      }
+    },
+    "confirmation_scored": false
+  },
+  "plan": "bench/CLASSIFIER_PLAN.md",
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "affiliations",
+      "id_column": "rec_id",
+      "fields": {
+        "name": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": [],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/methods/affiliations/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-methods",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "confirmation_scored": false,
+  "rows": [
+    {
+      "variant": "levenshtein__gbt",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "cardinality": "unrestricted",
+      "threshold": 0.64,
+      "tp": 1901,
+      "fp": 28,
+      "fn": 217,
+      "tn": 1830,
+      "precision": 0.9854847071021254,
+      "recall": 0.8975448536355052,
+      "f1": 0.9394613293797875,
+      "f1_95ci": [
+        0.929172857850421,
+        0.9484946504105499
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.261421333067119,
+      "train_seconds": 3.292146666906774,
+      "score_seconds": 0.3043680000118911,
+      "logging_seconds": 5.229810249991715,
+      "native_plan": true,
+      "feature_count": 13,
+      "model": {
+        "run_id": "b11b790d5903465b9206bdd177ba90a8",
+        "model_uri": "runs:/b11b790d5903465b9206bdd177ba90a8/model",
+        "logged_model_uri": "models:/m-4bfdb7cecc3a4d37b5e099deed3881c1",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2670250,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.64
+    },
+    {
+      "variant": "levenshtein__logistic_regression",
+      "similarity": "levenshtein",
+      "estimator": "logistic_regression",
+      "cardinality": "unrestricted",
+      "threshold": 0.56,
+      "tp": 1902,
+      "fp": 65,
+      "fn": 216,
+      "tn": 1793,
+      "precision": 0.9669547534316217,
+      "recall": 0.8980169971671388,
+      "f1": 0.9312117503059976,
+      "f1_95ci": [
+        0.920341047503045,
+        0.940755873340143
+      ],
+      "paired_delta_95ci": [
+        -0.012924730189521672,
+        -0.003857420716810167
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.261421333067119,
+      "train_seconds": 2.4319692910648882,
+      "score_seconds": 0.24773374991491437,
+      "logging_seconds": 2.1117421670351177,
+      "native_plan": true,
+      "feature_count": 13,
+      "model": {
+        "run_id": "beb284812578488b99457817b6497dd6",
+        "model_uri": "runs:/beb284812578488b99457817b6497dd6/model",
+        "logged_model_uri": "models:/m-5e485e369cc141eeb2d96708228933b8",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2651826,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.56
+    },
+    {
+      "variant": "levenshtein__random_forest",
+      "similarity": "levenshtein",
+      "estimator": "random_forest",
+      "cardinality": "unrestricted",
+      "threshold": 0.44,
+      "tp": 1913,
+      "fp": 41,
+      "fn": 205,
+      "tn": 1817,
+      "precision": 0.9790174002047083,
+      "recall": 0.9032105760151086,
+      "f1": 0.9395874263261297,
+      "f1_95ci": [
+        0.9292243405588927,
+        0.9487522281639929
+      ],
+      "paired_delta_95ci": [
+        -0.0024361404126620467,
+        0.002572300973007202
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.261421333067119,
+      "train_seconds": 2.139075041981414,
+      "score_seconds": 0.24576183303724974,
+      "logging_seconds": 2.4201839580200613,
+      "native_plan": true,
+      "feature_count": 13,
+      "model": {
+        "run_id": "ed839c20436240879e5fc4865c877a59",
+        "model_uri": "runs:/ed839c20436240879e5fc4865c877a59/model",
+        "logged_model_uri": "models:/m-086df63c16e3449fbd18368813347ea3",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2660949,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.44
+    },
+    {
+      "variant": "jaro_winkler__gbt",
+      "similarity": "jaro_winkler",
+      "estimator": "gbt",
+      "cardinality": "unrestricted",
+      "threshold": 0.41,
+      "tp": 1910,
+      "fp": 39,
+      "fn": 208,
+      "tn": 1819,
+      "precision": 0.9799897383273474,
+      "recall": 0.9017941454202077,
+      "f1": 0.93926727317433,
+      "f1_95ci": [
+        0.9289204797867614,
+        0.9484259879437374
+      ],
+      "paired_delta_95ci": [
+        -0.002343440711103595,
+        0.001962294588740643
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.5565172500209883,
+      "train_seconds": 2.5705072920536622,
+      "score_seconds": 0.19883258291520178,
+      "logging_seconds": 2.4612577910302207,
+      "native_plan": false,
+      "feature_count": 13,
+      "model": {
+        "run_id": "776265c693dc4fef9106f3711f40b15d",
+        "model_uri": "runs:/776265c693dc4fef9106f3711f40b15d/model",
+        "logged_model_uri": "models:/m-d73ba58e62154473bc83a6a2bb6e7100",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2670184,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.41
+    },
+    {
+      "variant": "jaro_winkler__logistic_regression",
+      "similarity": "jaro_winkler",
+      "estimator": "logistic_regression",
+      "cardinality": "unrestricted",
+      "threshold": 0.57,
+      "tp": 1899,
+      "fp": 63,
+      "fn": 219,
+      "tn": 1795,
+      "precision": 0.9678899082568807,
+      "recall": 0.896600566572238,
+      "f1": 0.9308823529411765,
+      "f1_95ci": [
+        0.9195054251829422,
+        0.9407911312673217
+      ],
+      "paired_delta_95ci": [
+        -0.013681536812644834,
+        -0.004047847431431939
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.5565172500209883,
+      "train_seconds": 1.7524510000366718,
+      "score_seconds": 0.23659391596447676,
+      "logging_seconds": 2.1137025411007926,
+      "native_plan": false,
+      "feature_count": 13,
+      "model": {
+        "run_id": "ba6c0494ac7e4a12a17c027a5dea685a",
+        "model_uri": "runs:/ba6c0494ac7e4a12a17c027a5dea685a/model",
+        "logged_model_uri": "models:/m-38cc0c5f8f094c02ad17ee77affc9aa5",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2651824,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.57
+    },
+    {
+      "variant": "jaro_winkler__random_forest",
+      "similarity": "jaro_winkler",
+      "estimator": "random_forest",
+      "cardinality": "unrestricted",
+      "threshold": 0.56,
+      "tp": 1909,
+      "fp": 38,
+      "fn": 209,
+      "tn": 1820,
+      "precision": 0.980482794042116,
+      "recall": 0.9013220018885741,
+      "f1": 0.9392373923739238,
+      "f1_95ci": [
+        0.9288409703504044,
+        0.9483157624067884
+      ],
+      "paired_delta_95ci": [
+        -0.0022568456333397213,
+        0.0017837146730077524
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.5565172500209883,
+      "train_seconds": 1.895183707936667,
+      "score_seconds": 0.20270679204259068,
+      "logging_seconds": 2.4281955419573933,
+      "native_plan": false,
+      "feature_count": 13,
+      "model": {
+        "run_id": "32b80c544502407094eb0f40dfd1ed76",
+        "model_uri": "runs:/32b80c544502407094eb0f40dfd1ed76/model",
+        "logged_model_uri": "models:/m-090eacfc87714fc2b50a0afd1dc3c28d",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2660721,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.56
+    },
+    {
+      "variant": "both__gbt",
+      "similarity": "both",
+      "estimator": "gbt",
+      "cardinality": "unrestricted",
+      "threshold": 0.48,
+      "tp": 1911,
+      "fp": 42,
+      "fn": 207,
+      "tn": 1816,
+      "precision": 0.978494623655914,
+      "recall": 0.9022662889518414,
+      "f1": 0.9388356669123066,
+      "f1_95ci": [
+        0.9284493284493285,
+        0.9478412777639131
+      ],
+      "paired_delta_95ci": [
+        -0.0029733852144100403,
+        0.0015779528133416099
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.3272012079833075,
+      "train_seconds": 2.5726968339877203,
+      "score_seconds": 0.22415716596879065,
+      "logging_seconds": 2.414610833977349,
+      "native_plan": false,
+      "feature_count": 14,
+      "model": {
+        "run_id": "2b65201bd61744d08b581edf8071ea12",
+        "model_uri": "runs:/2b65201bd61744d08b581edf8071ea12/model",
+        "logged_model_uri": "models:/m-7d77f2bbac2a4922ae4b1ccfbd34ec1e",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2670288,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.48
+    },
+    {
+      "variant": "both__logistic_regression",
+      "similarity": "both",
+      "estimator": "logistic_regression",
+      "cardinality": "unrestricted",
+      "threshold": 0.54,
+      "tp": 1912,
+      "fp": 75,
+      "fn": 206,
+      "tn": 1783,
+      "precision": 0.9622546552591847,
+      "recall": 0.902738432483475,
+      "f1": 0.9315468940316687,
+      "f1_95ci": [
+        0.9210099606208015,
+        0.9409603778535818
+      ],
+      "paired_delta_95ci": [
+        -0.01241531780497429,
+        -0.0035909952425059455
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.3272012079833075,
+      "train_seconds": 1.9272482499945909,
+      "score_seconds": 0.28668891603592783,
+      "logging_seconds": 2.1436725409002975,
+      "native_plan": false,
+      "feature_count": 14,
+      "model": {
+        "run_id": "fd1ac84f0a974c65b951e1567b2bc22f",
+        "model_uri": "runs:/fd1ac84f0a974c65b951e1567b2bc22f/model",
+        "logged_model_uri": "models:/m-b4c068d639b64caab58700508daaf5f6",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2651842,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.54
+    },
+    {
+      "variant": "both__random_forest",
+      "similarity": "both",
+      "estimator": "random_forest",
+      "cardinality": "unrestricted",
+      "threshold": 0.47,
+      "tp": 1911,
+      "fp": 38,
+      "fn": 207,
+      "tn": 1820,
+      "precision": 0.9805028219599795,
+      "recall": 0.9022662889518414,
+      "f1": 0.9397590361445783,
+      "f1_95ci": [
+        0.9293814432989691,
+        0.948981926332647
+      ],
+      "paired_delta_95ci": [
+        -0.0018882780674382982,
+        0.002341088837144567
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.3272012079833075,
+      "train_seconds": 1.9785333749605343,
+      "score_seconds": 0.2178339590318501,
+      "logging_seconds": 2.3735879159066826,
+      "native_plan": false,
+      "feature_count": 14,
+      "model": {
+        "run_id": "b0b9db8a90e84f3bb38daea8590edd0f",
+        "model_uri": "runs:/b0b9db8a90e84f3bb38daea8590edd0f/model",
+        "logged_model_uri": "models:/m-36332eda06ae47669c3d8886beec12b8",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2660420,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.47
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "score": "mean present-field Levenshtein",
+      "tp": 282,
+      "fp": 91,
+      "fn": 1836,
+      "tn": 1767,
+      "precision": 0.7560321715817694,
+      "recall": 0.13314447592067988,
+      "f1": 0.22641509433962265,
+      "f1_95ci": [
+        0.20468277945619334,
+        0.25126088950022923
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373
+    },
+    {
+      "name": "scalar_threshold",
+      "threshold": 0.26,
+      "cardinality": "unrestricted",
+      "score": "mean present-field Levenshtein",
+      "tp": 1602,
+      "fp": 496,
+      "fn": 516,
+      "tn": 1362,
+      "precision": 0.763584366062917,
+      "recall": 0.7563739376770539,
+      "f1": 0.7599620493358634,
+      "f1_95ci": [
+        0.7386640663091175,
+        0.7805189281156955
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373
+    }
+  ],
+  "evaluation_scope": "supplied labelled pairs only",
+  "cardinalities": [
+    "unrestricted"
+  ],
+  "spark_event_root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/methods/affiliations/spark-events/d9887326288d434fb55725b29b6acb15",
+  "spark_submit_args": "--conf spark.eventLog.enabled=true --conf spark.eventLog.compress=false --conf spark.eventLog.dir=file:///Users/laurent.fabre/Projects/Claude/lakematch/data/methods/affiliations/spark-events/d9887326288d434fb55725b29b6acb15 pyspark-shell",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "both.plan.txt": "1e844953681ec332525f321a366e1b2b50396ba62b85450eb6c854f9c0a65e84",
+    "both__gbt.predictions.json": "c3ee142a73a7e50c6fdada1bbd5d67542a78f6fd1501f6ef5cc1ba9480f9ba82",
+    "both__logistic_regression.predictions.json": "a6264acb50b3c6cc31a99aa3bfb8bd764262cb950d615e3ec15cebae902c5ddd",
+    "both__random_forest.predictions.json": "3b93e3058b6b998c1f0920bb949812b358c9c0e648c78a4160eb0e3a8d329e5f",
+    "jaro_winkler.plan.txt": "f3559a20c27e35e42a8179465e72dd9186cbee23d3deef4da3832c466f898962",
+    "jaro_winkler__gbt.predictions.json": "b9fd327c98b83ba16d1a55cf09ebde9005dd8f4ec978b8a1682ce1487e72967d",
+    "jaro_winkler__logistic_regression.predictions.json": "15294f9ffb37a040a5b945bdfb7fa647ba5dbd018d1c60410afaa27de6e9a785",
+    "jaro_winkler__random_forest.predictions.json": "09b80003dff1429d1ca824506ccb35d22df5594d2ad1326df2f94f575c8ea555",
+    "levenshtein.plan.txt": "b3c81136d1e208186472a21a70fa1b517c31e74eac67f9ca6be957d316272eb5",
+    "levenshtein__gbt.predictions.json": "b95792f3ebee7e7535d49c5ef28dabd65b8fd0a7d1ec3ef1f2f48ba51fd62905",
+    "levenshtein__logistic_regression.predictions.json": "2b0a66e3122d4682d3d457e900f1e947a80942f98c156ce8f7de4f8171c7d3a5",
+    "levenshtein__random_forest.predictions.json": "2d611ad048aaae4f8dcadf6a8cfdc0032cab223688187f2726018d98b2a728f5",
+    "spark-events/d9887326288d434fb55725b29b6acb15/eventlog_v2_local-1789865108414/.appstatus_local-1789865108414.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "spark-events/d9887326288d434fb55725b29b6acb15/eventlog_v2_local-1789865108414/appstatus_local-1789865108414": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spark-events/d9887326288d434fb55725b29b6acb15/eventlog_v2_local-1789865108414/events_1_local-1789865108414": "4c12fd068e61c915d6f6165e9f63a02ab2167c282a86ccd272ff4483a498762e",
+    "spark-events/d9887326288d434fb55725b29b6acb15/eventlog_v2_local-1789865108414/events_2_local-1789865108414": "e0ef0a59a9d4f15db917ff1b5f3a0e3a13ac1b53132816417e7765a101a81f36",
+    "spark-events/d9887326288d434fb55725b29b6acb15/eventlog_v2_local-1789865108414/events_3_local-1789865108414": "e50c7d3daa47d64c4a69e13b7284b5fd82376e9bf4ae8847b1d39269da0b1d7a",
+    "spark-events/d9887326288d434fb55725b29b6acb15/eventlog_v2_local-1789865108414/events_4_local-1789865108414": "4cc65812e34b6b1ef9a5b774e2c07f27f35b24cc6c6d160e8deda7a5a17073f8",
+    "spark-events/d9887326288d434fb55725b29b6acb15/eventlog_v2_local-1789865108414/events_5_local-1789865108414": "c534c9b22a78fa6531fd512d0198eb0ff35bb3f5522bf3ec968db70253990309",
+    "spark-metrics.json": "19af5de24bdf8ff58184984c9e944f49e7b01b6cd780ca61ffd9773bda87a5ad"
+  },
+  "candidate_recall": null,
+  "shared_preparation_seconds": 4.75826525001321,
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 75.64572779205628,
+  "spark_metrics": {
+    "applications": [
+      "local-1789865108414"
+    ],
+    "completed_log_directories": [
+      "eventlog_v2_local-1789865108414"
+    ],
+    "tasks": 1762,
+    "failed_or_killed_tasks": 0,
+    "total_shuffle_read_bytes": 191621892,
+    "total_shuffle_write_bytes": 160049851,
+    "maximum_task_shuffle_read_bytes": 2014153,
+    "maximum_task_peak_execution_memory_bytes": 27262928,
+    "total_memory_spilled_bytes": 0,
+    "total_disk_spilled_bytes": 0,
+    "maximum_to_median_task_duration": 619.0,
+    "scope": "whole application, all task attempts; execution-memory peak is per task, not process RSS"
+  }
+}

@@ -36,7 +36,17 @@ Classifier iteration 2 is predeclared in bench/CLASSIFIER_PLAN.md; tools/methods
 New clustering/identity modules pass seven targeted Spark tests after fixing cache-lineage JVM
 heap exhaustion using owned-table round boundaries. All 98 tests pass in classic Spark and the identical Spark Connect suite, with no skips.
 Runs: 20260920T002727Z-expanded-classic-tests-f867fd and
-20260920T002836Z-expanded-connect-tests-12af1b. First classifier factorial is running.
+20260920T002836Z-expanded-connect-tests-12af1b. Classifier factorial completed 81 models,
+nine corpora configurations, zero failures. Selected Levenshtein/GBT: macro F1 .8201;
+LR .8008 and RF .8003 are significantly worse by the predeclared paired interval.
+No clear gain from Jaro-Winkler. bench/METHODS.md and selection.json record this stage.
+Compact-feature iteration 3 is prepared (tools/compact_features_sweep.py --estimator gbt).
+Splink baselines first failed on a dereferenced venv executable, then on a shared
+DuckDBAPI cache returning training records. Both are retained; no baseline score accepted.
+The corrected baselines passed with fresh validation connections and endpoint audits.
+Pairwise/B-cubed F1: FEBRL3 .9979/.9986; historical_50k .8580/.8797.
+See bench/CLUSTERS.md and cluster_index.json. Native comparison is prepared.
+ZR-4 iterations 1 and 2 are those failures; corrected comparison is iteration 3/8.
 They are not yet integrated into the CLI or benchmarked on real corpora. Public clustering
 corpora and an isolated Splink environment are prepared; see bench/CLUSTER_PLAN.md.
 Compare all required estimators,

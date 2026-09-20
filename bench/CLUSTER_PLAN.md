@@ -1,6 +1,6 @@
 # Clustering preparation and acceptance plan
 
-Preparation only; no clustering-method or Splink scoring experiment has run.
+Predeclared protocol; measured results are recorded separately from this plan.
 The public corpus manifests are frozen under `data/bench/febrl3` and
 `data/bench/historical_50k`. Whole truth entities are partitioned 60/20/20 by
 namespaced SHA-256 ranking with seed 2026091901. Confirmation remains unscored.
@@ -58,7 +58,10 @@ a 2 GB memory limit; exact comparisons for code fields, Levenshtein distances 1/
 for other fields; blocking on last-name-token prefix (four characters), birth year
 or postcode. Missing keys produce no candidates. Fit the match prior and m-values
 from training truth entities and u-values from at most one million sampled
-training pairs, seed 0. A fresh Linker scores validation with frozen parameters.
+training pairs, seed 0. A fresh Linker in a separate DuckDB connection/API scores
+validation with frozen parameters. Verify every returned endpoint belongs to
+validation before computing any metric. Sharing the API's SQL cache across
+Linkers is forbidden: a retained failed baseline exposed training rows that way.
 Reject before scoring if the summed blocking-join upper bound exceeds five
 million; final predictions are capped at one million pairs. Select a connected-
 components threshold on the 0.00–1.00 grid by validation pairwise F1, with ties
@@ -74,3 +77,36 @@ crosswalk. Merge, split, rekey, created and retired cluster events are distinct,
 and simultaneous merge/split events may coexist. Benchmark 1% additions, 1%
 changes and 1% deletions, then repeat to prove idempotence; no successful identity
 gate is claimed until that experiment runs.
+
+ZR-4 iteration 1 compares the four Spark clustering methods on both validation
+partitions. Use Levenshtein, all three native token families, embeddings off,
+and the native estimator selected by the ZR-3 cross-corpus classifier comparison
+(20 iterations/trees, depth 3, seed 0). This comparison isolates clustering and
+does not retune the feature library. Field blocks use every configured field's
+exact key plus the type-specific rules from `blocking.proposed_rules`. Each
+partition is retrieved separately at k=6 including self; remove self and union
+opposite orientations to obtain at most five outgoing nonself neighbours per
+record. Bound each split at 500,000 directed final pairs and 50 million retained
+pre-top-k join rows. Report coverage of all within-entity pairs; connectivity
+can recover clusters even when direct pair recall is below one.
+
+Feature IDF and the classifier fit training records/pairs only. For this dedupe
+task, pair-level candidate metadata is unweighted gram cosine, rank=1 and gap=0
+for every training, validation and representative pair. Re-scoring a requested
+representative is independent of the other requested pairs. This contract is
+explicitly different from directional two-source retrieval ranks.
+
+Select one common classifier threshold on validation pairwise F1 using the fixed
+0.00–1.00 grid, breaking ties toward the higher threshold; include every missing
+truth pair in the false-negative count. All four clusterers receive exactly the
+same scored graph and threshold. Compare validation cluster pairwise F1 with
+equal corpus weights; B-cubed is a reported secondary metric. Connected components
+is the paired reference and the simpler choice when the difference interval
+includes zero. Baselines are connected components of the nearest-neighbour graph
+and of a validation-tuned cosine-threshold graph. They share the candidate set.
+
+Two sequential Spark corpus runs, 900 seconds each, 30-minute total ceiling,
+zero remote/live-label spend. At most 30 rounds; each nonconverged method fails
+explicitly. Splink's two independently bounded baselines use the earlier plan.
+No confirmation scoring, identity acceptance or default promotion is implied by
+finishing the comparison. The incremental identity experiment follows selection.

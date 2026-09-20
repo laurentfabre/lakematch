@@ -1,5 +1,5 @@
 {
-  "status": "partial",
+  "status": "classifier_comparison_completed",
   "confirmation_scored": false,
   "runs": {
     "febrl4-all": {
@@ -7,17 +7,166 @@
       "manifest": "experiments/20260920T003007Z-methods-febrl4-all-6f4870/manifest.json",
       "report": "experiments/20260920T003007Z-methods-febrl4-all-6f4870/evidence/report.json",
       "report_sha256": "f87bce0605b33d7dbcc4b11cf0871fa52e39c1abcee28cb51c5971a3a5851264"
+    },
+    "febrl4-no_ssn": {
+      "run_id": "20260920T003409Z-methods-febrl4-no_ssn-a7360f",
+      "manifest": "experiments/20260920T003409Z-methods-febrl4-no_ssn-a7360f/manifest.json",
+      "report": "experiments/20260920T003409Z-methods-febrl4-no_ssn-a7360f/evidence/report.json",
+      "report_sha256": "cd31804eca80170a6aa8707edd324900bd5bedd8058acdc335ed41b7f5257b4a"
+    },
+    "febrl4-no_ssn_dob": {
+      "run_id": "20260920T003727Z-methods-febrl4-no_ssn_dob-5509e3",
+      "manifest": "experiments/20260920T003727Z-methods-febrl4-no_ssn_dob-5509e3/manifest.json",
+      "report": "experiments/20260920T003727Z-methods-febrl4-no_ssn_dob-5509e3/evidence/report.json",
+      "report_sha256": "b2d875f94d8e233a05c2ad1e68b13e4d6fd2ca24ce686dc9ad0494791a199f18"
+    },
+    "bpid": {
+      "run_id": "20260920T004035Z-methods-bpid-87b963",
+      "manifest": "experiments/20260920T004035Z-methods-bpid-87b963/manifest.json",
+      "report": "experiments/20260920T004035Z-methods-bpid-87b963/evidence/report.json",
+      "report_sha256": "58769abb6c33a456c45393ff5588ee26e422f51389bf66d206ed7d9f4ae09f23"
+    },
+    "abt_buy": {
+      "run_id": "20260920T004259Z-methods-abt_buy-6099bc",
+      "manifest": "experiments/20260920T004259Z-methods-abt_buy-6099bc/manifest.json",
+      "report": "experiments/20260920T004259Z-methods-abt_buy-6099bc/evidence/report.json",
+      "report_sha256": "883b090f3714a5caafffb92a5b3267094359339d13b40627eb334569b7b0caa2"
+    },
+    "affiliations": {
+      "run_id": "20260920T004459Z-methods-affiliations-3f2df5",
+      "manifest": "experiments/20260920T004459Z-methods-affiliations-3f2df5/manifest.json",
+      "report": "experiments/20260920T004459Z-methods-affiliations-3f2df5/evidence/report.json",
+      "report_sha256": "78218f40e62d0df9d5a80489c7ca2c181d03bcc2456d17e46b476ee60b802108"
+    },
+    "amazon_google": {
+      "run_id": "20260920T004648Z-methods-amazon_google-96dc91",
+      "manifest": "experiments/20260920T004648Z-methods-amazon_google-96dc91/manifest.json",
+      "report": "experiments/20260920T004648Z-methods-amazon_google-96dc91/evidence/report.json",
+      "report_sha256": "08aac0f0b237dff12f2864265d1dec77718d5cafe322b96277e3eac07baecfc5"
+    },
+    "walmart_amazon": {
+      "run_id": "20260920T004831Z-methods-walmart_amazon-26c55c",
+      "manifest": "experiments/20260920T004831Z-methods-walmart_amazon-26c55c/manifest.json",
+      "report": "experiments/20260920T004831Z-methods-walmart_amazon-26c55c/evidence/report.json",
+      "report_sha256": "373469de2855409cba7fb5535dca3787555163a5c8371bc2064811312c7f51f6"
+    },
+    "dblp_acm": {
+      "run_id": "20260920T005027Z-methods-dblp_acm-8ca1eb",
+      "manifest": "experiments/20260920T005027Z-methods-dblp_acm-8ca1eb/manifest.json",
+      "report": "experiments/20260920T005027Z-methods-dblp_acm-8ca1eb/evidence/report.json",
+      "report_sha256": "5754797fefc5e68d3f67b409e4ebb26fe38cd698b222189724cfba11f1f22082"
     }
   },
-  "missing": [
-    "febrl4-no_ssn",
-    "febrl4-no_ssn_dob",
-    "bpid",
-    "abt_buy",
-    "affiliations",
-    "amazon_google",
-    "walmart_amazon",
-    "dblp_acm"
-  ],
-  "failures": []
+  "missing": [],
+  "failures": [],
+  "macro": {
+    "both__gbt": {
+      "macro_f1": 0.823006292817515,
+      "f1_95ci": [
+        0.8099335673447988,
+        0.8347816107688064
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        -0.002488807753883604,
+        0.008553715683260021
+      ],
+      "weighted_feature_fit_score_seconds": 6.888571622282532
+    },
+    "both__logistic_regression": {
+      "macro_f1": 0.7987105179144047,
+      "f1_95ci": [
+        0.7839811635233225,
+        0.8121183884842158
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        -0.03209736113259698,
+        -0.010701971648110264
+      ],
+      "weighted_feature_fit_score_seconds": 6.228205457911827
+    },
+    "both__random_forest": {
+      "macro_f1": 0.802375874655221,
+      "f1_95ci": [
+        0.7883555366911689,
+        0.815384981212389
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        -0.02763188219149293,
+        -0.007993656585183584
+      ],
+      "weighted_feature_fit_score_seconds": 6.440586006152444
+    },
+    "jaro_winkler__gbt": {
+      "macro_f1": 0.8202849810342192,
+      "f1_95ci": [
+        0.8071331869784275,
+        0.832237584127684
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        -0.006915345084519631,
+        0.007165024306254764
+      ],
+      "weighted_feature_fit_score_seconds": 7.004544791923504
+    },
+    "jaro_winkler__logistic_regression": {
+      "macro_f1": 0.7972587465366937,
+      "f1_95ci": [
+        0.78320305019847,
+        0.8105529340370796
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        -0.033920122616788784,
+        -0.011740797434019123
+      ],
+      "weighted_feature_fit_score_seconds": 6.256412598113196
+    },
+    "jaro_winkler__random_forest": {
+      "macro_f1": 0.8049959637671538,
+      "f1_95ci": [
+        0.79071652230733,
+        0.8177454222215428
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        -0.025317888449436166,
+        -0.005606491920027379
+      ],
+      "weighted_feature_fit_score_seconds": 6.501369725829655
+    },
+    "levenshtein__gbt": {
+      "macro_f1": 0.8201046495866513,
+      "f1_95ci": [
+        0.8067427299353497,
+        0.8325250334327552
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        0.0,
+        0.0
+      ],
+      "weighted_feature_fit_score_seconds": 7.495750476148843
+    },
+    "levenshtein__logistic_regression": {
+      "macro_f1": 0.800769022690065,
+      "f1_95ci": [
+        0.7855147205257951,
+        0.8138643840217583
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        -0.03080150809522242,
+        -0.008733381818696762
+      ],
+      "weighted_feature_fit_score_seconds": 6.756540341826621
+    },
+    "levenshtein__random_forest": {
+      "macro_f1": 0.8003191322472668,
+      "f1_95ci": [
+        0.7858217937827886,
+        0.8131553258107821
+      ],
+      "paired_delta_vs_levenshtein_gbt_95ci": [
+        -0.030628001430661023,
+        -0.009456934037849196
+      ],
+      "weighted_feature_fit_score_seconds": 6.430199315580206
+    }
+  }
 }
