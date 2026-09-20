@@ -40,7 +40,11 @@ Runs: 20260920T002727Z-expanded-classic-tests-f867fd and
 nine corpora configurations, zero failures. Selected Levenshtein/GBT: macro F1 .8201;
 LR .8008 and RF .8003 are significantly worse by the predeclared paired interval.
 No clear gain from Jaro-Winkler. bench/METHODS.md and selection.json record this stage.
-Compact-feature iteration 3 is prepared (tools/compact_features_sweep.py --estimator gbt).
+Compact-feature iteration 3 completed all nine runs. IDF-only selected under the simpler-choice
+rule: macro F1 .8145 vs .8201, paired CI [-.0126,+.0014], measured stage cost 3.87s vs 7.49s.
+See bench/COMPACT_FEATURES.md. Shipped token defaults are not changed yet.
+Next ZR-3: tools/run_linkage_candidates.py VARIANT --features idf_only --estimator gbt
+under the experiment runner; bench/LINKAGE_PLAN.md declares iteration 4.
 Splink baselines first failed on a dereferenced venv executable, then on a shared
 DuckDBAPI cache returning training records. Both are retained; no baseline score accepted.
 The corrected baselines passed with fresh validation connections and endpoint audits.

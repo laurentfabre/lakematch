@@ -9,7 +9,7 @@
     "seed": 0
   },
   "classifier_index_sha256": "bcee33645e93e9b7db948aa5455f5600877ab455229b66bb7b0cb3a57f70308a",
-  "feature_selection": "pending compact comparison",
+  "feature_selection": "selected on validation; pending full pipeline acceptance",
   "candidate_selection": "pending retrieval/scoring comparison",
   "cardinality_selection": "per-corpus validation; incompatible policies excluded",
   "macro_evidence": {
@@ -122,5 +122,89 @@
       "weighted_feature_fit_score_seconds": 6.430199315580206
     }
   },
-  "models_promoted": false
+  "models_promoted": false,
+  "selected_multi_token": [
+    "idf_token_cosine"
+  ],
+  "compact_index_sha256": "d855ce5b2fc6eea596862eaf1e387638df2240c34196b10935205d8ab23e334e",
+  "compact_macro_evidence": {
+    "idf_only": {
+      "macro_f1": 0.814453542060414,
+      "f1_95ci": [
+        0.8013479317901189,
+        0.827336733441799
+      ],
+      "paired_delta_vs_native_all_95ci": [
+        -0.012577784724769225,
+        0.0013993595631031086
+      ],
+      "paired_deltas": {
+        "idf_only": [
+          0.0,
+          0.0
+        ],
+        "native_all": [
+          -0.012577784724769225,
+          0.0013993595631031086
+        ],
+        "scalar_fields": [
+          0.013817037437715673,
+          0.03447034237652824
+        ]
+      },
+      "weighted_feature_fit_score_seconds": 3.8708160623126395
+    },
+    "native_all": {
+      "macro_f1": 0.8201046495866513,
+      "f1_95ci": [
+        0.8067427299353497,
+        0.8325250334327552
+      ],
+      "paired_delta_vs_native_all_95ci": [
+        0.0,
+        0.0
+      ],
+      "paired_deltas": {
+        "idf_only": [
+          -0.0014009801727644655,
+          0.012508691702132535
+        ],
+        "native_all": [
+          0.0,
+          0.0
+        ],
+        "scalar_fields": [
+          0.01866666706138842,
+          0.04083998454801874
+        ]
+      },
+      "weighted_feature_fit_score_seconds": 7.493919892785405
+    },
+    "scalar_fields": {
+      "macro_f1": 0.7909370252666053,
+      "f1_95ci": [
+        0.7761666399455343,
+        0.8053104781852668
+      ],
+      "paired_delta_vs_native_all_95ci": [
+        -0.04084837631604277,
+        -0.01868547968121481
+      ],
+      "paired_deltas": {
+        "idf_only": [
+          -0.034495261490848694,
+          -0.01383907359344494
+        ],
+        "native_all": [
+          -0.04084837631604277,
+          -0.01868547968121481
+        ],
+        "scalar_fields": [
+          0.0,
+          0.0
+        ]
+      },
+      "weighted_feature_fit_score_seconds": 3.573318621684199
+    }
+  }
 }

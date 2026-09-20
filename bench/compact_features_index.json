@@ -1,0 +1,144 @@
+{
+  "status": "compact_comparison_completed",
+  "confirmation_scored": false,
+  "runs": {
+    "febrl4-all": {
+      "run_id": "20260920T005641Z-compact-febrl4-all-da9e9b",
+      "manifest": "experiments/20260920T005641Z-compact-febrl4-all-da9e9b/manifest.json",
+      "report": "experiments/20260920T005641Z-compact-febrl4-all-da9e9b/evidence/report.json",
+      "report_sha256": "09342ac436791ceebbe12da3839cd4e3af17f13979e6bb81a334b53f1031da27"
+    },
+    "febrl4-no_ssn": {
+      "run_id": "20260920T005816Z-compact-febrl4-no_ssn-58e10e",
+      "manifest": "experiments/20260920T005816Z-compact-febrl4-no_ssn-58e10e/manifest.json",
+      "report": "experiments/20260920T005816Z-compact-febrl4-no_ssn-58e10e/evidence/report.json",
+      "report_sha256": "a678c70b22c12e0b5e4bd2a587af0bfb8bab9d7c9e07a97a01d66b77cada2d62"
+    },
+    "febrl4-no_ssn_dob": {
+      "run_id": "20260920T005946Z-compact-febrl4-no_ssn_dob-0cf154",
+      "manifest": "experiments/20260920T005946Z-compact-febrl4-no_ssn_dob-0cf154/manifest.json",
+      "report": "experiments/20260920T005946Z-compact-febrl4-no_ssn_dob-0cf154/evidence/report.json",
+      "report_sha256": "75f07fb5be6b46cbb8a20d05ebc96c992501ab68d5e9a550a2a1b4e8b5b280c8"
+    },
+    "bpid": {
+      "run_id": "20260920T010112Z-compact-bpid-e3504e",
+      "manifest": "experiments/20260920T010112Z-compact-bpid-e3504e/manifest.json",
+      "report": "experiments/20260920T010112Z-compact-bpid-e3504e/evidence/report.json",
+      "report_sha256": "3fe65796ef281019f4bb59cff37a7a2423370c603644dff73b348b8f526914ed"
+    },
+    "abt_buy": {
+      "run_id": "20260920T010212Z-compact-abt_buy-86c5c4",
+      "manifest": "experiments/20260920T010212Z-compact-abt_buy-86c5c4/manifest.json",
+      "report": "experiments/20260920T010212Z-compact-abt_buy-86c5c4/evidence/report.json",
+      "report_sha256": "0958e84953157f4c4165f11c57eb12c80fb858f8f949f3db2b149ac6f4ccf124"
+    },
+    "affiliations": {
+      "run_id": "20260920T010302Z-compact-affiliations-1f09f2",
+      "manifest": "experiments/20260920T010302Z-compact-affiliations-1f09f2/manifest.json",
+      "report": "experiments/20260920T010302Z-compact-affiliations-1f09f2/evidence/report.json",
+      "report_sha256": "64f765ae6854eed60fb419b35b98af8e80ada90cffe3f37a8f352c6e5a3edc45"
+    },
+    "amazon_google": {
+      "run_id": "20260920T010352Z-compact-amazon_google-4acbe9",
+      "manifest": "experiments/20260920T010352Z-compact-amazon_google-4acbe9/manifest.json",
+      "report": "experiments/20260920T010352Z-compact-amazon_google-4acbe9/evidence/report.json",
+      "report_sha256": "97c95be9a1b31c8a61678bfbb9e16f6183a04976ca06d1f75c385bb8db5d953d"
+    },
+    "walmart_amazon": {
+      "run_id": "20260920T010436Z-compact-walmart_amazon-96b466",
+      "manifest": "experiments/20260920T010436Z-compact-walmart_amazon-96b466/manifest.json",
+      "report": "experiments/20260920T010436Z-compact-walmart_amazon-96b466/evidence/report.json",
+      "report_sha256": "a497edf8ef04bf3d88022f7b9cfeefb000b2369f443b070af9a7fc923d081f9f"
+    },
+    "dblp_acm": {
+      "run_id": "20260920T010525Z-compact-dblp_acm-416b37",
+      "manifest": "experiments/20260920T010525Z-compact-dblp_acm-416b37/manifest.json",
+      "report": "experiments/20260920T010525Z-compact-dblp_acm-416b37/evidence/report.json",
+      "report_sha256": "a2bff65b76203588d5923f5ee5427de6a871c54b365aa603ff4dd23e55428ace"
+    }
+  },
+  "missing": [],
+  "failures": [],
+  "macro": {
+    "idf_only": {
+      "macro_f1": 0.814453542060414,
+      "f1_95ci": [
+        0.8013479317901189,
+        0.827336733441799
+      ],
+      "paired_delta_vs_native_all_95ci": [
+        -0.012577784724769225,
+        0.0013993595631031086
+      ],
+      "paired_deltas": {
+        "idf_only": [
+          0.0,
+          0.0
+        ],
+        "native_all": [
+          -0.012577784724769225,
+          0.0013993595631031086
+        ],
+        "scalar_fields": [
+          0.013817037437715673,
+          0.03447034237652824
+        ]
+      },
+      "weighted_feature_fit_score_seconds": 3.8708160623126395
+    },
+    "native_all": {
+      "macro_f1": 0.8201046495866513,
+      "f1_95ci": [
+        0.8067427299353497,
+        0.8325250334327552
+      ],
+      "paired_delta_vs_native_all_95ci": [
+        0.0,
+        0.0
+      ],
+      "paired_deltas": {
+        "idf_only": [
+          -0.0014009801727644655,
+          0.012508691702132535
+        ],
+        "native_all": [
+          0.0,
+          0.0
+        ],
+        "scalar_fields": [
+          0.01866666706138842,
+          0.04083998454801874
+        ]
+      },
+      "weighted_feature_fit_score_seconds": 7.493919892785405
+    },
+    "scalar_fields": {
+      "macro_f1": 0.7909370252666053,
+      "f1_95ci": [
+        0.7761666399455343,
+        0.8053104781852668
+      ],
+      "paired_delta_vs_native_all_95ci": [
+        -0.04084837631604277,
+        -0.01868547968121481
+      ],
+      "paired_deltas": {
+        "idf_only": [
+          -0.034495261490848694,
+          -0.01383907359344494
+        ],
+        "native_all": [
+          -0.04084837631604277,
+          -0.01868547968121481
+        ],
+        "scalar_fields": [
+          0.0,
+          0.0
+        ]
+      },
+      "weighted_feature_fit_score_seconds": 3.573318621684199
+    }
+  },
+  "recommendation": "idf_only",
+  "best_point_estimate": "native_all"
+}

@@ -1,0 +1,686 @@
+{
+  "status": "completed",
+  "iteration": 3,
+  "corpus": "dblp_acm",
+  "manifest": {
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "raw_sha256": {
+      "train": "4f757d2d5dae4f7d7d118b796c683a232b4e11bf000e2012b64f8af95a981a4e",
+      "valid": "b13444a2bf1a503ed558e782f42b247cf56e16e67be2e58d92d7435161299e2e",
+      "test": "ded891e469b1d08e21269038c984dc761ae2fd5b142b00c46c30fce45adc6e68"
+    },
+    "split_method": "official",
+    "duplicate_or_reversed_pairs_removed": 235,
+    "conflicting_pair_keys_excluded": 7,
+    "shared_records_between_splits": {
+      "test/train": 2025,
+      "test/valid": 1470,
+      "train/valid": 2044
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "test": 2407,
+      "train": 7282,
+      "valid": 2407
+    },
+    "corpus": "dblp_acm",
+    "seed": 2026091901,
+    "fields": {
+      "authors": {
+        "type": "person_name"
+      },
+      "title": {
+        "type": "title"
+      },
+      "venue": {
+        "type": "title"
+      },
+      "year": {
+        "type": "number"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/dblp_acm/left.jsonl",
+        "sha256": "ae18230a1000d9b6b274367e80a98600ef7d3a1ea1d4c6950bd1bfa5d0695ee0",
+        "rows": 2436
+      },
+      "right": {
+        "path": "data/bench/dblp_acm/right.jsonl",
+        "sha256": "6a2b35d27a96de2861abeba00adb8f8610a3727b7346773e13bf0dce27dbb8bd",
+        "rows": 2245
+      },
+      "pairs": {
+        "path": "data/bench/dblp_acm/pairs.jsonl",
+        "sha256": "b569260632aa0e98786c95da9a469a6a94d82269ccec703e1bb364e3c3b3d871",
+        "rows": 12096
+      }
+    },
+    "confirmation_scored": false
+  },
+  "plan": "bench/COMPACT_PLAN.md",
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "dblp_acm",
+      "id_column": "rec_id",
+      "fields": {
+        "authors": {
+          "type": "person_name"
+        },
+        "title": {
+          "type": "title"
+        },
+        "venue": {
+          "type": "title"
+        },
+        "year": {
+          "type": "number"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": [],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/dblp_acm/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-compact-features",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "confirmation_scored": false,
+  "rows": [
+    {
+      "variant": "native_all",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "cardinality": "unrestricted",
+      "threshold": 0.47,
+      "tp": 436,
+      "fp": 8,
+      "fn": 5,
+      "tn": 1958,
+      "precision": 0.9819819819819819,
+      "recall": 0.9886621315192744,
+      "f1": 0.9853107344632769,
+      "f1_95ci": [
+        0.9755501222493888,
+        0.9932126696832579
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 4.092206915956922,
+      "train_seconds": 3.082182375015691,
+      "score_seconds": 0.3657917910022661,
+      "logging_seconds": 6.0018790839239955,
+      "native_plan": true,
+      "feature_count": 42,
+      "model": {
+        "run_id": "5853a4ff3b0c4e95b36bcf243afe401a",
+        "model_uri": "runs:/5853a4ff3b0c4e95b36bcf243afe401a/model",
+        "logged_model_uri": "models:/m-ceac1cbf6a3644cc97bf0e6f205e6c2d",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1321663,
+        "registry": false
+      },
+      "logged_policy": "one_to_one",
+      "logged_threshold": 0.33
+    },
+    {
+      "variant": "native_all",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "cardinality": "many_to_one",
+      "threshold": 0.47,
+      "tp": 436,
+      "fp": 7,
+      "fn": 5,
+      "tn": 1959,
+      "precision": 0.9841986455981941,
+      "recall": 0.9886621315192744,
+      "f1": 0.9864253393665159,
+      "f1_95ci": [
+        0.9778761061946902,
+        0.9937759336099585
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.003483692880739575
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 4.092206915956922,
+      "train_seconds": 3.082182375015691,
+      "score_seconds": 0.3657917910022661,
+      "logging_seconds": 6.0018790839239955,
+      "native_plan": true,
+      "feature_count": 42,
+      "model": {
+        "run_id": "5853a4ff3b0c4e95b36bcf243afe401a",
+        "model_uri": "runs:/5853a4ff3b0c4e95b36bcf243afe401a/model",
+        "logged_model_uri": "models:/m-ceac1cbf6a3644cc97bf0e6f205e6c2d",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1321663,
+        "registry": false
+      },
+      "logged_policy": "one_to_one",
+      "logged_threshold": 0.33
+    },
+    {
+      "variant": "native_all",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "cardinality": "one_to_one",
+      "threshold": 0.33,
+      "tp": 439,
+      "fp": 8,
+      "fn": 2,
+      "tn": 1958,
+      "precision": 0.9821029082774049,
+      "recall": 0.9954648526077098,
+      "f1": 0.9887387387387387,
+      "f1_95ci": [
+        0.9812206572769953,
+        0.9954545454545455
+      ],
+      "paired_delta_95ci": [
+        -0.00321175075092317,
+        0.009959090117797276
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 4.092206915956922,
+      "train_seconds": 3.082182375015691,
+      "score_seconds": 0.3657917910022661,
+      "logging_seconds": 6.0018790839239955,
+      "native_plan": true,
+      "feature_count": 42,
+      "model": {
+        "run_id": "5853a4ff3b0c4e95b36bcf243afe401a",
+        "model_uri": "runs:/5853a4ff3b0c4e95b36bcf243afe401a/model",
+        "logged_model_uri": "models:/m-ceac1cbf6a3644cc97bf0e6f205e6c2d",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1321663,
+        "registry": false
+      },
+      "logged_policy": "one_to_one",
+      "logged_threshold": 0.33
+    },
+    {
+      "variant": "idf_only",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine"
+      ],
+      "cardinality": "unrestricted",
+      "threshold": 0.35,
+      "tp": 437,
+      "fp": 10,
+      "fn": 4,
+      "tn": 1956,
+      "precision": 0.9776286353467561,
+      "recall": 0.9909297052154195,
+      "f1": 0.9842342342342343,
+      "f1_95ci": [
+        0.9746543778801844,
+        0.9928741092636579
+      ],
+      "paired_delta_95ci": [
+        -0.0071781652809320695,
+        0.004797625581915432
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 1.101660207961686,
+      "train_seconds": 2.497897292021662,
+      "score_seconds": 0.23123237490653992,
+      "logging_seconds": 2.7248522080481052,
+      "native_plan": true,
+      "feature_count": 34,
+      "model": {
+        "run_id": "18a1154de2f3450d8714227360dff97f",
+        "model_uri": "runs:/18a1154de2f3450d8714227360dff97f/model",
+        "logged_model_uri": "models:/m-1c6e471dc942457697e59cbf15692d06",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1321335,
+        "registry": false
+      },
+      "logged_policy": "many_to_one",
+      "logged_threshold": 0.35
+    },
+    {
+      "variant": "idf_only",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine"
+      ],
+      "cardinality": "many_to_one",
+      "threshold": 0.35,
+      "tp": 437,
+      "fp": 9,
+      "fn": 4,
+      "tn": 1957,
+      "precision": 0.9798206278026906,
+      "recall": 0.9909297052154195,
+      "f1": 0.9853438556933484,
+      "f1_95ci": [
+        0.9767441860465116,
+        0.9931818181818182
+      ],
+      "paired_delta_95ci": [
+        -0.006609001965252603,
+        0.006779661016949157
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 1.101660207961686,
+      "train_seconds": 2.497897292021662,
+      "score_seconds": 0.23123237490653992,
+      "logging_seconds": 2.7248522080481052,
+      "native_plan": true,
+      "feature_count": 34,
+      "model": {
+        "run_id": "18a1154de2f3450d8714227360dff97f",
+        "model_uri": "runs:/18a1154de2f3450d8714227360dff97f/model",
+        "logged_model_uri": "models:/m-1c6e471dc942457697e59cbf15692d06",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1321335,
+        "registry": false
+      },
+      "logged_policy": "many_to_one",
+      "logged_threshold": 0.35
+    },
+    {
+      "variant": "idf_only",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine"
+      ],
+      "cardinality": "one_to_one",
+      "threshold": 0.35,
+      "tp": 435,
+      "fp": 8,
+      "fn": 6,
+      "tn": 1958,
+      "precision": 0.981941309255079,
+      "recall": 0.9863945578231292,
+      "f1": 0.9841628959276018,
+      "f1_95ci": [
+        0.9752953813104189,
+        0.9920364050056882
+      ],
+      "paired_delta_95ci": [
+        -0.008222174693461981,
+        0.006681514476614692
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 1.101660207961686,
+      "train_seconds": 2.497897292021662,
+      "score_seconds": 0.23123237490653992,
+      "logging_seconds": 2.7248522080481052,
+      "native_plan": true,
+      "feature_count": 34,
+      "model": {
+        "run_id": "18a1154de2f3450d8714227360dff97f",
+        "model_uri": "runs:/18a1154de2f3450d8714227360dff97f/model",
+        "logged_model_uri": "models:/m-1c6e471dc942457697e59cbf15692d06",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1321335,
+        "registry": false
+      },
+      "logged_policy": "many_to_one",
+      "logged_threshold": 0.35
+    },
+    {
+      "variant": "scalar_fields",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [],
+      "cardinality": "unrestricted",
+      "threshold": 0.41,
+      "tp": 437,
+      "fp": 9,
+      "fn": 4,
+      "tn": 1957,
+      "precision": 0.9798206278026906,
+      "recall": 0.9909297052154195,
+      "f1": 0.9853438556933484,
+      "f1_95ci": [
+        0.9761092150170648,
+        0.9931972789115646
+      ],
+      "paired_delta_95ci": [
+        -0.0054716236254742645,
+        0.005623574022301403
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 0.955799833056517,
+      "train_seconds": 2.354440708993934,
+      "score_seconds": 0.2340512078953907,
+      "logging_seconds": 2.2355488329194486,
+      "native_plan": true,
+      "feature_count": 30,
+      "model": {
+        "run_id": "90f99dace1f645dfb1393cc750465597",
+        "model_uri": "runs:/90f99dace1f645dfb1393cc750465597/model",
+        "logged_model_uri": "models:/m-571af9e5328b47fbba229460ef9588ae",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1242043,
+        "registry": false
+      },
+      "logged_policy": "one_to_one",
+      "logged_threshold": 0.41
+    },
+    {
+      "variant": "scalar_fields",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [],
+      "cardinality": "many_to_one",
+      "threshold": 0.41,
+      "tp": 437,
+      "fp": 8,
+      "fn": 4,
+      "tn": 1958,
+      "precision": 0.9820224719101124,
+      "recall": 0.9909297052154195,
+      "f1": 0.9864559819413092,
+      "f1_95ci": [
+        0.9781357882623706,
+        0.9934640522875817
+      ],
+      "paired_delta_95ci": [
+        -0.004581901489118079,
+        0.00718204432764491
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 0.955799833056517,
+      "train_seconds": 2.354440708993934,
+      "score_seconds": 0.2340512078953907,
+      "logging_seconds": 2.2355488329194486,
+      "native_plan": true,
+      "feature_count": 30,
+      "model": {
+        "run_id": "90f99dace1f645dfb1393cc750465597",
+        "model_uri": "runs:/90f99dace1f645dfb1393cc750465597/model",
+        "logged_model_uri": "models:/m-571af9e5328b47fbba229460ef9588ae",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1242043,
+        "registry": false
+      },
+      "logged_policy": "one_to_one",
+      "logged_threshold": 0.41
+    },
+    {
+      "variant": "scalar_fields",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [],
+      "cardinality": "one_to_one",
+      "threshold": 0.41,
+      "tp": 437,
+      "fp": 6,
+      "fn": 4,
+      "tn": 1960,
+      "precision": 0.9864559819413092,
+      "recall": 0.9909297052154195,
+      "f1": 0.9886877828054299,
+      "f1_95ci": [
+        0.9809069212410502,
+        0.9953379953379954
+      ],
+      "paired_delta_95ci": [
+        -0.0032497622859068986,
+        0.010283084196331393
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "feature_seconds": 0.955799833056517,
+      "train_seconds": 2.354440708993934,
+      "score_seconds": 0.2340512078953907,
+      "logging_seconds": 2.2355488329194486,
+      "native_plan": true,
+      "feature_count": 30,
+      "model": {
+        "run_id": "90f99dace1f645dfb1393cc750465597",
+        "model_uri": "runs:/90f99dace1f645dfb1393cc750465597/model",
+        "logged_model_uri": "models:/m-571af9e5328b47fbba229460ef9588ae",
+        "label_set_sha256": "d525235170977fa389d4cce664cc312533731d9cc535c7886677efeacfe640fe",
+        "artifact_bytes": 1242043,
+        "registry": false
+      },
+      "logged_policy": "one_to_one",
+      "logged_threshold": 0.41
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "score": "mean present-field Levenshtein",
+      "tp": 441,
+      "fp": 806,
+      "fn": 0,
+      "tn": 1160,
+      "precision": 0.3536487570168404,
+      "recall": 1.0,
+      "f1": 0.5225118483412322,
+      "f1_95ci": [
+        0.4939613526570048,
+        0.5516840882694541
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "name": "scalar_threshold",
+      "threshold": 0.56,
+      "cardinality": "unrestricted",
+      "score": "mean present-field Levenshtein",
+      "tp": 430,
+      "fp": 82,
+      "fn": 11,
+      "tn": 1884,
+      "precision": 0.83984375,
+      "recall": 0.9750566893424036,
+      "f1": 0.9024134312696747,
+      "f1_95ci": [
+        0.88125,
+        0.9234088457389428
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    }
+  ],
+  "evaluation_scope": "supplied labelled pairs only",
+  "cardinalities": [
+    "unrestricted",
+    "many_to_one",
+    "one_to_one"
+  ],
+  "spark_event_root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/dblp_acm/spark-events/8bb3a4f6e3dd468c95401b01b85e1c23",
+  "spark_submit_args": "--conf spark.eventLog.enabled=true --conf spark.eventLog.compress=false --conf spark.eventLog.dir=file:///Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/dblp_acm/spark-events/8bb3a4f6e3dd468c95401b01b85e1c23 pyspark-shell",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "idf_only.plan.txt": "b20103db326b12c0164ad7b6a5deed3ca58e0eb4ad92ecae435bde49e9e777e3",
+    "idf_only.predictions.json": "39ff6353606cb63edb358315404bd8b25d7a6dc2a3a1c765a966804159934d47",
+    "native_all.plan.txt": "565a8172d83d04cbcbd4a9d06e97757fc08d117f0bc4cc7c836d19c02d2238ca",
+    "native_all.predictions.json": "12f6e3f807433f12f1296983c4072bc55f26d15602ec55c20b869629b24022b9",
+    "scalar_fields.plan.txt": "06c9c7cd342b7e35b5c13d9c81488b9dec02a5321289a0c6ea11c1897166abc7",
+    "scalar_fields.predictions.json": "e4217ac89dd8d061b2ae90e9f06a43df8c96d4bbdaca001e066f93dd99858b02",
+    "spark-events/8bb3a4f6e3dd468c95401b01b85e1c23/eventlog_v2_local-1789866328634/.appstatus_local-1789866328634.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "spark-events/8bb3a4f6e3dd468c95401b01b85e1c23/eventlog_v2_local-1789866328634/appstatus_local-1789866328634": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spark-events/8bb3a4f6e3dd468c95401b01b85e1c23/eventlog_v2_local-1789866328634/events_1_local-1789866328634": "473761dec70667333c201d718b17ce929997541464258c8e8c9b04d589a7b004",
+    "spark-events/8bb3a4f6e3dd468c95401b01b85e1c23/eventlog_v2_local-1789866328634/events_2_local-1789866328634": "2c8e93bb76848778d4252d89ca8755fbc9171eb6bd85fe9733ac7f05221212bc",
+    "spark-metrics.json": "1109e4509ff2f0e2c2cf8bc7ea0cefb2588832b652c0bbf4c891f2d4c5f3df65"
+  },
+  "candidate_recall": null,
+  "shared_preparation_seconds": 5.181669333949685,
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 42.6358142910758,
+  "spark_metrics": {
+    "applications": [
+      "local-1789866328634"
+    ],
+    "completed_log_directories": [
+      "eventlog_v2_local-1789866328634"
+    ],
+    "tasks": 837,
+    "failed_or_killed_tasks": 0,
+    "total_shuffle_read_bytes": 54979660,
+    "total_shuffle_write_bytes": 41398566,
+    "maximum_task_shuffle_read_bytes": 1786949,
+    "maximum_task_peak_execution_memory_bytes": 50989984,
+    "total_memory_spilled_bytes": 0,
+    "total_disk_spilled_bytes": 0,
+    "maximum_to_median_task_duration": 842.5,
+    "scope": "whole application, all task attempts; execution-memory peak is per task, not process RSS"
+  }
+}

@@ -1,0 +1,403 @@
+{
+  "status": "completed",
+  "iteration": 3,
+  "corpus": "affiliations",
+  "manifest": {
+    "source": "Leipzig affiliationstrings.zip",
+    "license": "CC BY 4.0",
+    "identity_components": 330,
+    "negative_sampling": "5 per anchor, same split, different released component",
+    "raw_sha256": {
+      "affiliationstrings_ids.csv": "884305d8fdc164cd86b3128efdfce2d1415875657d92644559001f3110daa886",
+      "affiliationstrings_mapping.csv": "9a3e1cb99b8b6d44f3ab3423efc10f46323371d2f1e5a241fb58c609f9f02770"
+    },
+    "split_method": "released identity components 60/20/20, SHA-256 ranking",
+    "duplicate_or_reversed_pairs_removed": 145,
+    "conflicting_pair_keys_excluded": 0,
+    "shared_records_between_splits": {
+      "confirmation/train": 0,
+      "confirmation/valid": 0,
+      "train/valid": 0
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "confirmation": 6896,
+      "train": 17078,
+      "valid": 3976
+    },
+    "corpus": "affiliations",
+    "seed": 2026091901,
+    "fields": {
+      "name": {
+        "type": "organisation"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/affiliations/left.jsonl",
+        "sha256": "3bdb23a83013e7eff14aaf1153a75f3a967657ea5b767c15e5155bf7114a01b0",
+        "rows": 2257
+      },
+      "right": {
+        "path": "data/bench/affiliations/right.jsonl",
+        "sha256": "74ce49499fe66b374027f440f209ea330fe00e7892dfa8de61f06ba082a14899",
+        "rows": 2255
+      },
+      "pairs": {
+        "path": "data/bench/affiliations/pairs.jsonl",
+        "sha256": "854397cd05955cb6ccdc5f987f45fe53fd7f7917bd1b1a18d51daece4cb9fbb5",
+        "rows": 27950
+      }
+    },
+    "confirmation_scored": false
+  },
+  "plan": "bench/COMPACT_PLAN.md",
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "affiliations",
+      "id_column": "rec_id",
+      "fields": {
+        "name": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": [],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/affiliations/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-compact-features",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "confirmation_scored": false,
+  "rows": [
+    {
+      "variant": "native_all",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "cardinality": "unrestricted",
+      "threshold": 0.64,
+      "tp": 1901,
+      "fp": 28,
+      "fn": 217,
+      "tn": 1830,
+      "precision": 0.9854847071021254,
+      "recall": 0.8975448536355052,
+      "f1": 0.9394613293797875,
+      "f1_95ci": [
+        0.929172857850421,
+        0.9484946504105499
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 3.1669009999604896,
+      "train_seconds": 3.2596085839904845,
+      "score_seconds": 0.3074915000470355,
+      "logging_seconds": 4.71273004100658,
+      "native_plan": true,
+      "feature_count": 13,
+      "model": {
+        "run_id": "db3fbc2b6e7440b696c21cb13284c145",
+        "model_uri": "runs:/db3fbc2b6e7440b696c21cb13284c145/model",
+        "logged_model_uri": "models:/m-1ac94a076a8c4c1bbcfdd58fb2c51088",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2670307,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.64
+    },
+    {
+      "variant": "idf_only",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine"
+      ],
+      "cardinality": "unrestricted",
+      "threshold": 0.58,
+      "tp": 1909,
+      "fp": 37,
+      "fn": 209,
+      "tn": 1821,
+      "precision": 0.9809866392600206,
+      "recall": 0.9013220018885741,
+      "f1": 0.9394685039370079,
+      "f1_95ci": [
+        0.9289836888331242,
+        0.9485193621867881
+      ],
+      "paired_delta_95ci": [
+        -0.0019052579519730495,
+        0.002021187205144992
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 0.695519958040677,
+      "train_seconds": 2.620616083033383,
+      "score_seconds": 0.23907066707033664,
+      "logging_seconds": 2.248866874957457,
+      "native_plan": true,
+      "feature_count": 11,
+      "model": {
+        "run_id": "d36443d6dea4440a82b38348dfc8fe8b",
+        "model_uri": "runs:/d36443d6dea4440a82b38348dfc8fe8b/model",
+        "logged_model_uri": "models:/m-1adade8502264a66b761604f5afd836b",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2669872,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.58
+    },
+    {
+      "variant": "scalar_fields",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [],
+      "cardinality": "unrestricted",
+      "threshold": 0.7,
+      "tp": 1761,
+      "fp": 191,
+      "fn": 357,
+      "tn": 1667,
+      "precision": 0.9021516393442623,
+      "recall": 0.8314447592067988,
+      "f1": 0.8653562653562653,
+      "f1_95ci": [
+        0.845803842264914,
+        0.881786133960047
+      ],
+      "paired_delta_95ci": [
+        -0.09057891526333672,
+        -0.06069212676200553
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373,
+      "feature_seconds": 0.6364870830439031,
+      "train_seconds": 2.545700874994509,
+      "score_seconds": 0.1966387500287965,
+      "logging_seconds": 1.7279503750614822,
+      "native_plan": true,
+      "feature_count": 10,
+      "model": {
+        "run_id": "a9375cf2d43e47c993fc443d3a810a8a",
+        "model_uri": "runs:/a9375cf2d43e47c993fc443d3a810a8a/model",
+        "logged_model_uri": "models:/m-1df5fa99123048cd8c876e2f074c9f1d",
+        "label_set_sha256": "42c8f6f4d9d985846b43fa650bee1e5b8d594b9127cea3cd228a9bbca7cf5b65",
+        "artifact_bytes": 2650957,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.7
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "score": "mean present-field Levenshtein",
+      "tp": 282,
+      "fp": 91,
+      "fn": 1836,
+      "tn": 1767,
+      "precision": 0.7560321715817694,
+      "recall": 0.13314447592067988,
+      "f1": 0.22641509433962265,
+      "f1_95ci": [
+        0.20468277945619334,
+        0.25126088950022923
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373
+    },
+    {
+      "name": "scalar_threshold",
+      "threshold": 0.26,
+      "cardinality": "unrestricted",
+      "score": "mean present-field Levenshtein",
+      "tp": 1602,
+      "fp": 496,
+      "fn": 516,
+      "tn": 1362,
+      "precision": 0.763584366062917,
+      "recall": 0.7563739376770539,
+      "f1": 0.7599620493358634,
+      "f1_95ci": [
+        0.7386640663091175,
+        0.7805189281156955
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 373
+    }
+  ],
+  "evaluation_scope": "supplied labelled pairs only",
+  "cardinalities": [
+    "unrestricted"
+  ],
+  "spark_event_root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/affiliations/spark-events/49b6ae86a64041a3a323a13d089e84fc",
+  "spark_submit_args": "--conf spark.eventLog.enabled=true --conf spark.eventLog.compress=false --conf spark.eventLog.dir=file:///Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/affiliations/spark-events/49b6ae86a64041a3a323a13d089e84fc pyspark-shell",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "idf_only.plan.txt": "ce4906bd627e972eabfc7d69880238396dee1b30bf6e325461ac53f09eebd678",
+    "idf_only.predictions.json": "7d6247f70900fee5963bf00242f11cb9b1e1c8645147279c2bb4f75b6585ba6e",
+    "native_all.plan.txt": "c6b64693ae0a4e612853c5684da49c85c1ca2f0bf57c430c77c6b708859a9362",
+    "native_all.predictions.json": "b95792f3ebee7e7535d49c5ef28dabd65b8fd0a7d1ec3ef1f2f48ba51fd62905",
+    "scalar_fields.plan.txt": "7d0cf9409fd4a671c24f9f5f2aef7a3bdcfa1845027ab510721f81aa64494aa0",
+    "scalar_fields.predictions.json": "98231e4504df461852355b746e016f4089482a3010469bf637ea03aecc1f0736",
+    "spark-events/49b6ae86a64041a3a323a13d089e84fc/eventlog_v2_local-1789866190978/.appstatus_local-1789866190978.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "spark-events/49b6ae86a64041a3a323a13d089e84fc/eventlog_v2_local-1789866190978/appstatus_local-1789866190978": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spark-events/49b6ae86a64041a3a323a13d089e84fc/eventlog_v2_local-1789866190978/events_1_local-1789866190978": "2cbc753a4d9378dc01f0488f1b62016b69530742658566cc16ef4026c86379b2",
+    "spark-events/49b6ae86a64041a3a323a13d089e84fc/eventlog_v2_local-1789866190978/events_2_local-1789866190978": "2bba21467c950d266249178d680638771efa5acbf28f485b75ed0751f915637c",
+    "spark-metrics.json": "f0055f223213305a32a48b69e7d21f7040d7551eca2e695163b333a6aba04302"
+  },
+  "candidate_recall": null,
+  "shared_preparation_seconds": 4.901465124916285,
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 39.2510101669468,
+  "spark_metrics": {
+    "applications": [
+      "local-1789866190978"
+    ],
+    "completed_log_directories": [
+      "eventlog_v2_local-1789866190978"
+    ],
+    "tasks": 833,
+    "failed_or_killed_tasks": 0,
+    "total_shuffle_read_bytes": 55271442,
+    "total_shuffle_write_bytes": 37882749,
+    "maximum_task_shuffle_read_bytes": 1970867,
+    "maximum_task_peak_execution_memory_bytes": 27262928,
+    "total_memory_spilled_bytes": 0,
+    "total_disk_spilled_bytes": 0,
+    "maximum_to_median_task_duration": 715.5,
+    "scope": "whole application, all task attempts; execution-memory peak is per task, not process RSS"
+  }
+}

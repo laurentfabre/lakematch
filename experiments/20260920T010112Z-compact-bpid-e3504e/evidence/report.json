@@ -1,0 +1,697 @@
+{
+  "status": "completed",
+  "iteration": 3,
+  "corpus": "bpid",
+  "manifest": {
+    "source": "Zenodo 13932202",
+    "license": "Apache-2.0",
+    "raw_sha256": "3ac6b206513a45dbc860e05570dbb7a1ac97a210311ec2edb89cb2a22e18b6fe",
+    "date_note": "ISO dates parsed; other/ambiguous formats remain missing typed features, raw text comparisons retained",
+    "split_method": "record_components",
+    "duplicate_or_reversed_pairs_removed": 0,
+    "conflicting_pair_keys_excluded": 0,
+    "shared_records_between_splits": {
+      "confirmation/train": 0,
+      "confirmation/valid": 0,
+      "train/valid": 0
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "confirmation": 1966,
+      "train": 5994,
+      "valid": 2040
+    },
+    "corpus": "bpid",
+    "seed": 2026091901,
+    "fields": {
+      "fullname": {
+        "type": "person_name"
+      },
+      "email": {
+        "type": "code",
+        "multiple": true
+      },
+      "phone": {
+        "type": "code",
+        "multiple": true
+      },
+      "addr": {
+        "type": "address",
+        "multiple": true
+      },
+      "dob": {
+        "type": "date",
+        "date_format": "yyyy-MM-dd"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/bpid/left.jsonl",
+        "sha256": "14c1758eec3a520f1a5d7142d5e27619b3c5c7cafa6ef001e09285243eb46083",
+        "rows": 10000
+      },
+      "right": {
+        "path": "data/bench/bpid/right.jsonl",
+        "sha256": "28e4a3016f7a69c4f48db8c46d738c7296fd2ced763cfbfd0d3885bd882691d6",
+        "rows": 10000
+      },
+      "pairs": {
+        "path": "data/bench/bpid/pairs.jsonl",
+        "sha256": "d310543e1293fe922dc50e246ab4a0d63ff499020ce3189d36a2c99c94364ad7",
+        "rows": 10000
+      }
+    },
+    "confirmation_scored": false
+  },
+  "plan": "bench/COMPACT_PLAN.md",
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "bpid",
+      "id_column": "rec_id",
+      "fields": {
+        "fullname": {
+          "type": "person_name"
+        },
+        "email": {
+          "type": "code",
+          "multiple": true
+        },
+        "phone": {
+          "type": "code",
+          "multiple": true
+        },
+        "addr": {
+          "type": "address",
+          "multiple": true
+        },
+        "dob": {
+          "type": "date",
+          "date_format": "yyyy-MM-dd"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": [],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/bpid/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-compact-features",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "confirmation_scored": false,
+  "rows": [
+    {
+      "variant": "native_all",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "cardinality": "unrestricted",
+      "threshold": 0.41,
+      "tp": 785,
+      "fp": 390,
+      "fn": 114,
+      "tn": 751,
+      "precision": 0.6680851063829787,
+      "recall": 0.8731924360400445,
+      "f1": 0.7569913211186113,
+      "f1_95ci": [
+        0.7357563850687623,
+        0.7776717557251909
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 3.5143001249525696,
+      "train_seconds": 3.2371463750023395,
+      "score_seconds": 0.3589622920844704,
+      "logging_seconds": 6.213325457996689,
+      "native_plan": true,
+      "feature_count": 60,
+      "model": {
+        "run_id": "c88025fe901446b584ebf7079a5e1c1c",
+        "model_uri": "runs:/c88025fe901446b584ebf7079a5e1c1c/model",
+        "logged_model_uri": "models:/m-485eca5392d54b4e913b3d31d55b6324",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1532478,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.41
+    },
+    {
+      "variant": "native_all",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "cardinality": "many_to_one",
+      "threshold": 0.41,
+      "tp": 785,
+      "fp": 390,
+      "fn": 114,
+      "tn": 751,
+      "precision": 0.6680851063829787,
+      "recall": 0.8731924360400445,
+      "f1": 0.7569913211186113,
+      "f1_95ci": [
+        0.7357563850687623,
+        0.7776717557251909
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 3.5143001249525696,
+      "train_seconds": 3.2371463750023395,
+      "score_seconds": 0.3589622920844704,
+      "logging_seconds": 6.213325457996689,
+      "native_plan": true,
+      "feature_count": 60,
+      "model": {
+        "run_id": "c88025fe901446b584ebf7079a5e1c1c",
+        "model_uri": "runs:/c88025fe901446b584ebf7079a5e1c1c/model",
+        "logged_model_uri": "models:/m-485eca5392d54b4e913b3d31d55b6324",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1532478,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.41
+    },
+    {
+      "variant": "native_all",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "cardinality": "one_to_one",
+      "threshold": 0.41,
+      "tp": 785,
+      "fp": 390,
+      "fn": 114,
+      "tn": 751,
+      "precision": 0.6680851063829787,
+      "recall": 0.8731924360400445,
+      "f1": 0.7569913211186113,
+      "f1_95ci": [
+        0.7357563850687623,
+        0.7776717557251909
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 3.5143001249525696,
+      "train_seconds": 3.2371463750023395,
+      "score_seconds": 0.3589622920844704,
+      "logging_seconds": 6.213325457996689,
+      "native_plan": true,
+      "feature_count": 60,
+      "model": {
+        "run_id": "c88025fe901446b584ebf7079a5e1c1c",
+        "model_uri": "runs:/c88025fe901446b584ebf7079a5e1c1c/model",
+        "logged_model_uri": "models:/m-485eca5392d54b4e913b3d31d55b6324",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1532478,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.41
+    },
+    {
+      "variant": "idf_only",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine"
+      ],
+      "cardinality": "unrestricted",
+      "threshold": 0.38,
+      "tp": 799,
+      "fp": 429,
+      "fn": 100,
+      "tn": 712,
+      "precision": 0.6506514657980456,
+      "recall": 0.8887652947719689,
+      "f1": 0.7512929007992478,
+      "f1_95ci": [
+        0.7289014615747289,
+        0.7714942528735632
+      ],
+      "paired_delta_95ci": [
+        -0.01730580025277706,
+        0.005370505366194989
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 1.3285973330494016,
+      "train_seconds": 2.5054610839579254,
+      "score_seconds": 0.23838879098184407,
+      "logging_seconds": 2.8929594589862972,
+      "native_plan": true,
+      "feature_count": 50,
+      "model": {
+        "run_id": "16830eba88c243eb8379ecc31a0a4b71",
+        "model_uri": "runs:/16830eba88c243eb8379ecc31a0a4b71/model",
+        "logged_model_uri": "models:/m-727d45525c3b4cda83b61534cebabfc6",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1531783,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.38
+    },
+    {
+      "variant": "idf_only",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine"
+      ],
+      "cardinality": "many_to_one",
+      "threshold": 0.38,
+      "tp": 799,
+      "fp": 429,
+      "fn": 100,
+      "tn": 712,
+      "precision": 0.6506514657980456,
+      "recall": 0.8887652947719689,
+      "f1": 0.7512929007992478,
+      "f1_95ci": [
+        0.7289014615747289,
+        0.7714942528735632
+      ],
+      "paired_delta_95ci": [
+        -0.01730580025277706,
+        0.005370505366194989
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 1.3285973330494016,
+      "train_seconds": 2.5054610839579254,
+      "score_seconds": 0.23838879098184407,
+      "logging_seconds": 2.8929594589862972,
+      "native_plan": true,
+      "feature_count": 50,
+      "model": {
+        "run_id": "16830eba88c243eb8379ecc31a0a4b71",
+        "model_uri": "runs:/16830eba88c243eb8379ecc31a0a4b71/model",
+        "logged_model_uri": "models:/m-727d45525c3b4cda83b61534cebabfc6",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1531783,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.38
+    },
+    {
+      "variant": "idf_only",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine"
+      ],
+      "cardinality": "one_to_one",
+      "threshold": 0.38,
+      "tp": 799,
+      "fp": 429,
+      "fn": 100,
+      "tn": 712,
+      "precision": 0.6506514657980456,
+      "recall": 0.8887652947719689,
+      "f1": 0.7512929007992478,
+      "f1_95ci": [
+        0.7289014615747289,
+        0.7714942528735632
+      ],
+      "paired_delta_95ci": [
+        -0.01730580025277706,
+        0.005370505366194989
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 1.3285973330494016,
+      "train_seconds": 2.5054610839579254,
+      "score_seconds": 0.23838879098184407,
+      "logging_seconds": 2.8929594589862972,
+      "native_plan": true,
+      "feature_count": 50,
+      "model": {
+        "run_id": "16830eba88c243eb8379ecc31a0a4b71",
+        "model_uri": "runs:/16830eba88c243eb8379ecc31a0a4b71/model",
+        "logged_model_uri": "models:/m-727d45525c3b4cda83b61534cebabfc6",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1531783,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.38
+    },
+    {
+      "variant": "scalar_fields",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [],
+      "cardinality": "unrestricted",
+      "threshold": 0.33,
+      "tp": 801,
+      "fp": 519,
+      "fn": 98,
+      "tn": 622,
+      "precision": 0.6068181818181818,
+      "recall": 0.8909899888765295,
+      "f1": 0.7219468228931951,
+      "f1_95ci": [
+        0.7008949599623174,
+        0.7432188065099458
+      ],
+      "paired_delta_95ci": [
+        -0.04821735410779571,
+        -0.021509524957800896
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 1.1146847499767318,
+      "train_seconds": 2.3455232919659466,
+      "score_seconds": 0.22867312491871417,
+      "logging_seconds": 2.274576916010119,
+      "native_plan": true,
+      "feature_count": 45,
+      "model": {
+        "run_id": "097594dbccad4fb087d991b0c7656f1d",
+        "model_uri": "runs:/097594dbccad4fb087d991b0c7656f1d/model",
+        "logged_model_uri": "models:/m-badfa757adec4cd19700097121ec94d4",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1058169,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.33
+    },
+    {
+      "variant": "scalar_fields",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [],
+      "cardinality": "many_to_one",
+      "threshold": 0.33,
+      "tp": 801,
+      "fp": 519,
+      "fn": 98,
+      "tn": 622,
+      "precision": 0.6068181818181818,
+      "recall": 0.8909899888765295,
+      "f1": 0.7219468228931951,
+      "f1_95ci": [
+        0.7008949599623174,
+        0.7432188065099458
+      ],
+      "paired_delta_95ci": [
+        -0.04821735410779571,
+        -0.021509524957800896
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 1.1146847499767318,
+      "train_seconds": 2.3455232919659466,
+      "score_seconds": 0.22867312491871417,
+      "logging_seconds": 2.274576916010119,
+      "native_plan": true,
+      "feature_count": 45,
+      "model": {
+        "run_id": "097594dbccad4fb087d991b0c7656f1d",
+        "model_uri": "runs:/097594dbccad4fb087d991b0c7656f1d/model",
+        "logged_model_uri": "models:/m-badfa757adec4cd19700097121ec94d4",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1058169,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.33
+    },
+    {
+      "variant": "scalar_fields",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [],
+      "cardinality": "one_to_one",
+      "threshold": 0.33,
+      "tp": 801,
+      "fp": 519,
+      "fn": 98,
+      "tn": 622,
+      "precision": 0.6068181818181818,
+      "recall": 0.8909899888765295,
+      "f1": 0.7219468228931951,
+      "f1_95ci": [
+        0.7008949599623174,
+        0.7432188065099458
+      ],
+      "paired_delta_95ci": [
+        -0.04821735410779571,
+        -0.021509524957800896
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040,
+      "feature_seconds": 1.1146847499767318,
+      "train_seconds": 2.3455232919659466,
+      "score_seconds": 0.22867312491871417,
+      "logging_seconds": 2.274576916010119,
+      "native_plan": true,
+      "feature_count": 45,
+      "model": {
+        "run_id": "097594dbccad4fb087d991b0c7656f1d",
+        "model_uri": "runs:/097594dbccad4fb087d991b0c7656f1d/model",
+        "logged_model_uri": "models:/m-badfa757adec4cd19700097121ec94d4",
+        "label_set_sha256": "bf1cacfbfdf70c9d1444cc440b669fb13c83e8ac823f8c0cb4d4304b89309493",
+        "artifact_bytes": 1058169,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.33
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "score": "mean present-field Levenshtein",
+      "tp": 899,
+      "fp": 1141,
+      "fn": 0,
+      "tn": 0,
+      "precision": 0.4406862745098039,
+      "recall": 1.0,
+      "f1": 0.611772711806737,
+      "f1_95ci": [
+        0.5892116182572614,
+        0.6317907444668008
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040
+    },
+    {
+      "name": "scalar_threshold",
+      "threshold": 0.18,
+      "cardinality": "unrestricted",
+      "score": "mean present-field Levenshtein",
+      "tp": 884,
+      "fp": 1086,
+      "fn": 15,
+      "tn": 55,
+      "precision": 0.44873096446700506,
+      "recall": 0.9833147942157954,
+      "f1": 0.6162425932380621,
+      "f1_95ci": [
+        0.5941155618574974,
+        0.6366427840327533
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 2040
+    }
+  ],
+  "evaluation_scope": "supplied labelled pairs only",
+  "cardinalities": [
+    "unrestricted",
+    "many_to_one",
+    "one_to_one"
+  ],
+  "spark_event_root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/bpid/spark-events/597801d8d0324816b206903899de8eb6",
+  "spark_submit_args": "--conf spark.eventLog.enabled=true --conf spark.eventLog.compress=false --conf spark.eventLog.dir=file:///Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/bpid/spark-events/597801d8d0324816b206903899de8eb6 pyspark-shell",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "idf_only.plan.txt": "303a139092b5af0b81378a4769052070ff73b1206a7ed4d434b93135df1c9f30",
+    "idf_only.predictions.json": "cd96a23c07d7a86978d181d38f099feda940c8329a01f6554514926c3257385e",
+    "native_all.plan.txt": "010951dae347bd28e5e88c7cd69d21033113d5754aa4cc49d8ad58069061cf07",
+    "native_all.predictions.json": "f31598499ddf9fe16e46b640cd125389f6334b5b3d1ff3e99fffe9a2a8e06588",
+    "scalar_fields.plan.txt": "8f695a7c700813fcd37912ee778aa2fa759b84f63be6890e1044b84248bdd045",
+    "scalar_fields.predictions.json": "c23195948b006b3eb46a180370bb091a366c03e19bbda42bba318bc06d4d629d",
+    "spark-events/597801d8d0324816b206903899de8eb6/eventlog_v2_local-1789866075373/.appstatus_local-1789866075373.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "spark-events/597801d8d0324816b206903899de8eb6/eventlog_v2_local-1789866075373/appstatus_local-1789866075373": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spark-events/597801d8d0324816b206903899de8eb6/eventlog_v2_local-1789866075373/events_1_local-1789866075373": "9f86669573e3995a10b1fe870a43a6a0b8326794919f67344e0e1e76a1bc0c82",
+    "spark-events/597801d8d0324816b206903899de8eb6/eventlog_v2_local-1789866075373/events_2_local-1789866075373": "dfba8cbf8dc081ee06272244ecc69476332f10bee036793c02c1f05d7bf5d49b",
+    "spark-metrics.json": "4ffd7526770b0e454aabfe40b78d998c106a072015a781236db5c94c287c0747"
+  },
+  "candidate_recall": null,
+  "shared_preparation_seconds": 6.574652584036812,
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 49.02540420903824,
+  "spark_metrics": {
+    "applications": [
+      "local-1789866075373"
+    ],
+    "completed_log_directories": [
+      "eventlog_v2_local-1789866075373"
+    ],
+    "tasks": 842,
+    "failed_or_killed_tasks": 0,
+    "total_shuffle_read_bytes": 89281490,
+    "total_shuffle_write_bytes": 75620555,
+    "maximum_task_shuffle_read_bytes": 3218751,
+    "maximum_task_peak_execution_memory_bytes": 25952208,
+    "total_memory_spilled_bytes": 0,
+    "total_disk_spilled_bytes": 0,
+    "maximum_to_median_task_duration": 390.6666666666667,
+    "scope": "whole application, all task attempts; execution-memory peak is per task, not process RSS"
+  }
+}

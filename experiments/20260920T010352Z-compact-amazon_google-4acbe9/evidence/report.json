@@ -1,0 +1,414 @@
+{
+  "status": "completed",
+  "iteration": 3,
+  "corpus": "amazon_google",
+  "manifest": {
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "raw_sha256": {
+      "train": "84ef5f7747296990a3775d2c8774949e720df643106b1b447682265f41929b26",
+      "valid": "baa53c43706e979441aaf653698bb477294b6fa16328fd272fcdc56ca040c094",
+      "test": "fb4a50692f296435d9ecd4b310acc1318ff7d6d1e13924f0b211d1f906dacbef"
+    },
+    "split_method": "official",
+    "duplicate_or_reversed_pairs_removed": 483,
+    "conflicting_pair_keys_excluded": 18,
+    "shared_records_between_splits": {
+      "test/train": 1486,
+      "test/valid": 1101,
+      "train/valid": 1514
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "test": 2127,
+      "train": 6653,
+      "valid": 2161
+    },
+    "corpus": "amazon_google",
+    "seed": 2026091901,
+    "fields": {
+      "manufacturer": {
+        "type": "organisation"
+      },
+      "price": {
+        "type": "number"
+      },
+      "title": {
+        "type": "title"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/amazon_google/left.jsonl",
+        "sha256": "f74ad08692686516f0aea58b39e707d8e5188b0b4a978a91864a66b167ed8319",
+        "rows": 1288
+      },
+      "right": {
+        "path": "data/bench/amazon_google/right.jsonl",
+        "sha256": "18946ca435c931520f228851440ad94c5342fa936b08c9316bf58ed5ab630671",
+        "rows": 2071
+      },
+      "pairs": {
+        "path": "data/bench/amazon_google/pairs.jsonl",
+        "sha256": "92b17485f68a17df1b9519f54a26dc96a67f8067cfc0fc643e3c685c95bbd420",
+        "rows": 10941
+      }
+    },
+    "confirmation_scored": false
+  },
+  "plan": "bench/COMPACT_PLAN.md",
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "amazon_google",
+      "id_column": "rec_id",
+      "fields": {
+        "manufacturer": {
+          "type": "organisation"
+        },
+        "price": {
+          "type": "number"
+        },
+        "title": {
+          "type": "title"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [],
+      "field_blocks": [],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/amazon_google/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-compact-features",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "confirmation_scored": false,
+  "rows": [
+    {
+      "variant": "native_all",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "cardinality": "unrestricted",
+      "threshold": 0.27,
+      "tp": 155,
+      "fp": 119,
+      "fn": 60,
+      "tn": 1827,
+      "precision": 0.5656934306569343,
+      "recall": 0.7209302325581395,
+      "f1": 0.6339468302658486,
+      "f1_95ci": [
+        0.587991718426501,
+        0.6788617886178862
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 2.0563703749794513,
+      "train_seconds": 3.013139957911335,
+      "score_seconds": 0.3024763750145212,
+      "logging_seconds": 5.378201458021067,
+      "native_plan": true,
+      "feature_count": 33,
+      "model": {
+        "run_id": "7a73ce0715bd45b1acb08b85514aa620",
+        "model_uri": "runs:/7a73ce0715bd45b1acb08b85514aa620/model",
+        "logged_model_uri": "models:/m-1f0660a15ea64b2ca93276570aef5ca2",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1194082,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.27
+    },
+    {
+      "variant": "idf_only",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [
+        "idf_token_cosine"
+      ],
+      "cardinality": "unrestricted",
+      "threshold": 0.29,
+      "tp": 151,
+      "fp": 109,
+      "fn": 64,
+      "tn": 1837,
+      "precision": 0.5807692307692308,
+      "recall": 0.7023255813953488,
+      "f1": 0.6357894736842106,
+      "f1_95ci": [
+        0.587378640776699,
+        0.680365296803653
+      ],
+      "paired_delta_95ci": [
+        -0.024132691057645483,
+        0.02520281555714632
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 0.7680281249340624,
+      "train_seconds": 2.464305749977939,
+      "score_seconds": 0.2328619579784572,
+      "logging_seconds": 2.5687208749586716,
+      "native_plan": true,
+      "feature_count": 27,
+      "model": {
+        "run_id": "fca757ac097541c1920ada0dc8729e35",
+        "model_uri": "runs:/fca757ac097541c1920ada0dc8729e35/model",
+        "logged_model_uri": "models:/m-b72a3dedffd34908a962a6bf48d8834e",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1194093,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.29
+    },
+    {
+      "variant": "scalar_fields",
+      "similarity": "levenshtein",
+      "estimator": "gbt",
+      "token_features": [],
+      "cardinality": "unrestricted",
+      "threshold": 0.31,
+      "tp": 135,
+      "fp": 65,
+      "fn": 80,
+      "tn": 1881,
+      "precision": 0.675,
+      "recall": 0.627906976744186,
+      "f1": 0.6506024096385542,
+      "f1_95ci": [
+        0.5968586387434555,
+        0.6990291262135923
+      ],
+      "paired_delta_95ci": [
+        -0.027655713692311013,
+        0.05781218667991872
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759,
+      "feature_seconds": 0.6404655410442501,
+      "train_seconds": 2.25283995794598,
+      "score_seconds": 0.2069789160741493,
+      "logging_seconds": 1.8287846250459552,
+      "native_plan": true,
+      "feature_count": 24,
+      "model": {
+        "run_id": "1f6ffffa92994ffe9d95916bcf9feb77",
+        "model_uri": "runs:/1f6ffffa92994ffe9d95916bcf9feb77/model",
+        "logged_model_uri": "models:/m-6e2816ac1718456c8411a50f55b34cda",
+        "label_set_sha256": "b5b4e55674b66817d700d9854aea50d183419504f5a6cfb21fac6033c733b38c",
+        "artifact_bytes": 1149647,
+        "registry": false
+      },
+      "logged_policy": "unrestricted",
+      "logged_threshold": 0.31
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "score": "mean present-field Levenshtein",
+      "tp": 161,
+      "fp": 598,
+      "fn": 54,
+      "tn": 1348,
+      "precision": 0.21212121212121213,
+      "recall": 0.7488372093023256,
+      "f1": 0.33059548254620125,
+      "f1_95ci": [
+        0.2907216494845361,
+        0.366
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759
+    },
+    {
+      "name": "scalar_threshold",
+      "threshold": 0.6,
+      "cardinality": "unrestricted",
+      "score": "mean present-field Levenshtein",
+      "tp": 92,
+      "fp": 248,
+      "fn": 123,
+      "tn": 1698,
+      "precision": 0.27058823529411763,
+      "recall": 0.42790697674418604,
+      "f1": 0.33153153153153153,
+      "f1_95ci": [
+        0.27889908256880735,
+        0.3811129848229342
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 759
+    }
+  ],
+  "evaluation_scope": "supplied labelled pairs only",
+  "cardinalities": [
+    "unrestricted"
+  ],
+  "spark_event_root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/amazon_google/spark-events/221466d6454449e0a66b842da662ccde",
+  "spark_submit_args": "--conf spark.eventLog.enabled=true --conf spark.eventLog.compress=false --conf spark.eventLog.dir=file:///Users/laurent.fabre/Projects/Claude/lakematch/data/compact_features/amazon_google/spark-events/221466d6454449e0a66b842da662ccde pyspark-shell",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "idf_only.plan.txt": "f9be9d5917da373cbd167dda79627880310d9063809aecfcc7cf0c66b3c45fcd",
+    "idf_only.predictions.json": "eb7ac801c9e6519ba58f71c930de5c531c50c3d9fe0c0982f5819fc2aa529a0a",
+    "native_all.plan.txt": "79dd497b517f4e41f5497c2d8419cf88512d4c32f6f4724be867c6feca72d565",
+    "native_all.predictions.json": "18469e52ce4059eb45ad809bcb31873aa6def56a630c3f241a0a5cb08dca225d",
+    "scalar_fields.plan.txt": "f0f9a26c2c02b5e226b6f96b66dc575780e301c351690ace67154754b917a73b",
+    "scalar_fields.predictions.json": "97bbf192b1af0e7e4aef8e4335c7dc7f5a7b13f6d837fe8e9c5f26db123b847e",
+    "spark-events/221466d6454449e0a66b842da662ccde/eventlog_v2_local-1789866235103/.appstatus_local-1789866235103.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "spark-events/221466d6454449e0a66b842da662ccde/eventlog_v2_local-1789866235103/appstatus_local-1789866235103": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spark-events/221466d6454449e0a66b842da662ccde/eventlog_v2_local-1789866235103/events_1_local-1789866235103": "e64a64894884f008dbe3b225d32251a47d89e88fb87beb2682cd73ba60d378a5",
+    "spark-events/221466d6454449e0a66b842da662ccde/eventlog_v2_local-1789866235103/events_2_local-1789866235103": "680feb7505b268a821578f6d9e52863bc051744cd67ae06b41202f27ffb4b300",
+    "spark-metrics.json": "5bc86a759077673a3fcdad26cee9d7ba5c10e6d4084e0277a5f4b37cc7bd17e3"
+  },
+  "candidate_recall": null,
+  "shared_preparation_seconds": 4.806452292017639,
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 32.86174637498334,
+  "spark_metrics": {
+    "applications": [
+      "local-1789866235103"
+    ],
+    "completed_log_directories": [
+      "eventlog_v2_local-1789866235103"
+    ],
+    "tasks": 830,
+    "failed_or_killed_tasks": 0,
+    "total_shuffle_read_bytes": 40061014,
+    "total_shuffle_write_bytes": 28506883,
+    "maximum_task_shuffle_read_bytes": 1267202,
+    "maximum_task_peak_execution_memory_bytes": 25693136,
+    "total_memory_spilled_bytes": 0,
+    "total_disk_spilled_bytes": 0,
+    "maximum_to_median_task_duration": 395.0,
+    "scope": "whole application, all task attempts; execution-memory peak is per task, not process RSS"
+  }
+}

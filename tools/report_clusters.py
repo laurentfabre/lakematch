@@ -4,6 +4,7 @@ import hashlib
 import json
 import tarfile
 
+import numpy as np
 from lakematch.benchmark.clusters import cluster_metrics
 from evidence import ROOT, sha256
 
@@ -14,6 +15,39 @@ COMMON = {'src/lakematch/benchmark/clusters.py', 'src/lakematch/benchmark/corpor
 NATIVE = {'src/lakematch/' + name + '.py' for name in ('clustering', 'runtime', 'config',
     'entity', 'features', 'feature_stats', 'matcher', 'tracking', 'composite_model',
     'blocking', 'candidates', 'similarity', 'embeddings')}
+
+
+def macro(reports):
+    draws, point, cost = {}, {}, {}
+    for corpus, (report, predictions) in reports.items():
+        keys = sorted(predictions['connected_components.predictions.json']['groups'])
+        seed = int(hashlib.sha256(f'2026091902/clusters/{corpus}'.encode()).hexdigest()[:16], 16)
+        rng = np.random.Generator(np.random.PCG64(seed))
+        grouped = {}
+        for row in report['rows']:
+            method = row['method']
+            groups = predictions[method + '.predictions.json']['groups']
+            assert set(groups) == set(keys)
+            grouped[method] = np.asarray([groups[k] for k in keys], dtype=float)
+            point[method] = point.get(method, np.zeros(2)) + .5 * np.asarray([row['f1'], row['bcubed_f1']])
+            cost[method] = cost.get(method, 0.) + .5 * row['seconds']
+            draws.setdefault(method, np.zeros((2000, 2)))
+        for start in range(0, 2000, 50):
+            chosen = rng.integers(0, len(keys), size=(50, len(keys)))
+            for method, values in grouped.items():
+                sums = values[chosen].sum(axis=1)
+                denominator = 2 * sums[:, 0] + sums[:, 1] + sums[:, 2]
+                pairwise = np.divide(2 * sums[:, 0], denominator, out=np.zeros(50), where=denominator != 0)
+                precision, recall = sums[:, 3] / sums[:, 5], sums[:, 4] / sums[:, 5]
+                bcubed = 2 * precision * recall / (precision + recall)
+                draws[method][start:start + 50] += .5 * np.column_stack([pairwise, bcubed])
+    def interval(values):
+        ordered = sorted(values)
+        return [float(ordered[int(1999 * .025)]), float(ordered[int(1999 * .975)])]
+    return {method: {'pairwise_f1': float(point[method][0]), 'bcubed_f1': float(point[method][1]),
+        'pairwise_f1_95ci': interval(draws[method][:, 0]), 'bcubed_f1_95ci': interval(draws[method][:, 1]),
+        'paired_deltas': {other: interval(draws[method][:, 0] - draws[other][:, 0]) for other in draws},
+        'mean_seconds': cost[method]} for method in draws}
 
 
 def main():
@@ -31,6 +65,7 @@ def main():
         if all(manifest['source_files'].get(p) == sha256(ROOT / p) for p in deps):
             compatible[event['kind']] = (event, manifest)
     index = {'status': 'partial', 'confirmation_scored': False, 'runs': {}, 'missing': [], 'failures': failures}
+    native_reports = {}
     lines = ['# Clustering validation measurements', '',
         'Frozen entity-disjoint partitions; confirmation remains unscored. [Protocol](CLUSTER_PLAN.md).',
         'Splink uses its separately declared blocking budget and supervised training procedure. It is a measured baseline, not an equal-candidate-budget retriever comparison.', '',
@@ -71,6 +106,7 @@ def main():
                 assert report['cleanup'] == 'succeeded'
                 assert {row['method'] for row in report['rows']} == {'connected_components', 'center', 'star', 'verified_merge'}
                 rows = report['rows']
+                native_reports[corpus] = (report, predictions)
                 for row in rows:
                     pred = predictions[row['method'] + '.predictions.json']
                     metrics = cluster_metrics(pred['truth'], pred['membership'])
@@ -88,7 +124,21 @@ def main():
         lines += ['', 'Missing compatible comparisons: ' + ', '.join(index['missing']) + '.']
     lines += ['', 'Retained failures:'] + [f"- [{row['run_id']}](../{row['manifest']}): {row['status']}." for row in failures]
     if not index['missing']:
-        index['status'] = 'comparisons_completed_selection_pending'
+        index.update(status='comparisons_completed', macro=macro(native_reports))
+        best = max(index['macro'], key=lambda key: index['macro'][key]['pairwise_f1'])
+        eligible = [method for method, values in index['macro'].items()
+                    if values['paired_deltas'][best][0] <= 0 <= values['paired_deltas'][best][1]]
+        index['recommendation'] = min(eligible, key=lambda method: (
+            method != 'connected_components', index['macro'][method]['mean_seconds']))
+        index['best_point_estimate'] = best
+        lines += ['', '## Equal-corpus macro comparison', '',
+                  '| Method | Pairwise F1 | B-cubed F1 | Paired F1 change CI vs components | Mean clustering s |',
+                  '|---|---:|---:|---|---:|']
+        for method, row in index['macro'].items():
+            low, high = row['paired_deltas']['connected_components']
+            lines.append(f"| {method} | {row['pairwise_f1']:.4f} | {row['bcubed_f1']:.4f} | [{low:+.4f}, {high:+.4f}] | {row['mean_seconds']:.2f} |")
+        lines += ['', f"Validation recommendation: `{index['recommendation']}`. No model/default is promoted by this report.",
+            'Macro uncertainty uses independent namespaced entity draws for the two corpora, paired across methods; 2,000 PCG64 resamples with seed derived from SHA-256 of 2026091902/clusters/corpus. Incremental identities and CLI acceptance still require execution.']
     (ROOT / 'bench/CLUSTERS.md').write_text('\n'.join(lines) + '\n')
     (ROOT / 'bench/cluster_index.json').write_text(json.dumps(index, indent=2) + '\n')
     print(json.dumps({'completed': list(index['runs']), 'missing': index['missing'], 'failures': len(failures)}))
