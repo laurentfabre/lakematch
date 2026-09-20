@@ -16,7 +16,7 @@ from lakematch.benchmark.corpora import Components, digest
 from lakematch.benchmark.metrics import counts
 from lakematch.config import from_dict
 from lakematch.runtime import Materializer, create_session, probe
-from evidence import sha256
+from evidence import ROOT, sha256
 from offline_run import assert_offline
 
 METHODS = ['connected_components', 'center', 'star', 'verified_merge']
@@ -61,6 +61,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('corpus', choices=['febrl3', 'historical_50k'])
     parser.add_argument('--estimator', choices=['gbt', 'logistic_regression', 'random_forest'], required=True)
+    parser.add_argument('--replay', action='store_true', help='Reuse the declared validation model, threshold and IDF')
     args = parser.parse_args()
     assert_offline()
     started = time.perf_counter()
@@ -81,12 +82,30 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     raw['mlflow'] = {'tracking_uri': f'sqlite:///{out}/mlflow.db', 'experiment': 'zr4-clusters'}
     config = from_dict(raw)
+    reference, old_payload = None, {}
+    if args.replay:
+        from frozen import tree_hashes
+        declared = json.loads((ROOT / 'bench/cluster_replay_reference.json').read_text())[args.corpus]
+        assert sha256(ROOT / declared['report']) == declared['report_sha256']
+        assert sha256(ROOT / declared['archive']) == declared['archive_sha256']
+        assert tree_hashes(ROOT / declared['model_path']) == declared['model_files']
+        reference = json.loads((ROOT / declared['report']).read_text())
+        assert reference['corpus'] == args.corpus and reference['manifest'] == manifest
+        assert reference['config']['matcher']['estimator'] == args.estimator
+        raw = deepcopy(reference['config'])
+        config = from_dict(raw)
+        with tarfile.open(ROOT / declared['archive']) as bundle:
+            old_payload = {name: json.load(bundle.extractfile(name))
+                           for name in reference['evidence_files'] if name.endswith('.json')}
     report = {'status': 'running', 'iteration': 5, 'corpus': args.corpus, 'manifest': manifest,
         'config': config.data, 'plan': 'bench/CLUSTER_PLAN.md', 'confirmation_scored': False,
         'scope': 'training-only model/feature IDF; entity-disjoint validation graph',
         'pair_context': 'unweighted gram cosine; rank=1; gap=0 for every training/scoring/verification pair',
         'candidate_scope': 'k=6 including self, then self removed and orientations unioned; at most five outgoing nonself neighbours',
         'rows': [], 'baselines': [], 'cost': {'remote_spend': 0, 'live_label_spend': 0}}
+    if reference:
+        report.update(iteration=8, replay_reference=declared,
+            scope='Exact validation replay with original model, IDF and threshold; no new fit or selection')
     output = out / 'report.json'
     files = set()
     archive = out / 'cluster-evidence.tar.gz'
@@ -106,7 +125,9 @@ def main():
             raw_frames = {split: spark.createDataFrame(rows, schema) for split, rows in partitions.items()}
             prepared = {split: materializer.materialize(entity.prepare(frame, config), split)
                         for split, frame in raw_frames.items()}
-            idf = materializer.materialize(feature_stats.fit_idf([prepared['train']], config), 'idf')
+            reused = tracking.load_composite(reference['model']['model_uri'], config).unwrap_python_model() if reference else None
+            idf = materializer.materialize(spark.read.parquet(reused.artifacts['idf']) if reused else
+                                          feature_stats.fit_idf([prepared['train']], config), 'idf')
             idf_path = out / 'idf'
             idf.write.mode('overwrite').parquet(str(idf_path))
             prepared = {split: materializer.materialize(feature_stats.attach_idf(frame, idf, config), 'weighted_' + split)
@@ -136,9 +157,15 @@ def main():
                     simple = [(r.a_id, r.b_id, r.cos) for r in rows]
             labels = spark.createDataFrame(consumed, 'a_id string, b_id string, label double')
             t0 = time.perf_counter()
-            training = materializer.materialize(features.build(candidate_frames['train'], prepared['train'], prepared['train'], config), 'training')
-            model = matcher.train(training, labels, config)
+            if reused:
+                model = reused.native_model(spark)
+            else:
+                training = materializer.materialize(features.build(candidate_frames['train'], prepared['train'], prepared['train'], config), 'training')
+                model = matcher.train(training, labels, config)
             report['feature_and_fit_seconds'] = time.perf_counter() - t0
+            if reused:
+                report['model_reload_seconds'] = report.pop('feature_and_fit_seconds')
+                report['new_models_fitted'] = 0
             t0 = time.perf_counter()
             validation = features.build(candidate_frames['valid'], prepared['valid'], prepared['valid'], config)
             scored = materializer.materialize(matcher.score(validation, model).select('a_id', 'b_id', 'p'), 'scored')
@@ -147,16 +174,22 @@ def main():
             path.write_text(json.dumps({'edges': edges, 'cosine': simple, 'truth': truth['valid']}) + '\n')
             files.add(path)
             report['feature_and_score_seconds'] = time.perf_counter() - t0
-            threshold = threshold_for(edges, truth['valid'])
+            threshold = reference['threshold'] if reference else threshold_for(edges, truth['valid'])
+            if reference:
+                from report_compatibility import compare_scores
+                assert old_payload['edges.json']['truth'] == truth['valid']
+                report['replay_maximum_deltas'] = {
+                    'probability': compare_scores(old_payload['edges.json']['edges'], edges, threshold, 'unrestricted'),
+                    'cosine': compare_scores(old_payload['edges.json']['cosine'], simple, 0., 'unrestricted')}
             raw['decision']['threshold'] = threshold
             config = from_dict(raw)
             report.update(config=config.data, threshold=threshold, pair_metrics=pair_metrics(edges, truth['valid'], threshold))
             example = tracking.pair_snapshot(candidate_frames['train'].orderBy('a_id', 'b_id').limit(5),
                 raw_frames['train'], raw_frames['train'], config)
-            report['model'] = tracking.log_composite(model, config, labels=consumed, input_example=example,
+            report['model'] = reference['model'] if reference else tracking.log_composite(model, config, labels=consumed, input_example=example,
                 experiment='zr4-clusters', staging_root=out / 'staging', idf_path=str(idf_path),
                 metrics={'validation_pair_f1': report['pair_metrics']['f1']})
-            reference = None
+            reference_groups = None
             for method in METHODS:
                 method_raw = deepcopy(config.data)
                 method_raw['cluster']['method'] = method
@@ -171,11 +204,13 @@ def main():
                     result = clustering.resolve(prepared['valid'], scored, selected, rounds, pair_scorer=scorer)
                     membership = {r.rec_id: r.cluster for r in result.membership.collect()}
                     trace = result.rounds
+                    if reference:
+                        assert membership == old_payload[method + '.predictions.json']['membership'], f'{method} replay memberships changed'
                 elapsed = time.perf_counter() - t0
                 grouped = cluster_group_counts(truth['valid'], membership)
-                reference = grouped if reference is None else reference
+                reference_groups = grouped if reference_groups is None else reference_groups
                 row = {'method': method, 'seconds': elapsed, 'rounds': trace,
-                    **cluster_metrics(truth['valid'], membership), **cluster_bootstrap(grouped, reference)}
+                    **cluster_metrics(truth['valid'], membership), **cluster_bootstrap(grouped, reference_groups)}
                 report['rows'].append(row)
                 path = out / (method + '.predictions.json')
                 path.write_text(json.dumps({'membership': membership, 'truth': truth['valid'], 'groups': grouped}) + '\n')
@@ -189,8 +224,10 @@ def main():
                     choice = (-similarity, partner)
                     nearest[anchor] = min(nearest.get(anchor, choice), choice)
             nearest_edges = [(a, choice[1], 1.) for a, choice in nearest.items()]
+            cosine_cutoff = next(row['threshold'] for row in reference['baselines']
+                                 if row['name'] == 'cosine_threshold_components') if reference else threshold_for(simple, truth['valid'])
             for name, baseline, cutoff in (('nearest_neighbour_components', nearest_edges, 0.),
-                ('cosine_threshold_components', simple, threshold_for(simple, truth['valid']))):
+                ('cosine_threshold_components', simple, cosine_cutoff)):
                 membership = components(truth['valid'], baseline, cutoff)
                 report['baselines'].append({'name': name, 'threshold': cutoff,
                     **cluster_metrics(truth['valid'], membership),

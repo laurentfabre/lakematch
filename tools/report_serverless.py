@@ -88,10 +88,29 @@ def collect():
             output_key = 'cluster' if kind.endswith('fixture') else 'audit'
             assert json.loads(report['outputs'][output_key]['notebook_output']['result']) == result
             if kind.endswith('fixture'):
+                job = report['bundle_summary']['resources']['jobs']['cluster_fixture']
+                assert job['max_concurrent_runs'] == 1, 'Delta writer must be serialized'
+                assert job['timeout_seconds'] == 1200
                 runs[kind]['identity_audit'] = audit_fixture(report)
             else:
                 engine = 'dqx' if kind.endswith('dqx') else 'native'
                 assert result['quality_engine'] == engine
+                preparation = json.loads(report['outputs']['prepare']['notebook_output']['result'])
+                assert preparation['status'] == 'completed'
+                assert preparation['freeze_sha256'] == sha256(ROOT / 'bench/freeze.json')
+                quality = preparation['quality']
+                assert quality['status'] == 'completed' and quality['native_dqx_exact_parity'] is True
+                assert quality['valid'] == 2 and quality['quarantined'] == 4
+                assert quality['construction_has_no_spark_actions_or_workspace_client'] is True
+                assert preparation['input_tables'] == {
+                    f'gdpr2_catalog.lakematch_20260919.lm_input_{variant}_{side}': count
+                    for variant in ('all', 'no_ssn') for side, count in [('left', 5003), ('right', 2503)]}
+                manifests = [ROOT / path for path in exported if path.endswith('/volume/manifest.json')]
+                assert len(manifests) == 1
+                assert sha256(manifests[0]) == report['input_manifest_sha256']
+                staged = json.loads(manifests[0].read_text())
+                assert staged['freeze_sha256'] == preparation['freeze_sha256']
+                assert all(sha256(manifests[0].parent / name) == value for name, value in staged['files'].items())
                 assert set(result['variants']) == {'all', 'no_ssn'}
                 for row in result['variants'].values():
                     assert row['quarantine'] == {'left': 3, 'right': 3}
@@ -132,7 +151,8 @@ def render(runs, errors, history):
     lines += ['', '## Outstanding evidence', '',
         'Training/clustering fixture evidence is limited to its small synthetic inputs. '
         'Normal remote cluster CLI publication remains unimplemented. '
-        'Observed DBUs/cost and query-profile Photon task-time shares/operator fallbacks remain missing. '
+        'Observed DBUs/cost and per-matching-stage Photon task-time shares/operator fallbacks remain missing. '
+        'Available aggregate query-history timings are audited separately in [PHOTON.md](PHOTON.md). '
         'Photon enabled in configuration is not measured Photon execution. The shared warehouse is not campaign-owned.']
     lines += ['', *['- ' + error for error in errors]]
     (ROOT / 'bench/SERVERLESS.md').write_text('\n'.join(lines) + '\n')

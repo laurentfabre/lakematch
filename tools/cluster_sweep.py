@@ -12,6 +12,7 @@ def main():
     parser.add_argument('mode', choices=['splink', 'native'])
     parser.add_argument('--corpus', choices=['febrl3', 'historical_50k'], action='append')
     parser.add_argument('--estimator', choices=['gbt', 'logistic_regression', 'random_forest'])
+    parser.add_argument('--replay', action='store_true')
     args = parser.parse_args()
     if args.mode == 'native' and not args.estimator:
         parser.error('Native comparison requires the selected estimator')
@@ -36,6 +37,8 @@ def main():
             'tools/run_splink_cluster.py' if splink else 'tools/run_clusters.py', corpus]
         if not splink:
             command += ['--estimator', args.estimator]
+            if args.replay:
+                command += ['--replay']
         result = subprocess.run(command, env=env)
         if result.returncode:
             return result.returncode

@@ -1,0 +1,23 @@
+{
+  "status": "static_config_equivalence",
+  "baseline_source": "data/config_sources/02cdf5b70a95956dfdc8b483b5ff87426a66347e2215157d767967e43df3a28f.py",
+  "baseline_sha256": "02cdf5b70a95956dfdc8b483b5ff87426a66347e2215157d767967e43df3a28f",
+  "current_source_sha256": "a1446bbf11cfb1370e704b0954868f5214602d5d7040a4cfabfae6cdda7351fe",
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "serverless_input_manifest_sha256": "c3c691db6384e0d08ce88af15cf4937eaa8f72abe5d8ec954aa7699460705a97",
+  "equal_expanded_configs": [
+    "abt_buy",
+    "affiliations",
+    "amazon_google",
+    "bpid",
+    "dblp_acm",
+    "febrl4_half_all",
+    "febrl4_half_no_ssn",
+    "serverless/all/dqx",
+    "serverless/all/native",
+    "serverless/no_ssn/dqx",
+    "serverless/no_ssn/native",
+    "walmart_amazon"
+  ],
+  "scope": "Only three selected defaults differ; all config logic and expanded frozen inputs are unchanged. This does not substitute for measured prediction replay or newly defaulted configurations."
+}

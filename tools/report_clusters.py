@@ -94,7 +94,7 @@ def main():
                 for path, expected in report['evidence_files'].items():
                     with archive.extractfile(path) as member:
                         assert hashlib.file_digest(member, 'sha256').hexdigest() == expected
-                    if path.endswith('predictions.json'):
+                    if path.endswith('.json'):
                         predictions[path] = json.load(archive.extractfile(path))
             if prefix == 'splink':
                 assert report.get('prediction_endpoint_audit') == 'all endpoints belong to the disjoint validation partition'
@@ -103,6 +103,9 @@ def main():
                 assert cluster_metrics(pred['truth'], pred['clusters']) == report['metrics']
                 rows = [{'method': 'Splink supervised / components', **report['metrics'], **report['uncertainty'], 'seconds': report['wall_seconds']}]
             else:
+                if 'replay_reference' in report:
+                    from report_cluster_replay import audit
+                    audit(report, predictions)
                 assert report['cleanup'] == 'succeeded'
                 assert {row['method'] for row in report['rows']} == {'connected_components', 'center', 'star', 'verified_merge'}
                 rows = report['rows']

@@ -7,10 +7,16 @@
       "report_path": "experiments/20260920T030627Z-serverless-frozen-dqx-82125c/evidence/serverless-dqx-report.json",
       "report_sha256": "021c202dffb75bcd99114a41aa3ca6643d653492a8243b3972cdeca73b206d39",
       "audited": true
+    },
+    "serverless-frozen-native": {
+      "run_id": "20260920T033318Z-serverless-frozen-native-0277ba",
+      "manifest": "experiments/20260920T033318Z-serverless-frozen-native-0277ba/manifest.json",
+      "report_path": "experiments/20260920T033318Z-serverless-frozen-native-0277ba/evidence/serverless-native-report.json",
+      "report_sha256": "0e730314c481bce273566602dd1d2db7da8cc4faa532a47cec0d723526b3f67b",
+      "audited": true
     }
   },
   "errors": [
-    "serverless-frozen-native: No sealed run",
     "serverless-cluster-fixture: No sealed run"
   ],
   "history": [
@@ -25,6 +31,12 @@
       "kind": "serverless-frozen-dqx",
       "status": "passed",
       "manifest": "experiments/20260920T030627Z-serverless-frozen-dqx-82125c/manifest.json"
+    },
+    {
+      "run_id": "20260920T033318Z-serverless-frozen-native-0277ba",
+      "kind": "serverless-frozen-native",
+      "status": "passed",
+      "manifest": "experiments/20260920T033318Z-serverless-frozen-native-0277ba/manifest.json"
     }
   ],
   "observed_cost": null,

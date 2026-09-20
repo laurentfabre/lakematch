@@ -42,11 +42,20 @@ original-corpus nearest-neighbour result generalizes to half-unmatched data.
 Expose `lakematch bench --all` as a finite sequential campaign entry point;
 distinguish execution from read-only evidence aggregation and preserve failures.
 Do not use a cached report as proof that this CLI executed every corpus.
+The campaign entry point must stop before the scale stage when the ledger
+contains the retained failed million-record run. Record a blocked stage and a
+nonzero exit; the already measured ladder is historical evidence, not fresh
+CLI execution. This guard does not authorize a repeat or satisfy the full
+`bench --all` acceptance gate.
 
 ## Clustering and affected gates
 
 Repeat the two native clustering comparisons, both exact mutation checks and
 the normal local cluster CLI publication/recovery check with the final source.
+Use `cluster_sweep.py native --estimator gbt --replay`: the original two
+validation models, IDF artifacts and thresholds are hash-bound in
+`cluster_replay_reference.json`. Compare every scored edge and membership
+with the original sealed outputs before accepting the replay. Do not refit.
 Reuse the unchanged isolated Splink baseline only if its execution dependencies
 still match. Compare the resulting memberships and journals with the preserved
 prior validation measurements. No new models, methods, seeds or budgets.

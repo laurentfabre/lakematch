@@ -180,6 +180,9 @@ def verify(phase):
     if phase == 4:
         from verify_clusters import check
         return verify(1) + check()
+    if phase == 6:
+        from verify_serverless import check
+        return verify(1) + check()
     if phase != 1:
         return [f"ZR-{phase}: implementation and full acceptance evidence are pending; see goal.md"]
     package = tomllib.loads((ROOT / "pyproject.toml").read_text())

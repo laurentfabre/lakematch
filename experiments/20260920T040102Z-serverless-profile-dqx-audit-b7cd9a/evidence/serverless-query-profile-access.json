@@ -1,0 +1,8 @@
+{
+  "profile": "fevm-gdpr2",
+  "query_id": "b82c1f88-5f46-417e-ba1c-bfb794245502",
+  "path": "/api/2.0/sql/history/queries/b82c1f88-5f46-417e-ba1c-bfb794245502/query-profile",
+  "status": "unavailable",
+  "error_code": "ENDPOINT_NOT_FOUND",
+  "message": "No API found for 'GET /sql/history/queries/b82c1f88-5f46-417e-ba1c-bfb794245502/query-profile'"
+}

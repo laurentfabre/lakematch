@@ -18,8 +18,13 @@ def load_freeze(corpus=None):
     path = ROOT / 'bench/freeze.json'
     frozen = json.loads(path.read_text())
     assert frozen['status'] == 'frozen_before_confirmation' and frozen['seed'] == 2026091901
-    for name, expected in frozen['execution_sources'].items():
-        assert sha256(ROOT / name) == expected, f'Frozen execution source changed: {name}'
+    changed = [name for name, expected in frozen['execution_sources'].items()
+               if not (ROOT / name).is_file() or sha256(ROOT / name) != expected]
+    if changed:
+        # The original freeze is immutable. A separately reviewed, exact
+        # source declaration permits replay, never an implicit re-freeze.
+        from compatibility import validate
+        validate(frozen)
     if corpus:
         entry = frozen['models'][corpus]
         assert sha256(ROOT / entry['selection_report']) == entry['selection_report_sha256']

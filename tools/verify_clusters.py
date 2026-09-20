@@ -62,6 +62,9 @@ def check():
         try:
             event, paths = sealed('cluster-' + corpus, COMMON | NATIVE | {'tools/run_clusters.py', 'pyproject.toml', 'requirements-local.lock'})
             report, payload = unpack(paths, 'cluster-evidence.tar.gz')
+            if 'replay_reference' in report:
+                from report_cluster_replay import audit as audit_replay
+                audit_replay(report, payload)
             assert report['cleanup'] == 'succeeded'
             assert {row['method'] for row in report['rows']} == {'connected_components', 'center', 'star', 'verified_merge'}
             for row in report['rows']:

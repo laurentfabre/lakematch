@@ -1,28 +1,23 @@
 # Serverless Photon evidence — incomplete
 
-The campaign pipeline `887f3271-3247-4082-82a9-9b62fb89e135` on
-`fevm-gdpr2` has `serverless: true` and `photon: true`. Its corrected update
-`8a8613de-98c0-4e67-835e-3fca82830d18` completed the candidates, features,
-scores and links flows. These configuration and flow observations do not
-establish the share of execution time spent in Photon.
+Completed DQX run `299080784128178` on `fevm-gdpr2`. [Terminal capture](../experiments/serverless-dqx-profile-v2.json); query IDs and hashes are in [the index](photon_index.json).
 
-The pipeline events API exposes flow status, output counts and planning
-information in its raw `details` object; the CLI's typed event output omits
-that object. The runner now preserves raw details. A query-history request
-restricted to this run's time window, user and campaign objects returned no
-matching queries during execution or after terminal cleanup. The bounded
-terminal capture retrieved all 16 completed flow records; all event and query
-pages were consumed. [Receipt](../experiments/serverless-dqx-profile.json).
-The first capture exceeded the API's 250-event page limit; the rejected request
-and corrected capture are both retained in the experiment ledger.
+The Query History API reports cumulative execution time for all tasks and for Photon tasks. The ratios below sum those milliseconds across the exact job-task query IDs. They exclude provisioning and are not wall-clock percentages.
 
-| Required observation | State |
-|---|---|
-| Photon task time / total task time per matching stage | Missing |
-| Executed operators and every fallback operator | Missing |
-| Campaign-attributed DBUs and observed cost | Unreconciled |
+| Job task | Queries | All task ms | Photon task ms | Photon share |
+|---|---:|---:|---:|---:|
+| prepare | 16 | 11,310 | 1,995 | 17.64% |
+| pipeline | 16 | 183,699 | 7,008 | 3.81% |
+| audit | 8 | 3,337 | 2,960 | 88.70% |
 
-No percentage, zero-cost figure or claim of full Photon execution is inferred
-from native SQL expressions or from an enabled setting. ZR-6 remains incomplete
-until executed query profiles support these measurements. No alternate
-Databricks profile was selected to obtain them.
+## Remaining acceptance evidence
+
+The pipeline row aggregates its 16 refresh queries. Query text is redacted and no query tags identify the output table, so this capture does not assign query timings to individual candidate, feature, scoring or link stages. Raw events contain the 16 completed flows and planning summaries, but no complete executed operator profiles. The attempted query-profile export route returned `ENDPOINT_NOT_FOUND`; no alternate profile was selected.
+
+The documented export route is the query-profile UI Download action, which saves JSON. The reviewed public documentation does not establish a supported REST export. [Research receipt](../experiments/query-profile-export-research.json). Exporting the pipeline query profiles from this workspace is still required.
+
+Every fallback operator, per-matching-stage Photon share, campaign-attributed DBUs and observed cost remain missing. No cause for the low aggregate Photon share is inferred from timing alone. ZR-6 remains incomplete.
+
+## Capture corrections
+
+The first raw-event request exceeded the API limit of 250 events per page. The next capture filtered only SQL text and returned zero matches because the text is redacted. The corrected capture uses exact job-task IDs, retains all 40 queries, and restricts events to the completed run window. All earlier requests and files are retained; new captures use immutable directories.

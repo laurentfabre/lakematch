@@ -15,6 +15,16 @@ import sys
 from evidence import ROOT, sha256
 
 
+def scale_retry_blocker(ledger):
+    """The campaign has not authorized repeating its failed million-row tier."""
+    for line in reversed(ledger.read_text().splitlines()):
+        event = json.loads(line)
+        if event['kind'] == 'scale-1000000' and event['status'] != 'passed':
+            return {'reason': 'The failed million-record tier requires an explicit revised plan before retrying',
+                    'retained_run_id': event['run_id'], 'manifest': event['manifest']}
+    return None
+
+
 def stages():
     p = sys.executable
     return [
@@ -26,7 +36,7 @@ def stages():
             '--artifact', 'data/original_febrl/report.json', '--artifact', 'data/original_febrl/original-evidence.tar.gz',
             '--artifact', 'bench/source_compatibility.json', '--artifact', 'bench/freeze.json',
             '--', '/usr/bin/sandbox-exec', '-f', 'tools/offline.sb', p, 'tools/run_original_febrl.py']),
-        ('febrl3_and_historical_native', [p, 'tools/cluster_sweep.py', 'native', '--estimator', 'gbt']),
+        ('febrl3_and_historical_native', [p, 'tools/cluster_sweep.py', 'native', '--estimator', 'gbt', '--replay']),
         ('synthetic_scale_ladder', [p, 'tools/final_sweep.py', '--section', 'scale']),
     ]
 
@@ -52,6 +62,13 @@ def main():
             item = {'name': name, 'command': command, 'started_at': datetime.now(timezone.utc).isoformat()}
             report['stages'].append(item)
             path.write_text(json.dumps(report, indent=2) + '\n')
+            if name == 'synthetic_scale_ladder':
+                blocked = scale_retry_blocker(ROOT / 'experiments/runs.jsonl')
+                if blocked:
+                    item.update(status='blocked', **blocked)
+                    report['status'] = 'blocked'
+                    print(json.dumps(blocked), file=sys.stderr)
+                    return 2
             result = subprocess.run(command, cwd=ROOT, env=env)
             item.update(exit_code=result.returncode, ended_at=datetime.now(timezone.utc).isoformat())
             if result.returncode:

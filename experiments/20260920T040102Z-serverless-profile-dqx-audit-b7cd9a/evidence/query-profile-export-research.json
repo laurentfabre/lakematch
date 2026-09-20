@@ -1,0 +1,18 @@
+{
+  "checked_at": "2026-09-20T03:50:29.648141+00:00",
+  "method": "Glean read-only documentation search",
+  "workspace_scope": "fevm-gdpr2 only",
+  "findings": [
+    {
+      "url": "https://docs.databricks.com/aws/en/sql/user/queries/query-profile",
+      "finding": "Documented UI Download action exports query-profile JSON; query profiles can be opened from serverless job run details. No supported REST export was established by this page."
+    },
+    {
+      "url": "https://community.databricks.com/t5/data-engineering/how-to-obtain-a-query-profile-programatically/td-p/70155",
+      "finding": "Employee reply 2024-05-21 says full UI profile is not retrievable through REST; 2025-06-25 reply points to include_metrics for query history. Historical guidance only."
+    }
+  ],
+  "operator_profiles_exported": false,
+  "remaining_input": "Query-profile JSON exports for the 16 pipeline query IDs in bench/photon_index.json, with output-stage mapping from the workspace UI.",
+  "limitation": "No browser automation tool is available in this session; no claim that an undocumented export API cannot exist."
+}

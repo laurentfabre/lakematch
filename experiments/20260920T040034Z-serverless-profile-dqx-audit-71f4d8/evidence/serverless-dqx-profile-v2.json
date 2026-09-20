@@ -1,0 +1,85 @@
+{
+  "status": "captured",
+  "profile": "fevm-gdpr2",
+  "run_id": 299080784128178,
+  "pipeline_id": "887f3271-3247-4082-82a9-9b62fb89e135",
+  "captured_at": "2026-09-20T03:40:52.145907+00:00",
+  "source_report_sha256": "021c202dffb75bcd99114a41aa3ca6643d653492a8243b3972cdeca73b206d39",
+  "event_pages_complete": true,
+  "query_history_pages_complete": true,
+  "completed_flows": {
+    "gdpr2_catalog.lakematch_20260919.lm_links_all": {
+      "num_output_rows": 2446
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_links_no_ssn": {
+      "num_output_rows": 2434
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_scores_all": {
+      "num_output_rows": 24917
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_scores_no_ssn": {
+      "num_output_rows": 24897
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_features_all": {
+      "num_output_rows": 24917
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_features_no_ssn": {
+      "num_output_rows": 24897
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_candidates_all": {
+      "num_output_rows": 24917
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_candidates_no_ssn": {
+      "num_output_rows": 24897
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_prepared_no_ssn_right": {
+      "num_output_rows": 2500
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_prepared_all_right": {
+      "num_output_rows": 2500
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_prepared_all_left": {
+      "num_output_rows": 5000
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_prepared_no_ssn_left": {
+      "num_output_rows": 5000
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_quarantine_no_ssn_right": {
+      "num_output_rows": 3
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_quarantine_no_ssn_left": {
+      "num_output_rows": 3
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_quarantine_all_right": {
+      "num_output_rows": 3
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_quarantine_all_left": {
+      "num_output_rows": 3
+    }
+  },
+  "matching_query_count": 40,
+  "observed_cost": null,
+  "query_metrics_by_job_task": {
+    "audit": {
+      "queries": 8,
+      "task_total_time_ms": 3337,
+      "photon_total_time_ms": 2960
+    },
+    "pipeline": {
+      "queries": 16,
+      "task_total_time_ms": 183699,
+      "photon_total_time_ms": 7008
+    },
+    "prepare": {
+      "queries": 16,
+      "task_total_time_ms": 11310,
+      "photon_total_time_ms": 1995
+    }
+  },
+  "photon_operator_profiles": null,
+  "limitation": "Job-task query timings are not SDP matching-stage timings. Raw events expose output/flow metrics; executed operator fallback profiles remain missing.",
+  "evidence_files": {
+    "data/serverless_profiles/299080784128178/db26007daabd43c4b84e8a54106400ad/events.json": "e21ac79d934c5eb54a57a21e67648300d538a98003af8e22e0fd63f99279ebb1",
+    "data/serverless_profiles/299080784128178/db26007daabd43c4b84e8a54106400ad/query-history.json": "18cb398629ce4129c893c08ca87d4252850ea20868f8dc543a29093f9ecbe0da"
+  }
+}

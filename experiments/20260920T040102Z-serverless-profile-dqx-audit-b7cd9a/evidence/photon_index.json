@@ -1,0 +1,76 @@
+{
+  "status": "partial_query_history_metrics",
+  "run_id": 299080784128178,
+  "capture": "experiments/serverless-dqx-profile-v2.json",
+  "capture_sha256": "34191febf453cf73adc95c206fdafb582621ed0e83e9f45bb6d6834f88560dff",
+  "query_history_sha256": "18cb398629ce4129c893c08ca87d4252850ea20868f8dc543a29093f9ecbe0da",
+  "job_tasks": {
+    "audit": {
+      "queries": 8,
+      "task_total_time_ms": 3337,
+      "photon_total_time_ms": 2960,
+      "query_ids": [
+        "65d5da18-7833-4d49-8c92-452c4464d1a4",
+        "88fd4055-0d03-4e2d-964e-d94d56ede1fc",
+        "471bb92e-7e72-4bdc-b38e-66580c9a5ad5",
+        "90e69640-e3f9-422b-8c34-20a4a2be421d",
+        "d6a35ff6-eb83-456d-875e-6656d10162c6",
+        "9403b4ba-0733-4ec5-ac9c-465027251b29",
+        "40131364-e544-408b-9452-0b97abee2f98",
+        "8961f9f7-932a-461d-9e23-151361a0f6e9"
+      ],
+      "photon_task_time_share": 0.8870242732993707
+    },
+    "pipeline": {
+      "queries": 16,
+      "task_total_time_ms": 183699,
+      "photon_total_time_ms": 7008,
+      "query_ids": [
+        "97936682-44e1-453b-9c11-955fbaf36ed6",
+        "c9fa5d78-74f4-4e03-b74d-d850ddce7eaf",
+        "6f390435-6331-404d-98ab-c3831e775e6e",
+        "d043c308-e47d-41d3-bd8b-acf2d42bf7bf",
+        "15433c36-2468-4cab-b570-3dad295131af",
+        "8146e7f7-8aa7-4042-b643-7f743bb4e4c3",
+        "b82c1f88-5f46-417e-ba1c-bfb794245502",
+        "dba9b3fa-9055-4751-8aa1-162676713a27",
+        "8c2ef146-d295-43be-a0b1-7102dfbed7a4",
+        "bdbeabe1-a1a0-4254-bbba-21e35a40b2e7",
+        "bafae309-2f3e-4324-ac8b-ffb610c6b604",
+        "fa29d52f-8f16-43cd-85f6-ad0c1464848e",
+        "b30840c4-68b8-4cf8-a0e5-eb3c30defcf8",
+        "227a3d88-a47f-4659-a81c-c6d204dcdcc8",
+        "a57effb0-589d-4010-a587-fe84350a4acb",
+        "414f5138-2c31-43bd-8f2d-fa0a6c865a35"
+      ],
+      "photon_task_time_share": 0.03814936390508386
+    },
+    "prepare": {
+      "queries": 16,
+      "task_total_time_ms": 11310,
+      "photon_total_time_ms": 1995,
+      "query_ids": [
+        "955ac4bc-61da-43fa-b846-ed2d99aa8292",
+        "3943e17e-f979-45c3-bea1-7ea126380ccf",
+        "f4436947-0879-4226-a4f8-da8aacc40a77",
+        "a1dd7c41-9fde-494a-9c8b-7fb04c9b26d3",
+        "9c87140f-9b28-4f00-8074-6c64ad72fb48",
+        "c9512e4a-cce1-4db6-b5b8-01f66914719e",
+        "3377e90f-1df2-4463-8398-f27de8923c94",
+        "3234960f-bcb7-4112-bcfb-45c394c410e9",
+        "a200b853-9a2f-447e-b4b9-6b6015bb09c6",
+        "6d453114-46d6-4fcc-a445-827b76ef0506",
+        "a9ec1875-03a0-4922-ab21-e08bb03fe7bf",
+        "b117b5e2-27de-40f2-84fc-a736666191dc",
+        "4adcb0ae-b0b0-44b0-a483-18e73e432a83",
+        "4184f970-0467-4388-9b21-f73d5619ccec",
+        "4fe96595-24d7-4d98-8814-69e553bd127e",
+        "43e80033-a28b-47dc-80e4-31be55144f94"
+      ],
+      "photon_task_time_share": 0.17639257294429708
+    }
+  },
+  "matching_stage_attribution": null,
+  "executed_operator_profiles": null,
+  "observed_cost": null
+}
