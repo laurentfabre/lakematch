@@ -28,7 +28,7 @@ def live_group_members(pgid):
     return members
 
 
-def signal_owned_group(pgid, sig):
+def signal_owned_group(pgid, sig, *, exit_grace_seconds=2.):
     try:
         os.killpg(pgid, sig)
     except ProcessLookupError:
@@ -36,8 +36,11 @@ def signal_owned_group(pgid, sig):
     except PermissionError:
         # Never interpret permission denial as successful cleanup without an
         # independent process inventory. A live owned process remains an error.
-        if live_group_members(pgid):
-            raise
+        deadline = time.monotonic() + exit_grace_seconds
+        while live_group_members(pgid):
+            if time.monotonic() >= deadline:
+                raise
+            time.sleep(.1)
 
 
 def main():
@@ -93,6 +96,8 @@ def main():
     try:
         with (directory / "stdout.txt").open("w") as out, (directory / "stderr.txt").open("w") as err:
             child = subprocess.Popen(command, cwd=ROOT, stdout=out, stderr=err, start_new_session=True)
+            manifest["process_group_id"] = child.pid
+            path.write_text(json.dumps(manifest, indent=2) + "\n")
             try:
                 exit_code = child.wait(timeout=args.timeout)
                 manifest["status"] = "passed" if exit_code == 0 else "failed"

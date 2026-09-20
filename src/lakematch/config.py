@@ -47,7 +47,8 @@ DEFAULTS = {
     "entity": {"name": "person", "id_column": "rec_id", "fields": {}},
     "candidates": {"method": "gram_topk", "q": 3, "k": 5, "idf_weighted": True,
                    "gram_cap": 400, "max_join_rows": 5_000_000, "max_pairs": 100_000,
-                   "union_of": [], "field_blocks": []},
+                   "union_of": [], "field_blocks": [], "max_block_rules": 3,
+                   "num_hash_features": 128_000, "num_hash_tables": 4, "seed": 0},
     "features": {"string_similarity": "levenshtein", "multi_token": [], "udf_features": False,
                  "field_families": True, "exclude_field_types": [], "max_tokens": 64, "max_chars": 512,
                  "levenshtein_threshold": 64,
@@ -105,12 +106,12 @@ class Config:
         return json.dumps(self.data, sort_keys=True, separators=(",", ":"))
 
     def require_implemented(self):
-        supported = {"candidates.method": {"gram_topk"},
+        supported = {"candidates.method": CHOICES["candidates.method"],
                      "quality.engine": {"native"}, "labels.llm": {"none"}}
         for key, values in supported.items():
             value = _get(self.data, key)
             if value not in values:
-                raise MethodUnavailable(f"{key}={value} is a declared choice, not implemented in ZR-1")
+                raise MethodUnavailable(f"{key}={value} is a declared choice, not implemented")
         if self["features"]["embeddings"]["provider"] == "databricks_endpoint":
             raise MethodUnavailable("Remote embedding provider is not implemented")
         if self.enabled_paid:
@@ -159,6 +160,11 @@ def from_dict(raw):
         value = _get(cfg, key)
         if type(value) is not int or value <= 0:
             raise ConfigError(f"{key} must be a positive integer")
+    for key in ("max_block_rules", "num_hash_features", "num_hash_tables"):
+        if type(cfg["candidates"][key]) is not int or cfg["candidates"][key] <= 0:
+            raise ConfigError(f"candidates.{key} must be a positive integer")
+    if type(cfg["candidates"]["seed"]) is not int:
+        raise ConfigError("candidates.seed must be an integer")
     for key in ["runtime.connect", "features.udf_features", "features.field_families", "candidates.idf_weighted", "mlflow.registry"]:
         if type(_get(cfg, key)) is not bool:
             raise ConfigError(f"{key} must be boolean")
@@ -206,10 +212,20 @@ def from_dict(raw):
         if provider and not cfg["paid_features"][flag]:
             raise ConfigError(f"Selected provider requires paid_features.{flag}=true")
     for block in cfg["candidates"]["field_blocks"]:
-        if not isinstance(block, list) or not block or any(f not in fields for f in block):
+        if not isinstance(block, list) or not block:
             raise ConfigError("field_blocks must contain nonempty lists of configured fields")
+        for key in block:
+            if not isinstance(key, str):
+                raise ConfigError("Blocking keys must be field names or soundex/prefix3/year expressions")
+            if key in fields:
+                continue
+            match = re.fullmatch(r"(soundex|prefix3|year)\(([A-Za-z][A-Za-z0-9_]*)\)", key)
+            if not match or match[2] not in fields or (match[1] == "year" and fields[match[2]]["type"] != "date"):
+                raise ConfigError(f"Invalid blocking key: {key}")
     if any(m not in CHOICES["candidates.method"] - {"union"} for m in cfg["candidates"]["union_of"]):
         raise ConfigError("union_of must contain non-union candidate methods")
+    if len(cfg["candidates"]["union_of"]) != len(set(cfg["candidates"]["union_of"])):
+        raise ConfigError("union_of must contain unique methods")
     return Config(cfg)
 
 

@@ -3,7 +3,8 @@ Workspace: /Users/laurent.fabre/Projects/Claude/lakematch
 Profile explicitly selected: fevm-gdpr2. Never substitute another profile.
 Laurent waived quota/expiry prerequisites; finite runs, one remote experiment and cleanup still apply.
 
-ZR-1 passes source 66f76bd952fb: 71 tests in both modes, offline CLI, full FEBRL smoke, wheel/private checks.
+Checkpoint commit 6f859f4 (affected gates require refresh after new retrieval integration):
+ZR-1 passed source 66f76bd952fb: 71 tests in both modes, offline CLI, full FEBRL smoke, wheel/private checks.
 Original FEBRL smoke is 86.29 seconds with composite logging; it is not the ZR-3 latency/holdout gate.
 ZR-2 passes source 89407f97a43b after iteration 5/8 (unchanged integration verification).
 ZR-5 passes after iteration 3/8: composite models-from-code, IDF and label snapshots, signature, dataset
@@ -24,7 +25,21 @@ Remaining ENV: pipeline execution, deployed app/user-delegated Genie conversatio
 Next eligible work: ZR-3 method comparison/latency harness. Read bench/METHOD_PLAN.md, PROTOCOL.md and the brief.
 Every confirmation/test score remains untouched. Seed 2026091901 and bootstrap seed 2026091902 stay fixed.
 All data public/synthetic. No Zingg source/adapters. Mandatory dependencies pyspark, mlflow, pyyaml only.
-Methods still missing: learned blocker, field blocks, MinHash, union. Compare all required estimators,
+Learned blocker, field blocks, MinHash and union now pass offline CLI train/log/reload checks.
+17 focused regression tests passed. Retrieval iteration 1 now has all 90 method/scope outcomes
+across nine corpus configurations (bench/RETRIEVAL.md and retrieval_index.json). BPID gram/union
+exceed the unchanged 50-million join ceiling; the first failed run is preserved. The corrected
+harness records budget rejections and unavailable paired references. No defaults were promoted.
+A later runtime change adds owned-table truncation for clustering rounds. The completed retrieval
+results need compatibility refresh on the final source; do not claim all phase verifiers pass.
+Classifier iteration 2 is predeclared in bench/CLASSIFIER_PLAN.md; tools/methods_sweep.py runs it.
+New clustering/identity modules pass seven targeted Spark tests after fixing cache-lineage JVM
+heap exhaustion using owned-table round boundaries. All 98 tests pass in classic Spark and the identical Spark Connect suite, with no skips.
+Runs: 20260920T002727Z-expanded-classic-tests-f867fd and
+20260920T002836Z-expanded-connect-tests-12af1b. First classifier factorial is running.
+They are not yet integrated into the CLI or benchmarked on real corpora. Public clustering
+corpora and an isolated Splink environment are prepared; see bench/CLUSTER_PLAN.md.
+Compare all required estimators,
 string/cardinality choices; freeze selected models before confirmation; satisfy local <60-second gates.
 Clustering/identity, scale ladder, pipelines, APX and Genie remain pending; continue eligible work.
 Read bench/MODELS.md, ABLATION.md, ENGINE.md and experiments/runs.jsonl for measured evidence.

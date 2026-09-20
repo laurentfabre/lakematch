@@ -1,0 +1,36 @@
+{
+  "status": "prepared_not_benchmarked",
+  "manifest": {
+    "sources": [
+      {
+        "name": "historical_50k",
+        "url": "https://raw.githubusercontent.com/moj-analytical-services/splink_datasets/75876d806d9eff72072d21878150ee50a96d5f41/data/historical_figures_with_errors_50k.parquet",
+        "revision": "75876d806d9eff72072d21878150ee50a96d5f41",
+        "path": "data/sources/clustering/historical_figures_with_errors_50k.parquet",
+        "sha256": "b8b748402ff37b15c2d5e8a5b9374abe269b9d297aacb7f4c9498365b7cace43",
+        "provenance": "Public Wikidata historical figures with introduced duplicate errors, per Splink 4.0.16 metadata",
+        "license": "MIT repository distribution; original Wikidata source CC0"
+      },
+      {
+        "name": "febrl3",
+        "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+        "path": "data/sources/clustering/febrl3.csv",
+        "sha256": "5b0443f2568a0e258e52ab015b34fc1736a6ee1863086617f08b2e6997e92458",
+        "license": "BSD-3-Clause distribution"
+      },
+      {
+        "name": "febrl3_links",
+        "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+        "path": "data/sources/clustering/febrl3_links.json",
+        "sha256": "d85cd011c5f57f386feb2c27428883663ef08a1c858f9de418fca6be3a39bc99",
+        "license": "BSD-3-Clause distribution"
+      }
+    ]
+  },
+  "splink_environment": ".tools/splink-env",
+  "splink_requirements": "bench/requirements-splink.lock",
+  "splink_requirements_sha256": "d31e0b26ee2c082df9597aa9bd4b1fc0cae2065e45fd883f748dd2027ae3cc55",
+  "confirmation_scored": false,
+  "preparation_wall_seconds": null,
+  "observation": "Historical file has 50578 rows and 5156 entities. Old master-branch GitHub API request returned 422; repository metadata confirmed main, then immutable commit download succeeded."
+}

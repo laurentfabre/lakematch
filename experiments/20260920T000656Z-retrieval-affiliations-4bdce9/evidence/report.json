@@ -1,0 +1,603 @@
+{
+  "corpus": "affiliations",
+  "manifest": {
+    "source": "Leipzig affiliationstrings.zip",
+    "license": "CC BY 4.0",
+    "identity_components": 330,
+    "negative_sampling": "5 per anchor, same split, different released component",
+    "raw_sha256": {
+      "affiliationstrings_ids.csv": "884305d8fdc164cd86b3128efdfce2d1415875657d92644559001f3110daa886",
+      "affiliationstrings_mapping.csv": "9a3e1cb99b8b6d44f3ab3423efc10f46323371d2f1e5a241fb58c609f9f02770"
+    },
+    "split_method": "released identity components 60/20/20, SHA-256 ranking",
+    "duplicate_or_reversed_pairs_removed": 145,
+    "conflicting_pair_keys_excluded": 0,
+    "shared_records_between_splits": {
+      "confirmation/train": 0,
+      "confirmation/valid": 0,
+      "train/valid": 0
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "confirmation": 6896,
+      "train": 17078,
+      "valid": 3976
+    },
+    "corpus": "affiliations",
+    "seed": 2026091901,
+    "fields": {
+      "name": {
+        "type": "organisation"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/affiliations/left.jsonl",
+        "sha256": "3bdb23a83013e7eff14aaf1153a75f3a967657ea5b767c15e5155bf7114a01b0",
+        "rows": 2257
+      },
+      "right": {
+        "path": "data/bench/affiliations/right.jsonl",
+        "sha256": "74ce49499fe66b374027f440f209ea330fe00e7892dfa8de61f06ba082a14899",
+        "rows": 2255
+      },
+      "pairs": {
+        "path": "data/bench/affiliations/pairs.jsonl",
+        "sha256": "854397cd05955cb6ccdc5f987f45fe53fd7f7917bd1b1a18d51daece4cb9fbb5",
+        "rows": 27950
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "affiliations",
+      "id_column": "rec_id",
+      "fields": {
+        "name": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "name"
+        ],
+        [
+          "prefix3(name)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "auto",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "one_to_one"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:///mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "lakematch",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/METHOD_PLAN.md",
+  "scope": "validation labelled-positive recall only",
+  "scopes": {
+    "transductive": {
+      "scope": "transductive",
+      "left_records": 2257,
+      "right_records": 2255,
+      "validation_positives": 2118,
+      "original_validation_positives": 2118,
+      "training_overlapping_records_removed": [
+        0,
+        0
+      ],
+      "definition": "full unlabelled universe"
+    },
+    "disjoint": {
+      "scope": "disjoint",
+      "left_records": 373,
+      "right_records": 373,
+      "validation_positives": 2118,
+      "original_validation_positives": 2118,
+      "training_overlapping_records_removed": [
+        0,
+        0
+      ],
+      "definition": "validation records only, excluding canonical records seen on either training side"
+    }
+  },
+  "iteration": 1,
+  "confirmation_scored": false,
+  "unlabelled_pairs_are_negatives": false,
+  "methods": [
+    {
+      "method": "gram_topk",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 0.24173748819641172,
+      "covered_positives": 512,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 30280533,
+        "join_rows_after_cap": 7376117,
+        "dropped_grams": 35,
+        "candidate_pairs": 11262,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0006616250611841679,
+      "retrieval_seconds": 13.676604666979983,
+      "fitted_state": "data/retrieval/affiliations/gram_topk_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.2165982672138623,
+        0.27004655975168135
+      ],
+      "paired_recall_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "gram_topk",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 0.26345609065155806,
+      "covered_positives": 558,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 1114758,
+        "join_rows_after_cap": 1114758,
+        "dropped_grams": 0,
+        "candidate_pairs": 1865,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0006616250611841679,
+      "retrieval_seconds": 2.7374269580468535,
+      "fitted_state": "data/retrieval/affiliations/gram_topk_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.2358744394618834,
+        0.2954796030871003
+      ],
+      "paired_recall_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "learned_blocker",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 0.12086874409820586,
+      "covered_positives": 256,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 335556,
+        "join_rows_after_cap": 124875,
+        "dropped_grams": 1,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 8474,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 1.4514304160838947,
+      "retrieval_seconds": 2.027428250061348,
+      "fitted_state": "data/retrieval/affiliations/learned_blocker_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.10052219321148825,
+        0.1441717791411043
+      ],
+      "paired_recall_delta_95ci": [
+        -0.14140386571719227,
+        -0.10176779741997133
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "learned_blocker",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 0.20113314447592068,
+      "covered_positives": 426,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 14808,
+        "join_rows_after_cap": 14808,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 1539,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 1.4514304160838947,
+      "retrieval_seconds": 0.6526554999873042,
+      "fitted_state": "data/retrieval/affiliations/learned_blocker_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.1788842784693407,
+        0.22615675165250235
+      ],
+      "paired_recall_delta_95ci": [
+        -0.08189216683621567,
+        -0.0448744339234253
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "minhash_lsh",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 0.21954674220963172,
+      "covered_positives": 465,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 1336196,
+        "join_rows_after_cap": 625913,
+        "dropped_grams": 2,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 11194,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.874437041929923,
+      "retrieval_seconds": 6.381921874941327,
+      "fitted_state": "data/retrieval/affiliations/minhash_lsh_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.19644405897658282,
+        0.2443237907206318
+      ],
+      "paired_recall_delta_95ci": [
+        -0.03596730245231611,
+        -0.009644892590968873
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "minhash_lsh",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 0.2516525023607177,
+      "covered_positives": 533,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 51224,
+        "join_rows_after_cap": 51224,
+        "dropped_grams": 0,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 1837,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.874437041929923,
+      "retrieval_seconds": 1.1409731669118628,
+      "fitted_state": "data/retrieval/affiliations/minhash_lsh_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.22467357046375508,
+        0.2793522267206478
+      ],
+      "paired_recall_delta_95ci": [
+        -0.023326572008113583,
+        -0.0024119633381572414
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "field_blocks",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 0.12086874409820586,
+      "covered_positives": 256,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 335556,
+        "join_rows_after_cap": 124875,
+        "dropped_grams": 1,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 8474,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0003491670358926058,
+      "retrieval_seconds": 1.9683785000815988,
+      "fitted_state": "data/retrieval/affiliations/field_blocks_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.10052219321148825,
+        0.1441717791411043
+      ],
+      "paired_recall_delta_95ci": [
+        -0.14140386571719227,
+        -0.10176779741997133
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "field_blocks",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 0.20113314447592068,
+      "covered_positives": 426,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 14808,
+        "join_rows_after_cap": 14808,
+        "dropped_grams": 0,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 1539,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0003491670358926058,
+      "retrieval_seconds": 0.6184435420436785,
+      "fitted_state": "data/retrieval/affiliations/field_blocks_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.1788842784693407,
+        0.22615675165250235
+      ],
+      "paired_recall_delta_95ci": [
+        -0.08189216683621567,
+        -0.0448744339234253
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "union",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 0.23465533522190746,
+      "covered_positives": 497,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 30616089,
+        "join_rows_after_cap": 7500992,
+        "dropped_grams": 36,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 11262,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0016806669300422072,
+      "retrieval_seconds": 23.753063832991756,
+      "fitted_state": "data/retrieval/affiliations/union_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.20987124463519313,
+        0.2619532044760936
+      ],
+      "paired_recall_delta_95ci": [
+        -0.015289058767319619,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    },
+    {
+      "method": "union",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 0.25731822474032107,
+      "covered_positives": 545,
+      "validation_positives": 2118,
+      "budget": {
+        "join_rows_before_cap": 1129566,
+        "join_rows_after_cap": 1129566,
+        "dropped_grams": 0,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 1865,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0016806669300422072,
+      "retrieval_seconds": 10.785583375021815,
+      "fitted_state": "data/retrieval/affiliations/union_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.22950126796280643,
+        0.2866632600919775
+      ],
+      "paired_recall_delta_95ci": [
+        -0.014028056112224463,
+        0.001067235859124882
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 307
+    }
+  ],
+  "status": "completed",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "field_blocks.disjoint.plan.txt": "ccf4f69b169f3949ed387f2deed397b8994bb44502b337b2c5e72c7281b28a25",
+    "field_blocks.disjoint.predictions.json": "1924cd458956b917d6fade53585ada4d5a59eada49b94cc0c63c4c5dc2715ec4",
+    "field_blocks.transductive.plan.txt": "f4dff8b63eb045546a74596d5fb9127da7f7365fdb452aa87dddc17d9833b8cf",
+    "field_blocks.transductive.predictions.json": "7cb807c4cadb0cad9c308fb70c14a10c09a139675e45b02e87421e40e2c49cd5",
+    "field_blocks_state/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "gram_topk.disjoint.plan.txt": "5fdc704ca3a2f5bb8fff9c03df71f45f2793c8937d129abecf859483e925d06b",
+    "gram_topk.disjoint.predictions.json": "fd53a03d3120a90e053232066959ec01c5d6788407091a9eb1ee33f6b0741ef8",
+    "gram_topk.transductive.plan.txt": "b0420fcffe91a109d8cb38be43c7a8ab32b5d5b70ee9c21e582cbb7592546731",
+    "gram_topk.transductive.predictions.json": "ee6dad3832c1416f1871f1766112b78cb30357354736498e271e6386435ed987",
+    "gram_topk_state/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "learned_blocker.disjoint.plan.txt": "62552cbccff3333dbbd01ebce4ac76df3ed28d097312f0f952cdacb562bfc6ab",
+    "learned_blocker.disjoint.predictions.json": "1924cd458956b917d6fade53585ada4d5a59eada49b94cc0c63c4c5dc2715ec4",
+    "learned_blocker.transductive.plan.txt": "1c0ba293481f225a69e6777a9acb90d108f776733e25ab55186ccd400bc4600c",
+    "learned_blocker.transductive.predictions.json": "7cb807c4cadb0cad9c308fb70c14a10c09a139675e45b02e87421e40e2c49cd5",
+    "learned_blocker_state/state.json": "7d8c9fc5a8edb2cc76f398b0db3ecc18c98a28a504b4f88b8fd199f7fd1d410f",
+    "minhash_lsh.disjoint.plan.txt": "d96061e4f94734eeac48551791fa7d1ab6f9b09b8531a9a57027c87243bd91e6",
+    "minhash_lsh.disjoint.predictions.json": "8e871f0a46d9b8e8ef326a084cfcc71957d30922006d368fdd0537fcaf991573",
+    "minhash_lsh.transductive.plan.txt": "ed5786ec3dd008578a66a4c6f818ea850ea0fe827fa30f1a7f54bb0b94214319",
+    "minhash_lsh.transductive.predictions.json": "f38a09dd4e75615e41cb22199a614c766bec907b4b46fbef1e8299fe1dbaf142",
+    "minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/data/.part-00000-67e952c3-96b4-47f6-b54c-192944cdd619-c000.snappy.parquet.crc": "f73bb77955d1a5904490dcb1233329359dae92f622e13f1be4f6015bb3134ee2",
+    "minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/data/part-00000-67e952c3-96b4-47f6-b54c-192944cdd619-c000.snappy.parquet": "571ab512830d5a8afba8e9fc6726242d2a61b5eaabb5c40e11ca2b8840ed56bd",
+    "minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/metadata/.part-00000-daef207e-32e3-484f-a64d-09c42fc118df-c000.txt.crc": "bdc8fcc717355078dc8b1b453c7afa84ff6849dce3fbf37cf999c71d2f37f6a2",
+    "minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/metadata/part-00000-daef207e-32e3-484f-a64d-09c42fc118df-c000.txt": "075bde57043adcdc08ec127a618bde628a876bba5fabc4e86940336332c95668",
+    "minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+    "union.disjoint.plan.txt": "01ec34cf717a6f5b0dd59eae5923bdf765faaedc30c62bcaa9c336ff5f110325",
+    "union.disjoint.predictions.json": "eabd386f0f09fda3a9a8765c9d8b7f83119748c06aaeb26d1da5b406f59b42e1",
+    "union.transductive.plan.txt": "25cb30dfedea5c10a7883903235c4e60a5f3bcc9273ef3aaeaa469b03c86cb7f",
+    "union.transductive.predictions.json": "f309b0149cc269e0ba0b5fa598a2c7dea2591c5668d6467ac711275732e85e66",
+    "union_state/field_blocks/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "union_state/gram_topk/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "union_state/state.json": "4d678a47cb49bd3b25debc72cfcefc11e6853481ed57ca9d0b85bde533da3c07"
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 83.13516470894683
+}

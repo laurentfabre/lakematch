@@ -151,6 +151,12 @@ def test_materialization_cache_and_table_cleanup(spark, config):
         table = m.events[-1]["table"]
         assert spark.catalog.tableExists(table)
     assert not spark.catalog.tableExists(table)
+    # Iterative algorithms must truncate lineage even when caching is supported.
+    with Materializer(spark, config, capabilities) as m:
+        assert m.materialize(spark.range(3), "round_test", truncate=True).count() == 3
+        table = m.events[-1]["table"]
+        assert m.events[-1]["strategy"] == "table" and spark.catalog.tableExists(table)
+    assert not spark.catalog.tableExists(table)
 
 
 @pytest.mark.parametrize("estimator", ["gbt", "logistic_regression", "random_forest"])

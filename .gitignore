@@ -20,6 +20,7 @@ experiments/*/*profile*
 experiments/*/artifacts/
 experiments/*/evidence/*.predictions.json
 experiments/*/evidence/*.plan.txt
+experiments/*/evidence/*-evidence.tar.gz
 
 # Local toolchains, build outputs and Spark state.
 .tools/

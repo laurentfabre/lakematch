@@ -39,7 +39,7 @@ def test_databricks_defaults_and_disabled_paid_features():
 
 
 def test_future_method_is_never_silently_replaced():
-    cfg = from_dict({**base(), "candidates": {"method": "learned_blocker"}})
+    cfg = from_dict({**base(), "profile": "databricks", "quality": {"engine": "dqx"}})
     with pytest.raises(MethodUnavailable, match="not implemented"):
         cfg.require_implemented()
 

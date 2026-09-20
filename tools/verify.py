@@ -22,7 +22,7 @@ def verify_tracking():
     for kind, specific in {
         "tracking-train": {"tools/offline.sb", "tools/offline_run.py"},
         "tracking-reload": {"tools/offline.sb", "tools/offline_run.py"},
-        "tracking-cli": {"src/lakematch/engine.py", "src/lakematch/candidates.py", "src/lakematch/cli.py",
+        "tracking-cli": {"src/lakematch/engine.py", "src/lakematch/candidates.py", "src/lakematch/blocking.py", "src/lakematch/cli.py",
                          "src/lakematch/quality/native.py", "src/lakematch/quality/__init__.py", "tools/tracking_cli_check.py"},
         "tracking-serverless": {"tools/run_tracking_remote.py", "tools/tracking_notebook.py"},
     }.items():

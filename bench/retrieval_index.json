@@ -1,0 +1,69 @@
+{
+  "status": "retrieval_comparison_completed",
+  "confirmation_scored": false,
+  "runs": {
+    "febrl4-all": {
+      "run_id": "20260920T001441Z-retrieval-febrl4-all-282fbe",
+      "manifest": "experiments/20260920T001441Z-retrieval-febrl4-all-282fbe/manifest.json",
+      "report": "experiments/20260920T001441Z-retrieval-febrl4-all-282fbe/evidence/report.json",
+      "report_sha256": "7ee89f375f1c98c16189c939b0e616c76074d9d27535d1bd3ac45b5bdf0539a1"
+    },
+    "febrl4-no_ssn": {
+      "run_id": "20260920T001718Z-retrieval-febrl4-no_ssn-ec74ee",
+      "manifest": "experiments/20260920T001718Z-retrieval-febrl4-no_ssn-ec74ee/manifest.json",
+      "report": "experiments/20260920T001718Z-retrieval-febrl4-no_ssn-ec74ee/evidence/report.json",
+      "report_sha256": "06018743719d71df0a29b9026edc3cfef3e401ecdc7e1433b79f055a800b37e8"
+    },
+    "febrl4-no_ssn_dob": {
+      "run_id": "20260920T001953Z-retrieval-febrl4-no_ssn_dob-d4d9c9",
+      "manifest": "experiments/20260920T001953Z-retrieval-febrl4-no_ssn_dob-d4d9c9/manifest.json",
+      "report": "experiments/20260920T001953Z-retrieval-febrl4-no_ssn_dob-d4d9c9/evidence/report.json",
+      "report_sha256": "cb8442906560e0afda02f2a40996ae4ffea4f3c35d9ae3eabe329bdcf08a4feb"
+    },
+    "bpid": {
+      "run_id": "20260920T000205Z-retrieval-bpid-a44b4e",
+      "manifest": "experiments/20260920T000205Z-retrieval-bpid-a44b4e/manifest.json",
+      "report": "experiments/20260920T000205Z-retrieval-bpid-a44b4e/evidence/report.json",
+      "report_sha256": "c9b8b71237c9927c20430d765830fbbb70a0f1e9a5bc715b94ffd31916c9880d"
+    },
+    "abt_buy": {
+      "run_id": "20260920T000535Z-retrieval-abt_buy-627b18",
+      "manifest": "experiments/20260920T000535Z-retrieval-abt_buy-627b18/manifest.json",
+      "report": "experiments/20260920T000535Z-retrieval-abt_buy-627b18/evidence/report.json",
+      "report_sha256": "1fdfaa5e22cd0fb03b141c80393be786d848d2c9bb2e93855c3fbc4ccc33d2ff"
+    },
+    "affiliations": {
+      "run_id": "20260920T000656Z-retrieval-affiliations-4bdce9",
+      "manifest": "experiments/20260920T000656Z-retrieval-affiliations-4bdce9/manifest.json",
+      "report": "experiments/20260920T000656Z-retrieval-affiliations-4bdce9/evidence/report.json",
+      "report_sha256": "1a273fe23b642dd02d52b5505eafbd2d758788888f2f86c92cf592c9c82695d6"
+    },
+    "amazon_google": {
+      "run_id": "20260920T000820Z-retrieval-amazon_google-46f6b9",
+      "manifest": "experiments/20260920T000820Z-retrieval-amazon_google-46f6b9/manifest.json",
+      "report": "experiments/20260920T000820Z-retrieval-amazon_google-46f6b9/evidence/report.json",
+      "report_sha256": "0866434fcd35687ef60c52fa7ff475a69433c39a72f20cecd22e709255f7289d"
+    },
+    "walmart_amazon": {
+      "run_id": "20260920T000926Z-retrieval-walmart_amazon-08ad29",
+      "manifest": "experiments/20260920T000926Z-retrieval-walmart_amazon-08ad29/manifest.json",
+      "report": "experiments/20260920T000926Z-retrieval-walmart_amazon-08ad29/evidence/report.json",
+      "report_sha256": "8da52fd45b4e580dc7628d4b257265ae46fe8050e049019714526c18df6765df"
+    },
+    "dblp_acm": {
+      "run_id": "20260920T001142Z-retrieval-dblp_acm-ce6afb",
+      "manifest": "experiments/20260920T001142Z-retrieval-dblp_acm-ce6afb/manifest.json",
+      "report": "experiments/20260920T001142Z-retrieval-dblp_acm-ce6afb/evidence/report.json",
+      "report_sha256": "72358a6080aba65f6602f5a317b7265682340d694eb218e5db27b1762fb025aa"
+    }
+  },
+  "failures": [
+    {
+      "run_id": "20260919T235548Z-retrieval-bpid-68711e",
+      "status": "failed",
+      "manifest": "experiments/20260919T235548Z-retrieval-bpid-68711e/manifest.json"
+    }
+  ],
+  "missing": [],
+  "compatibility_note": "Runtime materialization gained an owned-table truncation option after these runs; strict final-source compatibility refresh is pending."
+}

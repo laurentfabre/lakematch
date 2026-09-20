@@ -5,7 +5,8 @@ import time
 
 from pyspark.sql import functions as F
 
-from . import candidates, decision, embeddings, entity, features, feature_stats, matcher, tracking
+from . import blocking, candidates, decision, embeddings, entity, features, feature_stats, matcher, tracking
+from .config import from_dict
 from .quality import apply_and_split
 from .runtime import Materializer, create_session, probe
 
@@ -55,6 +56,7 @@ def execute(config, *, command="run"):
             labels = None
             evaluation_labels = None
             model_record, loaded = None, None
+            candidate_state, state_path = None, None
             if training:
                 if not config["input"]["labels"]:
                     raise ValueError("Training requires input.labels")
@@ -68,11 +70,21 @@ def execute(config, *, command="run"):
             else:
                 uri = tracking.resolve_model(config, config["model"]["pointer"])
                 loaded = tracking.load_composite(uri, config, model_path / "loaded").unwrap_python_model()
-                if loaded.contract["feature_order"] != features.feature_order(config) or any(
-                    loaded.contract["config"][key] != config[key] for key in ("entity", "candidates", "features", "decision")):
+                frozen = from_dict(loaded.contract["config"])
+                if (frozen.fields != config.fields or loaded.contract["feature_order"] != features.feature_order(config) or any(
+                    frozen[key] != config[key] for key in ("entity", "candidates", "features", "decision"))):
                     raise ValueError("Model contract differs from scoring config")
                 model = loaded.native_model(spark)
                 model_record = {"model_uri": uri, "registry": config["mlflow"]["registry"]}
+            if blocking.needs_state(config):
+                if training:
+                    training_records = [frame.join(labels.select(F.col(key).alias("rec_id")).distinct(), "rec_id", "semi")
+                                        for frame, key in ((left, "a_id"), (right, "b_id"))]
+                    candidate_state = blocking.prepare_state(*training_records, labels, config)
+                    state_path = str(model_path.resolve() / "retriever")
+                    blocking.save_state(candidate_state, state_path)
+                else:
+                    candidate_state = blocking.load_state(loaded.artifacts["retriever"])
             if "idf_token_cosine" in config["features"]["multi_token"]:
                 vocab_path = str(model_path.resolve() / "idf")
                 if training:
@@ -91,7 +103,7 @@ def execute(config, *, command="run"):
                     Path(config["output"]["root"]) / "embeddings" / f"{side}.jsonl")
                 prepared.append(frame)
             left, right = prepared
-            candidate_plan = candidates.build(left, right, config)
+            candidate_plan = candidates.build(left, right, config, state=candidate_state)
             budget = candidate_plan.validate_budget()
             comparisons = materializer.materialize(features.build(candidate_plan.pairs, left, right, config), "features")
             if training:
@@ -105,7 +117,8 @@ def execute(config, *, command="run"):
                 example = tracking.pair_snapshot(comparisons.orderBy("a_id", "b_id").limit(5), quality[0].valid, quality[1].valid, config)
                 model_record = tracking.log_composite(model, config, labels=label_rows, input_example=example,
                     experiment=config["mlflow"]["experiment"], staging_root=model_path / "staging",
-                    idf_path=vocab_path if "idf_token_cosine" in config["features"]["multi_token"] else None)
+                    idf_path=vocab_path if "idf_token_cosine" in config["features"]["multi_token"] else None,
+                    candidate_state_path=state_path)
             scored = matcher.score(comparisons, model)
             result = decision.links(scored, config)
             if training:

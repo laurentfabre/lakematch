@@ -107,13 +107,19 @@ class Materializer:
     def __enter__(self):
         return self
 
-    def materialize(self, frame, name):
+    def materialize(self, frame, name, *, truncate=False):
+        """Use an owned table when a round needs a genuinely truncated plan.
+
+        Cache preserves logical lineage, so repeated self-joins can still grow
+        exponentially. Tables give both classic and Connect a fresh relation and
+        share the existing owned-table cleanup, including failed writes.
+        """
         if not re.fullmatch(r"[a-zA-Z][a-zA-Z0-9_]*", name):
             raise ValueError("Materialization name must be a simple identifier")
         mode = self.config["runtime"]["materialize"]
         if mode == "cache" and not self.capabilities.cache:
             raise RuntimeError("Caching was explicitly requested but the capability probe rejected it")
-        if mode != "table" and self.capabilities.cache:
+        if mode != "table" and self.capabilities.cache and not truncate:
             result = frame.cache()
             self.cached.append(result)
             result.count()

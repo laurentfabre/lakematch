@@ -6,11 +6,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def sha256(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    with Path(path).open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
 LOCAL_TOOLS = {"accept_zr1.py", "connect_tests.py", "evidence.py", "experiment.py", "offline.sb",
-               "offline_run.py", "package_check.py", "prepare_febrl.py", "verify.py"}
+               "offline_run.py", "package_check.py", "prepare_febrl.py", "verify.py",
+               "run_methods.py", "report_methods.py", "spark_event_metrics.py"}
 
 
 def source_files(phase=None):
@@ -20,7 +22,7 @@ def source_files(phase=None):
                   "__pycache__" not in p.parts and p.suffix in {".py", ".yaml", ".csv", ".sb"} and
                   (phase != "ZR-1" or directory != "tools" or p.name in LOCAL_TOOLS)]
     if phase != "ZR-1":
-        paths += [ROOT / "bench" / n for n in ("PROTOCOL.md", "ABLATION_PLAN.md")]
+        paths += [ROOT / "bench" / n for n in ("PROTOCOL.md", "ABLATION_PLAN.md", "METHOD_PLAN.md", "CLASSIFIER_PLAN.md", "CLUSTER_PLAN.md", "requirements-splink.lock")]
     return [p for p in sorted(set(paths)) if p.exists()]
 
 

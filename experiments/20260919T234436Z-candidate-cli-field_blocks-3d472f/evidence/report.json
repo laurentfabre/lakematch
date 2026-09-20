@@ -1,0 +1,179 @@
+{
+  "status": "completed",
+  "commands": [
+    [
+      "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+      "-m",
+      "lakematch.cli",
+      "train",
+      "--config",
+      "/Users/laurent.fabre/Projects/Claude/lakematch/data/candidate-cli/field_blocks/train.yaml"
+    ],
+    [
+      "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+      "-m",
+      "lakematch.cli",
+      "run",
+      "--config",
+      "/Users/laurent.fabre/Projects/Claude/lakematch/data/candidate-cli/field_blocks/run.yaml"
+    ]
+  ],
+  "confirmation_scored": false,
+  "train": {
+    "capabilities": {
+      "spark_version": "4.1.3",
+      "connect": false,
+      "cache": true,
+      "cache_observation": "cache and count succeeded",
+      "photon": "untested: requires query-profile evidence"
+    },
+    "candidate_budget": {
+      "join_rows_before_cap": 64,
+      "join_rows_after_cap": 64,
+      "dropped_grams": 0,
+      "method": "field_blocks",
+      "score": "exact unweighted gram-set cosine after retrieval",
+      "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+      "candidate_pairs": 64,
+      "max_join_rows": 10000,
+      "max_pairs": 100
+    },
+    "links": 8,
+    "quarantine": {
+      "left": 0,
+      "right": 0
+    },
+    "embedding_preparation": {
+      "left": {
+        "status": "disabled",
+        "records": 0
+      },
+      "right": {
+        "status": "disabled",
+        "records": 0
+      }
+    },
+    "enabled_paid_features": {},
+    "materialization": [
+      {
+        "name": "left",
+        "strategy": "cache"
+      },
+      {
+        "name": "right",
+        "strategy": "cache"
+      },
+      {
+        "name": "idf",
+        "strategy": "cache"
+      },
+      {
+        "name": "weighted_left",
+        "strategy": "cache"
+      },
+      {
+        "name": "weighted_right",
+        "strategy": "cache"
+      },
+      {
+        "name": "features",
+        "strategy": "cache"
+      }
+    ],
+    "model": {
+      "run_id": "0e2ec197bacd444693f01682d505bc84",
+      "model_uri": "runs:/0e2ec197bacd444693f01682d505bc84/model",
+      "logged_model_uri": "models:/m-e34c3c9efdb1480fb2cffc5bd082e479",
+      "label_set_sha256": "e6cf0d463c10ce9431cc78751c43f00fa5beb236e053a221deca4b6cf47c7e27",
+      "artifact_bytes": 153924,
+      "registry": false,
+      "evaluation": {
+        "true_negatives": 12.0,
+        "false_positives": 0.0,
+        "false_negatives": 0.0,
+        "true_positives": 4.0,
+        "example_count": 16.0,
+        "accuracy_score": 1.0,
+        "recall_score": 1.0,
+        "precision_score": 1.0,
+        "f1_score": 1.0,
+        "pairwise_precision": 1.0,
+        "pairwise_recall": 1.0,
+        "pairwise_f1": 1.0
+      },
+      "accepted": true
+    },
+    "cleanup": "succeeded",
+    "wall_seconds_including_spark_start_stop": 17.49310449999757
+  },
+  "run": {
+    "capabilities": {
+      "spark_version": "4.1.3",
+      "connect": false,
+      "cache": true,
+      "cache_observation": "cache and count succeeded",
+      "photon": "untested: requires query-profile evidence"
+    },
+    "candidate_budget": {
+      "join_rows_before_cap": 64,
+      "join_rows_after_cap": 64,
+      "dropped_grams": 0,
+      "method": "field_blocks",
+      "score": "exact unweighted gram-set cosine after retrieval",
+      "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+      "candidate_pairs": 64,
+      "max_join_rows": 10000,
+      "max_pairs": 100
+    },
+    "links": 8,
+    "quarantine": {
+      "left": 0,
+      "right": 0
+    },
+    "embedding_preparation": {
+      "left": {
+        "status": "disabled",
+        "records": 0
+      },
+      "right": {
+        "status": "disabled",
+        "records": 0
+      }
+    },
+    "enabled_paid_features": {},
+    "materialization": [
+      {
+        "name": "left",
+        "strategy": "cache"
+      },
+      {
+        "name": "right",
+        "strategy": "cache"
+      },
+      {
+        "name": "idf",
+        "strategy": "cache"
+      },
+      {
+        "name": "weighted_left",
+        "strategy": "cache"
+      },
+      {
+        "name": "weighted_right",
+        "strategy": "cache"
+      },
+      {
+        "name": "features",
+        "strategy": "cache"
+      }
+    ],
+    "model": {
+      "model_uri": "runs:/0e2ec197bacd444693f01682d505bc84/model",
+      "registry": false
+    },
+    "cleanup": "succeeded",
+    "wall_seconds_including_spark_start_stop": 11.002816874999553
+  },
+  "cleanup": "succeeded",
+  "fresh_cli_prediction_equivalence": true
+}

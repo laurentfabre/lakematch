@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Exercise train -> accepted pointer -> fresh CLI scoring on synthetic data."""
 import csv
+import argparse
 import json
 from pathlib import Path
 import subprocess
@@ -11,9 +12,9 @@ import yaml
 from offline_run import assert_offline
 
 
-def main():
+def main(method="gram_topk"):
     assert_offline()
-    root = Path("data/tracking-cli").resolve()
+    root = Path("data/tracking-cli" if method == "gram_topk" else f"data/candidate-cli/{method}").resolve()
     root.mkdir(parents=True, exist_ok=True)
     for side, prefix in (("left", "a"), ("right", "b")):
         with (root / f"{side}.csv").open("w") as stream:
@@ -34,6 +35,8 @@ def main():
            "mlflow": {"tracking_uri": f"sqlite:///{root}/mlflow.db", "acceptance_f1": 1.},
            "model": {"path": str(root / "scratch_model"), "pointer": str(root / "models/current.json")},
            "output": {"root": str(root / "train_output")}}
+    cfg["candidates"].update(method=method, field_blocks=[["prefix3(name)"]],
+        union_of=["field_blocks", "minhash_lsh"] if method == "union" else [])
     report = {"status": "running", "commands": [], "confirmation_scored": False}
     for mode in ("train", "run"):
         if mode == "run":
@@ -58,4 +61,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--candidate-method", choices=["gram_topk", "field_blocks", "learned_blocker", "minhash_lsh", "union"], default="gram_topk")
+    main(parser.parse_args().candidate_method)

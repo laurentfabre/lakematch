@@ -1,0 +1,686 @@
+{
+  "corpus": "febrl4_half_all",
+  "manifest": {
+    "source": "recordlinkage 0.16 FEBRL4",
+    "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+    "split_method": "SHA-256 ranked whole truth entities 3000/1000/1000; independent namespaced partner-removal ranking",
+    "exposure": "Historical corpus and 80 smoke anchors exposed; new split/removal outcomes, not independent population",
+    "universe": "5000 left / 2500 right; full-universe transductive candidates; supervised IDF fits train only",
+    "hidden_fields": [],
+    "closed_world_truth": true,
+    "corpus": "febrl4_half_all",
+    "seed": 2026091901,
+    "fields": {
+      "given_name": {
+        "type": "person_name"
+      },
+      "surname": {
+        "type": "person_name"
+      },
+      "street_number": {
+        "type": "code"
+      },
+      "address_1": {
+        "type": "address"
+      },
+      "address_2": {
+        "type": "address"
+      },
+      "suburb": {
+        "type": "address"
+      },
+      "postcode": {
+        "type": "code"
+      },
+      "state": {
+        "type": "code"
+      },
+      "date_of_birth": {
+        "type": "date",
+        "date_format": "yyyyMMdd"
+      },
+      "soc_sec_id": {
+        "type": "code"
+      }
+    },
+    "retrieval": true,
+    "files": {
+      "left": {
+        "path": "data/bench/febrl4_half_all/left.jsonl",
+        "sha256": "e63cf16cbfec77c5a8ab04c0930edce6317b6a9342acff89161aca9816f64fd9",
+        "rows": 5000
+      },
+      "right": {
+        "path": "data/bench/febrl4_half_all/right.jsonl",
+        "sha256": "0d8cf31c830e8a0e58035e4b8fef43f85079e3484b8ba5b4bb3119254788628b",
+        "rows": 2500
+      },
+      "pairs": {
+        "path": "data/bench/febrl4_half_all/pairs.jsonl",
+        "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+        "rows": 2500
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "febrl4_half_all",
+      "id_column": "rec_id",
+      "fields": {
+        "given_name": {
+          "type": "person_name"
+        },
+        "surname": {
+          "type": "person_name"
+        },
+        "street_number": {
+          "type": "code"
+        },
+        "address_1": {
+          "type": "address"
+        },
+        "address_2": {
+          "type": "address"
+        },
+        "suburb": {
+          "type": "address"
+        },
+        "postcode": {
+          "type": "code"
+        },
+        "state": {
+          "type": "code"
+        },
+        "date_of_birth": {
+          "type": "date",
+          "date_format": "yyyyMMdd"
+        },
+        "soc_sec_id": {
+          "type": "code"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "given_name"
+        ],
+        [
+          "soundex(given_name)"
+        ],
+        [
+          "surname"
+        ],
+        [
+          "soundex(surname)"
+        ],
+        [
+          "street_number"
+        ],
+        [
+          "address_1"
+        ],
+        [
+          "prefix3(address_1)"
+        ],
+        [
+          "address_2"
+        ],
+        [
+          "prefix3(address_2)"
+        ],
+        [
+          "suburb"
+        ],
+        [
+          "prefix3(suburb)"
+        ],
+        [
+          "postcode"
+        ],
+        [
+          "state"
+        ],
+        [
+          "date_of_birth"
+        ],
+        [
+          "year(date_of_birth)"
+        ],
+        [
+          "soc_sec_id"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "auto",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "one_to_one"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:///mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "lakematch",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/METHOD_PLAN.md",
+  "scope": "validation labelled-positive recall only",
+  "scopes": {
+    "transductive": {
+      "scope": "transductive",
+      "left_records": 5000,
+      "right_records": 2500,
+      "validation_positives": 500,
+      "original_validation_positives": 500,
+      "training_overlapping_records_removed": [
+        0,
+        0
+      ],
+      "definition": "full unlabelled universe"
+    },
+    "disjoint": {
+      "scope": "disjoint",
+      "left_records": 1000,
+      "right_records": 500,
+      "validation_positives": 500,
+      "original_validation_positives": 500,
+      "training_overlapping_records_removed": [
+        0,
+        0
+      ],
+      "definition": "validation records only, excluding canonical records seen on either training side"
+    }
+  },
+  "iteration": 1,
+  "confirmation_scored": false,
+  "unlabelled_pairs_are_negatives": false,
+  "methods": [
+    {
+      "method": "gram_topk",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 1.0,
+      "covered_positives": 500,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 71355234,
+        "join_rows_after_cap": 17252022,
+        "dropped_grams": 114,
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0005397920031100512,
+      "retrieval_seconds": 30.1820495830616,
+      "fitted_state": "data/retrieval/febrl4_half_all/gram_topk_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_recall_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "gram_topk",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 1.0,
+      "covered_positives": 500,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 2877187,
+        "join_rows_after_cap": 1882862,
+        "dropped_grams": 7,
+        "candidate_pairs": 5000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0005397920031100512,
+      "retrieval_seconds": 4.429425333044492,
+      "fitted_state": "data/retrieval/febrl4_half_all/gram_topk_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_recall_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "learned_blocker",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 0.998,
+      "covered_positives": 499,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 10133,
+        "join_rows_after_cap": 10133,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 6412,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 1.9741616660030559,
+      "retrieval_seconds": 1.4367134580388665,
+      "fitted_state": "data/retrieval/febrl4_half_all/learned_blocker_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.994,
+        1.0
+      ],
+      "paired_recall_delta_95ci": [
+        -0.006000000000000005,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "learned_blocker",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 0.998,
+      "covered_positives": 499,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 1365,
+        "join_rows_after_cap": 1365,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 660,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 1.9741616660030559,
+      "retrieval_seconds": 0.6515729170059785,
+      "fitted_state": "data/retrieval/febrl4_half_all/learned_blocker_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.994,
+        1.0
+      ],
+      "paired_recall_delta_95ci": [
+        -0.006000000000000005,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "minhash_lsh",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 0.978,
+      "covered_positives": 489,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 1624475,
+        "join_rows_after_cap": 642249,
+        "dropped_grams": 6,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 24917,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.8739844580413774,
+      "retrieval_seconds": 11.975441333954223,
+      "fitted_state": "data/retrieval/febrl4_half_all/minhash_lsh_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.964,
+        0.99
+      ],
+      "paired_recall_delta_95ci": [
+        -0.03600000000000003,
+        -0.010000000000000009
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "minhash_lsh",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 0.992,
+      "covered_positives": 496,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 67300,
+        "join_rows_after_cap": 67300,
+        "dropped_grams": 0,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 4985,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.8739844580413774,
+      "retrieval_seconds": 2.3037916659377515,
+      "fitted_state": "data/retrieval/febrl4_half_all/minhash_lsh_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        0.984,
+        0.998
+      ],
+      "paired_recall_delta_95ci": [
+        -0.016000000000000014,
+        -0.0020000000000000018
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "field_blocks",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 1.0,
+      "covered_positives": 500,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 3402522,
+        "join_rows_after_cap": 758568,
+        "dropped_grams": 4,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0003589169355109334,
+      "retrieval_seconds": 8.332307624979876,
+      "fitted_state": "data/retrieval/febrl4_half_all/field_blocks_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_recall_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "field_blocks",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 1.0,
+      "covered_positives": 500,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 137236,
+        "join_rows_after_cap": 137236,
+        "dropped_grams": 0,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 5000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0003589169355109334,
+      "retrieval_seconds": 2.1192827499471605,
+      "fitted_state": "data/retrieval/febrl4_half_all/field_blocks_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_recall_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "union",
+      "scope": "transductive",
+      "status": "completed",
+      "candidate_recall": 1.0,
+      "covered_positives": 500,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 74757756,
+        "join_rows_after_cap": 18010590,
+        "dropped_grams": 118,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0012516670394688845,
+      "retrieval_seconds": 54.99885987502057,
+      "fitted_state": "data/retrieval/febrl4_half_all/union_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_recall_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    },
+    {
+      "method": "union",
+      "scope": "disjoint",
+      "status": "completed",
+      "candidate_recall": 1.0,
+      "covered_positives": 500,
+      "validation_positives": 500,
+      "budget": {
+        "join_rows_before_cap": 3014423,
+        "join_rows_after_cap": 2020098,
+        "dropped_grams": 7,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 5000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "fit_and_save_seconds": 0.0012516670394688845,
+      "retrieval_seconds": 24.770338083035313,
+      "fitted_state": "data/retrieval/febrl4_half_all/union_state",
+      "has_python_udf": false,
+      "recall_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_recall_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "declared groups with labelled validation positives",
+      "groups": 500
+    }
+  ],
+  "status": "completed",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "field_blocks.disjoint.plan.txt": "84e5495f1c1546b4702810b2b498bb5cb274dc97c5466bc2b4081704fe139d34",
+    "field_blocks.disjoint.predictions.json": "bc9f29882cfafc4a94323043db7e63ca0ed81eff06205c2ea860c48dc502df64",
+    "field_blocks.transductive.plan.txt": "0bbe83b84f603e919d8548c028435b88eec4a7ab601927d752311ad02c992670",
+    "field_blocks.transductive.predictions.json": "e854ae7fdc5a6f3b5fc578ca04cb52068e9280174eb52158c54861714370c993",
+    "field_blocks_state/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "gram_topk.disjoint.plan.txt": "3d088f84991648bb1699126c70948880b4fbae4c10fe8a28db2e4c3f04af20da",
+    "gram_topk.disjoint.predictions.json": "c095e8cd79bad4aee201a117c6ed854dc2c72f388c829b03987326418a8b1ff8",
+    "gram_topk.transductive.plan.txt": "d834e87a7fd0729e54edbbb85227e82c33da986a1cd776169eedbf3e6fc0f8f1",
+    "gram_topk.transductive.predictions.json": "748244ae6730e6418d4bcd04bbbc19f30215eaaa32c3a78d50ebe4e56700f1a3",
+    "gram_topk_state/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "learned_blocker.disjoint.plan.txt": "64c10c4bed201072576a55c5ae375234d92438116bd83072c02a4a6919a3d248",
+    "learned_blocker.disjoint.predictions.json": "c5d35903b878362ce8069ae60f1cb1be8cb16975f696c6935398e10b3058ce50",
+    "learned_blocker.transductive.plan.txt": "b47965f31bc6aaea45ff4ee043dcd7147c775ae48433be5a6b31611cde2c1fe3",
+    "learned_blocker.transductive.predictions.json": "c743bec073d5f6ca33f294c7a11d99b32cca03828601a57286b0a041646b22a8",
+    "learned_blocker_state/state.json": "6d6c2e980f56844341357f443397f32be07fa62aa9660e25d6e356aa2d8469ed",
+    "minhash_lsh.disjoint.plan.txt": "933cd3a3e56aa622a2c849ad2e2912f80293a185eff809ad671d566d7e562929",
+    "minhash_lsh.disjoint.predictions.json": "a20f61e7fd4d31c577c5b370b0181219459dca01f7cdc126d71d1c3a02c25961",
+    "minhash_lsh.transductive.plan.txt": "e4c1e0b89e2cddc95e64d7b63adad4411f4e4d2f5b08044e5c8a2cc254190bf6",
+    "minhash_lsh.transductive.predictions.json": "08f2bf888470e32a14a4698cfad104bd73a0fce0403523db06a5c38adddd14d0",
+    "minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/data/.part-00000-9687ac55-791e-44c0-882d-780c66437ca4-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+    "minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/data/part-00000-9687ac55-791e-44c0-882d-780c66437ca4-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+    "minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/metadata/.part-00000-e5328541-d5c6-4f8a-b87c-a30a87deedb4-c000.txt.crc": "3be9abec8d9176460489e323f84cef2903f81fc4b467f5486360c03e3e1731cb",
+    "minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/metadata/part-00000-e5328541-d5c6-4f8a-b87c-a30a87deedb4-c000.txt": "90ed5fec84360370faa066a6b4e9edea42a7292ab909bd96a86080d08a46891f",
+    "minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+    "union.disjoint.plan.txt": "852a048734d1610938aae97912d49b91fd985670f93120a27916828e2bab59ac",
+    "union.disjoint.predictions.json": "22505e53e6ee0e54a9ba7b967fe9da6b07e162980fe78662fc829516e370ccb4",
+    "union.transductive.plan.txt": "52389853c29125a2b80248bd57a3944176b8251fb034537b45b8537b51b423ab",
+    "union.transductive.predictions.json": "1ec3b8f28fba25c931a792c0464f368e6a28fcaecb35f1d0eccc31504615b65b",
+    "union_state/field_blocks/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "union_state/gram_topk/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "union_state/state.json": "4d678a47cb49bd3b25debc72cfcefc11e6853481ed57ca9d0b85bde533da3c07"
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 158.8132066669641
+}

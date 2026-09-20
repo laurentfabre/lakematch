@@ -115,7 +115,8 @@ def signature():
         outputs=Schema([ColSpec("string", "a_id"), ColSpec("string", "b_id"), ColSpec("double", "p"), ColSpec("boolean", "is_link")]))
 
 
-def log_composite(model, config, *, labels, input_example, experiment, staging_root, idf_path=None, metrics=None):
+def log_composite(model, config, *, labels, input_example, experiment, staging_root, idf_path=None,
+                  candidate_state_path=None, metrics=None):
     if config["decision"]["threshold"] == "from_validation":
         raise ValueError("Freeze a validation threshold before logging a deployable model")
     if config["profile"] == "databricks" and not str(Path(staging_root)).startswith("/Volumes/"):
@@ -136,6 +137,11 @@ def log_composite(model, config, *, labels, input_example, experiment, staging_r
                     "decision_scope": "cardinality over the complete input snapshot, not across separate predict calls"}
         (root / "contract.json").write_text(json.dumps(contract, indent=2) + "\n")
         artifacts = {"pipeline": str(pipeline), "contract": str(root / "contract.json"), "labels": str(root / "labels.json")}
+        from .blocking import needs_state
+        if needs_state(config):
+            if not candidate_state_path:
+                raise ValueError("This retriever requires its fitted state in the composite model")
+            artifacts["retriever"] = str(candidate_state_path)
         if "idf_token_cosine" in config["features"]["multi_token"]:
             if not idf_path:
                 raise ValueError("Composite IDF features require the immutable training vocabulary artifact")

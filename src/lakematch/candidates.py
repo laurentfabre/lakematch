@@ -5,7 +5,7 @@ on each side <= gram_cap. Weight = log((N+1)/(df+1))+1, so the dot product and b
 norms use squared IDF over the SAME retained vocabulary. Side-only grams remain in
 the norm. This fixes the prototype's masked numerator / unmasked denominator.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from pyspark.sql import DataFrame, Window, functions as F
 
@@ -23,6 +23,7 @@ class CandidatePlan:
     diagnostics: DataFrame
     max_join_rows: int
     max_pairs: int
+    metadata: dict = field(default_factory=dict)
 
     def validate_budget(self):
         """Job-time action; flows consume plans only after this task succeeds."""
@@ -32,10 +33,17 @@ class CandidatePlan:
         n = self.pairs.limit(self.max_pairs + 1).count()
         if n > self.max_pairs:
             raise CandidateBudgetExceeded(f"Candidate pair budget exceeded: >{self.max_pairs}")
-        return {**report, "candidate_pairs": n, "max_join_rows": self.max_join_rows, "max_pairs": self.max_pairs}
+        return {**report, **self.metadata, "candidate_pairs": n, "max_join_rows": self.max_join_rows, "max_pairs": self.max_pairs}
 
 
-def build(left, right, config):
+def build(left, right, config, *, state=None):
+    if config["candidates"]["method"] != "gram_topk":
+        from .blocking import build_alternative
+        return build_alternative(left, right, config, state=state)
+    return gram_topk(left, right, config)
+
+
+def gram_topk(left, right, config):
     spec = config["candidates"]
     if spec["method"] != "gram_topk":
         raise MethodUnavailable(f"Candidate method {spec['method']} requires ZR-3")

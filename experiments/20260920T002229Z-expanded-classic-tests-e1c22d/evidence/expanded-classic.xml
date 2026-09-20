@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="98" time="80.686" timestamp="2026-09-20T02:22:29.420342+02:00" hostname="KDF7DQXX67"><testcase classname="tests.test_benchmark" name="test_canonical_records_preserve_apostrophes_and_array_boundaries" time="0.001" /><testcase classname="tests.test_benchmark" name="test_conflicts_reversed_duplicates_and_shared_records_are_accounted" time="0.000" /><testcase classname="tests.test_benchmark" name="test_record_components_cannot_leak_either_endpoint" time="0.002" /><testcase classname="tests.test_benchmark" name="test_frozen_manifest_refuses_changed_split" time="0.003" /><testcase classname="tests.test_benchmark" name="test_training_negatives_cannot_import_heldout_partner_records" time="0.000" /><testcase classname="tests.test_benchmark" name="test_validation_decisions_match_engine_exactly[one_to_one]" time="5.136" /><testcase classname="tests.test_benchmark" name="test_validation_decisions_match_engine_exactly[many_to_one]" time="0.188" /><testcase classname="tests.test_benchmark" name="test_validation_decisions_match_engine_exactly[unrestricted]" time="0.133" /><testcase classname="tests.test_benchmark" name="test_missing_candidates_remain_false_negatives_and_bootstrap_is_paired" time="0.001" /><testcase classname="tests.test_blocking" name="test_methods_keep_identical_matches_and_reload_state[field_blocks]" time="3.301" /><testcase classname="tests.test_blocking" name="test_methods_keep_identical_matches_and_reload_state[learned_blocker]" time="3.098" /><testcase classname="tests.test_blocking" name="test_methods_keep_identical_matches_and_reload_state[minhash_lsh]" time="4.009" /><testcase classname="tests.test_blocking" name="test_methods_keep_identical_matches_and_reload_state[union]" time="7.314" /><testcase classname="tests.test_blocking" name="test_key_budgets_and_hot_key_loss_are_measured_before_topk" time="0.843" /><testcase classname="tests.test_blocking" name="test_missing_keys_do_not_match_and_ties_use_pair_ids" time="0.631" /><testcase classname="tests.test_blocking" name="test_learned_cover_can_select_complementary_rules" time="0.763" /><testcase classname="tests.test_blocking" name="test_union_budget_is_the_sum_of_children" time="1.092" /><testcase classname="tests.test_blocking" name="test_learned_rule_cost_excludes_discarded_hot_keys" time="0.715" /><testcase classname="tests.test_blocking" name="test_blocking_keys_are_a_closed_typed_language[arbitrary(name)]" time="0.001" /><testcase classname="tests.test_blocking" name="test_blocking_keys_are_a_closed_typed_language[soundex(missing)]" time="0.001" /><testcase classname="tests.test_blocking" name="test_blocking_keys_are_a_closed_typed_language[year(name)]" time="0.001" /><testcase classname="tests.test_blocking" name="test_blocking_keys_are_a_closed_typed_language[name); DROP TABLE x]" time="0.001" /><testcase classname="tests.test_cluster_metrics" name="test_cluster_metrics_penalize_splits_merges_and_include_singletons" time="0.001" /><testcase classname="tests.test_cluster_metrics" name="test_cluster_bootstrap_contributions_reconcile_cross_entity_false_positives" time="0.001" /><testcase classname="tests.test_clustering" name="test_methods_handle_transitivity_veto_and_isolated_records[connected_components-groups0]" time="1.555" /><testcase classname="tests.test_clustering" name="test_methods_handle_transitivity_veto_and_isolated_records[star-groups1]" time="1.961" /><testcase classname="tests.test_clustering" name="test_methods_handle_transitivity_veto_and_isolated_records[center-groups2]" time="7.728"><failure message="py4j.protocol.Py4JJavaError: An error occurred while calling o12803.count.&#10;: java.lang.OutOfMemoryError: Java heap space&#10;&#09;at java.base/java.util.Arrays.copyOf(Arrays.java:3481)&#10;&#09;at java.base/java.util.ArrayList.grow(ArrayList.java:237)&#10;&#09;at java.base/java.util.ArrayList.grow(ArrayList.java:244)&#10;&#09;at java.base/java.util.ArrayList.add(ArrayList.java:454)&#10;&#09;at java.base/java.util.ArrayList.add(ArrayList.java:467)&#10;&#09;at org.apache.spark.sql.catalyst.util.StringConcat.append(StringConcat.scala:42)&#10;&#09;at org.apache.spark.sql.execution.QueryExecution.$anonfun$explainString$1(QueryExecution.scala:364)&#10;&#09;at org.apache.spark.sql.execution.QueryExecution.$anonfun$explainString$1$adapted(QueryExecution.scala:364)&#10;&#09;at org.apache.spark.sql.execution.QueryExecution$$Lambda$2105/0x0000007001c4e3c0.apply(Unknown Source)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$1(TreeNode.scala:1054)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode$$Lambda$2538/0x0000007001d962c8.apply$mcVI$sp(Unknown Source)&#10;&#09;at scala.collection.immutable.Range.foreach$mVc$sp(Range.scala:256)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1054)&#10;&#09;at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$4(TreeNode.scala:1103)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$4$adapted(TreeNode.scala:1100)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode$$Lambda$2542/0x0000007001d97128.apply(Unknown Source)&#10;&#09;at scala.collection.immutable.Vector.foreach(Vector.scala:2125)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1100)&#10;&#09;at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)&#10;&#09;at org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanExec.generateTreeStringWithHeader(AdaptiveSparkPlanExec.scala:503)&#10;&#09;at org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanExec.generateTreeString(AdaptiveSparkPlanExec.scala:469)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1093)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1093)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$4(TreeNode.scala:1103)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$4$adapted(TreeNode.scala:1100)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode$$Lambda$2542/0x0000007001d97128.apply(Unknown Source)&#10;&#09;at scala.collection.immutable.Vector.foreach(Vector.scala:2125)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1100)">spark = &lt;pyspark.sql.session.SparkSession object at 0x112efd1f0&gt;
+method = 'center', groups = [{'a', 'b'}, {'c'}, {'d'}]
+
+    @pytest.mark.parametrize('method,groups',[
+        ('connected_components',[{'a','b','c'},{'d'}]),('star',[{'a','b','c'},{'d'}]),
+        ('center',[{'a','b'},{'c'},{'d'}]),('verified_merge',[{'a','b'},{'c'},{'d'}])])
+    def test_methods_handle_transitivity_veto_and_isolated_records(spark,method,groups):
+&gt;       result,trace=run(spark,method)
+                     ^^^^^^^^^^^^^^^^^
+
+tests/test_clustering.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_clustering.py:15: in run
+    result=resolve(vertices,edges,config,materializer,pair_scorer=lambda pairs:pairs.join(evidence,['a_id','b_id'],'left'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lakematch/clustering.py:99: in resolve
+    pending = remaining.count()
+              ^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pyspark/sql/classic/dataframe.py:439: in count
+    return int(self._jdf.count())
+               ^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/py4j/java_gateway.py:1362: in __call__
+    return_value = get_return_value(
+.venv/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py:263: in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+answer = 'xro12805'
+gateway_client = &lt;py4j.clientserver.JavaClient object at 0x1126de420&gt;
+target_id = 'o12803', name = 'count'
+
+    def get_return_value(answer, gateway_client, target_id=None, name=None):
+        """Converts an answer received from the Java gateway into a Python object.
+    
+        For example, string representation of integers are converted to Python
+        integer, string representation of objects are converted to JavaObject
+        instances, etc.
+    
+        :param answer: the string returned by the Java gateway
+        :param gateway_client: the gateway client used to communicate with the Java
+            Gateway. Only necessary if the answer is a reference (e.g., object,
+            list, map)
+        :param target_id: the name of the object from which the answer comes from
+            (e.g., *object1* in `object1.hello()`). Optional.
+        :param name: the name of the member from which the answer comes from
+            (e.g., *hello* in `object1.hello()`). Optional.
+        """
+        if is_error(answer)[0]:
+            if len(answer) &gt; 1:
+                type = answer[1]
+                value = OUTPUT_CONVERTER[type](answer[2:], gateway_client)
+                if answer[1] == REFERENCE_TYPE:
+&gt;                   raise Py4JJavaError(
+                        "An error occurred while calling {0}{1}{2}.\n".
+                        format(target_id, ".", name), value)
+E                   py4j.protocol.Py4JJavaError: An error occurred while calling o12803.count.
+E                   : java.lang.OutOfMemoryError: Java heap space
+E                   	at java.base/java.util.Arrays.copyOf(Arrays.java:3481)
+E                   	at java.base/java.util.ArrayList.grow(ArrayList.java:237)
+E                   	at java.base/java.util.ArrayList.grow(ArrayList.java:244)
+E                   	at java.base/java.util.ArrayList.add(ArrayList.java:454)
+E                   	at java.base/java.util.ArrayList.add(ArrayList.java:467)
+E                   	at org.apache.spark.sql.catalyst.util.StringConcat.append(StringConcat.scala:42)
+E                   	at org.apache.spark.sql.execution.QueryExecution.$anonfun$explainString$1(QueryExecution.scala:364)
+E                   	at org.apache.spark.sql.execution.QueryExecution.$anonfun$explainString$1$adapted(QueryExecution.scala:364)
+E                   	at org.apache.spark.sql.execution.QueryExecution$$Lambda$2105/0x0000007001c4e3c0.apply(Unknown Source)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$1(TreeNode.scala:1054)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode$$Lambda$2538/0x0000007001d962c8.apply$mcVI$sp(Unknown Source)
+E                   	at scala.collection.immutable.Range.foreach$mVc$sp(Range.scala:256)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1054)
+E                   	at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$4(TreeNode.scala:1103)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$4$adapted(TreeNode.scala:1100)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode$$Lambda$2542/0x0000007001d97128.apply(Unknown Source)
+E                   	at scala.collection.immutable.Vector.foreach(Vector.scala:2125)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1100)
+E                   	at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)
+E                   	at org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanExec.generateTreeStringWithHeader(AdaptiveSparkPlanExec.scala:503)
+E                   	at org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanExec.generateTreeString(AdaptiveSparkPlanExec.scala:469)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1093)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1093)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$4(TreeNode.scala:1103)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$4$adapted(TreeNode.scala:1100)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode$$Lambda$2542/0x0000007001d97128.apply(Unknown Source)
+E                   	at scala.collection.immutable.Vector.foreach(Vector.scala:2125)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1100)
+
+.venv/lib/python3.12/site-packages/py4j/protocol.py:327: Py4JJavaError</failure></testcase><testcase classname="tests.test_clustering" name="test_methods_handle_transitivity_veto_and_isolated_records[verified_merge-groups3]" time="7.459"><failure message="py4j.protocol.Py4JJavaError: An error occurred while calling o13536.count.&#10;: java.lang.OutOfMemoryError: Java heap space&#10;&#09;at java.base/java.util.Arrays.copyOf(Arrays.java:3481)&#10;&#09;at java.base/java.util.ArrayList.grow(ArrayList.java:237)&#10;&#09;at java.base/java.util.ArrayList.grow(ArrayList.java:244)&#10;&#09;at java.base/java.util.ArrayList.add(ArrayList.java:454)&#10;&#09;at java.base/java.util.ArrayList.add(ArrayList.java:467)&#10;&#09;at org.apache.spark.sql.catalyst.util.StringConcat.append(StringConcat.scala:42)&#10;&#09;at org.apache.spark.sql.execution.QueryExecution.$anonfun$explainString$1(QueryExecution.scala:364)&#10;&#09;at org.apache.spark.sql.execution.QueryExecution.$anonfun$explainString$1$adapted(QueryExecution.scala:364)&#10;&#09;at org.apache.spark.sql.execution.QueryExecution$$Lambda$2105/0x0000007001c4e3c0.apply(Unknown Source)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$1(TreeNode.scala:1054)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode$$Lambda$2538/0x0000007001d962c8.apply$mcVI$sp(Unknown Source)&#10;&#09;at scala.collection.immutable.Range.foreach$mVc$sp(Range.scala:256)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1054)&#10;&#09;at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:148)&#10;&#09;at org.apache.spark.sql.execution.InputAdapter.generateTreeString(WholeStageCodegenExec.scala:562)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.execution.WholeStageCodegenExec.generateTreeString(WholeStageCodegenExec.scala:835)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)&#10;&#09;at org.apache.spark.sql.execution.InputAdapter.generateTreeString(WholeStageCodegenExec.scala:562)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.execution.WholeStageCodegenExec.generateTreeString(WholeStageCodegenExec.scala:835)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)&#10;&#09;at org.apache.spark.sql.execution.InputAdapter.generateTreeString(WholeStageCodegenExec.scala:562)&#10;&#09;at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)&#10;&#09;at org.apache.spark.sql.execution.WholeStageCodegenExec.generateTreeString(WholeStageCodegenExec.scala:835)&#10;&#09;at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)&#10;&#09;at org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanExec.generateTreeStringWithHeader(AdaptiveSparkPlanExec.scala:503)&#10;&#09;at org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanExec.generateTreeString(AdaptiveSparkPlanExec.scala:469)">spark = &lt;pyspark.sql.session.SparkSession object at 0x112efd1f0&gt;
+method = 'verified_merge', groups = [{'a', 'b'}, {'c'}, {'d'}]
+
+    @pytest.mark.parametrize('method,groups',[
+        ('connected_components',[{'a','b','c'},{'d'}]),('star',[{'a','b','c'},{'d'}]),
+        ('center',[{'a','b'},{'c'},{'d'}]),('verified_merge',[{'a','b'},{'c'},{'d'}])])
+    def test_methods_handle_transitivity_veto_and_isolated_records(spark,method,groups):
+&gt;       result,trace=run(spark,method)
+                     ^^^^^^^^^^^^^^^^^
+
+tests/test_clustering.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_clustering.py:15: in run
+    result=resolve(vertices,edges,config,materializer,pair_scorer=lambda pairs:pairs.join(evidence,['a_id','b_id'],'left'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lakematch/clustering.py:124: in resolve
+    accepted = materializer.materialize(proposed.join(accepted.filter('accepted'), ['ca', 'cb']), f'accepted_round_{iteration}')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lakematch/runtime.py:119: in materialize
+    result.count()
+.venv/lib/python3.12/site-packages/pyspark/sql/classic/dataframe.py:439: in count
+    return int(self._jdf.count())
+               ^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/py4j/java_gateway.py:1362: in __call__
+    return_value = get_return_value(
+.venv/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py:263: in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+answer = 'xro13538'
+gateway_client = &lt;py4j.clientserver.JavaClient object at 0x1126de420&gt;
+target_id = 'o13536', name = 'count'
+
+    def get_return_value(answer, gateway_client, target_id=None, name=None):
+        """Converts an answer received from the Java gateway into a Python object.
+    
+        For example, string representation of integers are converted to Python
+        integer, string representation of objects are converted to JavaObject
+        instances, etc.
+    
+        :param answer: the string returned by the Java gateway
+        :param gateway_client: the gateway client used to communicate with the Java
+            Gateway. Only necessary if the answer is a reference (e.g., object,
+            list, map)
+        :param target_id: the name of the object from which the answer comes from
+            (e.g., *object1* in `object1.hello()`). Optional.
+        :param name: the name of the member from which the answer comes from
+            (e.g., *hello* in `object1.hello()`). Optional.
+        """
+        if is_error(answer)[0]:
+            if len(answer) &gt; 1:
+                type = answer[1]
+                value = OUTPUT_CONVERTER[type](answer[2:], gateway_client)
+                if answer[1] == REFERENCE_TYPE:
+&gt;                   raise Py4JJavaError(
+                        "An error occurred while calling {0}{1}{2}.\n".
+                        format(target_id, ".", name), value)
+E                   py4j.protocol.Py4JJavaError: An error occurred while calling o13536.count.
+E                   : java.lang.OutOfMemoryError: Java heap space
+E                   	at java.base/java.util.Arrays.copyOf(Arrays.java:3481)
+E                   	at java.base/java.util.ArrayList.grow(ArrayList.java:237)
+E                   	at java.base/java.util.ArrayList.grow(ArrayList.java:244)
+E                   	at java.base/java.util.ArrayList.add(ArrayList.java:454)
+E                   	at java.base/java.util.ArrayList.add(ArrayList.java:467)
+E                   	at org.apache.spark.sql.catalyst.util.StringConcat.append(StringConcat.scala:42)
+E                   	at org.apache.spark.sql.execution.QueryExecution.$anonfun$explainString$1(QueryExecution.scala:364)
+E                   	at org.apache.spark.sql.execution.QueryExecution.$anonfun$explainString$1$adapted(QueryExecution.scala:364)
+E                   	at org.apache.spark.sql.execution.QueryExecution$$Lambda$2105/0x0000007001c4e3c0.apply(Unknown Source)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$generateTreeString$1(TreeNode.scala:1054)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode$$Lambda$2538/0x0000007001d962c8.apply$mcVI$sp(Unknown Source)
+E                   	at scala.collection.immutable.Range.foreach$mVc$sp(Range.scala:256)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1054)
+E                   	at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:148)
+E                   	at org.apache.spark.sql.execution.InputAdapter.generateTreeString(WholeStageCodegenExec.scala:562)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.execution.WholeStageCodegenExec.generateTreeString(WholeStageCodegenExec.scala:835)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)
+E                   	at org.apache.spark.sql.execution.InputAdapter.generateTreeString(WholeStageCodegenExec.scala:562)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.execution.WholeStageCodegenExec.generateTreeString(WholeStageCodegenExec.scala:835)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)
+E                   	at org.apache.spark.sql.execution.InputAdapter.generateTreeString(WholeStageCodegenExec.scala:562)
+E                   	at org.apache.spark.sql.catalyst.trees.TreeNode.generateTreeString(TreeNode.scala:1111)
+E                   	at org.apache.spark.sql.execution.WholeStageCodegenExec.generateTreeString(WholeStageCodegenExec.scala:835)
+E                   	at org.apache.spark.sql.execution.adaptive.QueryStageExec.generateTreeString(QueryStageExec.scala:152)
+E                   	at org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanExec.generateTreeStringWithHeader(AdaptiveSparkPlanExec.scala:503)
+E                   	at org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanExec.generateTreeString(AdaptiveSparkPlanExec.scala:469)
+
+.venv/lib/python3.12/site-packages/py4j/protocol.py:327: Py4JJavaError</failure></testcase><testcase classname="tests.test_clustering" name="test_incomplete_components_cannot_silently_pass" time="1.082" /><testcase classname="tests.test_config" name="test_all_declared_method_choices_are_accepted[candidates.method-values0]" time="0.001" /><testcase classname="tests.test_config" name="test_all_declared_method_choices_are_accepted[matcher.estimator-values1]" time="0.001" /><testcase classname="tests.test_config" name="test_all_declared_method_choices_are_accepted[decision.cardinality-values2]" time="0.001" /><testcase classname="tests.test_config" name="test_all_declared_method_choices_are_accepted[cluster.method-values3]" time="0.001" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch0]" time="0.001" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch1]" time="0.001" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch2]" time="0.000" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch3]" time="0.000" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch4]" time="0.001" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch5]" time="0.000" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch6]" time="0.000" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch7]" time="0.000" /><testcase classname="tests.test_config" name="test_invalid_or_billable_laptop_configuration_fails[patch8]" time="0.001" /><testcase classname="tests.test_config" name="test_databricks_defaults_and_disabled_paid_features" time="0.000" /><testcase classname="tests.test_config" name="test_future_method_is_never_silently_replaced" time="0.000" /><testcase classname="tests.test_config" name="test_examples_load" time="0.002" /><testcase classname="tests.test_engine" name="test_csv_header_names_override_config_field_order" time="0.110" /><testcase classname="tests.test_engine" name="test_label_headers_and_both_endpoint_partition_checks" time="0.484" /><testcase classname="tests.test_engine" name="test_quarantine_duplicates_warnings_and_row_checks" time="0.221" /><testcase classname="tests.test_engine" name="test_dataset_level_minimum_rows" time="0.190" /><testcase classname="tests.test_engine" name="test_idf_cosine_matches_independent_hand_calculation" time="2.381" /><testcase classname="tests.test_engine" name="test_join_budget_fails_before_pair_execution" time="0.270" /><testcase classname="tests.test_engine" name="test_pair_budget_and_deterministic_topk" time="1.637" /><testcase classname="tests.test_engine" name="test_records_without_any_values_do_not_generate_candidates" time="0.714" /><testcase classname="tests.test_engine" name="test_native_plan_unicode_missing_and_similarity" time="0.448" /><testcase classname="tests.test_engine" name="test_cardinality_thresholds_and_ties[one_to_one-expected0]" time="0.182" /><testcase classname="tests.test_engine" name="test_cardinality_thresholds_and_ties[many_to_one-expected1]" time="0.099" /><testcase classname="tests.test_engine" name="test_cardinality_thresholds_and_ties[unrestricted-expected2]" time="0.087" /><testcase classname="tests.test_engine" name="test_materialization_cache_and_table_cleanup" time="0.282" /><testcase classname="tests.test_engine" name="test_estimator_fit_score_save_reload[gbt]" time="2.268" /><testcase classname="tests.test_engine" name="test_estimator_fit_score_save_reload[logistic_regression]" time="2.398" /><testcase classname="tests.test_engine" name="test_estimator_fit_score_save_reload[random_forest]" time="2.122" /><testcase classname="tests.test_experiment" name="test_cleanup_inventory_ignores_zombies_and_other_groups" time="0.002" /><testcase classname="tests.test_experiment" name="test_signal_permission_denial_requires_independent_empty_inventory" time="0.001" /><testcase classname="tests.test_experiment" name="test_signal_denial_allows_observed_natural_exit" time="0.001" /><testcase classname="tests.test_features" name="test_all_field_families_native_and_typed_values" time="1.485" /><testcase classname="tests.test_features" name="test_invalid_typed_values_do_not_throw_or_match" time="0.437" /><testcase classname="tests.test_features" name="test_idf_training_only_unseen_terms_and_native_score" time="1.395" /><testcase classname="tests.test_features" name="test_monge_elkan_is_symmetric_quadratic_mean" time="0.083" /><testcase classname="tests.test_features" name="test_multivalued_fields_preserve_boundaries_and_empty_arrays" time="0.278" /><testcase classname="tests.test_features" name="test_jaro_winkler_reference_values[MARTHA-MARHTA-0.9611111111111111]" time="0.001" /><testcase classname="tests.test_features" name="test_jaro_winkler_reference_values[DIXON-DICKSONX-0.8133333333333332]" time="0.001" /><testcase classname="tests.test_features" name="test_jaro_winkler_reference_values[a-z-0.0]" time="0.001" /><testcase classname="tests.test_features" name="test_jaro_winkler_reference_values[-x--1.0]" time="0.000" /><testcase classname="tests.test_features" name="test_jaro_winkler_reference_values[\u738b-\u738b-1.0]" time="0.001" /><testcase classname="tests.test_features" name="test_affine_global_alignment_properties" time="0.000" /><testcase classname="tests.test_features" name="test_optional_udfs_are_explicit_and_execute" time="0.798" /><testcase classname="tests.test_features" name="test_embedding_precompute_batching_and_native_comparison" time="0.458" /><testcase classname="tests.test_features" name="test_embedding_auto_missing_is_visible_and_schema_stable" time="0.281" /><testcase classname="tests.test_features" name="test_field_family_ablation_preserves_candidates_and_other_fields" time="0.387" /><testcase classname="tests.test_identity" name="test_stable_identity_and_exact_merge_split_change_delete_replay" time="3.488" /><testcase classname="tests.test_identity" name="test_canonical_member_removal_is_a_rekey" time="0.611" /><testcase classname="tests.test_methods_protocol" name="test_cardinality_comparisons_use_only_training_validation_relationships" time="0.002" /><testcase classname="tests.test_methods_protocol" name="test_macro_weights_corpora_not_variants_and_excludes_diagnostic" time="0.005" /><testcase classname="tests.test_retrieval_protocol" name="test_disjoint_retrieval_excludes_training_identity_on_either_side" time="0.000" /><testcase classname="tests.test_spark_event_metrics" name="test_event_metrics_include_retries_and_require_completed_application" time="0.002" /><testcase classname="tests.test_tracking" name="test_label_digest_is_order_and_duplicate_invariant" time="0.000" /><testcase classname="tests.test_tracking" name="test_artifact_integrity_rejects_changed_or_missing_files" time="0.002" /><testcase classname="tests.test_tracking" name="test_pairwise_metrics_include_false_positives_and_false_negatives" time="0.001" /><testcase classname="tests.test_tracking" name="test_composite_predictions_and_acceptance_on_active_spark" time="8.431" /><testcase classname="tests.test_verifier" name="test_unimplemented_phases_cannot_pass[3]" time="0.004" /><testcase classname="tests.test_verifier" name="test_unimplemented_phases_cannot_pass[4]" time="0.001" /><testcase classname="tests.test_verifier" name="test_unimplemented_phases_cannot_pass[6]" time="0.001" /><testcase classname="tests.test_verifier" name="test_unimplemented_phases_cannot_pass[7]" time="0.001" /><testcase classname="tests.test_verifier" name="test_unimplemented_phases_cannot_pass[8]" time="0.001" /><testcase classname="tests.test_verifier" name="test_unimplemented_phases_cannot_pass[9]" time="0.001" /><testcase classname="tests.test_verifier" name="test_source_changes_invalidate_passing_evidence" time="0.005" /><testcase classname="tests.test_verifier" name="test_phase2_requires_compatible_hashed_experiment_artifacts" time="0.023" /><testcase classname="tests.test_verifier" name="test_phase5_requires_hashed_local_and_remote_model_evidence" time="0.237" /></testsuite></testsuites>
