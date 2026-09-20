@@ -21,3 +21,14 @@ Every fallback operator, per-matching-stage Photon share, campaign-attributed DB
 ## Capture corrections
 
 The first raw-event request exceeded the API limit of 250 events per page. The next capture filtered only SQL text and returned zero matches because the text is redacted. The corrected capture uses exact job-task IDs, retains all 40 queries, and restricts events to the completed run window. All earlier requests and files are retained; new captures use immutable directories.
+
+## System-table follow-up
+
+The bounded capture `20260920T041602Z-query-billing-evidence-4b9f55` retrieved all
+16 exact pipeline statement IDs from `system.query.history`; all statement text
+remained redacted. It found no billing rows attributable to the three supplied
+run receipts at capture time. This is missing or delayed evidence, not zero DBUs
+or cost. The original capture failed its 180-second shutdown verification and
+remains sealed as failed. A subsequent explicit stop and read verified the owned
+warehouse `ec3b6df6c1cabcd4` STOPPED; the shared warehouse stayed untouched.
+[Cleanup and ownership receipt](../experiments/query-evidence-cleanup.json).

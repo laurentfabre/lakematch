@@ -138,3 +138,18 @@ Final source run IDs: `20260919T231201Z-package-build-bcba13`,
 `20260919T231319Z-offline-run-bee095`, `20260919T231339Z-febrl4-run-f05518`.
 The added regressions cover reordered CSV record/label headers, validation endpoint
 separation, real composite prediction/lineage and fail-closed model acceptance.
+
+## Final selected-source acceptance
+
+ZR-1 passes on source `9babf294d0b963faa38af4ea468f708d2d37c12bf8fac4bb16514151df875f22`.
+The complete classic and local Spark Connect suites each pass the same 130 tests
+with no failures, errors or skips. Wheel build/isolated install/private-repository
+checks, OS-denied-egress synthetic CLI and original-FEBRL development smoke pass.
+The latter takes 79.63s including runner cleanup; it remains separate from the
+held-out replay times of 30.67s / 27.31s.
+
+Runs: `20260920T045859Z-package-build-1b2c85`,
+`20260920T045901Z-tests-classic-28a21e`,
+`20260920T050028Z-tests-connect-dd0617`,
+`20260920T050209Z-offline-run-152708`,
+`20260920T050228Z-febrl4-run-30f4ce`.

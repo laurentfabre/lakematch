@@ -1,0 +1,190 @@
+{
+  "profile": "fevm-gdpr2",
+  "checked_at": "2026-09-20T04:05:36.349119+00:00",
+  "warehouse": {
+    "id": "4aaa742e4712c3c9",
+    "state": "STOPPED",
+    "ownership": "shared; do not stop"
+  },
+  "query_history": {
+    "status": "metadata_visible",
+    "columns": [
+      {
+        "name": "account_id",
+        "type_text": "string"
+      },
+      {
+        "name": "workspace_id",
+        "type_text": "string"
+      },
+      {
+        "name": "statement_id",
+        "type_text": "string"
+      },
+      {
+        "name": "executed_by",
+        "type_text": "string"
+      },
+      {
+        "name": "session_id",
+        "type_text": "string"
+      },
+      {
+        "name": "execution_status",
+        "type_text": "string"
+      },
+      {
+        "name": "compute",
+        "type_text": "struct<type:string,cluster_id:string,warehouse_id:string>"
+      },
+      {
+        "name": "executed_by_user_id",
+        "type_text": "string"
+      },
+      {
+        "name": "statement_text",
+        "type_text": "string"
+      },
+      {
+        "name": "statement_type",
+        "type_text": "string"
+      },
+      {
+        "name": "error_message",
+        "type_text": "string"
+      },
+      {
+        "name": "client_application",
+        "type_text": "string"
+      },
+      {
+        "name": "client_driver",
+        "type_text": "string"
+      },
+      {
+        "name": "total_duration_ms",
+        "type_text": "bigint"
+      },
+      {
+        "name": "waiting_for_compute_duration_ms",
+        "type_text": "bigint"
+      },
+      {
+        "name": "waiting_at_capacity_duration_ms",
+        "type_text": "bigint"
+      },
+      {
+        "name": "execution_duration_ms",
+        "type_text": "bigint"
+      },
+      {
+        "name": "compilation_duration_ms",
+        "type_text": "bigint"
+      },
+      {
+        "name": "total_task_duration_ms",
+        "type_text": "bigint"
+      },
+      {
+        "name": "result_fetch_duration_ms",
+        "type_text": "bigint"
+      },
+      {
+        "name": "start_time",
+        "type_text": "timestamp"
+      },
+      {
+        "name": "end_time",
+        "type_text": "timestamp"
+      },
+      {
+        "name": "update_time",
+        "type_text": "timestamp"
+      },
+      {
+        "name": "read_partitions",
+        "type_text": "bigint"
+      },
+      {
+        "name": "pruned_files",
+        "type_text": "bigint"
+      },
+      {
+        "name": "read_files",
+        "type_text": "bigint"
+      },
+      {
+        "name": "read_rows",
+        "type_text": "bigint"
+      },
+      {
+        "name": "produced_rows",
+        "type_text": "bigint"
+      },
+      {
+        "name": "read_bytes",
+        "type_text": "bigint"
+      },
+      {
+        "name": "read_io_cache_percent",
+        "type_text": "tinyint"
+      },
+      {
+        "name": "from_result_cache",
+        "type_text": "boolean"
+      },
+      {
+        "name": "spilled_local_bytes",
+        "type_text": "bigint"
+      },
+      {
+        "name": "written_bytes",
+        "type_text": "bigint"
+      },
+      {
+        "name": "shuffle_read_bytes",
+        "type_text": "bigint"
+      },
+      {
+        "name": "query_source",
+        "type_text": "struct<job_info:struct<job_id:string,job_run_id:string,job_task_run_id:string>,legacy_dashboard_id:string,dashboard_id:string,alert_id:string,notebook_id:string,sql_query_id:string,genie_space_id:string,pipeline_info:struct<pipeline_id:string,update_id:string>>"
+      },
+      {
+        "name": "executed_as_user_id",
+        "type_text": "string"
+      },
+      {
+        "name": "executed_as",
+        "type_text": "string"
+      },
+      {
+        "name": "written_rows",
+        "type_text": "bigint"
+      },
+      {
+        "name": "written_files",
+        "type_text": "bigint"
+      },
+      {
+        "name": "cache_origin_statement_id",
+        "type_text": "string"
+      },
+      {
+        "name": "query_parameters",
+        "type_text": "struct<named_parameters:map<string,struct<exprs:array<struct<tag:string,data_type:struct<type_name:string,type_ddl:string,redacted_type_ddl:string>,literal:struct<data_type:struct<type_name:string,type_ddl:string,redacted_type_ddl:string>,int_value:int,long_value:bigint,double_value:double,float_value:float,byte_value:int,short_value:int,string_value:string,boolean_value:boolean,decimal_value:struct<value:string,precision:int,scale:int>,binary_value:binary,timestamp_value:bigint,timestamp_ntz_value:bigint,date_value:bigint,calendar_interval_value:struct<months:int,days:int,microseconds:bigint>,day_time_interval_value:bigint,year_month_interval_value:int>,seq_expression:struct<children:array<bigint>>,function:struct<function_name:string,arguments:array<bigint>>,alias:struct<expr:bigint,name:array<string>,metadata:string>,sort_order:struct<child:bigint,direction:string,null_ordering:string>,lambda_function:struct<function:bigint,arguments:array<struct<name_parts:array<string>>>>,window:struct<window_function:bigint,partition_spec:array<bigint>,order_spec:array<bigint>>,unresolved_extract_value:struct<child:bigint,extraction:bigint>,update_fields:struct<struct_expression:bigint,field_name:string,value_expression:bigint>,unresolved_named_lambda_variable:struct<name_parts:array<string>>,named_argument_expression:struct<key:string,value:bigint>,id:bigint>>>>,pos_parameters:array<struct<exprs:array<struct<tag:string,data_type:struct<type_name:string,type_ddl:string,redacted_type_ddl:string>,literal:struct<data_type:struct<type_name:string,type_ddl:string,redacted_type_ddl:string>,int_value:int,long_value:bigint,double_value:double,float_value:float,byte_value:int,short_value:int,string_value:string,boolean_value:boolean,decimal_value:struct<value:string,precision:int,scale:int>,binary_value:binary,timestamp_value:bigint,timestamp_ntz_value:bigint,date_value:bigint,calendar_interval_value:struct<months:int,days:int,microseconds:bigint>,day_time_interval_value:bigint,year_month_interval_value:int>,seq_expression:struct<children:array<bigint>>,function:struct<function_name:string,arguments:array<bigint>>,alias:struct<expr:bigint,name:array<string>,metadata:string>,sort_order:struct<child:bigint,direction:string,null_ordering:string>,lambda_function:struct<function:bigint,arguments:array<struct<name_parts:array<string>>>>,window:struct<window_function:bigint,partition_spec:array<bigint>,order_spec:array<bigint>>,unresolved_extract_value:struct<child:bigint,extraction:bigint>,update_fields:struct<struct_expression:bigint,field_name:string,value_expression:bigint>,unresolved_named_lambda_variable:struct<name_parts:array<string>>,named_argument_expression:struct<key:string,value:bigint>,id:bigint>>>>,truncated:boolean>"
+      },
+      {
+        "name": "query_tags",
+        "type_text": "map<string,string>"
+      },
+      {
+        "name": "pruned_files_bytes",
+        "type_text": "bigint"
+      },
+      {
+        "name": "read_files_bytes",
+        "type_text": "bigint"
+      }
+    ]
+  }
+}

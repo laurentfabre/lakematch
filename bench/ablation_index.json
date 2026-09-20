@@ -1,30 +1,30 @@
 {
   "febrl4": {
-    "run_id": "20260919T231651Z-ablation-febrl4-62f879",
+    "run_id": "20260920T050412Z-ablation-febrl4-ef05de",
     "report": {
-      "path": "experiments/20260919T231651Z-ablation-febrl4-62f879/evidence/report.json",
-      "sha256": "2fff57ef2ce8e6c451e2bf4c3d56b9097048f1c98425c38be28ceca7f412878c",
-      "bytes": 20666
+      "path": "experiments/20260920T050412Z-ablation-febrl4-ef05de/evidence/report.json",
+      "sha256": "37ca90d367afd18b2947dac1f7a04d63c29ec0a59f37266a66d09fe8ff9f35e6",
+      "bytes": 20773
     },
-    "source_digest": "89407f97a43ba824ebd70b73b9c69613fdb65581fb0d9202956d6e5fe398648d"
+    "source_digest": "5bd6dcfd4466f990451d1c02fd98998faea47efc8e2f19133972494f956bfacc"
   },
   "bpid": {
-    "run_id": "20260919T231854Z-ablation-bpid-24f0d9",
+    "run_id": "20260920T050612Z-ablation-bpid-f493fc",
     "report": {
-      "path": "experiments/20260919T231854Z-ablation-bpid-24f0d9/evidence/report.json",
-      "sha256": "01c4002843f0bfa3240105b494361b5c920c0a63c0063a45987c5515ae748989",
-      "bytes": 20872
+      "path": "experiments/20260920T050612Z-ablation-bpid-f493fc/evidence/report.json",
+      "sha256": "94e56a8e4cae5b3137d61fdc14c5f28b38a97871247018905edbae18f3d19f78",
+      "bytes": 20966
     },
-    "source_digest": "89407f97a43ba824ebd70b73b9c69613fdb65581fb0d9202956d6e5fe398648d"
+    "source_digest": "5bd6dcfd4466f990451d1c02fd98998faea47efc8e2f19133972494f956bfacc"
   },
   "abt_buy": {
-    "run_id": "20260919T232021Z-ablation-abt_buy-d144fb",
+    "run_id": "20260920T050742Z-ablation-abt_buy-0b24b8",
     "report": {
-      "path": "experiments/20260919T232021Z-ablation-abt_buy-d144fb/evidence/report.json",
-      "sha256": "afe958eb19da5b5ac41becf5b913ca31a0b14a3159b2e58112d9cf1dddd0a8d4",
-      "bytes": 20100
+      "path": "experiments/20260920T050742Z-ablation-abt_buy-0b24b8/evidence/report.json",
+      "sha256": "b375175d1261eeb18ad636facd40db45e11e6c1b1fcc7ac1232ac00744372ee8",
+      "bytes": 20211
     },
-    "source_digest": "89407f97a43ba824ebd70b73b9c69613fdb65581fb0d9202956d6e5fe398648d",
+    "source_digest": "5bd6dcfd4466f990451d1c02fd98998faea47efc8e2f19133972494f956bfacc",
     "embedding": {
       "paired_delta_95ci": [
         -0.04597701149425282,
@@ -32,18 +32,18 @@
       ],
       "positive_interval": false,
       "records": 2103,
-      "seconds": 8.494181084097363,
-      "seconds_per_100000_extrapolated": 403.9078023821856
+      "seconds": 9.1027032911079,
+      "seconds_per_100000_extrapolated": 432.8437133194437
     }
   },
   "affiliations": {
-    "run_id": "20260919T232225Z-ablation-affiliations-e042b3",
+    "run_id": "20260920T050947Z-ablation-affiliations-5fef72",
     "report": {
-      "path": "experiments/20260919T232225Z-ablation-affiliations-e042b3/evidence/report.json",
-      "sha256": "6ad3abb56f27d344fa939b3c72dbd34ea849e32a26edaaea97c1b84fc4b57420",
-      "bytes": 18709
+      "path": "experiments/20260920T050947Z-ablation-affiliations-5fef72/evidence/report.json",
+      "sha256": "503183676c140dd1c2d86eaef356578cef7ff34bb417a919481affcfc774e985",
+      "bytes": 18815
     },
-    "source_digest": "89407f97a43ba824ebd70b73b9c69613fdb65581fb0d9202956d6e5fe398648d",
+    "source_digest": "5bd6dcfd4466f990451d1c02fd98998faea47efc8e2f19133972494f956bfacc",
     "embedding": {
       "paired_delta_95ci": [
         -0.00043270512889925783,
@@ -51,8 +51,8 @@
       ],
       "positive_interval": false,
       "records": 4512,
-      "seconds": 7.0110901249572635,
-      "seconds_per_100000_extrapolated": 155.3876357481663
+      "seconds": 6.310712666017935,
+      "seconds_per_100000_extrapolated": 139.8650856830216
     }
   }
 }

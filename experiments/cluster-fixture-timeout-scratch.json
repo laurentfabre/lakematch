@@ -1,0 +1,15 @@
+{
+  "profile": "fevm-gdpr2",
+  "run_id": 180393856450383,
+  "checked_at": "2026-09-20T04:14:22.256894+00:00",
+  "job_terminal": true,
+  "scratch_tables": [
+    {
+      "full_name": "gdpr2_catalog.lakematch_20260919.lm_c4e6954c66ee4fdda508466c7841723c_train_records_0",
+      "owner": "laurent.fabre@databricks.com",
+      "created_at": 1789877328875,
+      "within_run": true,
+      "owned_by_runner": true
+    }
+  ]
+}

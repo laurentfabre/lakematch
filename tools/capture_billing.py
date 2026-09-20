@@ -48,9 +48,13 @@ def main():
         'captured_at': datetime.now(timezone.utc).isoformat(), 'observed_cost': None,
         'scope': 'Only explicitly supplied campaign receipts; not total account or campaign billing',
         'limits': {'statement_seconds': 180, 'maximum_rows': 500},
-        'cleanup': 'No warehouse started or stopped; existing shared resource only'}
+        'cleanup': 'No warehouse lifecycle action; the caller owns lifecycle and shutdown verification'}
     w = WorkspaceClient(profile=args.profile)
     statement_id, terminal = None, False
+    def save():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(report, indent=2) + '\n')
+    save()
     try:
         warehouse = w.warehouses.get(args.warehouse_id)
         report['warehouse_state'] = warehouse.state.value
@@ -58,6 +62,7 @@ def main():
         result = w.statement_execution.execute_statement(sql, args.warehouse_id, wait_timeout='0s',
                                                         row_limit=500, byte_limit=2000000)
         statement_id = report['statement_id'] = result.statement_id
+        save()
         deadline = time.monotonic() + 180
         while result.status.state.value in {'PENDING', 'RUNNING'}:
             if time.monotonic() >= deadline:
@@ -89,11 +94,21 @@ def main():
         report.update(status='unavailable_or_incomplete', error=f'{type(exc).__name__}: {exc}')
     finally:
         if statement_id and not terminal:
-            w.statement_execution.cancel_execution(statement_id)
-            report['statement_cancellation_requested'] = True
+            try:
+                w.statement_execution.cancel_execution(statement_id)
+                deadline = time.monotonic() + 30
+                while time.monotonic() < deadline:
+                    state = w.statement_execution.get_statement(statement_id).status.state.value
+                    report['final_statement_state'] = state
+                    if state not in {'PENDING', 'RUNNING'}:
+                        break
+                    time.sleep(2)
+                else:
+                    report['cleanup_error'] = 'Statement termination unverified after cancellation'
+            except Exception as exc:
+                report['cleanup_error'] = str(exc)
         report['ended_at'] = datetime.now(timezone.utc).isoformat()
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(report, indent=2) + '\n')
+        save()
     print(json.dumps({key: report.get(key) for key in ('status', 'row_count', 'usage_by_sku_and_unit', 'error')}))
 
 

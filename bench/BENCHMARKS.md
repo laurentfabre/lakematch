@@ -39,7 +39,7 @@ Reference figures are historical or published, with different splits, retrieval 
 
 References and original provenance: [historical controlled benchmark](../spec/bench/README.md), [brief](../spec/BRIEF.md#benchmarks-and-known-tests).
 
-Method selection: [candidates](CANDIDATES.md), [classifiers](CLASSIFIERS.md), [compact features](COMPACT_FEATURES.md), [clustering](CLUSTERS.md). No held-out result is used to revise a model or threshold. Defaults and aliases remain unpromoted pending all gates.
+Method selection: [candidates](CANDIDATES.md), [classifiers](CLASSIFIERS.md), [compact features](COMPACT_FEATURES.md), [clustering](CLUSTERS.md). No held-out result is used to revise a model or threshold. Validation-selected package defaults are adopted; final execution compatibility and phase acceptance are checked separately. Frozen benchmark models and thresholds are unchanged; the separate synthetic UC acceptance model is tracked in MODELS.md.
 
 Evidence:
 
@@ -56,6 +56,26 @@ Evidence:
 - `scale-100000`: [20260920T022359Z-scale-100000-71c0b7](../experiments/20260920T022359Z-scale-100000-71c0b7/manifest.json).
 - `scale-1000000`: [20260920T022943Z-scale-1000000-f0a3d1](../experiments/20260920T022943Z-scale-1000000-f0a3d1/manifest.json).
 
+## Original FEBRL diagnostic
+
+Frozen selected model F1 0.988161, candidate recall 0.976600, fresh CLI wall time 35.43s. Independent nearest-neighbour-only F1 1.000000. [20260920T044150Z-original-febrl-9dd88f](../experiments/20260920T044150Z-original-febrl-9dd88f/manifest.json).
+Full exposed original corpus, including historical development anchors; diagnostic only. This is not new holdout acceptance.
+
 Incomplete or failed evidence:
 
 - scale-1000000: failed; partial counters retained, no completed output or quality claim
+
+## Final execution compatibility
+
+[The eight-model replay audit](compatibility_index.json) records zero changes
+in candidate metadata or probabilities and identical decisions for every frozen
+corpus. The original freeze and model trees remain unchanged. Fresh normal-CLI
+FEBRL times are 30.67s (all fields) and 27.31s (SSN hidden), with unchanged F1
+0.9888776542 / 0.9868287741. These are replays of exposed outcomes.
+
+[Actual campaign execution](campaign_execution.json) also completed the original
+FEBRL diagnostic and both exact clustering comparisons, then returned nonzero
+at the retained million-record scale failure. Eight ZR-3 iterations are exhausted;
+no retry or larger resource envelope was used. Full campaign acceptance remains
+blocked. The historical SSN+DOB-hidden validation diagnostic is separate in
+[linkage_index.json](linkage_index.json); this entry point did not rerun it.

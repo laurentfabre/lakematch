@@ -38,6 +38,11 @@ def train(spark, root, schema):
     started = time.perf_counter()
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
+    progress = []
+    def checkpoint(stage):
+        progress.append({'stage': stage, 'elapsed_seconds': time.perf_counter() - started})
+        (root / 'train-progress.json').write_text(json.dumps(progress, indent=2) + '\n')
+    checkpoint('started')
     config = configuration(schema)
     rows = [(f'train-{i}', ['Alice Martin', 'Bob Dupont', 'Carol Smith', 'David Brown'][i // 2],
              f'training-code-{i // 2}') for i in range(8)]
@@ -48,10 +53,14 @@ def train(spark, root, schema):
         prepared = work.materialize(entity.prepare(raw, config), 'train_records')
         pairs = pair_context(truth, prepared, config)
         vectors = work.materialize(features.build(pairs, prepared, prepared, config), 'train_features')
+        checkpoint('features_materialized')
         model = matcher.train(vectors, truth, config)
+        checkpoint('model_fitted')
         result = tracking.log_composite(model, config, labels=truth.collect(),
             input_example=tracking.pair_snapshot(pairs.limit(3), raw, raw, config),
             experiment=config['mlflow']['experiment'], staging_root=root / 'staging')
+        checkpoint('composite_logged')
+    checkpoint('scratch_cleaned')
     report = {'status': 'completed', 'model': result, 'config': config.data,
         'pair_metadata': 'gram_cosine', 'scope': '8 synthetic training records; all 28 pairs; no confirmation labels',
         'seconds': time.perf_counter() - started, 'training_ids': [row[0] for row in rows]}
@@ -73,6 +82,11 @@ def check(spark, root, schema, namespace):
     assert not set(training['training_ids']) & {row[0] for row in original + changed}
     publisher = DeltaPublisher(spark, schema, namespace)
     capabilities = probe(spark)
+    progress = []
+    def checkpoint(stage):
+        progress.append({'stage': stage, 'elapsed_seconds': time.perf_counter() - started})
+        (root / 'cluster-progress.json').write_text(json.dumps(progress, indent=2) + '\n')
+    checkpoint('model_reloaded')
 
     def publish(rows, batch):
         with Materializer(spark, config, capabilities) as work:
@@ -103,6 +117,7 @@ def check(spark, root, schema, namespace):
                 'model': training['model']['model_uri']}), build)
 
     first = publish(original, 'original')
+    checkpoint('original_committed')
     # Fail after one immutable output table is written. The head must not move.
     failure_observed = False
     def broken(previous):
@@ -114,11 +129,14 @@ def check(spark, root, schema, namespace):
             raise
         failure_observed = True
     assert failure_observed and publisher.current()['batch_id'] == 'original'
+    checkpoint('interrupted_write_checked')
     second = publish(changed, 'incremental')
+    checkpoint('incremental_committed')
     assert second['recovered_tables'], 'The abandoned attempt was not removed on retry'
     retry = publish(changed, 'incremental')
     assert retry['reused'] and retry['attempt'] == second['attempt']
     unchanged = publish(changed, 'unchanged')
+    checkpoint('unchanged_committed')
     assert publisher.read(unchanged, 'cluster_events').count() == 0
     assert {row.change for row in publisher.read(unchanged, 'changes').collect()} == {'unchanged'}
     historical = publish(original, 'original')

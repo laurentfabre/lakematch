@@ -1,0 +1,2081 @@
+{
+  "status": "completed",
+  "profile": "fevm-gdpr2",
+  "target": "serverless_native",
+  "started_at": "2026-09-20T04:21:53.760314+00:00",
+  "commands": [
+    [
+      "databricks",
+      "jobs",
+      "list-runs",
+      "--active-only",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "pipelines",
+      "list-pipelines",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "bundle",
+      "validate",
+      "--strict",
+      "--target",
+      "serverless_native",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "bundle",
+      "deploy",
+      "--target",
+      "serverless_native",
+      "--auto-approve",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "bundle",
+      "summary",
+      "--target",
+      "serverless_native",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "run-now",
+      "--json",
+      "{\"job_id\": 1048559310465200, \"job_parameters\": {\"root\": \"/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/20260920T042153Z\"}}",
+      "--no-wait",
+      "--idempotency-token",
+      "lakematch-b613d717012d4e9185dc61f90da78a30",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "994862043938979",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run-output",
+      "331774337022468",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run-output",
+      "519611022760137",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "fs",
+      "cp",
+      "dbfs:/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/20260920T042153Z",
+      "/Users/laurent.fabre/Projects/Claude/lakematch/data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume",
+      "--recursive",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ]
+  ],
+  "observed_cost": null,
+  "run_id": 994862043938979,
+  "pipeline_id": null,
+  "volume_root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/20260920T042153Z",
+  "scope": "synthetic remote fit/reload, verified merge and Delta commit recovery",
+  "sources": {
+    "src/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "src/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+    "src/lakematch/benchmark/campaign.py": "5f46304cf54063fb8320232362b28124db29bc3b4627a6d82c1ac8e52f26afb4",
+    "src/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+    "src/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+    "src/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+    "src/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+    "src/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+    "src/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+    "src/lakematch/cli.py": "1ddf2018413b848ba04ccfa70b252701e5f42318885279e86e9752abfdab0f29",
+    "src/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+    "src/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+    "src/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+    "src/lakematch/config.py": "a1446bbf11cfb1370e704b0954868f5214602d5d7040a4cfabfae6cdda7351fe",
+    "src/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "src/lakematch/delta_publication.py": "88113bbbbf4d7552e8e214449b293bd32402f10f04b58e165cdcdd20a16a05ed",
+    "src/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+    "src/lakematch/engine.py": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36",
+    "src/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+    "src/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+    "src/lakematch/features.py": "244220ccde80518165c7049640f5cd91ff84c1fd7e3a71076b61d9f9ca2742c0",
+    "src/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+    "src/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "src/lakematch/murmur3.py": "ca96bfaf3ad37abecbd023e4d9bef02f56fcae2d931a6b9dc03b86ae62b559b5",
+    "src/lakematch/native_ml.py": "84f66ec626536eaf0364174cecfe8bdb75312ff9674d9fd7f313394aaf7f411e",
+    "src/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+    "src/lakematch/quality/__init__.py": "0442148bc1e3211070040b875b14e0eb7612debcfaf02edb4cdb23e3363cfade",
+    "src/lakematch/quality/dqx.py": "c3793746e646a2cf5256362db3919b3c24021f2b29bd3649a5452f4040b49207",
+    "src/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "src/lakematch/quality/rules.py": "4f511d03ab1a0cb00c211e875c469d2470acc67ac773cd49f79e9ae55f3d3a58",
+    "src/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+    "src/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+    "src/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+    "deployment/audit.py": "db9c736393b8e0ef4125f286d2be4f95e0e52c4bf3c667a09a2296475e3c97ca",
+    "deployment/cluster_fixture.py": "0d3ba2f19f5b2e613bcb10fef22542e0ba0ce1b455e0e7f5a19ba46ec867e866",
+    "deployment/pipeline/context.py": "fabebac1a4cfe112f046a022bf84a78433fbb013e253cfa89aa53e88ead3628e",
+    "deployment/pipeline/transformations/candidates.py": "24541d148a5634a747e2a2eeae8154f4aa635abd9b6bbe86fa9a84b662ce59e7",
+    "deployment/pipeline/transformations/features.py": "0c8c7a2dac9cb8105f519fca874218e41edaa6b7a2a0ea7136a7a37da9142cd6",
+    "deployment/pipeline/transformations/links.py": "1d3f9bfc85348600821e812582f2913721b5a397825bdfa37693fecf430fb96c",
+    "deployment/pipeline/transformations/prepared.py": "7fc7a469d932dccc82ff4b8c1230f7eda01f993faca9d8ffe4c467e63826edc0",
+    "deployment/pipeline/transformations/scores.py": "4980fdc44120e676587fb8cc48c6dcb711cc37a9d439a2fdd4ff69a3e24ef08a",
+    "deployment/prepare.py": "d6a488cade904a6803b405dc563d11f557eb32d37a664473a4a91527be2f1231",
+    "deployment/train_cluster_fixture.py": "0ae1311e5b7c4649d8921f84762c520eced3dea1d168dedb079d175cdf21c243",
+    "integration/check_dqx.py": "17050446a48b735780926099effa59b2815a583e5135f7d7c83f0014c8f551fd",
+    "integration/check_remote_cluster.py": "085d9c9cefaadcf32edf8973dbc1956aec38e3bab38767520e4266049031ecba",
+    "resources/serverless.job.yml": "c6919d1feb5bb039a902a910617482f319cfdb32f515ee59dfb17d1950f65dbd",
+    "resources/serverless.pipeline.yml": "3076f2a94e8b45e617d5aa848b470f6c757e2be1d95d26fc34e498248ff0fa10",
+    "resources/serverless_fixture.job.yml": "4a554a12d69b057e8759c670687c2b53441902c8f897dfbbccdf7642aa258fa0"
+  },
+  "bundle_sha256": "e12e816df3c5cd0810eb72e5e92fc1145144ead7d3b3ef4b89eb1e3638a781ac",
+  "input_manifest_sha256": null,
+  "bundle_summary": {
+    "bundle": {
+      "deployment": {
+        "lock": {
+          "enabled": false
+        }
+      },
+      "environment": "serverless_native",
+      "git": {
+        "actual_branch": "main",
+        "branch": "main",
+        "bundle_root_path": ".",
+        "commit": "574e3573ea252261692b4f517c3823aa326488b2",
+        "origin_url": "https://github.com/laurentfabre/lakematch.git"
+      },
+      "mode": "development",
+      "name": "lakematch_20260919",
+      "target": "serverless_native"
+    },
+    "include": [
+      "resources/serverless.job.yml",
+      "resources/serverless.pipeline.yml",
+      "resources/serverless_fixture.job.yml"
+    ],
+    "presets": {
+      "jobs_max_concurrent_runs": 4,
+      "name_prefix": "[dev laurent_fabre] ",
+      "pipelines_development": true,
+      "tags": {
+        "dev": "laurent_fabre"
+      },
+      "trigger_pause_status": "PAUSED"
+    },
+    "resources": {
+      "jobs": {
+        "cluster_fixture": {
+          "deployment": {
+            "kind": "BUNDLE",
+            "metadata_file_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/state/metadata.json"
+          },
+          "edit_mode": "UI_LOCKED",
+          "environments": [
+            {
+              "environment_key": "engine",
+              "spec": {
+                "dependencies": [
+                  "mlflow==3.16.0",
+                  "pyyaml==6.0.3"
+                ],
+                "environment_version": "4"
+              }
+            }
+          ],
+          "format": "MULTI_TASK",
+          "id": "1048559310465200",
+          "max_concurrent_runs": 1,
+          "name": "[dev laurent_fabre] lakematch-20260919-cluster-fixture",
+          "parameters": [
+            {
+              "default": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src",
+              "name": "source_root"
+            },
+            {
+              "default": "gdpr2_catalog.lakematch_20260919",
+              "name": "schema"
+            },
+            {
+              "default": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture",
+              "name": "root"
+            }
+          ],
+          "performance_target": "STANDARD",
+          "queue": {
+            "enabled": true
+          },
+          "tags": {
+            "dev": "laurent_fabre"
+          },
+          "tasks": [
+            {
+              "depends_on": [
+                {
+                  "task_key": "train"
+                }
+              ],
+              "environment_key": "engine",
+              "notebook_task": {
+                "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/cluster_fixture"
+              },
+              "task_key": "cluster",
+              "timeout_seconds": 900
+            },
+            {
+              "environment_key": "engine",
+              "notebook_task": {
+                "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/train_cluster_fixture"
+              },
+              "task_key": "train",
+              "timeout_seconds": 600
+            }
+          ],
+          "timeout_seconds": 1800,
+          "url": "https://fevm-gdpr2.cloud.databricks.com/jobs/1048559310465200?w=7474658055368199"
+        },
+        "frozen_pipeline": {
+          "deployment": {
+            "kind": "BUNDLE",
+            "metadata_file_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/state/metadata.json"
+          },
+          "edit_mode": "UI_LOCKED",
+          "environments": [
+            {
+              "environment_key": "engine",
+              "spec": {
+                "dependencies": [
+                  "mlflow==3.16.0",
+                  "pyyaml==6.0.3",
+                  "databricks-labs-dqx==0.16.0"
+                ],
+                "environment_version": "4"
+              }
+            }
+          ],
+          "format": "MULTI_TASK",
+          "id": "489495267612522",
+          "max_concurrent_runs": 1,
+          "name": "[dev laurent_fabre] lakematch-20260919-frozen-pipeline",
+          "parameters": [
+            {
+              "default": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src",
+              "name": "source_root"
+            },
+            {
+              "default": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/serverless_frozen",
+              "name": "input_root"
+            },
+            {
+              "default": "gdpr2_catalog.lakematch_20260919",
+              "name": "schema"
+            },
+            {
+              "default": "native",
+              "name": "quality_engine"
+            }
+          ],
+          "performance_target": "STANDARD",
+          "queue": {
+            "enabled": true
+          },
+          "tags": {
+            "dev": "laurent_fabre"
+          },
+          "tasks": [
+            {
+              "depends_on": [
+                {
+                  "task_key": "pipeline"
+                }
+              ],
+              "environment_key": "engine",
+              "notebook_task": {
+                "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/audit"
+              },
+              "task_key": "audit",
+              "timeout_seconds": 420
+            },
+            {
+              "depends_on": [
+                {
+                  "task_key": "prepare"
+                }
+              ],
+              "pipeline_task": {
+                "pipeline_id": "${resources.pipelines.matching.id}"
+              },
+              "task_key": "pipeline",
+              "timeout_seconds": 900
+            },
+            {
+              "environment_key": "engine",
+              "notebook_task": {
+                "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/prepare"
+              },
+              "task_key": "prepare",
+              "timeout_seconds": 420
+            }
+          ],
+          "timeout_seconds": 1800,
+          "url": "https://fevm-gdpr2.cloud.databricks.com/jobs/489495267612522?w=7474658055368199"
+        }
+      },
+      "pipelines": {
+        "matching": {
+          "catalog": "gdpr2_catalog",
+          "channel": "CURRENT",
+          "configuration": {
+            "lakematch.app_enabled": "false",
+            "lakematch.genie_enabled": "false",
+            "lakematch.input_root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/serverless_frozen",
+            "lakematch.quality_engine": "native",
+            "lakematch.source_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src"
+          },
+          "continuous": false,
+          "deployment": {
+            "kind": "BUNDLE",
+            "metadata_file_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/state/metadata.json"
+          },
+          "development": true,
+          "edition": "ADVANCED",
+          "environment": {
+            "dependencies": [
+              "mlflow==3.16.0",
+              "pyyaml==6.0.3",
+              "databricks-labs-dqx==0.16.0"
+            ]
+          },
+          "id": "887f3271-3247-4082-82a9-9b62fb89e135",
+          "libraries": [
+            {
+              "glob": {
+                "include": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/pipeline/transformations/**"
+              }
+            }
+          ],
+          "name": "[dev laurent_fabre] lakematch-20260919-frozen-matching",
+          "photon": true,
+          "root_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/pipeline",
+          "schema": "lakematch_20260919",
+          "serverless": true,
+          "tags": {
+            "dev": "laurent_fabre"
+          },
+          "url": "https://fevm-gdpr2.cloud.databricks.com/pipelines/887f3271-3247-4082-82a9-9b62fb89e135?w=7474658055368199"
+        }
+      }
+    },
+    "sync": {
+      "exclude": [
+        "app/**",
+        "data/**",
+        "experiments/**",
+        ".tools/**",
+        ".venv/**",
+        "spec/**",
+        ".isaac/**",
+        ".DS_Store"
+      ],
+      "include": [
+        "src/lakematch/**",
+        "deployment/**",
+        "integration/check_dqx.py",
+        "integration/check_remote_cluster.py"
+      ],
+      "paths": [
+        "."
+      ]
+    },
+    "variables": {
+      "app_enabled": {
+        "default": "false",
+        "value": "false"
+      },
+      "catalog": {
+        "default": "gdpr2_catalog",
+        "value": "gdpr2_catalog"
+      },
+      "genie_enabled": {
+        "default": "false",
+        "value": "false"
+      },
+      "input_root": {
+        "default": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/serverless_frozen",
+        "value": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/serverless_frozen"
+      },
+      "quality_engine": {
+        "default": "native",
+        "value": "native"
+      },
+      "schema": {
+        "default": "lakematch_20260919",
+        "value": "lakematch_20260919"
+      }
+    },
+    "workspace": {
+      "artifact_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/artifacts",
+      "current_user": {
+        "active": true,
+        "displayName": "Laurent Fabre",
+        "domain_friendly_name": "laurent-fabre",
+        "emails": [
+          {
+            "primary": true,
+            "type": "work",
+            "value": "laurent.fabre@databricks.com"
+          }
+        ],
+        "externalId": "00u1vtug839PCSEGo1d8",
+        "groups": [
+          {
+            "$ref": "Groups/2122049515152742",
+            "display": "users-clone-2026-08-05-1624-UTC (created by Databricks)",
+            "type": "direct",
+            "value": "2122049515152742"
+          },
+          {
+            "$ref": "Groups/87696966145950",
+            "display": "users",
+            "type": "direct",
+            "value": "87696966145950"
+          },
+          {
+            "$ref": "Groups/80560757297356",
+            "display": "admins",
+            "type": "direct",
+            "value": "80560757297356"
+          }
+        ],
+        "id": "6729810946797236",
+        "name": {
+          "familyName": "Fabre",
+          "givenName": "Laurent"
+        },
+        "schemas": [
+          "urn:ietf:params:scim:schemas:core:2.0:User",
+          "urn:ietf:params:scim:schemas:extension:workspace:2.0:User"
+        ],
+        "short_name": "laurent_fabre",
+        "userName": "laurent.fabre@databricks.com"
+      },
+      "file_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files",
+      "host": "https://fevm-gdpr2.cloud.databricks.com",
+      "profile": "fevm-gdpr2",
+      "resource_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/resources",
+      "root_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle",
+      "state_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/state"
+    }
+  },
+  "job_id": 1048559310465200,
+  "run": {
+    "cleanup_duration": 0,
+    "creator_user_name": "laurent.fabre@databricks.com",
+    "effective_performance_target": "STANDARD",
+    "end_time": 1789878950232,
+    "execution_duration": 0,
+    "job_id": 1048559310465200,
+    "job_parameters": [
+      {
+        "default": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src",
+        "name": "source_root"
+      },
+      {
+        "default": "gdpr2_catalog.lakematch_20260919",
+        "name": "schema"
+      },
+      {
+        "default": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture",
+        "name": "root",
+        "value": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/20260920T042153Z"
+      }
+    ],
+    "job_run_id": 994862043938979,
+    "number_in_job": 994862043938979,
+    "original_attempt_run_id": 994862043938979,
+    "run_duration": 824187,
+    "run_id": 994862043938979,
+    "run_name": "[dev laurent_fabre] lakematch-20260919-cluster-fixture",
+    "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1048559310465200/run/994862043938979",
+    "run_type": "JOB_RUN",
+    "setup_duration": 0,
+    "start_time": 1789878126045,
+    "state": {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "state_message": "",
+      "user_cancelled_or_timedout": false
+    },
+    "status": {
+      "state": "TERMINATED",
+      "termination_details": {
+        "code": "SUCCESS",
+        "message": "",
+        "type": "SUCCESS"
+      }
+    },
+    "tasks": [
+      {
+        "attempt_number": 0,
+        "cleanup_duration": 0,
+        "depends_on": [
+          {
+            "task_key": "train"
+          }
+        ],
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789878949859,
+        "environment_key": "engine",
+        "execution_duration": 337000,
+        "notebook_task": {
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/cluster_fixture",
+          "source": "WORKSPACE"
+        },
+        "run_id": 331774337022468,
+        "run_if": "ALL_SUCCESS",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1048559310465200/run/331774337022468",
+        "setup_duration": 2000,
+        "start_time": 1789878610251,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "task_key": "cluster"
+      },
+      {
+        "attempt_number": 0,
+        "cleanup_duration": 0,
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789878609815,
+        "environment_key": "engine",
+        "execution_duration": 257000,
+        "notebook_task": {
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/train_cluster_fixture",
+          "source": "WORKSPACE"
+        },
+        "run_id": 519611022760137,
+        "run_if": "ALL_SUCCESS",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1048559310465200/run/519611022760137",
+        "setup_duration": 226000,
+        "start_time": 1789878126077,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "task_key": "train"
+      }
+    ],
+    "trigger": "ONE_TIME"
+  },
+  "outputs": {
+    "cluster": {
+      "metadata": {
+        "cleanup_duration": 0,
+        "creator_user_name": "laurent.fabre@databricks.com",
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789878949859,
+        "execution_duration": 337000,
+        "job_id": 1048559310465200,
+        "job_parameters": [
+          {
+            "default": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src",
+            "name": "source_root"
+          },
+          {
+            "default": "gdpr2_catalog.lakematch_20260919",
+            "name": "schema"
+          },
+          {
+            "default": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture",
+            "name": "root",
+            "value": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/20260920T042153Z"
+          }
+        ],
+        "job_run_id": 994862043938979,
+        "number_in_job": 331774337022468,
+        "original_attempt_run_id": 331774337022468,
+        "run_id": 331774337022468,
+        "run_name": "cluster",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1048559310465200/run/331774337022468",
+        "run_type": "JOB_RUN",
+        "setup_duration": 2000,
+        "start_time": 1789878610251,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "tasks": [
+          {
+            "attempt_number": 0,
+            "cleanup_duration": 0,
+            "effective_performance_target": "STANDARD",
+            "end_time": 1789878949859,
+            "environment_key": "engine",
+            "execution_duration": 337000,
+            "notebook_task": {
+              "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/cluster_fixture",
+              "source": "WORKSPACE"
+            },
+            "run_id": 331774337022468,
+            "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1048559310465200/run/331774337022468",
+            "setup_duration": 2000,
+            "start_time": 1789878610251,
+            "state": {
+              "life_cycle_state": "TERMINATED",
+              "result_state": "SUCCESS",
+              "state_message": "",
+              "user_cancelled_or_timedout": false
+            },
+            "status": {
+              "state": "TERMINATED",
+              "termination_details": {
+                "code": "SUCCESS",
+                "message": "",
+                "type": "SUCCESS"
+              }
+            },
+            "task_key": "cluster"
+          }
+        ],
+        "trigger": "ONE_TIME"
+      },
+      "notebook_output": {
+        "result": "{\"status\": \"completed\", \"model\": {\"run_id\": \"76449dd60450478aa16fc38355193f7f\", \"model_uri\": \"runs:/76449dd60450478aa16fc38355193f7f/model\", \"logged_model_uri\": \"models:/m-c036dae056204eae8367fedea96d11cb\", \"label_set_sha256\": \"331f12f7994d61b5c8bf194819a0e22b49e6fad25b5fa22f7dcb53965e559afb\", \"artifact_bytes\": 219773, \"registry\": false}, \"namespace\": \"/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/20260920T042153Z\", \"scope\": \"synthetic remote fit/reload, verified merge, Delta publication; not corpus quality evidence\", \"exact_journal_replay\": true, \"unchanged_input_stable\": true, \"historical_retry_does_not_rewind\": true, \"interrupted_write_kept_previous_head\": true, \"commits\": 3, \"seconds\": 320.8944882170001, \"publications\": {\"original\": {\"schema_version\": 1, \"batch_id\": \"original\", \"request_digest\": \"6f948fbcc3db365a08f0c071c77266a8981b8d8a8462bed3dec7c3ca602491d4\", \"attempt\": \"89e34a9cdf9e41d589d1ff7757b4638e\", \"sequence\": 1, \"tables\": {\"crosswalk\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_89e34a9cdf9e41d589d1ff7757b4638e_crosswalk\", \"version\": 0, \"rows\": 5}, \"changes\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_89e34a9cdf9e41d589d1ff7757b4638e_changes\", \"version\": 0, \"rows\": 5}, \"cluster_events\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_89e34a9cdf9e41d589d1ff7757b4638e_cluster_events\", \"version\": 0, \"rows\": 2}, \"links\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_89e34a9cdf9e41d589d1ff7757b4638e_links\", \"version\": 0, \"rows\": 4}}, \"previous_batch_id\": null, \"metadata\": {\"rounds\": [{\"round\": 1, \"proposals\": 4, \"verification_pairs\": 4, \"vetoed_proposals\": 0, \"merges\": 2}, {\"round\": 2, \"proposals\": 1, \"verification_pairs\": 2, \"vetoed_proposals\": 0, \"merges\": 1}, {\"round\": 3, \"proposals\": 0, \"merges\": 0}], \"exact_journal_replay\": true, \"model_uri\": \"runs:/76449dd60450478aa16fc38355193f7f/model\", \"pair_metadata\": \"gram_cosine\"}, \"reused\": false, \"recovered_tables\": []}, \"incremental\": {\"schema_version\": 1, \"batch_id\": \"incremental\", \"request_digest\": \"7c954de85a95bc1f0bde6c72c423303f7443db70a19abb610b8c05260fe7ce2a\", \"attempt\": \"403c3deafcf44b50ad7dea7b4b4f54e9\", \"sequence\": 2, \"tables\": {\"crosswalk\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_403c3deafcf44b50ad7dea7b4b4f54e9_crosswalk\", \"version\": 0, \"rows\": 5}, \"changes\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_403c3deafcf44b50ad7dea7b4b4f54e9_changes\", \"version\": 0, \"rows\": 6}, \"cluster_events\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_403c3deafcf44b50ad7dea7b4b4f54e9_cluster_events\", \"version\": 0, \"rows\": 0}, \"links\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_403c3deafcf44b50ad7dea7b4b4f54e9_links\", \"version\": 0, \"rows\": 4}}, \"previous_batch_id\": \"original\", \"metadata\": {\"rounds\": [{\"round\": 1, \"proposals\": 4, \"verification_pairs\": 4, \"vetoed_proposals\": 0, \"merges\": 2}, {\"round\": 2, \"proposals\": 1, \"verification_pairs\": 2, \"vetoed_proposals\": 0, \"merges\": 1}, {\"round\": 3, \"proposals\": 0, \"merges\": 0}], \"exact_journal_replay\": true, \"model_uri\": \"runs:/76449dd60450478aa16fc38355193f7f/model\", \"pair_metadata\": \"gram_cosine\"}, \"reused\": false, \"recovered_tables\": [\"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_e90867e48a8b49aa8f078b9c01f1036c_partial\"]}, \"unchanged\": {\"schema_version\": 1, \"batch_id\": \"unchanged\", \"request_digest\": \"7c954de85a95bc1f0bde6c72c423303f7443db70a19abb610b8c05260fe7ce2a\", \"attempt\": \"5d1d0a72171a4b6c8740a90b4e814137\", \"sequence\": 3, \"tables\": {\"crosswalk\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_5d1d0a72171a4b6c8740a90b4e814137_crosswalk\", \"version\": 0, \"rows\": 5}, \"changes\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_5d1d0a72171a4b6c8740a90b4e814137_changes\", \"version\": 0, \"rows\": 5}, \"cluster_events\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_5d1d0a72171a4b6c8740a90b4e814137_cluster_events\", \"version\": 0, \"rows\": 0}, \"links\": {\"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_5d1d0a72171a4b6c8740a90b4e814137_links\", \"version\": 0, \"rows\": 4}}, \"previous_batch_id\": \"incremental\", \"metadata\": {\"rounds\": [{\"round\": 1, \"proposals\": 4, \"verification_pairs\": 4, \"vetoed_proposals\": 0, \"merges\": 2}, {\"round\": 2, \"proposals\": 1, \"verification_pairs\": 2, \"vetoed_proposals\": 0, \"merges\": 1}, {\"round\": 3, \"proposals\": 0, \"merges\": 0}], \"exact_journal_replay\": true, \"model_uri\": \"runs:/76449dd60450478aa16fc38355193f7f/model\", \"pair_metadata\": \"gram_cosine\"}, \"reused\": false, \"recovered_tables\": []}}, \"evidence_files\": {\"publication-snapshots.json\": \"bcd736cb258bb46f4d50c22042a8f4d4835df37279ae2097ac97e5b1a768fbf7\"}}",
+        "truncated": false
+      }
+    },
+    "train": {
+      "metadata": {
+        "cleanup_duration": 0,
+        "creator_user_name": "laurent.fabre@databricks.com",
+        "effective_performance_target": "STANDARD",
+        "end_time": 1789878609815,
+        "execution_duration": 257000,
+        "job_id": 1048559310465200,
+        "job_parameters": [
+          {
+            "default": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src",
+            "name": "source_root"
+          },
+          {
+            "default": "gdpr2_catalog.lakematch_20260919",
+            "name": "schema"
+          },
+          {
+            "default": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture",
+            "name": "root",
+            "value": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/20260920T042153Z"
+          }
+        ],
+        "job_run_id": 994862043938979,
+        "number_in_job": 519611022760137,
+        "original_attempt_run_id": 519611022760137,
+        "run_id": 519611022760137,
+        "run_name": "train",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1048559310465200/run/519611022760137",
+        "run_type": "JOB_RUN",
+        "setup_duration": 226000,
+        "start_time": 1789878126077,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "tasks": [
+          {
+            "attempt_number": 0,
+            "cleanup_duration": 0,
+            "effective_performance_target": "STANDARD",
+            "end_time": 1789878609815,
+            "environment_key": "engine",
+            "execution_duration": 257000,
+            "notebook_task": {
+              "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/train_cluster_fixture",
+              "source": "WORKSPACE"
+            },
+            "run_id": 519611022760137,
+            "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/1048559310465200/run/519611022760137",
+            "setup_duration": 226000,
+            "start_time": 1789878126077,
+            "state": {
+              "life_cycle_state": "TERMINATED",
+              "result_state": "SUCCESS",
+              "state_message": "",
+              "user_cancelled_or_timedout": false
+            },
+            "status": {
+              "state": "TERMINATED",
+              "termination_details": {
+                "code": "SUCCESS",
+                "message": "",
+                "type": "SUCCESS"
+              }
+            },
+            "task_key": "train"
+          }
+        ],
+        "trigger": "ONE_TIME"
+      },
+      "notebook_output": {
+        "result": "{\"status\": \"completed\", \"model\": {\"run_id\": \"76449dd60450478aa16fc38355193f7f\", \"model_uri\": \"runs:/76449dd60450478aa16fc38355193f7f/model\", \"logged_model_uri\": \"models:/m-c036dae056204eae8367fedea96d11cb\", \"label_set_sha256\": \"331f12f7994d61b5c8bf194819a0e22b49e6fad25b5fa22f7dcb53965e559afb\", \"artifact_bytes\": 219773, \"registry\": false}, \"config\": {\"profile\": \"databricks\", \"runtime\": {\"mode\": \"serverless\", \"connect\": false, \"remote\": \"sc://localhost:15002\", \"materialize\": \"table\", \"master\": \"local[2]\", \"cli_profile\": \"fevm-gdpr2\"}, \"classic\": {\"profile\": null}, \"storage\": {\"catalog\": null, \"root\": \"./data\", \"scratch_schema\": \"gdpr2_catalog.lakematch_20260919\"}, \"entity\": {\"name\": \"remote_cluster_fixture\", \"id_column\": \"rec_id\", \"fields\": {\"name\": {\"type\": \"person_name\"}, \"code\": {\"type\": \"code\"}}}, \"candidates\": {\"method\": \"gram_topk\", \"q\": 3, \"k\": 5, \"idf_weighted\": true, \"gram_cap\": 400, \"max_join_rows\": 5000000, \"max_pairs\": 100000, \"union_of\": [], \"field_blocks\": [], \"max_block_rules\": 3, \"num_hash_features\": 128000, \"num_hash_tables\": 4, \"seed\": 0}, \"features\": {\"string_similarity\": \"levenshtein\", \"multi_token\": [], \"udf_features\": false, \"field_families\": true, \"exclude_field_types\": [], \"max_tokens\": 64, \"max_chars\": 512, \"levenshtein_threshold\": 64, \"embeddings\": {\"fields_of_type\": [], \"provider\": \"none\", \"model\": \"data/models/all-MiniLM-L6-v2\"}}, \"matcher\": {\"estimator\": \"gbt\", \"max_model_mb\": 100, \"max_iter\": 5, \"max_depth\": 2, \"seed\": 0}, \"decision\": {\"threshold\": 0.5, \"cardinality\": \"unrestricted\"}, \"cluster\": {\"method\": \"verified_merge\", \"max_rounds\": 30}, \"quality\": {\"engine\": \"native\", \"checks\": []}, \"labels\": {\"llm\": \"none\", \"llm_tau\": 0.9}, \"mlflow\": {\"tracking_uri\": \"databricks\", \"registry\": false, \"model_name\": \"lakematch_person\", \"registry_uri\": \"databricks-uc\", \"alias\": null, \"experiment\": \"/Users/laurent.fabre@databricks.com/lakematch/20260919/cluster_fixture\", \"acceptance_f1\": null}, \"paid_features\": {\"photon_on_classic\": false, \"serverless_performance_mode\": false, \"llm_labeller\": false, \"ai_functions\": false, \"embedding_endpoint\": false, \"ai_search_blocking\": false, \"lakebase_label_store\": false, \"app\": false, \"genie\": false, \"predictive_optimization\": false, \"data_quality_monitoring\": false, \"llm_judges_in_evaluation\": false, \"genie_auth_mode\": \"user\"}, \"input\": {\"left\": null, \"right\": null, \"labels\": null, \"validation_labels\": null, \"format\": \"csv\"}, \"output\": {\"root\": \"./data/output\"}, \"model\": {\"path\": \"./data/model\", \"pointer\": \"models/current.json\"}}, \"pair_metadata\": \"gram_cosine\", \"scope\": \"8 synthetic training records; all 28 pairs; no confirmation labels\", \"seconds\": 232.71609109899998, \"training_ids\": [\"train-0\", \"train-1\", \"train-2\", \"train-3\", \"train-4\", \"train-5\", \"train-6\", \"train-7\"]}",
+        "truncated": false
+      }
+    }
+  },
+  "result": {
+    "status": "completed",
+    "model": {
+      "run_id": "76449dd60450478aa16fc38355193f7f",
+      "model_uri": "runs:/76449dd60450478aa16fc38355193f7f/model",
+      "logged_model_uri": "models:/m-c036dae056204eae8367fedea96d11cb",
+      "label_set_sha256": "331f12f7994d61b5c8bf194819a0e22b49e6fad25b5fa22f7dcb53965e559afb",
+      "artifact_bytes": 219773,
+      "registry": false
+    },
+    "namespace": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/20260920T042153Z",
+    "scope": "synthetic remote fit/reload, verified merge, Delta publication; not corpus quality evidence",
+    "exact_journal_replay": true,
+    "unchanged_input_stable": true,
+    "historical_retry_does_not_rewind": true,
+    "interrupted_write_kept_previous_head": true,
+    "commits": 3,
+    "seconds": 320.8944882170001,
+    "publications": {
+      "original": {
+        "schema_version": 1,
+        "batch_id": "original",
+        "request_digest": "6f948fbcc3db365a08f0c071c77266a8981b8d8a8462bed3dec7c3ca602491d4",
+        "attempt": "89e34a9cdf9e41d589d1ff7757b4638e",
+        "sequence": 1,
+        "tables": {
+          "crosswalk": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_89e34a9cdf9e41d589d1ff7757b4638e_crosswalk",
+            "version": 0,
+            "rows": 5
+          },
+          "changes": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_89e34a9cdf9e41d589d1ff7757b4638e_changes",
+            "version": 0,
+            "rows": 5
+          },
+          "cluster_events": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_89e34a9cdf9e41d589d1ff7757b4638e_cluster_events",
+            "version": 0,
+            "rows": 2
+          },
+          "links": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_89e34a9cdf9e41d589d1ff7757b4638e_links",
+            "version": 0,
+            "rows": 4
+          }
+        },
+        "previous_batch_id": null,
+        "metadata": {
+          "rounds": [
+            {
+              "round": 1,
+              "proposals": 4,
+              "verification_pairs": 4,
+              "vetoed_proposals": 0,
+              "merges": 2
+            },
+            {
+              "round": 2,
+              "proposals": 1,
+              "verification_pairs": 2,
+              "vetoed_proposals": 0,
+              "merges": 1
+            },
+            {
+              "round": 3,
+              "proposals": 0,
+              "merges": 0
+            }
+          ],
+          "exact_journal_replay": true,
+          "model_uri": "runs:/76449dd60450478aa16fc38355193f7f/model",
+          "pair_metadata": "gram_cosine"
+        },
+        "reused": false,
+        "recovered_tables": []
+      },
+      "incremental": {
+        "schema_version": 1,
+        "batch_id": "incremental",
+        "request_digest": "7c954de85a95bc1f0bde6c72c423303f7443db70a19abb610b8c05260fe7ce2a",
+        "attempt": "403c3deafcf44b50ad7dea7b4b4f54e9",
+        "sequence": 2,
+        "tables": {
+          "crosswalk": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_403c3deafcf44b50ad7dea7b4b4f54e9_crosswalk",
+            "version": 0,
+            "rows": 5
+          },
+          "changes": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_403c3deafcf44b50ad7dea7b4b4f54e9_changes",
+            "version": 0,
+            "rows": 6
+          },
+          "cluster_events": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_403c3deafcf44b50ad7dea7b4b4f54e9_cluster_events",
+            "version": 0,
+            "rows": 0
+          },
+          "links": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_403c3deafcf44b50ad7dea7b4b4f54e9_links",
+            "version": 0,
+            "rows": 4
+          }
+        },
+        "previous_batch_id": "original",
+        "metadata": {
+          "rounds": [
+            {
+              "round": 1,
+              "proposals": 4,
+              "verification_pairs": 4,
+              "vetoed_proposals": 0,
+              "merges": 2
+            },
+            {
+              "round": 2,
+              "proposals": 1,
+              "verification_pairs": 2,
+              "vetoed_proposals": 0,
+              "merges": 1
+            },
+            {
+              "round": 3,
+              "proposals": 0,
+              "merges": 0
+            }
+          ],
+          "exact_journal_replay": true,
+          "model_uri": "runs:/76449dd60450478aa16fc38355193f7f/model",
+          "pair_metadata": "gram_cosine"
+        },
+        "reused": false,
+        "recovered_tables": [
+          "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_e90867e48a8b49aa8f078b9c01f1036c_partial"
+        ]
+      },
+      "unchanged": {
+        "schema_version": 1,
+        "batch_id": "unchanged",
+        "request_digest": "7c954de85a95bc1f0bde6c72c423303f7443db70a19abb610b8c05260fe7ce2a",
+        "attempt": "5d1d0a72171a4b6c8740a90b4e814137",
+        "sequence": 3,
+        "tables": {
+          "crosswalk": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_5d1d0a72171a4b6c8740a90b4e814137_crosswalk",
+            "version": 0,
+            "rows": 5
+          },
+          "changes": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_5d1d0a72171a4b6c8740a90b4e814137_changes",
+            "version": 0,
+            "rows": 5
+          },
+          "cluster_events": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_5d1d0a72171a4b6c8740a90b4e814137_cluster_events",
+            "version": 0,
+            "rows": 0
+          },
+          "links": {
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_78605be7dc4c256b_5d1d0a72171a4b6c8740a90b4e814137_links",
+            "version": 0,
+            "rows": 4
+          }
+        },
+        "previous_batch_id": "incremental",
+        "metadata": {
+          "rounds": [
+            {
+              "round": 1,
+              "proposals": 4,
+              "verification_pairs": 4,
+              "vetoed_proposals": 0,
+              "merges": 2
+            },
+            {
+              "round": 2,
+              "proposals": 1,
+              "verification_pairs": 2,
+              "vetoed_proposals": 0,
+              "merges": 1
+            },
+            {
+              "round": 3,
+              "proposals": 0,
+              "merges": 0
+            }
+          ],
+          "exact_journal_replay": true,
+          "model_uri": "runs:/76449dd60450478aa16fc38355193f7f/model",
+          "pair_metadata": "gram_cosine"
+        },
+        "reused": false,
+        "recovered_tables": []
+      }
+    },
+    "evidence_files": {
+      "publication-snapshots.json": "bcd736cb258bb46f4d50c22042a8f4d4835df37279ae2097ac97e5b1a768fbf7"
+    }
+  },
+  "cleanup": {
+    "job_terminal": true,
+    "pipeline_idle": null,
+    "errors": [],
+    "shared_warehouse": "not started or stopped by this runner"
+  },
+  "exported_artifacts": {
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-001.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-001.stdout.txt": "8d1a5a80c450b2a56fd735c78399e41c14070f1a6705b90bdd5242456ca3869e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-002.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-002.stdout.txt": "dc14cf64086e5e6680afc68daf2ead471dddfc22e6fc68612494441256ac6b38",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-003.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-003.stdout.txt": "4352669ffc88b990ca7c878eec440b19b1e7d8d495be8a2ca4859fd3d2967822",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-004.stderr.txt": "19ca2f232d68fed5285eec2f577cac31671720c057e26b0faa2fe1f206632b11",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-004.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-005.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-005.stdout.txt": "d0b68fdae779f2cda23a62ccd812f765e89d5cacb4cb5678798793628f48e875",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-006.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-006.stdout.txt": "ea68cb5eb3b95f5d27f84594d5e3695246bfbf8b7d7a7b45be4ec71b2fa428aa",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-007.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-007.stdout.txt": "6cef6e747a13c8d82f7b44a8fe1a231bc342ed87c55deaac9b38d2dd10c90247",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-008.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-008.stdout.txt": "9c2e6d03c64cc0a61d22600eede5f35a55f4d6fff19bf6d9d4ec73d383325f7f",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-009.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-009.stdout.txt": "302c93eb2c595f3404047f9b41d0dcbf4f6f9d7dab288178afb40354f67377b3",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-010.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-010.stdout.txt": "54dc278b192575c22a0ad2e3905113c8883359cc28c972a007044f07a739a806",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-011.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-011.stdout.txt": "ba33b059c0e4d620a4da2c9da1389fbfb29d2ce54a9c33d4e9d49e88fb46f917",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-012.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-012.stdout.txt": "2f0d400096df63c94867da4efc9d9ad294ac2dfd801b0bccfd2d3abbcbd8a778",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-013.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-013.stdout.txt": "54162e0b2dc39d7671a628072a76e54b13878a48613ab80ab6fccb6c6c60390d",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-014.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-014.stdout.txt": "628bf257154e4fa99bd0325ac728118603046b325e6eeb6a87c659af79ede07a",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-015.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-015.stdout.txt": "5dabddd7be1370e55c7fc3d53666a4881ced837e4590c9ff4154c76ebe984d49",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-016.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-016.stdout.txt": "040abc76d1e784fab5f98c5dea6b92a7b71e310aef6fb612a38b0350b654b0c0",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-017.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-017.stdout.txt": "5ab23de0369dd393a2edff8c606ae8537f60e6684ca5d5456d63f7578a6d5006",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-018.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-018.stdout.txt": "5795ac2dc92fda7c380dc760e914ec7db10b6349c8aa45ab564830c90295135b",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-019.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-019.stdout.txt": "090acd9bcc804d7019872e6e13c20393f77635d17e2970280657ccf9deb7b2c2",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-020.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-020.stdout.txt": "72ea30aa20cf3a983d16f3d37f6a7b836de4cf9de13e453ffc68a119a7b690c6",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-021.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-021.stdout.txt": "48439d0323afcb26904d1e638c924d293ce249f05c2edebe6d8e7e2700cb3e60",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-022.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-022.stdout.txt": "2f2d5cc4980c89479bcc62e04dca60d7eed6a91dfeed8932aba509af7dfa2abd",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-023.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-023.stdout.txt": "6cea111012a8a06f072f7006c6b689c32e4aa2466eb5ec71c1f6e97797788832",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-024.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-024.stdout.txt": "6d32b344c5396d9d809480b6b5ed60fe55a46a0c5c3bfba22bef8dbbb301d9d8",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-025.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-025.stdout.txt": "f1e47bcbec3a48da35a800083e8a6708544cc7851904288109528e1b2ae4a016",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-026.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-026.stdout.txt": "bfbf8f98a7b5c5acd11c686d397dc3db8d8a3675421976bfb3bb5809542fbe4f",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-027.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-027.stdout.txt": "83deedad366d62560a966a81515741b87b35884697816ea66440986c4887d046",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-028.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-028.stdout.txt": "ad4df36dc122f0570f253dd659d78289e92b81508e306e51e474e9a026cc2de9",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-029.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-029.stdout.txt": "b9480b40cf17b2e6ecb33244437e701b67e958cbfd03208fa0f5c20dfe792cc7",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-030.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-030.stdout.txt": "f332c32fe94a5575c49a1d400d3dadc1a2d68bc709ed194359b4dbddaaa0a5b9",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-031.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-031.stdout.txt": "50ec6d7193e1763297f7a7935d04972d809a30ffa7d40fbd40c97ef8cd917040",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-032.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-032.stdout.txt": "3ebf34efd71ba5891a1f0e950565ec166a9c608181d814195598dfcdb9685f8a",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-033.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-033.stdout.txt": "8f34f33559ec9b6a9255a93fe7591a540b46bed95e80e15ed63f1b9f8363c9da",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-034.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-034.stdout.txt": "8d7635b02ed29e88a79d6eb7762e993caa854a28ef71bbb8cb075fda0578481a",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-035.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-035.stdout.txt": "db6d1a6e2f866215256ea6c6f16dad65592305788cc745f43493a86182aef833",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-036.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-036.stdout.txt": "5919c30e60ea49c3eb5d3c1f658ca2c994f6b77b07d6b6ebfcf921b0324543db",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-037.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-037.stdout.txt": "f8bdcdc6d780242e6eabb4ca688cc5c113dae49f54c9a19bb2c0b975847747b5",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-038.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-038.stdout.txt": "2f6a8ff4774b797493f09bdebcad3421378b947f064d6c4c8306c5e6c774996e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-039.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-039.stdout.txt": "959a2f66bc861d0c20bdf6e9150b51f69f08bd4eb531b7aa3a28cf5d65176f10",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-040.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-040.stdout.txt": "28faa0543fcf66ae3e8e0dcae8f9dff7d14e9e273095fb868ef7da3361b3543b",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-041.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-041.stdout.txt": "df5b4bab0fc3ecd3db23b8af11577d3d942c90f72200fa16e02a9760226ffdd9",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-042.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-042.stdout.txt": "29162eddefdf6601d0b6f00fa7b273d2d3e11c55094d9e27e938530230289fff",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-043.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-043.stdout.txt": "b8a25d6837db6cf9674c2af445a6b3de16bd1f70ac923a2fb2fb0ed870d5e928",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-044.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-044.stdout.txt": "93439086efb9707312ea8bb242e2c91fb791be3c886328e8b5a3846b8fbe0e4c",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-045.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-045.stdout.txt": "0127fb552eab7a6b08f88bb7b26a0c9f4ef4aa80715a652a6683b6494d6ed7e5",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-046.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-046.stdout.txt": "88a13e9768b6c9109010d788e79ba5f47c262390ae03df43acaac41a62344d02",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-047.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-047.stdout.txt": "0d1e55911db18167af03c3521c9e91860f4ed7a1f35f7fc12c150dac54b5ed37",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-048.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-048.stdout.txt": "6720f3dcf059a99bcf6de393067c02c031d3ad037e90c2be3c6df73fe21ee9b2",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-049.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-049.stdout.txt": "5b066d442ee871ab95f4e14fdd4e02d7d6df2f3e00324996d099ad47791992d3",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-050.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-050.stdout.txt": "a5cd8b291070e3d050f3fa7e3595035eab6fcd2b759dac1ff9a683d07cbc1892",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-051.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-051.stdout.txt": "60c2bafd778fe9974c507bfb613d46e8add6d7682d3b689d299b1e5cffef17a5",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-052.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-052.stdout.txt": "3517def6fa684210b58b40c2196fe4163a5a558250e3c1237ba9dc70ed486136",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-053.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-053.stdout.txt": "60ac1fcd46fe4313256d0e01612f6d1b7f79d3e544c34b5c57402f9654b196f9",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-054.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-054.stdout.txt": "f68c29644465a50a4ba22587f21dee57cc951a2fa89dfad5047a8b0388ef7172",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-055.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-055.stdout.txt": "99e3738208ce9de14e44131a09db5acb18d65b1fbd67d71c8bb0d8a062d35e31",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-056.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-056.stdout.txt": "bbd6496a8d2bf1aff69adba0b542111e9018682bd9c50753c70c21b16ffdd165",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-057.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-057.stdout.txt": "20f3568fa3316a56c84931a60b36d8744f7d3c9c31710005e67e7197c63db1ca",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-058.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-058.stdout.txt": "3596b5776961accee49347da668ad8fe1bb60463d1bdcf5e431a9ed645b44cff",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-059.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-059.stdout.txt": "e24009d97c6ff5edba1e891206a1ef81f70fd68b318c3b831b554252f9bc05be",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-060.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-060.stdout.txt": "eba9f079e026e4d072beef99e7b26394f2b95a6c260dd14df9e0a192b2841e06",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-061.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-061.stdout.txt": "c18d6988e4addbf973b123f601e6e7ec020d64170ca28ee822d6a76af24ef778",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-062.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-062.stdout.txt": "fe8acf4a3459b1cad47fe918e396345d995609d5d593e0d08b98fcd92cc865f6",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-063.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-063.stdout.txt": "31d3de35def7381326326b463b45fd2659d758d5242193ac9a097fbb8140f34a",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-064.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-064.stdout.txt": "e2370f66254ee3fdc2edda140afc60ecc0fa72afc3428ad7ecb829dae8c5b0d2",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-065.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-065.stdout.txt": "08ef3366d5b8844f974c9ad3b1f001cfd6392552334432ea70138da09b0dc7d4",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-066.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-066.stdout.txt": "f391cdca3e5b6a3fa036a33c5a2710ab18fc8208bc51329bd79d15669c0d68c0",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-067.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-067.stdout.txt": "759b780b834489138510c284ce3c48b3950b2eac8bcb22222df10627496e7a84",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-068.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-068.stdout.txt": "2d4b90027a040a639596651de7ab0515f50b30fa4957731ac4540f7bf0d8a3ff",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-069.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-069.stdout.txt": "0c7ec4481ce86f6fab8ab79656c0897d8814f52e47387faffb86e84353527204",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-070.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-070.stdout.txt": "4b34173cab6ce1c7139eb30bad87d7994a1aaba7e1a27cbe89996aadba64c738",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-071.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-071.stdout.txt": "7b51b5c0b36a8f3330e1a0f1615973afdec84cfbe556a83010b4e744ed6c7635",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-072.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-072.stdout.txt": "f93bdb01605d574e7a50596e9a3c6367ec7e6e8781d431a146a382b1f311b9a0",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-073.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-073.stdout.txt": "379f2194066d1f8747733ee66593f27d8a9a3d19e84fd5268716310848ea4ab2",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-074.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-074.stdout.txt": "b43ac67a181844d8487e77400d11c2f17bb7b4f3db72eea0d20104b7e657cb37",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-075.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-075.stdout.txt": "e3666d004880fb46d42aea23a6ea0a460ea2652cc751038e6f5b1f3f775a891f",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-076.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-076.stdout.txt": "72a8808f31c1134c262fc53b7d6618e1b1ecd870d40595afff71d74aeb05cfae",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-077.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-077.stdout.txt": "26019ae0e88cf2be07881c380d9abb3c2b51aca3ef71108bbc9e988c9245a4a6",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-078.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-078.stdout.txt": "679932457acd24e1453908d59faae0ff01206509c0b0000fbb35c9aedf82bdd1",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-079.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-079.stdout.txt": "1add668bf98d155032804f00a98bf5d97263e44b8eb94e339d7a743958ea2fff",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-080.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-080.stdout.txt": "1b51d89f01750389df02073d5a04bbf67066334117c2662b0473f4963559b192",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-081.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-081.stdout.txt": "f25e9b5c40ac61b65928e063245c9054a253c389b289eefe7fa9574ae6240c25",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-082.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-082.stdout.txt": "2bfbd4ca20c875e53dcf71fbf0d7cdbd0f2e88468f540d2ab5a7996aeee11665",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-083.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-083.stdout.txt": "f5fb26193f3dd6e31668f100a4399d2b65ace4f205c2028f51a60ff9eacd299d",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-084.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-084.stdout.txt": "9fc7e90dc2dca1da6bb8faee7931bbec833eb940d1981f173ab7c7fd7a280449",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-085.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-085.stdout.txt": "34b900a348fe176fb2ccf6cf1249f57a7eeea7ebb29533154f7c066f643904b7",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-086.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-086.stdout.txt": "2bbe50b68f7648ec9c18a2f405dd4f9839c74e866c227947281e319c5d3e948b",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-087.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-087.stdout.txt": "e413f37f3bfe754f30c94ef84c2977fb0b28f3a55eb95ef6efbf6bdc23ca27bb",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-088.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-088.stdout.txt": "9eef0180b3af45ef72f6df7a4111c532da84912e20debe9b72735514ab02840b",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-089.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-089.stdout.txt": "b9e6f1522bef8c683f4a95018dae716eb1dd19dc9854b1529823df5429bca499",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-090.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-090.stdout.txt": "a75f2728ff129da2b7589c1779a871a0e323ba3e4aa8233f78c2b11cdcd9a65f",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-091.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/command-091.stdout.txt": "6176cf3e26488b59c0ed190584a6cd81e4babb3cce166d27c40711e502ad7a16",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/cluster-progress.json": "8646af73daafd8dda7aa6a20ff8db1f9e7eae415afa3f287ec7f1be838b7540d",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/cluster-report.json": "daa798015f110f8a386f7d83c0d3297090275246debf9aaee602f4ad62fa8763",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/MLmodel": "c4c5302de741303f656827a6d7127458fb95a12d80a2738917a7b40e6f67e1ae",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/__pycache__/composite_model.cpython-312.pyc": "ee17804bf2ee067666f35b41392bb227a0df31254550088fb76922ffeff2701d",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/contract.json": "bd5532eb2e4fc256bdfe3d2d4aae0738a31e28ee526dde677cf8b7806e459b73",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/integrity.json": "c6d18575bfdc7ceab8b84a24addc233dd0f1b14a0425b732433a0e36a822c13d",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/labels.json": "fb75498b800a54c28567e357ad8357365c3db30b04e2a480f3d8cbab27b124f6",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/metadata/_committed_6380781450906469955": "b689b5916541340eabd7836666dec6432607e4b4afcf429dc4de8483d9a03b6e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/metadata/_started_6380781450906469955": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/metadata/part-00000-tid-6380781450906469955-a358f233-8562-40e5-bc85-b3720ce757b3-223-1-c000.txt": "6e2413b18c5feaf8972555121e924136186f10f35f3f439e6c712e6dd923650a",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/0_VectorAssembler_7013ada5c987/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/0_VectorAssembler_7013ada5c987/metadata/_committed_3522352338191434055": "92df63a7c191aa5ef247e2b34707ac49909b154abadd21e296ed47ea94be7222",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/0_VectorAssembler_7013ada5c987/metadata/_started_3522352338191434055": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/0_VectorAssembler_7013ada5c987/metadata/part-00000-tid-3522352338191434055-327f65ce-f88a-4a47-8f0a-8fc057b21e92-224-1-c000.txt": "5ec87114c2315889a3321194b8204d5959e167e618d98a3eccce81ac40c64d28",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/data/_committed_8745691302759050791": "f7b151cb5043f77204b259cbde7ec5a4f76c650a258db02f5aff0a6348bf008e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/data/_started_8745691302759050791": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/data/part-00000-tid-8745691302759050791-c335967a-c558-4ca8-b5fe-ba37002f7e23-240-1.c000.snappy.parquet": "92688483c479842f139b4a1380b050ab81713b37761681c0411ba39720ccff22",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/metadata/_committed_5586137316859655583": "38d0d21ef2b7e977fd04a1405e9e01f51b65b3501737861fb919108f455bb24b",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/metadata/_started_5586137316859655583": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/metadata/part-00000-tid-5586137316859655583-f96d8578-8845-43e3-8bc7-7edfc1068f7d-225-1-c000.txt": "ae29bca13a4beed4626de54c73222b8d28fb92e5e7df9b16acb04975c6f4c55c",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/treesMetadata/_committed_5833332706932739720": "50c2af5b971653c746c2ae45a73f4c9bfb15880aa7f2fe25ca26c2352a1971ef",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/treesMetadata/_started_5833332706932739720": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/artifacts/pipeline/stages/1_GBTClassifier_8588ec514f6b/treesMetadata/part-00000-tid-5833332706932739720-6bccbb42-9bc3-45f5-afd3-4f4fc3fd3326-231-1.c000.snappy.parquet": "84a3ab38692171f37900c50c2e51d6ea166d07984cc73581bfe6b6dbae30a2af",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/benchmark/campaign.py": "5f46304cf54063fb8320232362b28124db29bc3b4627a6d82c1ac8e52f26afb4",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/cli.py": "1ddf2018413b848ba04ccfa70b252701e5f42318885279e86e9752abfdab0f29",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/config.py": "a1446bbf11cfb1370e704b0954868f5214602d5d7040a4cfabfae6cdda7351fe",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/delta_publication.py": "88113bbbbf4d7552e8e214449b293bd32402f10f04b58e165cdcdd20a16a05ed",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/engine.py": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/features.py": "244220ccde80518165c7049640f5cd91ff84c1fd7e3a71076b61d9f9ca2742c0",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/murmur3.py": "ca96bfaf3ad37abecbd023e4d9bef02f56fcae2d931a6b9dc03b86ae62b559b5",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/native_ml.py": "84f66ec626536eaf0364174cecfe8bdb75312ff9674d9fd7f313394aaf7f411e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/quality/__init__.py": "0442148bc1e3211070040b875b14e0eb7612debcfaf02edb4cdb23e3363cfade",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/quality/dqx.py": "c3793746e646a2cf5256362db3919b3c24021f2b29bd3649a5452f4040b49207",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/quality/rules.py": "4f511d03ab1a0cb00c211e875c469d2470acc67ac773cd49f79e9ae55f3d3a58",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/conda.yaml": "a2f9493b65750e1d6b5e92ac317bf91f5a6971701d42ff0f8ba5cbb03232de65",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/input_example.json": "58a8131cf5fd7985de827588dca56c4d2ce891b6b672275c7870227a177e0796",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/metadata/MLmodel": "c4c5302de741303f656827a6d7127458fb95a12d80a2738917a7b40e6f67e1ae",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/metadata/conda.yaml": "a2f9493b65750e1d6b5e92ac317bf91f5a6971701d42ff0f8ba5cbb03232de65",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/metadata/python_env.yaml": "a128c1697a6de7420b5a68c8ab640438b38fcc14f7d3dd69d5d161f9a4a219b7",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/metadata/requirements.txt": "1c27e4b280e59a1cbe6ef0ce22e3d23deba5921d8fd6281d61a9181aebee136e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/python_env.yaml": "a128c1697a6de7420b5a68c8ab640438b38fcc14f7d3dd69d5d161f9a4a219b7",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/requirements.txt": "1c27e4b280e59a1cbe6ef0ce22e3d23deba5921d8fd6281d61a9181aebee136e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/loaded/model/serving_input_example.json": "2dd9ce3fc7a6a727fd37db37532ccbe7f348abf360cf02059ec7bd534ff7a94e",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/publication-snapshots.json": "bcd736cb258bb46f4d50c22042a8f4d4835df37279ae2097ac97e5b1a768fbf7",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/train-progress.json": "069542b86784066dc2740c9f5fdd012ab19d5f76beafa56b31fe32b56b849ab6",
+    "data/serverless_runs/20260920T042153Z-serverless_native-fixture/volume/train-report.json": "8742e41002ccc00532c029d88c61fe35c69853d4702fb647ea877c31fba6f796"
+  },
+  "ended_at": "2026-09-20T04:36:00.635460+00:00"
+}

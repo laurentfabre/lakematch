@@ -1,0 +1,57 @@
+{
+  "audited_at": "2026-09-20T05:24:38.688954+00:00",
+  "scope": "Read-only checks of sealed evidence; no experiment launched by verification",
+  "core_source_digest": "9babf294d0b963faa38af4ea468f708d2d37c12bf8fac4bb16514151df875f22",
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "resource_receipt_sha256": "354f3d3b2cbcb734c2be625f5cc38b340c559ae45be96aadd2cdd6ff8a40c0c2",
+  "phases": {
+    "ZR-1": {
+      "passed": true,
+      "errors": []
+    },
+    "ZR-2": {
+      "passed": true,
+      "errors": []
+    },
+    "ZR-3": {
+      "passed": false,
+      "errors": [
+        "scale-1000000: failed; partial counters retained, no completed output or quality claim",
+        "lakematch bench --all execution acceptance is missing"
+      ]
+    },
+    "ZR-4": {
+      "passed": true,
+      "errors": []
+    },
+    "ZR-5": {
+      "passed": true,
+      "errors": []
+    },
+    "ZR-6": {
+      "passed": false,
+      "errors": [
+        "Measured per-stage Photon task time and executed fallback operator profiles are missing",
+        "Campaign-attributed observed DBUs/cost remain unreconciled"
+      ]
+    },
+    "ZR-7": {
+      "passed": false,
+      "errors": [
+        "ZR-7: implementation and full acceptance evidence are pending; see goal.md"
+      ]
+    },
+    "ZR-8": {
+      "passed": false,
+      "errors": [
+        "ZR-8: implementation and full acceptance evidence are pending; see goal.md"
+      ]
+    },
+    "ZR-9": {
+      "passed": false,
+      "errors": [
+        "ZR-9: implementation and full acceptance evidence are pending; see goal.md"
+      ]
+    }
+  }
+}

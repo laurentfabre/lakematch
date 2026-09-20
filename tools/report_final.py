@@ -186,7 +186,7 @@ def render(results, errors):
         '| Leipzig Affiliations | Web URL overlap 0.832; Soft TF-IDF with location 0.442 | Aumueller/Rahm 2009, Table 3; different dataset version and web features; [extraction and caveats](AFFILIATIONS_REFERENCE.md) |',
         '| Synthetic scale | No accuracy reference target | [Measured bounded-work ladder](SCALE.md) |', '',
         'References and original provenance: [historical controlled benchmark](../spec/bench/README.md), [brief](../spec/BRIEF.md#benchmarks-and-known-tests).', '',
-        'Method selection: [candidates](CANDIDATES.md), [classifiers](CLASSIFIERS.md), [compact features](COMPACT_FEATURES.md), [clustering](CLUSTERS.md). No held-out result is used to revise a model or threshold. Defaults and aliases remain unpromoted pending all gates.', '',
+        'Method selection: [candidates](CANDIDATES.md), [classifiers](CLASSIFIERS.md), [compact features](COMPACT_FEATURES.md), [clustering](CLUSTERS.md). No held-out result is used to revise a model or threshold. Validation-selected package defaults are adopted; final execution compatibility and phase acceptance are checked separately. Frozen benchmark models and thresholds are unchanged; the separate synthetic UC acceptance model is tracked in MODELS.md.', '',
         'Evidence:', '', *[f"- `{kind}`: [{entry['run_id']}](../{entry['manifest']})." for kind, entry in results.items()]]
     try:
         from report_original import collect as collect_original
@@ -222,7 +222,7 @@ def render(results, errors):
         if 'hot_key_case' in r:
             hot = r['hot_key_case']; hb = hot['candidate_budget']
             hot_notes.append(f"Hot-key fixture: {hot['records']} indistinguishable records; pre-cap join rows {hb['join_rows_before_cap']}, post-cap {hb['join_rows_after_cap']}, recall {hot['candidate_recall']:.4f}. Dropping nonselective buckets bounds work at the expense of recall.")
-    scale += ['', *hot_notes, '', 'Wall/throughput includes training, model logging, generation, retrieval, scoring, output and Spark cleanup. Shuffle includes all task attempts; peak execution memory is per task, not process RSS. Raw event logs and output checksums are sealed. Local publication crash/retry evidence is [separate](PUBLICATION.md); remote recovery remains unproven.', '',
+    scale += ['', *hot_notes, '', 'Wall/throughput includes training, model logging, generation, retrieval, scoring, output and Spark cleanup. Shuffle includes all task attempts; peak execution memory is per task, not process RSS. Raw event logs and output checksums are sealed. Local publication crash/retry evidence is [separate](PUBLICATION.md); remote fixture recovery evidence is tracked separately in [SERVERLESS.md](SERVERLESS.md).', '',
         *['- ' + error for error in errors if error.startswith('scale-')]]
     (ROOT / 'bench/SCALE.md').write_text('\n'.join(scale) + '\n')
 

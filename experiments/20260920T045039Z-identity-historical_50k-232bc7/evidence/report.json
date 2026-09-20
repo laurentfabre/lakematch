@@ -1,0 +1,1139 @@
+{
+  "status": "completed",
+  "iteration": 6,
+  "corpus": "historical_50k",
+  "method": "verified_merge",
+  "comparison_run": "20260920T044433Z-cluster-historical_50k-8a67c9",
+  "model": {
+    "run_id": "e8504846807046e8bdd9030f2da68136",
+    "model_uri": "runs:/e8504846807046e8bdd9030f2da68136/model",
+    "logged_model_uri": "models:/m-6ca8a3d3c5064f3eb2cd79c650c55365",
+    "label_set_sha256": "2f12b799e8da1ed901284b6444539f9b265542c929eab4c52a468918cbe1a22f",
+    "artifact_bytes": 3939677,
+    "registry": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "historical_50k",
+      "id_column": "rec_id",
+      "fields": {
+        "full_name": {
+          "type": "person_name"
+        },
+        "dob": {
+          "type": "date"
+        },
+        "birth_place": {
+          "type": "address"
+        },
+        "postcode_fake": {
+          "type": "code"
+        },
+        "gender": {
+          "type": "code"
+        },
+        "occupation": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "field_blocks",
+      "q": 3,
+      "k": 6,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 500000,
+      "union_of": [],
+      "field_blocks": [
+        [
+          "full_name"
+        ],
+        [
+          "soundex(full_name)"
+        ],
+        [
+          "dob"
+        ],
+        [
+          "year(dob)"
+        ],
+        [
+          "birth_place"
+        ],
+        [
+          "prefix3(birth_place)"
+        ],
+        [
+          "postcode_fake"
+        ],
+        [
+          "gender"
+        ],
+        [
+          "occupation"
+        ],
+        [
+          "prefix3(occupation)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.2,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 30
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/clusters/historical_50k/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr4-clusters",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "mutation": {
+    "seed": 2026091901,
+    "records_before": 10082,
+    "records_after": 10082,
+    "per_operation_count": 100,
+    "fraction": 0.00991866693116445,
+    "deleted": [
+      "Q104668828-3",
+      "Q10477507-12",
+      "Q10477507-16",
+      "Q105762655-9",
+      "Q106351049-2",
+      "Q11314178-2",
+      "Q1132618-10",
+      "Q1231843-10",
+      "Q15432443-11",
+      "Q1586388-5",
+      "Q15994855-4",
+      "Q15995919-7",
+      "Q16023467-2",
+      "Q16029454-17",
+      "Q16030421-1",
+      "Q16066458-8",
+      "Q16200362-2",
+      "Q16861527-7",
+      "Q18002611-4",
+      "Q18527008-5",
+      "Q18528642-3",
+      "Q18672968-4",
+      "Q19359313-1",
+      "Q19517848-1",
+      "Q20203290-4",
+      "Q20733957-4",
+      "Q21289974-2",
+      "Q21454223-3",
+      "Q21538661-5",
+      "Q21664937-17",
+      "Q2184777-2",
+      "Q236930-1",
+      "Q2392149-15",
+      "Q23991132-2",
+      "Q2557619-5",
+      "Q27894126-4",
+      "Q27924480-1",
+      "Q2878295-2",
+      "Q3052363-5",
+      "Q315989-9",
+      "Q3181581-10",
+      "Q337082-12",
+      "Q3496914-3",
+      "Q351410-1",
+      "Q3809235-8",
+      "Q4348292-17",
+      "Q4394367-2",
+      "Q4798005-3",
+      "Q4799468-2",
+      "Q4800733-4",
+      "Q4846289-12",
+      "Q4963097-1",
+      "Q5076213-5",
+      "Q52148459-3",
+      "Q52148459-4",
+      "Q52148459-5",
+      "Q5414294-9",
+      "Q5497124-1",
+      "Q552983-6",
+      "Q5537793-4",
+      "Q5541591-15",
+      "Q5541822-9",
+      "Q560455-5",
+      "Q56260723-4",
+      "Q5628143-4",
+      "Q56473914-12",
+      "Q5902695-7",
+      "Q6132321-4",
+      "Q62127982-14",
+      "Q6232979-5",
+      "Q6251759-2",
+      "Q6264214-6",
+      "Q63254626-4",
+      "Q6470130-5",
+      "Q64778574-2",
+      "Q64920487-11",
+      "Q656722-6",
+      "Q6709688-4",
+      "Q7060737-13",
+      "Q7308826-5",
+      "Q7343951-8",
+      "Q7412251-10",
+      "Q7528085-3",
+      "Q75368286-9",
+      "Q75705682-18",
+      "Q75705682-6",
+      "Q75705682-9",
+      "Q75856980-1",
+      "Q7793764-4",
+      "Q7964195-8",
+      "Q7965788-1",
+      "Q799510-19",
+      "Q8007751-11",
+      "Q8012283-12",
+      "Q81207821-18",
+      "Q87067927-1",
+      "Q88466477-8",
+      "Q957699-3",
+      "Q98163940-6",
+      "Q98668668-8"
+    ],
+    "changed": [
+      "Q106651267-11",
+      "Q1104906-8",
+      "Q11801797-9",
+      "Q1285989-5",
+      "Q15498144-1",
+      "Q15615021-5",
+      "Q15693885-2",
+      "Q16030213-1",
+      "Q16030421-12",
+      "Q16030421-17",
+      "Q16030588-6",
+      "Q16066188-1",
+      "Q16066490-2",
+      "Q16225698-3",
+      "Q1700191-4",
+      "Q17325894-9",
+      "Q1809826-13",
+      "Q18527381-17",
+      "Q18576693-2",
+      "Q18576988-2",
+      "Q18671640-5",
+      "Q18756582-11",
+      "Q18910925-21",
+      "Q20007044-5",
+      "Q20201430-4",
+      "Q21453111-3",
+      "Q21538661-1",
+      "Q2413996-5",
+      "Q2422324-6",
+      "Q2670281-7",
+      "Q27827628-10",
+      "Q28037664-20",
+      "Q28935194-18",
+      "Q29194-5",
+      "Q3101626-14",
+      "Q3101626-20",
+      "Q3132583-2",
+      "Q334201-8",
+      "Q349531-1",
+      "Q3501449-15",
+      "Q3526865-1",
+      "Q3624276-2",
+      "Q3666357-4",
+      "Q4020378-1",
+      "Q4086743-11",
+      "Q442983-4",
+      "Q47624217-17",
+      "Q4800149-7",
+      "Q4821374-6",
+      "Q48373-3",
+      "Q4846289-15",
+      "Q5080735-2",
+      "Q5083490-3",
+      "Q52230793-2",
+      "Q5311949-5",
+      "Q5342415-3",
+      "Q5414294-8",
+      "Q55219118-11",
+      "Q55433724-3",
+      "Q5543807-7",
+      "Q56560368-7",
+      "Q5725966-3",
+      "Q5735932-11",
+      "Q5735932-14",
+      "Q57496145-9",
+      "Q5808467-9",
+      "Q585089-16",
+      "Q5978168-1",
+      "Q601969-2",
+      "Q6129732-16",
+      "Q6223150-1",
+      "Q6231345-11",
+      "Q6235888-2",
+      "Q6245547-5",
+      "Q6251759-8",
+      "Q6255771-17",
+      "Q63254626-13",
+      "Q656722-1",
+      "Q6774841-19",
+      "Q6969685-9",
+      "Q7026405-16",
+      "Q7026405-5",
+      "Q708101-13",
+      "Q7343993-1",
+      "Q7344025-8",
+      "Q7412574-3",
+      "Q7528564-9",
+      "Q7659916-9",
+      "Q7790531-4",
+      "Q7793428-3",
+      "Q7793509-5",
+      "Q7877756-6",
+      "Q8016548-10",
+      "Q8017455-9",
+      "Q81207821-17",
+      "Q84562127-2",
+      "Q88466477-2",
+      "Q90885377-9",
+      "Q934827-10",
+      "Q984217-11"
+    ],
+    "added": [
+      "added-000000-Q5482758-3",
+      "added-000001-Q8005566-19",
+      "added-000002-Q21288422-7",
+      "added-000003-Q21466991-2",
+      "added-000004-Q16205302-3",
+      "added-000005-Q65956920-1",
+      "added-000006-Q18026731-1",
+      "added-000007-Q3048538-9",
+      "added-000008-Q7518881-16",
+      "added-000009-Q4086743-5",
+      "added-000010-Q6244750-4",
+      "added-000011-Q105943256-4",
+      "added-000012-Q16204050-9",
+      "added-000013-Q19745229-11",
+      "added-000014-Q4720367-5",
+      "added-000015-Q1606851-7",
+      "added-000016-Q4723464-9",
+      "added-000017-Q6226579-7",
+      "added-000018-Q4846289-8",
+      "added-000019-Q5076213-10",
+      "added-000020-Q18161171-3",
+      "added-000021-Q52155443-8",
+      "added-000022-Q18160974-6",
+      "added-000023-Q2306330-2",
+      "added-000024-Q466175-6",
+      "added-000025-Q1699461-4",
+      "added-000026-Q16043465-2",
+      "added-000027-Q518407-13",
+      "added-000028-Q16066237-5",
+      "added-000029-Q2109952-1",
+      "added-000030-Q16199869-9",
+      "added-000031-Q84562127-19",
+      "added-000032-Q21283011-1",
+      "added-000033-Q505697-14",
+      "added-000034-Q4798407-3",
+      "added-000035-Q5311949-2",
+      "added-000036-Q16023302-4",
+      "added-000037-Q18576988-5",
+      "added-000038-Q15994855-13",
+      "added-000039-Q61703385-3",
+      "added-000040-Q6236646-2",
+      "added-000041-Q4706028-4",
+      "added-000042-Q2184777-1",
+      "added-000043-Q1231843-13",
+      "added-000044-Q4348292-19",
+      "added-000045-Q7411602-5",
+      "added-000046-Q5729351-7",
+      "added-000047-Q7529484-10",
+      "added-000048-Q16944161-9",
+      "added-000049-Q98142596-2",
+      "added-000050-Q522429-1",
+      "added-000051-Q5735932-4",
+      "added-000052-Q1508144-4",
+      "added-000053-Q97838695-12",
+      "added-000054-Q6238291-15",
+      "added-000055-Q6186170-3",
+      "added-000056-Q1809826-1",
+      "added-000057-Q20203290-7",
+      "added-000058-Q16029921-6",
+      "added-000059-Q5345863-12",
+      "added-000060-Q15994581-5",
+      "added-000061-Q8006662-5",
+      "added-000062-Q5537393-2",
+      "added-000063-Q1113461-1",
+      "added-000064-Q16066188-10",
+      "added-000065-Q3048640-2",
+      "added-000066-Q5078310-6",
+      "added-000067-Q75856980-8",
+      "added-000068-Q6698372-2",
+      "added-000069-Q81561591-4",
+      "added-000070-Q15437205-6",
+      "added-000071-Q16199869-3",
+      "added-000072-Q18910925-8",
+      "added-000073-Q6137113-1",
+      "added-000074-Q21464895-1",
+      "added-000075-Q52155568-3",
+      "added-000076-Q75994801-4",
+      "added-000077-Q6990230-2",
+      "added-000078-Q15997578-4",
+      "added-000079-Q5541566-10",
+      "added-000080-Q18911268-10",
+      "added-000081-Q3132583-3",
+      "added-000082-Q16750724-7",
+      "added-000083-Q6264214-8",
+      "added-000084-Q2149765-3",
+      "added-000085-Q2818917-1",
+      "added-000086-Q10477507-3",
+      "added-000087-Q21460774-14",
+      "added-000088-Q1355492-5",
+      "added-000089-Q5541591-16",
+      "added-000090-Q7526206-15",
+      "added-000091-Q2392149-18",
+      "added-000092-Q100127000-13",
+      "added-000093-Q2068895-8",
+      "added-000094-Q2392149-12",
+      "added-000095-Q27924509-8",
+      "added-000096-Q16030018-2",
+      "added-000097-Q63254626-7",
+      "added-000098-Q7412361-8",
+      "added-000099-Q21405634-3"
+    ],
+    "profile_donors": {
+      "Q2422324-6": "Q8016825-1",
+      "Q4800149-7": "Q532457-1",
+      "Q7528564-9": "Q16023302-13",
+      "Q4846289-15": "Q4484218-8",
+      "Q3132583-2": "Q105734680-2",
+      "Q3501449-15": "Q3624276-1",
+      "Q984217-11": "Q19325016-16",
+      "Q7877756-6": "Q3501449-11",
+      "Q3526865-1": "Q6250702-1",
+      "Q7344025-8": "Q7528564-2",
+      "Q21453111-3": "Q7412361-7",
+      "Q17325894-9": "Q7668289-12",
+      "Q106651267-11": "Q1280733-10",
+      "Q5342415-3": "Q56055246-3",
+      "Q5083490-3": "Q5702488-3",
+      "Q5414294-8": "Q21461040-12",
+      "Q27827628-10": "Q21463291-7",
+      "Q63254626-13": "Q26267470-6",
+      "Q2670281-7": "Q15439246-4",
+      "Q5543807-7": "Q942725-7",
+      "Q2413996-5": "Q18911268-8",
+      "Q6223150-1": "Q100806949-1",
+      "Q84562127-2": "Q7788400-2",
+      "Q18756582-11": "Q7529427-3",
+      "Q16066188-1": "Q6253670-2",
+      "Q7793509-5": "Q337082-3",
+      "Q57496145-9": "Q16230485-8",
+      "Q18527381-17": "Q7526084-4",
+      "Q5080735-2": "Q16043531-6",
+      "Q16030421-12": "Q7411846-8",
+      "Q708101-13": "Q16066623-1",
+      "Q3624276-2": "Q15857080-8",
+      "Q18576693-2": "Q8010069-3",
+      "Q18910925-21": "Q6238824-9",
+      "Q6255771-17": "Q1124636-15",
+      "Q88466477-2": "Q5542664-11",
+      "Q29194-5": "Q5082887-3",
+      "Q585089-16": "Q3532216-2",
+      "Q5978168-1": "Q1231843-12",
+      "Q16030213-1": "Q317160-5",
+      "Q8016548-10": "Q3067087-13",
+      "Q6235888-2": "Q8014981-18",
+      "Q21538661-1": "Q16030421-2",
+      "Q334201-8": "Q6779642-18",
+      "Q16225698-3": "Q5585577-4",
+      "Q28037664-20": "Q7970241-12",
+      "Q1809826-13": "Q21288402-1",
+      "Q6129732-16": "Q2199075-7",
+      "Q7026405-5": "Q15432443-12",
+      "Q56560368-7": "Q1113461-3",
+      "Q90885377-9": "Q337386-2",
+      "Q47624217-17": "Q4997158-6",
+      "Q1700191-4": "Q4821374-9",
+      "Q7790531-4": "Q26037053-11",
+      "Q55219118-11": "Q20644124-4",
+      "Q28935194-18": "Q4799468-14",
+      "Q15693885-2": "Q56473914-8",
+      "Q5725966-3": "Q4723447-5",
+      "Q6969685-9": "Q363965-3",
+      "Q18576988-2": "Q7526206-11",
+      "Q6774841-19": "Q6221972-12",
+      "Q11801797-9": "Q6231345-18",
+      "Q18671640-5": "Q46745547-11",
+      "Q656722-1": "Q7965279-3",
+      "Q55433724-3": "Q18910510-5",
+      "Q81207821-17": "Q6131765-11",
+      "Q16030421-17": "Q7026405-17",
+      "Q52230793-2": "Q2690433-3",
+      "Q20007044-5": "Q64778574-7",
+      "Q6245547-5": "Q56072752-10",
+      "Q7343993-1": "Q7527252-2",
+      "Q7793428-3": "Q23991132-7",
+      "Q3666357-4": "Q6525688-1",
+      "Q20201430-4": "Q11801797-1",
+      "Q6231345-11": "Q47524545-4",
+      "Q5735932-14": "Q55219254-5",
+      "Q4821374-6": "Q5234128-14",
+      "Q7026405-16": "Q1018587-15",
+      "Q601969-2": "Q559325-5",
+      "Q16030588-6": "Q13520196-7",
+      "Q7659916-9": "Q11801571-4",
+      "Q15498144-1": "Q4846289-14",
+      "Q4086743-11": "Q442983-5",
+      "Q3101626-14": "Q5932449-7",
+      "Q7412574-3": "Q104668828-1",
+      "Q5808467-9": "Q55720024-8",
+      "Q15615021-5": "Q57496145-5",
+      "Q5735932-11": "Q720067-6",
+      "Q1285989-5": "Q1508144-7",
+      "Q8017455-9": "Q18527925-2",
+      "Q48373-3": "Q5729351-18",
+      "Q16066490-2": "Q20203290-16",
+      "Q6251759-8": "Q5607667-15",
+      "Q349531-1": "Q52158555-4",
+      "Q934827-10": "Q1677011-1",
+      "Q5311949-5": "Q7659916-1",
+      "Q4020378-1": "Q16225616-6",
+      "Q1104906-8": "Q15731771-5",
+      "Q3101626-20": "Q21185975-1",
+      "Q442983-4": "Q6222943-4"
+    },
+    "changed_fields": [
+      "birth_place",
+      "dob",
+      "full_name",
+      "gender",
+      "occupation",
+      "postcode_fake"
+    ],
+    "change_rule": "replace complete profile with a different validation entity; preserve record ID",
+    "added_rule": "clone a validation profile with a new record ID",
+    "before_digest": "7b0176501cb4f81e64d8f0fcc02f3ddec879657ac2d061f2a1816fcce891ace8",
+    "after_digest": "a74de44fd1985d100c84d137f4251944f9cad4c3295220b20bde47b8c24646a0"
+  },
+  "confirmation_scored": false,
+  "runs": [
+    {
+      "name": "before",
+      "budget": {
+        "join_rows_before_cap": 49415190,
+        "join_rows_after_cap": 3233038,
+        "dropped_grams": 10,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 60028,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 31535,
+          "verification_pairs": 31535,
+          "vetoed_proposals": 0,
+          "merges": 1653
+        },
+        {
+          "round": 2,
+          "proposals": 24418,
+          "verification_pairs": 35779,
+          "vetoed_proposals": 478,
+          "merges": 1153
+        },
+        {
+          "round": 3,
+          "proposals": 18622,
+          "verification_pairs": 28455,
+          "vetoed_proposals": 544,
+          "merges": 902
+        },
+        {
+          "round": 4,
+          "proposals": 14357,
+          "verification_pairs": 22680,
+          "vetoed_proposals": 569,
+          "merges": 774
+        },
+        {
+          "round": 5,
+          "proposals": 11161,
+          "verification_pairs": 18269,
+          "vetoed_proposals": 568,
+          "merges": 674
+        },
+        {
+          "round": 6,
+          "proposals": 8785,
+          "verification_pairs": 14896,
+          "vetoed_proposals": 574,
+          "merges": 589
+        },
+        {
+          "round": 7,
+          "proposals": 6951,
+          "verification_pairs": 12145,
+          "vetoed_proposals": 597,
+          "merges": 519
+        },
+        {
+          "round": 8,
+          "proposals": 5500,
+          "verification_pairs": 9972,
+          "vetoed_proposals": 604,
+          "merges": 462
+        },
+        {
+          "round": 9,
+          "proposals": 4327,
+          "verification_pairs": 8202,
+          "vetoed_proposals": 629,
+          "merges": 400
+        },
+        {
+          "round": 10,
+          "proposals": 3396,
+          "verification_pairs": 6717,
+          "vetoed_proposals": 638,
+          "merges": 345
+        },
+        {
+          "round": 11,
+          "proposals": 2666,
+          "verification_pairs": 5546,
+          "vetoed_proposals": 628,
+          "merges": 298
+        },
+        {
+          "round": 12,
+          "proposals": 2093,
+          "verification_pairs": 4570,
+          "vetoed_proposals": 624,
+          "merges": 248
+        },
+        {
+          "round": 13,
+          "proposals": 1625,
+          "verification_pairs": 3801,
+          "vetoed_proposals": 634,
+          "merges": 202
+        },
+        {
+          "round": 14,
+          "proposals": 1282,
+          "verification_pairs": 3231,
+          "vetoed_proposals": 640,
+          "merges": 158
+        },
+        {
+          "round": 15,
+          "proposals": 1036,
+          "verification_pairs": 2800,
+          "vetoed_proposals": 637,
+          "merges": 126
+        },
+        {
+          "round": 16,
+          "proposals": 859,
+          "verification_pairs": 2478,
+          "vetoed_proposals": 647,
+          "merges": 77
+        },
+        {
+          "round": 17,
+          "proposals": 747,
+          "verification_pairs": 2303,
+          "vetoed_proposals": 646,
+          "merges": 47
+        },
+        {
+          "round": 18,
+          "proposals": 687,
+          "verification_pairs": 2191,
+          "vetoed_proposals": 646,
+          "merges": 28
+        },
+        {
+          "round": 19,
+          "proposals": 656,
+          "verification_pairs": 2147,
+          "vetoed_proposals": 649,
+          "merges": 5
+        },
+        {
+          "round": 20,
+          "proposals": 650,
+          "verification_pairs": 2136,
+          "vetoed_proposals": 649,
+          "merges": 1
+        },
+        {
+          "round": 21,
+          "proposals": 649,
+          "verification_pairs": 2136,
+          "vetoed_proposals": 649,
+          "merges": 0
+        }
+      ],
+      "seconds": 112.07891504198778,
+      "records": 10082
+    },
+    {
+      "name": "after",
+      "budget": {
+        "join_rows_before_cap": 49542871,
+        "join_rows_after_cap": 3245516,
+        "dropped_grams": 10,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 60045,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 31528,
+          "verification_pairs": 31528,
+          "vetoed_proposals": 0,
+          "merges": 1668
+        },
+        {
+          "round": 2,
+          "proposals": 24325,
+          "verification_pairs": 35680,
+          "vetoed_proposals": 462,
+          "merges": 1142
+        },
+        {
+          "round": 3,
+          "proposals": 18595,
+          "verification_pairs": 28413,
+          "vetoed_proposals": 525,
+          "merges": 904
+        },
+        {
+          "round": 4,
+          "proposals": 14325,
+          "verification_pairs": 22650,
+          "vetoed_proposals": 544,
+          "merges": 777
+        },
+        {
+          "round": 5,
+          "proposals": 11106,
+          "verification_pairs": 18208,
+          "vetoed_proposals": 550,
+          "merges": 672
+        },
+        {
+          "round": 6,
+          "proposals": 8764,
+          "verification_pairs": 14871,
+          "vetoed_proposals": 554,
+          "merges": 593
+        },
+        {
+          "round": 7,
+          "proposals": 6945,
+          "verification_pairs": 12151,
+          "vetoed_proposals": 587,
+          "merges": 522
+        },
+        {
+          "round": 8,
+          "proposals": 5488,
+          "verification_pairs": 9967,
+          "vetoed_proposals": 589,
+          "merges": 460
+        },
+        {
+          "round": 9,
+          "proposals": 4312,
+          "verification_pairs": 8197,
+          "vetoed_proposals": 617,
+          "merges": 402
+        },
+        {
+          "round": 10,
+          "proposals": 3377,
+          "verification_pairs": 6715,
+          "vetoed_proposals": 621,
+          "merges": 347
+        },
+        {
+          "round": 11,
+          "proposals": 2649,
+          "verification_pairs": 5543,
+          "vetoed_proposals": 614,
+          "merges": 293
+        },
+        {
+          "round": 12,
+          "proposals": 2061,
+          "verification_pairs": 4538,
+          "vetoed_proposals": 609,
+          "merges": 251
+        },
+        {
+          "round": 13,
+          "proposals": 1601,
+          "verification_pairs": 3761,
+          "vetoed_proposals": 617,
+          "merges": 202
+        },
+        {
+          "round": 14,
+          "proposals": 1250,
+          "verification_pairs": 3187,
+          "vetoed_proposals": 620,
+          "merges": 160
+        },
+        {
+          "round": 15,
+          "proposals": 1011,
+          "verification_pairs": 2758,
+          "vetoed_proposals": 618,
+          "merges": 122
+        },
+        {
+          "round": 16,
+          "proposals": 842,
+          "verification_pairs": 2460,
+          "vetoed_proposals": 629,
+          "merges": 82
+        },
+        {
+          "round": 17,
+          "proposals": 728,
+          "verification_pairs": 2269,
+          "vetoed_proposals": 629,
+          "merges": 44
+        },
+        {
+          "round": 18,
+          "proposals": 670,
+          "verification_pairs": 2160,
+          "vetoed_proposals": 631,
+          "merges": 25
+        },
+        {
+          "round": 19,
+          "proposals": 640,
+          "verification_pairs": 2110,
+          "vetoed_proposals": 630,
+          "merges": 8
+        },
+        {
+          "round": 20,
+          "proposals": 632,
+          "verification_pairs": 2096,
+          "vetoed_proposals": 630,
+          "merges": 2
+        },
+        {
+          "round": 21,
+          "proposals": 630,
+          "verification_pairs": 2092,
+          "vetoed_proposals": 630,
+          "merges": 0
+        }
+      ],
+      "seconds": 108.15312208398245,
+      "records": 10082
+    },
+    {
+      "name": "repeated",
+      "budget": {
+        "join_rows_before_cap": 49542871,
+        "join_rows_after_cap": 3245516,
+        "dropped_grams": 10,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 60045,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 31528,
+          "verification_pairs": 31528,
+          "vetoed_proposals": 0,
+          "merges": 1668
+        },
+        {
+          "round": 2,
+          "proposals": 24325,
+          "verification_pairs": 35680,
+          "vetoed_proposals": 462,
+          "merges": 1142
+        },
+        {
+          "round": 3,
+          "proposals": 18595,
+          "verification_pairs": 28413,
+          "vetoed_proposals": 525,
+          "merges": 904
+        },
+        {
+          "round": 4,
+          "proposals": 14325,
+          "verification_pairs": 22650,
+          "vetoed_proposals": 544,
+          "merges": 777
+        },
+        {
+          "round": 5,
+          "proposals": 11106,
+          "verification_pairs": 18208,
+          "vetoed_proposals": 550,
+          "merges": 672
+        },
+        {
+          "round": 6,
+          "proposals": 8764,
+          "verification_pairs": 14871,
+          "vetoed_proposals": 554,
+          "merges": 593
+        },
+        {
+          "round": 7,
+          "proposals": 6945,
+          "verification_pairs": 12151,
+          "vetoed_proposals": 587,
+          "merges": 522
+        },
+        {
+          "round": 8,
+          "proposals": 5488,
+          "verification_pairs": 9967,
+          "vetoed_proposals": 589,
+          "merges": 460
+        },
+        {
+          "round": 9,
+          "proposals": 4312,
+          "verification_pairs": 8197,
+          "vetoed_proposals": 617,
+          "merges": 402
+        },
+        {
+          "round": 10,
+          "proposals": 3377,
+          "verification_pairs": 6715,
+          "vetoed_proposals": 621,
+          "merges": 347
+        },
+        {
+          "round": 11,
+          "proposals": 2649,
+          "verification_pairs": 5543,
+          "vetoed_proposals": 614,
+          "merges": 293
+        },
+        {
+          "round": 12,
+          "proposals": 2061,
+          "verification_pairs": 4538,
+          "vetoed_proposals": 609,
+          "merges": 251
+        },
+        {
+          "round": 13,
+          "proposals": 1601,
+          "verification_pairs": 3761,
+          "vetoed_proposals": 617,
+          "merges": 202
+        },
+        {
+          "round": 14,
+          "proposals": 1250,
+          "verification_pairs": 3187,
+          "vetoed_proposals": 620,
+          "merges": 160
+        },
+        {
+          "round": 15,
+          "proposals": 1011,
+          "verification_pairs": 2758,
+          "vetoed_proposals": 618,
+          "merges": 122
+        },
+        {
+          "round": 16,
+          "proposals": 842,
+          "verification_pairs": 2460,
+          "vetoed_proposals": 629,
+          "merges": 82
+        },
+        {
+          "round": 17,
+          "proposals": 728,
+          "verification_pairs": 2269,
+          "vetoed_proposals": 629,
+          "merges": 44
+        },
+        {
+          "round": 18,
+          "proposals": 670,
+          "verification_pairs": 2160,
+          "vetoed_proposals": 631,
+          "merges": 25
+        },
+        {
+          "round": 19,
+          "proposals": 640,
+          "verification_pairs": 2110,
+          "vetoed_proposals": 630,
+          "merges": 8
+        },
+        {
+          "round": 20,
+          "proposals": 632,
+          "verification_pairs": 2096,
+          "vetoed_proposals": 630,
+          "merges": 2
+        },
+        {
+          "round": 21,
+          "proposals": 630,
+          "verification_pairs": 2092,
+          "vetoed_proposals": 630,
+          "merges": 0
+        }
+      ],
+      "seconds": 107.73093608405907,
+      "records": 10082
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "after.json": "84f8b4933bbe6218cdef5587624691d8755b247fa20ab47868882998e82eb775",
+    "before.json": "5d3facbb9fe4d575fdae057cccca25eed05251ae84143e43d4ae302349077bd3",
+    "changes.json": "2245eb2c6e30d06ee5b2be4f71858dd598179a53058a70ac9d061b03671d85c8",
+    "cluster_events.json": "c8b5476fa571e1e8fa1d0c52e7e2cdf48b9aff4a061c6a76978a14eed7a4bccf",
+    "mutation.json": "d0fafe6d1e40cde2dc8ef18b979bf68a6ca23e76242ff1443395a88d80b1f576"
+  },
+  "unchanged_input_stable": true,
+  "exact_journal_replay": true,
+  "incremental_repeat_idempotent": true,
+  "observed_changes": {
+    "deleted": 100,
+    "moved_and_changed": 91,
+    "changed": 9,
+    "added": 100,
+    "unchanged": 9075,
+    "moved": 807
+  },
+  "cluster_events": {
+    "merge": 121,
+    "split": 114,
+    "rekey": 7,
+    "retired": 4
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 338.6847812079359
+}

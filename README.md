@@ -10,9 +10,9 @@ Spark Declarative Pipelines where the platform allows it, tracked in MLflow, wit
 Genie agent. The full specification, the nine bounded phases ZR-1..9 and the ledger of the 28 design decisions are in
 [`spec/BRIEF.md`](spec/BRIEF.md).
 
-**State on 2026-09-20: ZR-1, ZR-2 and ZR-5 passed earlier checkpoints and need revalidation on the current source.** The engine includes YAML configuration,
+**State on 2026-09-20: ZR-1, ZR-2, ZR-4 and ZR-5 pass on the current source.** The engine includes YAML configuration,
 native quality checks, bounded IDF candidates, comparison features, MLlib estimators and deterministic links.
-The last full suites passed 98 tests on classic local Spark and Spark Connect before the latest additions.
+The full classic local Spark and Spark Connect suites each pass the same 130 tests with no skips.
 Earlier offline CLI, serverless model registration and fresh-task reload checks passed.
 Typed native comparisons, optional similarities and an offline embedding provider are implemented;
 see the [feature contract](bench/FEATURES.md) and measured [ablations](bench/ABLATION.md).
@@ -21,9 +21,9 @@ The scale ladder completed through 100,000 records; the million-record run exhau
 during candidate materialization. [Benchmarks](bench/BENCHMARKS.md) and [scale limits](bench/SCALE.md)
 retain the measurements. Later phase acceptance is pending. [goal.md](goal.md) is the authoritative acceptance ledger;
 [bench/ENGINE.md](bench/ENGINE.md) records development evidence and limitations.
-The DQX serverless pipeline now reproduces both frozen FEBRL F1 values exactly and quarantines the seeded bad rows;
-the native configuration and remaining remote gates are tracked in [serverless evidence](bench/SERVERLESS.md).
-`lakematch bench --all --plan` previews the finite benchmark campaign; full command execution is still pending.
+Both DQX and native/all-paid-off serverless pipelines reproduce the frozen FEBRL F1 values exactly and quarantine
+the seeded bad rows; remaining remote gates are tracked in [serverless evidence](bench/SERVERLESS.md).
+`lakematch bench --all` executed eight exact frozen-model replays, the original-FEBRL diagnostic and both clustering comparisons, then stopped at the retained million-record failure. Full campaign acceptance remains blocked; `--plan` previews its stages.
 Composite MLflow tracking and CLI integration are verified locally and on FEVM;
 [model acceptance](bench/MODELS.md) records the evidence. The selected workspace explicitly
 rejects classic compute, so ZR-9 remains parked; the remaining phases are pending.
@@ -45,9 +45,13 @@ The example uses development truth labels, not held-out benchmark labels. It wri
 rows under `data/febrl4/output`, plus runtime and budget metrics. `examples/synthetic.yaml` is a small fixture.
 Every run logs its enabled paid features; laptop configs reject paid integrations.
 
+New configurations default to MinHash retrieval, Levenshtein, IDF token cosine, GBT and verified merge with a
+30-round limit, following the [validation selections](bench/METHODS.md). The examples explicitly retain their
+historical gram/scalar settings. All eight frozen prediction replays now match exactly; the remaining integration gates are tracked in the ledger.
+
 Run `pytest` with local Spark, or `python tools/connect_tests.py` to own a temporary local Connect server and
 run the same tests. `tools/experiment.py` captures bounded commands and evidence; `bash verify_zr.sh 1` only
-reads that evidence and fails when it is missing or stale. `bash verify_zr.sh 2` also checks all four corpus ablations. ZR-3/4/6/7/8 remain pending; ZR-9 is parked on a confirmed workspace restriction.
+reads that evidence and fails when it is missing or stale. `bash verify_zr.sh 2` also checks all four corpus ablations. ZR-3 is blocked at its iteration cap; ZR-6/7/8 remain incomplete; ZR-9 is parked on a confirmed workspace restriction.
 
 Prepare additional public corpora and the optional embedding snapshot with
 `python tools/prepare_sources.py --model` after installing `.[embeddings]`.

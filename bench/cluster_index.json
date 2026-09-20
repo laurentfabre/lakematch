@@ -9,10 +9,10 @@
       "report_sha256": "62d65ae9e869109123c64c2904f54c06c992cfc5b1c1b61591c5b62e356d5a46"
     },
     "cluster-febrl3": {
-      "run_id": "20260920T011750Z-cluster-febrl3-11c044",
-      "manifest": "experiments/20260920T011750Z-cluster-febrl3-11c044/manifest.json",
-      "report": "experiments/20260920T011750Z-cluster-febrl3-11c044/evidence/report.json",
-      "report_sha256": "356711daed13ddd463c2a0606b910dde46446df7c3e9adeb490c25ad6c97dbf4"
+      "run_id": "20260920T044336Z-cluster-febrl3-e627af",
+      "manifest": "experiments/20260920T044336Z-cluster-febrl3-e627af/manifest.json",
+      "report": "experiments/20260920T044336Z-cluster-febrl3-e627af/evidence/report.json",
+      "report_sha256": "7d7bcc8550cf0277a2c1bdeeee946dfb628f3d3b07363140cd1199231d5844a5"
     },
     "splink-historical_50k": {
       "run_id": "20260920T005520Z-splink-historical_50k-df150d",
@@ -21,10 +21,10 @@
       "report_sha256": "c265473942badba1a392dd257e0bc198ae2316f635bf98b380d7eb2357fdfd0f"
     },
     "cluster-historical_50k": {
-      "run_id": "20260920T011911Z-cluster-historical_50k-7cb000",
-      "manifest": "experiments/20260920T011911Z-cluster-historical_50k-7cb000/manifest.json",
-      "report": "experiments/20260920T011911Z-cluster-historical_50k-7cb000/evidence/report.json",
-      "report_sha256": "aaf5838e4b573523ced7a393b3c2413a56fac95920a0c56c00f91069ca9cc6d2"
+      "run_id": "20260920T044433Z-cluster-historical_50k-8a67c9",
+      "manifest": "experiments/20260920T044433Z-cluster-historical_50k-8a67c9/manifest.json",
+      "report": "experiments/20260920T044433Z-cluster-historical_50k-8a67c9/evidence/report.json",
+      "report_sha256": "c15689700f372d1088c8d08d7ae0b8be5d8ae44d2d65dab8aabea61465f277f0"
     }
   },
   "missing": [],
@@ -80,7 +80,7 @@
           -0.38791040522471854
         ]
       },
-      "mean_seconds": 7.464096896001138
+      "mean_seconds": 6.459508354542777
     },
     "center": {
       "pairwise_f1": 0.7530603506955018,
@@ -111,7 +111,7 @@
           -0.20769244451162205
         ]
       },
-      "mean_seconds": 5.460684104415122
+      "mean_seconds": 4.225802041997667
     },
     "star": {
       "pairwise_f1": 0.9211425550793861,
@@ -142,7 +142,7 @@
           -0.042201457152404975
         ]
       },
-      "mean_seconds": 4.554039270966314
+      "mean_seconds": 3.3085689994622953
     },
     "verified_merge": {
       "pairwise_f1": 0.969617449606591,
@@ -173,7 +173,7 @@
           0.0
         ]
       },
-      "mean_seconds": 73.61963085352909
+      "mean_seconds": 53.53868304146454
     }
   },
   "recommendation": "verified_merge",

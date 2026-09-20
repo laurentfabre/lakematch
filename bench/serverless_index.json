@@ -14,11 +14,29 @@
       "report_path": "experiments/20260920T033318Z-serverless-frozen-native-0277ba/evidence/serverless-native-report.json",
       "report_sha256": "0e730314c481bce273566602dd1d2db7da8cc4faa532a47cec0d723526b3f67b",
       "audited": true
+    },
+    "serverless-cluster-fixture": {
+      "run_id": "20260920T042153Z-serverless-cluster-fixture-9608e7",
+      "manifest": "experiments/20260920T042153Z-serverless-cluster-fixture-9608e7/manifest.json",
+      "report_path": "experiments/20260920T042153Z-serverless-cluster-fixture-9608e7/evidence/serverless-cluster-v6-report.json",
+      "report_sha256": "fe7573aaec0aedda234e6adeb18c826a4a2fda8c5168a7828bdfc127587039b1",
+      "audited": true,
+      "identity_audit": {
+        "independent_replay": true,
+        "independent_event_reconciliation": true,
+        "records": 5,
+        "operation_count": 1,
+        "changes": {
+          "deleted": 1,
+          "changed": 1,
+          "unchanged": 3,
+          "added": 1
+        },
+        "events": {}
+      }
     }
   },
-  "errors": [
-    "serverless-cluster-fixture: No sealed run"
-  ],
+  "errors": [],
   "history": [
     {
       "run_id": "20260920T024653Z-serverless-frozen-dqx-67e41c",
@@ -37,6 +55,18 @@
       "kind": "serverless-frozen-native",
       "status": "passed",
       "manifest": "experiments/20260920T033318Z-serverless-frozen-native-0277ba/manifest.json"
+    },
+    {
+      "run_id": "20260920T040114Z-serverless-cluster-fixture-bc35c5",
+      "kind": "serverless-cluster-fixture",
+      "status": "failed",
+      "manifest": "experiments/20260920T040114Z-serverless-cluster-fixture-bc35c5/manifest.json"
+    },
+    {
+      "run_id": "20260920T042153Z-serverless-cluster-fixture-9608e7",
+      "kind": "serverless-cluster-fixture",
+      "status": "passed",
+      "manifest": "experiments/20260920T042153Z-serverless-cluster-fixture-9608e7/manifest.json"
     }
   ],
   "observed_cost": null,

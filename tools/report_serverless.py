@@ -90,7 +90,9 @@ def collect():
             if kind.endswith('fixture'):
                 job = report['bundle_summary']['resources']['jobs']['cluster_fixture']
                 assert job['max_concurrent_runs'] == 1, 'Delta writer must be serialized'
-                assert job['timeout_seconds'] == 1200
+                assert job['timeout_seconds'] in {1200, 1800}
+                expected_limits = {'train': 480, 'cluster': 480} if job['timeout_seconds'] == 1200 else {'train': 600, 'cluster': 900}
+                assert {task['task_key']: task['timeout_seconds'] for task in job['tasks']} == expected_limits
                 runs[kind]['identity_audit'] = audit_fixture(report)
             else:
                 engine = 'dqx' if kind.endswith('dqx') else 'native'
@@ -155,7 +157,7 @@ def render(runs, errors, history):
         'Available aggregate query-history timings are audited separately in [PHOTON.md](PHOTON.md). '
         'Photon enabled in configuration is not measured Photon execution. The shared warehouse is not campaign-owned.']
     lines += ['', *['- ' + error for error in errors]]
-    (ROOT / 'bench/SERVERLESS.md').write_text('\n'.join(lines) + '\n')
+    (ROOT / 'bench/SERVERLESS.md').write_text('\n'.join(lines).rstrip() + '\n')
     (ROOT / 'bench/serverless_index.json').write_text(json.dumps({
         'status': 'partial', 'runs': {kind: {key: value for key, value in row.items() if key != 'report'}
                                     for kind, row in runs.items()},

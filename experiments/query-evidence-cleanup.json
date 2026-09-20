@@ -1,0 +1,49 @@
+{
+  "observed_at": "2026-09-20T04:21:41.148663+00:00",
+  "profile": "fevm-gdpr2",
+  "original_report_sha256": "fc52bc4a9782d01e2f6337ea95294b7cce64731912a8c0d68821d342c30de441",
+  "finding": "Initial capture retained its shutdown timeout. Explicit CLI stop completed; subsequent get verifies STOPPED.",
+  "owned_warehouse": {
+    "auto_stop_mins": 10,
+    "cluster_size": "2X-Small",
+    "creator_name": "laurent.fabre@databricks.com",
+    "enable_photon": true,
+    "enable_serverless_compute": true,
+    "id": "ec3b6df6c1cabcd4",
+    "jdbc_url": "jdbc:spark://fevm-gdpr2.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/ec3b6df6c1cabcd4;",
+    "max_num_clusters": 1,
+    "min_num_clusters": 1,
+    "name": "lakematch-20260919-evidence-20260920T041603Z-35e82ec0",
+    "num_active_sessions": 0,
+    "num_clusters": 0,
+    "odbc_params": {
+      "hostname": "fevm-gdpr2.cloud.databricks.com",
+      "path": "/sql/1.0/warehouses/ec3b6df6c1cabcd4",
+      "port": 443,
+      "protocol": "https"
+    },
+    "spot_instance_policy": "COST_OPTIMIZED",
+    "state": "STOPPED",
+    "tags": {
+      "custom_tags": [
+        {
+          "key": "campaign",
+          "value": "lakematch-20260919"
+        }
+      ]
+    },
+    "warehouse_type": "PRO"
+  },
+  "shared_warehouse": {
+    "id": "4aaa742e4712c3c9",
+    "state": "STOPPED",
+    "action": "read only; untouched"
+  },
+  "capture": {
+    "query_rows": 16,
+    "all_statement_text_redacted": true,
+    "billing_status": "no_attributed_rows_yet",
+    "observed_cost": null
+  },
+  "billing_cleanup_wording_correction": "The supplied warehouse was owned by the parent capture, not shared; the billing helper performed no warehouse lifecycle action."
+}

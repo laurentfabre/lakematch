@@ -3,7 +3,7 @@ resources:
     cluster_fixture:
       name: lakematch-20260919-cluster-fixture
       max_concurrent_runs: 1
-      timeout_seconds: 1200
+      timeout_seconds: 1800
       performance_target: STANDARD
       parameters:
         - name: source_root
@@ -14,14 +14,14 @@ resources:
           default: /Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture
       tasks:
         - task_key: train
-          timeout_seconds: 480
+          timeout_seconds: 600
           environment_key: engine
           notebook_task:
             notebook_path: ../deployment/train_cluster_fixture.py
         - task_key: cluster
           depends_on:
             - task_key: train
-          timeout_seconds: 480
+          timeout_seconds: 900
           environment_key: engine
           notebook_task:
             notebook_path: ../deployment/cluster_fixture.py

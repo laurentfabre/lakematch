@@ -1,0 +1,91 @@
+{
+  "status": "compatible",
+  "declaration_sha256": "195d330ac9e1bf0ad8344d4fa1f199ad4e254b8af9a74a1831d5372c15b067e3",
+  "results": {
+    "linkage-all": {
+      "original_run": "20260920T021816Z-frozen-linkage-all-ab5c4c",
+      "replay_run": "20260920T043645Z-replay-linkage-all-8a27f2",
+      "manifest": "experiments/20260920T043645Z-replay-linkage-all-8a27f2/manifest.json",
+      "maximum_deltas": {
+        "p": 0.0,
+        "cos": 0.0,
+        "rank": 0,
+        "gap": 0.0
+      },
+      "decisions_identical": true
+    },
+    "linkage-no_ssn": {
+      "original_run": "20260920T021850Z-frozen-linkage-no_ssn-648422",
+      "replay_run": "20260920T043723Z-replay-linkage-no_ssn-dd2488",
+      "manifest": "experiments/20260920T043723Z-replay-linkage-no_ssn-dd2488/manifest.json",
+      "maximum_deltas": {
+        "p": 0.0,
+        "cos": 0.0,
+        "rank": 0,
+        "gap": 0.0
+      },
+      "decisions_identical": true
+    },
+    "pairs-bpid": {
+      "original_run": "20260920T021921Z-frozen-pairs-bpid-8f3fe0",
+      "replay_run": "20260920T043758Z-replay-pairs-bpid-9d8546",
+      "manifest": "experiments/20260920T043758Z-replay-pairs-bpid-9d8546/manifest.json",
+      "maximum_deltas": {
+        "scores": 0.0,
+        "cosine_scores": 0.0
+      },
+      "decisions_identical": true
+    },
+    "pairs-abt_buy": {
+      "original_run": "20260920T022053Z-frozen-pairs-abt_buy-91ebc9",
+      "replay_run": "20260920T043928Z-replay-pairs-abt_buy-3fd563",
+      "manifest": "experiments/20260920T043928Z-replay-pairs-abt_buy-3fd563/manifest.json",
+      "maximum_deltas": {
+        "scores": 0.0,
+        "cosine_scores": 0.0
+      },
+      "decisions_identical": true
+    },
+    "pairs-amazon_google": {
+      "original_run": "20260920T022115Z-frozen-pairs-amazon_google-f06d4e",
+      "replay_run": "20260920T043951Z-replay-pairs-amazon_google-2cf777",
+      "manifest": "experiments/20260920T043951Z-replay-pairs-amazon_google-2cf777/manifest.json",
+      "maximum_deltas": {
+        "scores": 0.0,
+        "cosine_scores": 0.0
+      },
+      "decisions_identical": true
+    },
+    "pairs-walmart_amazon": {
+      "original_run": "20260920T022135Z-frozen-pairs-walmart_amazon-134c63",
+      "replay_run": "20260920T044011Z-replay-pairs-walmart_amazon-143944",
+      "manifest": "experiments/20260920T044011Z-replay-pairs-walmart_amazon-143944/manifest.json",
+      "maximum_deltas": {
+        "scores": 0.0,
+        "cosine_scores": 0.0
+      },
+      "decisions_identical": true
+    },
+    "pairs-dblp_acm": {
+      "original_run": "20260920T022201Z-frozen-pairs-dblp_acm-7faf7e",
+      "replay_run": "20260920T044039Z-replay-pairs-dblp_acm-be72ef",
+      "manifest": "experiments/20260920T044039Z-replay-pairs-dblp_acm-be72ef/manifest.json",
+      "maximum_deltas": {
+        "scores": 0.0,
+        "cosine_scores": 0.0
+      },
+      "decisions_identical": true
+    },
+    "pairs-affiliations": {
+      "original_run": "20260920T022232Z-frozen-pairs-affiliations-ae066d",
+      "replay_run": "20260920T044111Z-replay-pairs-affiliations-a488ae",
+      "manifest": "experiments/20260920T044111Z-replay-pairs-affiliations-a488ae/manifest.json",
+      "maximum_deltas": {
+        "scores": 0.0,
+        "cosine_scores": 0.0
+      },
+      "decisions_identical": true
+    }
+  },
+  "errors": []
+}

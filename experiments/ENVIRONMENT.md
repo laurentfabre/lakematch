@@ -95,3 +95,21 @@ unless classic capability becomes available. No further classic requests are pla
 The latest read-only inventory is `final-resource-state.json`. The unrelated shared warehouse
 was RUNNING when checked; this campaign did not start or stop it. No campaign cluster or active
 job remains. Shared-resource ownership rules take precedence over stopping unrelated compute.
+
+## Final campaign capability checkpoint — 2026-09-20
+
+The selected `fevm-gdpr2` workspace now has completed DQX/native frozen inference,
+separate train/reload/Delta publication recovery, and refreshed UC model registration
+with champion resolving to version 3 in a fresh task. These measured capabilities
+supersede the corresponding early untested entries above. The delegated app-to-Genie
+API remains untested and classic compute remains explicitly unsupported.
+
+Query-history system-table reads recovered all 16 exact statements but no unredacted
+text; the billing read returned no attributed rows at capture time. Per-stage
+executed Photon profiles and observed DBUs/cost remain unavailable. See
+[the query audit](query-evidence-audit.json) and [remaining gates](../bench/BLOCKERS.md).
+
+[Final resource inventory](final-resource-state-20260920.json): no active campaign
+jobs or classic clusters, pipeline IDLE, owned warehouse STOPPED, shared warehouse
+STOPPED and untouched, no generated materializer scratch tables. All 33 durable
+campaign tables and the model/evidence exports are retained.

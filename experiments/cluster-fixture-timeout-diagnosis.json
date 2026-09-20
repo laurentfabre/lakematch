@@ -1,0 +1,16 @@
+{
+  "profile": "fevm-gdpr2",
+  "run_id": 180393856450383,
+  "checked_at": "2026-09-20T04:14:36.583376+00:00",
+  "outcome": "training timeout; cluster skipped",
+  "setup_seconds": 225,
+  "execution_seconds": 268,
+  "task_timeout_seconds": 480,
+  "notebook_observation": "Reached MLflow model logging; automatic serving-input validation warned about driver-local model artifact path; notebook then cancelled by task timeout. No completed train-report or cluster output.",
+  "logged_model_id": "m-90b6ef7300cd4daf817e1d47cdb6e400",
+  "evidence_files": {
+    "data/serverless_diagnostics/180393856450383/train-export.json": "67be22f24487ce8f298447c0909bf0557e56e46e0080677f60b289cbc6aa1510",
+    "data/serverless_diagnostics/180393856450383/train-notebook-model.json": "3308886288026760dc20bd2e6ce9c5243371ef991d911ddada8157599b289ae6"
+  },
+  "next_iteration": "Preserve model/data/assertions; add durable progress checkpoints and the existing tracking harness volume staging environment. Use bounded 600s train/900s cluster tasks within an 1800s job. No matching-method change."
+}

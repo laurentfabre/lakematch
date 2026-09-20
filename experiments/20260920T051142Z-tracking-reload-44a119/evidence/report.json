@@ -1,0 +1,157 @@
+{
+  "run_id": "5089c3626594493e8d3c674a4a68ba33",
+  "model_uri": "runs:/5089c3626594493e8d3c674a4a68ba33/model",
+  "logged_model_uri": "models:/m-c6c5034ca0f147efb8ab143f30f578fa",
+  "label_set_sha256": "c68345a45f8c39a642d79169471653db30f9a1076e7dc262fdbe485484c58cd1",
+  "artifact_bytes": 216466,
+  "registry": false,
+  "evaluation": {
+    "true_negatives": 12.0,
+    "false_positives": 0.0,
+    "false_negatives": 0.0,
+    "true_positives": 4.0,
+    "example_count": 16.0,
+    "accuracy_score": 1.0,
+    "recall_score": 1.0,
+    "precision_score": 1.0,
+    "f1_score": 1.0,
+    "pairwise_precision": 1.0,
+    "pairwise_recall": 1.0,
+    "pairwise_f1": 1.0
+  },
+  "native_pyfunc_equivalence": true,
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "tracking_canary",
+      "id_column": "rec_id",
+      "fields": {
+        "name": {
+          "type": "person_name"
+        },
+        "code": {
+          "type": "code"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 5000000,
+      "max_pairs": 100,
+      "union_of": [],
+      "field_blocks": [],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 3,
+      "max_depth": 2,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "one_to_one"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 30
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/tracking-canary/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "lakematch",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "training_evaluation_records_disjoint": true,
+  "spark": "4.1.3",
+  "execution_seconds": 16.35761379194446,
+  "fresh_session_equivalence": true,
+  "maximum_probability_difference": 4.579669976578771e-16,
+  "resolved_model_uri": "runs:/5089c3626594493e8d3c674a4a68ba33/model",
+  "status": "completed",
+  "cleanup": "succeeded",
+  "accepted_pointer": "data/tracking-canary/models/current.json",
+  "local_registered_models": 0
+}

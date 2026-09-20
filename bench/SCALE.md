@@ -12,6 +12,6 @@ Exact duplicates with unique SHA-256 codes; separate 400-record training namespa
 Hot-key fixture: 2000 indistinguishable records; pre-cap join rows 4000000, post-cap 0, recall 0.0000. Dropping nonselective buckets bounds work at the expense of recall.
 The million-record run failed during candidate-table materialization with Java heap exhaustion. Its join counters and completed-task shuffle are partial observations. F1, candidate recall and successful throughput were not measured. Spark table cleanup also failed after the JVM failure; the runner verified termination of the owned process group. Memory and candidate budgets were not increased.
 
-Wall/throughput includes training, model logging, generation, retrieval, scoring, output and Spark cleanup. Shuffle includes all task attempts; peak execution memory is per task, not process RSS. Raw event logs and output checksums are sealed. Local publication crash/retry evidence is [separate](PUBLICATION.md); remote recovery remains unproven.
+Wall/throughput includes training, model logging, generation, retrieval, scoring, output and Spark cleanup. Shuffle includes all task attempts; peak execution memory is per task, not process RSS. Raw event logs and output checksums are sealed. Local publication crash/retry evidence is [separate](PUBLICATION.md); remote fixture recovery evidence is tracked separately in [SERVERLESS.md](SERVERLESS.md).
 
 - scale-1000000: failed; partial counters retained, no completed output or quality claim

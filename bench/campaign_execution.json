@@ -1,0 +1,84 @@
+{
+  "status": "blocked",
+  "started_at": "2026-09-20T04:36:45.097602+00:00",
+  "declaration_sha256": "195d330ac9e1bf0ad8344d4fa1f199ad4e254b8af9a74a1831d5372c15b067e3",
+  "stages": [
+    {
+      "name": "eight_frozen_linkage_corpora",
+      "command": [
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+        "tools/run_compatibility.py"
+      ],
+      "started_at": "2026-09-20T04:36:45.097991+00:00",
+      "exit_code": 0,
+      "ended_at": "2026-09-20T04:41:50.844331+00:00"
+    },
+    {
+      "name": "febrl4_original",
+      "command": [
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+        "tools/experiment.py",
+        "--phase",
+        "ZR-3",
+        "--kind",
+        "original-febrl",
+        "--hypothesis",
+        "Frozen selected pipeline and independent nearest-neighbour baseline characterize original FEBRL",
+        "--baseline",
+        "Nearest neighbour without classifier",
+        "--dataset",
+        "Exposed public synthetic FEBRL4 original 5000x5000",
+        "--primary-metric",
+        "Diagnostic F1, candidate recall and startup-inclusive latency",
+        "--timeout",
+        "600",
+        "--artifact",
+        "data/original_febrl/report.json",
+        "--artifact",
+        "data/original_febrl/original-evidence.tar.gz",
+        "--artifact",
+        "bench/source_compatibility.json",
+        "--artifact",
+        "bench/freeze.json",
+        "--",
+        "/usr/bin/sandbox-exec",
+        "-f",
+        "tools/offline.sb",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+        "tools/run_original_febrl.py"
+      ],
+      "started_at": "2026-09-20T04:41:50.844366+00:00",
+      "exit_code": 0,
+      "ended_at": "2026-09-20T04:43:36.601313+00:00"
+    },
+    {
+      "name": "febrl3_and_historical_native",
+      "command": [
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+        "tools/cluster_sweep.py",
+        "native",
+        "--estimator",
+        "gbt",
+        "--replay"
+      ],
+      "started_at": "2026-09-20T04:43:36.601357+00:00",
+      "exit_code": 0,
+      "ended_at": "2026-09-20T04:48:08.456304+00:00"
+    },
+    {
+      "name": "synthetic_scale_ladder",
+      "command": [
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+        "tools/final_sweep.py",
+        "--section",
+        "scale"
+      ],
+      "started_at": "2026-09-20T04:48:08.456354+00:00",
+      "status": "blocked",
+      "reason": "The failed million-record tier requires an explicit revised plan before retrying",
+      "retained_run_id": "20260920T022943Z-scale-1000000-f0a3d1",
+      "manifest": "experiments/20260920T022943Z-scale-1000000-f0a3d1/manifest.json"
+    }
+  ],
+  "ended_at": "2026-09-20T04:48:08.457466+00:00"
+}

@@ -1,0 +1,722 @@
+{
+  "status": "completed",
+  "iteration": 8,
+  "corpus": "febrl3",
+  "manifest": {
+    "sources": {
+      "sources": [
+        {
+          "name": "historical_50k",
+          "url": "https://raw.githubusercontent.com/moj-analytical-services/splink_datasets/75876d806d9eff72072d21878150ee50a96d5f41/data/historical_figures_with_errors_50k.parquet",
+          "revision": "75876d806d9eff72072d21878150ee50a96d5f41",
+          "path": "data/sources/clustering/historical_figures_with_errors_50k.parquet",
+          "sha256": "b8b748402ff37b15c2d5e8a5b9374abe269b9d297aacb7f4c9498365b7cace43",
+          "provenance": "Public Wikidata historical figures with introduced duplicate errors, per Splink 4.0.16 metadata",
+          "license": "MIT repository distribution; original Wikidata source CC0"
+        },
+        {
+          "name": "febrl3",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3.csv",
+          "sha256": "5b0443f2568a0e258e52ab015b34fc1736a6ee1863086617f08b2e6997e92458",
+          "license": "BSD-3-Clause distribution"
+        },
+        {
+          "name": "febrl3_links",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3_links.json",
+          "sha256": "d85cd011c5f57f386feb2c27428883663ef08a1c858f9de418fca6be3a39bc99",
+          "license": "BSD-3-Clause distribution"
+        }
+      ]
+    },
+    "split_seed": 2026091901,
+    "split_method": "SHA-256 ranked whole truth entities; floor 60/20/20; no record crosses a split",
+    "evaluation_scope": "partition-specific clustering; confirmation remains unscored",
+    "name": "febrl3",
+    "fields": {
+      "given_name": {
+        "type": "person_name"
+      },
+      "surname": {
+        "type": "person_name"
+      },
+      "street_number": {
+        "type": "code"
+      },
+      "address_1": {
+        "type": "address"
+      },
+      "address_2": {
+        "type": "address"
+      },
+      "suburb": {
+        "type": "address"
+      },
+      "postcode": {
+        "type": "code"
+      },
+      "state": {
+        "type": "code"
+      },
+      "date_of_birth": {
+        "type": "date",
+        "date_format": "yyyyMMdd"
+      },
+      "soc_sec_id": {
+        "type": "code"
+      }
+    },
+    "records": 5000,
+    "record_digest": "181754e4e87f43cbb6cf89dd11133df2c75b9e20192a72f37356a3f52899e0bb",
+    "splits": {
+      "train": 2939,
+      "confirmation": 1011,
+      "valid": 1050
+    },
+    "entities": 2000,
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "febrl3",
+      "id_column": "rec_id",
+      "fields": {
+        "given_name": {
+          "type": "person_name"
+        },
+        "surname": {
+          "type": "person_name"
+        },
+        "street_number": {
+          "type": "code"
+        },
+        "address_1": {
+          "type": "address"
+        },
+        "address_2": {
+          "type": "address"
+        },
+        "suburb": {
+          "type": "address"
+        },
+        "postcode": {
+          "type": "code"
+        },
+        "state": {
+          "type": "code"
+        },
+        "date_of_birth": {
+          "type": "date",
+          "date_format": "yyyyMMdd"
+        },
+        "soc_sec_id": {
+          "type": "code"
+        }
+      }
+    },
+    "candidates": {
+      "method": "field_blocks",
+      "q": 3,
+      "k": 6,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 500000,
+      "union_of": [],
+      "field_blocks": [
+        [
+          "given_name"
+        ],
+        [
+          "soundex(given_name)"
+        ],
+        [
+          "surname"
+        ],
+        [
+          "soundex(surname)"
+        ],
+        [
+          "street_number"
+        ],
+        [
+          "address_1"
+        ],
+        [
+          "prefix3(address_1)"
+        ],
+        [
+          "address_2"
+        ],
+        [
+          "prefix3(address_2)"
+        ],
+        [
+          "suburb"
+        ],
+        [
+          "prefix3(suburb)"
+        ],
+        [
+          "postcode"
+        ],
+        [
+          "state"
+        ],
+        [
+          "date_of_birth"
+        ],
+        [
+          "year(date_of_birth)"
+        ],
+        [
+          "soc_sec_id"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.72,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "connected_components",
+      "max_rounds": 30
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/clusters/febrl3/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr4-clusters",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/CLUSTER_PLAN.md",
+  "confirmation_scored": false,
+  "scope": "Exact validation replay with original model, IDF and threshold; no new fit or selection",
+  "pair_context": "unweighted gram cosine; rank=1; gap=0 for every training/scoring/verification pair",
+  "candidate_scope": "k=6 including self, then self removed and orientations unioned; at most five outgoing nonself neighbours",
+  "rows": [
+    {
+      "method": "connected_components",
+      "seconds": 2.5750096670817584,
+      "rounds": [
+        {
+          "round": 1,
+          "changed_vertices": 650
+        },
+        {
+          "round": 2,
+          "changed_vertices": 0
+        }
+      ],
+      "tp": 1457,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "bcubed_precision": 1.0,
+      "bcubed_recall": 1.0,
+      "bcubed_f1": 1.0,
+      "records": 1050,
+      "truth_clusters": 400,
+      "predicted_clusters": 400,
+      "pairwise_f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "bcubed_f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "pairwise_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bcubed_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "center",
+      "seconds": 2.912272625020705,
+      "rounds": [
+        {
+          "round": 1,
+          "assigned_vertices": 1048,
+          "remaining_vertices": 2
+        },
+        {
+          "round": 2,
+          "assigned_vertices": 2,
+          "remaining_vertices": 0
+        }
+      ],
+      "tp": 1447,
+      "fp": 0,
+      "fn": 10,
+      "tn": 0,
+      "precision": 1.0,
+      "recall": 0.9931365820178449,
+      "f1": 0.9965564738292011,
+      "bcubed_precision": 1.0,
+      "bcubed_recall": 0.996825396825397,
+      "bcubed_f1": 0.9984101748807632,
+      "records": 1050,
+      "truth_clusters": 400,
+      "predicted_clusters": 402,
+      "pairwise_f1_95ci": [
+        0.9912311469659768,
+        1.0
+      ],
+      "bcubed_f1_95ci": [
+        0.9960044749880134,
+        1.0
+      ],
+      "pairwise_delta_95ci": [
+        -0.008768853034023194,
+        0.0
+      ],
+      "bcubed_delta_95ci": [
+        -0.003995525011986634,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "star",
+      "seconds": 2.354037957964465,
+      "rounds": [
+        {
+          "round": 1,
+          "assigned_vertices": 1050,
+          "remaining_vertices": 0
+        }
+      ],
+      "tp": 1457,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "bcubed_precision": 1.0,
+      "bcubed_recall": 1.0,
+      "bcubed_f1": 1.0,
+      "records": 1050,
+      "truth_clusters": 400,
+      "predicted_clusters": 400,
+      "pairwise_f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "bcubed_f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "pairwise_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bcubed_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "verified_merge",
+      "seconds": 18.8234330000123,
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 1454,
+          "verification_pairs": 1454,
+          "vetoed_proposals": 0,
+          "merges": 239
+        },
+        {
+          "round": 2,
+          "proposals": 807,
+          "verification_pairs": 1218,
+          "vetoed_proposals": 3,
+          "merges": 169
+        },
+        {
+          "round": 3,
+          "proposals": 396,
+          "verification_pairs": 638,
+          "vetoed_proposals": 2,
+          "merges": 127
+        },
+        {
+          "round": 4,
+          "proposals": 154,
+          "verification_pairs": 269,
+          "vetoed_proposals": 1,
+          "merges": 76
+        },
+        {
+          "round": 5,
+          "proposals": 39,
+          "verification_pairs": 78,
+          "vetoed_proposals": 0,
+          "merges": 39
+        },
+        {
+          "round": 6,
+          "proposals": 0,
+          "merges": 0
+        }
+      ],
+      "tp": 1457,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "bcubed_precision": 1.0,
+      "bcubed_recall": 1.0,
+      "bcubed_f1": 1.0,
+      "records": 1050,
+      "truth_clusters": 400,
+      "predicted_clusters": 400,
+      "pairwise_f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "bcubed_f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "pairwise_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bcubed_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour_components",
+      "threshold": 0.0,
+      "tp": 1449,
+      "fp": 658,
+      "fn": 8,
+      "tn": 0,
+      "precision": 0.6877076411960132,
+      "recall": 0.9945092656142759,
+      "f1": 0.8131313131313131,
+      "bcubed_precision": 0.7925948601662888,
+      "bcubed_recall": 0.9974603174603174,
+      "bcubed_f1": 0.8833045268326276,
+      "records": 1050,
+      "truth_clusters": 400,
+      "predicted_clusters": 250,
+      "pairwise_f1_95ci": [
+        0.7837195484254308,
+        0.8378584115706673
+      ],
+      "bcubed_f1_95ci": [
+        0.8678083825166457,
+        0.8969079188061346
+      ],
+      "pairwise_delta_95ci": null,
+      "bcubed_delta_95ci": null,
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "name": "cosine_threshold_components",
+      "threshold": 0.41,
+      "tp": 1457,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "bcubed_precision": 1.0,
+      "bcubed_recall": 1.0,
+      "bcubed_f1": 1.0,
+      "records": 1050,
+      "truth_clusters": 400,
+      "predicted_clusters": 400,
+      "pairwise_f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "bcubed_f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "pairwise_delta_95ci": null,
+      "bcubed_delta_95ci": null,
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "replay_reference": {
+    "run_id": "20260920T011750Z-cluster-febrl3-11c044",
+    "manifest": "experiments/20260920T011750Z-cluster-febrl3-11c044/manifest.json",
+    "report": "experiments/20260920T011750Z-cluster-febrl3-11c044/evidence/report.json",
+    "report_sha256": "356711daed13ddd463c2a0606b910dde46446df7c3e9adeb490c25ad6c97dbf4",
+    "archive": "experiments/20260920T011750Z-cluster-febrl3-11c044/evidence/cluster-evidence.tar.gz",
+    "archive_sha256": "fb52d263d672103a6f4a7ddb0a2d50a9e339a2be4681b468506b8c99b26d1d80",
+    "model_path": "mlruns/1/models/m-29f86ea4e03c47e199739810159bdfe3/artifacts",
+    "model_files": {
+      "MLmodel": "851e97c0d010fff3b8cd19c562191a8182454c8ba8d54c96aa7c20e9096214dc",
+      "artifacts/contract.json": "df6cf1e51f8f48eba07b44d22c156a2b0ced905f70f1b945f5509e06e0077c56",
+      "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/idf/.part-00000-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet.crc": "8e15a1fc79b5f76138f8c862d0e992cbaf318d2d0eb1f5ad5a73771ca3b2e5c6",
+      "artifacts/idf/.part-00001-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet.crc": "5327a70f022b37b87ee24cf1d57abee97d08ca35dcbf97414bf725e23f4f291f",
+      "artifacts/idf/.part-00002-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet.crc": "d5113a1463ccdb6d9a4a02098c1552c58d385f577bb668e207a08fd714848b2a",
+      "artifacts/idf/.part-00003-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet.crc": "5a01e18e8a5d31ce22aac4fb43379d92ed2b1e85e0de16b0148445cef94384e2",
+      "artifacts/idf/.part-00005-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet.crc": "d01ca38797a03dc245ada10fd230a5cbca5057044303be1093ad9f17f8b3856a",
+      "artifacts/idf/.part-00006-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet.crc": "962aee21d0fd43961953cd86b853bb6cce35214e91660b7a6ec0f34700c44acb",
+      "artifacts/idf/.part-00007-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet.crc": "27a9dcf13d9d16aac285cb55ca3fb1fe771f85d78b02793eda4ae9fc4257ac5d",
+      "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/idf/part-00000-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet": "d31778703168f1f504dd596b4cec7f106e004fffe63b6640d3dd142e694d4c10",
+      "artifacts/idf/part-00001-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet": "8c2e4543f61a366857cc2fbf50a2bfa46a1dd7dae375b1a356599cf5247000d9",
+      "artifacts/idf/part-00002-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet": "428510cf449977f2ae2b6a7e8adcd29aca724fe45ec122a3bbd8e92d389c54e4",
+      "artifacts/idf/part-00003-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet": "0b1d043909083ff20fa64d4b65e553426b921d7d5eabc2b01a34a29e300e7cf9",
+      "artifacts/idf/part-00005-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet": "d538c611d314354a87fb4edcb6caf3810a2c0d7438ecda71e99c86c9a235783c",
+      "artifacts/idf/part-00006-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet": "cfe053be9849e406a5dd0187b08bc8e2f9545d62866a83c8c5a9da53d4a9b9fa",
+      "artifacts/idf/part-00007-0acf2a61-72df-41e5-9ad3-e4c2d7066cc8-c000.snappy.parquet": "b1d4f464f24dc3cab83a5db8693c0911611786308baddec68620e8f927cde3dc",
+      "artifacts/integrity.json": "e260052eac05f9397ceaa3d98cd0f0d7be52c90ece087c7adbef338512e1c4f7",
+      "artifacts/labels.json": "2c06fd796cbbbd284d1d9db22266e7758c55c00f08a21d048af609b6253fb168",
+      "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/metadata/.part-00000-7fa43829-a0e3-4212-a4b8-863aea486f34-c000.txt.crc": "2b6cab74d47e3f98af8f3bd107abdc36ddda17303077b15ab371199b01389869",
+      "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/metadata/part-00000-7fa43829-a0e3-4212-a4b8-863aea486f34-c000.txt": "e4970842f30222b89e72c904f55d0598fda7bf9325ed034d11bbcb88dcebfdeb",
+      "artifacts/pipeline/stages/0_VectorAssembler_dde993ca6b24/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/stages/0_VectorAssembler_dde993ca6b24/metadata/.part-00000-98bd574e-7cd8-4ef1-9f9e-6427c823e4be-c000.txt.crc": "9770ea6dd3c508dcc5c02cea82f9bc51953eecce95f312c481a89667ff91b089",
+      "artifacts/pipeline/stages/0_VectorAssembler_dde993ca6b24/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/stages/0_VectorAssembler_dde993ca6b24/metadata/part-00000-98bd574e-7cd8-4ef1-9f9e-6427c823e4be-c000.txt": "6f3b8a9d9bd9432f449216b2246a52933b004939060f5f0673ce0086ea244996",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/data/.part-00000-af029afd-fa90-4507-a54c-ef647209a7f0-c000.snappy.parquet.crc": "3a0b80e6fb4a2147b3395d1a7a644f6675d0cff983615581c4ef0175422b8d75",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/data/part-00000-af029afd-fa90-4507-a54c-ef647209a7f0-c000.snappy.parquet": "10a06b9707d74efa601caac2a0fd250cfc864c47286a1d932317a7e8ad6e1594",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/metadata/.part-00000-eba8188f-9193-46ce-9599-4cecb834dcb3-c000.txt.crc": "a85cde03d1a8a659ddd622b20068a14652737f23a8f39678172826cea1ffdc05",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/metadata/part-00000-eba8188f-9193-46ce-9599-4cecb834dcb3-c000.txt": "c520e30aebc2a93269f50829e09ddc1f2c8066bf929dd8306494bf17572a8a9f",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/treesMetadata/.part-00000-1cab7643-ccd0-4054-84ad-dbe0d4a142fc-c000.snappy.parquet.crc": "5c7d75ac2a260f0616042ae39645e9d700968545fa95f827fe9722f0bec524ba",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/stages/1_GBTClassifier_a17572012da8/treesMetadata/part-00000-1cab7643-ccd0-4054-84ad-dbe0d4a142fc-c000.snappy.parquet": "a5c06f361af6ba845c312f1d7815e69bd658afef3581d57cc46ee8c9493683ca",
+      "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+      "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+      "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+      "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+      "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+      "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+      "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+      "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+      "code/lakematch/cli.py": "d78b9b24c7c41de10e469c30a779995a212b7e2a0ddbbbf65e4b08db1087458c",
+      "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+      "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+      "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+      "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+      "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+      "code/lakematch/engine.py": "e4b8bd54073b8bafa3a8022ffc09b5047d36418c0cf60a775ba7f621b13dde36",
+      "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+      "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+      "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+      "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+      "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+      "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+      "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+      "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+      "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+      "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+      "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+      "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+      "input_example.json": "d2b895efc541ada055eb558b2af53afca34678d1f53e874c4534f705c859a167",
+      "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+      "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+      "serving_input_example.json": "3d1ce09a03e61cf50afb13ee3ece8d65595f9e7c1e3d6c0cec4497b39ff5f31c"
+    }
+  },
+  "evidence_files": {
+    "center.predictions.json": "e4cbd62dc768697a55c46b1b63dfba7cdc4273e8cf305888af080ee2729d34f4",
+    "connected_components.predictions.json": "df8e6bcf5e5934c47a8ef7e5a79fa6c0942ff83eb47cebc411103f6001501bbd",
+    "edges.json": "1ffbbd2bd173c63133bc018fdf7a6009b02931686b5182e4e50456b40f521e6a",
+    "star.predictions.json": "df8e6bcf5e5934c47a8ef7e5a79fa6c0942ff83eb47cebc411103f6001501bbd",
+    "verified_merge.predictions.json": "315bad59ed17fdcc40d4c55bf3b9b40ce547c378eae1067b8a44d3accc977a2c"
+  },
+  "retrieval": {
+    "train": {
+      "budget": {
+        "join_rows_before_cap": 2349056,
+        "join_rows_after_cap": 681383,
+        "dropped_grams": 3,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 17634,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "undirected_pairs": 9503,
+      "true_pairs": 3758,
+      "covered_positives": 3758,
+      "pair_recall": 1.0,
+      "seconds": 9.007069999934174
+    },
+    "valid": {
+      "budget": {
+        "join_rows_before_cap": 319506,
+        "join_rows_after_cap": 319506,
+        "dropped_grams": 0,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 6300,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "undirected_pairs": 3347,
+      "true_pairs": 1457,
+      "covered_positives": 1457,
+      "pair_recall": 1.0,
+      "seconds": 4.379898999934085
+    }
+  },
+  "model_reload_seconds": 0.5272280829958618,
+  "new_models_fitted": 0,
+  "feature_and_score_seconds": 2.7815518750576302,
+  "replay_maximum_deltas": {
+    "probability": 0.0,
+    "cosine": 0.0
+  },
+  "threshold": 0.72,
+  "pair_metrics": {
+    "tp": 1454,
+    "fp": 0,
+    "fn": 3,
+    "tn": 0,
+    "precision": 1.0,
+    "recall": 0.9979409746053535,
+    "f1": 0.9989694263139814
+  },
+  "model": {
+    "run_id": "c547b4fc252247c68a2a3d97bb6cfcf5",
+    "model_uri": "runs:/c547b4fc252247c68a2a3d97bb6cfcf5/model",
+    "logged_model_uri": "models:/m-29f86ea4e03c47e199739810159bdfe3",
+    "label_set_sha256": "e60cfe0a3b1abb3bb77c99803a9c26a2bbe40a8ba227dd656cd1bdcd741c72e4",
+    "artifact_bytes": 656583,
+    "registry": false
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 55.223625750048086
+}

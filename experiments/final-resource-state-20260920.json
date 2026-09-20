@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-09-20T05:23:12.570738+00:00",
+  "profile": "fevm-gdpr2",
+  "host": "https://fevm-gdpr2.cloud.databricks.com",
+  "active_campaign_runs": [],
+  "campaign_pipelines": [
+    {
+      "pipeline_id": "887f3271-3247-4082-82a9-9b62fb89e135",
+      "name": "[dev laurent_fabre] lakematch-20260919-frozen-matching",
+      "state": "IDLE"
+    }
+  ],
+  "campaign_clusters": [],
+  "owned_warehouse": {
+    "id": "ec3b6df6c1cabcd4",
+    "name": "lakematch-20260919-evidence-20260920T041603Z-35e82ec0",
+    "state": "STOPPED"
+  },
+  "shared_warehouse": {
+    "id": "4aaa742e4712c3c9",
+    "state": "STOPPED",
+    "action": "read only; never started or stopped by this continuation"
+  },
+  "remaining_materializer_scratch_tables": [],
+  "preserved_campaign_table_count": 33,
+  "durable_data": "Committed fixture Delta snapshots, benchmark inputs/outputs and model/label evidence preserved; no bulk deletion."
+}

@@ -1,0 +1,332 @@
+{
+  "status": "completed",
+  "corpus": "abt_buy",
+  "partition": "test",
+  "confirmation_scored": true,
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "frozen_model": {
+    "run_id": "86750fc826d646b7b969b9947762daed",
+    "model_uri": "runs:/86750fc826d646b7b969b9947762daed/model",
+    "logged_model_uri": "models:/m-7114d21e769f4e7789590e4a50628595",
+    "label_set_sha256": "7b5fb486088253dd5249e0c5d905e5596f89015221ef4d1c892c2976690802a3",
+    "artifact_bytes": 504871,
+    "registry": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "table",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "abt_buy",
+      "id_column": "rec_id",
+      "fields": {
+        "description": {
+          "type": "title"
+        },
+        "name": {
+          "type": "title"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    },
+    "candidates": {
+      "method": "minhash_lsh",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "description"
+        ],
+        [
+          "prefix3(description)"
+        ],
+        [
+          "name"
+        ],
+        [
+          "prefix3(name)"
+        ],
+        [
+          "price"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.2,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/abt_buy/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-candidate-pairs",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "manifest": {
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "raw_sha256": {
+      "train": "c1370966c08c246e9cf844b7cd2cf580b2559e9831f1eb3cca560fd53c1bcbb2",
+      "valid": "14b2c80673434b852febacd1a741c89e2ca0aba1658f4420efe4cbb46f4ef607",
+      "test": "df323df317af4ca33132e3c3a666983c5cbc69ef517f61df18f381b4d1662352"
+    },
+    "split_method": "official",
+    "duplicate_or_reversed_pairs_removed": 39,
+    "conflicting_pair_keys_excluded": 13,
+    "shared_records_between_splits": {
+      "test/train": 1307,
+      "test/valid": 1041,
+      "train/valid": 1300
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "test": 1892,
+      "train": 5703,
+      "valid": 1894
+    },
+    "corpus": "abt_buy",
+    "seed": 2026091901,
+    "fields": {
+      "description": {
+        "type": "title"
+      },
+      "name": {
+        "type": "title"
+      },
+      "price": {
+        "type": "number"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/abt_buy/left.jsonl",
+        "sha256": "8d555b2997b2818979727133928862955016ad12d946cc1c1e54b22ce87485d4",
+        "rows": 1068
+      },
+      "right": {
+        "path": "data/bench/abt_buy/right.jsonl",
+        "sha256": "ea712fb0925b3e737c1f53e6fa3a426496288e9eab7b78ac8fa5ba8a10633f58",
+        "rows": 1035
+      },
+      "pairs": {
+        "path": "data/bench/abt_buy/pairs.jsonl",
+        "sha256": "5850c15c8c5c8a981d71e33bb27f22dbcc79136ccffcf5c083969b2540627604",
+        "rows": 9489
+      }
+    },
+    "confirmation_scored": false
+  },
+  "scope": "retrieval-filtered supplied held-out pairs; unknown pairs excluded; missing positives remain false negatives",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "candidate_budget": {
+    "join_rows_before_cap": 167663,
+    "join_rows_after_cap": 167663,
+    "dropped_grams": 0,
+    "method": "minhash_lsh",
+    "score": "exact unweighted gram-set cosine after retrieval",
+    "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+    "candidate_pairs": 5339,
+    "max_join_rows": 50000000,
+    "max_pairs": 100000
+  },
+  "metrics": {
+    "tp": 113,
+    "fp": 60,
+    "fn": 90,
+    "tn": 1629,
+    "precision": 0.653179190751445,
+    "recall": 0.5566502463054187,
+    "f1": 0.601063829787234,
+    "f1_95ci": [
+      0.5429362880886427,
+      0.657608695652174
+    ],
+    "paired_delta_95ci": null,
+    "seed": 2026091902,
+    "resamples": 2000,
+    "groups": 729
+  },
+  "candidate_recall": 0.6206896551724138,
+  "candidate_missed_positives": 77,
+  "retrieved_but_not_linked_positives": 13,
+  "baselines": {
+    "nearest_neighbour": {
+      "tp": 122,
+      "fp": 247,
+      "fn": 81,
+      "tn": 1442,
+      "precision": 0.33062330623306235,
+      "recall": 0.6009852216748769,
+      "f1": 0.42657342657342656,
+      "f1_95ci": [
+        0.3781818181818182,
+        0.4769736842105263
+      ],
+      "paired_delta_95ci": [
+        -0.21323661292572593,
+        -0.1364729640266526
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 729,
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "paired_delta_reference": "baseline minus frozen classifier"
+    },
+    "cosine_threshold": {
+      "tp": 102,
+      "fp": 208,
+      "fn": 101,
+      "tn": 1481,
+      "precision": 0.32903225806451614,
+      "recall": 0.5024630541871922,
+      "f1": 0.39766081871345027,
+      "f1_95ci": [
+        0.3486590038314176,
+        0.4493927125506073
+      ],
+      "paired_delta_95ci": [
+        -0.25026312711963516,
+        -0.16019536019536024
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 729,
+      "threshold": 0.33,
+      "cardinality": "unrestricted",
+      "paired_delta_reference": "baseline minus frozen classifier"
+    }
+  },
+  "error_slices": {
+    "all_positive_links": {
+      "true_links": 203,
+      "candidate_misses": 77,
+      "retrieved_but_not_linked": 13,
+      "true_links_recovered": 113
+    },
+    "any_field_missing": {
+      "true_links": 182,
+      "candidate_misses": 66,
+      "retrieved_but_not_linked": 10,
+      "true_links_recovered": 106
+    },
+    "unicode": {
+      "true_links": 5,
+      "candidate_misses": 3,
+      "retrieved_but_not_linked": 1,
+      "true_links_recovered": 1
+    },
+    "multi_value": {
+      "true_links": 0,
+      "candidate_misses": 0,
+      "retrieved_but_not_linked": 0,
+      "true_links_recovered": 0
+    }
+  },
+  "evaluation_run_id": "55394284738046cbb33fb72ba190a4cd",
+  "cleanup": "succeeded",
+  "evidence_files": {
+    "heldout.predictions.json": "12f728295d2dc10bdda07f3b504a395f58b6ae7e664bc9755e136cf2d41dc5bb"
+  },
+  "wall_seconds_including_spark": 20.54501254193019
+}

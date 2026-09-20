@@ -75,3 +75,24 @@ and `20260919T230816Z-tracking-serverless-cb7cab`. Remote MLflow run
 fresh-task probability difference: **4.579669976578771e-16**. All remote tasks
 are terminal; the export/checksum manifest preserves the model outside FEVM.
 The same **71 tests** pass on classic local Spark and local Spark Connect.
+
+## Final-source integration refresh — iteration 4
+
+ZR-5 passes on current core source `9babf294d0b96`, with the same 130 passing
+classic/Connect tests. Local fit/reload and the normal accepted-pointer CLI check
+passed as `20260920T051123Z-tracking-train-54583b`,
+`20260920T051142Z-tracking-reload-44a119` and
+`20260920T051154Z-tracking-cli-2c0008`.
+
+Remote parent run `827370737736333` completed both train/reload tasks on
+`fevm-gdpr2`; experiment `20260920T051312Z-tracking-serverless-017529` retained
+the complete model/evidence export. MLflow run `39404ae08c5d41c38e6128b5f5273799`
+registered `gdpr2_catalog.lakematch_20260919.pair_model/3`; `champion` resolved
+to that immutable version in the fresh task. Maximum probability difference:
+`4.579669976578771e-16`; complete artifact: 222,391 bytes. Training and evaluation
+records are disjoint. This remains synthetic contract evidence, not a new benchmark.
+
+Train setup/execution: 136s/331s; reload: 2s/56s; outer runner: 561.42s. Both
+tasks are terminal, exports are hash-verified, and no persistent compute was
+started by this runner. Billing remains unresolved. The eight benchmark models
+and thresholds are unchanged. `bash verify_zr.sh 5` exits zero.

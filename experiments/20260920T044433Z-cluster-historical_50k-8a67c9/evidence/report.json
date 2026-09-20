@@ -1,0 +1,914 @@
+{
+  "status": "completed",
+  "iteration": 8,
+  "corpus": "historical_50k",
+  "manifest": {
+    "sources": {
+      "sources": [
+        {
+          "name": "historical_50k",
+          "url": "https://raw.githubusercontent.com/moj-analytical-services/splink_datasets/75876d806d9eff72072d21878150ee50a96d5f41/data/historical_figures_with_errors_50k.parquet",
+          "revision": "75876d806d9eff72072d21878150ee50a96d5f41",
+          "path": "data/sources/clustering/historical_figures_with_errors_50k.parquet",
+          "sha256": "b8b748402ff37b15c2d5e8a5b9374abe269b9d297aacb7f4c9498365b7cace43",
+          "provenance": "Public Wikidata historical figures with introduced duplicate errors, per Splink 4.0.16 metadata",
+          "license": "MIT repository distribution; original Wikidata source CC0"
+        },
+        {
+          "name": "febrl3",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3.csv",
+          "sha256": "5b0443f2568a0e258e52ab015b34fc1736a6ee1863086617f08b2e6997e92458",
+          "license": "BSD-3-Clause distribution"
+        },
+        {
+          "name": "febrl3_links",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3_links.json",
+          "sha256": "d85cd011c5f57f386feb2c27428883663ef08a1c858f9de418fca6be3a39bc99",
+          "license": "BSD-3-Clause distribution"
+        }
+      ]
+    },
+    "split_seed": 2026091901,
+    "split_method": "SHA-256 ranked whole truth entities; floor 60/20/20; no record crosses a split",
+    "evaluation_scope": "partition-specific clustering; confirmation remains unscored",
+    "name": "historical_50k",
+    "fields": {
+      "full_name": {
+        "type": "person_name"
+      },
+      "dob": {
+        "type": "date"
+      },
+      "birth_place": {
+        "type": "address"
+      },
+      "postcode_fake": {
+        "type": "code"
+      },
+      "gender": {
+        "type": "code"
+      },
+      "occupation": {
+        "type": "organisation"
+      }
+    },
+    "records": 50578,
+    "record_digest": "a1c02a72c842158882459d7fc54110de9e18fb1f0bf3095fb258f5226f70a663",
+    "splits": {
+      "train": 30660,
+      "confirmation": 9836,
+      "valid": 10082
+    },
+    "entities": 5156,
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "historical_50k",
+      "id_column": "rec_id",
+      "fields": {
+        "full_name": {
+          "type": "person_name"
+        },
+        "dob": {
+          "type": "date"
+        },
+        "birth_place": {
+          "type": "address"
+        },
+        "postcode_fake": {
+          "type": "code"
+        },
+        "gender": {
+          "type": "code"
+        },
+        "occupation": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "field_blocks",
+      "q": 3,
+      "k": 6,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 500000,
+      "union_of": [],
+      "field_blocks": [
+        [
+          "full_name"
+        ],
+        [
+          "soundex(full_name)"
+        ],
+        [
+          "dob"
+        ],
+        [
+          "year(dob)"
+        ],
+        [
+          "birth_place"
+        ],
+        [
+          "prefix3(birth_place)"
+        ],
+        [
+          "postcode_fake"
+        ],
+        [
+          "gender"
+        ],
+        [
+          "occupation"
+        ],
+        [
+          "prefix3(occupation)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.2,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "connected_components",
+      "max_rounds": 30
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/clusters/historical_50k/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr4-clusters",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/CLUSTER_PLAN.md",
+  "confirmation_scored": false,
+  "scope": "Exact validation replay with original model, IDF and threshold; no new fit or selection",
+  "pair_context": "unweighted gram cosine; rank=1; gap=0 for every training/scoring/verification pair",
+  "candidate_scope": "k=6 including self, then self removed and orientations unioned; at most five outgoing nonself neighbours",
+  "rows": [
+    {
+      "method": "connected_components",
+      "seconds": 10.344007042003796,
+      "rounds": [
+        {
+          "round": 1,
+          "changed_vertices": 8722
+        },
+        {
+          "round": 2,
+          "changed_vertices": 2509
+        },
+        {
+          "round": 3,
+          "changed_vertices": 1172
+        },
+        {
+          "round": 4,
+          "changed_vertices": 603
+        },
+        {
+          "round": 5,
+          "changed_vertices": 459
+        },
+        {
+          "round": 6,
+          "changed_vertices": 424
+        },
+        {
+          "round": 7,
+          "changed_vertices": 306
+        },
+        {
+          "round": 8,
+          "changed_vertices": 249
+        },
+        {
+          "round": 9,
+          "changed_vertices": 303
+        },
+        {
+          "round": 10,
+          "changed_vertices": 260
+        },
+        {
+          "round": 11,
+          "changed_vertices": 166
+        },
+        {
+          "round": 12,
+          "changed_vertices": 290
+        },
+        {
+          "round": 13,
+          "changed_vertices": 1
+        },
+        {
+          "round": 14,
+          "changed_vertices": 2
+        },
+        {
+          "round": 15,
+          "changed_vertices": 9
+        },
+        {
+          "round": 16,
+          "changed_vertices": 7
+        },
+        {
+          "round": 17,
+          "changed_vertices": 3
+        },
+        {
+          "round": 18,
+          "changed_vertices": 4
+        },
+        {
+          "round": 19,
+          "changed_vertices": 8
+        },
+        {
+          "round": 20,
+          "changed_vertices": 12
+        },
+        {
+          "round": 21,
+          "changed_vertices": 23
+        },
+        {
+          "round": 22,
+          "changed_vertices": 16
+        },
+        {
+          "round": 23,
+          "changed_vertices": 18
+        },
+        {
+          "round": 24,
+          "changed_vertices": 102
+        },
+        {
+          "round": 25,
+          "changed_vertices": 0
+        }
+      ],
+      "tp": 58602,
+      "fp": 709668,
+      "fn": 1506,
+      "tn": 0,
+      "precision": 0.07627787106095513,
+      "recall": 0.9749450988221202,
+      "f1": 0.14148613314211628,
+      "bcubed_precision": 0.6567058880223554,
+      "bcubed_recall": 0.9696998408312306,
+      "bcubed_f1": 0.7830857747126607,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 807,
+      "pairwise_f1_95ci": [
+        0.12388899424742399,
+        0.16470834064561593
+      ],
+      "bcubed_f1_95ci": [
+        0.7619841566744975,
+        0.803688019000007
+      ],
+      "pairwise_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bcubed_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "center",
+      "seconds": 5.53933145897463,
+      "rounds": [
+        {
+          "round": 1,
+          "assigned_vertices": 7272,
+          "remaining_vertices": 2810
+        },
+        {
+          "round": 2,
+          "assigned_vertices": 2215,
+          "remaining_vertices": 595
+        },
+        {
+          "round": 3,
+          "assigned_vertices": 520,
+          "remaining_vertices": 75
+        },
+        {
+          "round": 4,
+          "assigned_vertices": 70,
+          "remaining_vertices": 5
+        },
+        {
+          "round": 5,
+          "assigned_vertices": 4,
+          "remaining_vertices": 1
+        },
+        {
+          "round": 6,
+          "assigned_vertices": 1,
+          "remaining_vertices": 0
+        }
+      ],
+      "tp": 20592,
+      "fp": 122,
+      "fn": 39516,
+      "tn": 0,
+      "precision": 0.9941102635898427,
+      "recall": 0.3425833499700539,
+      "f1": 0.5095642275618025,
+      "bcubed_precision": 0.9924122197976591,
+      "bcubed_recall": 0.48263214952004646,
+      "bcubed_f1": 0.6494313700847613,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 2936,
+      "pairwise_f1_95ci": [
+        0.49553782828834736,
+        0.5246406897737476
+      ],
+      "bcubed_f1_95ci": [
+        0.6354909377956116,
+        0.6634901036240624
+      ],
+      "pairwise_delta_95ci": [
+        0.34038611007109076,
+        0.3934453817519772
+      ],
+      "bcubed_delta_95ci": [
+        -0.15926345221282423,
+        -0.10884930506343227
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "star",
+      "seconds": 4.263100040960126,
+      "rounds": [
+        {
+          "round": 1,
+          "assigned_vertices": 8674,
+          "remaining_vertices": 1408
+        },
+        {
+          "round": 2,
+          "assigned_vertices": 1318,
+          "remaining_vertices": 90
+        },
+        {
+          "round": 3,
+          "assigned_vertices": 89,
+          "remaining_vertices": 1
+        },
+        {
+          "round": 4,
+          "assigned_vertices": 1,
+          "remaining_vertices": 0
+        }
+      ],
+      "tp": 44615,
+      "fp": 1215,
+      "fn": 15493,
+      "tn": 0,
+      "precision": 0.9734889810168013,
+      "recall": 0.7422472882145471,
+      "f1": 0.8422851101587722,
+      "bcubed_precision": 0.9708290844752124,
+      "bcubed_recall": 0.7958030968821819,
+      "bcubed_f1": 0.8746458941725466,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 1698,
+      "pairwise_f1_95ci": [
+        0.8334981687463024,
+        0.8517834971980806
+      ],
+      "bcubed_f1_95ci": [
+        0.8675491136799707,
+        0.8824793829867666
+      ],
+      "pairwise_delta_95ci": [
+        0.6777865478751733,
+        0.7209589843045648
+      ],
+      "bcubed_delta_95ci": [
+        0.07180365280664935,
+        0.1123644800659519
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "verified_merge",
+      "seconds": 88.25393308291677,
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 31535,
+          "verification_pairs": 31535,
+          "vetoed_proposals": 0,
+          "merges": 1653
+        },
+        {
+          "round": 2,
+          "proposals": 24418,
+          "verification_pairs": 35779,
+          "vetoed_proposals": 478,
+          "merges": 1153
+        },
+        {
+          "round": 3,
+          "proposals": 18622,
+          "verification_pairs": 28455,
+          "vetoed_proposals": 544,
+          "merges": 902
+        },
+        {
+          "round": 4,
+          "proposals": 14357,
+          "verification_pairs": 22680,
+          "vetoed_proposals": 569,
+          "merges": 774
+        },
+        {
+          "round": 5,
+          "proposals": 11161,
+          "verification_pairs": 18269,
+          "vetoed_proposals": 568,
+          "merges": 674
+        },
+        {
+          "round": 6,
+          "proposals": 8785,
+          "verification_pairs": 14896,
+          "vetoed_proposals": 574,
+          "merges": 589
+        },
+        {
+          "round": 7,
+          "proposals": 6951,
+          "verification_pairs": 12145,
+          "vetoed_proposals": 597,
+          "merges": 519
+        },
+        {
+          "round": 8,
+          "proposals": 5500,
+          "verification_pairs": 9972,
+          "vetoed_proposals": 604,
+          "merges": 462
+        },
+        {
+          "round": 9,
+          "proposals": 4327,
+          "verification_pairs": 8202,
+          "vetoed_proposals": 629,
+          "merges": 400
+        },
+        {
+          "round": 10,
+          "proposals": 3396,
+          "verification_pairs": 6717,
+          "vetoed_proposals": 638,
+          "merges": 345
+        },
+        {
+          "round": 11,
+          "proposals": 2666,
+          "verification_pairs": 5546,
+          "vetoed_proposals": 628,
+          "merges": 298
+        },
+        {
+          "round": 12,
+          "proposals": 2093,
+          "verification_pairs": 4570,
+          "vetoed_proposals": 624,
+          "merges": 248
+        },
+        {
+          "round": 13,
+          "proposals": 1625,
+          "verification_pairs": 3801,
+          "vetoed_proposals": 634,
+          "merges": 202
+        },
+        {
+          "round": 14,
+          "proposals": 1282,
+          "verification_pairs": 3231,
+          "vetoed_proposals": 640,
+          "merges": 158
+        },
+        {
+          "round": 15,
+          "proposals": 1036,
+          "verification_pairs": 2800,
+          "vetoed_proposals": 637,
+          "merges": 126
+        },
+        {
+          "round": 16,
+          "proposals": 859,
+          "verification_pairs": 2478,
+          "vetoed_proposals": 647,
+          "merges": 77
+        },
+        {
+          "round": 17,
+          "proposals": 747,
+          "verification_pairs": 2303,
+          "vetoed_proposals": 646,
+          "merges": 47
+        },
+        {
+          "round": 18,
+          "proposals": 687,
+          "verification_pairs": 2191,
+          "vetoed_proposals": 646,
+          "merges": 28
+        },
+        {
+          "round": 19,
+          "proposals": 656,
+          "verification_pairs": 2147,
+          "vetoed_proposals": 649,
+          "merges": 5
+        },
+        {
+          "round": 20,
+          "proposals": 650,
+          "verification_pairs": 2136,
+          "vetoed_proposals": 649,
+          "merges": 1
+        },
+        {
+          "round": 21,
+          "proposals": 649,
+          "verification_pairs": 2136,
+          "vetoed_proposals": 649,
+          "merges": 0
+        }
+      ],
+      "tp": 54493,
+      "fp": 1436,
+      "fn": 5615,
+      "tn": 0,
+      "precision": 0.9743245901053121,
+      "recall": 0.9065848140014641,
+      "f1": 0.939234899213182,
+      "bcubed_precision": 0.9844503732286071,
+      "bcubed_recall": 0.9093885627233154,
+      "bcubed_f1": 0.9454319403701619,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 1421,
+      "pairwise_f1_95ci": [
+        0.9301714751182372,
+        0.9472937298092984
+      ],
+      "bcubed_f1_95ci": [
+        0.9394708539397253,
+        0.9508436044630373
+      ],
+      "pairwise_delta_95ci": [
+        0.7743972746076428,
+        0.8164956522945881
+      ],
+      "bcubed_delta_95ci": [
+        0.1426931386339959,
+        0.1823052247207102
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour_components",
+      "threshold": 0.0,
+      "tp": 29131,
+      "fp": 1213,
+      "fn": 30977,
+      "tn": 0,
+      "precision": 0.960025046137622,
+      "recall": 0.48464430691422106,
+      "f1": 0.6441206385707337,
+      "bcubed_precision": 0.9690741885075056,
+      "bcubed_recall": 0.5883485114445189,
+      "bcubed_f1": 0.7321754797914005,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 2049,
+      "pairwise_f1_95ci": [
+        0.6266324404176801,
+        0.6624584608478093
+      ],
+      "bcubed_f1_95ci": [
+        0.7190693838891208,
+        0.7460929530008023
+      ],
+      "pairwise_delta_95ci": null,
+      "bcubed_delta_95ci": null,
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "name": "cosine_threshold_components",
+      "threshold": 0.38,
+      "tp": 58355,
+      "fp": 16713593,
+      "fn": 1753,
+      "tn": 0,
+      "precision": 0.0034793215433293737,
+      "recall": 0.9708358288414187,
+      "f1": 0.00693379347121944,
+      "bcubed_precision": 0.35930801420808844,
+      "bcubed_recall": 0.965659064163403,
+      "bcubed_f1": 0.5237398670660569,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 517,
+      "pairwise_f1_95ci": [
+        0.006496786123528776,
+        0.007405380512438768
+      ],
+      "bcubed_f1_95ci": [
+        0.4905254279143748,
+        0.5562624982954408
+      ],
+      "pairwise_delta_95ci": null,
+      "bcubed_delta_95ci": null,
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "replay_reference": {
+    "run_id": "20260920T011911Z-cluster-historical_50k-7cb000",
+    "manifest": "experiments/20260920T011911Z-cluster-historical_50k-7cb000/manifest.json",
+    "report": "experiments/20260920T011911Z-cluster-historical_50k-7cb000/evidence/report.json",
+    "report_sha256": "aaf5838e4b573523ced7a393b3c2413a56fac95920a0c56c00f91069ca9cc6d2",
+    "archive": "experiments/20260920T011911Z-cluster-historical_50k-7cb000/evidence/cluster-evidence.tar.gz",
+    "archive_sha256": "3a82a3e00fa4efaebb4d03f780aac981273e9d97c62d8d948275812a0f04a8ba",
+    "model_path": "mlruns/1/models/m-6ca8a3d3c5064f3eb2cd79c650c55365/artifacts",
+    "model_files": {
+      "MLmodel": "10aa963211d367f5cd9f525843ff0d16c500afcea4d53f2805579c0a4f3fc3f9",
+      "artifacts/contract.json": "d57dcd24c3cc193e00fa981937dae18b63d72dc01a4020cfe958fa53f27218ea",
+      "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/idf/.part-00000-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet.crc": "e9391c2dbd755b60df7e51f2bf8d77ea94fa878def2ef06d8d3263e5503613be",
+      "artifacts/idf/.part-00001-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet.crc": "faefabe3baa68d9482bb0a271f570a6ca072431d5bcbf975fd1e704b27622f2e",
+      "artifacts/idf/.part-00002-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet.crc": "563147a1c06f3ac328b173adb7b52e0c979550b294962e54d4d485f9f3589573",
+      "artifacts/idf/.part-00003-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet.crc": "67fe35a621fed0042eede9f1aace80ff25fd7bfff01d6b323d8dc45047d15651",
+      "artifacts/idf/.part-00004-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet.crc": "c48e352daf657d5b133eeb8ca81d10ba8b3575dab0c81dd6943b8fa0c42dfa7c",
+      "artifacts/idf/.part-00005-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet.crc": "5773f4e385a8af97b426684dc4ccfa14bc2409e83ecd23e322c2269070bd7ed6",
+      "artifacts/idf/.part-00006-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet.crc": "04e067bde74767b90404cda2f21add63dd6c07736c57ca192f4615b658cd4c7f",
+      "artifacts/idf/.part-00007-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet.crc": "dca0c093d78f0d4c1ad8948466af32e727038b81007f808fda623404cd9a2c89",
+      "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/idf/part-00000-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet": "6fc161cfaae3d4d43dd2231a59af78a97c02cf90b3c6cb5314fae51b7d0461d9",
+      "artifacts/idf/part-00001-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet": "8aa5b442c1cfa2cfe481963ff114eb8f6fc126c57fe2f02e94da7fb4b445aae3",
+      "artifacts/idf/part-00002-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet": "ca1e63a9f7febf5e5b43a4fe73c0aea7694d95a5c74b28eec5b95b8f3126867f",
+      "artifacts/idf/part-00003-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet": "e0abe3ff9eee5b186ed8d34adaedbe85b0c4120e9b9a31e617cc95aeaa8302d5",
+      "artifacts/idf/part-00004-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet": "4baa8664e7f21dac1d0af2d75c21c7dcfdb44da1aab9a76e5c60cd650377a7a5",
+      "artifacts/idf/part-00005-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet": "045681ba70e37dc6b9ae7b74634e4f8bb67a874e1f829708df9909335ae052a4",
+      "artifacts/idf/part-00006-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet": "307405b08309f3140e635f82accc20e888186f0d6943c9922d25ff32e90f40ef",
+      "artifacts/idf/part-00007-27f4cbd1-ca19-4873-a0be-2028c67d9af7-c000.snappy.parquet": "0b91c74f1859cacf4db91f3ec889f01f41095aefae92c66c68e43824eab5676b",
+      "artifacts/integrity.json": "e35b010a216cda692bafb5f28c99c9d0f7642878296ef55f2ce89cc54f450cb7",
+      "artifacts/labels.json": "64bf7d96b0dc6b1fdeb7789c65f6270481be8901db808583ef6f8beefcfa288d",
+      "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/metadata/.part-00000-02d845e1-3563-4d47-b397-2dda37659f76-c000.txt.crc": "23b9c89b2b89abdcb8eb45c6ed2c2c2425cdd1da244a19f3f730e136c49cdd5b",
+      "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/metadata/part-00000-02d845e1-3563-4d47-b397-2dda37659f76-c000.txt": "04229b33d49b769e47fb64dd373aac89dda4c7fb6ddcb46172cb74eba02ef0e3",
+      "artifacts/pipeline/stages/0_VectorAssembler_11ccb02830b2/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/stages/0_VectorAssembler_11ccb02830b2/metadata/.part-00000-db31a552-5b10-4af2-9b73-38309396c947-c000.txt.crc": "1a7cd96de029a3f6c541f92e1bb38d7b4e4ec1ffe01ff6e63093778b8ec0e84c",
+      "artifacts/pipeline/stages/0_VectorAssembler_11ccb02830b2/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/stages/0_VectorAssembler_11ccb02830b2/metadata/part-00000-db31a552-5b10-4af2-9b73-38309396c947-c000.txt": "e4fad00bd134c6c5c74b712db9171b34de83d6b7b8879454dfe737c1aed5f982",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/data/.part-00000-a9a4cb3b-27a6-45fe-b13c-32db19fdb42b-c000.snappy.parquet.crc": "3c1137825b5d8c7d596a3cd7e4255cf50d23bf20e740197e6c890067481cf275",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/data/part-00000-a9a4cb3b-27a6-45fe-b13c-32db19fdb42b-c000.snappy.parquet": "b81b5a242e0c41690d25e81c03a1e82524609037f8f74143234803e118c91f8e",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/metadata/.part-00000-914fd0b8-f1e3-497e-9f28-6719854dbd22-c000.txt.crc": "c1253e755790ce4e7370567fcf7ed07dcb14ac523b8ceeab94fb0dedf434bc08",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/metadata/part-00000-914fd0b8-f1e3-497e-9f28-6719854dbd22-c000.txt": "f04d796417a874859e57a14be712e84d7ec190c604aaa131f35e1a054885a7cb",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/treesMetadata/.part-00000-14d59ccb-716b-4715-8d67-fc5ae21ba6c0-c000.snappy.parquet.crc": "76fdef2ff5ba9234fe087565315090e281440ba883e7b0f411fa8c097ad0af64",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifacts/pipeline/stages/1_GBTClassifier_92f66f40b5dd/treesMetadata/part-00000-14d59ccb-716b-4715-8d67-fc5ae21ba6c0-c000.snappy.parquet": "c4373ac5a3395be057103001c1863bcb88b05f812a9131a787938d86a90e105f",
+      "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+      "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+      "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+      "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+      "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+      "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+      "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+      "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+      "code/lakematch/cli.py": "d78b9b24c7c41de10e469c30a779995a212b7e2a0ddbbbf65e4b08db1087458c",
+      "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+      "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+      "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+      "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+      "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+      "code/lakematch/engine.py": "e4b8bd54073b8bafa3a8022ffc09b5047d36418c0cf60a775ba7f621b13dde36",
+      "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+      "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+      "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+      "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+      "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+      "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+      "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+      "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+      "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+      "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+      "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+      "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+      "input_example.json": "3c4a5acc92193a5ffa8fac268616ca4a4965cb2fab93f7ddd352e2164472eb9d",
+      "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+      "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+      "serving_input_example.json": "7c73da3a251d88932835613accbad431cbbcbba1a2fc603ec137e6089b05a006"
+    }
+  },
+  "evidence_files": {
+    "center.predictions.json": "c0da099c7e6020d6a0d1f998cac82fa4eb28a2507fac4158328c2d7e3022a6b6",
+    "connected_components.predictions.json": "b4c3983f88c4366ee072290767ea2fb834473179f0f8b76dacdea4681239ecdd",
+    "edges.json": "a27222cc3fd788cddb9d71401a1caab2ecb7fd10d5c922c2712630d31f343bd3",
+    "star.predictions.json": "43375c722d0b8139f8a3b6501411a5ebddef010b1b162544986aa7272d1b08bf",
+    "verified_merge.predictions.json": "95f13c83ec17f2623a5d1c27c7bbacc717d65f0516fb7f4213f4da28612bd583"
+  },
+  "retrieval": {
+    "train": {
+      "budget": {
+        "join_rows_before_cap": 462573775,
+        "join_rows_after_cap": 11192289,
+        "dropped_grams": 42,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 182731,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "undirected_pairs": 108511,
+      "true_pairs": 186920,
+      "covered_positives": 93062,
+      "pair_recall": 0.49787074684356947,
+      "seconds": 63.40146912494674
+    },
+    "valid": {
+      "budget": {
+        "join_rows_before_cap": 49415190,
+        "join_rows_after_cap": 3233038,
+        "dropped_grams": 10,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 60028,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "undirected_pairs": 35247,
+      "true_pairs": 60108,
+      "covered_positives": 30941,
+      "pair_recall": 0.5147567711452719,
+      "seconds": 18.594692667014897
+    }
+  },
+  "model_reload_seconds": 0.5075512090697885,
+  "new_models_fitted": 0,
+  "feature_and_score_seconds": 3.7732347500277683,
+  "replay_maximum_deltas": {
+    "probability": 0.0,
+    "cosine": 0.0
+  },
+  "threshold": 0.2,
+  "pair_metrics": {
+    "tp": 30782,
+    "fp": 753,
+    "fn": 29326,
+    "tn": 0,
+    "precision": 0.976121769462502,
+    "recall": 0.5121115325746989,
+    "f1": 0.6717807142935085
+  },
+  "model": {
+    "run_id": "e8504846807046e8bdd9030f2da68136",
+    "model_uri": "runs:/e8504846807046e8bdd9030f2da68136/model",
+    "logged_model_uri": "models:/m-6ca8a3d3c5064f3eb2cd79c650c55365",
+    "label_set_sha256": "2f12b799e8da1ed901284b6444539f9b265542c929eab4c52a468918cbe1a22f",
+    "artifact_bytes": 3939677,
+    "registry": false
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 211.74271212494932
+}

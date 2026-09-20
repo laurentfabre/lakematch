@@ -1,0 +1,22 @@
+{
+  "status": "audited_partial_capture",
+  "audited_at": "2026-09-20T04:24:02.793659+00:00",
+  "report_sha256": "fc52bc4a9782d01e2f6337ea95294b7cce64731912a8c0d68821d342c30de441",
+  "cleanup_sha256": "ba43adac909f8a653f46251c9ace5c125b261d20fa49b73ac3a30563d1a46288",
+  "source_experiment": "20260920T041602Z-query-billing-evidence-4b9f55",
+  "original_experiment_status": "failed: initial warehouse-stop verification timeout",
+  "owned_warehouse_stop_verified_later": true,
+  "query_ids_exact": true,
+  "query_rows": 16,
+  "unredacted_statements": 0,
+  "billing_status": "no_attributed_rows_yet",
+  "observed_cost": null,
+  "evidence_files": {
+    "data/query_evidence/20260920T041603Z-35e82ec0/billing.stdout.txt": "557736c2cdf382c26fe7ecd810951d880647adfd580cbcb4fc315f5bfecad4f8",
+    "data/query_evidence/20260920T041603Z-35e82ec0/billing.json": "19f3b2a3916e5e0f56114d7bf90618a511c1f2c6658662947ea39df5a2a7c7e5",
+    "data/query_evidence/20260920T041603Z-35e82ec0/query-history-rows.json": "1b99932fe98d8a7ddad070627fa2d008a566dae8a4953611adc2b07421a34f77",
+    "data/query_evidence/20260920T041603Z-35e82ec0/query-history-response.json": "595dcc8cbfa51f1dd8585ec4527a4ba3113284c254b7063164c757f44bc7fb05",
+    "data/query_evidence/20260920T041603Z-35e82ec0/billing.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limitation": "Does not establish stage mapping, operator fallbacks or zero cost."
+}

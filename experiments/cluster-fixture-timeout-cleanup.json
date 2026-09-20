@@ -1,0 +1,9 @@
+{
+  "profile": "fevm-gdpr2",
+  "run_id": 180393856450383,
+  "checked_at": "2026-09-20T04:15:04.443787+00:00",
+  "removed_and_absence_verified": [
+    "gdpr2_catalog.lakematch_20260919.lm_c4e6954c66ee4fdda508466c7841723c_train_records_0"
+  ],
+  "scope": "Only inventoried runner-owned training scratch tables created during the terminated run"
+}

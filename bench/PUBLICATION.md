@@ -18,3 +18,13 @@ The read-only ZR-4 verifier checks artifact hashes, recomputes cluster metrics a
 
 - [CLI evidence](../experiments/20260920T014513Z-cluster-cli-8db05b/manifest.json).
 - [Process recovery tests](../experiments/20260920T014513Z-publication-recovery-tests-22f9d1/manifest.json).
+
+## Final-source replay
+
+`20260920T045620Z-cluster-cli-0368ba` passed five fresh CLI calls and the
+independent Parquet/journal audit in 139.32s. Three durable commits, exact retry
+reuse, unchanged-input stability and no historical head rewind are verified.
+`20260920T045620Z-publication-recovery-tests-a16b7b` passed all three recovery
+checks. Together with both exact identity replays and the 130-test classic/Connect
+suites, `bash verify_zr.sh 4` exits zero. Remote Delta fixture evidence is recorded
+separately in [SERVERLESS.md](SERVERLESS.md).

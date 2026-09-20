@@ -81,7 +81,8 @@ def main():
         parameters = ['--json', json.dumps({'job_id': job_id, 'job_parameters': {'root': volume}})] if args.fixture else [str(job_id)]
         run_id = report['run_id'] = cli('jobs', 'run-now', *parameters, '--no-wait',
             '--idempotency-token', 'lakematch-' + uuid4().hex)['run_id']
-        timeout = 1200 if args.fixture else 1800
+        timeout = int(resources['jobs']['cluster_fixture']['timeout_seconds']) if args.fixture else 1800
+        assert 0 < timeout <= 1800, 'Job exceeds the declared campaign envelope'
         deadline = time.monotonic() + timeout
         next_events = time.monotonic()
         while time.monotonic() < deadline:

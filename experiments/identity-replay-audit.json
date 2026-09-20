@@ -1,0 +1,53 @@
+{
+  "status": "exact_prior_output_equivalence",
+  "audited_at": "2026-09-20T04:57:04.010563+00:00",
+  "canonicalization": "JSON arrays of rows sorted by json.dumps(row, sort_keys=True); object payloads retain structure; final SHA256 over json.dumps(value, sort_keys=True).",
+  "results": {
+    "febrl3": {
+      "original_run": "20260920T012627Z-identity-febrl3-7c613f",
+      "replay_run": "20260920T044900Z-identity-febrl3-17aa88",
+      "archive_receipts": [
+        {
+          "path": "experiments/20260920T012627Z-identity-febrl3-7c613f/evidence/identity-evidence.tar.gz",
+          "sha256": "4ebdfa10996a7a0bb4fc5af456c2010c398190e06ce2956f79783359d9a7df63",
+          "bytes": 220172
+        },
+        {
+          "path": "experiments/20260920T044900Z-identity-febrl3-17aa88/evidence/identity-evidence.tar.gz",
+          "sha256": "b1fb3211d7651f68dd672ff29c9a963797721e37bb8e3c761eb954b8d8b03828",
+          "bytes": 220166
+        }
+      ],
+      "identical_payload_sha256": {
+        "before.json": "65753c5957ecc9c98008be8041c9369b68a681df658465d79e56c7097459a47a",
+        "after.json": "47022a83263248e8467647a6deb8d0f918ac32d031efe85f9f0dd274ba11bbf2",
+        "changes.json": "65253c72902ad5a0c2f1ee327aa8af4c069285a4ddb9319022feceefbff03cee",
+        "cluster_events.json": "0d975ce3d7bb3f3582e4c66c53ba99eb8f10b5d596f024f266b6ae93f7f43205",
+        "mutation.json": "b48d4a8ed7fbad068be20583e6012fbd84d4a192f05ee88672b4feb49f7f9ff3"
+      }
+    },
+    "historical_50k": {
+      "original_run": "20260920T012807Z-identity-historical_50k-03f0a3",
+      "replay_run": "20260920T045039Z-identity-historical_50k-232bc7",
+      "archive_receipts": [
+        {
+          "path": "experiments/20260920T012807Z-identity-historical_50k-03f0a3/evidence/identity-evidence.tar.gz",
+          "sha256": "dedf60f4ddbe90f6b0142efbc28fb06359372e5ac419ac8ebe6af8e055c44949",
+          "bytes": 1591741
+        },
+        {
+          "path": "experiments/20260920T045039Z-identity-historical_50k-232bc7/evidence/identity-evidence.tar.gz",
+          "sha256": "cdd6266230ba630366438af5001db9a0d5aa01114e5f724a698eedba0096e115",
+          "bytes": 1570485
+        }
+      ],
+      "identical_payload_sha256": {
+        "before.json": "5e747516933c52555f053f4cda1f0120db3416d1b1af57486b86608828f8af22",
+        "after.json": "f241fede3fb2e2bb7c91f64e6b859750532b5a928214f8f126ffe6d6d6938397",
+        "changes.json": "e61b8333be1b7eec29a67ec1651d87edb04355b1a4043a225aa7750465e2f8ed",
+        "cluster_events.json": "d5060977eeeead776f23e99363529ef0fcf9bca3781385232c046e6592b572b3",
+        "mutation.json": "a7c9bc2b4e4f38933cd887aa56b0c0b32388f2d3165cf2625752d046a7225557"
+      }
+    }
+  }
+}
