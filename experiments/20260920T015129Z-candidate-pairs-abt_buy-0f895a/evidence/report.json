@@ -1,0 +1,1436 @@
+{
+  "status": "completed",
+  "iteration": 6,
+  "corpus": "abt_buy",
+  "manifest": {
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "raw_sha256": {
+      "train": "c1370966c08c246e9cf844b7cd2cf580b2559e9831f1eb3cca560fd53c1bcbb2",
+      "valid": "14b2c80673434b852febacd1a741c89e2ca0aba1658f4420efe4cbb46f4ef607",
+      "test": "df323df317af4ca33132e3c3a666983c5cbc69ef517f61df18f381b4d1662352"
+    },
+    "split_method": "official",
+    "duplicate_or_reversed_pairs_removed": 39,
+    "conflicting_pair_keys_excluded": 13,
+    "shared_records_between_splits": {
+      "test/train": 1307,
+      "test/valid": 1041,
+      "train/valid": 1300
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "test": 1892,
+      "train": 5703,
+      "valid": 1894
+    },
+    "corpus": "abt_buy",
+    "seed": 2026091901,
+    "fields": {
+      "description": {
+        "type": "title"
+      },
+      "name": {
+        "type": "title"
+      },
+      "price": {
+        "type": "number"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/abt_buy/left.jsonl",
+        "sha256": "8d555b2997b2818979727133928862955016ad12d946cc1c1e54b22ce87485d4",
+        "rows": 1068
+      },
+      "right": {
+        "path": "data/bench/abt_buy/right.jsonl",
+        "sha256": "ea712fb0925b3e737c1f53e6fa3a426496288e9eab7b78ac8fa5ba8a10633f58",
+        "rows": 1035
+      },
+      "pairs": {
+        "path": "data/bench/abt_buy/pairs.jsonl",
+        "sha256": "5850c15c8c5c8a981d71e33bb27f22dbcc79136ccffcf5c083969b2540627604",
+        "rows": 9489
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "abt_buy",
+      "id_column": "rec_id",
+      "fields": {
+        "description": {
+          "type": "title"
+        },
+        "name": {
+          "type": "title"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "description"
+        ],
+        [
+          "prefix3(description)"
+        ],
+        [
+          "name"
+        ],
+        [
+          "prefix3(name)"
+        ],
+        [
+          "price"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/abt_buy/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-candidate-pairs",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/CANDIDATE_PAIRS_PLAN.md",
+  "confirmation_scored": false,
+  "evaluation_scope": "retrieval-filtered supplied validation pairs; unknown pairs excluded, missing positives are false negatives",
+  "unlabelled_pairs_are_negatives": false,
+  "rows": [
+    {
+      "method": "gram_topk",
+      "cardinality": "unrestricted",
+      "threshold": 0.45,
+      "tp": 182,
+      "fp": 26,
+      "fn": 22,
+      "tn": 1664,
+      "precision": 0.875,
+      "recall": 0.8921568627450981,
+      "f1": 0.883495145631068,
+      "f1_95ci": [
+        0.8478802992518704,
+        0.9158415841584159
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716,
+      "candidate_recall": 0.9901960784313726,
+      "budget": {
+        "join_rows_before_cap": 11210168,
+        "join_rows_after_cap": 7258449,
+        "dropped_grams": 47,
+        "candidate_pairs": 5340,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 13.100803000037558,
+      "feature_fit_seconds": 3.479743624920957,
+      "model": {
+        "run_id": "d0413db959ca471882f74b9a3aead3f0",
+        "model_uri": "runs:/d0413db959ca471882f74b9a3aead3f0/model",
+        "logged_model_uri": "models:/m-e2fd1a40228f4978bef6c52797078010",
+        "label_set_sha256": "5a48130519bfa9a1fddc9f5467b7516c477a7caf57a9a9e69e3f5dace2249231",
+        "artifact_bytes": 583539,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "abt_buy",
+          "id_column": "rec_id",
+          "fields": {
+            "description": {
+              "type": "title"
+            },
+            "name": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "gram_topk",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "description"
+            ],
+            [
+              "prefix3(description)"
+            ],
+            [
+              "name"
+            ],
+            [
+              "prefix3(name)"
+            ],
+            [
+              "price"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.45,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/abt_buy/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 23.228199708042666
+    },
+    {
+      "method": "learned_blocker",
+      "cardinality": "unrestricted",
+      "threshold": 0.11,
+      "tp": 41,
+      "fp": 30,
+      "fn": 163,
+      "tn": 1660,
+      "precision": 0.5774647887323944,
+      "recall": 0.20098039215686275,
+      "f1": 0.29818181818181816,
+      "f1_95ci": [
+        0.22784810126582278,
+        0.3665594855305466
+      ],
+      "paired_delta_95ci": [
+        -0.6610265087422448,
+        -0.5122362869198311
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716,
+      "candidate_recall": 0.22058823529411764,
+      "budget": {
+        "join_rows_before_cap": 10836,
+        "join_rows_after_cap": 10836,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 3794,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 1.7781089170603082,
+      "feature_fit_seconds": 2.6120463750557974,
+      "model": {
+        "run_id": "f5e0e0429f884d868e2d173f682e81ac",
+        "model_uri": "runs:/f5e0e0429f884d868e2d173f682e81ac/model",
+        "logged_model_uri": "models:/m-8d964a48fbab456898e4317c775eb78d",
+        "label_set_sha256": "b1a92129fd1480905b3c125e837f127ff3cdbc0cc97e0db8c4af31dc84be4216",
+        "artifact_bytes": 398604,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "abt_buy",
+          "id_column": "rec_id",
+          "fields": {
+            "description": {
+              "type": "title"
+            },
+            "name": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "learned_blocker",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "description"
+            ],
+            [
+              "prefix3(description)"
+            ],
+            [
+              "name"
+            ],
+            [
+              "prefix3(name)"
+            ],
+            [
+              "price"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.11,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/abt_buy/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 8.914267417043447
+    },
+    {
+      "method": "minhash_lsh",
+      "cardinality": "unrestricted",
+      "threshold": 0.2,
+      "tp": 105,
+      "fp": 41,
+      "fn": 99,
+      "tn": 1649,
+      "precision": 0.7191780821917808,
+      "recall": 0.5147058823529411,
+      "f1": 0.6,
+      "f1_95ci": [
+        0.536723163841808,
+        0.6598984771573604
+      ],
+      "paired_delta_95ci": [
+        -0.34462565857914695,
+        -0.22451421874036148
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716,
+      "candidate_recall": 0.6225490196078431,
+      "budget": {
+        "join_rows_before_cap": 167663,
+        "join_rows_after_cap": 167663,
+        "dropped_grams": 0,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 5339,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 7.116364625049755,
+      "feature_fit_seconds": 2.6786554580321535,
+      "model": {
+        "run_id": "86750fc826d646b7b969b9947762daed",
+        "model_uri": "runs:/86750fc826d646b7b969b9947762daed/model",
+        "logged_model_uri": "models:/m-7114d21e769f4e7789590e4a50628595",
+        "label_set_sha256": "7b5fb486088253dd5249e0c5d905e5596f89015221ef4d1c892c2976690802a3",
+        "artifact_bytes": 504871,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "abt_buy",
+          "id_column": "rec_id",
+          "fields": {
+            "description": {
+              "type": "title"
+            },
+            "name": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "description"
+            ],
+            [
+              "prefix3(description)"
+            ],
+            [
+              "name"
+            ],
+            [
+              "prefix3(name)"
+            ],
+            [
+              "price"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.2,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/abt_buy/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 13.919468499952927
+    },
+    {
+      "method": "field_blocks",
+      "cardinality": "unrestricted",
+      "threshold": 0.25,
+      "tp": 163,
+      "fp": 51,
+      "fn": 41,
+      "tn": 1639,
+      "precision": 0.7616822429906542,
+      "recall": 0.7990196078431373,
+      "f1": 0.7799043062200957,
+      "f1_95ci": [
+        0.7323232323232324,
+        0.8229665071770335
+      ],
+      "paired_delta_95ci": [
+        -0.1437937493838115,
+        -0.06276499277013947
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716,
+      "candidate_recall": 0.9313725490196079,
+      "budget": {
+        "join_rows_before_cap": 69603,
+        "join_rows_after_cap": 69603,
+        "dropped_grams": 0,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 5106,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 2.421735291951336,
+      "feature_fit_seconds": 2.7688751249806955,
+      "model": {
+        "run_id": "3dbe54b2ca0546ad8acb2bc6e5881362",
+        "model_uri": "runs:/3dbe54b2ca0546ad8acb2bc6e5881362/model",
+        "logged_model_uri": "models:/m-bed34c17392c4100abf20946a3681f1c",
+        "label_set_sha256": "8c1011bf0a311b2ae64152380335d60e0f62d81c2d416275c58f8a65722be835",
+        "artifact_bytes": 585089,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "abt_buy",
+          "id_column": "rec_id",
+          "fields": {
+            "description": {
+              "type": "title"
+            },
+            "name": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "field_blocks",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "description"
+            ],
+            [
+              "prefix3(description)"
+            ],
+            [
+              "name"
+            ],
+            [
+              "prefix3(name)"
+            ],
+            [
+              "price"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.25,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/abt_buy/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 8.909905707929283
+    },
+    {
+      "method": "union",
+      "cardinality": "unrestricted",
+      "threshold": 0.22,
+      "tp": 163,
+      "fp": 51,
+      "fn": 41,
+      "tn": 1639,
+      "precision": 0.7616822429906542,
+      "recall": 0.7990196078431373,
+      "f1": 0.7799043062200957,
+      "f1_95ci": [
+        0.7360406091370558,
+        0.8219780219780219
+      ],
+      "paired_delta_95ci": [
+        -0.1402325650913221,
+        -0.06609432732014775
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716,
+      "candidate_recall": 0.946078431372549,
+      "budget": {
+        "join_rows_before_cap": 11279771,
+        "join_rows_after_cap": 7328052,
+        "dropped_grams": 47,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 5340,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 15.310949750011787,
+      "feature_fit_seconds": 2.765082124969922,
+      "model": {
+        "run_id": "c39fc48b968741f1ba19a933535e331a",
+        "model_uri": "runs:/c39fc48b968741f1ba19a933535e331a/model",
+        "logged_model_uri": "models:/m-a6d0fc38091847a590a9c1261358037c",
+        "label_set_sha256": "f113b20badce77a9896ee94b43b212ca4e11eaf73b9fb67b05909fccd8cb162c",
+        "artifact_bytes": 586261,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "abt_buy",
+          "id_column": "rec_id",
+          "fields": {
+            "description": {
+              "type": "title"
+            },
+            "name": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "union",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "description"
+            ],
+            [
+              "prefix3(description)"
+            ],
+            [
+              "name"
+            ],
+            [
+              "prefix3(name)"
+            ],
+            [
+              "price"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.22,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/abt_buy/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 21.94754504202865
+    }
+  ],
+  "outcomes": [
+    {
+      "method": "gram_topk",
+      "status": "completed",
+      "seconds": 23.228199708042666
+    },
+    {
+      "method": "learned_blocker",
+      "status": "completed",
+      "seconds": 8.914267417043447
+    },
+    {
+      "method": "minhash_lsh",
+      "status": "completed",
+      "seconds": 13.919468499952927
+    },
+    {
+      "method": "field_blocks",
+      "status": "completed",
+      "seconds": 8.909905707929283
+    },
+    {
+      "method": "union",
+      "status": "completed",
+      "seconds": 21.94754504202865
+    }
+  ],
+  "baselines": [
+    {
+      "method": "gram_topk",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 196,
+      "fp": 305,
+      "fn": 8,
+      "tn": 1385,
+      "precision": 0.3912175648702595,
+      "recall": 0.9607843137254902,
+      "f1": 0.5560283687943263,
+      "f1_95ci": [
+        0.5120481927710844,
+        0.5972222222222222
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "gram_topk",
+      "name": "cosine_threshold",
+      "threshold": 0.33,
+      "cardinality": "unrestricted",
+      "tp": 160,
+      "fp": 125,
+      "fn": 44,
+      "tn": 1565,
+      "precision": 0.5614035087719298,
+      "recall": 0.7843137254901961,
+      "f1": 0.65439672801636,
+      "f1_95ci": [
+        0.6024096385542169,
+        0.7003891050583657
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "learned_blocker",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 45,
+      "fp": 126,
+      "fn": 159,
+      "tn": 1564,
+      "precision": 0.2631578947368421,
+      "recall": 0.22058823529411764,
+      "f1": 0.24,
+      "f1_95ci": [
+        0.18133333333333335,
+        0.2986666666666667
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "learned_blocker",
+      "name": "cosine_threshold",
+      "threshold": 0.32,
+      "cardinality": "unrestricted",
+      "tp": 45,
+      "fp": 112,
+      "fn": 159,
+      "tn": 1578,
+      "precision": 0.28662420382165604,
+      "recall": 0.22058823529411764,
+      "f1": 0.24930747922437674,
+      "f1_95ci": [
+        0.1910828025477707,
+        0.30851063829787234
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "minhash_lsh",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 121,
+      "fp": 228,
+      "fn": 83,
+      "tn": 1462,
+      "precision": 0.3467048710601719,
+      "recall": 0.5931372549019608,
+      "f1": 0.4376130198915009,
+      "f1_95ci": [
+        0.38549618320610685,
+        0.4911660777385159
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "minhash_lsh",
+      "name": "cosine_threshold",
+      "threshold": 0.33,
+      "cardinality": "unrestricted",
+      "tp": 107,
+      "fp": 198,
+      "fn": 97,
+      "tn": 1492,
+      "precision": 0.35081967213114756,
+      "recall": 0.5245098039215687,
+      "f1": 0.4204322200392927,
+      "f1_95ci": [
+        0.3691148775894539,
+        0.4723809523809524
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "field_blocks",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 178,
+      "fp": 312,
+      "fn": 26,
+      "tn": 1378,
+      "precision": 0.363265306122449,
+      "recall": 0.8725490196078431,
+      "f1": 0.5129682997118156,
+      "f1_95ci": [
+        0.4678362573099415,
+        0.556497175141243
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "field_blocks",
+      "name": "cosine_threshold",
+      "threshold": 0.35,
+      "cardinality": "unrestricted",
+      "tp": 139,
+      "fp": 218,
+      "fn": 65,
+      "tn": 1472,
+      "precision": 0.38935574229691877,
+      "recall": 0.6813725490196079,
+      "f1": 0.49554367201426025,
+      "f1_95ci": [
+        0.44656488549618323,
+        0.5428571428571428
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "union",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 182,
+      "fp": 310,
+      "fn": 22,
+      "tn": 1380,
+      "precision": 0.3699186991869919,
+      "recall": 0.8921568627450981,
+      "f1": 0.5229885057471264,
+      "f1_95ci": [
+        0.47858197932053176,
+        0.5661971830985916
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    },
+    {
+      "method": "union",
+      "name": "cosine_threshold",
+      "threshold": 0.34,
+      "cardinality": "unrestricted",
+      "tp": 148,
+      "fp": 249,
+      "fn": 56,
+      "tn": 1441,
+      "precision": 0.37279596977329976,
+      "recall": 0.7254901960784313,
+      "f1": 0.4925124792013311,
+      "f1_95ci": [
+        0.4456140350877193,
+        0.5391014975041597
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 716
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "field_blocks.predictions.json": "8c7586d709269b4ccec0b0ef018d282a062178c7da6c37a36b2b5b8ae9071dc9",
+    "field_blocks_state/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "gram_topk.predictions.json": "db188c173e5ef5faa8292c399ad44e24e927f15ed3a3bf64157bef353201906c",
+    "gram_topk_state/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "learned_blocker.predictions.json": "b5d1d4e30dff06d454a5558d5cbd6af088428ccab973b1c41ffa120c9226f4b3",
+    "learned_blocker_state/state.json": "2693a6d933eee08efa89c131a303ce74303e10f00a2e7caf6390cd81a9558f0a",
+    "minhash_lsh.predictions.json": "b28d3c5e6a56c6b0f713bce1ff8eb8de84ee5ebea9e076a35328d6df9173d3b9",
+    "minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/data/.part-00000-ce48751c-4238-418a-969e-b6b560f51cd7-c000.snappy.parquet.crc": "f73bb77955d1a5904490dcb1233329359dae92f622e13f1be4f6015bb3134ee2",
+    "minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/data/part-00000-ce48751c-4238-418a-969e-b6b560f51cd7-c000.snappy.parquet": "571ab512830d5a8afba8e9fc6726242d2a61b5eaabb5c40e11ca2b8840ed56bd",
+    "minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/metadata/.part-00000-82ceb0e3-637b-4175-ac1f-cc54a8b701d0-c000.txt.crc": "eb16848b79246744ed76a5d6dcde4d4615123f1b3af38b63bfba561a9e77e668",
+    "minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/metadata/part-00000-82ceb0e3-637b-4175-ac1f-cc54a8b701d0-c000.txt": "61d334a3f0e0eb241b619417c5a78e9d9c8171977cbd5d379bb24a051d62e8f8",
+    "minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+    "union.predictions.json": "3357762d1640d916527dd10da61a86f5b2cc0c094a22982ad321e53d2c93fd31",
+    "union_state/field_blocks/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "union_state/gram_topk/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "union_state/state.json": "4d678a47cb49bd3b25debc72cfcefc11e6853481ed57ca9d0b85bde533da3c07"
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 86.30623658304103
+}

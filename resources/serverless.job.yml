@@ -1,0 +1,43 @@
+resources:
+  jobs:
+    frozen_pipeline:
+      name: lakematch-20260919-frozen-pipeline
+      max_concurrent_runs: 1
+      timeout_seconds: 1800
+      performance_target: STANDARD
+      parameters:
+        - name: source_root
+          default: ${workspace.file_path}/src
+        - name: input_root
+          default: ${var.input_root}
+        - name: schema
+          default: ${var.catalog}.${var.schema}
+        - name: quality_engine
+          default: ${var.quality_engine}
+      tasks:
+        - task_key: prepare
+          timeout_seconds: 420
+          environment_key: engine
+          notebook_task:
+            notebook_path: ../deployment/prepare.py
+        - task_key: pipeline
+          depends_on:
+            - task_key: prepare
+          timeout_seconds: 900
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.matching.id}
+        - task_key: audit
+          depends_on:
+            - task_key: pipeline
+          timeout_seconds: 420
+          environment_key: engine
+          notebook_task:
+            notebook_path: ../deployment/audit.py
+      environments:
+        - environment_key: engine
+          spec:
+            environment_version: "4"
+            dependencies:
+              - mlflow==3.16.0
+              - pyyaml==6.0.3
+              - databricks-labs-dqx==0.16.0

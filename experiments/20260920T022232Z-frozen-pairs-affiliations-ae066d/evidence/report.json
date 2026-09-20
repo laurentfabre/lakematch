@@ -1,0 +1,312 @@
+{
+  "status": "completed",
+  "corpus": "affiliations",
+  "partition": "confirmation",
+  "confirmation_scored": true,
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "frozen_model": {
+    "run_id": "b9b85bbd31974960811cd239934d29b8",
+    "model_uri": "runs:/b9b85bbd31974960811cd239934d29b8/model",
+    "logged_model_uri": "models:/m-24288230043f4b04a32a63b69fc708d0",
+    "label_set_sha256": "2539881f2171cbf0aa7f204469e805de7e1794cbce3a2c9142dabedf313073e0",
+    "artifact_bytes": 493639,
+    "registry": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "table",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "affiliations",
+      "id_column": "rec_id",
+      "fields": {
+        "name": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "minhash_lsh",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "name"
+        ],
+        [
+          "prefix3(name)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.12,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/affiliations/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-candidate-pairs",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "manifest": {
+    "source": "Leipzig affiliationstrings.zip",
+    "license": "CC BY 4.0",
+    "identity_components": 330,
+    "negative_sampling": "5 per anchor, same split, different released component",
+    "raw_sha256": {
+      "affiliationstrings_ids.csv": "884305d8fdc164cd86b3128efdfce2d1415875657d92644559001f3110daa886",
+      "affiliationstrings_mapping.csv": "9a3e1cb99b8b6d44f3ab3423efc10f46323371d2f1e5a241fb58c609f9f02770"
+    },
+    "split_method": "released identity components 60/20/20, SHA-256 ranking",
+    "duplicate_or_reversed_pairs_removed": 145,
+    "conflicting_pair_keys_excluded": 0,
+    "shared_records_between_splits": {
+      "confirmation/train": 0,
+      "confirmation/valid": 0,
+      "train/valid": 0
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "confirmation": 6896,
+      "train": 17078,
+      "valid": 3976
+    },
+    "corpus": "affiliations",
+    "seed": 2026091901,
+    "fields": {
+      "name": {
+        "type": "organisation"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/affiliations/left.jsonl",
+        "sha256": "3bdb23a83013e7eff14aaf1153a75f3a967657ea5b767c15e5155bf7114a01b0",
+        "rows": 2257
+      },
+      "right": {
+        "path": "data/bench/affiliations/right.jsonl",
+        "sha256": "74ce49499fe66b374027f440f209ea330fe00e7892dfa8de61f06ba082a14899",
+        "rows": 2255
+      },
+      "pairs": {
+        "path": "data/bench/affiliations/pairs.jsonl",
+        "sha256": "854397cd05955cb6ccdc5f987f45fe53fd7f7917bd1b1a18d51daece4cb9fbb5",
+        "rows": 27950
+      }
+    },
+    "confirmation_scored": false
+  },
+  "scope": "retrieval-filtered supplied held-out pairs; unknown pairs excluded; missing positives remain false negatives",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "candidate_budget": {
+    "join_rows_before_cap": 1336196,
+    "join_rows_after_cap": 625913,
+    "dropped_grams": 2,
+    "method": "minhash_lsh",
+    "score": "exact unweighted gram-set cosine after retrieval",
+    "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+    "candidate_pairs": 11194,
+    "max_join_rows": 50000000,
+    "max_pairs": 100000
+  },
+  "metrics": {
+    "tp": 674,
+    "fp": 0,
+    "fn": 3760,
+    "tn": 2462,
+    "precision": 1.0,
+    "recall": 0.15200721695985567,
+    "f1": 0.2638997650743931,
+    "f1_95ci": [
+      0.2458609271523179,
+      0.28287945957356975
+    ],
+    "paired_delta_95ci": null,
+    "seed": 2026091902,
+    "resamples": 2000,
+    "groups": 491
+  },
+  "candidate_recall": 0.15200721695985567,
+  "candidate_missed_positives": 3760,
+  "retrieved_but_not_linked_positives": 0,
+  "baselines": {
+    "nearest_neighbour": {
+      "tp": 324,
+      "fp": 0,
+      "fn": 4110,
+      "tn": 2462,
+      "precision": 1.0,
+      "recall": 0.07307171853856563,
+      "f1": 0.13619167717528374,
+      "f1_95ci": [
+        0.1258452291510143,
+        0.14715261958997722
+      ],
+      "paired_delta_95ci": [
+        -0.1395471494535108,
+        -0.11615619925845541
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 491,
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "paired_delta_reference": "baseline minus frozen classifier"
+    },
+    "cosine_threshold": {
+      "tp": 674,
+      "fp": 0,
+      "fn": 3760,
+      "tn": 2462,
+      "precision": 1.0,
+      "recall": 0.15200721695985567,
+      "f1": 0.2638997650743931,
+      "f1_95ci": [
+        0.2458609271523179,
+        0.28287945957356975
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 491,
+      "threshold": 0.13,
+      "cardinality": "unrestricted",
+      "paired_delta_reference": "baseline minus frozen classifier"
+    }
+  },
+  "error_slices": {
+    "all_positive_links": {
+      "true_links": 4434,
+      "candidate_misses": 3760,
+      "retrieved_but_not_linked": 0,
+      "true_links_recovered": 674
+    },
+    "any_field_missing": {
+      "true_links": 0,
+      "candidate_misses": 0,
+      "retrieved_but_not_linked": 0,
+      "true_links_recovered": 0
+    },
+    "unicode": {
+      "true_links": 85,
+      "candidate_misses": 57,
+      "retrieved_but_not_linked": 0,
+      "true_links_recovered": 28
+    },
+    "multi_value": {
+      "true_links": 0,
+      "candidate_misses": 0,
+      "retrieved_but_not_linked": 0,
+      "true_links_recovered": 0
+    }
+  },
+  "evaluation_run_id": "026d41e3c7714870a3f63af2df4f2568",
+  "cleanup": "succeeded",
+  "evidence_files": {
+    "heldout.predictions.json": "5b0b4ac6fef2b6b759889331f5c66873ba5b5a1f62b26dd153bb96f5646b1ace"
+  },
+  "wall_seconds_including_spark": 25.44580333295744
+}

@@ -1,0 +1,34 @@
+resources:
+  jobs:
+    cluster_fixture:
+      name: lakematch-20260919-cluster-fixture
+      max_concurrent_runs: 1
+      timeout_seconds: 1200
+      performance_target: STANDARD
+      parameters:
+        - name: source_root
+          default: ${workspace.file_path}/src
+        - name: schema
+          default: ${var.catalog}.${var.schema}
+        - name: root
+          default: /Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture
+      tasks:
+        - task_key: train
+          timeout_seconds: 480
+          environment_key: engine
+          notebook_task:
+            notebook_path: ../deployment/train_cluster_fixture.py
+        - task_key: cluster
+          depends_on:
+            - task_key: train
+          timeout_seconds: 480
+          environment_key: engine
+          notebook_task:
+            notebook_path: ../deployment/cluster_fixture.py
+      environments:
+        - environment_key: engine
+          spec:
+            environment_version: "4"
+            dependencies:
+              - mlflow==3.16.0
+              - pyyaml==6.0.3

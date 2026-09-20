@@ -15,6 +15,7 @@ import yaml
 from lakematch.benchmark.corpora import febrl4
 from lakematch.benchmark.metrics import bootstrap, evaluate, select
 from evidence import ROOT, sha256
+from frozen import load_freeze
 from offline_run import assert_offline
 
 
@@ -24,10 +25,9 @@ def main():
     args = parser.parse_args()
     assert_offline()
     freeze_path = ROOT / 'bench/freeze.json'
-    frozen = json.loads(freeze_path.read_text())
-    assert frozen['status'] == 'frozen_before_confirmation' and frozen['seed'] == 2026091901
     corpus = febrl4(args.variant)
     corpus_manifest = corpus.freeze()
+    frozen = load_freeze(corpus.name)
     entry = frozen['models'][corpus.name]
     assert sha256(ROOT / entry['selection_report']) == entry['selection_report_sha256']
     out = (ROOT / 'data/frozen_linkage' / corpus.name).resolve()
@@ -92,6 +92,10 @@ def main():
         for name, pairs in {
             'given_name_differs': {pair for pair in positives if left_by_id[pair[0]]['given_name'] != right_by_id[pair[1]]['given_name']},
             'any_field_missing': {pair for pair in positives if any(not left_by_id[pair[0]][field] or not right_by_id[pair[1]][field] for field in corpus.fields)},
+            'unicode': {pair for pair in positives if any(not str(records[pair[side]][field]).isascii()
+                for side, records in enumerate((left_by_id, right_by_id)) for field in corpus.fields)},
+            'multi_value': {pair for pair in positives if any(isinstance(records[pair[side]][field], list)
+                for side, records in enumerate((left_by_id, right_by_id)) for field in corpus.fields)},
             'all_positive_links': positives}.items():
             error_slices[name] = {'true_links': len(pairs), 'candidate_misses': len(pairs - candidate_keys),
                 'retrieved_but_not_linked': len((pairs & candidate_keys) - chosen), 'true_links_recovered': len(pairs & chosen)}
@@ -101,7 +105,8 @@ def main():
             baseline_truth = {**{pair: 0. for pair in baseline_chosen}, **{pair: 1. for pair in positives}}
             baseline_metric, baseline_groups = evaluate(baseline_chosen, baseline_truth, {pair: pair[0] for pair in baseline_truth})
             baseline_groups.update({key: [0, 0, 0, 0] for key in anchors - baseline_groups.keys()})
-            baseline_metrics[name] = {**baseline_metric, **bootstrap(baseline_groups),
+            baseline_metrics[name] = {**baseline_metric, **bootstrap(baseline_groups, grouped),
+                'paired_delta_reference': 'baseline minus frozen classifier',
                 'threshold': baseline_threshold if name == 'cosine_threshold' else 0.}
         report['partitions'][split] = {**metric, **bootstrap(grouped), 'anchors': len(anchors),
             'candidate_recall': len(positives & candidate_keys) / len(positives), 'error_slices': error_slices,

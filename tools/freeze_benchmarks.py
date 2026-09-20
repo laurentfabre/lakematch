@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Freeze selected immutable models/configs before any confirmation scoring."""
 from copy import deepcopy
-import hashlib
 import json
-from pathlib import Path
+from datetime import datetime, timezone
 
-from evidence import ROOT, sha256, source_digest
+import mlflow
+
+from evidence import ROOT, sha256
+from frozen import EXECUTION_SOURCES, tree_hashes
 
 
 def main():
@@ -21,22 +23,37 @@ def main():
         path = ROOT / entry['report']
         assert sha256(path) == entry['report_sha256']
         row = entry['best_per_method'][method]
+        report = json.loads(path.read_text())
         config = deepcopy(row['frozen_config'])
         # Table materialization uses the measured lineage-safe execution boundary.
         # It does not alter model features, candidates, scores or decisions.
         config['runtime']['materialize'] = 'table'
         assert config['features']['multi_token'] == selection['selected_multi_token']
         assert config['matcher']['estimator'] == selection['selected_estimator']
+        assert row['model']['model_uri'] == f"runs:/{row['model']['run_id']}/model"
+        for item in report['manifest']['files'].values():
+            assert sha256(ROOT / item['path']) == item['sha256']
+        mlflow.set_tracking_uri(config['mlflow']['tracking_uri'])
+        model_path = mlflow.artifacts.download_artifacts(artifact_uri=row['model']['model_uri'])
         models[corpus] = {'model': row['model'], 'config': config,
             'selection_run': entry['run_id'], 'selection_report': entry['report'],
-            'selection_report_sha256': entry['report_sha256'], 'validation_f1': row['f1']}
+            'selection_report_sha256': entry['report_sha256'], 'validation_f1': row['f1'],
+            'corpus_manifest': report['manifest'], 'model_path': model_path,
+            'model_files': tree_hashes(model_path)}
     body = {'schema_version': 1, 'status': 'frozen_before_confirmation', 'seed': 2026091901,
         'bootstrap_seed': 2026091902, 'method': method, 'models': models,
         'candidate_index_sha256': sha256(ROOT / 'bench/candidate_pairs_index.json'),
+        'selection_sha256': sha256(ROOT / 'bench/selection.json'),
+        'execution_sources': {str(path.relative_to(ROOT)): sha256(path) for path in EXECUTION_SOURCES},
         'confirmation_policy': 'No retraining, threshold changes or resplitting based on confirmation outcomes'}
     path = ROOT / 'bench/freeze.json'
-    if path.exists() and json.loads(path.read_text()) != body:
-        raise ValueError('Confirmation freeze already exists and differs; never replace it silently')
+    if path.exists():
+        existing = json.loads(path.read_text())
+        body['frozen_at'] = existing['frozen_at']
+        if existing != body:
+            raise ValueError('Confirmation freeze already exists and differs; never replace it silently')
+    else:
+        body['frozen_at'] = datetime.now(timezone.utc).isoformat()
     path.write_text(json.dumps(body, indent=2) + '\n')
     print(json.dumps({'status': body['status'], 'corpora': list(models), 'sha256': sha256(path)}))
 

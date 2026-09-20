@@ -1,0 +1,1550 @@
+{
+  "status": "completed",
+  "iteration": 6,
+  "corpus": "walmart_amazon",
+  "manifest": {
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "raw_sha256": {
+      "train": "092fccd11c1cc1ffe54a702af276641218ce9506e6d60fb5a29a3c67d87892c3",
+      "valid": "4b07b12d5eb411736da03385d7543a34c77e5d9d364c25d67e987ebabc58c92c",
+      "test": "85ee132c4e45073a4b5ab8168d5db8af3e354b7b46dae19fd111757c0a6a97f6"
+    },
+    "split_method": "official",
+    "duplicate_or_reversed_pairs_removed": 5,
+    "conflicting_pair_keys_excluded": 1,
+    "shared_records_between_splits": {
+      "test/train": 1507,
+      "test/valid": 959,
+      "train/valid": 1519
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "test": 2047,
+      "train": 6141,
+      "valid": 2047
+    },
+    "corpus": "walmart_amazon",
+    "seed": 2026091901,
+    "fields": {
+      "brand": {
+        "type": "organisation"
+      },
+      "category": {
+        "type": "title"
+      },
+      "modelno": {
+        "type": "title"
+      },
+      "price": {
+        "type": "number"
+      },
+      "title": {
+        "type": "title"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/walmart_amazon/left.jsonl",
+        "sha256": "2317233925ba4486b439429849b2158d4ecbdf459dabdc519c5520ed20db3691",
+        "rows": 1688
+      },
+      "right": {
+        "path": "data/bench/walmart_amazon/right.jsonl",
+        "sha256": "821805742e55a69c1460dee1773fae4751899a1f026846336155bf279a3a4348",
+        "rows": 5247
+      },
+      "pairs": {
+        "path": "data/bench/walmart_amazon/pairs.jsonl",
+        "sha256": "fbcea580202359bf0147d080b0ca334de4b10c02bf77ed1a01ab18f400021769",
+        "rows": 10235
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "walmart_amazon",
+      "id_column": "rec_id",
+      "fields": {
+        "brand": {
+          "type": "organisation"
+        },
+        "category": {
+          "type": "title"
+        },
+        "modelno": {
+          "type": "title"
+        },
+        "price": {
+          "type": "number"
+        },
+        "title": {
+          "type": "title"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "brand"
+        ],
+        [
+          "prefix3(brand)"
+        ],
+        [
+          "category"
+        ],
+        [
+          "prefix3(category)"
+        ],
+        [
+          "modelno"
+        ],
+        [
+          "prefix3(modelno)"
+        ],
+        [
+          "price"
+        ],
+        [
+          "title"
+        ],
+        [
+          "prefix3(title)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/walmart_amazon/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-candidate-pairs",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/CANDIDATE_PAIRS_PLAN.md",
+  "confirmation_scored": false,
+  "evaluation_scope": "retrieval-filtered supplied validation pairs; unknown pairs excluded, missing positives are false negatives",
+  "unlabelled_pairs_are_negatives": false,
+  "rows": [
+    {
+      "method": "gram_topk",
+      "cardinality": "unrestricted",
+      "threshold": 0.43,
+      "tp": 137,
+      "fp": 23,
+      "fn": 56,
+      "tn": 1831,
+      "precision": 0.85625,
+      "recall": 0.7098445595854922,
+      "f1": 0.7762039660056658,
+      "f1_95ci": [
+        0.7262247838616714,
+        0.8218390804597702
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927,
+      "candidate_recall": 0.9896373056994818,
+      "budget": {
+        "join_rows_before_cap": 42081348,
+        "join_rows_after_cap": 11461898,
+        "dropped_grams": 200,
+        "candidate_pairs": 8440,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 30.96074262505863,
+      "feature_fit_seconds": 3.9212175828870386,
+      "model": {
+        "run_id": "e53cead6845a4edeb63a32d93ed840f9",
+        "model_uri": "runs:/e53cead6845a4edeb63a32d93ed840f9/model",
+        "logged_model_uri": "models:/m-05ac6674290a4ce0b7bfd4868189c5f0",
+        "label_set_sha256": "514f84bb4d07c671af19f32c862e797a429be97700955794a7277d56411e440a",
+        "artifact_bytes": 746966,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "walmart_amazon",
+          "id_column": "rec_id",
+          "fields": {
+            "brand": {
+              "type": "organisation"
+            },
+            "category": {
+              "type": "title"
+            },
+            "modelno": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "title"
+            }
+          }
+        },
+        "candidates": {
+          "method": "gram_topk",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "brand"
+            ],
+            [
+              "prefix3(brand)"
+            ],
+            [
+              "category"
+            ],
+            [
+              "prefix3(category)"
+            ],
+            [
+              "modelno"
+            ],
+            [
+              "prefix3(modelno)"
+            ],
+            [
+              "price"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.43,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/walmart_amazon/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 42.14704091602471
+    },
+    {
+      "method": "learned_blocker",
+      "cardinality": "unrestricted",
+      "threshold": 0.24,
+      "tp": 97,
+      "fp": 2,
+      "fn": 96,
+      "tn": 1852,
+      "precision": 0.9797979797979798,
+      "recall": 0.5025906735751295,
+      "f1": 0.6643835616438356,
+      "f1_95ci": [
+        0.5971223021582733,
+        0.7255520504731862
+      ],
+      "paired_delta_95ci": [
+        -0.16625819123602925,
+        -0.05744528244473912
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927,
+      "candidate_recall": 0.5751295336787565,
+      "budget": {
+        "join_rows_before_cap": 6439,
+        "join_rows_after_cap": 6439,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 3295,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 1.5545351670589298,
+      "feature_fit_seconds": 2.911824290989898,
+      "model": {
+        "run_id": "946030d79deb41d18bef935e6a111331",
+        "model_uri": "runs:/946030d79deb41d18bef935e6a111331/model",
+        "logged_model_uri": "models:/m-418de89978cc47b6a161e057af589bb5",
+        "label_set_sha256": "840dba37a8fcc7eb4b1735f7e2964aa213d6774f9c2078380b786ce32f706b09",
+        "artifact_bytes": 490291,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "walmart_amazon",
+          "id_column": "rec_id",
+          "fields": {
+            "brand": {
+              "type": "organisation"
+            },
+            "category": {
+              "type": "title"
+            },
+            "modelno": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "title"
+            }
+          }
+        },
+        "candidates": {
+          "method": "learned_blocker",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "brand"
+            ],
+            [
+              "prefix3(brand)"
+            ],
+            [
+              "category"
+            ],
+            [
+              "prefix3(category)"
+            ],
+            [
+              "modelno"
+            ],
+            [
+              "prefix3(modelno)"
+            ],
+            [
+              "price"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.24,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/walmart_amazon/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 9.856216041953303
+    },
+    {
+      "method": "minhash_lsh",
+      "cardinality": "unrestricted",
+      "threshold": 0.47,
+      "tp": 103,
+      "fp": 15,
+      "fn": 90,
+      "tn": 1839,
+      "precision": 0.8728813559322034,
+      "recall": 0.533678756476684,
+      "f1": 0.662379421221865,
+      "f1_95ci": [
+        0.5949820788530465,
+        0.7213114754098361
+      ],
+      "paired_delta_95ci": [
+        -0.17040887040887043,
+        -0.060828947242733133
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927,
+      "candidate_recall": 0.7253886010362695,
+      "budget": {
+        "join_rows_before_cap": 1178913,
+        "join_rows_after_cap": 472254,
+        "dropped_grams": 6,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 8432,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 10.402777874958701,
+      "feature_fit_seconds": 3.078612625016831,
+      "model": {
+        "run_id": "2eff5d15f87a4b8db9af6b9b772d4eb2",
+        "model_uri": "runs:/2eff5d15f87a4b8db9af6b9b772d4eb2/model",
+        "logged_model_uri": "models:/m-c10c8526c07f4b488b52bfed12fb9606",
+        "label_set_sha256": "a13cec11860fc990531a9fb796f97d788cd9900b1f38e2bd64783622bea373c1",
+        "artifact_bytes": 666561,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "walmart_amazon",
+          "id_column": "rec_id",
+          "fields": {
+            "brand": {
+              "type": "organisation"
+            },
+            "category": {
+              "type": "title"
+            },
+            "modelno": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "title"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "brand"
+            ],
+            [
+              "prefix3(brand)"
+            ],
+            [
+              "category"
+            ],
+            [
+              "prefix3(category)"
+            ],
+            [
+              "modelno"
+            ],
+            [
+              "prefix3(modelno)"
+            ],
+            [
+              "price"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.47,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/walmart_amazon/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 18.07384987489786
+    },
+    {
+      "method": "field_blocks",
+      "cardinality": "unrestricted",
+      "threshold": 0.32,
+      "tp": 144,
+      "fp": 35,
+      "fn": 49,
+      "tn": 1819,
+      "precision": 0.8044692737430168,
+      "recall": 0.7461139896373057,
+      "f1": 0.7741935483870968,
+      "f1_95ci": [
+        0.7239263803680982,
+        0.8203883495145631
+      ],
+      "paired_delta_95ci": [
+        -0.0380862448851117,
+        0.034792735742621206
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927,
+      "candidate_recall": 0.9637305699481865,
+      "budget": {
+        "join_rows_before_cap": 334301,
+        "join_rows_after_cap": 311843,
+        "dropped_grams": 3,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 8319,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 3.4651202090317383,
+      "feature_fit_seconds": 3.2040120410965756,
+      "model": {
+        "run_id": "c85aa16c20444fadad7877eb5ae583b7",
+        "model_uri": "runs:/c85aa16c20444fadad7877eb5ae583b7/model",
+        "logged_model_uri": "models:/m-e67dd4e6ba9d42dea893f1fc45dd00c4",
+        "label_set_sha256": "2311dbb5d4d85ac387b43694d474b1c78256995db1d2aed63e97c4c9cc05e9be",
+        "artifact_bytes": 724265,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "walmart_amazon",
+          "id_column": "rec_id",
+          "fields": {
+            "brand": {
+              "type": "organisation"
+            },
+            "category": {
+              "type": "title"
+            },
+            "modelno": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "title"
+            }
+          }
+        },
+        "candidates": {
+          "method": "field_blocks",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "brand"
+            ],
+            [
+              "prefix3(brand)"
+            ],
+            [
+              "category"
+            ],
+            [
+              "prefix3(category)"
+            ],
+            [
+              "modelno"
+            ],
+            [
+              "prefix3(modelno)"
+            ],
+            [
+              "price"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.32,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/walmart_amazon/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 10.960267790942453
+    },
+    {
+      "method": "union",
+      "cardinality": "unrestricted",
+      "threshold": 0.37,
+      "tp": 133,
+      "fp": 21,
+      "fn": 60,
+      "tn": 1833,
+      "precision": 0.8636363636363636,
+      "recall": 0.689119170984456,
+      "f1": 0.7665706051873199,
+      "f1_95ci": [
+        0.7155425219941349,
+        0.8148148148148148
+      ],
+      "paired_delta_95ci": [
+        -0.04218873909595555,
+        0.02256358234910516
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927,
+      "candidate_recall": 0.9689119170984456,
+      "budget": {
+        "join_rows_before_cap": 42415649,
+        "join_rows_after_cap": 11773741,
+        "dropped_grams": 203,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 8440,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 35.97628362500109,
+      "feature_fit_seconds": 3.285528250038624,
+      "model": {
+        "run_id": "5cc3df69c6254d1284f98dc22b11e16a",
+        "model_uri": "runs:/5cc3df69c6254d1284f98dc22b11e16a/model",
+        "logged_model_uri": "models:/m-03593d02037046f88888f0786c0288be",
+        "label_set_sha256": "48d1bc27cb51c31cc7339e532544015ff37e2c66a1d63fac8a4d2bc4fb357f58",
+        "artifact_bytes": 750877,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "walmart_amazon",
+          "id_column": "rec_id",
+          "fields": {
+            "brand": {
+              "type": "organisation"
+            },
+            "category": {
+              "type": "title"
+            },
+            "modelno": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "title"
+            }
+          }
+        },
+        "candidates": {
+          "method": "union",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "brand"
+            ],
+            [
+              "prefix3(brand)"
+            ],
+            [
+              "category"
+            ],
+            [
+              "prefix3(category)"
+            ],
+            [
+              "modelno"
+            ],
+            [
+              "prefix3(modelno)"
+            ],
+            [
+              "price"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.37,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/walmart_amazon/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 43.59239179105498
+    }
+  ],
+  "outcomes": [
+    {
+      "method": "gram_topk",
+      "status": "completed",
+      "seconds": 42.14704091602471
+    },
+    {
+      "method": "learned_blocker",
+      "status": "completed",
+      "seconds": 9.856216041953303
+    },
+    {
+      "method": "minhash_lsh",
+      "status": "completed",
+      "seconds": 18.07384987489786
+    },
+    {
+      "method": "field_blocks",
+      "status": "completed",
+      "seconds": 10.960267790942453
+    },
+    {
+      "method": "union",
+      "status": "completed",
+      "seconds": 43.59239179105498
+    }
+  ],
+  "baselines": [
+    {
+      "method": "gram_topk",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 180,
+      "fp": 596,
+      "fn": 13,
+      "tn": 1258,
+      "precision": 0.23195876288659795,
+      "recall": 0.9326424870466321,
+      "f1": 0.3715170278637771,
+      "f1_95ci": [
+        0.33121019108280253,
+        0.41055718475073316
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "gram_topk",
+      "name": "cosine_threshold",
+      "threshold": 0.59,
+      "cardinality": "unrestricted",
+      "tp": 124,
+      "fp": 104,
+      "fn": 69,
+      "tn": 1750,
+      "precision": 0.543859649122807,
+      "recall": 0.6424870466321243,
+      "f1": 0.5890736342042755,
+      "f1_95ci": [
+        0.5299539170506913,
+        0.6451612903225806
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "learned_blocker",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 111,
+      "fp": 179,
+      "fn": 82,
+      "tn": 1675,
+      "precision": 0.38275862068965516,
+      "recall": 0.5751295336787565,
+      "f1": 0.45962732919254656,
+      "f1_95ci": [
+        0.40540540540540543,
+        0.5142857142857142
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "learned_blocker",
+      "name": "cosine_threshold",
+      "threshold": 0.24,
+      "cardinality": "unrestricted",
+      "tp": 111,
+      "fp": 240,
+      "fn": 82,
+      "tn": 1614,
+      "precision": 0.3162393162393162,
+      "recall": 0.5751295336787565,
+      "f1": 0.40808823529411764,
+      "f1_95ci": [
+        0.3561643835616438,
+        0.45878136200716846
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "minhash_lsh",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 130,
+      "fp": 478,
+      "fn": 63,
+      "tn": 1376,
+      "precision": 0.2138157894736842,
+      "recall": 0.6735751295336787,
+      "f1": 0.32459425717852686,
+      "f1_95ci": [
+        0.2801047120418848,
+        0.3640776699029126
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "minhash_lsh",
+      "name": "cosine_threshold",
+      "threshold": 0.61,
+      "cardinality": "unrestricted",
+      "tp": 74,
+      "fp": 117,
+      "fn": 119,
+      "tn": 1737,
+      "precision": 0.387434554973822,
+      "recall": 0.38341968911917096,
+      "f1": 0.3854166666666667,
+      "f1_95ci": [
+        0.32418952618453867,
+        0.44783715012722647
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "field_blocks",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 174,
+      "fp": 557,
+      "fn": 19,
+      "tn": 1297,
+      "precision": 0.23803009575923392,
+      "recall": 0.9015544041450777,
+      "f1": 0.37662337662337664,
+      "f1_95ci": [
+        0.33443344334433445,
+        0.4167561761546724
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "field_blocks",
+      "name": "cosine_threshold",
+      "threshold": 0.61,
+      "cardinality": "unrestricted",
+      "tp": 86,
+      "fp": 130,
+      "fn": 107,
+      "tn": 1724,
+      "precision": 0.39814814814814814,
+      "recall": 0.44559585492227977,
+      "f1": 0.42053789731051344,
+      "f1_95ci": [
+        0.3620309050772627,
+        0.481651376146789
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "union",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 174,
+      "fp": 607,
+      "fn": 19,
+      "tn": 1247,
+      "precision": 0.22279129321382843,
+      "recall": 0.9015544041450777,
+      "f1": 0.35728952772073924,
+      "f1_95ci": [
+        0.31646932185145316,
+        0.3967280163599182
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    },
+    {
+      "method": "union",
+      "name": "cosine_threshold",
+      "threshold": 0.61,
+      "cardinality": "unrestricted",
+      "tp": 86,
+      "fp": 132,
+      "fn": 107,
+      "tn": 1722,
+      "precision": 0.3944954128440367,
+      "recall": 0.44559585492227977,
+      "f1": 0.41849148418491483,
+      "f1_95ci": [
+        0.36049382716049383,
+        0.4790697674418605
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 927
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "field_blocks.predictions.json": "e00a23fc76eb5d1607fde68481f4f4b9669d5e476a824edee6cceb1e871ed935",
+    "field_blocks_state/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "gram_topk.predictions.json": "f8e51a729fe432b310afcbe953c4a7cd2e28caf724736078a008280b1be93dd2",
+    "gram_topk_state/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "learned_blocker.predictions.json": "e8c19088d4a58d168dbc7c91afeafd65f625ee23dc6d67b3744677476366059a",
+    "learned_blocker_state/state.json": "79c8b7027f02ac9795b83893592933220533a7c52183404ea7daec83ea2fccd5",
+    "minhash_lsh.predictions.json": "1a6a47d625bfa1be1c541aa09bf74bfd23f9bd8998d33e5bd9424f4d15a0ae6f",
+    "minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/data/.part-00000-35273c7c-4081-477a-8581-050832a29c8e-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+    "minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/data/part-00000-35273c7c-4081-477a-8581-050832a29c8e-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+    "minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/metadata/.part-00000-e9a97d74-cf2d-4dcc-9d58-8afb85931492-c000.txt.crc": "27951f90c2fec4793c092c42be504eeeb370322c41c580c88acf878624e9a395",
+    "minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/metadata/part-00000-e9a97d74-cf2d-4dcc-9d58-8afb85931492-c000.txt": "bd91ff739864b78cf89c2a8b054556f7976ea019541c41db6ba190dfd172fd47",
+    "minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+    "union.predictions.json": "c331e44dc1ea1536f66bfe5bb0c51df776146e19094eede18d2f8e32ac3cb9f9",
+    "union_state/field_blocks/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "union_state/gram_topk/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "union_state/state.json": "4d678a47cb49bd3b25debc72cfcefc11e6853481ed57ca9d0b85bde533da3c07"
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 134.640928082983
+}

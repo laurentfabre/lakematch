@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="5.869" timestamp="2026-09-20T05:03:30.881446+02:00" hostname="KDF7DQXX67"><testcase classname="tests.test_features" name="test_prepared_features_accept_databricks_quality_and_app_configuration" time="5.846" /></testsuite></testsuites>

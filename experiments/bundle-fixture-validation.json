@@ -1,0 +1,17 @@
+{
+  "status": "validated",
+  "target": "serverless",
+  "profile": "fevm-gdpr2",
+  "command": "databricks bundle validate --strict --target serverless --profile fevm-gdpr2",
+  "files": {
+    "databricks.yml": "e12e816df3c5cd0810eb72e5e92fc1145144ead7d3b3ef4b89eb1e3638a781ac",
+    "resources/serverless.job.yml": "c6919d1feb5bb039a902a910617482f319cfdb32f515ee59dfb17d1950f65dbd",
+    "resources/serverless.pipeline.yml": "3076f2a94e8b45e617d5aa848b470f6c757e2be1d95d26fc34e498248ff0fa10",
+    "resources/serverless_fixture.job.yml": "b330d0234cc99073cda3c7cfcd096018c6d28f9baecdab6300bd4bd850d2ea29"
+  },
+  "resources": [
+    "jobs",
+    "pipelines"
+  ],
+  "remote_execution_proven": false
+}

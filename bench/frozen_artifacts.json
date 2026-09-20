@@ -1,0 +1,61 @@
+{
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "models": {
+    "febrl4_half_all": {
+      "path": "data/frozen_models/febrl4_half_all",
+      "archive": "data/frozen_models/febrl4_half_all.tar.gz",
+      "archive_sha256": "38938d649ab4c7a436ea1f7c28b7170d36fb6faa797814d7809224c2bf155d30",
+      "files": 83,
+      "model_uri": "runs:/14fa660dc89b4484bf5094b08a04ea2a/model"
+    },
+    "febrl4_half_no_ssn": {
+      "path": "data/frozen_models/febrl4_half_no_ssn",
+      "archive": "data/frozen_models/febrl4_half_no_ssn.tar.gz",
+      "archive_sha256": "b2851d37ecc305f91f46de22b990fb0cbbaa44a54392228d6af4e6c4bbd2eec0",
+      "files": 83,
+      "model_uri": "runs:/a9b6ea7c921a4493991e18052991adc4/model"
+    },
+    "bpid": {
+      "path": "data/frozen_models/bpid",
+      "archive": "data/frozen_models/bpid.tar.gz",
+      "archive_sha256": "e1c5876e8f6016f5dea97de2eeff8d3384d05c9ddd2c0b34e034215e98ce5c80",
+      "files": 83,
+      "model_uri": "runs:/2487309edbde4c5ab9fb1dc4bb49c976/model"
+    },
+    "abt_buy": {
+      "path": "data/frozen_models/abt_buy",
+      "archive": "data/frozen_models/abt_buy.tar.gz",
+      "archive_sha256": "3569f620f8bbbe68a1e7822bdce2199ae886c63fadba4f39e600659345146588",
+      "files": 79,
+      "model_uri": "runs:/86750fc826d646b7b969b9947762daed/model"
+    },
+    "amazon_google": {
+      "path": "data/frozen_models/amazon_google",
+      "archive": "data/frozen_models/amazon_google.tar.gz",
+      "archive_sha256": "44fedf458b91eb25d729095593c62c10a19f1898d633a589c76c1c218aedbc68",
+      "files": 83,
+      "model_uri": "runs:/0d3b8f81ad20450098878de3a37a62ca/model"
+    },
+    "walmart_amazon": {
+      "path": "data/frozen_models/walmart_amazon",
+      "archive": "data/frozen_models/walmart_amazon.tar.gz",
+      "archive_sha256": "c81568d6ea5407b9d1d6fc5483801b8ff499a7651e41447b9a6f01947714fc19",
+      "files": 85,
+      "model_uri": "runs:/2eff5d15f87a4b8db9af6b9b772d4eb2/model"
+    },
+    "dblp_acm": {
+      "path": "data/frozen_models/dblp_acm",
+      "archive": "data/frozen_models/dblp_acm.tar.gz",
+      "archive_sha256": "21df03721db06d19be27a61e1999cb21d1c8bee123264e07aa19c38fd8e5c174",
+      "files": 83,
+      "model_uri": "runs:/69a22d0f72dc481c9ed75845b33e9ade/model"
+    },
+    "affiliations": {
+      "path": "data/frozen_models/affiliations",
+      "archive": "data/frozen_models/affiliations.tar.gz",
+      "archive_sha256": "429ec07eb295745bbb3d64823a6b72d0122c5bb6a4966b1a14849dfac3852462",
+      "files": 79,
+      "model_uri": "runs:/b9b85bbd31974960811cd239934d29b8/model"
+    }
+  }
+}

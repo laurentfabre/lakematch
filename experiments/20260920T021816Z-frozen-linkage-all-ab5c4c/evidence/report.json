@@ -1,0 +1,569 @@
+{
+  "status": "completed",
+  "cleanup": "succeeded",
+  "corpus": "febrl4_half_all",
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "frozen_model": {
+    "run_id": "14fa660dc89b4484bf5094b08a04ea2a",
+    "model_uri": "runs:/14fa660dc89b4484bf5094b08a04ea2a/model",
+    "logged_model_uri": "models:/m-5e57f8e37c0540cb846f1b549cd28ba0",
+    "label_set_sha256": "02ea5743a253d467e61e36d652851ae6fc33acbc4db06b5abed4f3689cd15c7f",
+    "artifact_bytes": 743519,
+    "registry": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "table",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "febrl4_half_all",
+      "id_column": "rec_id",
+      "fields": {
+        "given_name": {
+          "type": "person_name"
+        },
+        "surname": {
+          "type": "person_name"
+        },
+        "street_number": {
+          "type": "code"
+        },
+        "address_1": {
+          "type": "address"
+        },
+        "address_2": {
+          "type": "address"
+        },
+        "suburb": {
+          "type": "address"
+        },
+        "postcode": {
+          "type": "code"
+        },
+        "state": {
+          "type": "code"
+        },
+        "date_of_birth": {
+          "type": "date",
+          "date_format": "yyyyMMdd"
+        },
+        "soc_sec_id": {
+          "type": "code"
+        }
+      }
+    },
+    "candidates": {
+      "method": "minhash_lsh",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "given_name"
+        ],
+        [
+          "soundex(given_name)"
+        ],
+        [
+          "surname"
+        ],
+        [
+          "soundex(surname)"
+        ],
+        [
+          "street_number"
+        ],
+        [
+          "address_1"
+        ],
+        [
+          "prefix3(address_1)"
+        ],
+        [
+          "address_2"
+        ],
+        [
+          "prefix3(address_2)"
+        ],
+        [
+          "suburb"
+        ],
+        [
+          "prefix3(suburb)"
+        ],
+        [
+          "postcode"
+        ],
+        [
+          "state"
+        ],
+        [
+          "date_of_birth"
+        ],
+        [
+          "year(date_of_birth)"
+        ],
+        [
+          "soc_sec_id"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.28,
+      "cardinality": "one_to_one"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_all/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-linkage-candidates",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": "/Users/laurent.fabre/Projects/Claude/lakematch/data/frozen_linkage/febrl4_half_all/left.jsonl",
+      "right": "/Users/laurent.fabre/Projects/Claude/lakematch/data/frozen_linkage/febrl4_half_all/right.jsonl",
+      "labels": null,
+      "validation_labels": null,
+      "format": "json"
+    },
+    "output": {
+      "root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/frozen_linkage/febrl4_half_all/output"
+    },
+    "model": {
+      "path": "/Users/laurent.fabre/Projects/Claude/lakematch/data/frozen_linkage/febrl4_half_all/model",
+      "pointer": "/Users/laurent.fabre/Projects/Claude/lakematch/data/frozen_linkage/febrl4_half_all/frozen-model.json"
+    }
+  },
+  "manifest": {
+    "source": "recordlinkage 0.16 FEBRL4",
+    "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+    "split_method": "SHA-256 ranked whole truth entities 3000/1000/1000; independent namespaced partner-removal ranking",
+    "exposure": "Historical corpus and 80 smoke anchors exposed; new split/removal outcomes, not independent population",
+    "universe": "5000 left / 2500 right; full-universe transductive candidates; supervised IDF fits train only",
+    "hidden_fields": [],
+    "closed_world_truth": true,
+    "corpus": "febrl4_half_all",
+    "seed": 2026091901,
+    "fields": {
+      "given_name": {
+        "type": "person_name"
+      },
+      "surname": {
+        "type": "person_name"
+      },
+      "street_number": {
+        "type": "code"
+      },
+      "address_1": {
+        "type": "address"
+      },
+      "address_2": {
+        "type": "address"
+      },
+      "suburb": {
+        "type": "address"
+      },
+      "postcode": {
+        "type": "code"
+      },
+      "state": {
+        "type": "code"
+      },
+      "date_of_birth": {
+        "type": "date",
+        "date_format": "yyyyMMdd"
+      },
+      "soc_sec_id": {
+        "type": "code"
+      }
+    },
+    "retrieval": true,
+    "files": {
+      "left": {
+        "path": "data/bench/febrl4_half_all/left.jsonl",
+        "sha256": "e63cf16cbfec77c5a8ab04c0930edce6317b6a9342acff89161aca9816f64fd9",
+        "rows": 5000
+      },
+      "right": {
+        "path": "data/bench/febrl4_half_all/right.jsonl",
+        "sha256": "0d8cf31c830e8a0e58035e4b8fef43f85079e3484b8ba5b4bb3119254788628b",
+        "rows": 2500
+      },
+      "pairs": {
+        "path": "data/bench/febrl4_half_all/pairs.jsonl",
+        "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+        "rows": 2500
+      }
+    },
+    "confirmation_scored": false
+  },
+  "confirmation_scored": true,
+  "process_wall_seconds": 29.19331008300651,
+  "engine_metrics": {
+    "capabilities": {
+      "spark_version": "4.1.3",
+      "connect": false,
+      "cache": true,
+      "cache_observation": "cache and count succeeded",
+      "photon": "untested: requires query-profile evidence"
+    },
+    "candidate_budget": {
+      "join_rows_before_cap": 1624475,
+      "join_rows_after_cap": 642249,
+      "dropped_grams": 6,
+      "method": "minhash_lsh",
+      "score": "exact unweighted gram-set cosine after retrieval",
+      "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+      "candidate_pairs": 24917,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000
+    },
+    "links": 2446,
+    "quarantine": {
+      "left": 0,
+      "right": 0
+    },
+    "embedding_preparation": {
+      "left": {
+        "status": "disabled",
+        "records": 0
+      },
+      "right": {
+        "status": "disabled",
+        "records": 0
+      }
+    },
+    "enabled_paid_features": {},
+    "materialization": [
+      {
+        "name": "left",
+        "strategy": "table",
+        "table": "`lm_0d38bd1ca549436e9da7e6c02d47a2fe_left_0`"
+      },
+      {
+        "name": "right",
+        "strategy": "table",
+        "table": "`lm_0d38bd1ca549436e9da7e6c02d47a2fe_right_1`"
+      },
+      {
+        "name": "idf",
+        "strategy": "table",
+        "table": "`lm_0d38bd1ca549436e9da7e6c02d47a2fe_idf_2`"
+      },
+      {
+        "name": "weighted_left",
+        "strategy": "table",
+        "table": "`lm_0d38bd1ca549436e9da7e6c02d47a2fe_weighted_left_3`"
+      },
+      {
+        "name": "weighted_right",
+        "strategy": "table",
+        "table": "`lm_0d38bd1ca549436e9da7e6c02d47a2fe_weighted_right_4`"
+      },
+      {
+        "name": "features",
+        "strategy": "table",
+        "table": "`lm_0d38bd1ca549436e9da7e6c02d47a2fe_features_5`"
+      }
+    ],
+    "model": {
+      "model_uri": "runs:/14fa660dc89b4484bf5094b08a04ea2a/model",
+      "registry": false
+    },
+    "cleanup": "succeeded",
+    "wall_seconds_including_spark_start_stop": 27.52840800001286
+  },
+  "latency_limit_seconds": 60,
+  "latency_passed": true,
+  "scope": "complete 5000-left / 2500-right universe; cardinality applied globally before metric partitioning",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "partitions": {
+    "valid": {
+      "tp": 489,
+      "fp": 0,
+      "fn": 11,
+      "tn": 0,
+      "precision": 1.0,
+      "recall": 0.978,
+      "f1": 0.9888776541961577,
+      "f1_95ci": [
+        0.982124079915878,
+        0.9949545913218971
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "anchors": 1000,
+      "candidate_recall": 0.978,
+      "error_slices": {
+        "given_name_differs": {
+          "true_links": 166,
+          "candidate_misses": 6,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 160
+        },
+        "any_field_missing": {
+          "true_links": 186,
+          "candidate_misses": 5,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 181
+        },
+        "unicode": {
+          "true_links": 0,
+          "candidate_misses": 0,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 0
+        },
+        "multi_value": {
+          "true_links": 0,
+          "candidate_misses": 0,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 0
+        },
+        "all_positive_links": {
+          "true_links": 500,
+          "candidate_misses": 11,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 489
+        }
+      },
+      "baselines": {
+        "nearest_neighbour": {
+          "tp": 489,
+          "fp": 510,
+          "fn": 11,
+          "tn": 0,
+          "precision": 0.4894894894894895,
+          "recall": 0.978,
+          "f1": 0.6524349566377585,
+          "f1_95ci": [
+            0.6231983527796843,
+            0.6815495732107683
+          ],
+          "paired_delta_95ci": [
+            -0.36479731928194215,
+            -0.30786609261745634
+          ],
+          "seed": 2026091902,
+          "resamples": 2000,
+          "groups": 1000,
+          "paired_delta_reference": "baseline minus frozen classifier",
+          "threshold": 0.0
+        },
+        "cosine_threshold": {
+          "tp": 489,
+          "fp": 0,
+          "fn": 11,
+          "tn": 0,
+          "precision": 1.0,
+          "recall": 0.978,
+          "f1": 0.9888776541961577,
+          "f1_95ci": [
+            0.982124079915878,
+            0.9949545913218971
+          ],
+          "paired_delta_95ci": [
+            0.0,
+            0.0
+          ],
+          "seed": 2026091902,
+          "resamples": 2000,
+          "groups": 1000,
+          "paired_delta_reference": "baseline minus frozen classifier",
+          "threshold": 0.59
+        }
+      }
+    },
+    "confirmation": {
+      "tp": 489,
+      "fp": 0,
+      "fn": 11,
+      "tn": 0,
+      "precision": 1.0,
+      "recall": 0.978,
+      "f1": 0.9888776541961577,
+      "f1_95ci": [
+        0.9815016322089227,
+        0.9949647532729103
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "anchors": 1000,
+      "candidate_recall": 0.978,
+      "error_slices": {
+        "given_name_differs": {
+          "true_links": 147,
+          "candidate_misses": 5,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 142
+        },
+        "any_field_missing": {
+          "true_links": 186,
+          "candidate_misses": 1,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 185
+        },
+        "unicode": {
+          "true_links": 0,
+          "candidate_misses": 0,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 0
+        },
+        "multi_value": {
+          "true_links": 0,
+          "candidate_misses": 0,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 0
+        },
+        "all_positive_links": {
+          "true_links": 500,
+          "candidate_misses": 11,
+          "retrieved_but_not_linked": 0,
+          "true_links_recovered": 489
+        }
+      },
+      "baselines": {
+        "nearest_neighbour": {
+          "tp": 489,
+          "fp": 510,
+          "fn": 11,
+          "tn": 0,
+          "precision": 0.4894894894894895,
+          "recall": 0.978,
+          "f1": 0.6524349566377585,
+          "f1_95ci": [
+            0.6224350205198358,
+            0.6805736636245111
+          ],
+          "paired_delta_95ci": [
+            -0.3646763130696232,
+            -0.3099847594165034
+          ],
+          "seed": 2026091902,
+          "resamples": 2000,
+          "groups": 1000,
+          "paired_delta_reference": "baseline minus frozen classifier",
+          "threshold": 0.0
+        },
+        "cosine_threshold": {
+          "tp": 487,
+          "fp": 0,
+          "fn": 13,
+          "tn": 0,
+          "precision": 1.0,
+          "recall": 0.974,
+          "f1": 0.9868287740628167,
+          "f1_95ci": [
+            0.9785056294779939,
+            0.9931840311587147
+          ],
+          "paired_delta_95ci": [
+            -0.005224190571620602,
+            0.0
+          ],
+          "seed": 2026091902,
+          "resamples": 2000,
+          "groups": 1000,
+          "paired_delta_reference": "baseline minus frozen classifier",
+          "threshold": 0.59
+        }
+      }
+    }
+  },
+  "quality_target": 0.97,
+  "quality_passed": true,
+  "acceptance_passed": true,
+  "evidence_files": {
+    "all.predictions.json": "0977b092c4381ea2110a9df7ae94ab65077c9541324df5ff971b0e6c7e9ab606",
+    "valid.predictions.json": "ff9b2b046fffecbbdb9220b295214231b7a59c3f1d83c622310565eda1c5d5ba",
+    "confirmation.predictions.json": "3ac90b7a249d54499450174f5a3bc778cecb033de298ceaee8c73c4f97695517",
+    "config.yaml": "58aa5fc6f4917630ecec18174586d4ed4266213ebca98117b65781d9391845f9",
+    "frozen-model.json": "19565ec2286619ca9cbf24b0b50dd111dbd0ac6357b84928fd42f98e27d43cb6",
+    "cli.stdout.txt": "6a47a888e5f2e13c1782e625d22432cd1a6973d266cc327ff635d42db571b4d2",
+    "cli.stderr.txt": "86de046c3c4c2649abca9cc8036074de86f302c6f4f9d982347920d5274f110e"
+  }
+}

@@ -10,12 +10,16 @@ Spark Declarative Pipelines where the platform allows it, tracked in MLflow, wit
 Genie agent. The full specification, the nine bounded phases ZR-1..9 and the ledger of the 28 design decisions are in
 [`spec/BRIEF.md`](spec/BRIEF.md).
 
-**State on 2026-09-20: ZR-1, ZR-2 and ZR-5 pass their verifiers; serverless model registration and fresh-task reload pass.** The engine includes YAML configuration,
+**State on 2026-09-20: ZR-1, ZR-2 and ZR-5 passed earlier checkpoints and need revalidation on the current source.** The engine includes YAML configuration,
 native quality checks, bounded IDF candidates, comparison features, MLlib estimators and deterministic links.
-The expanded 71-test suite passes on classic local Spark and Spark Connect, and an offline synthetic CLI run passes.
+The last full suites passed 98 tests on classic local Spark and Spark Connect before the latest additions.
+Earlier offline CLI, serverless model registration and fresh-task reload checks passed.
 Typed native comparisons, optional similarities and an offline embedding provider are implemented;
 see the [feature contract](bench/FEATURES.md) and measured [ablations](bench/ABLATION.md).
-Later phases are pending. [goal.md](goal.md) is the authoritative acceptance ledger;
+Frozen FEBRL confirmation passed at F1 0.9889 (all fields, 29.19s) and 0.9868 (SSN hidden, 27.30s).
+The scale ladder completed through 100,000 records; the million-record run exhausted the fixed JVM heap
+during candidate materialization. [Benchmarks](bench/BENCHMARKS.md) and [scale limits](bench/SCALE.md)
+retain the measurements. Later phase acceptance is pending. [goal.md](goal.md) is the authoritative acceptance ledger;
 [bench/ENGINE.md](bench/ENGINE.md) records development evidence and limitations.
 Composite MLflow tracking and CLI integration are verified locally and on FEVM;
 [model acceptance](bench/MODELS.md) records the evidence. The selected workspace explicitly

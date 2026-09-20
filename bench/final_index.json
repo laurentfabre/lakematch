@@ -1,0 +1,109 @@
+{
+  "status": "partial",
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "errors": [
+    "scale-1000000: failed; partial counters retained, no completed output or quality claim"
+  ],
+  "runs": {
+    "frozen-linkage-all": {
+      "run_id": "20260920T021816Z-frozen-linkage-all-ab5c4c",
+      "manifest": "experiments/20260920T021816Z-frozen-linkage-all-ab5c4c/manifest.json",
+      "report_path": "experiments/20260920T021816Z-frozen-linkage-all-ab5c4c/evidence/report.json",
+      "report_sha256": "1850eebe88441d65ae9ce5101eb74c3f30a1d639c039195230562f29a3659020",
+      "runner_status": "passed",
+      "runner_wall_seconds": 33.71965275006369
+    },
+    "frozen-linkage-no_ssn": {
+      "run_id": "20260920T021850Z-frozen-linkage-no_ssn-648422",
+      "manifest": "experiments/20260920T021850Z-frozen-linkage-no_ssn-648422/manifest.json",
+      "report_path": "experiments/20260920T021850Z-frozen-linkage-no_ssn-648422/evidence/report.json",
+      "report_sha256": "1cefc98f11b62bee0c0df44a1e3fa41e4f59b79097112eced146b822dc691f5c",
+      "runner_status": "passed",
+      "runner_wall_seconds": 31.54487479198724
+    },
+    "frozen-pairs-bpid": {
+      "run_id": "20260920T021921Z-frozen-pairs-bpid-8f3fe0",
+      "manifest": "experiments/20260920T021921Z-frozen-pairs-bpid-8f3fe0/manifest.json",
+      "report_path": "experiments/20260920T021921Z-frozen-pairs-bpid-8f3fe0/evidence/report.json",
+      "report_sha256": "149cf4c64c973efb565d9a266bc94dcb4de2e09d452715013b678249c0e4d17c",
+      "runner_status": "passed",
+      "runner_wall_seconds": 91.41838670801371
+    },
+    "frozen-pairs-abt_buy": {
+      "run_id": "20260920T022053Z-frozen-pairs-abt_buy-91ebc9",
+      "manifest": "experiments/20260920T022053Z-frozen-pairs-abt_buy-91ebc9/manifest.json",
+      "report_path": "experiments/20260920T022053Z-frozen-pairs-abt_buy-91ebc9/evidence/report.json",
+      "report_sha256": "a8d53d60f1211cf3d3f29a98dc4151fecbccfa8c0b6047a3ec6733fa22a8933c",
+      "runner_status": "passed",
+      "runner_wall_seconds": 22.36478033300955
+    },
+    "frozen-pairs-amazon_google": {
+      "run_id": "20260920T022115Z-frozen-pairs-amazon_google-f06d4e",
+      "manifest": "experiments/20260920T022115Z-frozen-pairs-amazon_google-f06d4e/manifest.json",
+      "report_path": "experiments/20260920T022115Z-frozen-pairs-amazon_google-f06d4e/evidence/report.json",
+      "report_sha256": "1c9fd79f37fa98a5f2995bc5235f1716cb01223fcd18c1175cefd3645922981d",
+      "runner_status": "passed",
+      "runner_wall_seconds": 19.125765417004004
+    },
+    "frozen-pairs-walmart_amazon": {
+      "run_id": "20260920T022135Z-frozen-pairs-walmart_amazon-134c63",
+      "manifest": "experiments/20260920T022135Z-frozen-pairs-walmart_amazon-134c63/manifest.json",
+      "report_path": "experiments/20260920T022135Z-frozen-pairs-walmart_amazon-134c63/evidence/report.json",
+      "report_sha256": "e50010a1b1f91292ad819794ac5cd25eebd4c49f3a0d33dc4c7d42b524c3e4c3",
+      "runner_status": "passed",
+      "runner_wall_seconds": 26.53409291699063
+    },
+    "frozen-pairs-dblp_acm": {
+      "run_id": "20260920T022201Z-frozen-pairs-dblp_acm-7faf7e",
+      "manifest": "experiments/20260920T022201Z-frozen-pairs-dblp_acm-7faf7e/manifest.json",
+      "report_path": "experiments/20260920T022201Z-frozen-pairs-dblp_acm-7faf7e/evidence/report.json",
+      "report_sha256": "afc4478b35e5f87894cfaed4634fb37e81e542f31a8610b005afff3e472a6e37",
+      "runner_status": "passed",
+      "runner_wall_seconds": 30.17663508397527
+    },
+    "frozen-pairs-affiliations": {
+      "run_id": "20260920T022232Z-frozen-pairs-affiliations-ae066d",
+      "manifest": "experiments/20260920T022232Z-frozen-pairs-affiliations-ae066d/manifest.json",
+      "report_path": "experiments/20260920T022232Z-frozen-pairs-affiliations-ae066d/evidence/report.json",
+      "report_sha256": "e59ddaa1111a64f93979d7211810cc6938bc0e941ec9f0970d613c376c5f6429",
+      "runner_status": "passed",
+      "runner_wall_seconds": 27.383562915958464
+    },
+    "scale-1000": {
+      "run_id": "20260920T022259Z-scale-1000-723925",
+      "manifest": "experiments/20260920T022259Z-scale-1000-723925/manifest.json",
+      "report_path": "experiments/20260920T022259Z-scale-1000-723925/evidence/report.json",
+      "report_sha256": "1e5bcdbf9462ced3ca1ebfe98e36e39db9c91fbcc6cfc01075c9a90e21ea29be",
+      "runner_status": "passed",
+      "runner_wall_seconds": 23.22560708306264
+    },
+    "scale-10000": {
+      "run_id": "20260920T022322Z-scale-10000-173b75",
+      "manifest": "experiments/20260920T022322Z-scale-10000-173b75/manifest.json",
+      "report_path": "experiments/20260920T022322Z-scale-10000-173b75/evidence/report.json",
+      "report_sha256": "87e749f2386883325f8a49da3f2ff8b62fa878ad5258a0950436ac70506f3640",
+      "runner_status": "passed",
+      "runner_wall_seconds": 36.57257075002417
+    },
+    "scale-100000": {
+      "run_id": "20260920T022359Z-scale-100000-71c0b7",
+      "manifest": "experiments/20260920T022359Z-scale-100000-71c0b7/manifest.json",
+      "report_path": "experiments/20260920T022359Z-scale-100000-71c0b7/evidence/report.json",
+      "report_sha256": "49ace53b45b68391467268b830ee2e38c5dfa498c2c1e01f0ad626b5f8313796",
+      "runner_status": "passed",
+      "runner_wall_seconds": 344.17483358294703
+    },
+    "scale-1000000": {
+      "run_id": "20260920T022943Z-scale-1000000-f0a3d1",
+      "manifest": "experiments/20260920T022943Z-scale-1000000-f0a3d1/manifest.json",
+      "report_path": "experiments/20260920T022943Z-scale-1000000-f0a3d1/evidence/report.json",
+      "report_sha256": "c64cecea923a2f444ca2552999a944bca8d3b744beaf8aa8ac65c98ec7532d2d",
+      "runner_status": "failed",
+      "runner_wall_seconds": 672.7990643749945
+    }
+  },
+  "febrl_acceptance": {
+    "frozen-linkage-all": true,
+    "frozen-linkage-no_ssn": true
+  }
+}

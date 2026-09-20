@@ -18,7 +18,7 @@ Splink uses its separately declared blocking budget and supervised training proc
 
 Splink seconds cover data preparation, fit, score, threshold tuning, metrics and database cleanup; Spark method seconds cover clustering and owned-table cleanup on a shared scored graph. They are different timing boundaries.
 
-Native method selection, incremental identity reconciliation and CLI acceptance remain pending. Historical published figures are not used as acceptance evidence.
+Native selection recommends verified merge. Incremental identity reconciliation and normal CLI publication subsequently passed; see IDENTITY.md and PUBLICATION.md. Final default/source reconciliation and complete acceptance remain pending. Historical published figures are not used as acceptance evidence.
 
 - `splink-febrl3`: [20260920T005517Z-splink-febrl3-0a57a2](../experiments/20260920T005517Z-splink-febrl3-0a57a2/manifest.json).
 - `cluster-febrl3`: [20260920T011750Z-cluster-febrl3-11c044](../experiments/20260920T011750Z-cluster-febrl3-11c044/manifest.json).
@@ -41,4 +41,4 @@ Retained failures:
 | verified_merge | 0.9696 | 0.9727 | [+0.3879, +0.4082] | 73.62 |
 
 Validation recommendation: `verified_merge`. No model/default is promoted by this report.
-Macro uncertainty uses independent namespaced entity draws for the two corpora, paired across methods; 2,000 PCG64 resamples with seed derived from SHA-256 of 2026091902/clusters/corpus. Incremental identities and CLI acceptance still require execution.
+Macro uncertainty uses independent namespaced entity draws for the two corpora, paired across methods; 2,000 PCG64 resamples with seed derived from SHA-256 of 2026091902/clusters/corpus. Incremental identities and CLI publication subsequently passed; final current-source acceptance remains pending.

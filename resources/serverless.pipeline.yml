@@ -1,0 +1,26 @@
+resources:
+  pipelines:
+    matching:
+      name: lakematch-20260919-frozen-matching
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      serverless: true
+      continuous: false
+      development: true
+      photon: true
+      channel: CURRENT
+      root_path: ../deployment/pipeline
+      libraries:
+        - glob:
+            include: ../deployment/pipeline/transformations/**
+      configuration:
+        lakematch.source_root: ${workspace.file_path}/src
+        lakematch.input_root: ${var.input_root}
+        lakematch.quality_engine: ${var.quality_engine}
+        lakematch.app_enabled: ${var.app_enabled}
+        lakematch.genie_enabled: ${var.genie_enabled}
+      environment:
+        dependencies:
+          - mlflow==3.16.0
+          - pyyaml==6.0.3
+          - databricks-labs-dqx==0.16.0

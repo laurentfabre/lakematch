@@ -1,0 +1,3497 @@
+{
+  "status": "completed",
+  "iteration": 6,
+  "corpus": "dblp_acm",
+  "manifest": {
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "raw_sha256": {
+      "train": "4f757d2d5dae4f7d7d118b796c683a232b4e11bf000e2012b64f8af95a981a4e",
+      "valid": "b13444a2bf1a503ed558e782f42b247cf56e16e67be2e58d92d7435161299e2e",
+      "test": "ded891e469b1d08e21269038c984dc761ae2fd5b142b00c46c30fce45adc6e68"
+    },
+    "split_method": "official",
+    "duplicate_or_reversed_pairs_removed": 235,
+    "conflicting_pair_keys_excluded": 7,
+    "shared_records_between_splits": {
+      "test/train": 2025,
+      "test/valid": 1470,
+      "train/valid": 2044
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "test": 2407,
+      "train": 7282,
+      "valid": 2407
+    },
+    "corpus": "dblp_acm",
+    "seed": 2026091901,
+    "fields": {
+      "authors": {
+        "type": "person_name"
+      },
+      "title": {
+        "type": "title"
+      },
+      "venue": {
+        "type": "title"
+      },
+      "year": {
+        "type": "number"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/dblp_acm/left.jsonl",
+        "sha256": "ae18230a1000d9b6b274367e80a98600ef7d3a1ea1d4c6950bd1bfa5d0695ee0",
+        "rows": 2436
+      },
+      "right": {
+        "path": "data/bench/dblp_acm/right.jsonl",
+        "sha256": "6a2b35d27a96de2861abeba00adb8f8610a3727b7346773e13bf0dce27dbb8bd",
+        "rows": 2245
+      },
+      "pairs": {
+        "path": "data/bench/dblp_acm/pairs.jsonl",
+        "sha256": "b569260632aa0e98786c95da9a469a6a94d82269ccec703e1bb364e3c3b3d871",
+        "rows": 12096
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "dblp_acm",
+      "id_column": "rec_id",
+      "fields": {
+        "authors": {
+          "type": "person_name"
+        },
+        "title": {
+          "type": "title"
+        },
+        "venue": {
+          "type": "title"
+        },
+        "year": {
+          "type": "number"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "authors"
+        ],
+        [
+          "soundex(authors)"
+        ],
+        [
+          "title"
+        ],
+        [
+          "prefix3(title)"
+        ],
+        [
+          "venue"
+        ],
+        [
+          "prefix3(venue)"
+        ],
+        [
+          "year"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-candidate-pairs",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/CANDIDATE_PAIRS_PLAN.md",
+  "confirmation_scored": false,
+  "evaluation_scope": "retrieval-filtered supplied validation pairs; unknown pairs excluded, missing positives are false negatives",
+  "unlabelled_pairs_are_negatives": false,
+  "rows": [
+    {
+      "method": "gram_topk",
+      "cardinality": "unrestricted",
+      "threshold": 0.64,
+      "tp": 441,
+      "fp": 4,
+      "fn": 0,
+      "tn": 1962,
+      "precision": 0.9910112359550561,
+      "recall": 1.0,
+      "f1": 0.9954853273137697,
+      "f1_95ci": [
+        0.9905437352245863,
+        0.9989304812834224
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 93918127,
+        "join_rows_after_cap": 21317704,
+        "dropped_grams": 137,
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 43.66679391695652,
+      "feature_fit_seconds": 3.702658124966547,
+      "model": {
+        "run_id": "36718027eea84173a905678ff9cbe4f1",
+        "model_uri": "runs:/36718027eea84173a905678ff9cbe4f1/model",
+        "logged_model_uri": "models:/m-cd37baaec2a447f19c82bce62af65c33",
+        "label_set_sha256": "ad4a9449919ee039a68e0e15f50848e1c530fcb75c130bc1334ce53abbfc8844",
+        "artifact_bytes": 633825,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "gram_topk",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.64,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 56.20934791699983
+    },
+    {
+      "method": "gram_topk",
+      "cardinality": "many_to_one",
+      "threshold": 0.64,
+      "tp": 441,
+      "fp": 4,
+      "fn": 0,
+      "tn": 1962,
+      "precision": 0.9910112359550561,
+      "recall": 1.0,
+      "f1": 0.9954853273137697,
+      "f1_95ci": [
+        0.9905437352245863,
+        0.9989304812834224
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 93918127,
+        "join_rows_after_cap": 21317704,
+        "dropped_grams": 137,
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 43.66679391695652,
+      "feature_fit_seconds": 3.702658124966547,
+      "model": {
+        "run_id": "36718027eea84173a905678ff9cbe4f1",
+        "model_uri": "runs:/36718027eea84173a905678ff9cbe4f1/model",
+        "logged_model_uri": "models:/m-cd37baaec2a447f19c82bce62af65c33",
+        "label_set_sha256": "ad4a9449919ee039a68e0e15f50848e1c530fcb75c130bc1334ce53abbfc8844",
+        "artifact_bytes": 633825,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "gram_topk",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.64,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 56.20934791699983
+    },
+    {
+      "method": "gram_topk",
+      "cardinality": "one_to_one",
+      "threshold": 0.64,
+      "tp": 441,
+      "fp": 3,
+      "fn": 0,
+      "tn": 1963,
+      "precision": 0.9932432432432432,
+      "recall": 1.0,
+      "f1": 0.9966101694915255,
+      "f1_95ci": [
+        0.9921787709497206,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.003567090163348774
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 93918127,
+        "join_rows_after_cap": 21317704,
+        "dropped_grams": 137,
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 43.66679391695652,
+      "feature_fit_seconds": 3.702658124966547,
+      "model": {
+        "run_id": "36718027eea84173a905678ff9cbe4f1",
+        "model_uri": "runs:/36718027eea84173a905678ff9cbe4f1/model",
+        "logged_model_uri": "models:/m-cd37baaec2a447f19c82bce62af65c33",
+        "label_set_sha256": "ad4a9449919ee039a68e0e15f50848e1c530fcb75c130bc1334ce53abbfc8844",
+        "artifact_bytes": 633825,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "gram_topk",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.64,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 56.20934791699983
+    },
+    {
+      "method": "learned_blocker",
+      "cardinality": "unrestricted",
+      "threshold": 0.91,
+      "tp": 438,
+      "fp": 3,
+      "fn": 3,
+      "tn": 1963,
+      "precision": 0.9931972789115646,
+      "recall": 0.9931972789115646,
+      "f1": 0.9931972789115646,
+      "f1_95ci": [
+        0.9872537659327926,
+        0.9978260869565218
+      ],
+      "paired_delta_95ci": [
+        -0.007135697547343889,
+        0.0021297780115995257
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 0.9954648526077098,
+      "budget": {
+        "join_rows_before_cap": 61316,
+        "join_rows_after_cap": 61316,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 9910,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 2.443288875045255,
+      "feature_fit_seconds": 3.036242707981728,
+      "model": {
+        "run_id": "7f6cc5e6f2004fe8a5c936486c9075c0",
+        "model_uri": "runs:/7f6cc5e6f2004fe8a5c936486c9075c0/model",
+        "logged_model_uri": "models:/m-15bab251f9e848aca3c3d8284cdb19bc",
+        "label_set_sha256": "892df7a93dd07f7aaaabcdd9150547610de013119cbfad13c5034fb196f1ece9",
+        "artifact_bytes": 585937,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "learned_blocker",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.91,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 12.474976499914192
+    },
+    {
+      "method": "learned_blocker",
+      "cardinality": "many_to_one",
+      "threshold": 0.91,
+      "tp": 438,
+      "fp": 3,
+      "fn": 3,
+      "tn": 1963,
+      "precision": 0.9931972789115646,
+      "recall": 0.9931972789115646,
+      "f1": 0.9931972789115646,
+      "f1_95ci": [
+        0.9872537659327926,
+        0.9978260869565218
+      ],
+      "paired_delta_95ci": [
+        -0.007135697547343889,
+        0.0021297780115995257
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 0.9954648526077098,
+      "budget": {
+        "join_rows_before_cap": 61316,
+        "join_rows_after_cap": 61316,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 9910,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 2.443288875045255,
+      "feature_fit_seconds": 3.036242707981728,
+      "model": {
+        "run_id": "7f6cc5e6f2004fe8a5c936486c9075c0",
+        "model_uri": "runs:/7f6cc5e6f2004fe8a5c936486c9075c0/model",
+        "logged_model_uri": "models:/m-15bab251f9e848aca3c3d8284cdb19bc",
+        "label_set_sha256": "892df7a93dd07f7aaaabcdd9150547610de013119cbfad13c5034fb196f1ece9",
+        "artifact_bytes": 585937,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "learned_blocker",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.91,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 12.474976499914192
+    },
+    {
+      "method": "learned_blocker",
+      "cardinality": "one_to_one",
+      "threshold": 0.91,
+      "tp": 438,
+      "fp": 2,
+      "fn": 3,
+      "tn": 1964,
+      "precision": 0.9954545454545455,
+      "recall": 0.9931972789115646,
+      "f1": 0.9943246311010215,
+      "f1_95ci": [
+        0.9886621315192744,
+        0.9988726042841037
+      ],
+      "paired_delta_95ci": [
+        -0.006505471024170317,
+        0.003623451852929005
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 0.9954648526077098,
+      "budget": {
+        "join_rows_before_cap": 61316,
+        "join_rows_after_cap": 61316,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 9910,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 2.443288875045255,
+      "feature_fit_seconds": 3.036242707981728,
+      "model": {
+        "run_id": "7f6cc5e6f2004fe8a5c936486c9075c0",
+        "model_uri": "runs:/7f6cc5e6f2004fe8a5c936486c9075c0/model",
+        "logged_model_uri": "models:/m-15bab251f9e848aca3c3d8284cdb19bc",
+        "label_set_sha256": "892df7a93dd07f7aaaabcdd9150547610de013119cbfad13c5034fb196f1ece9",
+        "artifact_bytes": 585937,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "learned_blocker",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.91,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 12.474976499914192
+    },
+    {
+      "method": "minhash_lsh",
+      "cardinality": "unrestricted",
+      "threshold": 0.73,
+      "tp": 430,
+      "fp": 3,
+      "fn": 11,
+      "tn": 1963,
+      "precision": 0.9930715935334873,
+      "recall": 0.9750566893424036,
+      "f1": 0.9839816933638444,
+      "f1_95ci": [
+        0.9753914988814317,
+        0.992
+      ],
+      "paired_delta_95ci": [
+        -0.019738496028197883,
+        -0.0036206218024399384
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 0.9750566893424036,
+      "budget": {
+        "join_rows_before_cap": 2074955,
+        "join_rows_after_cap": 547542,
+        "dropped_grams": 5,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12129,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 14.368860500049777,
+      "feature_fit_seconds": 2.9503976670093834,
+      "model": {
+        "run_id": "69a22d0f72dc481c9ed75845b33e9ade",
+        "model_uri": "runs:/69a22d0f72dc481c9ed75845b33e9ade/model",
+        "logged_model_uri": "models:/m-7b13417aef34472d819ebdb74523a43d",
+        "label_set_sha256": "18efe0f821c614c7ca07791f7091a98d791a1556ced1d0ef36dce352b4d5a12d",
+        "artifact_bytes": 610250,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.73,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 23.446185708977282
+    },
+    {
+      "method": "minhash_lsh",
+      "cardinality": "many_to_one",
+      "threshold": 0.73,
+      "tp": 430,
+      "fp": 3,
+      "fn": 11,
+      "tn": 1963,
+      "precision": 0.9930715935334873,
+      "recall": 0.9750566893424036,
+      "f1": 0.9839816933638444,
+      "f1_95ci": [
+        0.9753914988814317,
+        0.992
+      ],
+      "paired_delta_95ci": [
+        -0.019738496028197883,
+        -0.0036206218024399384
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 0.9750566893424036,
+      "budget": {
+        "join_rows_before_cap": 2074955,
+        "join_rows_after_cap": 547542,
+        "dropped_grams": 5,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12129,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 14.368860500049777,
+      "feature_fit_seconds": 2.9503976670093834,
+      "model": {
+        "run_id": "69a22d0f72dc481c9ed75845b33e9ade",
+        "model_uri": "runs:/69a22d0f72dc481c9ed75845b33e9ade/model",
+        "logged_model_uri": "models:/m-7b13417aef34472d819ebdb74523a43d",
+        "label_set_sha256": "18efe0f821c614c7ca07791f7091a98d791a1556ced1d0ef36dce352b4d5a12d",
+        "artifact_bytes": 610250,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.73,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 23.446185708977282
+    },
+    {
+      "method": "minhash_lsh",
+      "cardinality": "one_to_one",
+      "threshold": 0.73,
+      "tp": 430,
+      "fp": 2,
+      "fn": 11,
+      "tn": 1964,
+      "precision": 0.9953703703703703,
+      "recall": 0.9750566893424036,
+      "f1": 0.9851088201603666,
+      "f1_95ci": [
+        0.9767955801104973,
+        0.9929577464788732
+      ],
+      "paired_delta_95ci": [
+        -0.019006828603160386,
+        -0.0024325046778935766
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 0.9750566893424036,
+      "budget": {
+        "join_rows_before_cap": 2074955,
+        "join_rows_after_cap": 547542,
+        "dropped_grams": 5,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12129,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 14.368860500049777,
+      "feature_fit_seconds": 2.9503976670093834,
+      "model": {
+        "run_id": "69a22d0f72dc481c9ed75845b33e9ade",
+        "model_uri": "runs:/69a22d0f72dc481c9ed75845b33e9ade/model",
+        "logged_model_uri": "models:/m-7b13417aef34472d819ebdb74523a43d",
+        "label_set_sha256": "18efe0f821c614c7ca07791f7091a98d791a1556ced1d0ef36dce352b4d5a12d",
+        "artifact_bytes": 610250,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.73,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 23.446185708977282
+    },
+    {
+      "method": "field_blocks",
+      "cardinality": "unrestricted",
+      "threshold": 0.7,
+      "tp": 440,
+      "fp": 3,
+      "fn": 1,
+      "tn": 1963,
+      "precision": 0.9932279909706546,
+      "recall": 0.9977324263038548,
+      "f1": 0.995475113122172,
+      "f1_95ci": [
+        0.9904988123515439,
+        0.9989281886387996
+      ],
+      "paired_delta_95ci": [
+        -0.0033972771340802232,
+        0.0033443129025911844
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 705372,
+        "join_rows_after_cap": 624242,
+        "dropped_grams": 11,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 12.94325458293315,
+      "feature_fit_seconds": 2.9422963339602575,
+      "model": {
+        "run_id": "c4aa3b59563949f488486abe741de4fc",
+        "model_uri": "runs:/c4aa3b59563949f488486abe741de4fc/model",
+        "logged_model_uri": "models:/m-c0b59691808e49f98ca35836d6b9af69",
+        "label_set_sha256": "b1459c951915611853ad8730a67c6d292529991208ba6a0ddf4d28da6719f3e4",
+        "artifact_bytes": 617905,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "field_blocks",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.65,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 21.839140707976185
+    },
+    {
+      "method": "field_blocks",
+      "cardinality": "many_to_one",
+      "threshold": 0.7,
+      "tp": 440,
+      "fp": 3,
+      "fn": 1,
+      "tn": 1963,
+      "precision": 0.9932279909706546,
+      "recall": 0.9977324263038548,
+      "f1": 0.995475113122172,
+      "f1_95ci": [
+        0.9904988123515439,
+        0.9989281886387996
+      ],
+      "paired_delta_95ci": [
+        -0.0033972771340802232,
+        0.0033443129025911844
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 705372,
+        "join_rows_after_cap": 624242,
+        "dropped_grams": 11,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 12.94325458293315,
+      "feature_fit_seconds": 2.9422963339602575,
+      "model": {
+        "run_id": "c4aa3b59563949f488486abe741de4fc",
+        "model_uri": "runs:/c4aa3b59563949f488486abe741de4fc/model",
+        "logged_model_uri": "models:/m-c0b59691808e49f98ca35836d6b9af69",
+        "label_set_sha256": "b1459c951915611853ad8730a67c6d292529991208ba6a0ddf4d28da6719f3e4",
+        "artifact_bytes": 617905,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "field_blocks",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.65,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 21.839140707976185
+    },
+    {
+      "method": "field_blocks",
+      "cardinality": "one_to_one",
+      "threshold": 0.65,
+      "tp": 441,
+      "fp": 3,
+      "fn": 0,
+      "tn": 1963,
+      "precision": 0.9932432432432432,
+      "recall": 1.0,
+      "f1": 0.9966101694915255,
+      "f1_95ci": [
+        0.992090395480226,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        -0.0023309768215543647,
+        0.005117631509384046
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 705372,
+        "join_rows_after_cap": 624242,
+        "dropped_grams": 11,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 12.94325458293315,
+      "feature_fit_seconds": 2.9422963339602575,
+      "model": {
+        "run_id": "c4aa3b59563949f488486abe741de4fc",
+        "model_uri": "runs:/c4aa3b59563949f488486abe741de4fc/model",
+        "logged_model_uri": "models:/m-c0b59691808e49f98ca35836d6b9af69",
+        "label_set_sha256": "b1459c951915611853ad8730a67c6d292529991208ba6a0ddf4d28da6719f3e4",
+        "artifact_bytes": 617905,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "field_blocks",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.65,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 21.839140707976185
+    },
+    {
+      "method": "union",
+      "cardinality": "unrestricted",
+      "threshold": 0.71,
+      "tp": 441,
+      "fp": 4,
+      "fn": 0,
+      "tn": 1962,
+      "precision": 0.9910112359550561,
+      "recall": 1.0,
+      "f1": 0.9954853273137697,
+      "f1_95ci": [
+        0.9906347554630593,
+        0.9989373007438895
+      ],
+      "paired_delta_95ci": [
+        -0.0033443637782000213,
+        0.0033592914948847863
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 94623499,
+        "join_rows_after_cap": 21941946,
+        "dropped_grams": 148,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 57.16658587497659,
+      "feature_fit_seconds": 2.966838916996494,
+      "model": {
+        "run_id": "4a07646c59014df4b6495da3536f57f8",
+        "model_uri": "runs:/4a07646c59014df4b6495da3536f57f8/model",
+        "logged_model_uri": "models:/m-703b2dfa80414908a6ba3b8e7420ef63",
+        "label_set_sha256": "28505f99285a1d55b2661e8d3cd6393593bb5b994e31ce06d51cd337f3955026",
+        "artifact_bytes": 656334,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "union",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.71,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 66.08824212499894
+    },
+    {
+      "method": "union",
+      "cardinality": "many_to_one",
+      "threshold": 0.71,
+      "tp": 441,
+      "fp": 4,
+      "fn": 0,
+      "tn": 1962,
+      "precision": 0.9910112359550561,
+      "recall": 1.0,
+      "f1": 0.9954853273137697,
+      "f1_95ci": [
+        0.9906347554630593,
+        0.9989373007438895
+      ],
+      "paired_delta_95ci": [
+        -0.0033443637782000213,
+        0.0033592914948847863
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 94623499,
+        "join_rows_after_cap": 21941946,
+        "dropped_grams": 148,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 57.16658587497659,
+      "feature_fit_seconds": 2.966838916996494,
+      "model": {
+        "run_id": "4a07646c59014df4b6495da3536f57f8",
+        "model_uri": "runs:/4a07646c59014df4b6495da3536f57f8/model",
+        "logged_model_uri": "models:/m-703b2dfa80414908a6ba3b8e7420ef63",
+        "label_set_sha256": "28505f99285a1d55b2661e8d3cd6393593bb5b994e31ce06d51cd337f3955026",
+        "artifact_bytes": 656334,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "union",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.71,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 66.08824212499894
+    },
+    {
+      "method": "union",
+      "cardinality": "one_to_one",
+      "threshold": 0.71,
+      "tp": 441,
+      "fp": 3,
+      "fn": 0,
+      "tn": 1963,
+      "precision": 0.9932432432432432,
+      "recall": 1.0,
+      "f1": 0.9966101694915255,
+      "f1_95ci": [
+        0.992090395480226,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        -0.0023309768215543647,
+        0.005117631509384046
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 94623499,
+        "join_rows_after_cap": 21941946,
+        "dropped_grams": 148,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 12180,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 57.16658587497659,
+      "feature_fit_seconds": 2.966838916996494,
+      "model": {
+        "run_id": "4a07646c59014df4b6495da3536f57f8",
+        "model_uri": "runs:/4a07646c59014df4b6495da3536f57f8/model",
+        "logged_model_uri": "models:/m-703b2dfa80414908a6ba3b8e7420ef63",
+        "label_set_sha256": "28505f99285a1d55b2661e8d3cd6393593bb5b994e31ce06d51cd337f3955026",
+        "artifact_bytes": 656334,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "union",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.71,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 66.08824212499894
+    }
+  ],
+  "outcomes": [
+    {
+      "method": "gram_topk",
+      "status": "completed",
+      "seconds": 56.20934791699983
+    },
+    {
+      "method": "learned_blocker",
+      "status": "completed",
+      "seconds": 12.474976499914192
+    },
+    {
+      "method": "minhash_lsh",
+      "status": "completed",
+      "seconds": 23.446185708977282
+    },
+    {
+      "method": "field_blocks",
+      "status": "completed",
+      "seconds": 21.839140707976185
+    },
+    {
+      "method": "union",
+      "status": "completed",
+      "seconds": 66.08824212499894
+    }
+  ],
+  "baselines": [
+    {
+      "method": "gram_topk",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 441,
+      "fp": 254,
+      "fn": 0,
+      "tn": 1712,
+      "precision": 0.6345323741007194,
+      "recall": 1.0,
+      "f1": 0.7764084507042254,
+      "f1_95ci": [
+        0.75,
+        0.8023549201009251
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "gram_topk",
+      "name": "cosine_threshold",
+      "threshold": 0.61,
+      "cardinality": "one_to_one",
+      "tp": 437,
+      "fp": 50,
+      "fn": 4,
+      "tn": 1916,
+      "precision": 0.8973305954825462,
+      "recall": 0.9909297052154195,
+      "f1": 0.9418103448275862,
+      "f1_95ci": [
+        0.925601750547046,
+        0.9571734475374732
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "learned_blocker",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 439,
+      "fp": 187,
+      "fn": 2,
+      "tn": 1779,
+      "precision": 0.7012779552715654,
+      "recall": 0.9954648526077098,
+      "f1": 0.8228678537956888,
+      "f1_95ci": [
+        0.7973358705994291,
+        0.8470806302131604
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "learned_blocker",
+      "name": "cosine_threshold",
+      "threshold": 0.58,
+      "cardinality": "one_to_one",
+      "tp": 437,
+      "fp": 28,
+      "fn": 4,
+      "tn": 1938,
+      "precision": 0.9397849462365592,
+      "recall": 0.9909297052154195,
+      "f1": 0.9646799116997793,
+      "f1_95ci": [
+        0.9525816649104321,
+        0.9764453961456103
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "minhash_lsh",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 430,
+      "fp": 224,
+      "fn": 11,
+      "tn": 1742,
+      "precision": 0.6574923547400612,
+      "recall": 0.9750566893424036,
+      "f1": 0.7853881278538812,
+      "f1_95ci": [
+        0.7574304889741131,
+        0.8114901256732495
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "minhash_lsh",
+      "name": "cosine_threshold",
+      "threshold": 0.64,
+      "cardinality": "one_to_one",
+      "tp": 429,
+      "fp": 31,
+      "fn": 12,
+      "tn": 1935,
+      "precision": 0.9326086956521739,
+      "recall": 0.9727891156462585,
+      "f1": 0.9522752497225305,
+      "f1_95ci": [
+        0.9376443418013857,
+        0.9656699889258029
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "field_blocks",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 441,
+      "fp": 252,
+      "fn": 0,
+      "tn": 1714,
+      "precision": 0.6363636363636364,
+      "recall": 1.0,
+      "f1": 0.7777777777777778,
+      "f1_95ci": [
+        0.75177304964539,
+        0.8044596912521441
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "field_blocks",
+      "name": "cosine_threshold",
+      "threshold": 0.64,
+      "cardinality": "one_to_one",
+      "tp": 437,
+      "fp": 30,
+      "fn": 4,
+      "tn": 1936,
+      "precision": 0.9357601713062098,
+      "recall": 0.9909297052154195,
+      "f1": 0.9625550660792952,
+      "f1_95ci": [
+        0.95,
+        0.9745676500508647
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "union",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 441,
+      "fp": 318,
+      "fn": 0,
+      "tn": 1648,
+      "precision": 0.5810276679841897,
+      "recall": 1.0,
+      "f1": 0.735,
+      "f1_95ci": [
+        0.7072961373390558,
+        0.7626016260162601
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    },
+    {
+      "method": "union",
+      "name": "cosine_threshold",
+      "threshold": 0.66,
+      "cardinality": "one_to_one",
+      "tp": 435,
+      "fp": 34,
+      "fn": 6,
+      "tn": 1932,
+      "precision": 0.9275053304904051,
+      "recall": 0.9863945578231292,
+      "f1": 0.9560439560439561,
+      "f1_95ci": [
+        0.942366026289181,
+        0.9692622950819673
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1247
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "field_blocks.predictions.json": "3a80973236c5ee2b1a0065d0d8c538d2e8ab0c9720d8cc016c0fd4524054d816",
+    "field_blocks_state/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "gram_topk.predictions.json": "1345ef23135dc7662c259824529ea4ca81651883af3e0b1845e8e1e60df9016c",
+    "gram_topk_state/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "learned_blocker.predictions.json": "d79661892c98aed718899cb04770fbb11c05dd73cb285bfe3ad526859a4c0c8a",
+    "learned_blocker_state/state.json": "f99fea9e9a83890a87b73239dad8177610a325c8226ed5f7f9325ebe3e9e66ed",
+    "minhash_lsh.predictions.json": "7aeb6e24cc16b27c96aca8905e78c5e64ca418dd4c194c5563d7bd7f992efa9e",
+    "minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/data/.part-00000-5f366120-a0a0-4f6a-a5f1-0465be212a06-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+    "minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/data/part-00000-5f366120-a0a0-4f6a-a5f1-0465be212a06-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+    "minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/metadata/.part-00000-82738214-40cc-4c35-b644-1ecd5c65ab50-c000.txt.crc": "bb97bf7f299e4f420da69d5695ff24e35faa24164629272c113164c0d2825144",
+    "minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/metadata/part-00000-82738214-40cc-4c35-b644-1ecd5c65ab50-c000.txt": "1ddfbd8b23b6321001b5e00196225a8ad39eb9c2ecd95770622b389ac88141e3",
+    "minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+    "union.predictions.json": "74a186d6aad7b02156ff11e4d30306fbdfdcd4e3521c5ec37e63c022c981e3b1",
+    "union_state/field_blocks/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "union_state/gram_topk/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "union_state/state.json": "4d678a47cb49bd3b25debc72cfcefc11e6853481ed57ca9d0b85bde533da3c07"
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 189.5892691250192
+}

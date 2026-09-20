@@ -1,21 +1,22 @@
 Authority: goal.md; resume $goal ./goal.md.
-Profile: fevm-gdpr2, explicitly selected. User waived quota/expiry prerequisites.
-Classic is confirmed unsupported; do not retry or substitute profiles. ZR-9 stays parked.
-Public/synthetic data only. Preserve .DS_Store and .isaac. No push requested.
+Profile: fevm-gdpr2, explicitly selected. Quota/expiry prerequisites waived.
+Public/synthetic data only; preserve .DS_Store, .isaac and experiments/cluster-shortcut-tests.xml. No push.
+Classic compute is confirmed unsupported; ZR-9 stays parked without retries or profile substitution.
 
-ZR-3 iterations 1/2/3 measured retrieval, classifier and compact features. Selected Levenshtein/GBT and IDF-only token features; shipped token defaults still need reconciliation.
-Linkage iteration 4 failed before fitting, in QueryExecution.explainString with Java heap exhaustion.
-Iteration 5 uses owned table boundaries on weighted inputs, candidates and vectors with unchanged budgets.
-Iteration 5 completed all three FEBRL variants. Current sweep: tools/candidate_pairs_sweep.py, session 44448 (ZR-3 iteration 6).
-Do not start another Spark experiment until it is terminal.
+ZR-3 iterations 1–7 ended. MinHash is the only complete feasible retriever, macro validation F1 .6942; no statistical-superiority claim. Levenshtein/GBT/IDF-only were selected on validation.
+Original immutable freeze: bench/freeze.json, SHA d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829. Never overwrite it.
+Frozen confirmation: all-field F1 .9888776542 in 29.1933s; SSN-hidden .9868287741 in 27.3046s. Both passed. Six other holdouts completed. See bench/BENCHMARKS.md.
+Scale completed 1k/10k/100k. Million tier failed with heap exhaustion while materializing candidates after 672.80s. Partial joins: 8,450,667,332 before cap / 20,326,239 after; 471,655 candidate pairs. Recall/F1/throughput unavailable. Owned process group terminated. Do not raise memory/budgets to conceal this limit.
+Frozen models and exact original execution sources are archived under data/frozen_models and data/frozen_sources, indexed in bench/frozen_artifacts.json and bench/frozen_sources.json.
+Defaults, bench --all, original-FEBRL diagnostic and explicit compatible-source replay remain for ZR-3 iteration 8. Current quality/config/features changes deliberately leave strict frozen-source guards failing; plan compatibility, do not rewrite the freeze.
 
-ZR-4 iteration 5 completed native comparisons on both corpora. Verified merge wins: macro pairwise F1 .9696, B-cubed .9727.
-Iteration 6 identity checks passed on FEBRL3 and historical_50k; reports independently replay journals and cluster events.
-See bench/CLUSTERS.md and bench/IDENTITY.md. No confirmation scoring or promotion.
-Normal cluster CLI and atomic local publication passed iteration 7: five fresh calls, three commits; crosswalks and journals match sealed FEBRL3 evidence. Three recovery tests include abrupt process death. tools/verify_clusters.py audits this evidence. Later save-scores CLI/engine additions require final compatible-source refresh.
-Cluster default max_rounds still 20, while historical verified merge needed 21; benchmark uses 30.
-Remote publication/SDP/DQX, APX, Genie, scale, latency and confirmation remain pending.
-APX maintenance remains unconfirmed; no framework substitution is authorized. Baseline scaffold built (169758 total bytes; max file169627), stored in app/ with upstream license/notice. No custom UI/deployment.
-Affected ZR-1/2/5 evidence needs refresh on coherent final source. Latest full suites predate new changes.
+ZR-4 native comparison, identity and local CLI publication passed through iteration 7. Only iteration 8 remains. Cluster max_rounds is still 20 versus measured 21; use validated 30 when reconciling. Later CLI/engine changes need final publication refresh. Delta publisher and remote train/cluster fixture are prepared but UNTESTED; plan is bench/DELTA_PUBLICATION_PLAN.md (ZR-6 iteration 5).
 
-Prepared but not run: tools/freeze_benchmarks.py and run_frozen_linkage.py. Freeze only after candidate selection; no confirmation has been scored. Final scoring uses normal CLI with --save-scores, complete universe, full startup/output/cleanup timing.
+ZR-6 iterations 1/2: DQX passed; first native check failed due to Row.index harness access, then both native checks passed after bracket access. SQL hash expression was unchanged.
+Iteration 3: bundle deployed job 489495267612522 and pipeline 887f3271-3247-4082-82a9-9b62fb89e135. Run 954247814662959 passed preparation then failed SDP feature analysis because global require_implemented rejected DQX. Automatic retry was stopped; job terminal and pipeline IDLE confirmed. Evidence: experiments/20260920T024653Z-serverless-frozen-dqx-67e41c.
+Iteration 4 wires optional quality dispatch and removes the feature builder's unrelated global integration gate. Offline DQX and both native parity repeats passed; focused SDP feature regression passed. See bench/SERVERLESS_ADAPTERS.md. Corrected remote repeats are next, under unchanged bounds. Runner now cancels on fatal pipeline events.
+Before another Spark experiment, check the actual latest sessions/ledger for active work.
+
+ZR-1/2/5 evidence needs final coherent-source refresh. Latest full suites predate changes (98 each); pure config/verifier checks currently pass 25 tests, earlier focused pure selection/protocol suite 13.
+APX scaffold builds (169758 bytes total, largest 169627); maintenance unconfirmed (last push 2026-04-07). User clarification is pending about a maintained APX source or proceeding with 0.3.8. No framework substitution, custom UI or App deployment.
+Genie delegated App API, Photon/query profiles, billing reconciliation and full remote pipeline acceptance remain unproven. Shared warehouse 4aaa742e4712c3c9 is not ours to stop.

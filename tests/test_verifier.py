@@ -13,7 +13,7 @@ def verifier():
     return module
 
 
-@pytest.mark.parametrize("phase", [3, 6, 7, 8, 9])
+@pytest.mark.parametrize("phase", [6, 7, 8, 9])
 def test_unimplemented_phases_cannot_pass(phase):
     assert verifier().verify(phase)
 
@@ -45,3 +45,12 @@ def test_phase4_requires_matching_comparisons_identities_and_publication(monkeyp
     monkeypatch.setattr(verify_clusters, 'sha256', lambda *args: 'changed-content')
     errors = verify_clusters.check()
     assert sum('Missing compatible-source' in message for message in errors) == 4
+
+
+def test_phase3_rejects_modified_frozen_evidence(monkeypatch):
+    verifier()
+    import report_final
+    import verify_benchmarks
+    monkeypatch.setattr(report_final, 'sha256', lambda *args: 'changed-content')
+    errors = verify_benchmarks.check()
+    assert any('Missing/changed' in message for message in errors)

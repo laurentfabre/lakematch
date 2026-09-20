@@ -107,7 +107,7 @@ class Config:
 
     def require_implemented(self):
         supported = {"candidates.method": CHOICES["candidates.method"],
-                     "quality.engine": {"native"}, "labels.llm": {"none"}}
+                     "quality.engine": {"native", "dqx"}, "labels.llm": {"none"}}
         for key, values in supported.items():
             value = _get(self.data, key)
             if value not in values:

@@ -48,7 +48,9 @@ def feature_order(config):
 
 
 def build(pairs, left, right, config):
-    config.require_implemented()
+    # This stage only constructs feature expressions from prepared records.
+    # Quality engines and paid app/provider setup belong to their orchestrators;
+    # checking them here wrongly rejects valid SDP plans after quality has run.
     settings = config["features"]
     extras = []
     for name, spec in config["entity"]["fields"].items():

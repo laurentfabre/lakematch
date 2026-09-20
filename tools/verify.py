@@ -172,6 +172,9 @@ def verify(phase):
         return ["Phase must be an integer from 1 to 9"]
     if phase == 2:
         return verify_features()
+    if phase == 3:
+        from verify_benchmarks import check
+        return verify(1) + check()
     if phase == 5:
         return verify_tracking()
     if phase == 4:

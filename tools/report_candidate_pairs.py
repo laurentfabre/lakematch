@@ -140,6 +140,8 @@ def main():
             for method, row in summary.items():
                 low, high = row['paired_deltas'][best]
                 lines.append(f"| {method} | {row['macro_f1']:.4f} {row['f1_95ci']} | [{low:+.4f}, {high:+.4f}] | {row['weighted_method_seconds']:.2f} |")
+            if len(summary) == 1:
+                lines += ['', f'`{selected}` is the only complete feasible method. This is a feasibility-based selection, not evidence of statistical superiority over the unavailable alternatives. A self-comparison interval of [0, 0] has no comparative meaning.']
             selection_path = ROOT / 'bench/selection.json'
             selection = json.loads(selection_path.read_text())
             selection.update(candidate_selection='selected on validation; pending latency and frozen confirmation',
@@ -152,7 +154,7 @@ def main():
     else:
         lines += ['', 'Missing compatible completed comparisons: ' + ', '.join(index['missing']) + '.']
     lines += ['', 'Macro gives each corpus one vote; FEBRL all/SSN-hidden split its vote. Paired intervals use 2,000 namespaced PCG64 group draws, seed derived from 2026091902/candidate_macro/corpus. Infeasible methods are not assigned zero and no corpus is omitted to make their macro complete.', '',
-        'No confirmation scores or model promotion. Shared-session stage costs do not establish the local 60-second gate.']
+        'This selection used no confirmation scores and promoted no model. Subsequent held-out measurements are reported in BENCHMARKS.md. Shared-session stage costs do not establish the local 60-second gate.']
     lines += ['', *[f"- `{name}`: [{row['run_id']}](../{row['manifest']})." for name, row in index['runs'].items()]]
     (ROOT / 'bench/CANDIDATES.md').write_text('\n'.join(lines) + '\n')
     (ROOT / 'bench/candidate_pairs_index.json').write_text(json.dumps(index, indent=2) + '\n')

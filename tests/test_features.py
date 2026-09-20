@@ -22,6 +22,19 @@ def native(frame):
     assert not any(n in output.getvalue() for n in ("PythonUDF", "BatchEvalPython", "ArrowEvalPython"))
 
 
+def test_prepared_features_accept_databricks_quality_and_app_configuration(spark):
+    # The feature stage follows quality and consumes prepared fields; it must
+    # not initialize optional quality/apps or reject their configuration.
+    cfg = from_dict({'profile': 'databricks',
+        'entity': {'fields': {'name': {'type': 'person_name'}}},
+        'features': {'multi_token': [], 'embeddings': {'provider': 'none'}}})
+    left = entity.prepare(spark.createDataFrame([('a', 'Alice')], 'rec_id string, name string'), cfg)
+    right = entity.prepare(spark.createDataFrame([('b', 'Alice')], 'rec_id string, name string'), cfg)
+    result = features.build(pairs(spark), left, right, cfg)
+    assert result.first().eq_name == 1.
+    native(result)
+
+
 def test_all_field_families_native_and_typed_values(spark):
     kinds = {"name": "person_name", "addr": "address", "org": "organisation", "title": "title",
              "code": "code", "dob": "date", "amount": "number"}

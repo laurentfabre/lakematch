@@ -1,0 +1,19 @@
+{
+  "status": "completed",
+  "native_dqx_exact_parity": true,
+  "valid": 2,
+  "quarantined": 4,
+  "warning_remains_valid": true,
+  "duplicate_ids_all_quarantined": true,
+  "construction_has_no_spark_actions_or_workspace_client": true,
+  "dqx_api": "DQRowRule.get_check_condition",
+  "dqx_version": "0.16.0",
+  "cases": [
+    "null/blank ID",
+    "duplicate ID",
+    "missing name",
+    "invalid/range numeric value",
+    "regex warning",
+    "row count"
+  ]
+}

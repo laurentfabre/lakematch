@@ -1,0 +1,110 @@
+{
+  "status": "completed",
+  "corpus": "febrl4_half_no_ssn",
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "scope": "validation records only; exact retriever keys, ordered candidates and scores; no threshold tuning",
+  "confirmation_scored": false,
+  "model": {
+    "run_id": "a9b6ea7c921a4493991e18052991adc4",
+    "model_uri": "runs:/a9b6ea7c921a4493991e18052991adc4/model",
+    "logged_model_uri": "models:/m-6af4fae7f8e04065aaf322180ccae13a",
+    "label_set_sha256": "67d27a4bbc8c9f82c00c86e2a0eb191faf66a1f2c4c342fef7f179fda442050f",
+    "artifact_bytes": 709260,
+    "registry": false
+  },
+  "hash_indices": [
+    {
+      "term": "",
+      "expected": 1372,
+      "actual": 1372
+    },
+    {
+      "term": "a",
+      "expected": 122467,
+      "actual": 122467
+    },
+    {
+      "term": "ab",
+      "expected": 14919,
+      "actual": 14919
+    },
+    {
+      "term": "abc",
+      "expected": 15976,
+      "actual": 15976
+    },
+    {
+      "term": "abcd",
+      "expected": 113100,
+      "actual": 113100
+    },
+    {
+      "term": "abcde",
+      "expected": 102384,
+      "actual": 102384
+    },
+    {
+      "term": "abcdefg",
+      "expected": 80409,
+      "actual": 80409
+    },
+    {
+      "term": "\u00c9li",
+      "expected": 62816,
+      "actual": 62816
+    },
+    {
+      "term": "\u738b",
+      "expected": 5360,
+      "actual": 5360
+    },
+    {
+      "term": "\u738b\u660e",
+      "expected": 60386,
+      "actual": 60386
+    },
+    {
+      "term": "\ud83d\ude42",
+      "expected": 96925,
+      "actual": 96925
+    },
+    {
+      "term": "O'Brien",
+      "expected": 23365,
+      "actual": 23365
+    },
+    {
+      "term": "e\u0301",
+      "expected": 14769,
+      "actual": 14769
+    },
+    {
+      "term": "abc\ud83d\ude42\u738b",
+      "expected": 93415,
+      "actual": 93415
+    }
+  ],
+  "hash_edge_cases": 14,
+  "records": 1500,
+  "pairs": 4983,
+  "maximum_probability_difference": 1.4224732503009818e-16,
+  "exact_minhash_keys": true,
+  "exact_ordered_candidates": true,
+  "native_plan": true,
+  "candidate_budget": {
+    "join_rows_before_cap": 71604,
+    "join_rows_after_cap": 71604,
+    "dropped_grams": 0,
+    "method": "minhash_lsh",
+    "implementation": "native SQL from frozen MLlib state",
+    "candidate_pairs": 4983,
+    "max_join_rows": 50000000,
+    "max_pairs": 100000
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 32.39374870900065,
+  "evidence_files": {
+    "native-state.json": "a063be411142e6f088ce27aa66343fdaee92b899b43f2324b0d2da644ba6f64a",
+    "native.plan.txt": "015bf662ae53c0a9b2736b8558b1af0d9086c633d3cd7742b2064d3836e462e0"
+  }
+}

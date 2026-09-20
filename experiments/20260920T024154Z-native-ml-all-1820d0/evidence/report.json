@@ -1,0 +1,17 @@
+{
+  "status": "running",
+  "corpus": "febrl4_half_all",
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "scope": "validation records only; exact retriever keys, ordered candidates and scores; no threshold tuning",
+  "confirmation_scored": false,
+  "model": {
+    "run_id": "14fa660dc89b4484bf5094b08a04ea2a",
+    "model_uri": "runs:/14fa660dc89b4484bf5094b08a04ea2a/model",
+    "logged_model_uri": "models:/m-5e57f8e37c0540cb846f1b549cd28ba0",
+    "label_set_sha256": "02ea5743a253d467e61e36d652851ae6fc33acbc4db06b5abed4f3689cd15c7f",
+    "artifact_bytes": 743519,
+    "registry": false
+  },
+  "wall_seconds_including_spark": 10.32276233297307,
+  "evidence_files": {}
+}

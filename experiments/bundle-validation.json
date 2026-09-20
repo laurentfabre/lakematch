@@ -1,0 +1,51 @@
+{
+  "profile": "fevm-gdpr2",
+  "host": "https://fevm-gdpr2.cloud.databricks.com",
+  "cli_version": "1.17.0",
+  "observed_date": "2026-09-20",
+  "targets": {
+    "serverless": {
+      "command": [
+        "databricks",
+        "bundle",
+        "validate",
+        "--strict",
+        "--target",
+        "serverless",
+        "--profile",
+        "fevm-gdpr2"
+      ],
+      "exit_code": 0,
+      "observation": "Validation OK!"
+    },
+    "serverless_native": {
+      "command": [
+        "databricks",
+        "bundle",
+        "validate",
+        "--strict",
+        "--target",
+        "serverless_native",
+        "--profile",
+        "fevm-gdpr2"
+      ],
+      "exit_code": 0,
+      "observation": "Validation OK!"
+    }
+  },
+  "source_files": {
+    "databricks.yml": "01473579434d2321e4b0cee2b3052394ce70c0516c5bcfbd659bdc4ac262ba6e",
+    "resources/serverless.job.yml": "c6919d1feb5bb039a902a910617482f319cfdb32f515ee59dfb17d1950f65dbd",
+    "resources/serverless.pipeline.yml": "3076f2a94e8b45e617d5aa848b470f6c757e2be1d95d26fc34e498248ff0fa10",
+    "deployment/audit.py": "db9c736393b8e0ef4125f286d2be4f95e0e52c4bf3c667a09a2296475e3c97ca",
+    "deployment/prepare.py": "d6a488cade904a6803b405dc563d11f557eb32d37a664473a4a91527be2f1231",
+    "deployment/pipeline/context.py": "fabebac1a4cfe112f046a022bf84a78433fbb013e253cfa89aa53e88ead3628e",
+    "deployment/pipeline/transformations/prepared.py": "4f33eadb5751b1b6dabed9feaf161516fa6825812ed7ca7565ffd4397fed374e",
+    "deployment/pipeline/transformations/features.py": "0c8c7a2dac9cb8105f519fca874218e41edaa6b7a2a0ea7136a7a37da9142cd6",
+    "deployment/pipeline/transformations/links.py": "1d3f9bfc85348600821e812582f2913721b5a397825bdfa37693fecf430fb96c",
+    "deployment/pipeline/transformations/scores.py": "4980fdc44120e676587fb8cc48c6dcb711cc37a9d439a2fdd4ff69a3e24ef08a",
+    "deployment/pipeline/transformations/candidates.py": "24541d148a5634a747e2a2eeae8154f4aa635abd9b6bbe86fa9a84b662ce59e7"
+  },
+  "compute_started": false,
+  "scope": "CLI bundle validation only; no deployment or execution evidence"
+}

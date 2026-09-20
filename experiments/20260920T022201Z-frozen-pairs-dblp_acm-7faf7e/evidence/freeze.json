@@ -1,0 +1,2609 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_confirmation",
+  "seed": 2026091901,
+  "bootstrap_seed": 2026091902,
+  "method": "minhash_lsh",
+  "models": {
+    "febrl4_half_all": {
+      "model": {
+        "run_id": "14fa660dc89b4484bf5094b08a04ea2a",
+        "model_uri": "runs:/14fa660dc89b4484bf5094b08a04ea2a/model",
+        "logged_model_uri": "models:/m-5e57f8e37c0540cb846f1b549cd28ba0",
+        "label_set_sha256": "02ea5743a253d467e61e36d652851ae6fc33acbc4db06b5abed4f3689cd15c7f",
+        "artifact_bytes": 743519,
+        "registry": false
+      },
+      "config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "table",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_all",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            },
+            "soc_sec_id": {
+              "type": "code"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ],
+            [
+              "soc_sec_id"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.28,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_all/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "selection_run": "20260920T013615Z-linkage-all-f5b121",
+      "selection_report": "experiments/20260920T013615Z-linkage-all-f5b121/evidence/report.json",
+      "selection_report_sha256": "cb305e779d7f13ff27075fcc8d5ad075305c5ad754b904426b3447192ba58e18",
+      "validation_f1": 0.9888776541961577,
+      "corpus_manifest": {
+        "source": "recordlinkage 0.16 FEBRL4",
+        "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+        "split_method": "SHA-256 ranked whole truth entities 3000/1000/1000; independent namespaced partner-removal ranking",
+        "exposure": "Historical corpus and 80 smoke anchors exposed; new split/removal outcomes, not independent population",
+        "universe": "5000 left / 2500 right; full-universe transductive candidates; supervised IDF fits train only",
+        "hidden_fields": [],
+        "closed_world_truth": true,
+        "corpus": "febrl4_half_all",
+        "seed": 2026091901,
+        "fields": {
+          "given_name": {
+            "type": "person_name"
+          },
+          "surname": {
+            "type": "person_name"
+          },
+          "street_number": {
+            "type": "code"
+          },
+          "address_1": {
+            "type": "address"
+          },
+          "address_2": {
+            "type": "address"
+          },
+          "suburb": {
+            "type": "address"
+          },
+          "postcode": {
+            "type": "code"
+          },
+          "state": {
+            "type": "code"
+          },
+          "date_of_birth": {
+            "type": "date",
+            "date_format": "yyyyMMdd"
+          },
+          "soc_sec_id": {
+            "type": "code"
+          }
+        },
+        "retrieval": true,
+        "files": {
+          "left": {
+            "path": "data/bench/febrl4_half_all/left.jsonl",
+            "sha256": "e63cf16cbfec77c5a8ab04c0930edce6317b6a9342acff89161aca9816f64fd9",
+            "rows": 5000
+          },
+          "right": {
+            "path": "data/bench/febrl4_half_all/right.jsonl",
+            "sha256": "0d8cf31c830e8a0e58035e4b8fef43f85079e3484b8ba5b4bb3119254788628b",
+            "rows": 2500
+          },
+          "pairs": {
+            "path": "data/bench/febrl4_half_all/pairs.jsonl",
+            "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+            "rows": 2500
+          }
+        },
+        "confirmation_scored": false
+      },
+      "model_path": "/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/tmpr7lgz9m1/model",
+      "model_files": {
+        "MLmodel": "7438d0cf9ce59195488776195cab0ca40788d87cd89dd36cd2a6ee86c9396655",
+        "artifacts/contract.json": "6b03874aabf37f64a01aaeb1152dcc2819b6584e67abdd8f7d8ef6c7ebca4d7e",
+        "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/idf/.part-00000-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet.crc": "6eca7a16d9349fa6cd542445210de15a5bb7fa1a60821861ca77e2ce81de845f",
+        "artifacts/idf/.part-00001-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet.crc": "a25471c99bd892652e861e107931ae008f76c77b51ce5291dab997f80c077ae6",
+        "artifacts/idf/.part-00002-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet.crc": "f8803b4e6c1884780d247a0f3497b60e567f1c31bf7922da7fe1d765ba8e2204",
+        "artifacts/idf/.part-00003-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet.crc": "88c562167fd2b97a9dd42e0f40ed3633c965ef42030c4d7c703cbcc85508772a",
+        "artifacts/idf/.part-00005-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet.crc": "663c2e7120521b71d8b2409a8ba0bcc289aae25e6041a320432018edef38e3c5",
+        "artifacts/idf/.part-00006-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet.crc": "a5f7d03e4f727af39610cedfebf4a50755fb1b818fd596a7f4ed28692f744fbb",
+        "artifacts/idf/.part-00007-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet.crc": "901c126b0f7cfd0f770f8c6b394babde5f193ac79954270312b734a8a7128c24",
+        "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/idf/part-00000-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet": "4356def52ad56fb6a50ce756db3feb924beb7c010195832c3153caeeb02cb1ab",
+        "artifacts/idf/part-00001-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet": "f3cc9070512d817c259d8d9cf4c18d5f27fe4007f2c6f8bb361614b0e688dd26",
+        "artifacts/idf/part-00002-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet": "31f543ceb0257174d48281866c17ba812e3c42f559d21548c05eb7aff4d43213",
+        "artifacts/idf/part-00003-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet": "985930782c4395154a6239efe85f673c10ddeb4c8262d62a3795ff5371fe259e",
+        "artifacts/idf/part-00005-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet": "f173874435d54bf6c7f0a9a7d551fe04dd74a2e735b46c622061a049388bd589",
+        "artifacts/idf/part-00006-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet": "b9713537476f20df424b546428c6ebe27c75737812006e7a747db0678f17d104",
+        "artifacts/idf/part-00007-bf9d9ad2-9cad-4ea3-876c-80ead8e0dd9e-c000.snappy.parquet": "3d8a799ac0fe01eb859673494041b0543ea76bf4cf80a55fd83ccd15b0757b70",
+        "artifacts/integrity.json": "d7dbfaab8f6db777676d95d85c0ec5c01a0bcacf557b6092a7baf6310c78cd64",
+        "artifacts/labels.json": "bf68420db74f2a2861f7d8f8caae9c4d1465c6ec37ae69dafec6b1cbf70ed738",
+        "artifacts/minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/data/.part-00000-805fce19-1bd8-49f7-8d77-37332e010982-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+        "artifacts/minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/data/part-00000-805fce19-1bd8-49f7-8d77-37332e010982-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+        "artifacts/minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/metadata/.part-00000-9c09cd56-ac30-409f-a93e-4e7a77b1201b-c000.txt.crc": "4951596cef6d348d38d3970aae561b1a0eb2eeb05a897a1ed2b0f3ce24d3976d",
+        "artifacts/minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/metadata/part-00000-9c09cd56-ac30-409f-a93e-4e7a77b1201b-c000.txt": "01d8f3056a0ddb2328a260351fc041be5a69b2a3478adaece8764559cc032bf8",
+        "artifacts/minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+        "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/metadata/.part-00000-3767f810-5f1c-48fc-982a-1240891ebb79-c000.txt.crc": "6b1b3968b896a02c42c9709859b6b3e323c282f83b355f592e85e2bed67e140c",
+        "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/metadata/part-00000-3767f810-5f1c-48fc-982a-1240891ebb79-c000.txt": "6c819258503f136a8cf8d5f9ee97ceedbeaf3584f7dbbc8806a62c3cedffe5cf",
+        "artifacts/pipeline/stages/0_VectorAssembler_e4133ac0509a/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/0_VectorAssembler_e4133ac0509a/metadata/.part-00000-8c990e01-b072-4695-9bba-91aa371afe5c-c000.txt.crc": "1c7f6b1fd07912414165df224ae12635158121ca2bfc7b0f386b3ecb2b5d0e93",
+        "artifacts/pipeline/stages/0_VectorAssembler_e4133ac0509a/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/0_VectorAssembler_e4133ac0509a/metadata/part-00000-8c990e01-b072-4695-9bba-91aa371afe5c-c000.txt": "8a9b15d7b2f491b22638c1c6e08b3fc6bb614657b75d5338739bc533af11318e",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/data/.part-00000-086ed27f-657a-4e3f-827c-527586ff3d4d-c000.snappy.parquet.crc": "5d6c47f7a7ea874fe5c8013ee095e7a7a87f2100648960d8d42a7f2a5ac80835",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/data/part-00000-086ed27f-657a-4e3f-827c-527586ff3d4d-c000.snappy.parquet": "b2aa9776b98c07e9b02e0ae1ab90aea609f8e965a19da37837ae0f7f71ef1c3b",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/metadata/.part-00000-552ba33f-59f3-4290-8900-067494a98cd5-c000.txt.crc": "68c4fc286d09be86c2e684603bea5617cbca0bbea3bffb7c350d0e303f17ab10",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/metadata/part-00000-552ba33f-59f3-4290-8900-067494a98cd5-c000.txt": "60944af06cbd8a73d4b7f1d2c2a1f4c20270d45cd4715dd375fc0d774d11661f",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/treesMetadata/.part-00000-e529bc2f-1281-47c5-b1ab-5d4487565873-c000.snappy.parquet.crc": "e236ffe7bcf6e5236ae22a04adbc97118b63f84e26465f357494084f39c1bd2e",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_cf1b63c8b0ad/treesMetadata/part-00000-e529bc2f-1281-47c5-b1ab-5d4487565873-c000.snappy.parquet": "00e404ae3bc58d6a75154dcc102c67d40056d2e9b92718dda4e819b8ccc84366",
+        "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+        "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+        "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+        "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+        "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+        "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+        "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+        "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+        "code/lakematch/cli.py": "54f6d852dc3f2a21e6f8fdc42a5a9ed8ccfc48fce72cb84414505fbcf87bae79",
+        "code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+        "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+        "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+        "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+        "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+        "code/lakematch/engine.py": "e4b8bd54073b8bafa3a8022ffc09b5047d36418c0cf60a775ba7f621b13dde36",
+        "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+        "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+        "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+        "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+        "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+        "code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+        "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+        "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+        "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+        "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+        "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+        "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+        "input_example.json": "00fa4746abc219323b3951dcac49487dde062e7fc17cb4c3344de1d4da1cef11",
+        "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+        "registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+        "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+        "serving_input_example.json": "663c41f525959abf9f871b6c8bf1501b271a695575ef5674764630ecfc8a5365"
+      }
+    },
+    "febrl4_half_no_ssn": {
+      "model": {
+        "run_id": "a9b6ea7c921a4493991e18052991adc4",
+        "model_uri": "runs:/a9b6ea7c921a4493991e18052991adc4/model",
+        "logged_model_uri": "models:/m-6af4fae7f8e04065aaf322180ccae13a",
+        "label_set_sha256": "67d27a4bbc8c9f82c00c86e2a0eb191faf66a1f2c4c342fef7f179fda442050f",
+        "artifact_bytes": 709260,
+        "registry": false
+      },
+      "config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "table",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.85,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "selection_run": "20260920T013914Z-linkage-no_ssn-963e3e",
+      "selection_report": "experiments/20260920T013914Z-linkage-no_ssn-963e3e/evidence/report.json",
+      "selection_report_sha256": "be6e42a83c83957b8e2af10e7a5912991dc72b7df60dc64f4cbadebddfbb3e03",
+      "validation_f1": 0.9868554095045501,
+      "corpus_manifest": {
+        "source": "recordlinkage 0.16 FEBRL4",
+        "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+        "split_method": "SHA-256 ranked whole truth entities 3000/1000/1000; independent namespaced partner-removal ranking",
+        "exposure": "Historical corpus and 80 smoke anchors exposed; new split/removal outcomes, not independent population",
+        "universe": "5000 left / 2500 right; full-universe transductive candidates; supervised IDF fits train only",
+        "hidden_fields": [
+          "soc_sec_id"
+        ],
+        "closed_world_truth": true,
+        "corpus": "febrl4_half_no_ssn",
+        "seed": 2026091901,
+        "fields": {
+          "given_name": {
+            "type": "person_name"
+          },
+          "surname": {
+            "type": "person_name"
+          },
+          "street_number": {
+            "type": "code"
+          },
+          "address_1": {
+            "type": "address"
+          },
+          "address_2": {
+            "type": "address"
+          },
+          "suburb": {
+            "type": "address"
+          },
+          "postcode": {
+            "type": "code"
+          },
+          "state": {
+            "type": "code"
+          },
+          "date_of_birth": {
+            "type": "date",
+            "date_format": "yyyyMMdd"
+          }
+        },
+        "retrieval": true,
+        "files": {
+          "left": {
+            "path": "data/bench/febrl4_half_no_ssn/left.jsonl",
+            "sha256": "60dd56407bbb965fe69e7d2e1dc41081c06c8f741f16498303a5dddaf2067366",
+            "rows": 5000
+          },
+          "right": {
+            "path": "data/bench/febrl4_half_no_ssn/right.jsonl",
+            "sha256": "8e88c758e32e5088da97b91eb393bb21d213c231ad8a593b3b05f6f540b9b97f",
+            "rows": 2500
+          },
+          "pairs": {
+            "path": "data/bench/febrl4_half_no_ssn/pairs.jsonl",
+            "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+            "rows": 2500
+          }
+        },
+        "confirmation_scored": false
+      },
+      "model_path": "/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/tmpmqle6ir5/model",
+      "model_files": {
+        "MLmodel": "9db15cc1ef6bada21770e5016cfa132cafff10a02d27a0e55c01b1f312a1c9f0",
+        "artifacts/contract.json": "bd03165f0b2eb1034c71d73efb88b7f40d143d901f53ecb76c574e15325b04ed",
+        "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/idf/.part-00000-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet.crc": "14ad3d160660fe3b1f493a64807ecd39c8700753d90540ee877937bf7fc7b6c5",
+        "artifacts/idf/.part-00001-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet.crc": "3a8b20cf25b7982a583910bce986c9e279b81cb05f1cd45bb5552f99d2e5f34f",
+        "artifacts/idf/.part-00002-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet.crc": "c2ac8b76bb7e245122507fbafbebbdb2353fd05ac66b62ecc2770f988108522f",
+        "artifacts/idf/.part-00003-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet.crc": "812c3596e0205f8877aa7db0c3e7a96a82f05b97d8467b8639c669db386d7e5e",
+        "artifacts/idf/.part-00005-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet.crc": "6d1c99fb0b62b7d017c52f5d9ec62c5d17fccf9f07ed3ef78e006bfe85c74c14",
+        "artifacts/idf/.part-00006-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet.crc": "a5f7d03e4f727af39610cedfebf4a50755fb1b818fd596a7f4ed28692f744fbb",
+        "artifacts/idf/.part-00007-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet.crc": "eb7ce0f58967be791b3f793907e81b66b7442c433a6844977c5e9c2701d8023f",
+        "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/idf/part-00000-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet": "b32a6ef92453f944adb0949c8d2fb824609e427cdcde72ef5fd918cc2a0cd69d",
+        "artifacts/idf/part-00001-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet": "7144b2855d47b8a98770ca3f2c24fa3e8162cfef7f29baca83ac827befd8b8aa",
+        "artifacts/idf/part-00002-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet": "34513a059725e4840a6fc238204dfaf8817a668646e7efc7ffffa617ee71e423",
+        "artifacts/idf/part-00003-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet": "97c30bb3b2b351dd85167d03b4a69ff75fcbcad729a12ad329677f4bb94bc7f4",
+        "artifacts/idf/part-00005-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet": "308874e6dd80bf2514e763637546ed5ba3257a201a82a376df784ffb29059a4f",
+        "artifacts/idf/part-00006-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet": "b9713537476f20df424b546428c6ebe27c75737812006e7a747db0678f17d104",
+        "artifacts/idf/part-00007-30ce95ea-eb6f-4fc2-84c4-273ce1aa08ee-c000.snappy.parquet": "7e1f9454292184ab92a6fbe214aaeb94ae4cf7682b0669603266aaaa915b1dbd",
+        "artifacts/integrity.json": "d9d5d2cd0a58331b603440143162a7fb4147b44352844d914f0f70b7753601b6",
+        "artifacts/labels.json": "5d39a3d7f690a6139f3116fee3e2602f34ea3b5efbc4ca7f06b98288ec060551",
+        "artifacts/minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/data/.part-00000-1d14c58c-78db-4021-b8bb-78a51ff383b8-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+        "artifacts/minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/data/part-00000-1d14c58c-78db-4021-b8bb-78a51ff383b8-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+        "artifacts/minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/metadata/.part-00000-a911d9b1-846c-4ba4-851c-a7937a1e41d5-c000.txt.crc": "7ebd3c947e2c67ebd44e736ca8be84364b27da8075c348d146b76c3b35833330",
+        "artifacts/minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/metadata/part-00000-a911d9b1-846c-4ba4-851c-a7937a1e41d5-c000.txt": "ae10c402cdbbf549bb9d5413455dd4a366d396207e3ef7c81622a5b64ec92f3c",
+        "artifacts/minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+        "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/metadata/.part-00000-496f0796-9e48-433e-829e-1095f8f03670-c000.txt.crc": "20e8eceb9c847ddf8db817656dff1968abe7d9e1cc667c77ec9b13afedec53f2",
+        "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/metadata/part-00000-496f0796-9e48-433e-829e-1095f8f03670-c000.txt": "cb7b5965ae22373ca70eeaae6114d165f15b05fce0bd62fcc9c9a26f38cd7199",
+        "artifacts/pipeline/stages/0_VectorAssembler_7b09b80cf932/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/0_VectorAssembler_7b09b80cf932/metadata/.part-00000-824179d0-b64a-43b7-8e13-82c0961cf7a7-c000.txt.crc": "645f033b5236465d2835101d9456378f9e01d483937e63bc8e1edf78dca52eba",
+        "artifacts/pipeline/stages/0_VectorAssembler_7b09b80cf932/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/0_VectorAssembler_7b09b80cf932/metadata/part-00000-824179d0-b64a-43b7-8e13-82c0961cf7a7-c000.txt": "bc25384fb35a8d53dc80bb7c286121b932a3f65d45db88a22a9baad20a20f4b9",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/data/.part-00000-0f13d971-1617-471b-a981-aedc0f83af59-c000.snappy.parquet.crc": "7878fdaa8a041ea4b304712ce5fefadbfbdeb5b526c4ab3bdb1667bf4a1b6fba",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/data/part-00000-0f13d971-1617-471b-a981-aedc0f83af59-c000.snappy.parquet": "fef493914e9d43d5914ca97f5e6da4b209439abdced4b398b74daf6b0685d7f2",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/metadata/.part-00000-bc760635-b115-4abf-98c4-558853e48716-c000.txt.crc": "02fb6268caf39ba9f7ab09397c719a6001d1843386f298266bb65c52981c2173",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/metadata/part-00000-bc760635-b115-4abf-98c4-558853e48716-c000.txt": "04eb167b9623cc40086ea6a88db40d86bc5323a20dfd30fa62b85f499c09c8ba",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/treesMetadata/.part-00000-d19776e9-e322-4dbb-82ca-4c142775e6b7-c000.snappy.parquet.crc": "2e9b04e9d0ac17845f89606789b579956281619dc4ab4b5668bea9997758d53a",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_9e4351639418/treesMetadata/part-00000-d19776e9-e322-4dbb-82ca-4c142775e6b7-c000.snappy.parquet": "e000e5a03a47824f891c811a73ceb34c3df547728bb686107601a8cb5c65823a",
+        "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+        "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+        "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+        "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+        "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+        "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+        "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+        "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+        "code/lakematch/cli.py": "54f6d852dc3f2a21e6f8fdc42a5a9ed8ccfc48fce72cb84414505fbcf87bae79",
+        "code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+        "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+        "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+        "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+        "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+        "code/lakematch/engine.py": "e4b8bd54073b8bafa3a8022ffc09b5047d36418c0cf60a775ba7f621b13dde36",
+        "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+        "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+        "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+        "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+        "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+        "code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+        "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+        "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+        "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+        "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+        "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+        "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+        "input_example.json": "0559658315e61e8c7906b6cb38e417e25bec9b83ab80a34c298a4152abe65782",
+        "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+        "registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+        "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+        "serving_input_example.json": "46d6c93dbaac624210c12325a6933f11d0d4edcd45deef09c57caaec8297bbab"
+      }
+    },
+    "bpid": {
+      "model": {
+        "run_id": "2487309edbde4c5ab9fb1dc4bb49c976",
+        "model_uri": "runs:/2487309edbde4c5ab9fb1dc4bb49c976/model",
+        "logged_model_uri": "models:/m-d5f6ac991b154dad92ec459cb121cbed",
+        "label_set_sha256": "e8df1810c0c2039e31c4abf9fcc48b6afc609de1c214aeb9ee6c8c6dccd24254",
+        "artifact_bytes": 1074477,
+        "registry": false
+      },
+      "config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "table",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "bpid",
+          "id_column": "rec_id",
+          "fields": {
+            "fullname": {
+              "type": "person_name"
+            },
+            "email": {
+              "type": "code",
+              "multiple": true
+            },
+            "phone": {
+              "type": "code",
+              "multiple": true
+            },
+            "addr": {
+              "type": "address",
+              "multiple": true
+            },
+            "dob": {
+              "type": "date",
+              "date_format": "yyyy-MM-dd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "fullname"
+            ],
+            [
+              "soundex(fullname)"
+            ],
+            [
+              "email"
+            ],
+            [
+              "phone"
+            ],
+            [
+              "addr"
+            ],
+            [
+              "prefix3(addr)"
+            ],
+            [
+              "dob"
+            ],
+            [
+              "year(dob)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.31,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/bpid/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "selection_run": "20260920T014910Z-candidate-pairs-bpid-bc7216",
+      "selection_report": "experiments/20260920T014910Z-candidate-pairs-bpid-bc7216/evidence/report.json",
+      "selection_report_sha256": "92ad6993629f7d9f2a5a0898b4679780a18412d95a7935b6454846f1e069d087",
+      "validation_f1": 0.5794278758368837,
+      "corpus_manifest": {
+        "source": "Zenodo 13932202",
+        "license": "Apache-2.0",
+        "raw_sha256": "3ac6b206513a45dbc860e05570dbb7a1ac97a210311ec2edb89cb2a22e18b6fe",
+        "date_note": "ISO dates parsed; other/ambiguous formats remain missing typed features, raw text comparisons retained",
+        "split_method": "record_components",
+        "duplicate_or_reversed_pairs_removed": 0,
+        "conflicting_pair_keys_excluded": 0,
+        "shared_records_between_splits": {
+          "confirmation/train": 0,
+          "confirmation/valid": 0,
+          "train/valid": 0
+        },
+        "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+        "split_counts": {
+          "confirmation": 1966,
+          "train": 5994,
+          "valid": 2040
+        },
+        "corpus": "bpid",
+        "seed": 2026091901,
+        "fields": {
+          "fullname": {
+            "type": "person_name"
+          },
+          "email": {
+            "type": "code",
+            "multiple": true
+          },
+          "phone": {
+            "type": "code",
+            "multiple": true
+          },
+          "addr": {
+            "type": "address",
+            "multiple": true
+          },
+          "dob": {
+            "type": "date",
+            "date_format": "yyyy-MM-dd"
+          }
+        },
+        "retrieval": false,
+        "files": {
+          "left": {
+            "path": "data/bench/bpid/left.jsonl",
+            "sha256": "14c1758eec3a520f1a5d7142d5e27619b3c5c7cafa6ef001e09285243eb46083",
+            "rows": 10000
+          },
+          "right": {
+            "path": "data/bench/bpid/right.jsonl",
+            "sha256": "28e4a3016f7a69c4f48db8c46d738c7296fd2ced763cfbfd0d3885bd882691d6",
+            "rows": 10000
+          },
+          "pairs": {
+            "path": "data/bench/bpid/pairs.jsonl",
+            "sha256": "d310543e1293fe922dc50e246ab4a0d63ff499020ce3189d36a2c99c94364ad7",
+            "rows": 10000
+          }
+        },
+        "confirmation_scored": false
+      },
+      "model_path": "/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/tmp0dj27vfa/model",
+      "model_files": {
+        "MLmodel": "4f7121339ff1ff4f0481eed1f2c8a1e5a77c81e790f87222fb59f1f69ce1df82",
+        "artifacts/contract.json": "f444feea14d6ef70d8ed2ce488ffc554453e70c3711b75a7881c82657abd2fe0",
+        "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/idf/.part-00000-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet.crc": "70b87f1cf890a9d8ae76048fb2dd3660232523bf6d94923bcf1bfe3b5bf33fc3",
+        "artifacts/idf/.part-00001-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet.crc": "985f8dcfb289e9693c7293b638b31dea54a1f3f8c3a19e50346a4c898faf9f65",
+        "artifacts/idf/.part-00002-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet.crc": "ac7ba3131439022472894686918f961a0088b5e4e946c7a96a7582c87eff608e",
+        "artifacts/idf/.part-00003-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet.crc": "213767ff73052e3cf41727b3c2537b77f8af72d04d64dec4408863ce532eca9a",
+        "artifacts/idf/.part-00004-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet.crc": "d1f47db7973bc10a05964f8e0ef115d9414c39300ab36f20e86cd4ba40db269a",
+        "artifacts/idf/.part-00005-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet.crc": "16ccec82cbc236d306394952237b4f75da852d7933d85d39bdafb084a9730c09",
+        "artifacts/idf/.part-00007-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet.crc": "3577c094b0a291e51d3434a3fe2582250033158b37f5eddbc45a77eefb6c76af",
+        "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/idf/part-00000-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet": "1a8334824de99f2e1661d26a61b0c9885d60f097970e05e13763fe12ac2031c6",
+        "artifacts/idf/part-00001-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet": "cba52e36d2e4fcdcdfdd33e3f567996412d60bbaa12c302f8df1e32409acd789",
+        "artifacts/idf/part-00002-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet": "ffe7394a290d2332de46827f8e9c893da5300b860fd102679c22756428a22b1e",
+        "artifacts/idf/part-00003-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet": "5360c900def62b291dce7f1d810f652d3e7f2fe41adea944a8b2fccdf175684a",
+        "artifacts/idf/part-00004-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet": "e0d7208a9ec53a7a10a672ab272b8973bde3ec1fabdffd6caef0a4e81c64a122",
+        "artifacts/idf/part-00005-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet": "56fa4364236d43fe1c0e781610acceb86cad3bfdaae12f2ca1e059246163d1a7",
+        "artifacts/idf/part-00007-59b1775b-f261-49c1-ba24-df146cfe407c-c000.snappy.parquet": "4e15e11465fb8162b633d03caf5a0ab3dd5dcfd49ea8472de504e7f8b9e5a247",
+        "artifacts/integrity.json": "bb7c3673793619c28bacc6bf48a3d022fb09ee4d6967af5b1ce5535b97450d96",
+        "artifacts/labels.json": "8dcaa73c4c87f60b8585aea7ed819c89ddc82d202a9af705768f457db2cf5ea4",
+        "artifacts/minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/data/.part-00000-ab12c264-530f-4821-86e3-8f0557884db9-c000.snappy.parquet.crc": "f73bb77955d1a5904490dcb1233329359dae92f622e13f1be4f6015bb3134ee2",
+        "artifacts/minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/data/part-00000-ab12c264-530f-4821-86e3-8f0557884db9-c000.snappy.parquet": "571ab512830d5a8afba8e9fc6726242d2a61b5eaabb5c40e11ca2b8840ed56bd",
+        "artifacts/minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/metadata/.part-00000-1c8f61fc-9206-4b7c-bd70-4b16858ab285-c000.txt.crc": "cc56c08699cf2f9014a80676c5ab9ef0953202aa1581a4667a3330399804e58e",
+        "artifacts/minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/metadata/part-00000-1c8f61fc-9206-4b7c-bd70-4b16858ab285-c000.txt": "362fa75464b329ecb9c2ad6472b3bd1431d041916e4b8db4c3862e8953f15020",
+        "artifacts/minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+        "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/metadata/.part-00000-2855d48d-8069-4fe4-9bed-521e3816b8d6-c000.txt.crc": "f59cd34b06dfb2657632d4ef1f5115215b1b6b06c58b82a0622feba510ded7ec",
+        "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/metadata/part-00000-2855d48d-8069-4fe4-9bed-521e3816b8d6-c000.txt": "f3db40482f2ce381b89d75cefa97597923291162aee02171cf2e21e0ac94153f",
+        "artifacts/pipeline/stages/0_VectorAssembler_19c4e8082e85/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/0_VectorAssembler_19c4e8082e85/metadata/.part-00000-7b97c063-c6b6-4fdc-9160-1d8eb64573f1-c000.txt.crc": "e89bc8d1b52acbaa4447fb44619931ba5a18f4657df43796c820ae39a2cfb901",
+        "artifacts/pipeline/stages/0_VectorAssembler_19c4e8082e85/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/0_VectorAssembler_19c4e8082e85/metadata/part-00000-7b97c063-c6b6-4fdc-9160-1d8eb64573f1-c000.txt": "796b2f0eb6e80b0a230ddb14565e23441bb83471cfbd2d9e7b5c6f485851d569",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/data/.part-00000-794884be-b207-4cdd-9a29-ca244f53fbfb-c000.snappy.parquet.crc": "a98a98559cada700b44c61fb880347c0b2d528bb6c5c70ccdc79c58e9ced4b84",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/data/part-00000-794884be-b207-4cdd-9a29-ca244f53fbfb-c000.snappy.parquet": "b44f298d2c2d079f96b195cc01de6c1eb018a36009f79a8b946d021b416f3d41",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/metadata/.part-00000-0967ec37-36d6-46ae-a580-03f8a133eab3-c000.txt.crc": "cb682c41af2d9f075304e5832313121342a52045092d0b1eafec621deca82318",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/metadata/part-00000-0967ec37-36d6-46ae-a580-03f8a133eab3-c000.txt": "5fbba436b762e70180e7f510adf7f09bc551fd2aa1a39cc1d303b9340c3fa90d",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/treesMetadata/.part-00000-b1f77864-354d-440d-a648-db184f01e873-c000.snappy.parquet.crc": "b49b8d130e6af7af20e8a8f2e6405b6366fccf2c6d786e43a37bcc0ffbec0cd8",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_46d1cb143d55/treesMetadata/part-00000-b1f77864-354d-440d-a648-db184f01e873-c000.snappy.parquet": "88186e3b9fe85180876ba119a24373e34cd4514717ca30878f97eb9a04c809bc",
+        "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+        "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+        "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+        "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+        "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+        "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+        "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+        "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+        "code/lakematch/cli.py": "54f6d852dc3f2a21e6f8fdc42a5a9ed8ccfc48fce72cb84414505fbcf87bae79",
+        "code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+        "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+        "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+        "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+        "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+        "code/lakematch/engine.py": "e4b8bd54073b8bafa3a8022ffc09b5047d36418c0cf60a775ba7f621b13dde36",
+        "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+        "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+        "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+        "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+        "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+        "code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+        "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+        "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+        "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+        "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+        "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+        "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+        "input_example.json": "4b76ab9a28aa33bad33dda4e0f9a8cbfcc29906a27917c581ec0c30a9d4b75ab",
+        "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+        "registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+        "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+        "serving_input_example.json": "18ba776f09335d977c2e5435f798499402b4084be4cdb890b64719dcc912064e"
+      }
+    },
+    "abt_buy": {
+      "model": {
+        "run_id": "86750fc826d646b7b969b9947762daed",
+        "model_uri": "runs:/86750fc826d646b7b969b9947762daed/model",
+        "logged_model_uri": "models:/m-7114d21e769f4e7789590e4a50628595",
+        "label_set_sha256": "7b5fb486088253dd5249e0c5d905e5596f89015221ef4d1c892c2976690802a3",
+        "artifact_bytes": 504871,
+        "registry": false
+      },
+      "config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "table",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "abt_buy",
+          "id_column": "rec_id",
+          "fields": {
+            "description": {
+              "type": "title"
+            },
+            "name": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "description"
+            ],
+            [
+              "prefix3(description)"
+            ],
+            [
+              "name"
+            ],
+            [
+              "prefix3(name)"
+            ],
+            [
+              "price"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.2,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/abt_buy/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "selection_run": "20260920T015129Z-candidate-pairs-abt_buy-0f895a",
+      "selection_report": "experiments/20260920T015129Z-candidate-pairs-abt_buy-0f895a/evidence/report.json",
+      "selection_report_sha256": "02421ae3a2cc1c8e8ecf302ceea536edb7007179ae825c3c7743427978665b65",
+      "validation_f1": 0.6,
+      "corpus_manifest": {
+        "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+        "license": "mirror Apache-2.0; upstream unspecified",
+        "raw_sha256": {
+          "train": "c1370966c08c246e9cf844b7cd2cf580b2559e9831f1eb3cca560fd53c1bcbb2",
+          "valid": "14b2c80673434b852febacd1a741c89e2ca0aba1658f4420efe4cbb46f4ef607",
+          "test": "df323df317af4ca33132e3c3a666983c5cbc69ef517f61df18f381b4d1662352"
+        },
+        "split_method": "official",
+        "duplicate_or_reversed_pairs_removed": 39,
+        "conflicting_pair_keys_excluded": 13,
+        "shared_records_between_splits": {
+          "test/train": 1307,
+          "test/valid": 1041,
+          "train/valid": 1300
+        },
+        "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+        "split_counts": {
+          "test": 1892,
+          "train": 5703,
+          "valid": 1894
+        },
+        "corpus": "abt_buy",
+        "seed": 2026091901,
+        "fields": {
+          "description": {
+            "type": "title"
+          },
+          "name": {
+            "type": "title"
+          },
+          "price": {
+            "type": "number"
+          }
+        },
+        "retrieval": false,
+        "files": {
+          "left": {
+            "path": "data/bench/abt_buy/left.jsonl",
+            "sha256": "8d555b2997b2818979727133928862955016ad12d946cc1c1e54b22ce87485d4",
+            "rows": 1068
+          },
+          "right": {
+            "path": "data/bench/abt_buy/right.jsonl",
+            "sha256": "ea712fb0925b3e737c1f53e6fa3a426496288e9eab7b78ac8fa5ba8a10633f58",
+            "rows": 1035
+          },
+          "pairs": {
+            "path": "data/bench/abt_buy/pairs.jsonl",
+            "sha256": "5850c15c8c5c8a981d71e33bb27f22dbcc79136ccffcf5c083969b2540627604",
+            "rows": 9489
+          }
+        },
+        "confirmation_scored": false
+      },
+      "model_path": "/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/tmp5e2zqhrc/model",
+      "model_files": {
+        "MLmodel": "5690e720c78e7ce7826d5ca87da3ba25bd1f3f3b688cc13da5af11dc0127dbca",
+        "artifacts/contract.json": "cbaf205462936e6a8fc324cb52c6213659f0a9532f8f65ca61b6f4681538291e",
+        "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/idf/.part-00000-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet.crc": "f7dd9e157835df3d1a0fac4b1d133272233bc34ef148eb5d62636ef8fe7d61b4",
+        "artifacts/idf/.part-00001-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet.crc": "ee5feefb6b84d369d194ed67a34e3b57b0e5b46e3bd91e638cfc571089267c19",
+        "artifacts/idf/.part-00002-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet.crc": "ef05f1a2e50f89bee3673c90e2c7cd6f4dd88218a18b7b8bd1948465f94e1966",
+        "artifacts/idf/.part-00003-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet.crc": "856302687cb68f320ab3d5ac1e333bf1d0d1079e1fed0468d7e48b7534532ae5",
+        "artifacts/idf/.part-00007-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet.crc": "a9057f2b2ae4b84e45c5b6830565f99f556068f34a4925f39f0a1b0fb382f711",
+        "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/idf/part-00000-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet": "24ca423e810397c3de47fc7c231bbe454ee6ad66df976e629757b32fa8fca6ec",
+        "artifacts/idf/part-00001-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet": "d9495fe1a65cff7a4c9e168c75cb643f66a3eb3388ddcc9058ee711824246e76",
+        "artifacts/idf/part-00002-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet": "48d571d63ef7dadc71c8e8b639a8a08fe49c1f445cab050203f75da14357affa",
+        "artifacts/idf/part-00003-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet": "35dda871fabb40af9818c2dfc95bfd8f8ef9dc40b2b40bd7cba699ce56195d93",
+        "artifacts/idf/part-00007-07440ded-52ba-42fa-8108-7bd160581eba-c000.snappy.parquet": "87693423f6c86712146cd7ac3d59c747be445649818ae9fc45eaa22087f1b0fd",
+        "artifacts/integrity.json": "4fbb380244cb1f979550ed6944c3d15e776ab4ab38a35b2f1273868efcc33bb2",
+        "artifacts/labels.json": "9773c974e1a6ff664131369ef6d47906b76728c096ee364c091e1bdedea497d6",
+        "artifacts/minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/data/.part-00000-ce48751c-4238-418a-969e-b6b560f51cd7-c000.snappy.parquet.crc": "f73bb77955d1a5904490dcb1233329359dae92f622e13f1be4f6015bb3134ee2",
+        "artifacts/minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/data/part-00000-ce48751c-4238-418a-969e-b6b560f51cd7-c000.snappy.parquet": "571ab512830d5a8afba8e9fc6726242d2a61b5eaabb5c40e11ca2b8840ed56bd",
+        "artifacts/minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/metadata/.part-00000-82ceb0e3-637b-4175-ac1f-cc54a8b701d0-c000.txt.crc": "eb16848b79246744ed76a5d6dcde4d4615123f1b3af38b63bfba561a9e77e668",
+        "artifacts/minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/metadata/part-00000-82ceb0e3-637b-4175-ac1f-cc54a8b701d0-c000.txt": "61d334a3f0e0eb241b619417c5a78e9d9c8171977cbd5d379bb24a051d62e8f8",
+        "artifacts/minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+        "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/metadata/.part-00000-41d36db1-4166-429f-8f00-797ba2590997-c000.txt.crc": "ca3b0dc09fe42c4e753905c3b58ba8309c257ac99d83e391a0c67acaf959b391",
+        "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/metadata/part-00000-41d36db1-4166-429f-8f00-797ba2590997-c000.txt": "e1e33a57a01a15ac4540510b8ab0e9aea1ecbec7b2eb59abd748497c248e21da",
+        "artifacts/pipeline/stages/0_VectorAssembler_058f395fdca0/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/0_VectorAssembler_058f395fdca0/metadata/.part-00000-d2b3367c-3b49-4d5a-ae35-541836c1689a-c000.txt.crc": "982d7b5e90a286e901d638f6ed32ec67dfc37585c70036ae05dae89dd6aa89f0",
+        "artifacts/pipeline/stages/0_VectorAssembler_058f395fdca0/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/0_VectorAssembler_058f395fdca0/metadata/part-00000-d2b3367c-3b49-4d5a-ae35-541836c1689a-c000.txt": "1403db3fe4bbfb46db87866fe6766033d357d9b996333ff69ad7e63ec9e56f9f",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/data/.part-00000-42476fd1-07f8-46de-8e4c-d530cfc2632d-c000.snappy.parquet.crc": "fae495720683c19d28c6d398c192e8ad2033416a90f1f6ef77239ea999399f5c",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/data/part-00000-42476fd1-07f8-46de-8e4c-d530cfc2632d-c000.snappy.parquet": "144521944c710c8b935791bb3d4959e03e9fc4984c88141bce9a4d1d8329d0e2",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/metadata/.part-00000-01e8e537-a4fa-4522-be96-6a3c5dccdc41-c000.txt.crc": "c6c2eac0f020f41c74ee903ad2a627ae304353d2d853fef04f20f85e8ae498b3",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/metadata/part-00000-01e8e537-a4fa-4522-be96-6a3c5dccdc41-c000.txt": "6efcbdaaf8a45825b356ff0e09e9831978db8a5061952af6d83f6679b944c79f",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/treesMetadata/.part-00000-65a19a36-660c-47ab-a7c4-694215e94dd9-c000.snappy.parquet.crc": "93da311492739bbc63b3d08deee808c9fe2ea5989b83d10c0982cd435f8db276",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_2f583ac5e8c7/treesMetadata/part-00000-65a19a36-660c-47ab-a7c4-694215e94dd9-c000.snappy.parquet": "24fdfb23988e4949200aea6da3918d11d8052abe0fdd56197aa947abf3ad02cf",
+        "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+        "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+        "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+        "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+        "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+        "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+        "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+        "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+        "code/lakematch/cli.py": "57c30aac61585a8ce77c711ba06b06ca2b7b97e48fb6e3bb4b1b34814dc155d8",
+        "code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+        "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+        "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+        "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+        "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+        "code/lakematch/engine.py": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36",
+        "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+        "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+        "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+        "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+        "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+        "code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+        "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+        "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+        "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+        "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+        "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+        "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+        "input_example.json": "0b0354b97a4ae995f383063d2a37c86116a44056ccd8589b2b35bfb5d86ea1cd",
+        "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+        "registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+        "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+        "serving_input_example.json": "95d0c1df4e617ac3a983379f94cfdf525967ced4523f94d4290fbda8eebdaaaf"
+      }
+    },
+    "amazon_google": {
+      "model": {
+        "run_id": "0d3b8f81ad20450098878de3a37a62ca",
+        "model_uri": "runs:/0d3b8f81ad20450098878de3a37a62ca/model",
+        "logged_model_uri": "models:/m-1d82c443906f4c96b293ca33ddb9b863",
+        "label_set_sha256": "9cb1a18291eda88a15677e9a9ad6f20b3e541b9ed14f7f148058b5d3b8d97cb8",
+        "artifact_bytes": 535337,
+        "registry": false
+      },
+      "config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "table",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "amazon_google",
+          "id_column": "rec_id",
+          "fields": {
+            "manufacturer": {
+              "type": "organisation"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "title"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "manufacturer"
+            ],
+            [
+              "prefix3(manufacturer)"
+            ],
+            [
+              "price"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.21,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/amazon_google/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "selection_run": "20260920T015258Z-candidate-pairs-amazon_google-d98504",
+      "selection_report": "experiments/20260920T015258Z-candidate-pairs-amazon_google-d98504/evidence/report.json",
+      "selection_report_sha256": "9ba11db2d9e8c71a4a3c2be7d74be9add3fc7490572c7ba68322a93c8338d317",
+      "validation_f1": 0.6855983772819473,
+      "corpus_manifest": {
+        "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+        "license": "mirror Apache-2.0; upstream unspecified",
+        "raw_sha256": {
+          "train": "84ef5f7747296990a3775d2c8774949e720df643106b1b447682265f41929b26",
+          "valid": "baa53c43706e979441aaf653698bb477294b6fa16328fd272fcdc56ca040c094",
+          "test": "fb4a50692f296435d9ecd4b310acc1318ff7d6d1e13924f0b211d1f906dacbef"
+        },
+        "split_method": "official",
+        "duplicate_or_reversed_pairs_removed": 483,
+        "conflicting_pair_keys_excluded": 18,
+        "shared_records_between_splits": {
+          "test/train": 1486,
+          "test/valid": 1101,
+          "train/valid": 1514
+        },
+        "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+        "split_counts": {
+          "test": 2127,
+          "train": 6653,
+          "valid": 2161
+        },
+        "corpus": "amazon_google",
+        "seed": 2026091901,
+        "fields": {
+          "manufacturer": {
+            "type": "organisation"
+          },
+          "price": {
+            "type": "number"
+          },
+          "title": {
+            "type": "title"
+          }
+        },
+        "retrieval": false,
+        "files": {
+          "left": {
+            "path": "data/bench/amazon_google/left.jsonl",
+            "sha256": "f74ad08692686516f0aea58b39e707d8e5188b0b4a978a91864a66b167ed8319",
+            "rows": 1288
+          },
+          "right": {
+            "path": "data/bench/amazon_google/right.jsonl",
+            "sha256": "18946ca435c931520f228851440ad94c5342fa936b08c9316bf58ed5ab630671",
+            "rows": 2071
+          },
+          "pairs": {
+            "path": "data/bench/amazon_google/pairs.jsonl",
+            "sha256": "92b17485f68a17df1b9519f54a26dc96a67f8067cfc0fc643e3c685c95bbd420",
+            "rows": 10941
+          }
+        },
+        "confirmation_scored": false
+      },
+      "model_path": "/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/tmp9hdk_zt3/model",
+      "model_files": {
+        "MLmodel": "7929865e38f28081a4dc11835b422df0bca7687a90bc7c3f8af647de3b3c6588",
+        "artifacts/contract.json": "778c469bb2c3d8c5dd959c1fb44f9da643e4d28861cce19d8bb60de9af94096b",
+        "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/idf/.part-00000-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet.crc": "008b8b82c356e07de31360b3a7e317711b4744fbe6f474d3789e7f43edb37f35",
+        "artifacts/idf/.part-00001-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet.crc": "b38ad09173bd7be3e2cbf1012bb463f13f5952d907af0c91c86b6f7ca5c5a888",
+        "artifacts/idf/.part-00002-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet.crc": "dd6018b97e8214ccc83eea174b07e43dce49a4ed54b1e797e4a137ccd4f4b2aa",
+        "artifacts/idf/.part-00003-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet.crc": "94a16fb1935e98cdbc406d877765dd4e2e078498582ca3192d1de6307e041b2b",
+        "artifacts/idf/.part-00004-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet.crc": "6341a70025c621986df4e9d2fb5e714cb9ba2b0f4f739e84f31b23d5b5d973f4",
+        "artifacts/idf/.part-00005-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet.crc": "cd5cd3aac6f13c64755253662cb35f58887f016c927a8d1a957aa528cc26c87f",
+        "artifacts/idf/.part-00007-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet.crc": "f39d8905ad0c350cf4c5c9b9673375f31040a2b9cca26af633971928608921b6",
+        "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/idf/part-00000-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet": "809a849939935bfc5c874e891da1d990ba6d5a5e874fb8a13f0623a3d59ad35d",
+        "artifacts/idf/part-00001-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet": "042f07c30df30f0f0199514b476e2179540a6f20957c776e155b05bdd9d00da6",
+        "artifacts/idf/part-00002-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet": "be933e5c257955d1686a2adec77432c0e4861784e05c9196278b049b6c17fc0e",
+        "artifacts/idf/part-00003-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet": "c539073996ac9f6bd20cd80b61ccbcc4b15f93062081361d117abdddd7a54dca",
+        "artifacts/idf/part-00004-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet": "7e0c1184a8d1496690856cabdaa8cf2fa8d897ff80149edeb950c4b03f79f748",
+        "artifacts/idf/part-00005-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet": "98dbb90f8c3987aa61bb8acb89e442f56c5aafe6889db3b8846e88d1a881cd1b",
+        "artifacts/idf/part-00007-bd5df698-fb8b-4e17-8e8b-b52de5a13fdf-c000.snappy.parquet": "9fa5175c836f0cdc6c3d713d69d890924806ab0ca94c328b4e5753a8f28456b5",
+        "artifacts/integrity.json": "f6521298bc746006ee5953164d38305945e6405c72f164c42ca9022a782c3848",
+        "artifacts/labels.json": "44d0ebfaa697f614d5e81afae266a5db58b51628bb195a36600c002e60062fa3",
+        "artifacts/minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/data/.part-00000-73216694-bc02-44e3-b566-c6a62fe9fe61-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+        "artifacts/minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/data/part-00000-73216694-bc02-44e3-b566-c6a62fe9fe61-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+        "artifacts/minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/metadata/.part-00000-4a0746f4-3663-4e13-bb08-230ee472048f-c000.txt.crc": "041d446dd8845335b7b3eae3ee02a0eb395e918533421d8fe54e7cd61e58e3c5",
+        "artifacts/minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/metadata/part-00000-4a0746f4-3663-4e13-bb08-230ee472048f-c000.txt": "6e4fefbd929cd4d7d8a1dad43429a75aee6d6ac0c3685d9d7a41ad782bb954f3",
+        "artifacts/minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+        "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/metadata/.part-00000-189f3048-5994-41d1-81ef-a693a4a168db-c000.txt.crc": "0044d0c8da9d421cf60fb9368916f8429708276a13c60eeaecc240e5e4512b7d",
+        "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/metadata/part-00000-189f3048-5994-41d1-81ef-a693a4a168db-c000.txt": "9202fcef901bd7918cf79584b3534b3769af8e25493eb0fe5658a44576012ad1",
+        "artifacts/pipeline/stages/0_VectorAssembler_4d428fd2bc0a/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/0_VectorAssembler_4d428fd2bc0a/metadata/.part-00000-ef190873-34ab-4304-9b75-eb958cb362fc-c000.txt.crc": "0278bc539a5e46c1380ecfa2509f9f289eab48063cb917e810c73e9b9914a29d",
+        "artifacts/pipeline/stages/0_VectorAssembler_4d428fd2bc0a/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/0_VectorAssembler_4d428fd2bc0a/metadata/part-00000-ef190873-34ab-4304-9b75-eb958cb362fc-c000.txt": "d5e3ea6e970e95d67f05d539afab579bf6d62506a566cf1c9dcc2fa971152827",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/data/.part-00000-6e210b71-2589-418a-bde6-36b2a6cacd89-c000.snappy.parquet.crc": "61052fd47621856a34ae9c9f3b030171e88d48a153ebd84ea9099ed69c4282fa",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/data/part-00000-6e210b71-2589-418a-bde6-36b2a6cacd89-c000.snappy.parquet": "9536f10f14d501a5cd0fad4f096488028f3d3e2c2d6e8a58b5b1fd0d741921c6",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/metadata/.part-00000-4638807a-e4e9-40c2-adbd-4354676c1159-c000.txt.crc": "da293cf365988b7e1b43e41c0afee3f353452d4c7f1fcb0d0adcbf414fb09933",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/metadata/part-00000-4638807a-e4e9-40c2-adbd-4354676c1159-c000.txt": "668873bd9bfeaa57cdeb0bbbc1a5891d9ad89b08a3e20678599137ae7b02ad55",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/treesMetadata/.part-00000-0d775eef-05cf-491d-8f5e-e58b16828280-c000.snappy.parquet.crc": "32dc36d73bdbe22aa908e139fa219912fb01c4ac1cc138086d4d140e0e27079d",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_3fd7394b9475/treesMetadata/part-00000-0d775eef-05cf-491d-8f5e-e58b16828280-c000.snappy.parquet": "3cab7b0a7d2907f3a3d7b54e71916443ab2860e9a081db754894b334acec2d33",
+        "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+        "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+        "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+        "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+        "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+        "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+        "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+        "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+        "code/lakematch/cli.py": "57c30aac61585a8ce77c711ba06b06ca2b7b97e48fb6e3bb4b1b34814dc155d8",
+        "code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+        "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+        "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+        "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+        "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+        "code/lakematch/engine.py": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36",
+        "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+        "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+        "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+        "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+        "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+        "code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+        "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+        "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+        "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+        "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+        "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+        "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+        "input_example.json": "dce4514df354f99a3a706247c65a5d5180e2c945df52586e784a32bf5b63c7ac",
+        "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+        "registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+        "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+        "serving_input_example.json": "8bdbf10b69d615258b45896a3ca656ad8ee649d4408649dfaf28efb7691a67fd"
+      }
+    },
+    "walmart_amazon": {
+      "model": {
+        "run_id": "2eff5d15f87a4b8db9af6b9b772d4eb2",
+        "model_uri": "runs:/2eff5d15f87a4b8db9af6b9b772d4eb2/model",
+        "logged_model_uri": "models:/m-c10c8526c07f4b488b52bfed12fb9606",
+        "label_set_sha256": "a13cec11860fc990531a9fb796f97d788cd9900b1f38e2bd64783622bea373c1",
+        "artifact_bytes": 666561,
+        "registry": false
+      },
+      "config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "table",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "walmart_amazon",
+          "id_column": "rec_id",
+          "fields": {
+            "brand": {
+              "type": "organisation"
+            },
+            "category": {
+              "type": "title"
+            },
+            "modelno": {
+              "type": "title"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "title"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "brand"
+            ],
+            [
+              "prefix3(brand)"
+            ],
+            [
+              "category"
+            ],
+            [
+              "prefix3(category)"
+            ],
+            [
+              "modelno"
+            ],
+            [
+              "prefix3(modelno)"
+            ],
+            [
+              "price"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.47,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/walmart_amazon/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "selection_run": "20260920T015417Z-candidate-pairs-walmart_amazon-6f1bfa",
+      "selection_report": "experiments/20260920T015417Z-candidate-pairs-walmart_amazon-6f1bfa/evidence/report.json",
+      "selection_report_sha256": "08b25cb25074a01ed7e30ddf57d32502d1101ffccff24003d7b70b2d36b73289",
+      "validation_f1": 0.662379421221865,
+      "corpus_manifest": {
+        "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+        "license": "mirror Apache-2.0; upstream unspecified",
+        "raw_sha256": {
+          "train": "092fccd11c1cc1ffe54a702af276641218ce9506e6d60fb5a29a3c67d87892c3",
+          "valid": "4b07b12d5eb411736da03385d7543a34c77e5d9d364c25d67e987ebabc58c92c",
+          "test": "85ee132c4e45073a4b5ab8168d5db8af3e354b7b46dae19fd111757c0a6a97f6"
+        },
+        "split_method": "official",
+        "duplicate_or_reversed_pairs_removed": 5,
+        "conflicting_pair_keys_excluded": 1,
+        "shared_records_between_splits": {
+          "test/train": 1507,
+          "test/valid": 959,
+          "train/valid": 1519
+        },
+        "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+        "split_counts": {
+          "test": 2047,
+          "train": 6141,
+          "valid": 2047
+        },
+        "corpus": "walmart_amazon",
+        "seed": 2026091901,
+        "fields": {
+          "brand": {
+            "type": "organisation"
+          },
+          "category": {
+            "type": "title"
+          },
+          "modelno": {
+            "type": "title"
+          },
+          "price": {
+            "type": "number"
+          },
+          "title": {
+            "type": "title"
+          }
+        },
+        "retrieval": false,
+        "files": {
+          "left": {
+            "path": "data/bench/walmart_amazon/left.jsonl",
+            "sha256": "2317233925ba4486b439429849b2158d4ecbdf459dabdc519c5520ed20db3691",
+            "rows": 1688
+          },
+          "right": {
+            "path": "data/bench/walmart_amazon/right.jsonl",
+            "sha256": "821805742e55a69c1460dee1773fae4751899a1f026846336155bf279a3a4348",
+            "rows": 5247
+          },
+          "pairs": {
+            "path": "data/bench/walmart_amazon/pairs.jsonl",
+            "sha256": "fbcea580202359bf0147d080b0ca334de4b10c02bf77ed1a01ab18f400021769",
+            "rows": 10235
+          }
+        },
+        "confirmation_scored": false
+      },
+      "model_path": "/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/tmpu54c618q/model",
+      "model_files": {
+        "MLmodel": "2fd14b350ae2a21797e21af4e18fc4a47ad990048886e63c5988dc84d74d073b",
+        "artifacts/contract.json": "65f3c2384b834148c089619b51675fb6c28e80c26f6cd5612dc3388c3e26ec9f",
+        "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/idf/.part-00000-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet.crc": "94c713f77d767812eb7f7e94d6cd75df296e69feb8cf15c3c25dca3cb67e69a2",
+        "artifacts/idf/.part-00001-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet.crc": "5449da8cc26423a198636d275e075ce900260034f61ba57bf227b311c928833c",
+        "artifacts/idf/.part-00002-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet.crc": "a8c61cf9b492867dc2593547c7153ba218f460f87fcd4b1ad168a14324420d4d",
+        "artifacts/idf/.part-00003-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet.crc": "2b99861c73ced3f56e7743695d0eb580340899d88360435a65e1cbdf768e9d0c",
+        "artifacts/idf/.part-00004-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet.crc": "233a14e9f79730323cd0f34ce198abf6a5d2104ea777b91a31a4d90698cb543f",
+        "artifacts/idf/.part-00005-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet.crc": "4991a937c205bf153356aadedcaa216126d0f6d37bb0de1a23f4064c3d99e6c7",
+        "artifacts/idf/.part-00006-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet.crc": "b4b09664e52360afc34e11ab0136ccea0e118221a9e794efb58df36ffb780b5d",
+        "artifacts/idf/.part-00007-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet.crc": "cb6bd0e518a8c25427a3898fec6ffbe5b77aa829b8874c4257c088dc88f79b8b",
+        "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/idf/part-00000-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet": "298c19767d1cb1130304b5a249e2d0050007ce59c07e5b08209d34b809041ff5",
+        "artifacts/idf/part-00001-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet": "26d0ef39d9b452f57d59db3a0fd54849ccf1a3318606e517b2775701d8b44eb0",
+        "artifacts/idf/part-00002-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet": "c4d7dc3aee627dcb044f30d57dafc2ce8d973b290f5bd2a6272486b53c3ad64b",
+        "artifacts/idf/part-00003-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet": "a67330d296df554f798b8e50124c8b61d8e79a4f7d9298dbeb45d000613bd6b4",
+        "artifacts/idf/part-00004-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet": "d3aa9abec5103084052c4ff7a736c83ccf5256cab0de0c095776f24256a392c7",
+        "artifacts/idf/part-00005-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet": "cdd07b8db58afaf52f478d94d7ac30e385df05a5ef55dbd5659e58c4fb9d498d",
+        "artifacts/idf/part-00006-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet": "bd13bee9ee13f889426344af663b7ce030125f62622a3a8413974864954bf31b",
+        "artifacts/idf/part-00007-d81ab456-c32d-4a05-b88c-6b8f86590a8e-c000.snappy.parquet": "d75de65a939c2c4cf676c3e72a07acf5f1631c26223bb191e0747c309d1d74c9",
+        "artifacts/integrity.json": "7160368eab1104d7f223da36052f5af65c5e776ae8a395912eea2f3fd09bce62",
+        "artifacts/labels.json": "04e0242f76f656d6f3d8da9a92b09c7b919f9a69796cb37e56b98eff3549e3e0",
+        "artifacts/minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/data/.part-00000-35273c7c-4081-477a-8581-050832a29c8e-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+        "artifacts/minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/data/part-00000-35273c7c-4081-477a-8581-050832a29c8e-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+        "artifacts/minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/metadata/.part-00000-e9a97d74-cf2d-4dcc-9d58-8afb85931492-c000.txt.crc": "27951f90c2fec4793c092c42be504eeeb370322c41c580c88acf878624e9a395",
+        "artifacts/minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/metadata/part-00000-e9a97d74-cf2d-4dcc-9d58-8afb85931492-c000.txt": "bd91ff739864b78cf89c2a8b054556f7976ea019541c41db6ba190dfd172fd47",
+        "artifacts/minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+        "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/metadata/.part-00000-53615072-218a-40ff-82d3-1b37b4d85c14-c000.txt.crc": "bde32b475dd2bea4194b97e4efbf46178fba7c7ea5f052c58ea8365291fa9166",
+        "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/metadata/part-00000-53615072-218a-40ff-82d3-1b37b4d85c14-c000.txt": "4e69ff52e5c265955a56ea53ead4c475e7f9dc8b50933c2c9296aeee36f4b151",
+        "artifacts/pipeline/stages/0_VectorAssembler_2674e2e48795/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/0_VectorAssembler_2674e2e48795/metadata/.part-00000-e6a0b7c5-a7a5-48ea-b1af-e91434321358-c000.txt.crc": "a70f947857ebf3e154a84998e533a7e77734cd776563c43e0b30750ce4d143e0",
+        "artifacts/pipeline/stages/0_VectorAssembler_2674e2e48795/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/0_VectorAssembler_2674e2e48795/metadata/part-00000-e6a0b7c5-a7a5-48ea-b1af-e91434321358-c000.txt": "1dcc6931f46521dc18b72e96b3915ab13e8777ccb82bb253f9757b47c28c3678",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/data/.part-00000-65715d83-06e5-4be1-8639-056958ca5f92-c000.snappy.parquet.crc": "84ff2e00e25dc54c2bcb58d0740484b738e9737e9d75d18c34bb2d9c0bae823a",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/data/part-00000-65715d83-06e5-4be1-8639-056958ca5f92-c000.snappy.parquet": "88e3f0c69682d275a63649f83bed006959bab2c01fc34ada673357848f6a4514",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/metadata/.part-00000-fbd78c38-0423-4616-b4a1-f872693b6879-c000.txt.crc": "5f95a798b020dea8d3da29f2ec6f182a95a5f03dd3541965632be40315c28857",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/metadata/part-00000-fbd78c38-0423-4616-b4a1-f872693b6879-c000.txt": "ed2fa484e9814853ed87565973156b359e12d743efe6b6f0ab9d6b063b6aaaf5",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/treesMetadata/.part-00000-0e1b59fa-8ca3-4746-b6e4-661f47cae7fe-c000.snappy.parquet.crc": "1450e571e673faf12d6f94608f8f822130b73458d23e338c0ee2bb209805e37e",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_91cd323a8075/treesMetadata/part-00000-0e1b59fa-8ca3-4746-b6e4-661f47cae7fe-c000.snappy.parquet": "7ce029101a1bde8f5ac640157eb9efd3ad13d7bf2462dc823ece5974375c582c",
+        "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+        "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+        "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+        "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+        "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+        "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+        "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+        "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+        "code/lakematch/cli.py": "57c30aac61585a8ce77c711ba06b06ca2b7b97e48fb6e3bb4b1b34814dc155d8",
+        "code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+        "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+        "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+        "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+        "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+        "code/lakematch/engine.py": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36",
+        "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+        "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+        "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+        "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+        "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+        "code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+        "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+        "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+        "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+        "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+        "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+        "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+        "input_example.json": "dee1c58b7b014f8c2e5aaf09bfcdc6ba9b9bd2bd1f591ad6ad88562b9a96a6bf",
+        "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+        "registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+        "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+        "serving_input_example.json": "e31d96c0e8f68fc1eef01ca564b05c62931efdc66f894566ceefd21dbe969736"
+      }
+    },
+    "dblp_acm": {
+      "model": {
+        "run_id": "69a22d0f72dc481c9ed75845b33e9ade",
+        "model_uri": "runs:/69a22d0f72dc481c9ed75845b33e9ade/model",
+        "logged_model_uri": "models:/m-7b13417aef34472d819ebdb74523a43d",
+        "label_set_sha256": "18efe0f821c614c7ca07791f7091a98d791a1556ced1d0ef36dce352b4d5a12d",
+        "artifact_bytes": 610250,
+        "registry": false
+      },
+      "config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "table",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "dblp_acm",
+          "id_column": "rec_id",
+          "fields": {
+            "authors": {
+              "type": "person_name"
+            },
+            "title": {
+              "type": "title"
+            },
+            "venue": {
+              "type": "title"
+            },
+            "year": {
+              "type": "number"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "authors"
+            ],
+            [
+              "soundex(authors)"
+            ],
+            [
+              "title"
+            ],
+            [
+              "prefix3(title)"
+            ],
+            [
+              "venue"
+            ],
+            [
+              "prefix3(venue)"
+            ],
+            [
+              "year"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.73,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/dblp_acm/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "selection_run": "20260920T015634Z-candidate-pairs-dblp_acm-96087b",
+      "selection_report": "experiments/20260920T015634Z-candidate-pairs-dblp_acm-96087b/evidence/report.json",
+      "selection_report_sha256": "6462096303062f58afe92fc8960e4d8305ac163090cbfe1f36d6fbaf0c371f50",
+      "validation_f1": 0.9851088201603666,
+      "corpus_manifest": {
+        "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+        "license": "mirror Apache-2.0; upstream unspecified",
+        "raw_sha256": {
+          "train": "4f757d2d5dae4f7d7d118b796c683a232b4e11bf000e2012b64f8af95a981a4e",
+          "valid": "b13444a2bf1a503ed558e782f42b247cf56e16e67be2e58d92d7435161299e2e",
+          "test": "ded891e469b1d08e21269038c984dc761ae2fd5b142b00c46c30fce45adc6e68"
+        },
+        "split_method": "official",
+        "duplicate_or_reversed_pairs_removed": 235,
+        "conflicting_pair_keys_excluded": 7,
+        "shared_records_between_splits": {
+          "test/train": 2025,
+          "test/valid": 1470,
+          "train/valid": 2044
+        },
+        "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+        "split_counts": {
+          "test": 2407,
+          "train": 7282,
+          "valid": 2407
+        },
+        "corpus": "dblp_acm",
+        "seed": 2026091901,
+        "fields": {
+          "authors": {
+            "type": "person_name"
+          },
+          "title": {
+            "type": "title"
+          },
+          "venue": {
+            "type": "title"
+          },
+          "year": {
+            "type": "number"
+          }
+        },
+        "retrieval": false,
+        "files": {
+          "left": {
+            "path": "data/bench/dblp_acm/left.jsonl",
+            "sha256": "ae18230a1000d9b6b274367e80a98600ef7d3a1ea1d4c6950bd1bfa5d0695ee0",
+            "rows": 2436
+          },
+          "right": {
+            "path": "data/bench/dblp_acm/right.jsonl",
+            "sha256": "6a2b35d27a96de2861abeba00adb8f8610a3727b7346773e13bf0dce27dbb8bd",
+            "rows": 2245
+          },
+          "pairs": {
+            "path": "data/bench/dblp_acm/pairs.jsonl",
+            "sha256": "b569260632aa0e98786c95da9a469a6a94d82269ccec703e1bb364e3c3b3d871",
+            "rows": 12096
+          }
+        },
+        "confirmation_scored": false
+      },
+      "model_path": "/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/tmpcku7cn4l/model",
+      "model_files": {
+        "MLmodel": "328b22267b7c43cfe2fe45f231bcd247dbc612207c569680b90eab1c18787098",
+        "artifacts/contract.json": "f3019e959ac858878e09e8c7bfb6009472cf548b01370fc79c23d55f595b1035",
+        "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/idf/.part-00000-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet.crc": "f75c8381eec52013065cb02c83c0de4488bb46f8f72ad79a4041dc64b6e35675",
+        "artifacts/idf/.part-00001-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet.crc": "42f9734a2c493065d43591339f846eb5684796b9edcb2e6d083628be0a171b0a",
+        "artifacts/idf/.part-00002-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet.crc": "f7d621f87ff9611b7a81845e0d39cc2f0f1eb3201eda86316d7462e6ffe3817a",
+        "artifacts/idf/.part-00003-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet.crc": "5944e52a8db4eb8e6399c041e6d4dc34615fc228ab7c2c8b2e5f2df4417fb1c9",
+        "artifacts/idf/.part-00004-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet.crc": "ff31beabd3a10419f548a13fc27b151d1cd1e0e2e248cb7464030326627cb6b0",
+        "artifacts/idf/.part-00006-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet.crc": "0058c4031a01b0cc7f3438984a2e91624962e19c13dedb22b81c230f9023d4ef",
+        "artifacts/idf/.part-00007-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet.crc": "254a5273e44a0228c5b27026d7925bcc2d824a70ffd0110a3c8dc6e43a7dcc46",
+        "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/idf/part-00000-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet": "70e4db58c6520e056969c193118c38dd0a71cf21172027a33c531c6aa99e0224",
+        "artifacts/idf/part-00001-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet": "30d06d1204f09703ebca516de2b9907551803a8218e07d422d41e525cc05f944",
+        "artifacts/idf/part-00002-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet": "4f505f525958f17e080ff6b5c815dc8298ff94689a0d20192dc51b950c3e47d6",
+        "artifacts/idf/part-00003-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet": "36d1abf1b6034a632fd41127a6a326b0e4334e9a2c128380a390b6edbbaa8f80",
+        "artifacts/idf/part-00004-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet": "e71a00683a31efed12d04d50f722603701ddeae65cf9a6432a83c103c17ae27a",
+        "artifacts/idf/part-00006-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet": "fa141d5aac6b03654b64c5bdb6125126d4b4c30e312d4436d665e85d1e48131e",
+        "artifacts/idf/part-00007-58fbd9d9-9347-4961-a090-a641d6205b7f-c000.snappy.parquet": "a1e4d5c5fa16e9782c30f1d83d9c84c6b1838360f7c374a8eb5385eebe61648d",
+        "artifacts/integrity.json": "e83909332ebff427dfadb326aec9d31060a1e8d884957b653308680cd21d51ef",
+        "artifacts/labels.json": "c2617f98128b42eb2429dc0bc3b789419f3e118090915e5c6c3c653182d2b60c",
+        "artifacts/minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/data/.part-00000-5f366120-a0a0-4f6a-a5f1-0465be212a06-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+        "artifacts/minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/data/part-00000-5f366120-a0a0-4f6a-a5f1-0465be212a06-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+        "artifacts/minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/metadata/.part-00000-82738214-40cc-4c35-b644-1ecd5c65ab50-c000.txt.crc": "bb97bf7f299e4f420da69d5695ff24e35faa24164629272c113164c0d2825144",
+        "artifacts/minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/metadata/part-00000-82738214-40cc-4c35-b644-1ecd5c65ab50-c000.txt": "1ddfbd8b23b6321001b5e00196225a8ad39eb9c2ecd95770622b389ac88141e3",
+        "artifacts/minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+        "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/metadata/.part-00000-85a9f494-64b6-4362-a375-c941713e0fff-c000.txt.crc": "2bb400ff4fbabd9d58dbe1dbc83d99808ca7ae2c2203721edd310964b4abc8ce",
+        "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/metadata/part-00000-85a9f494-64b6-4362-a375-c941713e0fff-c000.txt": "03e27d795460f90db99feb7187821839e1063581d99e64b483d370ef1269e498",
+        "artifacts/pipeline/stages/0_VectorAssembler_80c1011c8e87/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/0_VectorAssembler_80c1011c8e87/metadata/.part-00000-af68ff46-aac6-4d96-836d-4389c72a58f1-c000.txt.crc": "30b907bebf9a4e699c9d6ca8703bd1b0725f21d0d770bf7501b679d2bee1ca7d",
+        "artifacts/pipeline/stages/0_VectorAssembler_80c1011c8e87/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/0_VectorAssembler_80c1011c8e87/metadata/part-00000-af68ff46-aac6-4d96-836d-4389c72a58f1-c000.txt": "2fa9c7a789f0cff604b7c9e982c65a5a4a9e9ee6df42b494e409665b678d7569",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/data/.part-00000-225868ab-bfe8-4511-82e7-bff67dc069f4-c000.snappy.parquet.crc": "72e0f519b0af746e64b217408c5089066821d0bb02d8b15fee9bba9d6d6a3316",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/data/part-00000-225868ab-bfe8-4511-82e7-bff67dc069f4-c000.snappy.parquet": "700da1babf6b7e679fbcc00f3b514ee2be741b4d05e76040438bb5653f771df1",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/metadata/.part-00000-da85a723-b4f6-409b-8efc-2fdbc303e780-c000.txt.crc": "501ae4c44c4dc82c6919447734b46b1f7421995f62126808dbbb44801d3a0f92",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/metadata/part-00000-da85a723-b4f6-409b-8efc-2fdbc303e780-c000.txt": "d42f5eeb62005e8ed820765062a30a43bebf88ec1dec7e86108a6d7af36274ee",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/treesMetadata/.part-00000-0d7b3aa0-7b25-48e2-bb39-ee196104dc66-c000.snappy.parquet.crc": "d45a0167e611f3136fd7beb549b0f0dff89b549c907b4e5266ac429594d1c9c8",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_fe4b51fd5289/treesMetadata/part-00000-0d7b3aa0-7b25-48e2-bb39-ee196104dc66-c000.snappy.parquet": "7574ded2257115a06f0e4df44fc58818f7d4ac1b0cc2fee40f8f1ea394974a15",
+        "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+        "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+        "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+        "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+        "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+        "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+        "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+        "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+        "code/lakematch/cli.py": "57c30aac61585a8ce77c711ba06b06ca2b7b97e48fb6e3bb4b1b34814dc155d8",
+        "code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+        "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+        "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+        "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+        "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+        "code/lakematch/engine.py": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36",
+        "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+        "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+        "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+        "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+        "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+        "code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+        "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+        "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+        "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+        "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+        "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+        "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+        "input_example.json": "e1db4f13bf8cd27dab82c370be1c5195a6a61706bdfc9e5248c38189f1b2560f",
+        "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+        "registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+        "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+        "serving_input_example.json": "0f133551aa9aad7c20c863d4d62c23e4198576bd8844fea295adcd498e30b5e7"
+      }
+    },
+    "affiliations": {
+      "model": {
+        "run_id": "b9b85bbd31974960811cd239934d29b8",
+        "model_uri": "runs:/b9b85bbd31974960811cd239934d29b8/model",
+        "logged_model_uri": "models:/m-24288230043f4b04a32a63b69fc708d0",
+        "label_set_sha256": "2539881f2171cbf0aa7f204469e805de7e1794cbce3a2c9142dabedf313073e0",
+        "artifact_bytes": 493639,
+        "registry": false
+      },
+      "config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "table",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "affiliations",
+          "id_column": "rec_id",
+          "fields": {
+            "name": {
+              "type": "organisation"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "name"
+            ],
+            [
+              "prefix3(name)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.12,
+          "cardinality": "unrestricted"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/affiliations/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-candidate-pairs",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "selection_run": "20260920T015946Z-candidate-pairs-affiliations-1f940b",
+      "selection_report": "experiments/20260920T015946Z-candidate-pairs-affiliations-1f940b/evidence/report.json",
+      "selection_report_sha256": "a7038b84c9957b5257545d77ed4583cee0f6f1370c58a004a58d5beb73220d9d",
+      "validation_f1": 0.35935085007727974,
+      "corpus_manifest": {
+        "source": "Leipzig affiliationstrings.zip",
+        "license": "CC BY 4.0",
+        "identity_components": 330,
+        "negative_sampling": "5 per anchor, same split, different released component",
+        "raw_sha256": {
+          "affiliationstrings_ids.csv": "884305d8fdc164cd86b3128efdfce2d1415875657d92644559001f3110daa886",
+          "affiliationstrings_mapping.csv": "9a3e1cb99b8b6d44f3ab3423efc10f46323371d2f1e5a241fb58c609f9f02770"
+        },
+        "split_method": "released identity components 60/20/20, SHA-256 ranking",
+        "duplicate_or_reversed_pairs_removed": 145,
+        "conflicting_pair_keys_excluded": 0,
+        "shared_records_between_splits": {
+          "confirmation/train": 0,
+          "confirmation/valid": 0,
+          "train/valid": 0
+        },
+        "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+        "split_counts": {
+          "confirmation": 6896,
+          "train": 17078,
+          "valid": 3976
+        },
+        "corpus": "affiliations",
+        "seed": 2026091901,
+        "fields": {
+          "name": {
+            "type": "organisation"
+          }
+        },
+        "retrieval": false,
+        "files": {
+          "left": {
+            "path": "data/bench/affiliations/left.jsonl",
+            "sha256": "3bdb23a83013e7eff14aaf1153a75f3a967657ea5b767c15e5155bf7114a01b0",
+            "rows": 2257
+          },
+          "right": {
+            "path": "data/bench/affiliations/right.jsonl",
+            "sha256": "74ce49499fe66b374027f440f209ea330fe00e7892dfa8de61f06ba082a14899",
+            "rows": 2255
+          },
+          "pairs": {
+            "path": "data/bench/affiliations/pairs.jsonl",
+            "sha256": "854397cd05955cb6ccdc5f987f45fe53fd7f7917bd1b1a18d51daece4cb9fbb5",
+            "rows": 27950
+          }
+        },
+        "confirmation_scored": false
+      },
+      "model_path": "/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/tmp2yo5t_ru/model",
+      "model_files": {
+        "MLmodel": "202180cb01b2d65076bcf94e92f4ae6786de8c2e1494b455e600cffc9b62cb6d",
+        "artifacts/contract.json": "2819497d99bc8432a012b7b834d365932a73ec6d7dc6a8886df7d9949f666b06",
+        "artifacts/idf/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/idf/.part-00000-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet.crc": "47f6dabf550fe981f2b97ff75fe39057f9e6840adee823a73d9109a93aa3c899",
+        "artifacts/idf/.part-00001-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet.crc": "144beac6dc601a18a37125f935e7b55a6c753b6b2338dbe6efd9e8ed8388685e",
+        "artifacts/idf/.part-00002-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet.crc": "d75cee8c840e85065d6b3e265635078ce367ca849a05e2c3bf39e6a12dd6fff5",
+        "artifacts/idf/.part-00003-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet.crc": "97840c7d4a1ef7e5e023e91c8ed06e87a62402d7749af768e4bc91ec77b87df4",
+        "artifacts/idf/.part-00007-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet.crc": "eb3559f3e46a05a04f3cd2eb8678d0452225511b55eab87bdac9efe71df741d3",
+        "artifacts/idf/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/idf/part-00000-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet": "b26a1565cadd66c7a943e1420cea9ba82cd0b40fe2819238079e96ee9ccc555b",
+        "artifacts/idf/part-00001-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet": "267e4ef1aac662b134ac37ce13e22af9ff1d6c3856cb643361ed1ab4b2e4715e",
+        "artifacts/idf/part-00002-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet": "6011ed3c549acd41132df9ce61423fffaf2747149392934c550778c93eec7616",
+        "artifacts/idf/part-00003-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet": "8fbf56104191c55b57026df12b9b8362bff88de7635d432a941531e114a990b4",
+        "artifacts/idf/part-00007-83459665-9ff9-470d-a120-6be9b8b5d65d-c000.snappy.parquet": "9609c2e850b9a63b5ca6899afe17b6a29266742c929ab2feb5dc76a928fffa25",
+        "artifacts/integrity.json": "6427f517972178498ca4f952708c4fddd2ff01cd66ba97eeb0c2fcc7807f4e78",
+        "artifacts/labels.json": "e8bda39159277d2ce71dee235d22fc1a7f587cc576927f5e0e3e318cc15179f0",
+        "artifacts/minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/data/.part-00000-a09835f6-ac03-4d30-b6b1-600ce685e4e9-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+        "artifacts/minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/data/part-00000-a09835f6-ac03-4d30-b6b1-600ce685e4e9-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+        "artifacts/minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/minhash_lsh_state/lsh/metadata/.part-00000-7ccf69da-1906-4e98-9a46-397459ad2dc3-c000.txt.crc": "36984e6bd495ac00a07d5645cf0e4a39a1541a1a8fec5988a679cfb97ac11445",
+        "artifacts/minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/minhash_lsh_state/lsh/metadata/part-00000-7ccf69da-1906-4e98-9a46-397459ad2dc3-c000.txt": "fa164561f9df60821e60b9c18ba11dacc0cc79bc323356672b6dd837c60cf85b",
+        "artifacts/minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+        "artifacts/pipeline/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/metadata/.part-00000-e1b9c890-149b-473c-a952-562ab1552c79-c000.txt.crc": "a878430e844063e4ec1192b199dfecc1a756e042f1a64c512e4ff2785e107a79",
+        "artifacts/pipeline/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/metadata/part-00000-e1b9c890-149b-473c-a952-562ab1552c79-c000.txt": "8ee10f9ada667090c74390d92f504cef85220612eaadc9e2d3ba3c07cd6afca9",
+        "artifacts/pipeline/stages/0_VectorAssembler_299b4bc9ccb3/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/0_VectorAssembler_299b4bc9ccb3/metadata/.part-00000-65ea0568-ad2b-4473-92a9-2e81bbafaa79-c000.txt.crc": "991d9fe7bd1af0d080e0549a0eae71ba35c042f44f6a7d9f76d8f62e6ad4b4c9",
+        "artifacts/pipeline/stages/0_VectorAssembler_299b4bc9ccb3/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/0_VectorAssembler_299b4bc9ccb3/metadata/part-00000-65ea0568-ad2b-4473-92a9-2e81bbafaa79-c000.txt": "d2e0d29b8ffdfb0ae591017217cf8eef3c4ebb96198cf86ebd4717c5936a7f01",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/data/.part-00000-4a81c598-2c3c-45c5-a17d-ca1224eead90-c000.snappy.parquet.crc": "b5c349f3e13f6b6ce0b97fd73aae505f964e6f8a81bcc4b15fc74eebc436fad9",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/data/part-00000-4a81c598-2c3c-45c5-a17d-ca1224eead90-c000.snappy.parquet": "f99812f6bac2c12913c2b71621b276146a7347647a6d9d15daf2a349ce6b044a",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/metadata/.part-00000-d4980bd3-21c0-49cb-97e8-d182d95eec64-c000.txt.crc": "92ebb91ad8bde297ba6da90eb012a23e301f7de3b29c52c77ce05f8320774600",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/metadata/part-00000-d4980bd3-21c0-49cb-97e8-d182d95eec64-c000.txt": "115db6297c3277557837085833952963f0682a1c37a21f488e9741b9a6150a26",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/treesMetadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/treesMetadata/.part-00000-748b2a1a-7376-4482-a34d-59d4abdca8a9-c000.snappy.parquet.crc": "b03513beb991172e3b174aecfcadb582d68e538c83c3f94539092911d984e196",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/treesMetadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/pipeline/stages/1_GBTClassifier_d7add9ecc235/treesMetadata/part-00000-748b2a1a-7376-4482-a34d-59d4abdca8a9-c000.snappy.parquet": "91819db33b069fdd0effa50f6a1436a2c99b0c77f071995d8c3fedaf837d63e5",
+        "code/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+        "code/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+        "code/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+        "code/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+        "code/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+        "code/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+        "code/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+        "code/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+        "code/lakematch/cli.py": "57c30aac61585a8ce77c711ba06b06ca2b7b97e48fb6e3bb4b1b34814dc155d8",
+        "code/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+        "code/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+        "code/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "code/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+        "code/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+        "code/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+        "code/lakematch/engine.py": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36",
+        "code/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+        "code/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+        "code/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+        "code/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+        "code/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+        "code/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+        "code/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+        "code/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+        "code/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+        "code/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+        "code/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+        "composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+        "conda.yaml": "adf54c1e52c37c7637949fa6c1f7ec59d9ffe7244519a53f5fe7b388a2fd93a2",
+        "input_example.json": "514f758f17612bbe01e008f9a859b458acaa0e72e50044d71d5a96c2c3425c3a",
+        "python_env.yaml": "1f08e5526e38122351eeb319df6f01aa4a88d32c9a4a2d8fe9513ac54a593cdd",
+        "registered_model_meta": "f6f1956a8fc1e03c255aeb1c2a61d3efbc436b068d20cb34ff21e8ff74f1fc15",
+        "requirements.txt": "be5dbe4cfd30e9b674d99e245bacb3b773e0db4d25f7f1463c33860c28ce9bb5",
+        "serving_input_example.json": "cb12f2c239121c5ce998130110d066f5cad38ac0de3441eb583591312a77c7da"
+      }
+    }
+  },
+  "candidate_index_sha256": "371c6c16937c55fc3716c1b0217d648d8eb449c72ce6969be6418ee68215340f",
+  "selection_sha256": "21bbb6f941a3863ecb9899ccd6771f941e957e8b7b8fc8cf28448b12919924c5",
+  "execution_sources": {
+    "src/lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "src/lakematch/benchmark/__init__.py": "1dbe742980325f960b8957a58972e6d9907d4b76481e02c4c021854e4fcc8e4e",
+    "src/lakematch/benchmark/clusters.py": "12f7dc2a9fb17e55c515542fc56a177881b45c6b7f29b52860cb8e1f3685ca82",
+    "src/lakematch/benchmark/corpora.py": "d1d17f502c77595fa20d7adb96dcba3dad507336a54767d1423134941f4216d5",
+    "src/lakematch/benchmark/metrics.py": "5d506c2f7dcfbe35e43b8dfce581f51f787349c0244a539f069b22869746b6d8",
+    "src/lakematch/benchmark/retrieval.py": "98bab8972768527f7164df03491288237446d7d65ed15fa9424f1c2c40ccf7d3",
+    "src/lakematch/blocking.py": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d",
+    "src/lakematch/candidates.py": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829",
+    "src/lakematch/cli.py": "57c30aac61585a8ce77c711ba06b06ca2b7b97e48fb6e3bb4b1b34814dc155d8",
+    "src/lakematch/cluster_job.py": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd",
+    "src/lakematch/clustering.py": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c",
+    "src/lakematch/composite_model.py": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983",
+    "src/lakematch/config.py": "82014a93e058256d1e87ea887b90c8b8915683dabd07425b54880e05c1bbe872",
+    "src/lakematch/decision.py": "b1504c139b7eff7842522ee040854450516c4e343b963423ce8909f9d0fafeae",
+    "src/lakematch/embeddings.py": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e",
+    "src/lakematch/engine.py": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36",
+    "src/lakematch/entity.py": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1",
+    "src/lakematch/feature_stats.py": "8b4732cdc704f68ff9c747894d2c79b65410b531fcc8869f5e158cffd0e526ec",
+    "src/lakematch/features.py": "1c08c814236a1023502a6cd70da2000527f4aa775f1dd1031c37f79fa33096c5",
+    "src/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+    "src/lakematch/matcher.py": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e",
+    "src/lakematch/publication.py": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2",
+    "src/lakematch/quality/__init__.py": "b5a64f64e4d67a3f59d7da0af94933728f90268f788c6ee9142c4379a0963e9f",
+    "src/lakematch/quality/native.py": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634",
+    "src/lakematch/runtime.py": "da59a44101d704c3074e756546a18977ae6ba4c1166e79350079e31b25a5b2e5",
+    "src/lakematch/similarity.py": "e29074d876d06c54672eb0627b89e0740fc3e84f190741652f336f1c33d26fc5",
+    "src/lakematch/tracking.py": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9",
+    "tools/run_frozen_linkage.py": "3aabdf69faa4e3d1fb3699acaa786d190d025bf3ee9c7b206f4964a925a0c258",
+    "tools/run_frozen_pairs.py": "809fae4b840c991ca15911eb9eeae83da3a6067c23d261434b8b4d194462be33",
+    "tools/run_scale.py": "bf1946e29f7525039071108c38a5723887429a12f7156fef8a504307e548e562",
+    "tools/frozen.py": "162ec08d0dff26cf7b6ad192c8c793734b484d71fc38459ca0396a0288b96b22"
+  },
+  "confirmation_policy": "No retraining, threshold changes or resplitting based on confirmation outcomes",
+  "frozen_at": "2026-09-20T02:17:48.816804+00:00"
+}
