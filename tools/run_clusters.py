@@ -81,7 +81,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     raw['mlflow'] = {'tracking_uri': f'sqlite:///{out}/mlflow.db', 'experiment': 'zr4-clusters'}
     config = from_dict(raw)
-    report = {'status': 'running', 'iteration': 3, 'corpus': args.corpus, 'manifest': manifest,
+    report = {'status': 'running', 'iteration': 5, 'corpus': args.corpus, 'manifest': manifest,
         'config': config.data, 'plan': 'bench/CLUSTER_PLAN.md', 'confirmation_scored': False,
         'scope': 'training-only model/feature IDF; entity-disjoint validation graph',
         'pair_context': 'unweighted gram cosine; rank=1; gap=0 for every training/scoring/verification pair',
@@ -143,6 +143,9 @@ def main():
             validation = features.build(candidate_frames['valid'], prepared['valid'], prepared['valid'], config)
             scored = materializer.materialize(matcher.score(validation, model).select('a_id', 'b_id', 'p'), 'scored')
             edges = [(r.a_id, r.b_id, r.p) for r in scored.collect()]
+            path = out / 'edges.json'
+            path.write_text(json.dumps({'edges': edges, 'cosine': simple, 'truth': truth['valid']}) + '\n')
+            files.add(path)
             report['feature_and_score_seconds'] = time.perf_counter() - t0
             threshold = threshold_for(edges, truth['valid'])
             raw['decision']['threshold'] = threshold
@@ -198,6 +201,8 @@ def main():
         report.update(status='completed', cleanup='succeeded')
     except Exception as exc:
         report.update(status='failed', error=f'{type(exc).__name__}: {exc}')
+        if isinstance(exc, clustering.ConvergenceError):
+            report['failed_rounds'] = exc.rounds
         raise
     finally:
         try:

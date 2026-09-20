@@ -1,4 +1,4 @@
-# Incremental identity verification — ZR-4 iteration 4
+# Incremental identity verification — ZR-4 iteration 6
 
 Run only after both native clustering comparisons pass and the macro comparison
 selects a method. Use each corpus's frozen model, threshold, field-block setup

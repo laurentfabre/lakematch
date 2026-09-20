@@ -11,7 +11,9 @@ from pyspark.sql import Window, functions as F
 
 
 class ConvergenceError(RuntimeError):
-    pass
+    def __init__(self, message, *, rounds=None):
+        super().__init__(message)
+        self.rounds = rounds or []
 
 
 @dataclass
@@ -54,6 +56,10 @@ def resolve(vertices, edges, config, materializer, *, pair_scorer=None):
     if ids.groupBy('rec_id').count().filter('count != 1').limit(1).count():
         raise ValueError('Clustering requires unique record IDs')
     size = _bounded(ids, limit, 'Vertex count')
+    # Center/star reuse the remaining-vertex relation many times in one round.
+    # A cached, feature-enriched input still carries its full logical lineage;
+    # truncate the ID-only relation before any of those self-joins.
+    ids = materialize(ids, 'cluster_vertices')
     valid = edges.filter(F.col('p').isNotNull() & ~F.isnan('p') & F.col('p').between(0., 1.) & (F.col('p') >= threshold))
     graph = valid.select(F.least('a_id', 'b_id').alias('a_id'), F.greatest('a_id', 'b_id').alias('b_id'), 'p')
     graph = graph.filter('a_id != b_id').groupBy('a_id', 'b_id').agg(F.max('p').alias('p'))
@@ -72,6 +78,12 @@ def resolve(vertices, edges, config, materializer, *, pair_scorer=None):
         if method == 'connected_components':
             messages = directed.join(labels, F.col('src') == F.col('rec_id')).select(F.col('dst').alias('rec_id'), 'cluster')
             updated = labels.unionByName(messages).groupBy('rec_id').agg(F.min('cluster').alias('cluster'))
+            # Every label is a vertex in the same connected component. Following
+            # that vertex's new label shortcuts long chains without collecting
+            # the graph or changing the minimum-ID fixed point.
+            parents = updated.select(F.col('rec_id').alias('parent_id'), F.col('cluster').alias('ancestor'))
+            updated = updated.join(parents, F.col('cluster') == F.col('parent_id')).select(
+                'rec_id', F.least('cluster', 'ancestor').alias('cluster'))
             updated = materialize(updated, f'components_round_{iteration}')
             changed = labels.withColumnRenamed('cluster', 'old_cluster').join(updated, 'rec_id').filter('old_cluster != cluster').count()
             trace.append({'round': iteration, 'changed_vertices': changed})
@@ -143,4 +155,4 @@ def resolve(vertices, edges, config, materializer, *, pair_scorer=None):
                 F.coalesce('merged_cluster', 'cluster').alias('cluster')), f'verified_round_{iteration}')
         else:
             raise ValueError('Unknown clustering method')
-    raise ConvergenceError(f'{method} did not converge within {config["cluster"]["max_rounds"]} rounds')
+    raise ConvergenceError(f'{method} did not converge within {config["cluster"]["max_rounds"]} rounds', rounds=trace)

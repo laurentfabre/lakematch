@@ -54,7 +54,7 @@ def main():
     compatible, failures = {}, []
     for line in (ROOT / 'experiments/runs.jsonl').read_text().splitlines():
         event = json.loads(line)
-        if not event['kind'].startswith(('splink-', 'cluster-')):
+        if event['kind'] not in {prefix + '-' + name for prefix in ('splink', 'cluster') for name in CORPORA}:
             continue
         manifest = json.loads((ROOT / event['manifest']).read_text())
         if event['status'] != 'passed':

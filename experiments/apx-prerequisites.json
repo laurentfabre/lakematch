@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-09-20T01:16:00.594039+00:00",
+  "repository": "https://api.github.com/repos/databricks-solutions/apx",
+  "cli_version": "0.3.8",
+  "repository_metadata": {
+    "html_url": "https://github.com/databricks-solutions/apx",
+    "archived": false,
+    "disabled": false,
+    "default_branch": "main",
+    "pushed_at": "2026-04-07T17:22:25Z",
+    "updated_at": "2026-08-30T07:44:13Z",
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    }
+  },
+  "latest_release": {
+    "html_url": "https://github.com/databricks-solutions/apx/releases/tag/v0.3.8",
+    "tag_name": "v0.3.8",
+    "published_at": "2026-02-26T17:26:41Z",
+    "prerelease": false,
+    "draft": false
+  },
+  "maintenance_status": "unconfirmed: repository is not archived, but no push since 2026-04-07 and no release since 2026-02-26",
+  "readme_deprecation_statement_found": false,
+  "latest_issue_activity": {
+    "number": 146,
+    "updated_at": "2026-07-13T17:10:48Z",
+    "state": "open"
+  },
+  "installed_skill_status": "legacy; recommends AppKit for new apps, while this goal explicitly requires APX",
+  "bundle_size_status": "not built yet; check before UI implementation",
+  "source_readme": "https://raw.githubusercontent.com/databricks-solutions/apx/main/README.md"
+}

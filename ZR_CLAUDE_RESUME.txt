@@ -50,7 +50,15 @@ DuckDBAPI cache returning training records. Both are retained; no baseline score
 The corrected baselines passed with fresh validation connections and endpoint audits.
 Pairwise/B-cubed F1: FEBRL3 .9979/.9986; historical_50k .8580/.8797.
 See bench/CLUSTERS.md and cluster_index.json. Native comparison is prepared.
-ZR-4 iterations 1 and 2 are those failures; corrected comparison is iteration 3/8.
+ZR-4 iterations 1/2 are those baseline failures. Iteration 3 passed native FEBRL3
+(CC/star/verified F1=1; center .9966), but historical_50k components failed 30 rounds.
+Iteration 4 adds parent-label shortcuts; CLUSTER_FIX_PLAN.md retains the failure.
+A bounded regression checks two disconnected long paths, then both corpora rerun.
+The eight regressions passed; full FEBRL3 then failed with broadcast-memory exhaustion
+during center clustering. Iteration 5 also truncates the initial ID-only vertex relation.
+Both corpus runs are bounded identically. Identity verification moves to iteration 6;
+its harness and plan are prepared. APX maintenance remains unconfirmed (see
+experiments/apx-prerequisites.json); no framework substitution is authorized.
 They are not yet integrated into the CLI or benchmarked on real corpora. Public clustering
 corpora and an isolated Splink environment are prepared; see bench/CLUSTER_PLAN.md.
 Compare all required estimators,

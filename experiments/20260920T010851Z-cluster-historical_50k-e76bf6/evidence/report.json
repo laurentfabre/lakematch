@@ -1,0 +1,308 @@
+{
+  "status": "failed",
+  "iteration": 3,
+  "corpus": "historical_50k",
+  "manifest": {
+    "sources": {
+      "sources": [
+        {
+          "name": "historical_50k",
+          "url": "https://raw.githubusercontent.com/moj-analytical-services/splink_datasets/75876d806d9eff72072d21878150ee50a96d5f41/data/historical_figures_with_errors_50k.parquet",
+          "revision": "75876d806d9eff72072d21878150ee50a96d5f41",
+          "path": "data/sources/clustering/historical_figures_with_errors_50k.parquet",
+          "sha256": "b8b748402ff37b15c2d5e8a5b9374abe269b9d297aacb7f4c9498365b7cace43",
+          "provenance": "Public Wikidata historical figures with introduced duplicate errors, per Splink 4.0.16 metadata",
+          "license": "MIT repository distribution; original Wikidata source CC0"
+        },
+        {
+          "name": "febrl3",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3.csv",
+          "sha256": "5b0443f2568a0e258e52ab015b34fc1736a6ee1863086617f08b2e6997e92458",
+          "license": "BSD-3-Clause distribution"
+        },
+        {
+          "name": "febrl3_links",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3_links.json",
+          "sha256": "d85cd011c5f57f386feb2c27428883663ef08a1c858f9de418fca6be3a39bc99",
+          "license": "BSD-3-Clause distribution"
+        }
+      ]
+    },
+    "split_seed": 2026091901,
+    "split_method": "SHA-256 ranked whole truth entities; floor 60/20/20; no record crosses a split",
+    "evaluation_scope": "partition-specific clustering; confirmation remains unscored",
+    "name": "historical_50k",
+    "fields": {
+      "full_name": {
+        "type": "person_name"
+      },
+      "dob": {
+        "type": "date"
+      },
+      "birth_place": {
+        "type": "address"
+      },
+      "postcode_fake": {
+        "type": "code"
+      },
+      "gender": {
+        "type": "code"
+      },
+      "occupation": {
+        "type": "organisation"
+      }
+    },
+    "records": 50578,
+    "record_digest": "a1c02a72c842158882459d7fc54110de9e18fb1f0bf3095fb258f5226f70a663",
+    "splits": {
+      "train": 30660,
+      "confirmation": 9836,
+      "valid": 10082
+    },
+    "entities": 5156,
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "historical_50k",
+      "id_column": "rec_id",
+      "fields": {
+        "full_name": {
+          "type": "person_name"
+        },
+        "dob": {
+          "type": "date"
+        },
+        "birth_place": {
+          "type": "address"
+        },
+        "postcode_fake": {
+          "type": "code"
+        },
+        "gender": {
+          "type": "code"
+        },
+        "occupation": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "field_blocks",
+      "q": 3,
+      "k": 6,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 500000,
+      "union_of": [],
+      "field_blocks": [
+        [
+          "full_name"
+        ],
+        [
+          "soundex(full_name)"
+        ],
+        [
+          "dob"
+        ],
+        [
+          "year(dob)"
+        ],
+        [
+          "birth_place"
+        ],
+        [
+          "prefix3(birth_place)"
+        ],
+        [
+          "postcode_fake"
+        ],
+        [
+          "gender"
+        ],
+        [
+          "occupation"
+        ],
+        [
+          "prefix3(occupation)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.2,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "connected_components",
+      "max_rounds": 30
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/clusters/historical_50k/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr4-clusters",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/CLUSTER_PLAN.md",
+  "confirmation_scored": false,
+  "scope": "training-only model/feature IDF; entity-disjoint validation graph",
+  "pair_context": "unweighted gram cosine; rank=1; gap=0 for every training/scoring/verification pair",
+  "candidate_scope": "k=6 including self, then self removed and orientations unioned; at most five outgoing nonself neighbours",
+  "rows": [],
+  "baselines": [],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {},
+  "retrieval": {
+    "train": {
+      "budget": {
+        "join_rows_before_cap": 462573775,
+        "join_rows_after_cap": 11192289,
+        "dropped_grams": 42,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 182731,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "undirected_pairs": 108511,
+      "true_pairs": 186920,
+      "covered_positives": 93062,
+      "pair_recall": 0.49787074684356947,
+      "seconds": 61.50408950005658
+    },
+    "valid": {
+      "budget": {
+        "join_rows_before_cap": 49415190,
+        "join_rows_after_cap": 3233038,
+        "dropped_grams": 10,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 60028,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "undirected_pairs": 35247,
+      "true_pairs": 60108,
+      "covered_positives": 30941,
+      "pair_recall": 0.5147567711452719,
+      "seconds": 19.055909249931574
+    }
+  },
+  "feature_and_fit_seconds": 14.153916375013068,
+  "feature_and_score_seconds": 4.11273870896548,
+  "threshold": 0.2,
+  "pair_metrics": {
+    "tp": 30782,
+    "fp": 753,
+    "fn": 29326,
+    "tn": 0,
+    "precision": 0.976121769462502,
+    "recall": 0.5121115325746989,
+    "f1": 0.6717807142935085
+  },
+  "model": {
+    "run_id": "894b868ecadb4a63b7172d2d49e1b813",
+    "model_uri": "runs:/894b868ecadb4a63b7172d2d49e1b813/model",
+    "logged_model_uri": "models:/m-a9450682609947858b3b7da8cf1f0d61",
+    "label_set_sha256": "2f12b799e8da1ed901284b6444539f9b265542c929eab4c52a468918cbe1a22f",
+    "artifact_bytes": 3938778,
+    "registry": false
+  },
+  "error": "ConvergenceError: connected_components did not converge within 30 rounds",
+  "wall_seconds_including_spark": 127.75488412496634
+}

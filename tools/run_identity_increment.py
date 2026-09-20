@@ -76,7 +76,7 @@ def main():
     if mutation_path.exists() and json.loads(mutation_path.read_text()) != mutation:
         raise ValueError('Previously frozen incremental mutation differs')
     mutation_path.write_text(json.dumps(mutation, indent=2) + '\n')
-    report = {'status': 'running', 'iteration': 4, 'corpus': args.corpus, 'method': chosen,
+    report = {'status': 'running', 'iteration': 6, 'corpus': args.corpus, 'method': chosen,
         'comparison_run': entry['run_id'], 'model': reference['model'], 'config': config.data,
         'mutation': mutation, 'confirmation_scored': False, 'runs': [],
         'cost': {'remote_spend': 0, 'live_label_spend': 0}}

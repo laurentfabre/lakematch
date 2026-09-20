@@ -31,5 +31,23 @@ def test_methods_handle_transitivity_veto_and_isolated_records(spark,method,grou
 
 
 def test_incomplete_components_cannot_silently_pass(spark):
-    with pytest.raises(ConvergenceError,match='within 1 rounds'):
+    with pytest.raises(ConvergenceError,match='within 1 rounds') as failure:
         run(spark,'connected_components',max_rounds=1)
+    assert len(failure.value.rounds) == 1
+
+
+def test_component_shortcuts_converge_on_long_paths_without_crossing_components(spark):
+    config=from_dict({'entity':{'fields':{'name':{'type':'person_name'}}},
+        'decision':{'threshold':.9},'cluster':{'method':'connected_components','max_rounds':8}})
+    names=[f'n{i:03d}' for i in range(64)]
+    vertices=spark.createDataFrame([(name,) for name in [*names,'isolated']], 'rec_id string')
+    edges=spark.createDataFrame([(names[i+1],names[i],.99) for i in range(63) if i != 31],
+        'a_id string,b_id string,p double')
+    with Materializer(spark,config,probe(spark)) as materializer:
+        result=resolve(vertices,edges,config,materializer)
+        actual={row.rec_id:row.cluster for row in result.membership.collect()}
+        tables=[event['table'] for event in materializer.events]
+    assert actual=={'isolated':'isolated', **{name:names[0 if i < 32 else 32] for i,name in enumerate(names)}}
+    assert len(result.rounds) <= 8
+    assert result.rounds[-1]['changed_vertices'] == 0
+    assert not any(spark.catalog.tableExists(name) for name in tables)
