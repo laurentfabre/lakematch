@@ -1,0 +1,5 @@
+This subproject was generated with databricks-solutions/apx 0.3.8.
+Upstream: https://github.com/databricks-solutions/apx
+APX-derived scaffold material is subject to APX-LICENSE.txt.
+The root Apache-2.0 license does not replace the upstream APX license.
+README.md, .gitignore and tsconfig.json were modified for lakematch on 2026-09-20.

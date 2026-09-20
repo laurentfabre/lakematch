@@ -1,0 +1,825 @@
+{
+  "status": "completed",
+  "iteration": 5,
+  "corpus": "historical_50k",
+  "manifest": {
+    "sources": {
+      "sources": [
+        {
+          "name": "historical_50k",
+          "url": "https://raw.githubusercontent.com/moj-analytical-services/splink_datasets/75876d806d9eff72072d21878150ee50a96d5f41/data/historical_figures_with_errors_50k.parquet",
+          "revision": "75876d806d9eff72072d21878150ee50a96d5f41",
+          "path": "data/sources/clustering/historical_figures_with_errors_50k.parquet",
+          "sha256": "b8b748402ff37b15c2d5e8a5b9374abe269b9d297aacb7f4c9498365b7cace43",
+          "provenance": "Public Wikidata historical figures with introduced duplicate errors, per Splink 4.0.16 metadata",
+          "license": "MIT repository distribution; original Wikidata source CC0"
+        },
+        {
+          "name": "febrl3",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3.csv",
+          "sha256": "5b0443f2568a0e258e52ab015b34fc1736a6ee1863086617f08b2e6997e92458",
+          "license": "BSD-3-Clause distribution"
+        },
+        {
+          "name": "febrl3_links",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3_links.json",
+          "sha256": "d85cd011c5f57f386feb2c27428883663ef08a1c858f9de418fca6be3a39bc99",
+          "license": "BSD-3-Clause distribution"
+        }
+      ]
+    },
+    "split_seed": 2026091901,
+    "split_method": "SHA-256 ranked whole truth entities; floor 60/20/20; no record crosses a split",
+    "evaluation_scope": "partition-specific clustering; confirmation remains unscored",
+    "name": "historical_50k",
+    "fields": {
+      "full_name": {
+        "type": "person_name"
+      },
+      "dob": {
+        "type": "date"
+      },
+      "birth_place": {
+        "type": "address"
+      },
+      "postcode_fake": {
+        "type": "code"
+      },
+      "gender": {
+        "type": "code"
+      },
+      "occupation": {
+        "type": "organisation"
+      }
+    },
+    "records": 50578,
+    "record_digest": "a1c02a72c842158882459d7fc54110de9e18fb1f0bf3095fb258f5226f70a663",
+    "splits": {
+      "train": 30660,
+      "confirmation": 9836,
+      "valid": 10082
+    },
+    "entities": 5156,
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "historical_50k",
+      "id_column": "rec_id",
+      "fields": {
+        "full_name": {
+          "type": "person_name"
+        },
+        "dob": {
+          "type": "date"
+        },
+        "birth_place": {
+          "type": "address"
+        },
+        "postcode_fake": {
+          "type": "code"
+        },
+        "gender": {
+          "type": "code"
+        },
+        "occupation": {
+          "type": "organisation"
+        }
+      }
+    },
+    "candidates": {
+      "method": "field_blocks",
+      "q": 3,
+      "k": 6,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 500000,
+      "union_of": [],
+      "field_blocks": [
+        [
+          "full_name"
+        ],
+        [
+          "soundex(full_name)"
+        ],
+        [
+          "dob"
+        ],
+        [
+          "year(dob)"
+        ],
+        [
+          "birth_place"
+        ],
+        [
+          "prefix3(birth_place)"
+        ],
+        [
+          "postcode_fake"
+        ],
+        [
+          "gender"
+        ],
+        [
+          "occupation"
+        ],
+        [
+          "prefix3(occupation)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.2,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "connected_components",
+      "max_rounds": 30
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/clusters/historical_50k/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr4-clusters",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/CLUSTER_PLAN.md",
+  "confirmation_scored": false,
+  "scope": "training-only model/feature IDF; entity-disjoint validation graph",
+  "pair_context": "unweighted gram cosine; rank=1; gap=0 for every training/scoring/verification pair",
+  "candidate_scope": "k=6 including self, then self removed and orientations unioned; at most five outgoing nonself neighbours",
+  "rows": [
+    {
+      "method": "connected_components",
+      "seconds": 11.330140916979872,
+      "rounds": [
+        {
+          "round": 1,
+          "changed_vertices": 8722
+        },
+        {
+          "round": 2,
+          "changed_vertices": 2509
+        },
+        {
+          "round": 3,
+          "changed_vertices": 1172
+        },
+        {
+          "round": 4,
+          "changed_vertices": 603
+        },
+        {
+          "round": 5,
+          "changed_vertices": 459
+        },
+        {
+          "round": 6,
+          "changed_vertices": 424
+        },
+        {
+          "round": 7,
+          "changed_vertices": 306
+        },
+        {
+          "round": 8,
+          "changed_vertices": 249
+        },
+        {
+          "round": 9,
+          "changed_vertices": 303
+        },
+        {
+          "round": 10,
+          "changed_vertices": 260
+        },
+        {
+          "round": 11,
+          "changed_vertices": 166
+        },
+        {
+          "round": 12,
+          "changed_vertices": 290
+        },
+        {
+          "round": 13,
+          "changed_vertices": 1
+        },
+        {
+          "round": 14,
+          "changed_vertices": 2
+        },
+        {
+          "round": 15,
+          "changed_vertices": 9
+        },
+        {
+          "round": 16,
+          "changed_vertices": 7
+        },
+        {
+          "round": 17,
+          "changed_vertices": 3
+        },
+        {
+          "round": 18,
+          "changed_vertices": 4
+        },
+        {
+          "round": 19,
+          "changed_vertices": 8
+        },
+        {
+          "round": 20,
+          "changed_vertices": 12
+        },
+        {
+          "round": 21,
+          "changed_vertices": 23
+        },
+        {
+          "round": 22,
+          "changed_vertices": 16
+        },
+        {
+          "round": 23,
+          "changed_vertices": 18
+        },
+        {
+          "round": 24,
+          "changed_vertices": 102
+        },
+        {
+          "round": 25,
+          "changed_vertices": 0
+        }
+      ],
+      "tp": 58602,
+      "fp": 709668,
+      "fn": 1506,
+      "tn": 0,
+      "precision": 0.07627787106095513,
+      "recall": 0.9749450988221202,
+      "f1": 0.14148613314211628,
+      "bcubed_precision": 0.6567058880223554,
+      "bcubed_recall": 0.9696998408312306,
+      "bcubed_f1": 0.7830857747126607,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 807,
+      "pairwise_f1_95ci": [
+        0.12388899424742399,
+        0.16470834064561593
+      ],
+      "bcubed_f1_95ci": [
+        0.7619841566744975,
+        0.803688019000007
+      ],
+      "pairwise_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bcubed_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "center",
+      "seconds": 6.718242541886866,
+      "rounds": [
+        {
+          "round": 1,
+          "assigned_vertices": 7272,
+          "remaining_vertices": 2810
+        },
+        {
+          "round": 2,
+          "assigned_vertices": 2215,
+          "remaining_vertices": 595
+        },
+        {
+          "round": 3,
+          "assigned_vertices": 520,
+          "remaining_vertices": 75
+        },
+        {
+          "round": 4,
+          "assigned_vertices": 70,
+          "remaining_vertices": 5
+        },
+        {
+          "round": 5,
+          "assigned_vertices": 4,
+          "remaining_vertices": 1
+        },
+        {
+          "round": 6,
+          "assigned_vertices": 1,
+          "remaining_vertices": 0
+        }
+      ],
+      "tp": 20592,
+      "fp": 122,
+      "fn": 39516,
+      "tn": 0,
+      "precision": 0.9941102635898427,
+      "recall": 0.3425833499700539,
+      "f1": 0.5095642275618025,
+      "bcubed_precision": 0.9924122197976591,
+      "bcubed_recall": 0.48263214952004646,
+      "bcubed_f1": 0.6494313700847613,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 2936,
+      "pairwise_f1_95ci": [
+        0.49553782828834736,
+        0.5246406897737476
+      ],
+      "bcubed_f1_95ci": [
+        0.6354909377956116,
+        0.6634901036240624
+      ],
+      "pairwise_delta_95ci": [
+        0.34038611007109076,
+        0.3934453817519772
+      ],
+      "bcubed_delta_95ci": [
+        -0.15926345221282423,
+        -0.10884930506343227
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "star",
+      "seconds": 5.5843496669549495,
+      "rounds": [
+        {
+          "round": 1,
+          "assigned_vertices": 8674,
+          "remaining_vertices": 1408
+        },
+        {
+          "round": 2,
+          "assigned_vertices": 1318,
+          "remaining_vertices": 90
+        },
+        {
+          "round": 3,
+          "assigned_vertices": 89,
+          "remaining_vertices": 1
+        },
+        {
+          "round": 4,
+          "assigned_vertices": 1,
+          "remaining_vertices": 0
+        }
+      ],
+      "tp": 44615,
+      "fp": 1215,
+      "fn": 15493,
+      "tn": 0,
+      "precision": 0.9734889810168013,
+      "recall": 0.7422472882145471,
+      "f1": 0.8422851101587722,
+      "bcubed_precision": 0.9708290844752124,
+      "bcubed_recall": 0.7958030968821819,
+      "bcubed_f1": 0.8746458941725466,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 1698,
+      "pairwise_f1_95ci": [
+        0.8334981687463024,
+        0.8517834971980806
+      ],
+      "bcubed_f1_95ci": [
+        0.8675491136799707,
+        0.8824793829867666
+      ],
+      "pairwise_delta_95ci": [
+        0.6777865478751733,
+        0.7209589843045648
+      ],
+      "bcubed_delta_95ci": [
+        0.07180365280664935,
+        0.1123644800659519
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "method": "verified_merge",
+      "seconds": 124.5828574160114,
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 31535,
+          "verification_pairs": 31535,
+          "vetoed_proposals": 0,
+          "merges": 1653
+        },
+        {
+          "round": 2,
+          "proposals": 24418,
+          "verification_pairs": 35779,
+          "vetoed_proposals": 478,
+          "merges": 1153
+        },
+        {
+          "round": 3,
+          "proposals": 18622,
+          "verification_pairs": 28455,
+          "vetoed_proposals": 544,
+          "merges": 902
+        },
+        {
+          "round": 4,
+          "proposals": 14357,
+          "verification_pairs": 22680,
+          "vetoed_proposals": 569,
+          "merges": 774
+        },
+        {
+          "round": 5,
+          "proposals": 11161,
+          "verification_pairs": 18269,
+          "vetoed_proposals": 568,
+          "merges": 674
+        },
+        {
+          "round": 6,
+          "proposals": 8785,
+          "verification_pairs": 14896,
+          "vetoed_proposals": 574,
+          "merges": 589
+        },
+        {
+          "round": 7,
+          "proposals": 6951,
+          "verification_pairs": 12145,
+          "vetoed_proposals": 597,
+          "merges": 519
+        },
+        {
+          "round": 8,
+          "proposals": 5500,
+          "verification_pairs": 9972,
+          "vetoed_proposals": 604,
+          "merges": 462
+        },
+        {
+          "round": 9,
+          "proposals": 4327,
+          "verification_pairs": 8202,
+          "vetoed_proposals": 629,
+          "merges": 400
+        },
+        {
+          "round": 10,
+          "proposals": 3396,
+          "verification_pairs": 6717,
+          "vetoed_proposals": 638,
+          "merges": 345
+        },
+        {
+          "round": 11,
+          "proposals": 2666,
+          "verification_pairs": 5546,
+          "vetoed_proposals": 628,
+          "merges": 298
+        },
+        {
+          "round": 12,
+          "proposals": 2093,
+          "verification_pairs": 4570,
+          "vetoed_proposals": 624,
+          "merges": 248
+        },
+        {
+          "round": 13,
+          "proposals": 1625,
+          "verification_pairs": 3801,
+          "vetoed_proposals": 634,
+          "merges": 202
+        },
+        {
+          "round": 14,
+          "proposals": 1282,
+          "verification_pairs": 3231,
+          "vetoed_proposals": 640,
+          "merges": 158
+        },
+        {
+          "round": 15,
+          "proposals": 1036,
+          "verification_pairs": 2800,
+          "vetoed_proposals": 637,
+          "merges": 126
+        },
+        {
+          "round": 16,
+          "proposals": 859,
+          "verification_pairs": 2478,
+          "vetoed_proposals": 647,
+          "merges": 77
+        },
+        {
+          "round": 17,
+          "proposals": 747,
+          "verification_pairs": 2303,
+          "vetoed_proposals": 646,
+          "merges": 47
+        },
+        {
+          "round": 18,
+          "proposals": 687,
+          "verification_pairs": 2191,
+          "vetoed_proposals": 646,
+          "merges": 28
+        },
+        {
+          "round": 19,
+          "proposals": 656,
+          "verification_pairs": 2147,
+          "vetoed_proposals": 649,
+          "merges": 5
+        },
+        {
+          "round": 20,
+          "proposals": 650,
+          "verification_pairs": 2136,
+          "vetoed_proposals": 649,
+          "merges": 1
+        },
+        {
+          "round": 21,
+          "proposals": 649,
+          "verification_pairs": 2136,
+          "vetoed_proposals": 649,
+          "merges": 0
+        }
+      ],
+      "tp": 54493,
+      "fp": 1436,
+      "fn": 5615,
+      "tn": 0,
+      "precision": 0.9743245901053121,
+      "recall": 0.9065848140014641,
+      "f1": 0.939234899213182,
+      "bcubed_precision": 0.9844503732286071,
+      "bcubed_recall": 0.9093885627233154,
+      "bcubed_f1": 0.9454319403701619,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 1421,
+      "pairwise_f1_95ci": [
+        0.9301714751182372,
+        0.9472937298092984
+      ],
+      "bcubed_f1_95ci": [
+        0.9394708539397253,
+        0.9508436044630373
+      ],
+      "pairwise_delta_95ci": [
+        0.7743972746076428,
+        0.8164956522945881
+      ],
+      "bcubed_delta_95ci": [
+        0.1426931386339959,
+        0.1823052247207102
+      ],
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    }
+  ],
+  "baselines": [
+    {
+      "name": "nearest_neighbour_components",
+      "threshold": 0.0,
+      "tp": 29131,
+      "fp": 1213,
+      "fn": 30977,
+      "tn": 0,
+      "precision": 0.960025046137622,
+      "recall": 0.48464430691422106,
+      "f1": 0.6441206385707337,
+      "bcubed_precision": 0.9690741885075056,
+      "bcubed_recall": 0.5883485114445189,
+      "bcubed_f1": 0.7321754797914005,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 2049,
+      "pairwise_f1_95ci": [
+        0.6266324404176801,
+        0.6624584608478093
+      ],
+      "bcubed_f1_95ci": [
+        0.7190693838891208,
+        0.7460929530008023
+      ],
+      "pairwise_delta_95ci": null,
+      "bcubed_delta_95ci": null,
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    },
+    {
+      "name": "cosine_threshold_components",
+      "threshold": 0.38,
+      "tp": 58355,
+      "fp": 16713593,
+      "fn": 1753,
+      "tn": 0,
+      "precision": 0.0034793215433293737,
+      "recall": 0.9708358288414187,
+      "f1": 0.00693379347121944,
+      "bcubed_precision": 0.35930801420808844,
+      "bcubed_recall": 0.965659064163403,
+      "bcubed_f1": 0.5237398670660569,
+      "records": 10082,
+      "truth_clusters": 1031,
+      "predicted_clusters": 517,
+      "pairwise_f1_95ci": [
+        0.006496786123528776,
+        0.007405380512438768
+      ],
+      "bcubed_f1_95ci": [
+        0.4905254279143748,
+        0.5562624982954408
+      ],
+      "pairwise_delta_95ci": null,
+      "bcubed_delta_95ci": null,
+      "bootstrap_seed": 2026091902,
+      "bootstrap_resamples": 2000,
+      "bootstrap_units": "true entities; fixed-partition contributions; cross-entity FP split equally"
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "center.predictions.json": "c0da099c7e6020d6a0d1f998cac82fa4eb28a2507fac4158328c2d7e3022a6b6",
+    "connected_components.predictions.json": "53c56640667ab27692a5c9cb333042d8a96ad8fa510140b02196c95534c3e3aa",
+    "edges.json": "a27222cc3fd788cddb9d71401a1caab2ecb7fd10d5c922c2712630d31f343bd3",
+    "star.predictions.json": "43375c722d0b8139f8a3b6501411a5ebddef010b1b162544986aa7272d1b08bf",
+    "verified_merge.predictions.json": "95f13c83ec17f2623a5d1c27c7bbacc717d65f0516fb7f4213f4da28612bd583"
+  },
+  "retrieval": {
+    "train": {
+      "budget": {
+        "join_rows_before_cap": 462573775,
+        "join_rows_after_cap": 11192289,
+        "dropped_grams": 42,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 182731,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "undirected_pairs": 108511,
+      "true_pairs": 186920,
+      "covered_positives": 93062,
+      "pair_recall": 0.49787074684356947,
+      "seconds": 62.3678392090369
+    },
+    "valid": {
+      "budget": {
+        "join_rows_before_cap": 49415190,
+        "join_rows_after_cap": 3233038,
+        "dropped_grams": 10,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 60028,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "undirected_pairs": 35247,
+      "true_pairs": 60108,
+      "covered_positives": 30941,
+      "pair_recall": 0.5147567711452719,
+      "seconds": 18.728495624964125
+    }
+  },
+  "feature_and_fit_seconds": 14.24266712507233,
+  "feature_and_score_seconds": 3.9652262500021607,
+  "threshold": 0.2,
+  "pair_metrics": {
+    "tp": 30782,
+    "fp": 753,
+    "fn": 29326,
+    "tn": 0,
+    "precision": 0.976121769462502,
+    "recall": 0.5121115325746989,
+    "f1": 0.6717807142935085
+  },
+  "model": {
+    "run_id": "e8504846807046e8bdd9030f2da68136",
+    "model_uri": "runs:/e8504846807046e8bdd9030f2da68136/model",
+    "logged_model_uri": "models:/m-6ca8a3d3c5064f3eb2cd79c650c55365",
+    "label_set_sha256": "2f12b799e8da1ed901284b6444539f9b265542c929eab4c52a468918cbe1a22f",
+    "artifact_bytes": 3939677,
+    "registry": false
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 270.9295361249242
+}

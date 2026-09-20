@@ -1,0 +1,42 @@
+# Modified for lakematch on 2026-09-20: exclude APX build output.
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# version file
+src/lakematch_review/_version.py
+
+# metadata file
+src/lakematch_review/_metadata.py
+
+# build files
+dist
+
+# js-related
+node_modules/
+.tanstack
+
+# env files
+.env
+.env.local
+.env.*
+
+# mac
+.DS_Store
+
+# DABs
+.databricks
+
+# apx
+.apx/
+
+# UI dist folder
+src/lakematch_review/__dist__/
+.build/

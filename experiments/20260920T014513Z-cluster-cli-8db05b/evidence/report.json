@@ -1,0 +1,608 @@
+{
+  "status": "completed",
+  "cleanup": "succeeded",
+  "iteration": 7,
+  "identity_reference_run": "20260920T012627Z-identity-febrl3-7c613f",
+  "model": {
+    "run_id": "c547b4fc252247c68a2a3d97bb6cfcf5",
+    "model_uri": "runs:/c547b4fc252247c68a2a3d97bb6cfcf5/model",
+    "logged_model_uri": "models:/m-29f86ea4e03c47e199739810159bdfe3",
+    "label_set_sha256": "e60cfe0a3b1abb3bb77c99803a9c26a2bbe40a8ba227dd656cd1bdcd741c72e4",
+    "artifact_bytes": 656583,
+    "registry": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "febrl3",
+      "id_column": "rec_id",
+      "fields": {
+        "given_name": {
+          "type": "person_name"
+        },
+        "surname": {
+          "type": "person_name"
+        },
+        "street_number": {
+          "type": "code"
+        },
+        "address_1": {
+          "type": "address"
+        },
+        "address_2": {
+          "type": "address"
+        },
+        "suburb": {
+          "type": "address"
+        },
+        "postcode": {
+          "type": "code"
+        },
+        "state": {
+          "type": "code"
+        },
+        "date_of_birth": {
+          "type": "date",
+          "date_format": "yyyyMMdd"
+        },
+        "soc_sec_id": {
+          "type": "code"
+        }
+      }
+    },
+    "candidates": {
+      "method": "field_blocks",
+      "q": 3,
+      "k": 6,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 500000,
+      "union_of": [],
+      "field_blocks": [
+        [
+          "given_name"
+        ],
+        [
+          "soundex(given_name)"
+        ],
+        [
+          "surname"
+        ],
+        [
+          "soundex(surname)"
+        ],
+        [
+          "street_number"
+        ],
+        [
+          "address_1"
+        ],
+        [
+          "prefix3(address_1)"
+        ],
+        [
+          "address_2"
+        ],
+        [
+          "prefix3(address_2)"
+        ],
+        [
+          "suburb"
+        ],
+        [
+          "prefix3(suburb)"
+        ],
+        [
+          "postcode"
+        ],
+        [
+          "state"
+        ],
+        [
+          "date_of_birth"
+        ],
+        [
+          "year(date_of_birth)"
+        ],
+        [
+          "soc_sec_id"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.72,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 30
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/clusters/febrl3/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr4-clusters",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": "/Users/laurent.fabre/Projects/Claude/lakematch/data/cluster_cli/before.jsonl",
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "json"
+    },
+    "output": {
+      "root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/cluster_cli/69157031aa3644f1a4a86d41b56991a3"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "crosswalk_equivalence": true,
+  "incremental_repeat_idempotent": true,
+  "historical_retry_does_not_rewind": true,
+  "commits": 3,
+  "cli_runs": [
+    {
+      "batch_id": "original",
+      "seconds": 43.28480658400804,
+      "reused": false
+    },
+    {
+      "batch_id": "incremental",
+      "seconds": 45.042049500043504,
+      "reused": false
+    },
+    {
+      "batch_id": "incremental",
+      "seconds": 1.282218457898125,
+      "reused": true
+    },
+    {
+      "batch_id": "unchanged",
+      "seconds": 45.4077525830362,
+      "reused": false
+    },
+    {
+      "batch_id": "original",
+      "seconds": 1.2460782090201974,
+      "reused": true
+    }
+  ],
+  "confirmation_scored": false,
+  "wall_seconds": 136.38611525006127,
+  "publications": {
+    "original": {
+      "schema_version": 1,
+      "batch_id": "original",
+      "request_digest": "be66bb762b4b3b1a873b125d3a43ceec8daec88578f4166e708b724a42cbd410",
+      "attempt": "0531fe48c65f4b48ae84ec2a41ed43b1",
+      "root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/cluster_cli/69157031aa3644f1a4a86d41b56991a3/attempts/0531fe48c65f4b48ae84ec2a41ed43b1",
+      "files": {
+        "changes/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "changes/.part-00000-0e8f871a-397d-42ef-b823-bc0edccb11a3-c000.snappy.parquet.crc": "c5ed8888fe195c78b93a5ab1194a5784872215ab6228ba921fa6fdf4a261e10c",
+        "changes/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "changes/part-00000-0e8f871a-397d-42ef-b823-bc0edccb11a3-c000.snappy.parquet": "0150b8288f424958d0230e10b46dc4e6a059eb5573c321d879f5fbb95df0c238",
+        "cluster_events/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "cluster_events/.part-00000-a918ffad-8d5c-4e38-ad70-62331bc50aa7-c000.snappy.parquet.crc": "e98fd5b417bab9bab8252adb47c9fd48cb6faf709ed48fadbf83336dc06a08e6",
+        "cluster_events/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cluster_events/part-00000-a918ffad-8d5c-4e38-ad70-62331bc50aa7-c000.snappy.parquet": "9ea7fd35b511af784c42dc811770630691b8b20d3efaaf9f0c3936d76e07d9a9",
+        "crosswalk/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "crosswalk/.part-00000-79426578-1c20-44d5-a594-a8450bb53f31-c000.snappy.parquet.crc": "2075fe9baf035f03ed28a0156c2862cb08b06e87f8ee2d501e4574e9c442f817",
+        "crosswalk/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "crosswalk/part-00000-79426578-1c20-44d5-a594-a8450bb53f31-c000.snappy.parquet": "a3213adfb0e6c4c5b69a70b94ab86ebbf53d1ac4779b7b3c3299719c6cf58a6f",
+        "links/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "links/.part-00000-1372ae89-170f-45ff-85d2-f099100077c3-c000.snappy.parquet.crc": "33e53302e789a9a2d513d9033236ae682884b732dceb3abbf6115a7473de0de2",
+        "links/.part-00001-1372ae89-170f-45ff-85d2-f099100077c3-c000.snappy.parquet.crc": "e3fbca5d1dea96afa98d84ffe50c6d038fa19c9508a382d1e18834c4d768275c",
+        "links/.part-00002-1372ae89-170f-45ff-85d2-f099100077c3-c000.snappy.parquet.crc": "d20f37143cf49a7323c083fcaef94a522f1fbad1a48841dfaab0ecf186c2a7fe",
+        "links/.part-00003-1372ae89-170f-45ff-85d2-f099100077c3-c000.snappy.parquet.crc": "222b8528402d75b9c5fc94445fcb6cf953750e3a0196841ceb60a23a4a288e1c",
+        "links/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "links/part-00000-1372ae89-170f-45ff-85d2-f099100077c3-c000.snappy.parquet": "5068b9098b7743d11c6263b58a44766da92a76199df06034a941d8aff6e1d2b4",
+        "links/part-00001-1372ae89-170f-45ff-85d2-f099100077c3-c000.snappy.parquet": "e857cdb0e20ba6a01a22033bf117dae852655a4da42e1fa3cb788e4e17562678",
+        "links/part-00002-1372ae89-170f-45ff-85d2-f099100077c3-c000.snappy.parquet": "d3e28bbdfd5971bb070b2436b1015dea251aa8c95f05c725a9f68920b98c16ba",
+        "links/part-00003-1372ae89-170f-45ff-85d2-f099100077c3-c000.snappy.parquet": "99f1235e41c919e1f6a5da87d7cd6bda22f922a7d1248752c9de0e19b866c8d9",
+        "quarantine/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "quarantine/.part-00000-b0a996ac-8aa7-4972-8912-25415bec7f06-c000.snappy.parquet.crc": "f450c4b2b20c5339806b6fab64a851635da0c6d8638fbd136ee4235607d4fff4",
+        "quarantine/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "quarantine/part-00000-b0a996ac-8aa7-4972-8912-25415bec7f06-c000.snappy.parquet": "b015e6ca70cebaad5401269f215fa234d9672c27315612dffdac59e104b3d079"
+      },
+      "previous_batch_id": null,
+      "metadata": {
+        "model_uri": "runs:/c547b4fc252247c68a2a3d97bb6cfcf5/model",
+        "pair_metadata": "gram_cosine",
+        "method": "verified_merge",
+        "rounds": [
+          {
+            "round": 1,
+            "proposals": 1454,
+            "verification_pairs": 1454,
+            "vetoed_proposals": 0,
+            "merges": 239
+          },
+          {
+            "round": 2,
+            "proposals": 807,
+            "verification_pairs": 1218,
+            "vetoed_proposals": 3,
+            "merges": 169
+          },
+          {
+            "round": 3,
+            "proposals": 396,
+            "verification_pairs": 638,
+            "vetoed_proposals": 2,
+            "merges": 127
+          },
+          {
+            "round": 4,
+            "proposals": 154,
+            "verification_pairs": 269,
+            "vetoed_proposals": 1,
+            "merges": 76
+          },
+          {
+            "round": 5,
+            "proposals": 39,
+            "verification_pairs": 78,
+            "vetoed_proposals": 0,
+            "merges": 39
+          },
+          {
+            "round": 6,
+            "proposals": 0,
+            "merges": 0
+          }
+        ],
+        "candidate_budget": {
+          "join_rows_before_cap": 319506,
+          "join_rows_after_cap": 319506,
+          "dropped_grams": 0,
+          "method": "field_blocks",
+          "score": "exact unweighted gram-set cosine after retrieval",
+          "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+          "candidate_pairs": 6300,
+          "max_join_rows": 50000000,
+          "max_pairs": 500000
+        },
+        "counts": {
+          "crosswalk": 1050,
+          "changes": 1050,
+          "cluster_events": 400,
+          "links": 1454,
+          "quarantine": 0
+        },
+        "exact_journal_replay": true,
+        "capabilities": {
+          "spark_version": "4.1.3",
+          "connect": false,
+          "cache": true,
+          "cache_observation": "cache and count succeeded",
+          "photon": "untested: requires query-profile evidence"
+        },
+        "cleanup": "succeeded",
+        "wall_seconds_including_spark": 41.52425312495325
+      },
+      "reused": false,
+      "recovered_attempts": []
+    },
+    "incremental": {
+      "schema_version": 1,
+      "batch_id": "incremental",
+      "request_digest": "7f5682fc71ab929e7c0ccbb10ce5fb0bddec45bf5ca9bef7699a748d2e519b5d",
+      "attempt": "938cd1176e8c4a588d7ca51aa400e47a",
+      "root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/cluster_cli/69157031aa3644f1a4a86d41b56991a3/attempts/938cd1176e8c4a588d7ca51aa400e47a",
+      "files": {
+        "changes/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "changes/.part-00000-8b731b88-7119-4cc1-8d2f-a50944029f2c-c000.snappy.parquet.crc": "e64a0e5c1cbb107284eb47b461f659d8df5ce1c72667544f9777eb9d89cf0e1e",
+        "changes/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "changes/part-00000-8b731b88-7119-4cc1-8d2f-a50944029f2c-c000.snappy.parquet": "ca2a097ba35a4c6580eb067f90956acb8ece906a23bbc51a394de41961fc7508",
+        "cluster_events/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "cluster_events/.part-00000-b6988e84-5fb9-4964-b5dd-395c760a0546-c000.snappy.parquet.crc": "8bda4f82e043538873df7563c65fca6e2d865d36769391a946c8b4d5b04cd87b",
+        "cluster_events/.part-00001-b6988e84-5fb9-4964-b5dd-395c760a0546-c000.snappy.parquet.crc": "d3fb8cca8a545bb222935530f0787a021a4c4ca23d0245e65366db212ff450d8",
+        "cluster_events/.part-00002-b6988e84-5fb9-4964-b5dd-395c760a0546-c000.snappy.parquet.crc": "1725a8b93fee0a4d088b7821d453dae5ac7b13244849ab50c72fad69dd37ab9d",
+        "cluster_events/.part-00003-b6988e84-5fb9-4964-b5dd-395c760a0546-c000.snappy.parquet.crc": "57c9daac5c848d0d06fdbad343e1336aba1eefa3926a24e16d7b285889529fdd",
+        "cluster_events/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cluster_events/part-00000-b6988e84-5fb9-4964-b5dd-395c760a0546-c000.snappy.parquet": "7efde0d3b95c3b80576ad0a505d94e44ca26889889e43424b98d22d4e16dfcda",
+        "cluster_events/part-00001-b6988e84-5fb9-4964-b5dd-395c760a0546-c000.snappy.parquet": "e80f9bc9977a52f73caa9b37df86647c73ec2d36a31b9b34959ffdfbdf764344",
+        "cluster_events/part-00002-b6988e84-5fb9-4964-b5dd-395c760a0546-c000.snappy.parquet": "6b1c330df6817f98101e88229191440ddb059a52bb1c42ca569c5ae22172c6cf",
+        "cluster_events/part-00003-b6988e84-5fb9-4964-b5dd-395c760a0546-c000.snappy.parquet": "fd06f8b9b7466d67b1e003c2a1b4c2b26eb1783e3265de820a4343b4823aa135",
+        "crosswalk/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "crosswalk/.part-00000-c8878f6a-2e66-42d8-b7a1-3709d5cc6a2f-c000.snappy.parquet.crc": "9fc2a4a5177cf0262ba245f247057086f59a4c2e685ba479ea58b9527e85c8fd",
+        "crosswalk/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "crosswalk/part-00000-c8878f6a-2e66-42d8-b7a1-3709d5cc6a2f-c000.snappy.parquet": "4eddeba4750febb3dab5ec50e9dcc0b7fea6d1907bdd82684691841a1f473f78",
+        "links/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "links/.part-00000-5afb888b-63bc-4c86-a4f2-d12c46f6aecf-c000.snappy.parquet.crc": "91f3719d12ebe80b6a36046f06dcc2aa8fbe63d646dfe5577cd3e5b4bd5c141f",
+        "links/.part-00001-5afb888b-63bc-4c86-a4f2-d12c46f6aecf-c000.snappy.parquet.crc": "b3f8b5bf9fe2c76de0b8e232beb08159f7aa9c896046f581e6cf35dd3b93b069",
+        "links/.part-00002-5afb888b-63bc-4c86-a4f2-d12c46f6aecf-c000.snappy.parquet.crc": "eefe4efb9c9d80d57c97c876e21d5fcc670096f99c915ba8831907fced38cbb7",
+        "links/.part-00003-5afb888b-63bc-4c86-a4f2-d12c46f6aecf-c000.snappy.parquet.crc": "d618b6c8d38f78206fd7d6e22ba3eb96da88344448cc4b8050e283943eea4903",
+        "links/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "links/part-00000-5afb888b-63bc-4c86-a4f2-d12c46f6aecf-c000.snappy.parquet": "68b6b09dad47338311ea7964529447c20726403f39fd3949d168c624ad6ad417",
+        "links/part-00001-5afb888b-63bc-4c86-a4f2-d12c46f6aecf-c000.snappy.parquet": "c2f0d519b425d748346cdd58a605114d2a9c3ae609d52ade590fa8dc91da8b25",
+        "links/part-00002-5afb888b-63bc-4c86-a4f2-d12c46f6aecf-c000.snappy.parquet": "69a557c927c069573b9843e1e36ae55e27717f7031d3df9fba05db7094f15da0",
+        "links/part-00003-5afb888b-63bc-4c86-a4f2-d12c46f6aecf-c000.snappy.parquet": "3c16c128caa533ea8a09160b45187702a27ad948e2492574e12f2d48622a3dc9",
+        "quarantine/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "quarantine/.part-00000-60c0b0bd-f8b1-4943-b956-2421270c2920-c000.snappy.parquet.crc": "f450c4b2b20c5339806b6fab64a851635da0c6d8638fbd136ee4235607d4fff4",
+        "quarantine/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "quarantine/part-00000-60c0b0bd-f8b1-4943-b956-2421270c2920-c000.snappy.parquet": "b015e6ca70cebaad5401269f215fa234d9672c27315612dffdac59e104b3d079"
+      },
+      "previous_batch_id": "original",
+      "metadata": {
+        "model_uri": "runs:/c547b4fc252247c68a2a3d97bb6cfcf5/model",
+        "pair_metadata": "gram_cosine",
+        "method": "verified_merge",
+        "rounds": [
+          {
+            "round": 1,
+            "proposals": 1477,
+            "verification_pairs": 1477,
+            "vetoed_proposals": 0,
+            "merges": 241
+          },
+          {
+            "round": 2,
+            "proposals": 821,
+            "verification_pairs": 1240,
+            "vetoed_proposals": 3,
+            "merges": 169
+          },
+          {
+            "round": 3,
+            "proposals": 408,
+            "verification_pairs": 657,
+            "vetoed_proposals": 2,
+            "merges": 124
+          },
+          {
+            "round": 4,
+            "proposals": 163,
+            "verification_pairs": 287,
+            "vetoed_proposals": 0,
+            "merges": 80
+          },
+          {
+            "round": 5,
+            "proposals": 43,
+            "verification_pairs": 86,
+            "vetoed_proposals": 0,
+            "merges": 39
+          },
+          {
+            "round": 6,
+            "proposals": 2,
+            "verification_pairs": 4,
+            "vetoed_proposals": 0,
+            "merges": 2
+          },
+          {
+            "round": 7,
+            "proposals": 0,
+            "merges": 0
+          }
+        ],
+        "candidate_budget": {
+          "join_rows_before_cap": 320111,
+          "join_rows_after_cap": 320111,
+          "dropped_grams": 0,
+          "method": "field_blocks",
+          "score": "exact unweighted gram-set cosine after retrieval",
+          "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+          "candidate_pairs": 6300,
+          "max_join_rows": 50000000,
+          "max_pairs": 500000
+        },
+        "counts": {
+          "crosswalk": 1050,
+          "changes": 1060,
+          "cluster_events": 34,
+          "links": 1477,
+          "quarantine": 0
+        },
+        "exact_journal_replay": true,
+        "capabilities": {
+          "spark_version": "4.1.3",
+          "connect": false,
+          "cache": true,
+          "cache_observation": "cache and count succeeded",
+          "photon": "untested: requires query-profile evidence"
+        },
+        "cleanup": "succeeded",
+        "wall_seconds_including_spark": 43.22867833299097
+      },
+      "reused": false,
+      "recovered_attempts": []
+    },
+    "unchanged": {
+      "schema_version": 1,
+      "batch_id": "unchanged",
+      "request_digest": "7f5682fc71ab929e7c0ccbb10ce5fb0bddec45bf5ca9bef7699a748d2e519b5d",
+      "attempt": "f20d754207514059834df7aa0682b46b",
+      "root": "/Users/laurent.fabre/Projects/Claude/lakematch/data/cluster_cli/69157031aa3644f1a4a86d41b56991a3/attempts/f20d754207514059834df7aa0682b46b",
+      "files": {
+        "changes/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "changes/.part-00000-01fb8a1e-bd0a-4c4c-b29b-7b7b7018f0af-c000.snappy.parquet.crc": "13ea6de2bd1354a338c1d73519a683b0079f2980894a5031c43dfc0b60520f5c",
+        "changes/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "changes/part-00000-01fb8a1e-bd0a-4c4c-b29b-7b7b7018f0af-c000.snappy.parquet": "0b96c23f4b8b48aae466ce5ad512be5f98751298299c49068c8d030384e15044",
+        "cluster_events/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "cluster_events/.part-00000-25e60c5e-5d31-4c49-8f9d-ccc9b55f1442-c000.snappy.parquet.crc": "05a950afd6c5146e8ac29d1cb3e26e171ef1a29339daef4f1260bbc9237f5641",
+        "cluster_events/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "cluster_events/part-00000-25e60c5e-5d31-4c49-8f9d-ccc9b55f1442-c000.snappy.parquet": "a88e1274782222276aefa838414ee7fd11ab9e215f4bc085959776e6b9bc43ab",
+        "crosswalk/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "crosswalk/.part-00000-c99b71e5-1140-4ba9-8a08-37ca5985e2e3-c000.snappy.parquet.crc": "192e7fd29d1eb5f9b1b63551e480f0b84c8bcff1c7efa6361f6bec3be83fc770",
+        "crosswalk/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "crosswalk/part-00000-c99b71e5-1140-4ba9-8a08-37ca5985e2e3-c000.snappy.parquet": "b12ee06b781e59ecba262cfac81aef1a13e2f97bbb5ddbbb9b56f323ad90fa2c",
+        "links/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "links/.part-00000-e5e72d9c-55c4-49e7-8c89-04e633ed8355-c000.snappy.parquet.crc": "c4c9245fb997cab00556c0a9b432fe455612fddbd34f5584b5f2d32270763338",
+        "links/.part-00001-e5e72d9c-55c4-49e7-8c89-04e633ed8355-c000.snappy.parquet.crc": "0bebb2c59109757c8a04873f3c90d9ac0ea0aaf487e50a4334843e2ee8b45f44",
+        "links/.part-00002-e5e72d9c-55c4-49e7-8c89-04e633ed8355-c000.snappy.parquet.crc": "1b29a39cd5cbbabcb9fe91eb8d6b9ef1642f28601852241ca7f3738cfaf67333",
+        "links/.part-00003-e5e72d9c-55c4-49e7-8c89-04e633ed8355-c000.snappy.parquet.crc": "05b2973619fcdef764d77d6c13aa086951e584dd5fc4a7d3fb34f6ede0a323c0",
+        "links/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "links/part-00000-e5e72d9c-55c4-49e7-8c89-04e633ed8355-c000.snappy.parquet": "14a03374bce9098108f10fa43b30be86fb49abe67ebe40038e962cc0315ccc72",
+        "links/part-00001-e5e72d9c-55c4-49e7-8c89-04e633ed8355-c000.snappy.parquet": "b218393d5747276b43996516ad5e90741b691afa8f73e0c871211714add7127e",
+        "links/part-00002-e5e72d9c-55c4-49e7-8c89-04e633ed8355-c000.snappy.parquet": "43b5775ed0b9a6e5223ac3b2ea9bdcaac3ac723c97dde8fcb58a2413f8fb5ba4",
+        "links/part-00003-e5e72d9c-55c4-49e7-8c89-04e633ed8355-c000.snappy.parquet": "52d693d427e3fd6e3c3f8b1e219ab1ab5541b929a95451296a8c4598f141eec4",
+        "quarantine/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+        "quarantine/.part-00000-1e91114a-5172-4634-9210-ad732d41fe83-c000.snappy.parquet.crc": "f450c4b2b20c5339806b6fab64a851635da0c6d8638fbd136ee4235607d4fff4",
+        "quarantine/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "quarantine/part-00000-1e91114a-5172-4634-9210-ad732d41fe83-c000.snappy.parquet": "b015e6ca70cebaad5401269f215fa234d9672c27315612dffdac59e104b3d079"
+      },
+      "previous_batch_id": "incremental",
+      "metadata": {
+        "model_uri": "runs:/c547b4fc252247c68a2a3d97bb6cfcf5/model",
+        "pair_metadata": "gram_cosine",
+        "method": "verified_merge",
+        "rounds": [
+          {
+            "round": 1,
+            "proposals": 1477,
+            "verification_pairs": 1477,
+            "vetoed_proposals": 0,
+            "merges": 241
+          },
+          {
+            "round": 2,
+            "proposals": 821,
+            "verification_pairs": 1240,
+            "vetoed_proposals": 3,
+            "merges": 169
+          },
+          {
+            "round": 3,
+            "proposals": 408,
+            "verification_pairs": 657,
+            "vetoed_proposals": 2,
+            "merges": 124
+          },
+          {
+            "round": 4,
+            "proposals": 163,
+            "verification_pairs": 287,
+            "vetoed_proposals": 0,
+            "merges": 80
+          },
+          {
+            "round": 5,
+            "proposals": 43,
+            "verification_pairs": 86,
+            "vetoed_proposals": 0,
+            "merges": 39
+          },
+          {
+            "round": 6,
+            "proposals": 2,
+            "verification_pairs": 4,
+            "vetoed_proposals": 0,
+            "merges": 2
+          },
+          {
+            "round": 7,
+            "proposals": 0,
+            "merges": 0
+          }
+        ],
+        "candidate_budget": {
+          "join_rows_before_cap": 320111,
+          "join_rows_after_cap": 320111,
+          "dropped_grams": 0,
+          "method": "field_blocks",
+          "score": "exact unweighted gram-set cosine after retrieval",
+          "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+          "candidate_pairs": 6300,
+          "max_join_rows": 50000000,
+          "max_pairs": 500000
+        },
+        "counts": {
+          "crosswalk": 1050,
+          "changes": 1050,
+          "cluster_events": 0,
+          "links": 1477,
+          "quarantine": 0
+        },
+        "exact_journal_replay": true,
+        "capabilities": {
+          "spark_version": "4.1.3",
+          "connect": false,
+          "cache": true,
+          "cache_observation": "cache and count succeeded",
+          "photon": "untested: requires query-profile evidence"
+        },
+        "cleanup": "succeeded",
+        "wall_seconds_including_spark": 43.69142854202073
+      },
+      "reused": false,
+      "recovered_attempts": []
+    }
+  }
+}

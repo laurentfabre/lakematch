@@ -1,0 +1,22 @@
+bundle:
+  name: lakematch-review
+
+sync:
+  include:
+    - .build
+
+artifacts:
+  default:
+    build: apx build
+
+resources:
+  apps:
+    lakematch-review-app:
+      name: "lakematch-review"
+      description: "lakematch-review created with apx"
+      source_code_path: ./.build
+
+targets:
+  dev:
+    mode: development
+    default: true

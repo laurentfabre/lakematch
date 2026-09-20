@@ -174,6 +174,9 @@ def verify(phase):
         return verify_features()
     if phase == 5:
         return verify_tracking()
+    if phase == 4:
+        from verify_clusters import check
+        return verify(1) + check()
     if phase != 1:
         return [f"ZR-{phase}: implementation and full acceptance evidence are pending; see goal.md"]
     package = tomllib.loads((ROOT / "pyproject.toml").read_text())

@@ -1,0 +1,1 @@
+command: ["uvicorn", "lakematch_review.backend.app:app", "--workers", "2"]

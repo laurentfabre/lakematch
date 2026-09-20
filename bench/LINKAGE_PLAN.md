@@ -31,3 +31,17 @@ zero remote/live-label spend. This is a validation comparison. A subsequent
 fresh-process run with a frozen model must measure complete input, retrieval,
 scoring, output and cleanup under 60 seconds; shared-session stage timings cannot
 substitute for that gate. Final confirmation waits until selection and freeze.
+
+## Iteration 5 — truncate reused logical plans
+
+Iteration 4 failed before its first estimator fit: run
+`20260920T013426Z-linkage-all-3f9753` exhausted Java heap in
+`QueryExecution.explainString` while validating the training labels. Cached
+IDF-enriched inputs, retrieved pairs and feature vectors retained duplicated
+logical plans. No model or validation score was accepted.
+
+Hypothesis: owned table boundaries on those three reusable relations prevent
+plan expansion. The same Materializer path already passed the clustering
+comparison. Keep all data, models, seeds, pair budgets, Java memory and 900-second
+run limits unchanged. Repeat the three sequential configurations; confirm table
+cleanup on each terminal path. This changes execution boundaries only.

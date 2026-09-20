@@ -39,7 +39,7 @@ def assert_disjoint_labels(training, validation):
             raise ValueError("CLI acceptance requires training/validation record-disjoint labels")
 
 
-def execute(config, *, command="run"):
+def execute(config, *, command="run", save_scores=False):
     started = time.perf_counter()  # Includes session startup; caller also records process wall time.
     config.require_implemented()
     if config["decision"]["threshold"] == "from_validation":
@@ -145,6 +145,8 @@ def execute(config, *, command="run"):
                                               pointer=config["model"]["pointer"])
                     model_record["accepted"] = True
             out = Path(config["output"]["root"])
+            if save_scores:
+                scored.select("a_id", "b_id", "p", "cos", "rank", "gap").write.mode("overwrite").parquet(str(out / "scores"))
             result.write.mode("overwrite").parquet(str(out / "links"))
             quarantine_counts = {}
             for side, q in zip(("left", "right"), quality):

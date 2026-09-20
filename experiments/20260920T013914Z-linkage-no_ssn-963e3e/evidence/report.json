@@ -1,0 +1,4129 @@
+{
+  "status": "completed",
+  "iteration": 5,
+  "corpus": "febrl4_half_no_ssn",
+  "manifest": {
+    "source": "recordlinkage 0.16 FEBRL4",
+    "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+    "split_method": "SHA-256 ranked whole truth entities 3000/1000/1000; independent namespaced partner-removal ranking",
+    "exposure": "Historical corpus and 80 smoke anchors exposed; new split/removal outcomes, not independent population",
+    "universe": "5000 left / 2500 right; full-universe transductive candidates; supervised IDF fits train only",
+    "hidden_fields": [
+      "soc_sec_id"
+    ],
+    "closed_world_truth": true,
+    "corpus": "febrl4_half_no_ssn",
+    "seed": 2026091901,
+    "fields": {
+      "given_name": {
+        "type": "person_name"
+      },
+      "surname": {
+        "type": "person_name"
+      },
+      "street_number": {
+        "type": "code"
+      },
+      "address_1": {
+        "type": "address"
+      },
+      "address_2": {
+        "type": "address"
+      },
+      "suburb": {
+        "type": "address"
+      },
+      "postcode": {
+        "type": "code"
+      },
+      "state": {
+        "type": "code"
+      },
+      "date_of_birth": {
+        "type": "date",
+        "date_format": "yyyyMMdd"
+      }
+    },
+    "retrieval": true,
+    "files": {
+      "left": {
+        "path": "data/bench/febrl4_half_no_ssn/left.jsonl",
+        "sha256": "60dd56407bbb965fe69e7d2e1dc41081c06c8f741f16498303a5dddaf2067366",
+        "rows": 5000
+      },
+      "right": {
+        "path": "data/bench/febrl4_half_no_ssn/right.jsonl",
+        "sha256": "8e88c758e32e5088da97b91eb393bb21d213c231ad8a593b3b05f6f540b9b97f",
+        "rows": 2500
+      },
+      "pairs": {
+        "path": "data/bench/febrl4_half_no_ssn/pairs.jsonl",
+        "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+        "rows": 2500
+      }
+    },
+    "confirmation_scored": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "febrl4_half_no_ssn",
+      "id_column": "rec_id",
+      "fields": {
+        "given_name": {
+          "type": "person_name"
+        },
+        "surname": {
+          "type": "person_name"
+        },
+        "street_number": {
+          "type": "code"
+        },
+        "address_1": {
+          "type": "address"
+        },
+        "address_2": {
+          "type": "address"
+        },
+        "suburb": {
+          "type": "address"
+        },
+        "postcode": {
+          "type": "code"
+        },
+        "state": {
+          "type": "code"
+        },
+        "date_of_birth": {
+          "type": "date",
+          "date_format": "yyyyMMdd"
+        }
+      }
+    },
+    "candidates": {
+      "method": "gram_topk",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "given_name"
+        ],
+        [
+          "soundex(given_name)"
+        ],
+        [
+          "surname"
+        ],
+        [
+          "soundex(surname)"
+        ],
+        [
+          "street_number"
+        ],
+        [
+          "address_1"
+        ],
+        [
+          "prefix3(address_1)"
+        ],
+        [
+          "address_2"
+        ],
+        [
+          "prefix3(address_2)"
+        ],
+        [
+          "suburb"
+        ],
+        [
+          "prefix3(suburb)"
+        ],
+        [
+          "postcode"
+        ],
+        [
+          "state"
+        ],
+        [
+          "date_of_birth"
+        ],
+        [
+          "year(date_of_birth)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.5,
+      "cardinality": "one_to_one"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-linkage-candidates",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "plan": "bench/LINKAGE_PLAN.md",
+  "confirmation_scored": false,
+  "scope": "full-universe retrieval, both training endpoints in train, validation anchors only for scoring",
+  "feature_choice": "idf_only",
+  "rows": [
+    {
+      "method": "gram_topk",
+      "cardinality": "one_to_one",
+      "threshold": 0.95,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 68247312,
+        "join_rows_after_cap": 14716729,
+        "dropped_grams": 111,
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 28.763194374972954,
+      "feature_fit_seconds": 5.2594544580206275,
+      "score_seconds": 0.32039920904207975,
+      "model": {
+        "run_id": "b68c076f765f452fb28d2d09834732a7",
+        "model_uri": "runs:/b68c076f765f452fb28d2d09834732a7/model",
+        "logged_model_uri": "models:/m-9f8f6a4186e341ae887f642117c03add",
+        "label_set_sha256": "72986d40c66c09f36efd782f274b7dd3c256d181e79500ac11d31f41bea5ac92",
+        "artifact_bytes": 699963,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "gram_topk",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.95,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 43.05942037503701
+    },
+    {
+      "method": "gram_topk",
+      "cardinality": "many_to_one",
+      "threshold": 0.95,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 68247312,
+        "join_rows_after_cap": 14716729,
+        "dropped_grams": 111,
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 28.763194374972954,
+      "feature_fit_seconds": 5.2594544580206275,
+      "score_seconds": 0.32039920904207975,
+      "model": {
+        "run_id": "b68c076f765f452fb28d2d09834732a7",
+        "model_uri": "runs:/b68c076f765f452fb28d2d09834732a7/model",
+        "logged_model_uri": "models:/m-9f8f6a4186e341ae887f642117c03add",
+        "label_set_sha256": "72986d40c66c09f36efd782f274b7dd3c256d181e79500ac11d31f41bea5ac92",
+        "artifact_bytes": 699963,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "gram_topk",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.95,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 43.059421790996566
+    },
+    {
+      "method": "gram_topk",
+      "cardinality": "unrestricted",
+      "threshold": 0.95,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 68247312,
+        "join_rows_after_cap": 14716729,
+        "dropped_grams": 111,
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 28.763194374972954,
+      "feature_fit_seconds": 5.2594544580206275,
+      "score_seconds": 0.32039920904207975,
+      "model": {
+        "run_id": "b68c076f765f452fb28d2d09834732a7",
+        "model_uri": "runs:/b68c076f765f452fb28d2d09834732a7/model",
+        "logged_model_uri": "models:/m-9f8f6a4186e341ae887f642117c03add",
+        "label_set_sha256": "72986d40c66c09f36efd782f274b7dd3c256d181e79500ac11d31f41bea5ac92",
+        "artifact_bytes": 699963,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "gram_topk",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.95,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 43.059422082966194
+    },
+    {
+      "method": "learned_blocker",
+      "cardinality": "one_to_one",
+      "threshold": 0.35,
+      "tp": 495,
+      "fp": 1,
+      "fn": 5,
+      "tn": 1347,
+      "precision": 0.9979838709677419,
+      "recall": 0.99,
+      "f1": 0.9939759036144579,
+      "f1_95ci": [
+        0.9887640449438202,
+        0.998062015503876
+      ],
+      "paired_delta_95ci": [
+        -0.011235955056179803,
+        -0.0019379844961240345
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 0.99,
+      "budget": {
+        "join_rows_before_cap": 13535,
+        "join_rows_after_cap": 13535,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 9181,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 1.5726592079736292,
+      "feature_fit_seconds": 3.7771127090090886,
+      "score_seconds": 0.16424541594460607,
+      "model": {
+        "run_id": "18f1e927666c42968be2c615925b3a2b",
+        "model_uri": "runs:/18f1e927666c42968be2c615925b3a2b/model",
+        "logged_model_uri": "models:/m-ecc5f97d3cf44daeb4edd40c2e10c1c6",
+        "label_set_sha256": "f00f43fb50b3f4a233f58731f88304a3cf0a25af52ea4b4c612bd7a6f502f1bd",
+        "artifact_bytes": 489051,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "learned_blocker",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.35,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 12.897634208085947
+    },
+    {
+      "method": "learned_blocker",
+      "cardinality": "many_to_one",
+      "threshold": 0.35,
+      "tp": 495,
+      "fp": 1,
+      "fn": 5,
+      "tn": 1347,
+      "precision": 0.9979838709677419,
+      "recall": 0.99,
+      "f1": 0.9939759036144579,
+      "f1_95ci": [
+        0.9887640449438202,
+        0.998062015503876
+      ],
+      "paired_delta_95ci": [
+        -0.011235955056179803,
+        -0.0019379844961240345
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 0.99,
+      "budget": {
+        "join_rows_before_cap": 13535,
+        "join_rows_after_cap": 13535,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 9181,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 1.5726592079736292,
+      "feature_fit_seconds": 3.7771127090090886,
+      "score_seconds": 0.16424541594460607,
+      "model": {
+        "run_id": "18f1e927666c42968be2c615925b3a2b",
+        "model_uri": "runs:/18f1e927666c42968be2c615925b3a2b/model",
+        "logged_model_uri": "models:/m-ecc5f97d3cf44daeb4edd40c2e10c1c6",
+        "label_set_sha256": "f00f43fb50b3f4a233f58731f88304a3cf0a25af52ea4b4c612bd7a6f502f1bd",
+        "artifact_bytes": 489051,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "learned_blocker",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.35,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 12.897634916007519
+    },
+    {
+      "method": "learned_blocker",
+      "cardinality": "unrestricted",
+      "threshold": 0.35,
+      "tp": 495,
+      "fp": 1,
+      "fn": 5,
+      "tn": 1347,
+      "precision": 0.9979838709677419,
+      "recall": 0.99,
+      "f1": 0.9939759036144579,
+      "f1_95ci": [
+        0.9887640449438202,
+        0.998062015503876
+      ],
+      "paired_delta_95ci": [
+        -0.011235955056179803,
+        -0.0019379844961240345
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 0.99,
+      "budget": {
+        "join_rows_before_cap": 13535,
+        "join_rows_after_cap": 13535,
+        "dropped_grams": 0,
+        "method": "learned_blocker",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 9181,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 1.5726592079736292,
+      "feature_fit_seconds": 3.7771127090090886,
+      "score_seconds": 0.16424541594460607,
+      "model": {
+        "run_id": "18f1e927666c42968be2c615925b3a2b",
+        "model_uri": "runs:/18f1e927666c42968be2c615925b3a2b/model",
+        "logged_model_uri": "models:/m-ecc5f97d3cf44daeb4edd40c2e10c1c6",
+        "label_set_sha256": "f00f43fb50b3f4a233f58731f88304a3cf0a25af52ea4b4c612bd7a6f502f1bd",
+        "artifact_bytes": 489051,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "learned_blocker",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.35,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 12.89763495803345
+    },
+    {
+      "method": "minhash_lsh",
+      "cardinality": "one_to_one",
+      "threshold": 0.85,
+      "tp": 488,
+      "fp": 1,
+      "fn": 12,
+      "tn": 4492,
+      "precision": 0.9979550102249489,
+      "recall": 0.976,
+      "f1": 0.9868554095045501,
+      "f1_95ci": [
+        0.9793915603532876,
+        0.9932104752667313
+      ],
+      "paired_delta_95ci": [
+        -0.02060843964671244,
+        -0.006789524733268659
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 0.978,
+      "budget": {
+        "join_rows_before_cap": 1748507,
+        "join_rows_after_cap": 679756,
+        "dropped_grams": 6,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 24897,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 10.788683749968186,
+      "feature_fit_seconds": 4.290547417011112,
+      "score_seconds": 0.1822161249583587,
+      "model": {
+        "run_id": "a9b6ea7c921a4493991e18052991adc4",
+        "model_uri": "runs:/a9b6ea7c921a4493991e18052991adc4/model",
+        "logged_model_uri": "models:/m-6af4fae7f8e04065aaf322180ccae13a",
+        "label_set_sha256": "67d27a4bbc8c9f82c00c86e2a0eb191faf66a1f2c4c342fef7f179fda442050f",
+        "artifact_bytes": 709260,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.85,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 21.97879883297719
+    },
+    {
+      "method": "minhash_lsh",
+      "cardinality": "many_to_one",
+      "threshold": 0.85,
+      "tp": 488,
+      "fp": 1,
+      "fn": 12,
+      "tn": 4492,
+      "precision": 0.9979550102249489,
+      "recall": 0.976,
+      "f1": 0.9868554095045501,
+      "f1_95ci": [
+        0.9793915603532876,
+        0.9932104752667313
+      ],
+      "paired_delta_95ci": [
+        -0.02060843964671244,
+        -0.006789524733268659
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 0.978,
+      "budget": {
+        "join_rows_before_cap": 1748507,
+        "join_rows_after_cap": 679756,
+        "dropped_grams": 6,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 24897,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 10.788683749968186,
+      "feature_fit_seconds": 4.290547417011112,
+      "score_seconds": 0.1822161249583587,
+      "model": {
+        "run_id": "a9b6ea7c921a4493991e18052991adc4",
+        "model_uri": "runs:/a9b6ea7c921a4493991e18052991adc4/model",
+        "logged_model_uri": "models:/m-6af4fae7f8e04065aaf322180ccae13a",
+        "label_set_sha256": "67d27a4bbc8c9f82c00c86e2a0eb191faf66a1f2c4c342fef7f179fda442050f",
+        "artifact_bytes": 709260,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.85,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 21.97879937500693
+    },
+    {
+      "method": "minhash_lsh",
+      "cardinality": "unrestricted",
+      "threshold": 0.85,
+      "tp": 488,
+      "fp": 1,
+      "fn": 12,
+      "tn": 4492,
+      "precision": 0.9979550102249489,
+      "recall": 0.976,
+      "f1": 0.9868554095045501,
+      "f1_95ci": [
+        0.9793915603532876,
+        0.9932104752667313
+      ],
+      "paired_delta_95ci": [
+        -0.02060843964671244,
+        -0.006789524733268659
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 0.978,
+      "budget": {
+        "join_rows_before_cap": 1748507,
+        "join_rows_after_cap": 679756,
+        "dropped_grams": 6,
+        "method": "minhash_lsh",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 24897,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 10.788683749968186,
+      "feature_fit_seconds": 4.290547417011112,
+      "score_seconds": 0.1822161249583587,
+      "model": {
+        "run_id": "a9b6ea7c921a4493991e18052991adc4",
+        "model_uri": "runs:/a9b6ea7c921a4493991e18052991adc4/model",
+        "logged_model_uri": "models:/m-6af4fae7f8e04065aaf322180ccae13a",
+        "label_set_sha256": "67d27a4bbc8c9f82c00c86e2a0eb191faf66a1f2c4c342fef7f179fda442050f",
+        "artifact_bytes": 709260,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "minhash_lsh",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.85,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 21.97879958304111
+    },
+    {
+      "method": "field_blocks",
+      "cardinality": "one_to_one",
+      "threshold": 0.61,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 3400249,
+        "join_rows_after_cap": 756295,
+        "dropped_grams": 4,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 7.707438208977692,
+      "feature_fit_seconds": 4.244736499967985,
+      "score_seconds": 0.1841512080281973,
+      "model": {
+        "run_id": "7d6ce7e1c2264cc7b0a755f1d19fef1e",
+        "model_uri": "runs:/7d6ce7e1c2264cc7b0a755f1d19fef1e/model",
+        "logged_model_uri": "models:/m-91524089eb5b442dbe9f1ca4b848f3af",
+        "label_set_sha256": "5e3f5648556873e93d8e3c521ef35592695d66f17763dfbcadc3b6c74d3394b5",
+        "artifact_bytes": 703285,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "field_blocks",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.61,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 18.614302666974254
+    },
+    {
+      "method": "field_blocks",
+      "cardinality": "many_to_one",
+      "threshold": 0.61,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 3400249,
+        "join_rows_after_cap": 756295,
+        "dropped_grams": 4,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 7.707438208977692,
+      "feature_fit_seconds": 4.244736499967985,
+      "score_seconds": 0.1841512080281973,
+      "model": {
+        "run_id": "7d6ce7e1c2264cc7b0a755f1d19fef1e",
+        "model_uri": "runs:/7d6ce7e1c2264cc7b0a755f1d19fef1e/model",
+        "logged_model_uri": "models:/m-91524089eb5b442dbe9f1ca4b848f3af",
+        "label_set_sha256": "5e3f5648556873e93d8e3c521ef35592695d66f17763dfbcadc3b6c74d3394b5",
+        "artifact_bytes": 703285,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "field_blocks",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.61,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 18.61430345894769
+    },
+    {
+      "method": "field_blocks",
+      "cardinality": "unrestricted",
+      "threshold": 0.61,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 3400249,
+        "join_rows_after_cap": 756295,
+        "dropped_grams": 4,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 7.707438208977692,
+      "feature_fit_seconds": 4.244736499967985,
+      "score_seconds": 0.1841512080281973,
+      "model": {
+        "run_id": "7d6ce7e1c2264cc7b0a755f1d19fef1e",
+        "model_uri": "runs:/7d6ce7e1c2264cc7b0a755f1d19fef1e/model",
+        "logged_model_uri": "models:/m-91524089eb5b442dbe9f1ca4b848f3af",
+        "label_set_sha256": "5e3f5648556873e93d8e3c521ef35592695d66f17763dfbcadc3b6c74d3394b5",
+        "artifact_bytes": 703285,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "field_blocks",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.61,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 18.61430366698187
+    },
+    {
+      "method": "union",
+      "cardinality": "one_to_one",
+      "threshold": 0.61,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 71647561,
+        "join_rows_after_cap": 15473024,
+        "dropped_grams": 115,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 40.27302870794665,
+      "feature_fit_seconds": 4.331320750061423,
+      "score_seconds": 0.19019516604021192,
+      "model": {
+        "run_id": "3d7bce65b0fb4119b92034014af8f87a",
+        "model_uri": "runs:/3d7bce65b0fb4119b92034014af8f87a/model",
+        "logged_model_uri": "models:/m-03716b05ef724fb7a98b0642dbb230fb",
+        "label_set_sha256": "d240959ea7d20e089be994d28629cb81711008335c32016e1bd5924a8fbe417c",
+        "artifact_bytes": 703092,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "union",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.61,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 51.420298582990654
+    },
+    {
+      "method": "union",
+      "cardinality": "many_to_one",
+      "threshold": 0.61,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 71647561,
+        "join_rows_after_cap": 15473024,
+        "dropped_grams": 115,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 40.27302870794665,
+      "feature_fit_seconds": 4.331320750061423,
+      "score_seconds": 0.19019516604021192,
+      "model": {
+        "run_id": "3d7bce65b0fb4119b92034014af8f87a",
+        "model_uri": "runs:/3d7bce65b0fb4119b92034014af8f87a/model",
+        "logged_model_uri": "models:/m-03716b05ef724fb7a98b0642dbb230fb",
+        "label_set_sha256": "d240959ea7d20e089be994d28629cb81711008335c32016e1bd5924a8fbe417c",
+        "artifact_bytes": 703092,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "union",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.61,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 51.42029920802452
+    },
+    {
+      "method": "union",
+      "cardinality": "unrestricted",
+      "threshold": 0.61,
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": [
+        0.0,
+        0.0
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000,
+      "candidate_recall": 1.0,
+      "budget": {
+        "join_rows_before_cap": 71647561,
+        "join_rows_after_cap": 15473024,
+        "dropped_grams": 115,
+        "method": "union",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 25000,
+        "max_join_rows": 50000000,
+        "max_pairs": 100000
+      },
+      "retrieval_seconds": 40.27302870794665,
+      "feature_fit_seconds": 4.331320750061423,
+      "score_seconds": 0.19019516604021192,
+      "model": {
+        "run_id": "3d7bce65b0fb4119b92034014af8f87a",
+        "model_uri": "runs:/3d7bce65b0fb4119b92034014af8f87a/model",
+        "logged_model_uri": "models:/m-03716b05ef724fb7a98b0642dbb230fb",
+        "label_set_sha256": "d240959ea7d20e089be994d28629cb81711008335c32016e1bd5924a8fbe417c",
+        "artifact_bytes": 703092,
+        "registry": false
+      },
+      "frozen_config": {
+        "profile": "laptop",
+        "runtime": {
+          "mode": "local",
+          "connect": false,
+          "remote": "sc://localhost:15002",
+          "materialize": "auto",
+          "master": "local[2]",
+          "cli_profile": null
+        },
+        "classic": {
+          "profile": null
+        },
+        "storage": {
+          "catalog": null,
+          "root": "./data",
+          "scratch_schema": null
+        },
+        "entity": {
+          "name": "febrl4_half_no_ssn",
+          "id_column": "rec_id",
+          "fields": {
+            "given_name": {
+              "type": "person_name"
+            },
+            "surname": {
+              "type": "person_name"
+            },
+            "street_number": {
+              "type": "code"
+            },
+            "address_1": {
+              "type": "address"
+            },
+            "address_2": {
+              "type": "address"
+            },
+            "suburb": {
+              "type": "address"
+            },
+            "postcode": {
+              "type": "code"
+            },
+            "state": {
+              "type": "code"
+            },
+            "date_of_birth": {
+              "type": "date",
+              "date_format": "yyyyMMdd"
+            }
+          }
+        },
+        "candidates": {
+          "method": "union",
+          "q": 3,
+          "k": 5,
+          "idf_weighted": true,
+          "gram_cap": 400,
+          "max_join_rows": 50000000,
+          "max_pairs": 100000,
+          "union_of": [
+            "gram_topk",
+            "field_blocks"
+          ],
+          "field_blocks": [
+            [
+              "given_name"
+            ],
+            [
+              "soundex(given_name)"
+            ],
+            [
+              "surname"
+            ],
+            [
+              "soundex(surname)"
+            ],
+            [
+              "street_number"
+            ],
+            [
+              "address_1"
+            ],
+            [
+              "prefix3(address_1)"
+            ],
+            [
+              "address_2"
+            ],
+            [
+              "prefix3(address_2)"
+            ],
+            [
+              "suburb"
+            ],
+            [
+              "prefix3(suburb)"
+            ],
+            [
+              "postcode"
+            ],
+            [
+              "state"
+            ],
+            [
+              "date_of_birth"
+            ],
+            [
+              "year(date_of_birth)"
+            ]
+          ],
+          "max_block_rules": 3,
+          "num_hash_features": 128000,
+          "num_hash_tables": 4,
+          "seed": 0
+        },
+        "features": {
+          "string_similarity": "levenshtein",
+          "multi_token": [
+            "idf_token_cosine"
+          ],
+          "udf_features": false,
+          "field_families": true,
+          "exclude_field_types": [],
+          "max_tokens": 64,
+          "max_chars": 512,
+          "levenshtein_threshold": 64,
+          "embeddings": {
+            "fields_of_type": [],
+            "provider": "none",
+            "model": "data/models/all-MiniLM-L6-v2"
+          }
+        },
+        "matcher": {
+          "estimator": "gbt",
+          "max_model_mb": 100,
+          "max_iter": 20,
+          "max_depth": 3,
+          "seed": 0
+        },
+        "decision": {
+          "threshold": 0.61,
+          "cardinality": "one_to_one"
+        },
+        "cluster": {
+          "method": "verified_merge",
+          "max_rounds": 20
+        },
+        "quality": {
+          "engine": "native",
+          "checks": []
+        },
+        "labels": {
+          "llm": "none",
+          "llm_tau": 0.9
+        },
+        "mlflow": {
+          "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/linkage_candidates/febrl4_half_no_ssn/mlflow.db",
+          "registry": false,
+          "model_name": "lakematch_person",
+          "registry_uri": null,
+          "alias": null,
+          "experiment": "zr3-linkage-candidates",
+          "acceptance_f1": null
+        },
+        "paid_features": {
+          "photon_on_classic": false,
+          "serverless_performance_mode": false,
+          "llm_labeller": false,
+          "ai_functions": false,
+          "embedding_endpoint": false,
+          "ai_search_blocking": false,
+          "lakebase_label_store": false,
+          "app": false,
+          "genie": false,
+          "predictive_optimization": false,
+          "data_quality_monitoring": false,
+          "llm_judges_in_evaluation": false,
+          "genie_auth_mode": "user"
+        },
+        "input": {
+          "left": null,
+          "right": null,
+          "labels": null,
+          "validation_labels": null,
+          "format": "csv"
+        },
+        "output": {
+          "root": "./data/output"
+        },
+        "model": {
+          "path": "./data/model",
+          "pointer": "models/current.json"
+        }
+      },
+      "method_seconds_including_log_cleanup": 51.42029937496409
+    }
+  ],
+  "baselines": [
+    {
+      "method": "gram_topk",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 500,
+      "fp": 500,
+      "fn": 0,
+      "tn": 4000,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "f1_95ci": [
+        0.6376021798365122,
+        0.6962190352020861
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "gram_topk",
+      "name": "cosine_threshold",
+      "threshold": 0.46,
+      "cardinality": "one_to_one",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "learned_blocker",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 495,
+      "fp": 307,
+      "fn": 5,
+      "tn": 1041,
+      "precision": 0.6172069825436409,
+      "recall": 0.99,
+      "f1": 0.7603686635944701,
+      "f1_95ci": [
+        0.7333854573885848,
+        0.7872340425531915
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "learned_blocker",
+      "name": "cosine_threshold",
+      "threshold": 0.54,
+      "cardinality": "one_to_one",
+      "tp": 495,
+      "fp": 0,
+      "fn": 5,
+      "tn": 1348,
+      "precision": 1.0,
+      "recall": 0.99,
+      "f1": 0.9949748743718593,
+      "f1_95ci": [
+        0.9900199600798403,
+        0.9989949748743718
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "minhash_lsh",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 489,
+      "fp": 509,
+      "fn": 11,
+      "tn": 3984,
+      "precision": 0.48997995991983967,
+      "recall": 0.978,
+      "f1": 0.6528704939919893,
+      "f1_95ci": [
+        0.6227951153324288,
+        0.6823837590045841
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "minhash_lsh",
+      "name": "cosine_threshold",
+      "threshold": 0.54,
+      "cardinality": "one_to_one",
+      "tp": 489,
+      "fp": 0,
+      "fn": 11,
+      "tn": 4493,
+      "precision": 1.0,
+      "recall": 0.978,
+      "f1": 0.9888776541961577,
+      "f1_95ci": [
+        0.9821615949632738,
+        0.9949238578680203
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "field_blocks",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 500,
+      "fp": 500,
+      "fn": 0,
+      "tn": 4000,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "f1_95ci": [
+        0.6376021798365122,
+        0.6962190352020861
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "field_blocks",
+      "name": "cosine_threshold",
+      "threshold": 0.54,
+      "cardinality": "one_to_one",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "union",
+      "name": "nearest_neighbour",
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "tp": 500,
+      "fp": 500,
+      "fn": 0,
+      "tn": 4000,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "f1_95ci": [
+        0.6376021798365122,
+        0.6962190352020861
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    },
+    {
+      "method": "union",
+      "name": "cosine_threshold",
+      "threshold": 0.54,
+      "cardinality": "one_to_one",
+      "tp": 500,
+      "fp": 0,
+      "fn": 0,
+      "tn": 4500,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "f1_95ci": [
+        1.0,
+        1.0
+      ],
+      "paired_delta_95ci": null,
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1000
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "field_blocks.predictions.json": "df6a4a6d54488943d6d93366a46ea3e2c40997fc51076925e81e74f04d883edc",
+    "field_blocks_state/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "gram_topk.predictions.json": "f67f1b15bf019002af8079219a681fce5110639495a5660d4529736197c9281f",
+    "gram_topk_state/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "learned_blocker.predictions.json": "88b4093b8bf3004a41f68076451f0188cf5be5fd9f1103f7402b0306d6df76c4",
+    "learned_blocker_state/state.json": "50c48754832a455d281ebfcc64fd598a43c0fd32d7510640434928bb7de1e792",
+    "minhash_lsh.predictions.json": "04ee85213167e57f1d37bf0d50e9da257aa78703bc9aa7980edfa967e0a31815",
+    "minhash_lsh_state/lsh/data/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/data/.part-00000-1d14c58c-78db-4021-b8bb-78a51ff383b8-c000.snappy.parquet.crc": "91e373faed1b84be1536100d08866ee7c9dab40964aca227a9279a20b45956aa",
+    "minhash_lsh_state/lsh/data/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/data/part-00000-1d14c58c-78db-4021-b8bb-78a51ff383b8-c000.snappy.parquet": "acffcfd73af3e7317cce1c6992dfd9088073d8686b0da76c24b50509ddc1c06b",
+    "minhash_lsh_state/lsh/metadata/._SUCCESS.crc": "1d44f510ec2ed7595badbec80583316defc14e8dd89130d719724149adfaa07d",
+    "minhash_lsh_state/lsh/metadata/.part-00000-a911d9b1-846c-4ba4-851c-a7937a1e41d5-c000.txt.crc": "7ebd3c947e2c67ebd44e736ca8be84364b27da8075c348d146b76c3b35833330",
+    "minhash_lsh_state/lsh/metadata/_SUCCESS": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minhash_lsh_state/lsh/metadata/part-00000-a911d9b1-846c-4ba4-851c-a7937a1e41d5-c000.txt": "ae10c402cdbbf549bb9d5413455dd4a366d396207e3ef7c81622a5b64ec92f3c",
+    "minhash_lsh_state/state.json": "87cc1453409396d59ffdc3f99ec2893572b4f462f3db4e8cc2192c559b4f759b",
+    "union.predictions.json": "cc4eaa28740bd1bfa0ffbed0b7d7b571e7e9890b45230a21983d9c20ede3334f",
+    "union_state/field_blocks/state.json": "8d0b01ee83ccd8ef568230ce2d254fd9e3127688166ad8a97bf9b3ccb5cac205",
+    "union_state/gram_topk/state.json": "496749e7c3d01dbf6561dbab001861f61186a937ca4ed7c44e6f97e32a9e220f",
+    "union_state/state.json": "4d678a47cb49bd3b25debc72cfcefc11e6853481ed57ca9d0b85bde533da3c07"
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 159.92814662505407
+}

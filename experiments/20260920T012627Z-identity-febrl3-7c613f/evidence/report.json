@@ -1,0 +1,507 @@
+{
+  "status": "completed",
+  "iteration": 6,
+  "corpus": "febrl3",
+  "method": "verified_merge",
+  "comparison_run": "20260920T011750Z-cluster-febrl3-11c044",
+  "model": {
+    "run_id": "c547b4fc252247c68a2a3d97bb6cfcf5",
+    "model_uri": "runs:/c547b4fc252247c68a2a3d97bb6cfcf5/model",
+    "logged_model_uri": "models:/m-29f86ea4e03c47e199739810159bdfe3",
+    "label_set_sha256": "e60cfe0a3b1abb3bb77c99803a9c26a2bbe40a8ba227dd656cd1bdcd741c72e4",
+    "artifact_bytes": 656583,
+    "registry": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "auto",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "febrl3",
+      "id_column": "rec_id",
+      "fields": {
+        "given_name": {
+          "type": "person_name"
+        },
+        "surname": {
+          "type": "person_name"
+        },
+        "street_number": {
+          "type": "code"
+        },
+        "address_1": {
+          "type": "address"
+        },
+        "address_2": {
+          "type": "address"
+        },
+        "suburb": {
+          "type": "address"
+        },
+        "postcode": {
+          "type": "code"
+        },
+        "state": {
+          "type": "code"
+        },
+        "date_of_birth": {
+          "type": "date",
+          "date_format": "yyyyMMdd"
+        },
+        "soc_sec_id": {
+          "type": "code"
+        }
+      }
+    },
+    "candidates": {
+      "method": "field_blocks",
+      "q": 3,
+      "k": 6,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 500000,
+      "union_of": [],
+      "field_blocks": [
+        [
+          "given_name"
+        ],
+        [
+          "soundex(given_name)"
+        ],
+        [
+          "surname"
+        ],
+        [
+          "soundex(surname)"
+        ],
+        [
+          "street_number"
+        ],
+        [
+          "address_1"
+        ],
+        [
+          "prefix3(address_1)"
+        ],
+        [
+          "address_2"
+        ],
+        [
+          "prefix3(address_2)"
+        ],
+        [
+          "suburb"
+        ],
+        [
+          "prefix3(suburb)"
+        ],
+        [
+          "postcode"
+        ],
+        [
+          "state"
+        ],
+        [
+          "date_of_birth"
+        ],
+        [
+          "year(date_of_birth)"
+        ],
+        [
+          "soc_sec_id"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine",
+        "gram_overlap",
+        "monge_elkan_token"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.72,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 30
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/clusters/febrl3/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr4-clusters",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "mutation": {
+    "seed": 2026091901,
+    "records_before": 1050,
+    "records_after": 1050,
+    "per_operation_count": 10,
+    "fraction": 0.009523809523809525,
+    "deleted": [
+      "rec-1198-org",
+      "rec-1276-org",
+      "rec-1394-org",
+      "rec-1644-dup-0",
+      "rec-1671-dup-0",
+      "rec-1723-dup-1",
+      "rec-1760-org",
+      "rec-1985-dup-0",
+      "rec-301-org",
+      "rec-745-org"
+    ],
+    "changed": [
+      "rec-1175-dup-2",
+      "rec-1540-org",
+      "rec-161-dup-2",
+      "rec-1736-dup-2",
+      "rec-1838-org",
+      "rec-1918-org",
+      "rec-418-dup-0",
+      "rec-505-org",
+      "rec-578-org",
+      "rec-607-org"
+    ],
+    "added": [
+      "added-000000-rec-702-dup-0",
+      "added-000001-rec-1319-org",
+      "added-000002-rec-1953-dup-4",
+      "added-000003-rec-1124-org",
+      "added-000004-rec-1968-dup-0",
+      "added-000005-rec-479-dup-2",
+      "added-000006-rec-943-dup-2",
+      "added-000007-rec-521-dup-0",
+      "added-000008-rec-1098-org",
+      "added-000009-rec-1697-dup-0"
+    ],
+    "profile_donors": {
+      "rec-1838-org": "rec-1245-org",
+      "rec-607-org": "rec-743-dup-1",
+      "rec-505-org": "rec-68-org",
+      "rec-1736-dup-2": "rec-1072-dup-3",
+      "rec-418-dup-0": "rec-575-dup-1",
+      "rec-1918-org": "rec-1537-org",
+      "rec-578-org": "rec-1006-dup-2",
+      "rec-1540-org": "rec-893-org",
+      "rec-161-dup-2": "rec-1686-dup-2",
+      "rec-1175-dup-2": "rec-1730-org"
+    },
+    "changed_fields": [
+      "address_1",
+      "address_2",
+      "date_of_birth",
+      "given_name",
+      "postcode",
+      "soc_sec_id",
+      "state",
+      "street_number",
+      "suburb",
+      "surname"
+    ],
+    "change_rule": "replace complete profile with a different validation entity; preserve record ID",
+    "added_rule": "clone a validation profile with a new record ID",
+    "before_digest": "302a1a2c237b1aa37a8db3d9f83cc56e67c413fbf208919eabf62c48016f4fdc",
+    "after_digest": "f9f47404976c4b1c8fe890b9a7ebf5948134103528ca2b3f735ace5c6ac3bfa1"
+  },
+  "confirmation_scored": false,
+  "runs": [
+    {
+      "name": "before",
+      "budget": {
+        "join_rows_before_cap": 319506,
+        "join_rows_after_cap": 319506,
+        "dropped_grams": 0,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 6300,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 1454,
+          "verification_pairs": 1454,
+          "vetoed_proposals": 0,
+          "merges": 239
+        },
+        {
+          "round": 2,
+          "proposals": 807,
+          "verification_pairs": 1218,
+          "vetoed_proposals": 3,
+          "merges": 169
+        },
+        {
+          "round": 3,
+          "proposals": 396,
+          "verification_pairs": 638,
+          "vetoed_proposals": 2,
+          "merges": 127
+        },
+        {
+          "round": 4,
+          "proposals": 154,
+          "verification_pairs": 269,
+          "vetoed_proposals": 1,
+          "merges": 76
+        },
+        {
+          "round": 5,
+          "proposals": 39,
+          "verification_pairs": 78,
+          "vetoed_proposals": 0,
+          "merges": 39
+        },
+        {
+          "round": 6,
+          "proposals": 0,
+          "merges": 0
+        }
+      ],
+      "seconds": 30.662721375003457,
+      "records": 1050
+    },
+    {
+      "name": "after",
+      "budget": {
+        "join_rows_before_cap": 320111,
+        "join_rows_after_cap": 320111,
+        "dropped_grams": 0,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 6300,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 1477,
+          "verification_pairs": 1477,
+          "vetoed_proposals": 0,
+          "merges": 241
+        },
+        {
+          "round": 2,
+          "proposals": 821,
+          "verification_pairs": 1240,
+          "vetoed_proposals": 3,
+          "merges": 169
+        },
+        {
+          "round": 3,
+          "proposals": 408,
+          "verification_pairs": 657,
+          "vetoed_proposals": 2,
+          "merges": 124
+        },
+        {
+          "round": 4,
+          "proposals": 163,
+          "verification_pairs": 287,
+          "vetoed_proposals": 0,
+          "merges": 80
+        },
+        {
+          "round": 5,
+          "proposals": 43,
+          "verification_pairs": 86,
+          "vetoed_proposals": 0,
+          "merges": 39
+        },
+        {
+          "round": 6,
+          "proposals": 2,
+          "verification_pairs": 4,
+          "vetoed_proposals": 0,
+          "merges": 2
+        },
+        {
+          "round": 7,
+          "proposals": 0,
+          "merges": 0
+        }
+      ],
+      "seconds": 29.330463250051253,
+      "records": 1050
+    },
+    {
+      "name": "repeated",
+      "budget": {
+        "join_rows_before_cap": 320111,
+        "join_rows_after_cap": 320111,
+        "dropped_grams": 0,
+        "method": "field_blocks",
+        "score": "exact unweighted gram-set cosine after retrieval",
+        "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+        "candidate_pairs": 6300,
+        "max_join_rows": 50000000,
+        "max_pairs": 500000
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "proposals": 1477,
+          "verification_pairs": 1477,
+          "vetoed_proposals": 0,
+          "merges": 241
+        },
+        {
+          "round": 2,
+          "proposals": 821,
+          "verification_pairs": 1240,
+          "vetoed_proposals": 3,
+          "merges": 169
+        },
+        {
+          "round": 3,
+          "proposals": 408,
+          "verification_pairs": 657,
+          "vetoed_proposals": 2,
+          "merges": 124
+        },
+        {
+          "round": 4,
+          "proposals": 163,
+          "verification_pairs": 287,
+          "vetoed_proposals": 0,
+          "merges": 80
+        },
+        {
+          "round": 5,
+          "proposals": 43,
+          "verification_pairs": 86,
+          "vetoed_proposals": 0,
+          "merges": 39
+        },
+        {
+          "round": 6,
+          "proposals": 2,
+          "verification_pairs": 4,
+          "vetoed_proposals": 0,
+          "merges": 2
+        },
+        {
+          "round": 7,
+          "proposals": 0,
+          "merges": 0
+        }
+      ],
+      "seconds": 28.639175666030496,
+      "records": 1050
+    }
+  ],
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "evidence_files": {
+    "after.json": "f941a535ebd2b87425f0e3df38c1fdee2f33b3d51cacbfdcc045efc703ac180e",
+    "before.json": "340df16ae2714106ab71b55315988d255c9c1830655bc5998e48f6d330bccab9",
+    "changes.json": "215d990207970f2faa6c24e1a1fa18763fe71933d31a8b914f169ac967562e3a",
+    "cluster_events.json": "ad0707885fe27176c009e39bc385598860ff9a26f3fb18c4913222bd943a9583",
+    "mutation.json": "14e4da43d2e18f210fe4d3a2b8022820415ac69c4f5b4577843588441a7b7f2f"
+  },
+  "unchanged_input_stable": true,
+  "exact_journal_replay": true,
+  "incremental_repeat_idempotent": true,
+  "observed_changes": {
+    "added": 10,
+    "moved_and_changed": 9,
+    "deleted": 10,
+    "changed": 1,
+    "unchanged": 959,
+    "moved": 71
+  },
+  "cluster_events": {
+    "rekey": 13,
+    "merge": 10,
+    "split": 8,
+    "retired": 3
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark": 98.4462951249443
+}

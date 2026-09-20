@@ -44,7 +44,7 @@ def main():
         'mlflow': {'tracking_uri': f'sqlite:///{out}/mlflow.db', 'experiment': 'zr3-linkage-candidates'}}
     raw['candidates']['field_blocks'] = blocking.proposed_rules(from_dict(raw))
     config = from_dict(raw)
-    report = {'status': 'running', 'iteration': 4, 'corpus': corpus.name,
+    report = {'status': 'running', 'iteration': 5, 'corpus': corpus.name,
         'manifest': json.loads(manifest.read_text()), 'config': config.data,
         'plan': 'bench/LINKAGE_PLAN.md', 'confirmation_scored': False,
         'scope': 'full-universe retrieval, both training endpoints in train, validation anchors only for scoring',
@@ -76,7 +76,7 @@ def main():
                 vocab = m.materialize(feature_stats.fit_idf(training_records, config), 'idf')
                 idf_path = str(out / 'idf')
                 vocab.write.mode('overwrite').parquet(idf_path)
-                left, right = [m.materialize(feature_stats.attach_idf(frame, vocab, config), side)
+                left, right = [m.materialize(feature_stats.attach_idf(frame, vocab, config), side, truncate=True)
                     for frame, side in ((left, 'weighted_left'), (right, 'weighted_right'))]
             positive_labels = spark.createDataFrame([p for p in corpus.pairs if p['split'] == 'train'],
                 'a_id string, b_id string, label double')
@@ -96,7 +96,7 @@ def main():
                     t0 = time.perf_counter()
                     plan = candidates.build(left, right, cfg, state=state)
                     budget = plan.validate_budget()
-                    candidate_frame = cm.materialize(plan.pairs, 'candidates')
+                    candidate_frame = cm.materialize(plan.pairs, 'candidates', truncate=True)
                     retrieved = candidate_frame.collect()
                     retrieval_seconds = time.perf_counter() - t0
                     pairs = [{'a_id': r.a_id, 'b_id': r.b_id, 'label': float((r.a_id, r.b_id) in known),
@@ -111,7 +111,7 @@ def main():
                     groups = {pair: pair[0] for pair in valid_truth}
                     eligible = candidate_frame.join(labels.select('a_id', 'b_id'), ['a_id', 'b_id'], 'semi')
                     t0 = time.perf_counter()
-                    vectors = cm.materialize(features.build(eligible, left, right, cfg), 'vectors')
+                    vectors = cm.materialize(features.build(eligible, left, right, cfg), 'vectors', truncate=True)
                     model = matcher.train(vectors, train, cfg)
                     fit_seconds = time.perf_counter() - t0
                     t0 = time.perf_counter()

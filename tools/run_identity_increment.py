@@ -23,10 +23,13 @@ def mutate(records, fields, namespace):
     ordered = sorted(records, key=lambda row: rank('increment/' + namespace, row['rec_id']))
     count = max(1, len(records) // 100)
     removed = {row['rec_id'] for row in ordered[:count]}
-    changes = {}
+    changes, donors, used_entities = {}, {}, set()
     for row in ordered[count:2 * count]:
         donor = next(other for other in ordered[3 * count:] if other['truth_entity'] != row['truth_entity']
+                     and other['truth_entity'] not in used_entities
                      and any(other[field] != row[field] for field in fields))
+        used_entities.add(donor['truth_entity'])
+        donors[row['rec_id']] = donor['rec_id']
         changes[row['rec_id']] = {**row, **{field: donor[field] for field in fields}, 'truth_entity': donor['truth_entity']}
     additions = [{**row, 'rec_id': f"added-{i:06d}-{row['rec_id']}"}
                  for i, row in enumerate(ordered[2 * count:3 * count])]
@@ -35,6 +38,7 @@ def mutate(records, fields, namespace):
     return current, {'seed': 2026091901, 'records_before': len(records), 'records_after': len(current),
         'per_operation_count': count, 'fraction': count / len(records),
         'deleted': sorted(removed), 'changed': sorted(changes), 'added': [row['rec_id'] for row in additions],
+        'profile_donors': donors,
         'changed_fields': sorted(fields), 'change_rule': 'replace complete profile with a different validation entity; preserve record ID',
         'added_rule': 'clone a validation profile with a new record ID',
         'before_digest': digest(records), 'after_digest': digest(current)}

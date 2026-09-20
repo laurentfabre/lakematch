@@ -14,6 +14,11 @@ clone the third group under new `added-...` IDs. Keep exact mutation IDs and
 before/after content digests before any incremental scoring. Whole-profile
 changes deliberately exercise movement between entities, rather than only typo
 correction. Additions and deletions balance the record count.
+Use the first eligible donor in the frozen ranking for each changed record,
+excluding previously used donor entities and requiring an actual field change.
+This distributes the changes across distinct entities instead of making every
+changed record a clone of one profile. Record the donor IDs in the mutation
+manifest before scoring; neither a seed nor a mutation is retried for a score.
 
 Recompute the original validation graph in a fresh process and require identical
 canonical identities to the stored comparison membership. Recompute the changed

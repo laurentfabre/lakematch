@@ -1,69 +1,21 @@
-Authority: goal.md (do not maintain independent completion flags here).
-Workspace: /Users/laurent.fabre/Projects/Claude/lakematch
-Profile explicitly selected: fevm-gdpr2. Never substitute another profile.
-Laurent waived quota/expiry prerequisites; finite runs, one remote experiment and cleanup still apply.
+Authority: goal.md; resume $goal ./goal.md.
+Profile: fevm-gdpr2, explicitly selected. User waived quota/expiry prerequisites.
+Classic is confirmed unsupported; do not retry or substitute profiles. ZR-9 stays parked.
+Public/synthetic data only. Preserve .DS_Store and .isaac. No push requested.
 
-Checkpoint commit 6f859f4 (affected gates require refresh after new retrieval integration):
-ZR-1 passed source 66f76bd952fb: 71 tests in both modes, offline CLI, full FEBRL smoke, wheel/private checks.
-Original FEBRL smoke is 86.29 seconds with composite logging; it is not the ZR-3 latency/holdout gate.
-ZR-2 passes source 89407f97a43b after iteration 5/8 (unchanged integration verification).
-ZR-5 passes after iteration 3/8: composite models-from-code, IDF and label snapshots, signature, dataset
-lineage, static MLflow evaluation, SQLite accepted-run pointer and normal CLI train/score round trip.
-Remote model run 429596527159022 passed: UC gdpr2_catalog.lakematch_20260919.pair_model/2,
-MLflow run d6ee845c458942679aa4d34bc0db3bc1, champion resolved to immutable version 2,
-142284-byte full package, fresh-task maximum probability difference 4.58e-16.
-The implementation is in src/lakematch/{tracking,composite_model}.py; ignore the old /private/tmp drafts.
+ZR-3 iterations 1/2/3 measured retrieval, classifier and compact features. Selected Levenshtein/GBT and IDF-only token features; shipped token defaults still need reconciliation.
+Linkage iteration 4 failed before fitting, in QueryExecution.explainString with Java heap exhaustion.
+Iteration 5 uses owned table boundaries on weighted inputs, candidates and vectors with unchanged budgets.
+Iteration 5 completed all three FEBRL variants. Current sweep: tools/candidate_pairs_sweep.py, session 44448 (ZR-3 iteration 6).
+Do not start another Spark experiment until it is terminal.
 
-Classic is now CONFIRMED UNSUPPORTED: Jobs submit returned "Only serverless compute is supported in the workspace."
-See experiments/classic-capability.json and experiment 20260919T231841Z-classic-job-preflight-05d439.
-No run or cluster was created. Do not retry classic operations until the workspace capability changes.
-ZR-9 remains parked. Local/serverless work continues.
-Latest inventory: no clusters, no active jobs, no owned tables. The unrelated shared warehouse is RUNNING;
-this campaign did not start or stop it. Do not stop unrelated resources.
-Remaining ENV: pipeline execution, deployed app/user-delegated Genie conversation, query profiles and billing.
+ZR-4 iteration 5 completed native comparisons on both corpora. Verified merge wins: macro pairwise F1 .9696, B-cubed .9727.
+Iteration 6 identity checks passed on FEBRL3 and historical_50k; reports independently replay journals and cluster events.
+See bench/CLUSTERS.md and bench/IDENTITY.md. No confirmation scoring or promotion.
+Normal cluster CLI and atomic local publication passed iteration 7: five fresh calls, three commits; crosswalks and journals match sealed FEBRL3 evidence. Three recovery tests include abrupt process death. tools/verify_clusters.py audits this evidence. Later save-scores CLI/engine additions require final compatible-source refresh.
+Cluster default max_rounds still 20, while historical verified merge needed 21; benchmark uses 30.
+Remote publication/SDP/DQX, APX, Genie, scale, latency and confirmation remain pending.
+APX maintenance remains unconfirmed; no framework substitution is authorized. Baseline scaffold built (169758 total bytes; max file169627), stored in app/ with upstream license/notice. No custom UI/deployment.
+Affected ZR-1/2/5 evidence needs refresh on coherent final source. Latest full suites predate new changes.
 
-Next eligible work: ZR-3 method comparison/latency harness. Read bench/METHOD_PLAN.md, PROTOCOL.md and the brief.
-Every confirmation/test score remains untouched. Seed 2026091901 and bootstrap seed 2026091902 stay fixed.
-All data public/synthetic. No Zingg source/adapters. Mandatory dependencies pyspark, mlflow, pyyaml only.
-Learned blocker, field blocks, MinHash and union now pass offline CLI train/log/reload checks.
-17 focused regression tests passed. Retrieval iteration 1 now has all 90 method/scope outcomes
-across nine corpus configurations (bench/RETRIEVAL.md and retrieval_index.json). BPID gram/union
-exceed the unchanged 50-million join ceiling; the first failed run is preserved. The corrected
-harness records budget rejections and unavailable paired references. No defaults were promoted.
-A later runtime change adds owned-table truncation for clustering rounds. The completed retrieval
-results need compatibility refresh on the final source; do not claim all phase verifiers pass.
-Classifier iteration 2 is predeclared in bench/CLASSIFIER_PLAN.md; tools/methods_sweep.py runs it.
-New clustering/identity modules pass seven targeted Spark tests after fixing cache-lineage JVM
-heap exhaustion using owned-table round boundaries. All 98 tests pass in classic Spark and the identical Spark Connect suite, with no skips.
-Runs: 20260920T002727Z-expanded-classic-tests-f867fd and
-20260920T002836Z-expanded-connect-tests-12af1b. Classifier factorial completed 81 models,
-nine corpora configurations, zero failures. Selected Levenshtein/GBT: macro F1 .8201;
-LR .8008 and RF .8003 are significantly worse by the predeclared paired interval.
-No clear gain from Jaro-Winkler. bench/METHODS.md and selection.json record this stage.
-Compact-feature iteration 3 completed all nine runs. IDF-only selected under the simpler-choice
-rule: macro F1 .8145 vs .8201, paired CI [-.0126,+.0014], measured stage cost 3.87s vs 7.49s.
-See bench/COMPACT_FEATURES.md. Shipped token defaults are not changed yet.
-Next ZR-3: tools/run_linkage_candidates.py VARIANT --features idf_only --estimator gbt
-under the experiment runner; bench/LINKAGE_PLAN.md declares iteration 4.
-Splink baselines first failed on a dereferenced venv executable, then on a shared
-DuckDBAPI cache returning training records. Both are retained; no baseline score accepted.
-The corrected baselines passed with fresh validation connections and endpoint audits.
-Pairwise/B-cubed F1: FEBRL3 .9979/.9986; historical_50k .8580/.8797.
-See bench/CLUSTERS.md and cluster_index.json. Native comparison is prepared.
-ZR-4 iterations 1/2 are those baseline failures. Iteration 3 passed native FEBRL3
-(CC/star/verified F1=1; center .9966), but historical_50k components failed 30 rounds.
-Iteration 4 adds parent-label shortcuts; CLUSTER_FIX_PLAN.md retains the failure.
-A bounded regression checks two disconnected long paths, then both corpora rerun.
-The eight regressions passed; full FEBRL3 then failed with broadcast-memory exhaustion
-during center clustering. Iteration 5 also truncates the initial ID-only vertex relation.
-Both corpus runs are bounded identically. Identity verification moves to iteration 6;
-its harness and plan are prepared. APX maintenance remains unconfirmed (see
-experiments/apx-prerequisites.json); no framework substitution is authorized.
-They are not yet integrated into the CLI or benchmarked on real corpora. Public clustering
-corpora and an isolated Splink environment are prepared; see bench/CLUSTER_PLAN.md.
-Compare all required estimators,
-string/cardinality choices; freeze selected models before confirmation; satisfy local <60-second gates.
-Clustering/identity, scale ladder, pipelines, APX and Genie remain pending; continue eligible work.
-Read bench/MODELS.md, ABLATION.md, ENGINE.md and experiments/runs.jsonl for measured evidence.
-Preserve unrelated .isaac and .DS_Store. No push was requested.
-Resume: $goal /Users/laurent.fabre/Projects/Claude/lakematch/goal.md
+Prepared but not run: tools/freeze_benchmarks.py and run_frozen_linkage.py. Freeze only after candidate selection; no confirmation has been scored. Final scoring uses normal CLI with --save-scores, complete universe, full startup/output/cleanup timing.

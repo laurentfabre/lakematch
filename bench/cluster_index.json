@@ -1,5 +1,5 @@
 {
-  "status": "partial",
+  "status": "comparisons_completed",
   "confirmation_scored": false,
   "runs": {
     "splink-febrl3": {
@@ -8,17 +8,26 @@
       "report": "experiments/20260920T005517Z-splink-febrl3-0a57a2/evidence/report.json",
       "report_sha256": "62d65ae9e869109123c64c2904f54c06c992cfc5b1c1b61591c5b62e356d5a46"
     },
+    "cluster-febrl3": {
+      "run_id": "20260920T011750Z-cluster-febrl3-11c044",
+      "manifest": "experiments/20260920T011750Z-cluster-febrl3-11c044/manifest.json",
+      "report": "experiments/20260920T011750Z-cluster-febrl3-11c044/evidence/report.json",
+      "report_sha256": "356711daed13ddd463c2a0606b910dde46446df7c3e9adeb490c25ad6c97dbf4"
+    },
     "splink-historical_50k": {
       "run_id": "20260920T005520Z-splink-historical_50k-df150d",
       "manifest": "experiments/20260920T005520Z-splink-historical_50k-df150d/manifest.json",
       "report": "experiments/20260920T005520Z-splink-historical_50k-df150d/evidence/report.json",
       "report_sha256": "c265473942badba1a392dd257e0bc198ae2316f635bf98b380d7eb2357fdfd0f"
+    },
+    "cluster-historical_50k": {
+      "run_id": "20260920T011911Z-cluster-historical_50k-7cb000",
+      "manifest": "experiments/20260920T011911Z-cluster-historical_50k-7cb000/manifest.json",
+      "report": "experiments/20260920T011911Z-cluster-historical_50k-7cb000/evidence/report.json",
+      "report_sha256": "aaf5838e4b573523ced7a393b3c2413a56fac95920a0c56c00f91069ca9cc6d2"
     }
   },
-  "missing": [
-    "cluster-febrl3",
-    "cluster-historical_50k"
-  ],
+  "missing": [],
   "failures": [
     {
       "run_id": "20260920T005314Z-splink-febrl3-7aa05c",
@@ -29,6 +38,144 @@
       "run_id": "20260920T005352Z-splink-febrl3-ade5ac",
       "manifest": "experiments/20260920T005352Z-splink-febrl3-ade5ac/manifest.json",
       "status": "failed"
+    },
+    {
+      "run_id": "20260920T010851Z-cluster-historical_50k-e76bf6",
+      "manifest": "experiments/20260920T010851Z-cluster-historical_50k-e76bf6/manifest.json",
+      "status": "failed"
+    },
+    {
+      "run_id": "20260920T011350Z-cluster-febrl3-40aea9",
+      "manifest": "experiments/20260920T011350Z-cluster-febrl3-40aea9/manifest.json",
+      "status": "failed"
     }
-  ]
+  ],
+  "macro": {
+    "connected_components": {
+      "pairwise_f1": 0.5707430665710581,
+      "bcubed_f1": 0.8915428873563304,
+      "pairwise_f1_95ci": [
+        0.5622159963216505,
+        0.5809804214535077
+      ],
+      "bcubed_f1_95ci": [
+        0.8813893968184157,
+        0.9012177448232158
+      ],
+      "paired_deltas": {
+        "connected_components": [
+          0.0,
+          0.0
+        ],
+        "center": [
+          -0.19465442457411242,
+          -0.1690867683379489
+        ],
+        "star": [
+          -0.3605921902209338,
+          -0.33977663339709996
+        ],
+        "verified_merge": [
+          -0.4083088841639213,
+          -0.38791040522471854
+        ]
+      },
+      "mean_seconds": 7.464096896001138
+    },
+    "center": {
+      "pairwise_f1": 0.7530603506955018,
+      "bcubed_f1": 0.8239207724827622,
+      "pairwise_f1_95ci": [
+        0.745734392107856,
+        0.7604929319411031
+      ],
+      "bcubed_f1_95ci": [
+        0.8170727311899548,
+        0.8309726110344964
+      ],
+      "paired_deltas": {
+        "connected_components": [
+          0.1689419409626448,
+          0.19465089218142695
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "star": [
+          -0.1764946800358166,
+          -0.16049100524387883
+        ],
+        "verified_merge": [
+          -0.22498157190062074,
+          -0.20769244451162205
+        ]
+      },
+      "mean_seconds": 5.460684104415122
+    },
+    "star": {
+      "pairwise_f1": 0.9211425550793861,
+      "bcubed_f1": 0.9373229470862733,
+      "pairwise_f1_95ci": [
+        0.9164514261027823,
+        0.9258535132989281
+      ],
+      "bcubed_f1_95ci": [
+        0.933535368658211,
+        0.9411764555196322
+      ],
+      "paired_deltas": {
+        "connected_components": [
+          0.3397486404205432,
+          0.36045244708887914
+        ],
+        "center": [
+          0.16047272353104614,
+          0.17646575066768677
+        ],
+        "star": [
+          0.0,
+          0.0
+        ],
+        "verified_merge": [
+          -0.054122175547364204,
+          -0.042201457152404975
+        ]
+      },
+      "mean_seconds": 4.554039270966314
+    },
+    "verified_merge": {
+      "pairwise_f1": 0.969617449606591,
+      "bcubed_f1": 0.9727159701850809,
+      "pairwise_f1_95ci": [
+        0.9653265586784482,
+        0.9735814651936072
+      ],
+      "bcubed_f1_95ci": [
+        0.9697570991603794,
+        0.9755093293665386
+      ],
+      "paired_deltas": {
+        "connected_components": [
+          0.38789806073232436,
+          0.4082445920366291
+        ],
+        "center": [
+          0.20762612507669753,
+          0.22493353013417516
+        ],
+        "star": [
+          0.04217335982765458,
+          0.05410126445917651
+        ],
+        "verified_merge": [
+          0.0,
+          0.0
+        ]
+      },
+      "mean_seconds": 73.61963085352909
+    }
+  },
+  "recommendation": "verified_merge",
+  "best_point_estimate": "verified_merge"
 }
