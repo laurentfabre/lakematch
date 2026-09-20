@@ -99,13 +99,19 @@ def collect():
             assert failed_scale or (event['status'] == 'passed' and manifest['exit_code'] == 0), f"process {event['status']}"
             assert 'no live members' in manifest['cleanup']
             assert manifest['started_at'] > freeze['frozen_at'], 'Run predates model freeze'
-            assert all(manifest['source_files'].get(path) == expected for path, expected in freeze['execution_sources'].items())
+            original_sources = all(manifest['source_files'].get(path) == expected for path, expected in freeze['execution_sources'].items())
+            if not original_sources:
+                from compatibility import validate
+                declaration = validate(freeze)
+                assert all(manifest['source_files'].get(path) == value for path, value in declaration['execution_sources'].items())
             paths = {}
             for artifact in manifest['artifacts']:
                 path = ROOT / artifact['path']
                 assert path.is_file() and sha256(path) == artifact['sha256'], f'Missing/changed {path}'
                 paths[path.name] = path
             assert sha256(paths['freeze.json']) == sha256(freeze_path)
+            if not original_sources:
+                assert sha256(paths['source_compatibility.json']) == sha256(ROOT / 'bench/source_compatibility.json')
             assert 'Verified OS denies non-loopback network access' in paths['stdout.txt'].read_text()
             report = json.loads(paths['report.json'].read_text())
             if failed_scale:
@@ -177,11 +183,23 @@ def render(results, errors):
         '| DBLP-ACM | Magellan 0.984; Ditto 0.990 | Same; original supplied-pair splits |',
         '| FEBRL3 | Measured Splink 0.9979; verified merge 1.0000 | Training-only, entity-disjoint validation; [clustering evidence](CLUSTERS.md) |',
         '| historical_50k | Measured Splink 0.8580; verified merge 0.9392 | 10,082-record validation graph; not full 50k confirmation |',
-        '| Leipzig Affiliations | No comparable published F1 extracted | FAMER reference remains unresolved |',
+        '| Leipzig Affiliations | Web URL overlap 0.832; Soft TF-IDF with location 0.442 | Aumueller/Rahm 2009, Table 3; different dataset version and web features; [extraction and caveats](AFFILIATIONS_REFERENCE.md) |',
         '| Synthetic scale | No accuracy reference target | [Measured bounded-work ladder](SCALE.md) |', '',
         'References and original provenance: [historical controlled benchmark](../spec/bench/README.md), [brief](../spec/BRIEF.md#benchmarks-and-known-tests).', '',
         'Method selection: [candidates](CANDIDATES.md), [classifiers](CLASSIFIERS.md), [compact features](COMPACT_FEATURES.md), [clustering](CLUSTERS.md). No held-out result is used to revise a model or threshold. Defaults and aliases remain unpromoted pending all gates.', '',
         'Evidence:', '', *[f"- `{kind}`: [{entry['run_id']}](../{entry['manifest']})." for kind, entry in results.items()]]
+    try:
+        from report_original import collect as collect_original
+        original = collect_original()
+        row = original['report']
+        lines += ['', '## Original FEBRL diagnostic', '',
+            f"Frozen selected model F1 {row['metrics']['f1']:.6f}, candidate recall {row['candidate_recall']:.6f}, "
+            f"fresh CLI wall time {row['process_wall_seconds']:.2f}s. "
+            f"Independent nearest-neighbour-only F1 {row['nearest_neighbour']['f1']:.6f}. "
+            f"[{original['run_id']}](../{original['manifest']}).",
+            row['exposure'] + '. This is not new holdout acceptance.']
+    except (AssertionError, KeyError, OSError, TypeError, ValueError):
+        lines += ['', 'Fresh original-FEBRL diagnostic is pending compatible, sealed execution evidence.']
     if errors:
         lines += ['', 'Incomplete or failed evidence:', '', *['- ' + error for error in errors]]
     (ROOT / 'bench/BENCHMARKS.md').write_text('\n'.join(lines) + '\n')

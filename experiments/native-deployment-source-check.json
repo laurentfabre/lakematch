@@ -1,0 +1,9 @@
+{
+  "profile": "fevm-gdpr2",
+  "run_id": 622968507486615,
+  "path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src/lakematch/cli.py",
+  "declared_sha256": "57c30aac61585a8ce77c711ba06b06ca2b7b97e48fb6e3bb4b1b34814dc155d8",
+  "deployed_sha256": "57c30aac61585a8ce77c711ba06b06ca2b7b97e48fb6e3bb4b1b34814dc155d8",
+  "local_sha256_after_benchmark_dispatch_edit": "1ddf2018413b848ba04ccfa70b252701e5f42318885279e86e9752abfdab0f29",
+  "scope": "CLI is not imported by frozen-inference notebooks/flows; checking local edits did not race deployment"
+}

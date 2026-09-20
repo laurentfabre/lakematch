@@ -4,6 +4,7 @@ This small synthetic test is capability evidence. It is not a replacement for
 the full local FEBRL3/historical_50k comparisons or frozen FEBRL4 inference.
 """
 from itertools import combinations
+import hashlib
 import json
 from pathlib import Path
 import time
@@ -127,10 +128,18 @@ def check(spark, root, schema, namespace):
     assert fresh.spark.table(fresh.catalog).filter("key != 'head'").count() == 3
     a, b = [fresh.read(body, 'crosswalk') for body in (second, unchanged)]
     assert not a.exceptAll(b).limit(1).count() and not b.exceptAll(a).limit(1).count()
+    snapshots = {}
+    publications = {'original': first, 'incremental': second, 'unchanged': unchanged}
+    for name, body in publications.items():
+        snapshots[name] = {table: [row.asDict(recursive=True) for row in fresh.read(body, table).collect()]
+                           for table in body['tables']}
+    snapshot_path = root / 'publication-snapshots.json'
+    snapshot_path.write_text(json.dumps(snapshots, sort_keys=True, indent=2) + '\n')
     report = {'status': 'completed', 'model': training['model'], 'namespace': namespace,
         'scope': 'synthetic remote fit/reload, verified merge, Delta publication; not corpus quality evidence',
         'exact_journal_replay': True, 'unchanged_input_stable': True, 'historical_retry_does_not_rewind': True,
         'interrupted_write_kept_previous_head': failure_observed, 'commits': 3, 'seconds': time.perf_counter() - started,
-        'publications': {'original': first, 'incremental': second, 'unchanged': unchanged}}
+        'publications': publications,
+        'evidence_files': {snapshot_path.name: hashlib.sha256(snapshot_path.read_bytes()).hexdigest()}}
     (root / 'cluster-report.json').write_text(json.dumps(report, indent=2) + '\n')
     return report

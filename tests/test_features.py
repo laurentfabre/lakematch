@@ -61,7 +61,7 @@ def test_all_field_families_native_and_typed_values(spark):
 
 def test_invalid_typed_values_do_not_throw_or_match(spark):
     cfg = from_dict({"entity": {"fields": {"dob": {"type": "date", "date_format": "yyyyMMdd"},
-                                             "amount": {"type": "number"}}}})
+                                             "amount": {"type": "number"}}}, "features": {"multi_token": []}})
     schema = "rec_id string, dob string, amount string"
     a = entity.prepare(spark.createDataFrame([("a", "20240230", "NaN"), ("x", "20240229", "1e309")], schema), cfg)
     b = entity.prepare(spark.createDataFrame([("b", "20240230", "NaN")], schema), cfg)
@@ -98,7 +98,8 @@ def test_monge_elkan_is_symmetric_quadratic_mean(spark):
 
 
 def test_multivalued_fields_preserve_boundaries_and_empty_arrays(spark):
-    cfg = from_dict({"entity": {"fields": {"addr": {"type": "address", "multiple": True}}}})
+    cfg = from_dict({"entity": {"fields": {"addr": {"type": "address", "multiple": True}}},
+                     "features": {"multi_token": []}})
     schema = "rec_id string, addr array<string>"
     a = entity.prepare(spark.createDataFrame([("a", ["12 King Road", "99 Main Street"]), ("x", [None, ""])], schema), cfg)
     b = entity.prepare(spark.createDataFrame([("b", ["99 Main Street"])], schema), cfg)
@@ -145,7 +146,7 @@ def test_embedding_precompute_batching_and_native_comparison(spark, tmp_path):
             self.calls.append(texts)
             return [[1., 0.] if text == "camera" else [0., 1.] for text in texts]
     cfg = from_dict({"entity": {"fields": {"title": {"type": "title"}}},
-                     "features": {"embeddings": {"fields_of_type": ["title"], "provider": "local", "model": None}}})
+                     "features": {"multi_token": [], "embeddings": {"fields_of_type": ["title"], "provider": "local", "model": None}}})
     frame = spark.createDataFrame([("a", "camera"), ("b", "camera"), ("c", "")], "rec_id string, title string")
     provider = Provider()
     prepared, report = embeddings.prepare(frame, cfg, tmp_path / "vectors.jsonl", provider=provider, batch_size=1)
@@ -159,7 +160,7 @@ def test_embedding_precompute_batching_and_native_comparison(spark, tmp_path):
 
 def test_embedding_auto_missing_is_visible_and_schema_stable(spark, tmp_path):
     cfg = from_dict({"entity": {"fields": {"title": {"type": "title"}}},
-                     "features": {"embeddings": {"fields_of_type": ["title"], "model": None}}})
+                     "features": {"multi_token": [], "embeddings": {"fields_of_type": ["title"], "model": None}}})
     frame = spark.createDataFrame([("a", "camera"), ("b", "camera")], "rec_id string, title string")
     with pytest.warns(RuntimeWarning, match="No prepared"):
         prepared, report = embeddings.prepare(frame, cfg, tmp_path / "none.jsonl")
@@ -170,7 +171,7 @@ def test_embedding_auto_missing_is_visible_and_schema_stable(spark, tmp_path):
 
 def test_field_family_ablation_preserves_candidates_and_other_fields(spark):
     raw = {"entity": {"fields": {"name": {"type": "person_name"}, "code": {"type": "code"}}},
-           "features": {"exclude_field_types": ["person_name"]}}
+           "features": {"multi_token": [], "exclude_field_types": ["person_name"]}}
     cfg = from_dict(raw)
     a = entity.prepare(spark.createDataFrame([("a", "alice", "123")], "rec_id string, name string, code string"), cfg)
     b = entity.prepare(spark.createDataFrame([("b", "bob", "123")], a.select("rec_id", "name", "code").schema), cfg)

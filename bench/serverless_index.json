@@ -1,0 +1,32 @@
+{
+  "status": "partial",
+  "runs": {
+    "serverless-frozen-dqx": {
+      "run_id": "20260920T030627Z-serverless-frozen-dqx-82125c",
+      "manifest": "experiments/20260920T030627Z-serverless-frozen-dqx-82125c/manifest.json",
+      "report_path": "experiments/20260920T030627Z-serverless-frozen-dqx-82125c/evidence/serverless-dqx-report.json",
+      "report_sha256": "021c202dffb75bcd99114a41aa3ca6643d653492a8243b3972cdeca73b206d39",
+      "audited": true
+    }
+  },
+  "errors": [
+    "serverless-frozen-native: No sealed run",
+    "serverless-cluster-fixture: No sealed run"
+  ],
+  "history": [
+    {
+      "run_id": "20260920T024653Z-serverless-frozen-dqx-67e41c",
+      "kind": "serverless-frozen-dqx",
+      "status": "failed",
+      "manifest": "experiments/20260920T024653Z-serverless-frozen-dqx-67e41c/manifest.json"
+    },
+    {
+      "run_id": "20260920T030627Z-serverless-frozen-dqx-82125c",
+      "kind": "serverless-frozen-dqx",
+      "status": "passed",
+      "manifest": "experiments/20260920T030627Z-serverless-frozen-dqx-82125c/manifest.json"
+    }
+  ],
+  "observed_cost": null,
+  "photon_profile_evidence": null
+}

@@ -1,0 +1,68 @@
+{
+  "status": "captured",
+  "profile": "fevm-gdpr2",
+  "run_id": 299080784128178,
+  "pipeline_id": "887f3271-3247-4082-82a9-9b62fb89e135",
+  "captured_at": "2026-09-20T03:32:52.609980+00:00",
+  "source_report_sha256": "021c202dffb75bcd99114a41aa3ca6643d653492a8243b3972cdeca73b206d39",
+  "event_pages_complete": true,
+  "query_history_pages_complete": true,
+  "completed_flows": {
+    "gdpr2_catalog.lakematch_20260919.lm_links_all": {
+      "num_output_rows": 2446
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_links_no_ssn": {
+      "num_output_rows": 2434
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_scores_all": {
+      "num_output_rows": 24917
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_scores_no_ssn": {
+      "num_output_rows": 24897
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_features_all": {
+      "num_output_rows": 24917
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_features_no_ssn": {
+      "num_output_rows": 24897
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_candidates_all": {
+      "num_output_rows": 24917
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_candidates_no_ssn": {
+      "num_output_rows": 24897
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_prepared_no_ssn_right": {
+      "num_output_rows": 2500
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_prepared_all_right": {
+      "num_output_rows": 2500
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_prepared_all_left": {
+      "num_output_rows": 5000
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_prepared_no_ssn_left": {
+      "num_output_rows": 5000
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_quarantine_no_ssn_right": {
+      "num_output_rows": 3
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_quarantine_no_ssn_left": {
+      "num_output_rows": 3
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_quarantine_all_right": {
+      "num_output_rows": 3
+    },
+    "gdpr2_catalog.lakematch_20260919.lm_quarantine_all_left": {
+      "num_output_rows": 3
+    }
+  },
+  "matching_query_count": 0,
+  "observed_cost": null,
+  "photon_operator_profiles": null,
+  "limitation": "Raw events expose output/flow metrics. Query history does not supply operator fallback profiles; no measured per-stage Photon claim.",
+  "evidence_files": {
+    "data/serverless_profiles/299080784128178/events.json": "e21ac79d934c5eb54a57a21e67648300d538a98003af8e22e0fd63f99279ebb1",
+    "data/serverless_profiles/299080784128178/query-history.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}

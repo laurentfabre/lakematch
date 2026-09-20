@@ -24,8 +24,8 @@ config = from_dict({
     "storage": {"scratch_schema": schema}, "quality": {"engine": "native"},
     "paid_features": {"app": False, "genie": False},
     "entity": {"fields": {"name": {"type": "person_name"}, "code": {"type": "code"}}},
-    "features": {"embeddings": {"provider": "none"}},
-    "candidates": {"q": 2, "k": 3, "max_join_rows": 1000, "max_pairs": 50},
+    "features": {"multi_token": [], "embeddings": {"provider": "none"}},
+    "candidates": {"method": "gram_topk", "q": 2, "k": 3, "max_join_rows": 1000, "max_pairs": 50},
     "matcher": {"max_iter": 3, "max_depth": 2}, "decision": {"threshold": .5},
 })
 spark.sql(f"ALTER SCHEMA {schema} DISABLE PREDICTIVE OPTIMIZATION").collect()

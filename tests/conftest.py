@@ -19,7 +19,7 @@ def spark():
 @pytest.fixture
 def config():
     return from_dict({"entity": {"fields": {"name": {"type": "person_name"}, "code": {"type": "code"}}},
-                      "candidates": {"q": 2, "k": 3, "gram_cap": 20},
-                      "features": {"embeddings": {"provider": "none"}},
+                      "candidates": {"method": "gram_topk", "q": 2, "k": 3, "gram_cap": 20},
+                      "features": {"multi_token": [], "embeddings": {"provider": "none"}},
                       "matcher": {"max_iter": 3, "max_depth": 2},
                       "decision": {"threshold": 0.5}})

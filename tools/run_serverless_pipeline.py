@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import time
 from uuid import uuid4
+from urllib.parse import urlencode
 
 from evidence import ROOT, sha256
 
@@ -108,6 +109,21 @@ def main():
             if pipeline_id and time.monotonic() >= next_events:
                 events = rows(cli('pipelines', 'list-pipeline-events', pipeline_id, '--limit', '100'), 'events')
                 started_at = run['start_time'] / 1000
+                current_events = [event for event in events if
+                    datetime.fromisoformat(event['timestamp'].replace('Z', '+00:00')).timestamp() >= started_at]
+                if not report.get('update_id'):
+                    updates = sorted((event for event in current_events if event.get('event_type') == 'create_update'),
+                                     key=lambda event: event['timestamp'])
+                    if updates:
+                        report['update_id'] = updates[0]['origin']['update_id']
+                if report.get('update_id'):
+                    report['update'] = cli('pipelines', 'get-update', pipeline_id, report['update_id'])['update']
+                    if report['update']['state'] in {'FAILED', 'CANCELED'}:
+                        report['failed_update_events'] = [event for event in current_events
+                            if event.get('origin', {}).get('update_id') == report['update_id']]
+                        save()
+                        raise RuntimeError('Owned pipeline update ended ' + report['update']['state'] +
+                                           '; cancelling before unchanged automatic retries')
                 fatal = [event for event in events if event.get('error', {}).get('fatal') and
                     datetime.fromisoformat(event['timestamp'].replace('Z', '+00:00')).timestamp() >= started_at]
                 if fatal:
@@ -151,6 +167,15 @@ def main():
                 report['pipeline_events'] = cli('pipelines', 'list-pipeline-events', pipeline_id, '--limit', '1000')
             except Exception as exc:
                 cleanup_errors.append(str(exc))
+            try:
+                # SDK/CLI PipelineEvent omits the API's details object. Retain
+                # raw event details for flow metrics and query-profile linkage.
+                query = urlencode({'max_results': 250,
+                    'filter': "timestamp >= '" + report['started_at'].replace('+00:00', 'Z') + "'"})
+                report['raw_pipeline_events'] = cli('api', 'get',
+                    f'/api/2.0/pipelines/{pipeline_id}/events?{query}')
+            except Exception as exc:
+                report['profile_capture_error'] = str(exc)
         if run_id is not None:
             try:
                 cli('fs', 'cp', 'dbfs:' + volume, str(local / 'volume'), '--recursive', timeout=180, json_output=False)

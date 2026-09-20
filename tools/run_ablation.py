@@ -48,7 +48,7 @@ def main():
     out = Path("data/ablation") / corpus.name
     out.mkdir(parents=True, exist_ok=True)
     raw = {"entity": {"name": corpus.name, "fields": corpus.fields},
-           "candidates": {"k": 5, "max_join_rows": 50_000_000, "max_pairs": 100_000},
+           "candidates": {"method": "gram_topk", "k": 5, "max_join_rows": 50_000_000, "max_pairs": 100_000},
            "features": {"multi_token": ["idf_token_cosine", "gram_overlap", "monge_elkan_token"],
                         "embeddings": {"fields_of_type": ["organisation", "title"], "provider": "none"}},
            "matcher": {"max_iter": 20, "max_depth": 3, "seed": 0},

@@ -34,7 +34,7 @@ Reference figures are historical or published, with different splits, retrieval 
 | DBLP-ACM | Magellan 0.984; Ditto 0.990 | Same; original supplied-pair splits |
 | FEBRL3 | Measured Splink 0.9979; verified merge 1.0000 | Training-only, entity-disjoint validation; [clustering evidence](CLUSTERS.md) |
 | historical_50k | Measured Splink 0.8580; verified merge 0.9392 | 10,082-record validation graph; not full 50k confirmation |
-| Leipzig Affiliations | No comparable published F1 extracted | FAMER reference remains unresolved |
+| Leipzig Affiliations | Web URL overlap 0.832; Soft TF-IDF with location 0.442 | Aumueller/Rahm 2009, Table 3; different dataset version and web features; [extraction and caveats](AFFILIATIONS_REFERENCE.md) |
 | Synthetic scale | No accuracy reference target | [Measured bounded-work ladder](SCALE.md) |
 
 References and original provenance: [historical controlled benchmark](../spec/bench/README.md), [brief](../spec/BRIEF.md#benchmarks-and-known-tests).

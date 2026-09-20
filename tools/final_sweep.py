@@ -31,13 +31,14 @@ def main():
             runs.append(('scale-' + str(n), 'data/scale/' + str(n), 'scale-evidence.tar.gz', timeout,
                 ['tools/run_scale.py', '--records', str(n)]))
     for kind, root, archive, timeout, command in runs:
+        compatibility = ['--artifact', 'bench/source_compatibility.json'] if Path('bench/source_compatibility.json').is_file() else []
         result = subprocess.run([sys.executable, 'tools/experiment.py', '--phase', 'ZR-3', '--kind', kind,
             '--hypothesis', 'Frozen validation choice meets confirmation gates and reveals bounded scale limits',
             '--baseline', 'Frozen nearest-neighbour/cosine validation baselines; synthetic exact-duplicate truth',
             '--dataset', kind, '--primary-metric', 'F1, candidate recall, process wall time, pre-top-k join cardinality',
             '--timeout', str(timeout), '--seed', '0', '--seed', '2026091901', '--seed', '2026091902',
             '--artifact', root + '/report.json', '--artifact', root + '/' + archive,
-            '--artifact', 'bench/freeze.json', '--', '/usr/bin/sandbox-exec', '-f', 'tools/offline.sb',
+            '--artifact', 'bench/freeze.json', *compatibility, '--', '/usr/bin/sandbox-exec', '-f', 'tools/offline.sb',
             sys.executable, *command], env=env)
         if result.returncode:
             return result.returncode

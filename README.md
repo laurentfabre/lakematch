@@ -21,6 +21,9 @@ The scale ladder completed through 100,000 records; the million-record run exhau
 during candidate materialization. [Benchmarks](bench/BENCHMARKS.md) and [scale limits](bench/SCALE.md)
 retain the measurements. Later phase acceptance is pending. [goal.md](goal.md) is the authoritative acceptance ledger;
 [bench/ENGINE.md](bench/ENGINE.md) records development evidence and limitations.
+The DQX serverless pipeline now reproduces both frozen FEBRL F1 values exactly and quarantines the seeded bad rows;
+the native configuration and remaining remote gates are tracked in [serverless evidence](bench/SERVERLESS.md).
+`lakematch bench --all --plan` previews the finite benchmark campaign; full command execution is still pending.
 Composite MLflow tracking and CLI integration are verified locally and on FEVM;
 [model acceptance](bench/MODELS.md) records the evidence. The selected workspace explicitly
 rejects classic compute, so ZR-9 remains parked; the remaining phases are pending.

@@ -31,7 +31,7 @@ def configuration(root, remote=False):
     raw = {"entity": {"name": "tracking_canary", "fields": {"name": {"type": "person_name"}, "code": {"type": "code"}}},
            "features": {"multi_token": ["idf_token_cosine"], "embeddings": {"provider": "none"}},
            "decision": {"threshold": .5}, "matcher": {"max_iter": 3, "max_depth": 2},
-           "candidates": {"max_pairs": 100},
+           "candidates": {"method": "gram_topk", "max_pairs": 100},
            "mlflow": {"tracking_uri": f"sqlite:///{root.resolve()}/mlflow.db"}}
     if remote:
         raw.update(profile="databricks", runtime={"mode": "serverless", "cli_profile": "fevm-gdpr2"},

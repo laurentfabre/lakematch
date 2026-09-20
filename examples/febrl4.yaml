@@ -13,11 +13,13 @@ entity:
     date_of_birth: {type: date, date_format: yyyyMMdd}
     soc_sec_id: {type: code}
 candidates:
+  method: gram_topk  # Historical original-FEBRL smoke; frozen acceptance uses its saved full config.
   k: 5
   gram_cap: 400
   max_join_rows: 50000000
   max_pairs: 25000
 features:
+  multi_token: []
   embeddings: {provider: none}
 matcher: {estimator: gbt, max_iter: 20, max_depth: 3}
 decision: {threshold: 0.5, cardinality: one_to_one}
