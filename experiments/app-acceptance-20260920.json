@@ -1,0 +1,86 @@
+{
+  "observed_at": "2026-09-20T11:10:52.256440+00:00",
+  "phase": "ZR-7",
+  "status": "local acceptance observed; full phase blocked at iteration 8",
+  "apx_version": "0.3.8",
+  "user_correction": "It's not legacy",
+  "legacy_designation_blocker_resolved": true,
+  "upstream_prerequisite_receipt_unchanged": true,
+  "local_passing_runs": [
+    "20260920T104901Z-app-baseline-792f3a",
+    "20260920T105503Z-app-browser-217ea8",
+    "20260920T105553Z-app-feedback-2ab14d",
+    "20260920T105714Z-app-restart-81f874",
+    "20260920T105826Z-app-local-checks-bffb8d"
+  ],
+  "final_local_regression_tests": 11,
+  "final_python_types": "passed",
+  "final_typescript_types": "passed",
+  "largest_deployment_file_bytes": 147327,
+  "license_notices_in_wheel": true,
+  "feedback": {
+    "status": "passed",
+    "reviewed": 20,
+    "resolved_training_pairs": 19,
+    "excluded_unsure": 1,
+    "baseline_model": "runs:/11de2607fcab4a7d9993a1a74c8c6a82/model",
+    "feedback_model": "runs:/56dfba9b75ce4db7967f9eb2535b362e/model",
+    "baseline_label_digest": "2c8302242d9ddb9c4c4c642a2a7fb26eadc0ed55b34720136a0ef61cf64ab152",
+    "feedback_label_digest": "e4a308dbeb02d9bb5448a824a487e899c85e7fa647ffb019c9b95557c81b7075",
+    "normal_cli_consumed_exact_snapshot": true,
+    "engine_modified": false,
+    "cleanup": "succeeded"
+  },
+  "phase_verifiers": {
+    "1": {
+      "exit_code": 0,
+      "output": "ZR-1 verified against the current source"
+    },
+    "2": {
+      "exit_code": 0,
+      "output": "ZR-2 verified against the current source"
+    },
+    "4": {
+      "exit_code": 0,
+      "output": "ZR-4 verified against the current source"
+    },
+    "5": {
+      "exit_code": 0,
+      "output": "ZR-5 verified against the current source"
+    },
+    "7": {
+      "exit_code": 1,
+      "output": "ZR-7: implementation and full acceptance evidence are pending; see goal.md"
+    }
+  },
+  "remote_attempts": [
+    "20260920T105900Z-app-remote-47e95f",
+    "20260920T105954Z-app-remote-426746",
+    "20260920T110137Z-app-remote-1adbbb",
+    "20260920T110232Z-app-remote-d1963b"
+  ],
+  "remote_deployed": false,
+  "remote_delta_review_acceptance": false,
+  "next_fix": "prepared and offline tested; not remotely executed",
+  "next_run_authorized": false,
+  "cleanup_receipt": "experiments/app-resource-cleanup-20260920.json",
+  "genie_scope": "not requested; earlier unused-scope request rejected by automatic approval review",
+  "archive": {
+    "path": "data/app-acceptance-v1/app-reproduction-20260920.tar.gz",
+    "sha256": "2f2c8e65a3db31a9d9e75527f76e7dd6c80573736fb7e446c46c1bac850ec75c"
+  },
+  "artifacts": {
+    "experiments/app-final-20260920/app-source-final.json": "4ef8fb8d681bfaae94c9010f1923f6954c1b6212364e9e1284ce04ab2eb81b65",
+    "experiments/app-final-20260920/app-tests.xml": "f1d05b44342a4a98ffe6efd11eb7b919e2ff828eb6153389816b2f9f74cd02be",
+    "experiments/app-final-20260920/browser-report.json": "7721612dc27c58e331f8ecb7febe708cbba3a0c103d8d22a12566f2858c4f607",
+    "experiments/app-final-20260920/build-final-report.json": "c71daae6b81c924a6a0e28ea7e879238ec14f73f0f00a9cb5bb51b908e6884bf",
+    "experiments/app-final-20260920/feedback-report.json": "63f88a2bdfd7bf045c545151b8bd628cbadb47da9684647e9ec852ffd25ce3b6",
+    "experiments/app-final-20260920/final-build.log": "a21b7501f04768f678afbe8e54480c5431bda1a9fb1094dcfde5407521f82664",
+    "experiments/app-final-20260920/final-checks.log": "56d89fae86497aa574581611a0f48fd79f5698779d76843f14cfba5c244d6272",
+    "experiments/app-final-20260920/http-snapshot.json": "97b3e7427048aaa6580bb67eac35e6444e114fe7fd0fc44a8b7c1ae6788f2796",
+    "experiments/app-final-20260920/metadata.json": "bac333a092fc067963089319c4a09deefce947be50e4c432b0f2021c7056397c",
+    "experiments/app-final-20260920/queue.json": "418dd7ada7c6453c5e39caa6c074b366ef563d97e4312903b1ed131359336ee6",
+    "experiments/app-final-20260920/restart-report.json": "8399e9085dd3c9ab18ce58c683eba8a562607a929e6f1c829b2b93cacb85cf6f",
+    "experiments/app-final-20260920/review-labels.csv": "64b2e4ef38117385c00d75a04509d076a3b26520256f3182fae87ec06400f682"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "file_limit_bytes": 10485760,
+  "largest_file_bytes": 147327,
+  "license_notices_in_wheel": true,
+  "files": {
+    "app/.build/requirements.txt": {
+      "bytes": 55,
+      "sha256": "6887867bb54d450c7c424b05b93550f70bb56d50cd639544195e5f66cfda5d7d"
+    },
+    "app/.build/lakematch_review-0.0.0+20260920110921-py3-none-any.whl": {
+      "bytes": 147327,
+      "sha256": "9930e5bd890f7f81b46d40ca6f79c8ddab2c383cb7b9c061659daaafc51f7782"
+    },
+    "app/.build/.gitignore": {
+      "bytes": 2,
+      "sha256": "cdbcae15105d6b781e620813c79c7e868740d4e9cc53ce6f5fcbbc12387adf4b"
+    },
+    "app/.build/app.yml": {
+      "bytes": 182,
+      "sha256": "a653b2cfad57bd5c9fc8de439eb55f28d32eedf53c02b2ee218d9d0199648bd5"
+    }
+  }
+}

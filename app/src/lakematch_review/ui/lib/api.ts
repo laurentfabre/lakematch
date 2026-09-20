@@ -1,5 +1,6 @@
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import type { UseQueryOptions, UseSuspenseQueryOptions } from "@tanstack/react-query";
+// Modified for lakematch on 2026-09-20 from the APX 0.3.8 scaffold.
+import { useQuery, useSuspenseQuery, useMutation } from "@tanstack/react-query";
+import type { UseQueryOptions, UseSuspenseQueryOptions, UseMutationOptions } from "@tanstack/react-query";
 export class ApiError extends Error {
     status: number;
     statusText: string;
@@ -12,49 +13,82 @@ export class ApiError extends Error {
         this.body = body;
     }
 }
-export interface ComplexValue {
-    display?: string | null;
-    primary?: boolean | null;
-    ref?: string | null;
-    type?: string | null;
-    value?: string | null;
+export interface EvaluationOut {
+    context: string;
+    model_version: string;
+    precision: number;
+    recall: number;
+    sample_size: number;
 }
 export interface HTTPValidationError {
     detail?: ValidationError[];
 }
-export interface Name {
-    family_name?: string | null;
-    given_name?: string | null;
+export interface LabelOut {
+    a_id: string;
+    b_id: string;
+    label: number;
 }
-export interface User {
-    active?: boolean | null;
-    display_name?: string | null;
-    emails?: ComplexValue[] | null;
-    entitlements?: ComplexValue[] | null;
-    external_id?: string | null;
-    groups?: ComplexValue[] | null;
-    id?: string | null;
-    name?: Name | null;
-    roles?: ComplexValue[] | null;
-    schemas?: UserSchema[] | null;
-    user_name?: string | null;
+export interface PairOut {
+    a_id: string;
+    b_id: string;
+    impact?: number;
+    left: Record<string, string | null>;
+    llm_decision?: "match" | "no_match" | "unsure" | null;
+    model_version: string;
+    pair_id: string;
+    probability: number;
+    right: Record<string, string | null>;
+    threshold: number;
 }
-export const UserSchema = {
-    "urn:ietf:params:scim:schemas:core:2.0:User": "urn:ietf:params:scim:schemas:core:2.0:User",
-    "urn:ietf:params:scim:schemas:extension:workspace:2.0:User": "urn:ietf:params:scim:schemas:extension:workspace:2.0:User"
-} as const;
-export type UserSchema = typeof UserSchema[keyof typeof UserSchema];
+export type ReviewIn = {
+    decision: "match" | "no_match" | "unsure";
+    model_version: string;
+    pair_id: string;
+    reason: string;
+    request_id: string;
+} & {
+};
+export type ReviewOut = {
+    a_id: string;
+    b_id: string;
+    decision: "match" | "no_match" | "unsure";
+    model_version: string;
+    pair_id: string;
+    reason: string;
+    request_id: string;
+    reviewed_at: string;
+    user: string;
+} & {
+};
+export interface SessionOut {
+    genie_enabled: boolean;
+    storage: "sqlite" | "delta";
+    user: string;
+}
+export interface SnapshotOut {
+    excluded_unsure: number;
+    label_set_sha256: string;
+    labels: LabelOut[];
+    reviews: ReviewOut[];
+}
+export interface StatsOut {
+    evaluations: EvaluationOut[];
+    llm_agreement: number | null;
+    llm_compared: number;
+    match: number;
+    no_match: number;
+    quarantine: number | null;
+    queue_depth: number;
+    reviewed: number;
+    unsure: number;
+}
 export interface ValidationError {
-    ctx?: Record<string, unknown>;
-    input?: unknown;
     loc: (string | number)[];
     msg: string;
     type: string;
 }
-export interface VersionOut {
-    version: string;
-}
-export interface CurrentUserParams {
+export interface ReviewQueueParams {
+    limit?: number;
     "X-Forwarded-Host"?: string | null;
     "X-Forwarded-Preferred-Username"?: string | null;
     "X-Forwarded-User"?: string | null;
@@ -62,10 +96,14 @@ export interface CurrentUserParams {
     "X-Request-Id"?: string | null;
     "X-Forwarded-Access-Token"?: string | null;
 }
-export const currentUser = async (params?: CurrentUserParams, options?: RequestInit): Promise<{
-    data: User;
+export const reviewQueue = async (params?: ReviewQueueParams, options?: RequestInit): Promise<{
+    data: PairOut[];
 }> =>{
-    const res = await fetch("/api/current-user", {
+    const searchParams = new URLSearchParams();
+    if (params?.limit != null) searchParams.set("limit", String(params?.limit));
+    const queryString = searchParams.toString();
+    const url = queryString ? `/api/queue?${queryString}` : "/api/queue";
+    const res = await fetch(url, {
         ...options,
         method: "GET",
         headers: {
@@ -104,46 +142,75 @@ export const currentUser = async (params?: CurrentUserParams, options?: RequestI
         data: await res.json()
     };
 };
-export const currentUserKey = (params?: CurrentUserParams)=>{
+export const reviewQueueKey = (params?: ReviewQueueParams)=>{
     return [
-        "/api/current-user",
+        "/api/queue",
         params
     ] as const;
 };
-export function useCurrentUser<TData = {
-    data: User;
+export function useReviewQueue<TData = {
+    data: PairOut[];
 }>(options?: {
-    params?: CurrentUserParams;
+    params?: ReviewQueueParams;
     query?: Omit<UseQueryOptions<{
-        data: User;
+        data: PairOut[];
     }, ApiError, TData>, "queryKey" | "queryFn">;
 }) {
     return useQuery({
-        queryKey: currentUserKey(options?.params),
-        queryFn: ()=>currentUser(options?.params),
+        queryKey: reviewQueueKey(options?.params),
+        queryFn: ()=>reviewQueue(options?.params),
         ...options?.query
     });
 }
-export function useCurrentUserSuspense<TData = {
-    data: User;
+export function useReviewQueueSuspense<TData = {
+    data: PairOut[];
 }>(options?: {
-    params?: CurrentUserParams;
+    params?: ReviewQueueParams;
     query?: Omit<UseSuspenseQueryOptions<{
-        data: User;
+        data: PairOut[];
     }, ApiError, TData>, "queryKey" | "queryFn">;
 }) {
     return useSuspenseQuery({
-        queryKey: currentUserKey(options?.params),
-        queryFn: ()=>currentUser(options?.params),
+        queryKey: reviewQueueKey(options?.params),
+        queryFn: ()=>reviewQueue(options?.params),
         ...options?.query
     });
 }
-export const version = async (options?: RequestInit): Promise<{
-    data: VersionOut;
+export interface ReviewHistoryParams {
+    "X-Forwarded-Host"?: string | null;
+    "X-Forwarded-Preferred-Username"?: string | null;
+    "X-Forwarded-User"?: string | null;
+    "X-Forwarded-Email"?: string | null;
+    "X-Request-Id"?: string | null;
+    "X-Forwarded-Access-Token"?: string | null;
+}
+export const reviewHistory = async (params?: ReviewHistoryParams, options?: RequestInit): Promise<{
+    data: ReviewOut[];
 }> =>{
-    const res = await fetch("/api/version", {
+    const res = await fetch("/api/reviews", {
         ...options,
-        method: "GET"
+        method: "GET",
+        headers: {
+            ...(params?.["X-Forwarded-Host"] != null && {
+                "X-Forwarded-Host": params["X-Forwarded-Host"]
+            }),
+            ...(params?.["X-Forwarded-Preferred-Username"] != null && {
+                "X-Forwarded-Preferred-Username": params["X-Forwarded-Preferred-Username"]
+            }),
+            ...(params?.["X-Forwarded-User"] != null && {
+                "X-Forwarded-User": params["X-Forwarded-User"]
+            }),
+            ...(params?.["X-Forwarded-Email"] != null && {
+                "X-Forwarded-Email": params["X-Forwarded-Email"]
+            }),
+            ...(params?.["X-Request-Id"] != null && {
+                "X-Request-Id": params["X-Request-Id"]
+            }),
+            ...(params?.["X-Forwarded-Access-Token"] != null && {
+                "X-Forwarded-Access-Token": params["X-Forwarded-Access-Token"]
+            }),
+            ...options?.headers
+        }
     });
     if (!res.ok) {
         const body = await res.text();
@@ -159,34 +226,354 @@ export const version = async (options?: RequestInit): Promise<{
         data: await res.json()
     };
 };
-export const versionKey = ()=>{
+export const reviewHistoryKey = (params?: ReviewHistoryParams)=>{
     return [
-        "/api/version"
+        "/api/reviews",
+        params
     ] as const;
 };
-export function useVersion<TData = {
-    data: VersionOut;
+export function useReviewHistory<TData = {
+    data: ReviewOut[];
 }>(options?: {
+    params?: ReviewHistoryParams;
     query?: Omit<UseQueryOptions<{
-        data: VersionOut;
+        data: ReviewOut[];
     }, ApiError, TData>, "queryKey" | "queryFn">;
 }) {
     return useQuery({
-        queryKey: versionKey(),
-        queryFn: ()=>version(),
+        queryKey: reviewHistoryKey(options?.params),
+        queryFn: ()=>reviewHistory(options?.params),
         ...options?.query
     });
 }
-export function useVersionSuspense<TData = {
-    data: VersionOut;
+export function useReviewHistorySuspense<TData = {
+    data: ReviewOut[];
 }>(options?: {
+    params?: ReviewHistoryParams;
     query?: Omit<UseSuspenseQueryOptions<{
-        data: VersionOut;
+        data: ReviewOut[];
     }, ApiError, TData>, "queryKey" | "queryFn">;
 }) {
     return useSuspenseQuery({
-        queryKey: versionKey(),
-        queryFn: ()=>version(),
+        queryKey: reviewHistoryKey(options?.params),
+        queryFn: ()=>reviewHistory(options?.params),
+        ...options?.query
+    });
+}
+export interface SaveReviewParams {
+    "X-Forwarded-Host"?: string | null;
+    "X-Forwarded-Preferred-Username"?: string | null;
+    "X-Forwarded-User"?: string | null;
+    "X-Forwarded-Email"?: string | null;
+    "X-Request-Id"?: string | null;
+    "X-Forwarded-Access-Token"?: string | null;
+}
+export const saveReview = async (data: ReviewIn, params?: SaveReviewParams, options?: RequestInit): Promise<{
+    data: ReviewOut;
+}> =>{
+    const res = await fetch("/api/reviews", {
+        ...options,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...(params?.["X-Forwarded-Host"] != null && {
+                "X-Forwarded-Host": params["X-Forwarded-Host"]
+            }),
+            ...(params?.["X-Forwarded-Preferred-Username"] != null && {
+                "X-Forwarded-Preferred-Username": params["X-Forwarded-Preferred-Username"]
+            }),
+            ...(params?.["X-Forwarded-User"] != null && {
+                "X-Forwarded-User": params["X-Forwarded-User"]
+            }),
+            ...(params?.["X-Forwarded-Email"] != null && {
+                "X-Forwarded-Email": params["X-Forwarded-Email"]
+            }),
+            ...(params?.["X-Request-Id"] != null && {
+                "X-Request-Id": params["X-Request-Id"]
+            }),
+            ...(params?.["X-Forwarded-Access-Token"] != null && {
+                "X-Forwarded-Access-Token": params["X-Forwarded-Access-Token"]
+            }),
+            ...options?.headers
+        },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export function useSaveReview(options?: {
+    mutation?: UseMutationOptions<{
+        data: ReviewOut;
+    }, ApiError, {
+        params: SaveReviewParams;
+        data: ReviewIn;
+    }>;
+}) {
+    return useMutation({
+        mutationFn: (vars)=>saveReview(vars.data, vars.params),
+        ...options?.mutation
+    });
+}
+export interface SessionParams {
+    "X-Forwarded-Host"?: string | null;
+    "X-Forwarded-Preferred-Username"?: string | null;
+    "X-Forwarded-User"?: string | null;
+    "X-Forwarded-Email"?: string | null;
+    "X-Request-Id"?: string | null;
+    "X-Forwarded-Access-Token"?: string | null;
+}
+export const session = async (params?: SessionParams, options?: RequestInit): Promise<{
+    data: SessionOut;
+}> =>{
+    const res = await fetch("/api/session", {
+        ...options,
+        method: "GET",
+        headers: {
+            ...(params?.["X-Forwarded-Host"] != null && {
+                "X-Forwarded-Host": params["X-Forwarded-Host"]
+            }),
+            ...(params?.["X-Forwarded-Preferred-Username"] != null && {
+                "X-Forwarded-Preferred-Username": params["X-Forwarded-Preferred-Username"]
+            }),
+            ...(params?.["X-Forwarded-User"] != null && {
+                "X-Forwarded-User": params["X-Forwarded-User"]
+            }),
+            ...(params?.["X-Forwarded-Email"] != null && {
+                "X-Forwarded-Email": params["X-Forwarded-Email"]
+            }),
+            ...(params?.["X-Request-Id"] != null && {
+                "X-Request-Id": params["X-Request-Id"]
+            }),
+            ...(params?.["X-Forwarded-Access-Token"] != null && {
+                "X-Forwarded-Access-Token": params["X-Forwarded-Access-Token"]
+            }),
+            ...options?.headers
+        }
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const sessionKey = (params?: SessionParams)=>{
+    return [
+        "/api/session",
+        params
+    ] as const;
+};
+export function useSession<TData = {
+    data: SessionOut;
+}>(options?: {
+    params?: SessionParams;
+    query?: Omit<UseQueryOptions<{
+        data: SessionOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: sessionKey(options?.params),
+        queryFn: ()=>session(options?.params),
+        ...options?.query
+    });
+}
+export function useSessionSuspense<TData = {
+    data: SessionOut;
+}>(options?: {
+    params?: SessionParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: SessionOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: sessionKey(options?.params),
+        queryFn: ()=>session(options?.params),
+        ...options?.query
+    });
+}
+export interface ReviewStatsParams {
+    "X-Forwarded-Host"?: string | null;
+    "X-Forwarded-Preferred-Username"?: string | null;
+    "X-Forwarded-User"?: string | null;
+    "X-Forwarded-Email"?: string | null;
+    "X-Request-Id"?: string | null;
+    "X-Forwarded-Access-Token"?: string | null;
+}
+export const reviewStats = async (params?: ReviewStatsParams, options?: RequestInit): Promise<{
+    data: StatsOut;
+}> =>{
+    const res = await fetch("/api/statistics", {
+        ...options,
+        method: "GET",
+        headers: {
+            ...(params?.["X-Forwarded-Host"] != null && {
+                "X-Forwarded-Host": params["X-Forwarded-Host"]
+            }),
+            ...(params?.["X-Forwarded-Preferred-Username"] != null && {
+                "X-Forwarded-Preferred-Username": params["X-Forwarded-Preferred-Username"]
+            }),
+            ...(params?.["X-Forwarded-User"] != null && {
+                "X-Forwarded-User": params["X-Forwarded-User"]
+            }),
+            ...(params?.["X-Forwarded-Email"] != null && {
+                "X-Forwarded-Email": params["X-Forwarded-Email"]
+            }),
+            ...(params?.["X-Request-Id"] != null && {
+                "X-Request-Id": params["X-Request-Id"]
+            }),
+            ...(params?.["X-Forwarded-Access-Token"] != null && {
+                "X-Forwarded-Access-Token": params["X-Forwarded-Access-Token"]
+            }),
+            ...options?.headers
+        }
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const reviewStatsKey = (params?: ReviewStatsParams)=>{
+    return [
+        "/api/statistics",
+        params
+    ] as const;
+};
+export function useReviewStats<TData = {
+    data: StatsOut;
+}>(options?: {
+    params?: ReviewStatsParams;
+    query?: Omit<UseQueryOptions<{
+        data: StatsOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: reviewStatsKey(options?.params),
+        queryFn: ()=>reviewStats(options?.params),
+        ...options?.query
+    });
+}
+export function useReviewStatsSuspense<TData = {
+    data: StatsOut;
+}>(options?: {
+    params?: ReviewStatsParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: StatsOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: reviewStatsKey(options?.params),
+        queryFn: ()=>reviewStats(options?.params),
+        ...options?.query
+    });
+}
+export interface TrainingLabelsParams {
+    "X-Forwarded-Host"?: string | null;
+    "X-Forwarded-Preferred-Username"?: string | null;
+    "X-Forwarded-User"?: string | null;
+    "X-Forwarded-Email"?: string | null;
+    "X-Request-Id"?: string | null;
+    "X-Forwarded-Access-Token"?: string | null;
+}
+export const trainingLabels = async (params?: TrainingLabelsParams, options?: RequestInit): Promise<{
+    data: SnapshotOut;
+}> =>{
+    const res = await fetch("/api/training-labels", {
+        ...options,
+        method: "GET",
+        headers: {
+            ...(params?.["X-Forwarded-Host"] != null && {
+                "X-Forwarded-Host": params["X-Forwarded-Host"]
+            }),
+            ...(params?.["X-Forwarded-Preferred-Username"] != null && {
+                "X-Forwarded-Preferred-Username": params["X-Forwarded-Preferred-Username"]
+            }),
+            ...(params?.["X-Forwarded-User"] != null && {
+                "X-Forwarded-User": params["X-Forwarded-User"]
+            }),
+            ...(params?.["X-Forwarded-Email"] != null && {
+                "X-Forwarded-Email": params["X-Forwarded-Email"]
+            }),
+            ...(params?.["X-Request-Id"] != null && {
+                "X-Request-Id": params["X-Request-Id"]
+            }),
+            ...(params?.["X-Forwarded-Access-Token"] != null && {
+                "X-Forwarded-Access-Token": params["X-Forwarded-Access-Token"]
+            }),
+            ...options?.headers
+        }
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const trainingLabelsKey = (params?: TrainingLabelsParams)=>{
+    return [
+        "/api/training-labels",
+        params
+    ] as const;
+};
+export function useTrainingLabels<TData = {
+    data: SnapshotOut;
+}>(options?: {
+    params?: TrainingLabelsParams;
+    query?: Omit<UseQueryOptions<{
+        data: SnapshotOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: trainingLabelsKey(options?.params),
+        queryFn: ()=>trainingLabels(options?.params),
+        ...options?.query
+    });
+}
+export function useTrainingLabelsSuspense<TData = {
+    data: SnapshotOut;
+}>(options?: {
+    params?: TrainingLabelsParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: SnapshotOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: trainingLabelsKey(options?.params),
+        queryFn: ()=>trainingLabels(options?.params),
         ...options?.query
     });
 }

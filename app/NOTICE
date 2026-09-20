@@ -3,3 +3,8 @@ Upstream: https://github.com/databricks-solutions/apx
 APX-derived scaffold material is subject to APX-LICENSE.txt.
 The root Apache-2.0 license does not replace the upstream APX license.
 README.md, .gitignore and tsconfig.json were modified for lakematch on 2026-09-20.
+On 2026-09-20, the backend configuration, dependencies, routes and models,
+React routes/styles and generated client, app command, and Python project/lock
+files were modified to implement review provenance and synthetic acceptance.
+The store, acceptance runners and tests are lakematch additions. All upstream
+APX license and support notices remain intact in this separate subproject.

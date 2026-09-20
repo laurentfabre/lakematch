@@ -1,0 +1,153 @@
+{
+  "observed_at": "2026-09-20T11:03:57.789372+00:00",
+  "profile": "fevm-gdpr2",
+  "purpose": "cleanup verification after final ZR-7 creation attempt",
+  "original_failure": "20260920T110232Z-app-remote-d1963b",
+  "app": {
+    "app_status": {
+      "message": "App status is unavailable.",
+      "state": "UNAVAILABLE"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "Start the app compute to deploy the app.",
+      "state": "STOPPED"
+    },
+    "create_time": "2026-09-20T11:02:37Z",
+    "creator": "laurent.fabre@databricks.com",
+    "description": "lakematch 20260919 campaign: synthetic APX review acceptance; stop after experiments",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "d124e6f3-45aa-4693-86ee-b34898aac9d8",
+    "name": "lakematch-review-20260919",
+    "oauth2_app_client_id": "e8a6c0e5-496a-4e14-80bb-efee4fff87f8",
+    "oauth2_app_integration_id": "e8a6c0e5-496a-4e14-80bb-efee4fff87f8",
+    "resources": [
+      {
+        "name": "review-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "d124e6f3-45aa-4693-86ee-b34898aac9d8",
+    "service_principal_id": 72865873681094,
+    "service_principal_name": "app-2nqdd8 lakematch-review-20260919",
+    "thumbnail_url": "",
+    "update_time": "2026-09-20T11:03:07Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-review-20260919-7474658055368199.aws.databricksapps.com"
+  },
+  "owned_warehouse": {
+    "auto_stop_mins": 10,
+    "cluster_size": "2X-Small",
+    "creator_name": "laurent.fabre@databricks.com",
+    "enable_photon": true,
+    "enable_serverless_compute": true,
+    "id": "ec3b6df6c1cabcd4",
+    "jdbc_url": "jdbc:spark://fevm-gdpr2.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/ec3b6df6c1cabcd4;",
+    "max_num_clusters": 1,
+    "min_num_clusters": 1,
+    "name": "lakematch-20260919-evidence-20260920T041603Z-35e82ec0",
+    "num_active_sessions": 0,
+    "num_clusters": 0,
+    "odbc_params": {
+      "hostname": "fevm-gdpr2.cloud.databricks.com",
+      "path": "/sql/1.0/warehouses/ec3b6df6c1cabcd4",
+      "port": 443,
+      "protocol": "https"
+    },
+    "spot_instance_policy": "COST_OPTIMIZED",
+    "state": "STOPPED",
+    "tags": {
+      "custom_tags": [
+        {
+          "key": "campaign",
+          "value": "lakematch-20260919"
+        }
+      ]
+    },
+    "warehouse_type": "PRO"
+  },
+  "pipeline": {
+    "creator_user_name": "laurent.fabre@databricks.com",
+    "effective_publishing_mode": "DEFAULT_PUBLISHING_MODE",
+    "effective_serverless_compute_id": "9b3a6e1c-49ee-33e1-be47-90b4e2be6b04",
+    "last_modified": 1789875231445,
+    "latest_updates": [
+      {
+        "creation_time": "2026-09-20T03:41:25.367Z",
+        "state": "COMPLETED",
+        "update_id": "d6bfdd30-fc5d-4d10-b389-7f6094a1478e"
+      },
+      {
+        "creation_time": "2026-09-20T03:13:50.758Z",
+        "state": "COMPLETED",
+        "update_id": "8a8613de-98c0-4e67-835e-3fca82830d18"
+      },
+      {
+        "creation_time": "2026-09-20T02:58:25.464Z",
+        "state": "CANCELED",
+        "update_id": "ac6eb6ee-0626-4f24-a65b-881e2c186ffc"
+      },
+      {
+        "creation_time": "2026-09-20T02:54:53.640Z",
+        "state": "FAILED",
+        "update_id": "2930351a-08ce-4df8-803c-c1b799014838"
+      }
+    ],
+    "name": "[dev laurent_fabre] lakematch-20260919-frozen-matching",
+    "pipeline_id": "887f3271-3247-4082-82a9-9b62fb89e135",
+    "run_as_user_name": "laurent.fabre@databricks.com",
+    "spec": {
+      "catalog": "gdpr2_catalog",
+      "channel": "CURRENT",
+      "configuration": {
+        "lakematch.app_enabled": "false",
+        "lakematch.genie_enabled": "false",
+        "lakematch.input_root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/serverless_frozen",
+        "lakematch.quality_engine": "native",
+        "lakematch.source_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src"
+      },
+      "continuous": false,
+      "deployment": {
+        "kind": "BUNDLE",
+        "metadata_file_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/state/metadata.json"
+      },
+      "development": true,
+      "edition": "ADVANCED",
+      "environment": {
+        "dependencies": [
+          "mlflow==3.16.0",
+          "pyyaml==6.0.3",
+          "databricks-labs-dqx==0.16.0"
+        ]
+      },
+      "id": "887f3271-3247-4082-82a9-9b62fb89e135",
+      "libraries": [
+        {
+          "glob": {
+            "include": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/pipeline/transformations/**"
+          }
+        }
+      ],
+      "name": "[dev laurent_fabre] lakematch-20260919-frozen-matching",
+      "photon": true,
+      "root_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/pipeline",
+      "schema": "lakematch_20260919",
+      "serverless": true,
+      "tags": {
+        "dev": "laurent_fabre"
+      }
+    },
+    "state": "IDLE"
+  },
+  "status": "passed",
+  "app_deployed": false,
+  "created_delta_tables": [],
+  "new_remote_labels": 0,
+  "no_optional_user_api_scopes_requested": true
+}

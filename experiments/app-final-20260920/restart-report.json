@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "process_restart": true,
+  "exact_snapshot_preserved": true,
+  "reviewed": 20,
+  "label_set_sha256": "e4a308dbeb02d9bb5448a824a487e899c85e7fa647ffb019c9b95557c81b7075"
+}

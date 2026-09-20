@@ -1,0 +1,56 @@
+✅ [tsc] TypeScript compilation succeeded
+✅ [ty] Python type check succeeded
+[?25h...........                                                              [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:45
+  /Users/laurent.fabre/Projects/Claude/lakematch/app/.venv/lib/python3.11/site-packages/starlette/testclient.py:45: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+11 passed, 1 warning in 0.75s
+Building project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+✅ Frontend build finished in 700ms
+✅ Python wheel built in 1s 156ms
+Build completed
+[?25h{
+  "status": "passed",
+  "checks": [
+    [
+      "apx",
+      "dev",
+      "check"
+    ],
+    [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests",
+      "-q",
+      "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/data/app-acceptance-v1/app-tests.xml"
+    ],
+    [
+      "apx",
+      "build"
+    ]
+  ],
+  "file_limit_bytes": 10485760,
+  "largest_file_bytes": 144367,
+  "files": {
+    "app/.build/requirements.txt": {
+      "bytes": 55,
+      "sha256": "dc58005f9c9b7aef19561fcdfc229cba1a61b11b6a2a14530fe0073a8b590c00"
+    },
+    "app/.build/.gitignore": {
+      "bytes": 2,
+      "sha256": "cdbcae15105d6b781e620813c79c7e868740d4e9cc53ce6f5fcbbc12387adf4b"
+    },
+    "app/.build/app.yml": {
+      "bytes": 114,
+      "sha256": "bbb60e3a14ced59726b904069a2a1efbfeea5ff0c3f380ebeb3211df0e982a1a"
+    },
+    "app/.build/lakematch_review-0.0.0+20260920110811-py3-none-any.whl": {
+      "bytes": 144367,
+      "sha256": "e7b1675f4c0a3c5afe7066b750b6ef7d67fc5bcd0e02e7d368ed4f4ac252aa6b"
+    }
+  }
+}

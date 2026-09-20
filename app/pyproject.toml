@@ -1,11 +1,12 @@
+# Modified for lakematch on 2026-09-20 from the APX 0.3.8 scaffold.
 [project]
 name = "lakematch-review"
 dynamic = ["version"]
-description = "Add your description here"
+description = "APX entity review with durable label provenance and training snapshots"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi>=0.119.0",
+    "fastapi==0.128.0",
     "pydantic-settings>=2.11.0",
     "uvicorn>=0.37.0",
     "databricks-sdk>=0.74.0",
@@ -13,6 +14,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28,<1",
+    "pytest>=8,<10",
     "ty>=0.0.12",
 ]
 
@@ -51,3 +54,11 @@ version = "{version}"
 [tool.hatch.build]
 artifacts = ["src/lakematch_review/__dist__", "src/lakematch_review/_metadata.py"]
 exclude = ["src/lakematch_review/ui"]
+
+[tool.ty.src]
+include = ["src", "tests"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"APX-LICENSE.txt" = "lakematch_review/APX-LICENSE.txt"
+"APX-NOTICE.md" = "lakematch_review/APX-NOTICE.md"
+"NOTICE" = "lakematch_review/NOTICE"

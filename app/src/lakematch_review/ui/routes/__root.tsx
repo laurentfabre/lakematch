@@ -1,3 +1,4 @@
+// Modified for lakematch on 2026-09-20 from the APX 0.3.8 scaffold.
 import { ThemeProvider } from "@/components/apx/theme-provider";
 import { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
@@ -7,7 +8,7 @@ export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
   component: () => (
-    <ThemeProvider defaultTheme="dark" storageKey="apx-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="lakematch-ui-theme">
       <Outlet />
       <Toaster richColors />
     </ThemeProvider>

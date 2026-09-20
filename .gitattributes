@@ -1,0 +1,2 @@
+# Preserve the exact checksummed CSV evidence, including the CSV writer's CRLF.
+experiments/**/review-labels.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

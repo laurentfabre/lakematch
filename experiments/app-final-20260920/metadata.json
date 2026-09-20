@@ -1,0 +1,19 @@
+{
+  "quarantine": 0,
+  "evaluations": [
+    {
+      "model_version": "runs:/11de2607fcab4a7d9993a1a74c8c6a82/model",
+      "precision": 1.0,
+      "recall": 1.0,
+      "sample_size": 8,
+      "context": "synthetic record-disjoint validation"
+    },
+    {
+      "model_version": "runs:/56dfba9b75ce4db7967f9eb2535b362e/model",
+      "precision": 1.0,
+      "recall": 1.0,
+      "sample_size": 8,
+      "context": "synthetic record-disjoint validation"
+    }
+  ]
+}

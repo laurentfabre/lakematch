@@ -1,6 +1,6 @@
 # Goal: bring lakematch to its specified feature level through FEVM experiments
 
-Created: 2026-09-19. Status: blocked on remaining gates. ZR-1/2/4/5 pass on current source. ZR-3 exhausted eight iterations with exact frozen replay but a blocked million-record tier. ZR-6 capability runs pass; per-stage Photon profiles and attributed billing are incomplete. APX maintenance and delegated Genie remain unresolved; ZR-9 is parked on the confirmed classic-compute restriction.
+Created: 2026-09-19. Status: ZR-7 local APX review/feedback delivered after Laurent's correction; remote acceptance is blocked at the eight-iteration cap. ZR-1/2/4/5 pass on current engine source. ZR-3 exhausted eight iterations with exact frozen replay but a blocked million-record tier. ZR-6 capability runs pass; per-stage Photon profiles and attributed billing are incomplete. Delegated Genie remains untested; ZR-9 is parked on the confirmed classic-compute restriction.
 
 Build, run, measure and improve lakematch until **ZR-1 through ZR-9 in
 [the brief](spec/BRIEF.md#phases) pass with reproducible evidence**, using an explicitly selected
@@ -107,7 +107,7 @@ acceptance evidence exists. The detailed phase clauses in the brief also apply.
 | ZR-4 | Compare verified merge, connected components, center and star on FEBRL3 and `historical_50k`, reporting pairwise and B-cubed metrics. Demonstrate convergence, unchanged-input stable `mdm_id`, and an exactly reconciled crosswalk/merge/split log after 1% additions, changes and deletions. | Passed at iteration 8 | [Clustering](bench/CLUSTERS.md), [identity](bench/IDENTITY.md), [exact prior-output audit](experiments/identity-replay-audit.json), [publication](bench/PUBLICATION.md). Both original models replay without refit; exact mutations/journals reproduce; three recovery tests and five fresh CLI calls produce three durable commits. `bash verify_zr.sh 4` exits 0. |
 | ZR-5 | Composite MLflow model includes classifier/pipeline, candidate and feature specs/order, config, thresholds and label-set digest, with signature, dataset lineage and evaluation. Local SQLite tracking resolves `runs:/<id>/model` without a registry. FEVM registers in UC, resolves the champion alias to an immutable version, and reloads with equivalent predictions in a fresh session. Respect the runtime model-size limit. | Passed at iteration 4 | [Model acceptance](bench/MODELS.md). Offline composite fit/reload and normal accepted-pointer CLI pass; FEVM run `827370737736333` registers UC `pair_model/3` and resolves champion in a fresh task. Complete artifact 222,391 bytes, maximum probability delta 4.58e-16. Terminal cleanup and exports verified; `bash verify_zr.sh 5` exits 0. |
 | ZR-6 | Bundle validates and an actual FEVM serverless run completes. SDP holds candidates, features, scoring and links; training/clustering are tasks. DQX and native quality engines agree on seeded bad rows. Each FEBRL4 variant is within 0.01 absolute F1 of its frozen local reference. Default config and all-paid-features-off config both deploy/run; query profiles support the Photon report. | Partial: capability runs pass | [Serverless evidence](bench/SERVERLESS.md). DQX and native/all-paid-off inference have exact frozen local F1 parity; iteration-6 run `994862043938979` passes separate fit/reload and independently audited Delta publication/recovery. All jobs terminal and pipelines IDLE. Per-stage Photon operator profiles and attributed billing remain missing. |
-| ZR-7 | APX confirmed still maintained and the built bundle is under the Databricks App file-size limit (checked before UI work). APX app runs locally and as a Databricks App. Uncertainty-ordered, keyboard-first review supports match/no-match/unsure; statistics and provenance persist. End-to-end review of 20 pairs writes user/time/model/reason, the next training run consumes the labels, and predictions or documented training inputs reflect them. Restart preserves the queue and labels. | Pending | — |
+| ZR-7 | APX confirmed still maintained and the built bundle is under the Databricks App file-size limit (checked before UI work). APX app runs locally and as a Databricks App. Uncertainty-ordered, keyboard-first review supports match/no-match/unsure; statistics and provenance persist. End-to-end review of 20 pairs writes user/time/model/reason, the next training run consumes the labels, and predictions or documented training inputs reflect them. Restart preserves the queue and labels. | Local flow verified; remote blocked after iteration 8 | [APX report](bench/APP.md): 20 HTTP reviews, 19 exact training inputs, durable process restart, responsive keyboard UI and final local checks pass. App created but not deployed; initial provisioning race stopped iteration 8. [Cleanup](experiments/app-resource-cleanup-20260920.json) confirms app/warehouse STOPPED. A bounded wait fix is prepared; no ninth iteration authorized. |
 | ZR-8 | Versioned Genie instructions and ten reference questions are deployed over gold tables. The app uses on-behalf-of-user auth; all ten queries have the expected tables/aggregations and correct fixture results. The panel disappears when `paid_features.genie` is off. Prove the Conversation API from the deployed app. **If the Conversation API does not answer for the app on behalf of the user on this workspace (see ENV), the phase parks with that finding — it does not loop.** | Pending | — |
 | ZR-9 | Bundle runs on explicitly selected FEVM classic compute with the same engine and passing suite. Each FEBRL4 variant is within 0.01 absolute F1 of local. PHOTON versus STANDARD comparison reports wall time, DBUs and operator fallbacks; prove classic materialization behavior and final cluster termination. | Parked at ENV | Classic Jobs submission explicitly rejected: “Only serverless compute is supported in the workspace.” [Finding](experiments/classic-capability.json). No cluster created. Classic capability must be enabled on this selected workspace; do not substitute profiles. |
 
@@ -348,25 +348,41 @@ and fresh-task composite-model loading now pass ZR-5.
 
 - ZR-1 and ZR-4 read-only verifiers now pass on current source; classic and Connect each pass the same 130 tests without skips. ZR-2 iteration 6 repeated all four fixed offline ablation fixtures and passes its verifier. ZR-5 iteration 4 local fit/reload and normal CLI acceptance pass; bounded remote tracking experiment `20260920T051312Z-tracking-serverless-017529` is active.
 
-## § 9 — Latest checkpoint: remaining work requires decisions or external evidence
+## § 9 — Latest checkpoint: local APX delivered; remote cap reached
 
-[Final read-only acceptance](experiments/acceptance-20260920.json) passes
-**ZR-1, ZR-2, ZR-4 and ZR-5** on current source. Both full suites contain the
-same 130 tests with zero skips. All eight frozen benchmark prediction replays
-have zero deltas and identical decisions; original freeze/model artifacts remain
-unchanged. The final remote MLflow run `827370737736333` registers UC version 3
-and verifies fresh-task predictions within 4.58e-16.
+Laurent corrected the installed skill's APX designation on 2026-09-20: “It's not
+legacy.” This takes precedence for the selected stack. APX 0.3.8 remains in use;
+the initial size check passed before UI work. Historical upstream observations
+and prerequisite receipts remain intact; no new upstream activity is invented.
 
-[Remaining blockers](bench/BLOCKERS.md) are explicit: ZR-3 has exhausted eight
-iterations and needs a revised scope/iteration decision for the million-row failure;
-ZR-6 needs executed per-stage Photon profiles and attributed billing; ZR-7 needs
-the APX maintenance/version decision; ZR-8 still requires the actual delegated
-app-to-Genie proof; ZR-9 needs classic capability or an explicit scope/target change.
-No profile substitution, ninth scale iteration, memory increase, AppKit/custom-UI
-substitution, push or release was performed.
+The [APX review app](bench/APP.md) now works locally: 20 HTTP reviews with complete
+provenance, keyboard controls and mobile layout pass. Nineteen resolved labels
+feed the unchanged normal training CLI with an exactly matching label digest;
+one unsure review is excluded. Stopping/restarting APX preserves every record.
+The final app checks cover review concurrency, invalid/stale inputs, label
+snapshot exclusion, deployment identity/storage guards, and the provisioning fix.
 
-[Final resource inventory](experiments/final-resource-state-20260920.json) confirms
-no active campaign runs or classic clusters, pipeline IDLE, owned warehouse
-STOPPED and no generated materializer scratch tables. The shared warehouse remains
-STOPPED and untouched. Durable Delta commits, model versions, labels and evidence
-are retained. No experiment is active.
+Remote attempts 5–7 exposed CLI argument, OAuth scope and manual-instance
+configuration incompatibilities before creating resources. Iteration 8 created
+`lakematch-review-20260919` but read its service principal before asynchronous
+provisioning completed. No deployment, Delta review tables or remote labels were
+created. [Independent cleanup](experiments/app-resource-cleanup-20260920.json)
+confirms app and owned warehouse STOPPED, pipeline IDLE; the principal now exists.
+Local APX servers are stopped. Failed receipts retain their original errors.
+
+The eight-iteration ZR-7 cap now applies. A [concrete next-run proposal](bench/APP_NEXT_RUN.md)
+and tested bounded provisioning/cleanup wait are ready. No ninth app run is
+authorized or active. An earlier automatic review rejected optional Genie OAuth
+access while Genie was disabled; that request did not execute. The accepted app
+creation requests only platform identity defaults, with no delegated token.
+
+ZR-1, ZR-2, ZR-4 and ZR-5 still pass their current-source verifiers. The engine and
+its mandatory dependencies are unchanged; the same 130-test classic/Connect
+acceptance remains applicable. The eight frozen benchmark replays, freeze,
+model artifacts and sealed source-compatibility declaration are unchanged.
+
+[Other blockers](bench/BLOCKERS.md) remain: ZR-3 exhausted eight iterations with
+the million-tier heap failure; ZR-6 needs executed Photon profiles and attributed
+billing; ZR-8 needs the deployed app and actual delegated Genie proof; ZR-9 needs
+classic capability or an explicit scope/target change. No alternate profile,
+ninth scale run, resource increase, AppKit substitution, push or release occurred.

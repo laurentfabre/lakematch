@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "checks": [
+    [
+      "apx",
+      "dev",
+      "check"
+    ],
+    [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests",
+      "-q",
+      "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/data/app-acceptance-v1/app-tests.xml"
+    ],
+    [
+      "apx",
+      "build"
+    ]
+  ],
+  "file_limit_bytes": 10485760,
+  "largest_file_bytes": 143106,
+  "files": {
+    "app/.build/requirements.txt": {
+      "bytes": 55,
+      "sha256": "5c732eae75f53cce078e49c96099fffb395d2a8722e2d0747daaf82680d1f881"
+    },
+    "app/.build/lakematch_review-0.0.0+20260920105837-py3-none-any.whl": {
+      "bytes": 143106,
+      "sha256": "dc63419b0fb423cdde38914b63f5c0f470125380b37dc6dc69ecca9ff0c42050"
+    },
+    "app/.build/.gitignore": {
+      "bytes": 2,
+      "sha256": "cdbcae15105d6b781e620813c79c7e868740d4e9cc53ce6f5fcbbc12387adf4b"
+    },
+    "app/.build/app.yml": {
+      "bytes": 114,
+      "sha256": "bbb60e3a14ced59726b904069a2a1efbfeea5ff0c3f380ebeb3211df0e982a1a"
+    }
+  }
+}

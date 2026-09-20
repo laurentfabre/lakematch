@@ -1,1 +1,2 @@
-command: ["uvicorn", "lakematch_review.backend.app:app", "--workers", "2"]
+# Modified for lakematch on 2026-09-20 from the APX 0.3.8 scaffold.
+command: ["uvicorn", "lakematch_review.backend.app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

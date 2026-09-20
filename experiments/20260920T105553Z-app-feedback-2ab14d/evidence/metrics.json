@@ -1,0 +1,75 @@
+{
+  "capabilities": {
+    "spark_version": "4.1.3",
+    "connect": false,
+    "cache": true,
+    "cache_observation": "cache and count succeeded",
+    "photon": "untested: requires query-profile evidence"
+  },
+  "candidate_budget": {
+    "join_rows_before_cap": 40,
+    "join_rows_after_cap": 40,
+    "dropped_grams": 0,
+    "method": "field_blocks",
+    "score": "exact unweighted gram-set cosine after retrieval",
+    "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+    "candidate_pairs": 40,
+    "max_join_rows": 1000,
+    "max_pairs": 100
+  },
+  "links": 20,
+  "quarantine": {
+    "left": 0,
+    "right": 0
+  },
+  "embedding_preparation": {
+    "left": {
+      "status": "disabled",
+      "records": 0
+    },
+    "right": {
+      "status": "disabled",
+      "records": 0
+    }
+  },
+  "enabled_paid_features": {},
+  "materialization": [
+    {
+      "name": "left",
+      "strategy": "cache"
+    },
+    {
+      "name": "right",
+      "strategy": "cache"
+    },
+    {
+      "name": "features",
+      "strategy": "cache"
+    }
+  ],
+  "model": {
+    "run_id": "56dfba9b75ce4db7967f9eb2535b362e",
+    "model_uri": "runs:/56dfba9b75ce4db7967f9eb2535b362e/model",
+    "logged_model_uri": "models:/m-5e7d4120a3394768950e519fa4203d7e",
+    "label_set_sha256": "e4a308dbeb02d9bb5448a824a487e899c85e7fa647ffb019c9b95557c81b7075",
+    "artifact_bytes": 215156,
+    "registry": false,
+    "evaluation": {
+      "true_negatives": 4.0,
+      "false_positives": 0.0,
+      "false_negatives": 0.0,
+      "true_positives": 4.0,
+      "example_count": 8.0,
+      "accuracy_score": 1.0,
+      "recall_score": 1.0,
+      "precision_score": 1.0,
+      "f1_score": 1.0,
+      "pairwise_precision": 1.0,
+      "pairwise_recall": 1.0,
+      "pairwise_f1": 1.0
+    },
+    "accepted": false
+  },
+  "cleanup": "succeeded",
+  "wall_seconds_including_spark_start_stop": 16.021433250047266
+}

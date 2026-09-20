@@ -1,0 +1,83 @@
+{
+  "profile": "fevm-gdpr2",
+  "app_name": "lakematch-review-20260919",
+  "warehouse_id": "ec3b6df6c1cabcd4",
+  "schema": "gdpr2_catalog.lakematch_20260919",
+  "workspace": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/app_20260920T105900Z",
+  "started_at": "20260920T105900Z",
+  "status": "failed",
+  "observed_cost": null,
+  "commands": [
+    [
+      "databricks",
+      "jobs",
+      "list-runs",
+      "--active-only",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "apps",
+      "list",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "apps",
+      "create",
+      "lakematch-review-20260919",
+      "--no-compute",
+      "--no-wait",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json",
+      "--json",
+      "{\"name\": \"lakematch-review-20260919\", \"description\": \"lakematch 20260919 campaign: synthetic APX review acceptance; stop after experiments\", \"compute_min_instances\": 1, \"compute_max_instances\": 1, \"forward_user_access_token\": true, \"user_api_scopes\": [\"iam.current-user:read\", \"dashboards.genie\"], \"resources\": [{\"name\": \"review-warehouse\", \"sql_warehouse\": {\"id\": \"ec3b6df6c1cabcd4\", \"permission\": \"CAN_USE\"}}]}"
+    ],
+    [
+      "databricks",
+      "apps",
+      "stop",
+      "lakematch-review-20260919",
+      "--no-wait",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ]
+  ],
+  "cleanup": {
+    "errors": [
+      "app: Error: App with name lakematch-review-20260919 does not exist or is deleted."
+    ]
+  },
+  "app_request": {
+    "name": "lakematch-review-20260919",
+    "description": "lakematch 20260919 campaign: synthetic APX review acceptance; stop after experiments",
+    "compute_min_instances": 1,
+    "compute_max_instances": 1,
+    "forward_user_access_token": true,
+    "user_api_scopes": [
+      "iam.current-user:read",
+      "dashboards.genie"
+    ],
+    "resources": [
+      {
+        "name": "review-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ]
+  },
+  "error": "RuntimeError: Error: when --json flag is specified, no positional arguments are allowed. Provide 'name' in your JSON input",
+  "ended_at": "2026-09-20T10:59:02.154397+00:00"
+}
