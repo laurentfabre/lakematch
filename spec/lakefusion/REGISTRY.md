@@ -81,6 +81,14 @@ uv pip install --python .venv/bin/python --require-hashes -r requirements-postgr
 LAKEMATCH_TEST_POSTGRES=1 .venv/bin/python -m pytest -q tests/postgres
 ```
 
+The [wheel packaging check](../../bench/lakefusion/registry-package-20260922.json)
+passes with the declared isolated build backend (`uv build --wheel`). The 91,488-byte
+wheel contains the exact tested mastering modules and declares psycopg only under
+the `postgres` extra. Portable execution modules import successfully with that
+driver unavailable. Ship the versioned SQL migration directory alongside the
+wheel; those operator artifacts are not embedded in the engine wheel. The receipt
+also retains the first non-isolated attempt's missing-build-backend failure.
+
 The explicit integration suite requires installed `initdb` and `postgres`.
 It creates a private temporary data directory and Unix socket, disables TCP,
 keeps fsync enabled, and stops/removes only its own instance. No supplied DSN

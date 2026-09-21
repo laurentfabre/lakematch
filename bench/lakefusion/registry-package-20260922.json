@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "source_commit": "f16a36d42541307af2354460aa8db62223d3fb80",
+  "wheel": "lakematch-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "e81e3584a60f58d3c1dfed09376bcf268a92d65e64738abbe4fba3ce904590ee",
+  "bytes": 91488,
+  "required_modules": [
+    "lakematch/mastering/contracts.py",
+    "lakematch/mastering/execution.py",
+    "lakematch/mastering/registry.py",
+    "lakematch/mastering/retrieval.py"
+  ],
+  "packaged_modules_match_source": true,
+  "optional_requirement": "psycopg[binary]<4,>=3.2; extra == 'postgres'",
+  "portable_import_without_postgres_driver": true,
+  "sql_migrations": "supplied separately from app/migrations/mastering in repository; not embedded in engine wheel",
+  "attempts": [
+    {
+      "command": "python -m build --wheel --no-isolation",
+      "status": "failed",
+      "reason": "hatchling build backend absent from runtime virtualenv"
+    },
+    {
+      "command": "uv build --wheel --out-dir data/build/registry-20260922-isolated --cache-dir .cache/uv",
+      "status": "passed",
+      "method": "isolated declared build backend"
+    }
+  ]
+}

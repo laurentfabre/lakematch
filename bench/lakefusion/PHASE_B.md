@@ -88,6 +88,12 @@ cleanup passed. psycopg 3.3.5 is an optional locked dependency. No cloud service
 AI call ran, and no existing database was used for resets. The full contract,
 operator instructions and limitations are in [REGISTRY.md](../../spec/lakefusion/REGISTRY.md).
 
+The separate [packaging check](registry-package-20260922.json) built the 91,488-byte
+wheel, verified exact source inclusion and optional PostgreSQL metadata, and
+checked portable imports with the driver unavailable. A missing Hatchling backend
+in the runtime virtualenv prevented the first non-isolated build; the declared
+isolated build then passed. Both build attempts are retained in that receipt.
+
 This is an internal worker/storage capability. Actors in the evidence are
 synthetic fixtures; HTTP authentication, domain grants, database RLS, Lakebase
 OAuth/connection tests, publication and app integration are not claimed complete.
