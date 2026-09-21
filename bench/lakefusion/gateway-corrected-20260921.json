@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "phase": "LF-A",
+  "profile": "fevm-gdpr2",
+  "started_at": "2026-09-21T12:54:28.281732+00:00",
+  "interface": "/ai-gateway/mlflow/v1/chat/completions",
+  "bounds": {
+    "listed_services": 100,
+    "inference_requests": 1,
+    "input_utf8_bytes": 1024,
+    "max_output_tokens": 128,
+    "request_timeout_seconds": 45,
+    "inference_retries": 0
+  },
+  "resource_mutations": [],
+  "inference_requests": 1,
+  "billing": {
+    "status": "unreconciled",
+    "actual_currency": null
+  },
+  "status": "inference_verified",
+  "services": [
+    {
+      "name": "model-services/system.ai.gpt-5-4-nano",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-4",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-oss-120b",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-5-pro",
+      "supported_api_types": [
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-sonnet-4",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-5",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-opus-4-8",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-6-astra",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-4-mini",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-opus-4-7",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-sonnet-5",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gemini-3-5-flash",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "gemini/v1/generateContent",
+        "gemini/v1/streamGenerateContent",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.qwen3-next-80b-a3b-instruct",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gemini-3-7-flash",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "gemini/v1/generateContent",
+        "gemini/v1/streamGenerateContent",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-6-terra",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-6-luna",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gemini-2-5-pro",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "gemini/v1/generateContent",
+        "gemini/v1/streamGenerateContent",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.qwen35-122b-a10b",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-opus-4-6",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-2",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-sonnet-4-5",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-opus-4-5",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-1",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gemma-3-12b",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gemini-2-5-flash",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "gemini/v1/generateContent",
+        "gemini/v1/streamGenerateContent",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-oss-20b",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gemini-3-8-flash",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "gemini/v1/generateContent",
+        "gemini/v1/streamGenerateContent",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-3-codex",
+      "supported_api_types": [
+        "openai/v1/responses",
+        "cursor/v1/chat/completions"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.llama-4-maverick",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-nano",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-6-sol",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-haiku-4-5",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gte-large-en",
+      "supported_api_types": [
+        "mlflow/v1/embeddings"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-sonnet-4-6",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.qwen3-embedding-0-6b",
+      "supported_api_types": [
+        "mlflow/v1/embeddings"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.claude-opus-5",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "anthropic/v1/messages",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gemini-3-1-flash-lite",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "gemini/v1/generateContent",
+        "gemini/v1/streamGenerateContent",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.gpt-5-mini",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions",
+        "openai/v1/responses",
+        "cursor/v1/chat/completions",
+        "mlflow/v1/responses"
+      ]
+    },
+    {
+      "name": "model-services/system.ai.meta-llama-3-3-70b-instruct",
+      "supported_api_types": [
+        "mlflow/v1/chat/completions"
+      ]
+    }
+  ],
+  "model_service": "system.ai.claude-sonnet-5",
+  "request_sha256": "9064b584a003c708ab26765b6ad9454aca5e1c3165494a12c41f7d119e8436c5",
+  "inference_wall_seconds": 2.179,
+  "http_status": 200,
+  "request_ids": {
+    "x-request-id": "3a4494b7-9511-4269-a362-57935880d4a7"
+  },
+  "usage": {
+    "prompt_tokens": 48,
+    "completion_tokens": 21,
+    "total_tokens": 69
+  },
+  "response_model": "eu.anthropic.claude-sonnet-5",
+  "response_sha256": "65f82abf277dbbb6a65675eb305e5173536a5de06bc46d2261922ac11cecfbdb",
+  "structured_response_valid": true,
+  "ended_at": "2026-09-21T12:54:31.749006+00:00",
+  "wall_seconds": 3.467,
+  "limitations": "Connectivity only; no matching benefit, app identity or billing acceptance"
+}

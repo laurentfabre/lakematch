@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "proposed_source_choice; integration_fixture_only",
+  "status": "selected_sources; integration_fixture_only",
   "data_classification": "entirely synthetic; identifiers are deliberately TEST-prefixed",
   "sources": {
     "erp_vendor": [

@@ -1,24 +1,23 @@
 # LF-A pilot contract and feasibility decisions
 
-Version: **0.1 draft, 2026-09-21**. This is a reviewable proposal under LM-001.
-Execution was requested through `goal_lakefusion.md`; the user-added decisions
-in its §1 remain pending until answered. The schema and policy code delivered
+Version: **0.3, 2026-09-21**. All four §1 decisions are resolved.
+Execution was requested through `goal_lakefusion.md`. The schema and policy code delivered
 with this document are prototypes, not a completed application workflow.
 
 ## Decision record
 
 | Decision | Concrete proposal | State |
 |---|---|---|
-| Source systems | Synthetic ERP vendor master (`erp_vendor`) and CRM accounts (`crm_account`) | Awaiting user selection |
-| Master granularity | Legal company; physical branches and corporate families remain separate objects/relationships | Awaiting user selection |
-| Distribution | Internal application; LM-025 not applicable if confirmed | Awaiting user selection |
-| Optional AI in pilot | Disabled; adapters and enabled/disabled acceptance remain in later phases | Awaiting user selection |
-| Workload/splits/cost | [Evaluation protocol v0.1](PROTOCOL.md) | Awaiting user selection; not frozen |
+| Source systems | Synthetic ERP vendor master (`erp_vendor`) and CRM accounts (`crm_account`) | Selected; LF-DEC-001 |
+| Master granularity | Legal company; physical branches and corporate families remain separate objects/relationships | Selected; LF-DEC-001 |
+| Distribution | Customer Solution Accelerator plus SA demo kit; packaging in LM-024; LM-025 not applicable | Selected; LF-DEC-002 |
+| AI in pilot | Unity Gateway; bounded suggestions, abstention and human fallback; quality gates before promotion | Selected; LF-DEC-003 |
+| Workload/splits/cost | [Evaluation protocol v0.1](PROTOCOL.md) with the explicit Unity Gateway overlay | Approved; LF-DEC-004 |
 
 The prepared [fixture](../../examples/mastering/company_pilot/README.md) contains
 13 synthetic rows, six company identities, one branch, a hierarchy, conflicting
 addresses, an erroneous identifier collision and reversible-mutation scenarios.
-It can change with the source decision. It is never evidence of general matching
+Selections are recorded in [DECISIONS.md](DECISIONS.md). The fixture is never evidence of general matching
 accuracy and its truth metadata must not enter feature generation.
 
 ## Typed domain and mapping contract
@@ -44,7 +43,7 @@ as silent defaults into the existing benchmark contract.
 
 ## Initial API contract
 
-These routes are proposed interfaces; they are not registered in the current app.
+These are the frozen initial interfaces; they are not registered in the current app.
 Existing review routes and receipt formats remain available during migration.
 
 | Route | Request/response essentials | Policy and concurrency |
@@ -146,11 +145,25 @@ this plan. A future genuine production destination needs an explicit selection.
   authorization filters. Do not assume UC row/column policy inheritance.
 - Online inference needs a non-Spark feature/scorer implementation. A registered
   batch pyfunc is not accepted as an online endpoint.
+- Unity Gateway model-service discovery and one structured connectivity response
+  now pass as the selected user, via `system.ai.claude-sonnet-5`. This is not app
+  principal access or an adjudication-quality result. The service rejects the
+  `temperature` parameter; the corrected request omits it. See the
+  [receipt](../../bench/lakefusion/gateway-corrected-20260921.json). The two failed
+  request-shape probes remain in the ledger. No direct provider fallback is used.
+- Unity Gateway's current documentation distinguishes generally available asset
+  governance from preview service policies and the Supervisor Responses API.
+  The pilot connectivity check uses the chat-completions path; it does not enable
+  previews. Recheck deployed app privileges and selected-region model support
+  during integration; listing a global system service alone is insufficient.
 - Lakebase-to-Delta CDF is a preview dependency; retain checkpointed outbox
   export/reconciliation as the baseline transport. Automatic Delta CDF requires
   eligible tables/runtime; capability-test it before use.
 - The existing Genie space is a read-oriented baseline. Its recorded standalone
   answer does not prove the deployed app's on-behalf-of-user flow.
 
-Phase A remains **In progress** until its decisions and evaluation protocol are
-resolved and the capability findings have explicit accepted dependencies.
+Phase A's contract/feasibility gate is **complete**. The frozen contract and
+capability matrix explicitly defer Lakebase data-plane/OAuth/RLS acceptance,
+app-principal AI access, delegated Genie and isolated remote deployment to their
+implementation gates. These limitations allow local Phase B work; they do not
+pass later remote/product gates. All eight LF-A experiment slots are consumed.

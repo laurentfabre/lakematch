@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "name": "local_contracts",
+      "exit_code": 0,
+      "command": [
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_mastering_contracts.py",
+        "tests/test_mastering_policy.py",
+        "tests/test_company_pilot.py",
+        "tests/test_source_hygiene.py",
+        "--junitxml=bench/lakefusion/close-tests-20260921.xml"
+      ]
+    },
+    {
+      "name": "source_preparation",
+      "exit_code": 0,
+      "command": [
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+        "tools/prepare_company_pilot.py",
+        "--output",
+        "data/lakefusion/company-pilot-v0.1",
+        "--manifest",
+        "bench/lakefusion/company-pilot-v0.1.json"
+      ]
+    },
+    {
+      "name": "unity_gateway",
+      "exit_code": 0,
+      "command": [
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+        "tools/lakefusion_gateway_probe.py",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "bench/lakefusion/gateway-corrected-20260921.json"
+      ]
+    }
+  ]
+}

@@ -1,11 +1,11 @@
-# Proposed company/supplier pilot fixture
+# Company/supplier pilot integration fixture
 
-These **13 entirely synthetic rows** propose ERP vendor and CRM account schemas
-for the pending Phase A source decision. Six legal companies have one record in
+These **13 entirely synthetic rows** implement the selected ERP vendor and CRM
+account source proposal (LF-DEC-001). Six legal companies have one record in
 each source; one additional CRM row is a branch of a legal company. This is an
 integration fixture, not a training, validation or confirmation dataset.
 
-- `domain.json` defines the proposed legal-company contract.
+- `domain.json` defines the legal-company contract.
 - `erp_vendor_mapping.json` and `crm_account_mapping.json` bind literal source
   columns to the exact domain definition hash, using allowlisted transforms.
 - `fixture.json` separates source records from truth, expected exceptions and

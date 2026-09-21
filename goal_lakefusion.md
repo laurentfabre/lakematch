@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A in progress; required pilot decisions pending**.
+Created: **2026-09-21**. Status: **LF-A complete; LF-B starting**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -14,7 +14,7 @@ This file is the execution and acceptance ledger for the new product roadmap.
 It contains all six delivery phases and all 25 work packages from the
 [backlog](spec/research/lakefusion/backlog.csv). Execution was requested on
 2026-09-21; the [Phase A checkpoint](bench/lakefusion/PHASE_A.md) records the
-delivered prototypes, measured evidence and pending decisions. Resume with:
+delivered prototypes, measured evidence and dependency decisions. Resume with:
 
 ```text
 $goal ./goal_lakefusion.md
@@ -29,8 +29,8 @@ results and limits.
 
 ## § 1 — Outcome and scope
 
-The first release is a company/supplier MDM pilot with two public or synthetic
-source systems. It must explain every published field, distribute review work,
+The first release is a company/supplier MDM pilot using synthetic ERP vendor
+records and CRM accounts, with one master per legal company. It must explain every published field, distribute review work,
 apply approved edits and reversible identity changes, and recover from partial
 failures. Later releases add online access, relationship intelligence and PIM.
 
@@ -51,8 +51,12 @@ Required functional scope:
 - Isolated environments, operational metrics, job controls, a constrained
   pipeline editor, graph alerts/actions, migrations, recovery and user help.
 
-Commercial licensing/marketplace distribution is a conditional workstream
-included in Phase F. Licensed enrichment connectors require a concrete source
+Deliver this as a **customer-deployable Solution Accelerator and SA demo kit**.
+Customer installation, sample data, demo/reset scripts and qualification remain
+required in Phase F/LM-024. Commercial licensing, marketplace distribution and
+entitlements (LM-025) are not applicable to the selected scope. See the
+[decision record](spec/lakefusion/DECISIONS.md).
+Licensed enrichment connectors require a concrete source
 and usage rights before activation. Optional AI integrations must have tested
 enabled and disabled contracts; a paid-feature flag alone is not implementation.
 
@@ -61,18 +65,19 @@ claims from platform documentation and repository evidence. The finish line is
 the explicit acceptance contract below. Advertised vendor speed, scale or cost
 figures are not Lakematch results or automatic acceptance thresholds.
 
-**Decisions required before Phase A can close.** These are start blockers, not
-implementation work; resolve them with the user during LM-001:
+**Decisions required before Phase A can close — all resolved.** Recorded user
+selections for LM-001:
 
-- The two concrete source systems for the pilot (public or synthetic) and the
-  company/supplier granularity (legal company vs branch vs corporate family).
-- Commercial vs internal distribution: whether LM-025 is in scope, which fixes
-  the marketplace/entitlements workstream in Phase F or records it Not applicable.
-- Whether any optional AI integration (selective LLM adjudication LM-015,
-  enrichment LM-023) is activated for the pilot, given each needs a tested
-  enabled/disabled contract and a concrete provider boundary before use.
-- The frozen Phase A workload, split definitions and cost-measurement method,
-  since every later gate in §10 is measured against them.
+- **Resolved:** synthetic ERP vendor records plus CRM accounts; legal-company
+  masters with branches/families modelled separately (LF-DEC-001).
+- **Resolved:** customer Solution Accelerator and SA demo kit. LM-025 is not
+  applicable; customer deployment packaging stays required in LM-024 (LF-DEC-002).
+- **Resolved:** use AI via Unity Gateway (LF-DEC-003). Enabled, disabled and
+  failure contracts and quality gates remain required before product promotion.
+- **Resolved:** protocol v0.1 as drafted (LF-DEC-004): 40,000 synthetic source
+  rows, whole-family 60/20/20 splits, finite budgets and resource/run cost
+  attribution. The explicit Unity Gateway choice supersedes the draft's
+  disabled-AI proposal; numerical gates are unchanged.
 
 ## § 2 — Architecture and execution context
 
@@ -113,8 +118,8 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 
 - **Status vocabulary.** This ledger's `Not started` / `In progress` / `Done`
   map to the CSV's `proposed_not_started` / `in_progress` / `done`; the ledger's
-  `Conditional; not started` maps to CSV `conditional`. LM-025 is `conditional`
-  in both; this was reconciled on the first execution status write.
+  `Conditional; not started` maps to CSV `conditional`; `Not applicable` maps
+  to CSV `not_applicable`. LM-025 is not applicable under LF-DEC-002.
 - **Phase columns.** The backlog `stage` is the **work span** across which a
   package is active (e.g. `A-B`); this ledger's `Completion phase` is the phase
   in which the package **closes** (e.g. `LF-B`). A span that starts earlier than
@@ -123,7 +128,7 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 
 | Phase | Deliverable | Entry dependency | Indicative timing | Status | Acceptance evidence |
 |---|---|---|---|---|---|
-| LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | In progress | [Prototypes and evidence; decisions pending](bench/lakefusion/PHASE_A.md) |
+| LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Done | [Frozen contracts, capability evidence and limits](bench/lakefusion/PHASE_A.md) |
 | LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | Not started | None yet |
 | LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | Not started | None yet |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
@@ -136,7 +141,7 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 
 | Package | Work | Completion phase | Status |
 |---|---|---|---|
-| LM-001 | Pilot contract and capability checks | LF-A | In progress |
+| LM-001 | Pilot contract and capability checks | LF-A | Done |
 | LM-002 | Candidate coverage | LF-B | Not started |
 | LM-003 | Domain and mapping registry | LF-B | In progress |
 | LM-004 | Persistent business identity | LF-B | Not started |
@@ -160,7 +165,7 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 | LM-022 | Taxonomy crosswalks | LF-E | Not started |
 | LM-023 | Media, enrichment and channel delivery | LF-E | Not started |
 | LM-024 | Environment separation and operational qualification | LF-F; milestones in every phase | In progress |
-| LM-025 | Commercial distribution and entitlements | LF-F, conditional on commercial scope | Conditional; not started |
+| LM-025 | Commercial distribution and entitlements | LF-F; excluded under LF-DEC-002 | Not applicable |
 
 ## § 4 — Phase A: contracts and feasibility
 
@@ -168,16 +173,21 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 
 Deliverables:
 
-- [ ] Define the company/supplier domain, distinguishing legal company, branch
+- [x] Define the company/supplier domain, distinguishing legal company, branch
   and corporate family; select two source schemas and representative tasks.
-- [ ] Freeze domain/mapping contracts, role/action matrix and first API/table
+  [Sources and legal-company granularity selected](spec/lakefusion/DECISIONS.md).
+- [x] Freeze domain/mapping contracts, role/action matrix and first API/table
   definitions using the implementation design's ownership boundaries.
+  [Versioned freeze receipt](spec/lakefusion/frozen/phase-a-v0.1.json).
 - [x] Prepare a synthetic vertical-slice fixture with conflicting addresses,
   parent-child relationships, an identifier collision and merge/split history.
-  [Thirteen-row draft fixture](examples/mastering/company_pilot/README.md), ready
-  for source selection; mutation scenarios are specified, not yet executed.
-- [ ] Declare development/validation/untouched evaluation splits and candidate,
+  [Thirteen-row integration fixture](examples/mastering/company_pilot/README.md)
+  uses the selected sources; mutation scenarios are specified, not yet executed.
+- [x] Declare development/validation/untouched evaluation splits and candidate,
   join, memory, time and experiment budgets before comparing methods.
+  [Generator contract](spec/lakefusion/GENERATOR.md) and
+  [prepared-source manifest](bench/lakefusion/company-pilot-v0.1.json);
+  32,000 source rows materialized, 8,000 confirmation rows withheld.
 - [x] Record the local baseline and reusability of prior evidence. Probe the
   selected workspace's needed capabilities with bounded checks and explicit
   supported/unsupported/untested results.
@@ -186,8 +196,11 @@ Deliverables:
   establish operational schema/migration and authorization prototypes.
   [Draft isolation/API/role contract](spec/lakefusion/PHASE_A.md); 12 Postgres
   checks and 37 final local tests pass. Application/remote integration is pending.
-- [ ] Freeze the initial workload, quality/latency/freshness targets and cost
+- [x] Freeze the initial workload, quality/latency/freshness targets and cost
   measurement method. Record preview dependencies and fallback adapters.
+  [Approved protocol v0.1](spec/lakefusion/PROTOCOL.md); all four user decisions
+  resolved. Gateway inference passes as the selected user; app identity, quality
+  benefit and billing reconciliation remain unproved. LF-A used **8/8** slots.
 
 **Exit gate:** LM-001 has a versioned contract, evaluation protocol, capability
 matrix, dependency decisions and resource envelope. Every later gate has a
@@ -327,7 +340,7 @@ source/asset provenance remains inspectable after later edits.
 
 ## § 9 — Phase F: production qualification and release
 
-**Packages:** finish LM-024; conditional LM-025.
+**Packages:** finish LM-024; LM-025 not applicable under LF-DEC-002.
 **Depends on:** the required Phase A–E capabilities. Qualification work starts
 earlier and is repeated only when relevant changes invalidate evidence.
 
@@ -337,6 +350,10 @@ Deliverables:
   service bindings and deployment identities appropriate to the selected scope.
 - [ ] Make clean install, redeploy, migration, upgrade, rollback and restoration
   reproducible from the private repository and durable versioned artifacts.
+- [ ] Package a customer Solution Accelerator with explicit workspace/profile,
+  catalog/schema and resource bindings, prerequisite/permission checks, sample
+  data and deployment/run/reset/cleanup instructions. Provide SA demo scripts and
+  scenarios; verify a fresh install without Laurent's existing resource IDs.
 - [ ] Finish approved job templates, status/log/cancel/retry controls and a
   constrained visual pipeline editor that emits validated job definitions.
 - [ ] Qualify target workloads, bounded degradation, concurrency, permission
@@ -347,10 +364,10 @@ Deliverables:
   application screenshots and PDF export for the released behavior.
 - [ ] Reconcile all phase/package statuses against final-source evidence;
   retain failed results and clean up owned experimental resources.
-- [ ] If commercial distribution is selected, complete LM-025: check the exact
-  marketplace route/preview eligibility, implement signed entitlements and
-  outage/grace behavior, and demonstrate versioned install/upgrade/rollback.
-  Otherwise record LM-025 as **Not applicable — internal distribution**.
+- [x] Resolve LM-025: **Not applicable — customer Solution Accelerator and SA
+  demo distribution**, selected in LF-DEC-002. Customer installation and release
+  qualification remain required above; this is a scope disposition, not a
+  completed commercial capability.
 
 **Exit gate:** all required phase gates pass for the released configuration;
 restoration and redeployment use the documented source and artifacts; user and
@@ -360,8 +377,8 @@ scale, SLA or cost claim exceeds the measured evidence.
 
 ## § 10 — Evaluation and shared acceptance contract
 
-The research proposes the following initial targets. Freeze their workload,
-sampling and measurement definitions during Phase A, before optimization. They
+The following targets and workload are approved in protocol v0.1 (LF-DEC-004).
+The Phase A freeze records sampling and measurement definitions before optimization. They
 are not achieved results; changes require a recorded rationale and must not
 retroactively convert a failed run into a pass.
 

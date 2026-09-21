@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "generator": "company-pilot-v0.1",
+  "spec": {
+    "families": 10000,
+    "generation_seed": 20260921,
+    "split_seed": 20260922,
+    "perturbation_seed": 20260923,
+    "key_seed": 20260924,
+    "order_seed": 20260925,
+    "negative_seed": 20260926
+  },
+  "generator_sha256": "5f752722026322b1458c0c6db753d445b7e4920903a7ebafe375af5f9179ff02",
+  "partitions": {
+    "development": {
+      "families": 6000,
+      "companies": 12000,
+      "source_rows": 24000,
+      "family_assignment_sha256": "828f48b5fb6a03539420e78370e5f4c4b349d7747fbe36e7a20d99222b5d97d7",
+      "stratum_company_counts": {
+        "clean": 2400,
+        "spelling_suffix": 1800,
+        "missing_identifier": 2400,
+        "identifier_collision": 1200,
+        "changed_address": 1800,
+        "multilingual": 1200,
+        "cross_jurisdiction_name": 600,
+        "combined": 600
+      }
+    },
+    "validation": {
+      "families": 2000,
+      "companies": 4000,
+      "source_rows": 8000,
+      "family_assignment_sha256": "330d720ccbe9049df2ccea7db9993ccd2a20b3ece6bf4caeb12dda70e5cf4706",
+      "stratum_company_counts": {
+        "clean": 800,
+        "spelling_suffix": 600,
+        "missing_identifier": 800,
+        "identifier_collision": 400,
+        "changed_address": 600,
+        "multilingual": 400,
+        "cross_jurisdiction_name": 200,
+        "combined": 200
+      }
+    },
+    "confirmation": {
+      "families": 2000,
+      "companies": 4000,
+      "source_rows": 8000,
+      "family_assignment_sha256": "d8703d5f9ab6e1dac1a266a293ca5be074ebdffda549f61850e002c5d1d1b1ca",
+      "stratum_company_counts": {
+        "clean": 800,
+        "spelling_suffix": 600,
+        "missing_identifier": 800,
+        "identifier_collision": 400,
+        "changed_address": 600,
+        "multilingual": 400,
+        "cross_jurisdiction_name": 200,
+        "combined": 200
+      }
+    }
+  },
+  "matching_features": [
+    "legal_name",
+    "country",
+    "registration_id",
+    "address_line1",
+    "city",
+    "postal_code"
+  ],
+  "excluded_features": [
+    "record_id",
+    "source_id",
+    "parent_source_key",
+    "family",
+    "company",
+    "stratum",
+    "partition"
+  ],
+  "candidate_orientation": "ERP left queries CRM right in same partition; 50 unique CRM candidates per ERP after union",
+  "negative_sampling": "development only: all positives + one sibling + four distinct other-family CRM rows per ERP",
+  "confirmation_materialized": false,
+  "files": {
+    "development.erp_vendor.jsonl": {
+      "rows": 12000,
+      "sha256": "cd0652529776953777932864ae44af465a72603a95c8765554a0a42d223c011d"
+    },
+    "development.crm_account.jsonl": {
+      "rows": 12000,
+      "sha256": "a0ba262f89f577638e03244f5ed3663043cbfc995d7edfe5c3afb4fdf9b2082c"
+    },
+    "development.truth.jsonl": {
+      "rows": 12000,
+      "sha256": "a57e775f19cd53877032baa6c9759d18a0cc564ea8e146feb491c3f87cef8b74"
+    },
+    "development.training_pairs.jsonl": {
+      "rows": 72000,
+      "sha256": "a972151c2c28a0d101550ade6548a5c1f036d3399f4e728770ccf0d5311753b9"
+    },
+    "validation.erp_vendor.jsonl": {
+      "rows": 4000,
+      "sha256": "8994beef3ea69b9f94f871b9befb515539c5ff3f46a2072b948f1b3bfd057993"
+    },
+    "validation.crm_account.jsonl": {
+      "rows": 4000,
+      "sha256": "25b84795bb12f051daae17d9345c7cbdb35272fd8fee61dd354257932ee6c683"
+    },
+    "validation.truth.jsonl": {
+      "rows": 4000,
+      "sha256": "b526ab9f294b8a8ab347c2245e5dbde72bb4f843ec0bc4fe2c4c81ae8d3455a7"
+    }
+  }
+}

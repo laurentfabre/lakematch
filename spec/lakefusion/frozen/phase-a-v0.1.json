@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "freeze_id": "lf-a-v0.1",
+  "date": "2026-09-21",
+  "status": "approved_contract_not_product_acceptance",
+  "user_decisions": [
+    "LF-DEC-001",
+    "LF-DEC-002",
+    "LF-DEC-003",
+    "LF-DEC-004"
+  ],
+  "approval": "Use protocol v0.1 as drafted",
+  "ai_overlay": "LF-DEC-003: Use AI via Unity Gateway supersedes disabled-AI draft proposal; numeric targets unchanged",
+  "files": {
+    "spec/lakefusion/frozen/protocol-v0.1-approved.md": "36e2b61cc0014c30ba0c736d8c0387724d7e40bcf67343905533276009d480e0",
+    "spec/lakefusion/PROTOCOL.md": "15c73bba64afb3cf231597e5e92ce40e71a4caa4895b0d451250e84019af39d2",
+    "spec/lakefusion/DECISIONS.md": "7087ecab297c4a1dd591b6b900374f13bec75fd31df337b6079ecbb49c41b6a4",
+    "spec/lakefusion/PHASE_A.md": "498c921ab17caa8e3e74be56773f1a9171645044456dda0afb387de927003a44",
+    "spec/lakefusion/GENERATOR.md": "085db45c261c4031c240dd8adc983178e4b35dd4a458528c7ab6db36607537b1",
+    "src/lakematch/mastering/contracts.py": "48526bc39f3a5f8e41bd4ef3cae1f27c3271679081c3fb5daf0fa49cd9dd7925",
+    "src/lakematch/mastering/policy.py": "a71c646ff9c3ca9b7dc19507739eee3e1e8c41961d54013072716c520815c3ba",
+    "app/migrations/mastering/0001_control.sql": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+    "src/lakematch/benchmark/company_pilot.py": "5f752722026322b1458c0c6db753d445b7e4920903a7ebafe375af5f9179ff02",
+    "bench/lakefusion/company-pilot-v0.1.json": "9b41248914cfea70956d52ab5768245b79e6b29b43b652b7203cb9855e786436",
+    "examples/mastering/company_pilot/crm_account_mapping.json": "debd01efb04d93c2399a68497d7d63c70c93969df998f3abe0dace1b50420efc",
+    "examples/mastering/company_pilot/domain.json": "0ca276da3a037118dcee6ba643f7b185df0448c2cb90c4c1a4284a17f132d780",
+    "examples/mastering/company_pilot/erp_vendor_mapping.json": "b8180d509d05410860f37bec5f9fa450e8bcdef0389f02fc8bd4e168881465ff",
+    "examples/mastering/company_pilot/fixture.json": "5a1b785a3ddc192b0b4c8f7c17ab85021a035e51bd382b0277a8f2f2fcc94840",
+    "examples/mastering/company_pilot/manifest.json": "58d329e19f7e2c21a85798b2cf44e5e6f58016c5626ff54d08afd02f4cbe6489"
+  },
+  "hash_representation": "raw file bytes SHA-256",
+  "source_commit_before_freeze": "195a2d7",
+  "source_binding": "content hashes above; commit containing this receipt is the freeze revision",
+  "confirmation_materialized": false,
+  "quality_comparisons_completed": 0,
+  "lf_a_iterations": 8,
+  "remaining_dependencies": [
+    "Lakebase data plane/OAuth/RLS",
+    "app-principal AI access",
+    "app delegated Genie",
+    "isolated remote deployments",
+    "AI marginal quality benefit",
+    "model billing reconciliation"
+  ]
+}

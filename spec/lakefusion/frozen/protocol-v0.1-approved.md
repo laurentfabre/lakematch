@@ -1,13 +1,12 @@
 # LF-A evaluation protocol v0.1
 
-Status: **approved by Laurent on 2026-09-21: “Use protocol v0.1 as drafted”**.
-See [LF-DEC-004 and the explicit AI overlay LF-DEC-003](DECISIONS.md).
-Profile: `fevm-gdpr2`. The existing sealed
+Status: **draft for the required user decision; not frozen; no quality run
+authorized by this document alone**. Profile: `fevm-gdpr2`. The existing sealed
 benchmark confirmation sets and million-record campaign limits remain intact.
 
-## Approved matching workload and splits
+## Proposed matching workload and splits
 
-Use the selected synthetic ERP/CRM legal-company domain, with **10,000 independent
+Use the selected synthetic ERP/CRM legal-company domain, with a proposed **10,000 independent
 corporate-family groups, two legal companies per group and one record per company
 per source**: 20,000 company identities and 40,000 total source rows. Members of
 the same family and every alias/source version stay in the same partition.
@@ -47,7 +46,7 @@ mapping, hierarchy, conflict and merge/split tests, never for classifier quality
   acceptance coverage, rejected positives, abstentions and review burden. Sample
   at most one audited accepted decision per family for the independent bound;
   use grouped resampling for whole-workload metrics. Fewer than roughly 600
-  error-free independent decisions cannot establish the approved precision gate.
+  error-free independent decisions cannot establish the proposed precision gate.
 - Compare alternatives at the same caps: **50 candidates per input record,
   2 million retained candidate pairs, 20 million pre-join rows, 4 GiB local Spark
   driver memory and 15 minutes per matching/training run**. A cap hit fails
@@ -64,9 +63,6 @@ mapping, hierarchy, conflict and merge/split tests, never for classifier quality
 Candidate cap interpretation (per-left vs both-source queries), negative-label
 sampling and exact error-stratum counts must be included in the generator freeze
 before any matching experiment. They are not decided from confirmation outcomes.
-The implementation details are recorded in [generator v0.1](GENERATOR.md): ERP
-left queries CRM right with 50 unique candidates after union; exact exclusive
-strata plus declared overlaps and development-only negative sampling.
 
 ## Separate serving workloads
 
@@ -92,7 +88,7 @@ must be saved before measurements.
   search, graph intermediates and cache paths; revocation is tested independently
   of data freshness. Denied requests must not expose protected records.
 
-These are approved SLO qualification workloads. Phase A selection freezes the
+These are proposed SLO qualification workloads. Phase A selection freezes the
 workload contract; resource sizing is recorded before each later-phase run.
 
 ## Cost method
@@ -110,12 +106,9 @@ Record local hardware/time separately without describing it as cloud billing.
 
 Report per-1,000 input records, candidate pairs and online requests; distinguish
 preprocessing, provisioning/cold start, warm execution and idle capacity. Compare
-configurations at equal workload and quality. **LF-DEC-003 overlay:** use AI via
-Unity Gateway; this explicit user selection supersedes the draft's disabled-AI
-proposal. Calls require a discovered model service, declared input/output token,
-request-count and time bounds, per-call usage evidence and unresolved-billing
-status until reconciliation. Keep disabled/failure behavior functional and
-measure benefit before promoting AI decisions. No numerical gate is changed.
+configurations at equal workload and quality. Optional AI is proposed disabled
+for the pilot; activation requires a selected provider boundary and token/cost
+limits before calls.
 
 ## Freeze record
 
