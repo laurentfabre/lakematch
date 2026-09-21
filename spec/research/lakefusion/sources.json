@@ -1,0 +1,770 @@
+{
+  "schema_version": 1,
+  "research_date": "2026-09-21",
+  "repository_baseline_commit": "9920ec8126facdc5577517998190251097e0399c",
+  "scope": "Public product research and repository inspection; no authenticated vendor access or new runtime experiments.",
+  "hash_policy": "Public hashes cover retrieved HTML bytes, including dynamic boilerplate; local hashes cover file bytes at the baseline. Cached vendor content is ignored and not distributed with this report.",
+  "public_sources": [
+    {
+      "id": "LF01",
+      "label": "LakeFusion homepage",
+      "evidence_type": "vendor_product_claim",
+      "url": "https://www.lakefusion.ai/",
+      "final_url": "https://www.lakefusion.ai/",
+      "document_title": "LakeFusion | Databricks-Native MDM, PIM &amp; Graph",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "7d019694b0c2a325703ac09905eb28c6dd2f6f5227e6fde842993ed102f11f3e"
+      },
+      "note": "Product positioning across MDM, PIM and LakeGraph. Homepage retrieval retained at day precision.",
+      "retrieved_on": "2026-09-21"
+    },
+    {
+      "id": "LF02",
+      "label": "MDM product",
+      "evidence_type": "vendor_product_claim",
+      "url": "https://www.lakefusion.ai/mdm",
+      "final_url": "https://www.lakefusion.ai/mdm",
+      "document_title": "LakeFusion MDM | AI-Powered MDM on Databricks",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "245b917b6da77e2ca79885034d7bf471103e76444ab6cdfe856ee78634bb164b"
+      },
+      "note": "Matching, golden records and governed MDM. No tenant functionality was tested.",
+      "retrieved_at": "2026-09-21T09:47:04.716668+00:00"
+    },
+    {
+      "id": "LF03",
+      "label": "LakeFusion 6.0: 17 capabilities",
+      "evidence_type": "vendor_release_note",
+      "url": "https://www.lakefusion.ai/blog/introducing-lakefusion-6-0-17-capabilities-for-smarter-governed-master-data",
+      "final_url": "https://www.lakefusion.ai/blog/introducing-lakefusion-6-0-17-capabilities-for-smarter-governed-master-data",
+      "document_title": "Introducing LakeFusion 6.0: 17 Capabilities for Smarter, Governed Master Data | LakeFusion",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "de25300207964943de5a111d8ac5c63df73d54e3fd3dc8bc5286415985054681"
+      },
+      "note": "Matching cascade, AI mapping, roles, references, PIM, graph operations and MCP. Efficiency figures are vendor claims; no reproducible protocol or visible publication date was found.",
+      "retrieved_at": "2026-09-21T09:47:04.861183+00:00"
+    },
+    {
+      "id": "LF04",
+      "label": "LakeFusion 5.0",
+      "evidence_type": "vendor_release_note",
+      "url": "https://www.lakefusion.ai/blog/lakefusion-5-0",
+      "final_url": "https://www.lakefusion.ai/blog/lakefusion-5-0",
+      "document_title": "Introducing LakeFusion 5.0 | LakeFusion",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "4f7300087f3bf4e2706e1554dba873fad51e36f650295e24159fb0910ee93f5b"
+      },
+      "note": "Dated 14 July 2026: reference entities, relationships, structs/arrays and rule enhancements.",
+      "retrieved_at": "2026-09-21T09:47:04.849634+00:00"
+    },
+    {
+      "id": "LF05",
+      "label": "LakeGraph product and architecture",
+      "evidence_type": "vendor_product_claim",
+      "url": "https://www.lakefusion.ai/graph",
+      "final_url": "https://www.lakefusion.ai/graph",
+      "document_title": "LakeGraph for Databricks | Query Graph Relationships Without Data Egress",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "e8a866418c654c932cb3606b8fd68d0741a95bc7434e66e666ba4ee4a0ddfce5"
+      },
+      "note": "Delta, persistent indexes, Lakebase, adjacency and caching. Advertised scale/latency lacks a reproducible benchmark protocol in the reviewed page.",
+      "retrieved_at": "2026-09-21T09:47:04.750547+00:00"
+    },
+    {
+      "id": "LF06",
+      "label": "PIM product",
+      "evidence_type": "vendor_product_claim",
+      "url": "https://www.lakefusion.ai/pim",
+      "final_url": "https://www.lakefusion.ai/pim",
+      "document_title": "LakeFusion PIM — Product Information Management for Databricks",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "d673d386fa99dc4bcb1bb43f06d77e0755f78c9b1da4cdf170b285c545383b6c"
+      },
+      "note": "Catalogs, taxonomies, attributes, assets, locales, channels and enrichment workflows.",
+      "retrieved_at": "2026-09-21T09:47:04.750500+00:00"
+    },
+    {
+      "id": "LF07",
+      "label": "Trust and security",
+      "evidence_type": "vendor_product_claim",
+      "url": "https://www.lakefusion.ai/trust-and-security",
+      "final_url": "https://www.lakefusion.ai/trust-and-security",
+      "document_title": "Trust & Security | LakeFusion Enterprise Data Protection",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "ab121c0709b692e45ab7cbc866ef6fc2f88559c8715b1dc99159f4459d166f20"
+      },
+      "note": "Vendor description of residency and platform controls; not an independent application security attestation.",
+      "retrieved_at": "2026-09-21T09:47:04.734200+00:00"
+    },
+    {
+      "id": "LF08",
+      "label": "MDM guide for enterprise teams",
+      "evidence_type": "vendor_product_claim",
+      "url": "https://www.lakefusion.ai/blog/lakefusion-mdm-the-complete-guide-for-enterprise-data-teams",
+      "final_url": "https://www.lakefusion.ai/blog/lakefusion-mdm-the-complete-guide-for-enterprise-data-teams",
+      "document_title": "LakeFusion MDM: The Complete Guide for Enterprise Data Teams | LakeFusion",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "69024190df2434babbcef4a66a65f0bcbeec00ef4dda28dde168c0ea58c4647d"
+      },
+      "note": "Golden records, survivorship, stewardship and multidomain MDM positioning.",
+      "retrieved_at": "2026-09-21T09:47:04.834024+00:00"
+    },
+    {
+      "id": "LF09",
+      "label": "Global manufacturing company case study",
+      "evidence_type": "vendor_case_study",
+      "url": "https://www.lakefusion.ai/case-study/global-manufacturing-company",
+      "final_url": "https://www.lakefusion.ai/case-study/global-manufacturing-company",
+      "document_title": null,
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "069467d59e1d88caa86265d05b9be8fbc0d620e8a235f91c464e3bd33405dc1b"
+      },
+      "note": "Vendor-reported company/customer mastering, hierarchies and six-week delivery; not a controlled benchmark or software-build estimate.",
+      "retrieved_at": "2026-09-21T09:47:04.948973+00:00"
+    },
+    {
+      "id": "LF10",
+      "label": "Global professional services case study",
+      "evidence_type": "vendor_case_study",
+      "url": "https://www.lakefusion.ai/case-study/global-professional-services-enterprise",
+      "final_url": "https://www.lakefusion.ai/case-study/global-professional-services-enterprise",
+      "document_title": null,
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "ad7bf51f22e46f0e632dd182d98c9ac3da3b61d6658a512e41b1e54f2e089f54"
+      },
+      "note": "Company mastering and identity granularity; no independent comparative evaluation.",
+      "retrieved_at": "2026-09-21T09:47:04.924131+00:00"
+    },
+    {
+      "id": "LF11",
+      "label": "AWS Marketplace listing",
+      "evidence_type": "vendor_marketplace_listing",
+      "url": "https://aws.amazon.com/marketplace/pp/prodview-hhofk6gcnpoca",
+      "final_url": "https://aws.amazon.com/marketplace/pp/prodview-hhofk6gcnpoca",
+      "document_title": "AWS Marketplace: LakeFusion Master Data Management",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "2d3c00aa8108e249157210d98f3eeecf2e8c55a13e089d20023ca23436866569"
+      },
+      "note": "Listing shows v3.2.13.1, container/Fargate installation and initial deployment notes from 20 June 2025. May differ from current Apps packaging.",
+      "retrieved_at": "2026-09-21T09:49:58.082807+00:00"
+    },
+    {
+      "id": "LF12",
+      "label": "Databricks Marketplace App launch",
+      "evidence_type": "vendor_announcement",
+      "url": "https://www.lakefusion.ai/blog/lakefusion-joins-databricks-marketplace-app-launch-at-data-ai-summit-enabling-single-click-mdm-deployment",
+      "final_url": "https://www.lakefusion.ai/blog/lakefusion-joins-databricks-marketplace-app-launch-at-data-ai-summit-enabling-single-click-mdm-deployment",
+      "document_title": "LakeFusion Joins Databricks Marketplace App Launch at Data + AI Summit, Enabling Single-Click MDM Deployment | LakeFusion",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "e28e4d508aa92700764ed8ce336468cb6b620c33547b098ad798956428c12300"
+      },
+      "note": "Advertises Marketplace Apps deployment; check the specific delivery route and product version.",
+      "retrieved_at": "2026-09-21T09:47:05.029993+00:00"
+    },
+    {
+      "id": "LF13",
+      "label": "LakeFusion and Databricks",
+      "evidence_type": "vendor_product_claim",
+      "url": "https://www.lakefusion.ai/lakefusion-databricks",
+      "final_url": "https://www.lakefusion.ai/lakefusion-databricks",
+      "document_title": "LakeFusion & Databricks",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "7375460f6d0b85801271c5ab02a424b9654b1ea1f6f45180671d5ce7e889d76e"
+      },
+      "note": "Platform integration, quality and deployment positioning; marketplace links.",
+      "retrieved_at": "2026-09-21T09:47:04.830529+00:00"
+    },
+    {
+      "id": "LF14",
+      "label": "Elliott Energy Customer 360 and D&B enrichment",
+      "evidence_type": "vendor_case_study",
+      "url": "https://www.lakefusion.ai/blog/elliott-energy-modernized-customer-360-with-databricks-native-mdm-dun-bradstreet-enriched-data",
+      "final_url": "https://www.lakefusion.ai/blog/elliott-energy-modernized-customer-360-with-databricks-native-mdm-dun-bradstreet-enriched-data",
+      "document_title": "Elliott Energy Modernized Customer 360 with Databricks Native MDM + Dun & Bradstreet Enriched Data | LakeFusion",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "1037a29ee75e6e0c06a6af6b94e7d63b48ff8746fe2729ea7fd14adce51c6c94"
+      },
+      "note": "Vendor-reported enrichment integration; does not establish included data licences or universal connector support.",
+      "retrieved_at": "2026-09-21T09:49:57.517422+00:00"
+    },
+    {
+      "id": "LF15",
+      "label": "AWS installation guide: sign-in boundary",
+      "evidence_type": "inaccessible_document",
+      "url": "https://support.lakefusion.ai/portal/en/kb/articles/lakefusion-installation-guide-via-aws-url",
+      "final_url": "https://support.lakefusion.ai/auth/v3/signin?brand_id=42465261440155&locale=en-us&return_to=https%3A%2F%2Fsupport.lakefusion.ai%2Fhc%2Fen-us&role=end_user",
+      "document_title": "Sign in to LakeFusion.ai",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "0f3179b94923bd62bfd9a41200aee591c3d3b73e098312816f80a48d7da54307"
+      },
+      "note": "Public link redirects to sign-in. Only the redirect/sign-in response was observed; installation content was not accessed.",
+      "retrieved_at": "2026-09-21T09:51:28.025713+00:00"
+    },
+    {
+      "id": "D01",
+      "label": "Apps authorization",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/dev-tools/databricks-apps/auth",
+      "final_url": "https://docs.databricks.com/aws/en/dev-tools/databricks-apps/auth",
+      "document_title": "Configure authorization in a Databricks app | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "e11e2e47653356765e2980e15b2a5613473e5aa95acc14df74ea9aeb18e04ff6"
+      },
+      "note": "Application/service-principal authorization differs from delegated user authorization.",
+      "retrieved_at": "2026-09-21T09:48:40.511462+00:00"
+    },
+    {
+      "id": "D02",
+      "label": "AI Search",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/ai-search/ai-search/",
+      "final_url": "https://docs.databricks.com/aws/en/ai-search/ai-search",
+      "document_title": "Databricks AI Search | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "25c9333dea0dee98bcea86ae101e19b5c20893a2c275d3be9e7b045555bf4469"
+      },
+      "note": "Search/index options and limitations: no direct row/column permissions, application ACL filters, unsupported ARRAY<STRUCT>.",
+      "retrieved_at": "2026-09-21T09:48:40.450827+00:00"
+    },
+    {
+      "id": "D03",
+      "label": "Lakebase Postgres",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/oltp/projects",
+      "final_url": "https://docs.databricks.com/aws/en/oltp/projects",
+      "document_title": "Lakebase Postgres | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "f3639b36d4f78e67ddd881c529b360fce6feec7e05011bc36b68e38d5149aa43"
+      },
+      "note": "Operational Postgres foundation; availability and sizing require deployment-specific checks.",
+      "retrieved_at": "2026-09-21T09:48:40.434735+00:00"
+    },
+    {
+      "id": "D04",
+      "label": "Lakebase synced tables",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/oltp/projects/sync-tables",
+      "final_url": "https://docs.databricks.com/aws/en/oltp/projects/sync-tables",
+      "document_title": "Serve lakehouse data with synced tables | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "62a9eba0d85feabaf1389f8685a8b02473dc5066d110e471330478581c5632fd"
+      },
+      "note": "Pipeline-owned serving tables, complex-type mapping, key requirements and distinct permission rules. Synced tables are not ordinary writable operational tables.",
+      "retrieved_at": "2026-09-21T09:51:26.900821+00:00"
+    },
+    {
+      "id": "D05",
+      "label": "Lakebase database permissions",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/oltp/projects/manage-roles-permissions",
+      "final_url": "https://docs.databricks.com/aws/en/oltp/projects/manage-roles-permissions",
+      "document_title": "Manage database permissions | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "37963eff1bb5a72058150e8048bfe2ecdcd4934b0ff7f1a87797c10ac4b1aa70"
+      },
+      "note": "Database/object privileges and role management; do not assume identical UC policy propagation for every access path.",
+      "retrieved_at": "2026-09-21T09:51:27.018702+00:00"
+    },
+    {
+      "id": "D06",
+      "label": "Delta change data feed",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/tables/features/change-data-feed",
+      "final_url": "https://docs.databricks.com/aws/en/tables/features/change-data-feed",
+      "document_title": "Use change data feed on Databricks | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "3bd9bb62ab4f0e80bf6311b203b52ba952f57df410c34b45841b3e5b4f5f9dcf"
+      },
+      "note": "Distinguishes legacy and automatic CDF. Automatic CDF requires Runtime 19+ and eligible tables; retention and policy limitations apply.",
+      "retrieved_at": "2026-09-21T09:48:40.734832+00:00"
+    },
+    {
+      "id": "D07",
+      "label": "AUTO CDC APIs",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/ldp/cdc",
+      "final_url": "https://docs.databricks.com/aws/en/ldp/cdc",
+      "document_title": "The AUTO CDC APIs: Simplify change data capture with pipelines | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "4f0a25b1cf6d2356deb9600167896982017dd736ee283f558e382a913cd101ec"
+      },
+      "note": "Source change sequencing and SCD processing; does not implement incremental entity resolution.",
+      "retrieved_at": "2026-09-21T09:49:56.963680+00:00"
+    },
+    {
+      "id": "D08",
+      "label": "Databricks transactions",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/transactions/",
+      "final_url": "https://docs.databricks.com/aws/en/transactions",
+      "document_title": "Transactions | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "0abdb0fa25a4d13978a12d15191e8929ca026bd8a565a351fe7a28ba24f4a98b"
+      },
+      "note": "Multi-statement/table transactions require eligible UC managed tables with Catalog commits and supported compute; no cross-system atomicity.",
+      "retrieved_at": "2026-09-21T09:48:40.917320+00:00"
+    },
+    {
+      "id": "D09",
+      "label": "Databricks constraints",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/tables/constraints",
+      "final_url": "https://docs.databricks.com/aws/en/tables/constraints",
+      "document_title": "Constraints on Databricks | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "05686740d3f9c1dfdada7228168de76ece6bf55903cfa28e519354258c736836"
+      },
+      "note": "PK/FK/unique constraints are informational. Do not use them as enforced uniqueness for operational task claims.",
+      "retrieved_at": "2026-09-21T09:49:57.306443+00:00"
+    },
+    {
+      "id": "D10",
+      "label": "Unity Catalog lineage",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/data-governance/unity-catalog/data-lineage",
+      "final_url": "https://docs.databricks.com/aws/en/data-governance/unity-catalog/data-lineage",
+      "document_title": "Lineage in Unity Catalog | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "61cd027164c6f01f2deb42db267225a6569a6fb6a1cf4596338277f7bfbcad03"
+      },
+      "note": "Platform/table/column lineage complements application attribute-value provenance.",
+      "retrieved_at": "2026-09-21T09:48:40.937077+00:00"
+    },
+    {
+      "id": "D11",
+      "label": "Model lifecycle in Unity Catalog",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/machine-learning/manage-model-lifecycle/",
+      "final_url": "https://docs.databricks.com/aws/en/machine-learning/manage-model-lifecycle",
+      "document_title": "Manage model lifecycle in Unity Catalog | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "82ee877c93066923298b6452b74d02d1528ee7c9c2b3821019c48dd22921c7f8"
+      },
+      "note": "Governed model registration, versions and aliases; registration is separate from serving readiness.",
+      "retrieved_at": "2026-09-21T09:48:41.599378+00:00"
+    },
+    {
+      "id": "D12",
+      "label": "MCP and agent tools",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/agents/mcp-tools/",
+      "final_url": "https://docs.databricks.com/aws/en/agents/mcp-tools",
+      "document_title": "MCPs and agent tools | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "1f11fca9feb4b17298b75b4f5b3b13f64e91de0f37c0ed134be3dcc9efc51c6d"
+      },
+      "note": "Platform tool integration options; application authorization still applies.",
+      "retrieved_at": "2026-09-21T09:48:41.148787+00:00"
+    },
+    {
+      "id": "D13",
+      "label": "ai_query",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/sql/language-manual/functions/ai_query",
+      "final_url": "https://docs.databricks.com/aws/en/sql/language-manual/functions/ai_query",
+      "document_title": "ai_query function | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "ad73b4ac74aaa5b081cec46591e4dc64ca0fffa3a2d8b147c9e51845f92ad3c6"
+      },
+      "note": "Structured model invocation; runtime/region/model restrictions and SQL Classic limitations require checking.",
+      "retrieved_at": "2026-09-21T09:49:57.407054+00:00"
+    },
+    {
+      "id": "D14",
+      "label": "Apps on Databricks Marketplace",
+      "evidence_type": "official_platform_announcement",
+      "url": "https://www.databricks.com/blog/announcing-apps-databricks-marketplace",
+      "final_url": "https://www.databricks.com/blog/announcing-apps-databricks-marketplace",
+      "document_title": "Announcing Apps on Databricks Marketplace | Databricks Blog",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "4dc66d260c19041de0ff50783afeb2e36ea0ea6be468168cdfa0e49b26728a88"
+      },
+      "note": "Launch article identifies Public Preview. Packaging eligibility must be checked before a release plan depends on it.",
+      "retrieved_at": "2026-09-21T09:48:41.341244+00:00"
+    },
+    {
+      "id": "D15",
+      "label": "Lakeflow Connect concepts",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/ingestion/lakeflow-connect/",
+      "final_url": "https://docs.databricks.com/aws/en/ingestion/lakeflow-connect",
+      "document_title": "Lakeflow Connect connector concepts | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "487a799d55aae2ccc9ba1a4b29a0a552c10208e7a9064975132cc9d5617e9411"
+      },
+      "note": "Managed/standard source connectors; select only where source coverage and semantics fit.",
+      "retrieved_at": "2026-09-21T09:48:40.999476+00:00"
+    },
+    {
+      "id": "D16",
+      "label": "Lakebase changes into Delta",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/oltp/projects/quickstart-lakebase-cdf",
+      "final_url": "https://docs.databricks.com/aws/en/oltp/projects/quickstart-lakebase-cdf",
+      "document_title": "Store Postgres changes in the lakehouse | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "73c24b48504845010512ad68b63078038880342ddf74d9968035e47ceaa6019b"
+      },
+      "note": "Lakebase change data feed is explicitly Public Preview in the retrieved documentation.",
+      "retrieved_at": "2026-09-21T09:49:56.796681+00:00"
+    },
+    {
+      "id": "D17",
+      "label": "Host a custom MCP server",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/agents/mcp-tools/custom-mcp",
+      "final_url": "https://docs.databricks.com/aws/en/agents/mcp-tools/custom-mcp",
+      "document_title": "Host your own MCP server | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "b4448df85b93d08d4c294b8c01557d86cef38e4adcac1b618010bae0b24051fb"
+      },
+      "note": "Databricks Apps hosting route for custom MCP tools.",
+      "retrieved_at": "2026-09-21T09:49:56.806754+00:00"
+    },
+    {
+      "id": "D18",
+      "label": "Custom model serving",
+      "evidence_type": "official_platform_documentation",
+      "url": "https://docs.databricks.com/aws/en/machine-learning/model-serving/custom-models",
+      "final_url": "https://docs.databricks.com/aws/en/machine-learning/model-serving/custom-models",
+      "document_title": "Custom models overview | Databricks on AWS",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "7aa88f28957af86b597a6ced116d457e25dffff1e843b20755153b006c303935"
+      },
+      "note": "Online inference architecture; does not make Lakematch's Spark-dependent pyfunc an online scorer automatically.",
+      "retrieved_at": "2026-09-21T09:49:57.263142+00:00"
+    },
+    {
+      "id": "D19",
+      "label": "Probability calibration",
+      "evidence_type": "library_documentation",
+      "url": "https://scikit-learn.org/stable/modules/calibration.html",
+      "final_url": "https://scikit-learn.org/stable/modules/calibration.html",
+      "document_title": "1.16. Probability calibration — scikit-learn 1.9.1 documentation",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "00860ac6c19e425758b76adf27721d343ad3d5cbc72f865da7a9fe1aa32b9864"
+      },
+      "note": "Calibration concepts and evaluation. Adapt to the Spark feature/model contract; no package replacement is implied.",
+      "retrieved_at": "2026-09-21T09:48:41.270835+00:00"
+    },
+    {
+      "id": "D20",
+      "label": "SHAP TreeExplainer",
+      "evidence_type": "library_documentation",
+      "url": "https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html",
+      "final_url": "https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html",
+      "document_title": "shap.TreeExplainer — SHAP latest documentation",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "6c3817ad7447de23d22f786804f0a6c55c70719c88830999722558cd9970ff00"
+      },
+      "note": "Lists PySpark support; model, output mode and background-data compatibility need explicit tests.",
+      "retrieved_at": "2026-09-21T09:48:41.407030+00:00"
+    },
+    {
+      "id": "D21",
+      "label": "Splink blocking guide",
+      "evidence_type": "library_documentation",
+      "url": "https://moj-analytical-services.github.io/splink/topic_guides/blocking/blocking_rules.html",
+      "final_url": "https://moj-analytical-services.github.io/splink/topic_guides/blocking/blocking_rules.html",
+      "document_title": "What are Blocking Rules? - Splink",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "52919330d87dfe1fb03b705ea384ea74fef454b7fcff89e5fb33aa7368094ea6"
+      },
+      "note": "Candidate/blocking trade-offs; conceptual implementation reference, not a proposed engine rewrite.",
+      "retrieved_at": "2026-09-21T09:48:41.534737+00:00"
+    },
+    {
+      "id": "D22",
+      "label": "Postgres row security",
+      "evidence_type": "library_documentation",
+      "url": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html",
+      "final_url": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html",
+      "document_title": "PostgreSQL: Documentation: 18: 5.9. Row Security Policies",
+      "content_hash": {
+        "algorithm": "sha256",
+        "representation": "retrieved_html_bytes",
+        "value": "dafc639c1f8d4093cb061b16f09babd9407184c0fe18c5f6e99f2a74697ae1d8"
+      },
+      "note": "RLS semantics and owner/superuser/BYPASSRLS exceptions; applies to owned tables, subject to Lakebase-specific restrictions.",
+      "retrieved_at": "2026-09-21T09:48:41.515138+00:00"
+    }
+  ],
+  "repository_evidence": [
+    {
+      "id": "E01",
+      "label": "Regression and frozen-corpus evidence",
+      "evidence_type": "repository_code_and_recorded_evidence",
+      "commit": "9920ec8126facdc5577517998190251097e0399c",
+      "reviewed_on": "2026-09-21",
+      "note": "Recorded local executions: 135 classic, 135 Connect, 13 app, eight exact replays. Domain metrics are task-specific, not an aggregate quality guarantee.",
+      "files": [
+        {
+          "path": "reports/test-runs/20260921T092956Z/README.md",
+          "sha256": "ff4266ba295d3d3dc9ce7159cc4cc527e1e91f376933d8bcb7b50c4dda397879"
+        },
+        {
+          "path": "reports/test-runs/20260921T092956Z/summary.json",
+          "sha256": "953859ea86ae62e9649ea76e08356c9320822b88bb4b93279e9dffd93add1a18"
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "label": "Deployment contracts and recovery evidence",
+      "evidence_type": "repository_code_and_recorded_evidence",
+      "commit": "9920ec8126facdc5577517998190251097e0399c",
+      "reviewed_on": "2026-09-21",
+      "note": "Existing bundle/recovery evidence; remote workspace was not rechecked for this research. Root targets share state/resources by design; full delegated acceptance remains pending.",
+      "files": [
+        {
+          "path": "bench/REDEPLOYMENT.md",
+          "sha256": "a3ade5a3fa055ab214e1911fc4e19bc7315bfd7dd307eb2e53075148b9ddeeda"
+        },
+        {
+          "path": "deployment/README.md",
+          "sha256": "6fbbd33425c534705c0ece2949b56d323691bdaf46fc111963d89a354db02d78"
+        },
+        {
+          "path": "databricks.yml",
+          "sha256": "3578b747e378b4d35baf46be046ea03b072445e48e8334d17fb85d8ba3241143"
+        },
+        {
+          "path": "resources/serverless.job.yml",
+          "sha256": "b59df60a8767a98703aa6e32100b81a50c55f0b34f95a148497664fd12c01f6a"
+        },
+        {
+          "path": "resources/serverless.pipeline.yml",
+          "sha256": "5a6befae6c686216ef489266b01d067e0ec18f4c194bbc88dcfcb28c758a6c39"
+        },
+        {
+          "path": "resources/serverless_fixture.job.yml",
+          "sha256": "620a9b67e5870b0abbafc145cb9b36e5387be887ca03790dd872e6c66ddda0d7"
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "label": "Engine configuration and domain contract",
+      "evidence_type": "repository_code_and_recorded_evidence",
+      "commit": "9920ec8126facdc5577517998190251097e0399c",
+      "reviewed_on": "2026-09-21",
+      "note": "Available field/model choices and explicit implementation gates. Flags for paid integrations do not establish those implementations.",
+      "files": [
+        {
+          "path": "src/lakematch/config.py",
+          "sha256": "a1446bbf11cfb1370e704b0954868f5214602d5d7040a4cfabfae6cdda7351fe"
+        },
+        {
+          "path": "src/lakematch/engine.py",
+          "sha256": "dc35ccb35942805d461ed54bf6f3d90abc55b1713760477992c2a1296f53dd36"
+        },
+        {
+          "path": "src/lakematch/entity.py",
+          "sha256": "080235abbe6bb34bab237c757a86f7e6f14a5a7664d430af8893c01bcef8ede1"
+        }
+      ]
+    },
+    {
+      "id": "E04",
+      "label": "Retrieval and matching primitives",
+      "evidence_type": "repository_code_and_recorded_evidence",
+      "commit": "9920ec8126facdc5577517998190251097e0399c",
+      "reviewed_on": "2026-09-21",
+      "note": "Bounded candidate generation, native comparison features, RF/GBT/logistic estimators and optional local embeddings.",
+      "files": [
+        {
+          "path": "src/lakematch/blocking.py",
+          "sha256": "650be80c23a22040e42974a0f8c0a07fa43c31c297466f9fc0558a140b0d948d"
+        },
+        {
+          "path": "src/lakematch/candidates.py",
+          "sha256": "c975d0a647236f78031c8763aa6af376c1f4ef3483754ad95f2341dff005d829"
+        },
+        {
+          "path": "src/lakematch/matcher.py",
+          "sha256": "a9fe0fd21229279d03c062b517b8dc8a66aec18bba3eaeb7d8d9eb05612d843e"
+        },
+        {
+          "path": "src/lakematch/embeddings.py",
+          "sha256": "e5e87c88df49e8bb166482ce6a6c579ea1e5457758dc53548283ec5eb57a745e"
+        },
+        {
+          "path": "src/lakematch/features.py",
+          "sha256": "244220ccde80518165c7049640f5cd91ff84c1fd7e3a71076b61d9f9ca2742c0"
+        }
+      ]
+    },
+    {
+      "id": "E05",
+      "label": "Review app and store contract",
+      "evidence_type": "repository_code_and_recorded_evidence",
+      "commit": "9920ec8126facdc5577517998190251097e0399c",
+      "reviewed_on": "2026-09-21",
+      "note": "Pair review, provenance and single-writer Delta contract. Actor attribution is distinct from object-level authorization.",
+      "files": [
+        {
+          "path": "app/src/lakematch_review/backend/router.py",
+          "sha256": "2826fed9159d6c02dbe0a05e34f14cde50f2741f85a68165e83da7f7456b301c"
+        },
+        {
+          "path": "app/src/lakematch_review/backend/models.py",
+          "sha256": "a2d7d43e7818db16fcc9fa069782d79ea3464166d7fceec9a7b3be594cb23868"
+        },
+        {
+          "path": "app/src/lakematch_review/backend/store.py",
+          "sha256": "313706b2912574a910551d309f5ff3c54ae69ce8512fb3f01ab8ac3695826569"
+        },
+        {
+          "path": "app/README.md",
+          "sha256": "6710eb847d72477ee7439377abcf87d01c6d763859db22650e49b6f432d7f438"
+        }
+      ]
+    },
+    {
+      "id": "E06",
+      "label": "Identity, clustering and publication",
+      "evidence_type": "repository_code_and_recorded_evidence",
+      "commit": "9920ec8126facdc5577517998190251097e0399c",
+      "reviewed_on": "2026-09-21",
+      "note": "Deterministic minimum-member identities, reconciliation journals and immutable snapshot publication. Memberships are not attribute-level golden records or business graphs.",
+      "files": [
+        {
+          "path": "src/lakematch/identity.py",
+          "sha256": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a"
+        },
+        {
+          "path": "src/lakematch/clustering.py",
+          "sha256": "de7589644e2640f886380b3ce54dd2594064273fd60b7181bd09f632c220aa9c"
+        },
+        {
+          "path": "src/lakematch/cluster_job.py",
+          "sha256": "705a0b908218dc1cddfca376ebf998aad32e0a0b77491741887988ef156221fd"
+        },
+        {
+          "path": "src/lakematch/publication.py",
+          "sha256": "dc11092aaca9fe77652075003c40ce83e0116cc1790da0d5db49b723f45173c2"
+        },
+        {
+          "path": "src/lakematch/delta_publication.py",
+          "sha256": "88113bbbbf4d7552e8e214449b293bd32402f10f04b58e165cdcdd20a16a05ed"
+        }
+      ]
+    },
+    {
+      "id": "E07",
+      "label": "Native and DQX quality adapters",
+      "evidence_type": "repository_code_and_recorded_evidence",
+      "commit": "9920ec8126facdc5577517998190251097e0399c",
+      "reviewed_on": "2026-09-21",
+      "note": "Validation/quarantine foundations, without the proposed stewardship quality dashboard.",
+      "files": [
+        {
+          "path": "src/lakematch/quality/native.py",
+          "sha256": "117ecaf25b013b07827575d623ff62a5b18df251a72390febb94bdcc7d52b634"
+        },
+        {
+          "path": "src/lakematch/quality/dqx.py",
+          "sha256": "c3793746e646a2cf5256362db3919b3c24021f2b29bd3649a5452f4040b49207"
+        },
+        {
+          "path": "src/lakematch/quality/rules.py",
+          "sha256": "4f511d03ab1a0cb00c211e875c469d2470acc67ac773cd49f79e9ae55f3d3a58"
+        }
+      ]
+    },
+    {
+      "id": "E08",
+      "label": "Composite model and lifecycle",
+      "evidence_type": "repository_code_and_recorded_evidence",
+      "commit": "9920ec8126facdc5577517998190251097e0399c",
+      "reviewed_on": "2026-09-21",
+      "note": "Spark-dependent batch scoring and immutable artifact/label evidence; requires separate work for low-latency online inference.",
+      "files": [
+        {
+          "path": "src/lakematch/composite_model.py",
+          "sha256": "f242d33d051f1c723cfc272b0d3978292c34444dd52ae21ca1bdd63d06945983"
+        },
+        {
+          "path": "src/lakematch/tracking.py",
+          "sha256": "df51ce3ad65a42c19d3f0a1f464638205e1a162747f39fa08bfc75d07c4fa2f9"
+        },
+        {
+          "path": "src/lakematch/native_ml.py",
+          "sha256": "84f66ec626536eaf0364174cecfe8bdb75312ff9674d9fd7f313394aaf7f411e"
+        }
+      ]
+    }
+  ]
+}

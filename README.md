@@ -28,6 +28,11 @@ Composite MLflow tracking and CLI integration are verified locally and on FEVM;
 [model acceptance](bench/MODELS.md) records the evidence. The selected workspace explicitly
 rejects classic compute, so ZR-9 remains parked; the remaining phases are pending.
 
+The [LakeFusion assessment and proposed roadmap](spec/research/lakefusion/README.md)
+compares public MDM, Graph and PIM capabilities with the current code and test evidence.
+It includes architecture, schemas and an ordered implementation backlog; it does not
+change the campaign's acceptance status.
+
 ## Run locally
 
 Use Python 3.12 and Java 17. Install the private package and prepare the public synthetic corpus once:
