@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-09-21T23:15:27.811761+00:00",
+  "source_commit": "9d14a189fe8ac9a13074aa39126b484d2627c6b3",
+  "source_scope": "source-scan/scope.json; includes reviewed working-tree changes",
+  "scope_hashes_match_working_tree": true,
+  "input_provenance": "input-provenance.json",
+  "raw_static": {
+    "path": "reports/findings.json",
+    "scan_id": "73b95b9432cd",
+    "ruleset_hash": "64c906880add",
+    "files_scanned": 9904,
+    "severity_counts": {
+      "error": 0,
+      "warn": 331,
+      "info": 1475
+    }
+  },
+  "raw_warning_path_counts": {
+    "app": 2,
+    "data": 42,
+    "databricks.yml": 2,
+    "genie": 5,
+    "mlruns": 252,
+    "reports": 17,
+    "spec": 1,
+    "src": 2,
+    "tests": 2,
+    "tools": 6
+  },
+  "final_static": {
+    "path": "reports/triage-20260922/source-scan/findings.json",
+    "scan_id": "f30dbdebcbe3",
+    "ruleset_hash": "64c906880add",
+    "files_scanned": 261,
+    "severity_counts": {
+      "error": 0,
+      "warn": 21,
+      "info": 85
+    }
+  },
+  "raw_claimed_store_or_acceptance_hits": [],
+  "live_report": {
+    "path": "reports/online/findings.json",
+    "stats": {
+      "online_checks_total": 442,
+      "online_checks_attempted": 46,
+      "online_checks_evaluated": 10,
+      "online_checks_passed": 9,
+      "online_checks_failed": 1,
+      "online_checks_unsupported_predicate": 24,
+      "online_checks_skipped_templated": 391,
+      "online_checks_skipped_account_level": 5,
+      "online_checks_skipped_mutating_sql": 0,
+      "online_checks_errored": 12,
+      "online_checks_skipped_min_severity": 0
+    },
+    "error_kinds": {
+      "http-error": 1,
+      "SqlFailed": 7,
+      "not-found": 4
+    },
+    "evaluated_failures": [
+      {
+        "rule_id": "BP-273",
+        "detail": "online count 1 does not satisfy == 0"
+      }
+    ],
+    "sql_error_cause": "Not established by raw scan; cold-start assumption not confirmed"
+  },
+  "metadata_audit": {
+    "path": "workspace-metadata.json",
+    "profile": "fevm-gdpr2",
+    "errors": {},
+    "global_init_script_count": 0,
+    "compute_started": false,
+    "sql_executed": false,
+    "resources_changed": false
+  },
+  "test_runs": [
+    {
+      "path": "source-and-publication-tests.xml",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "app-tests.xml",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "final_unique_tests": 21,
+  "phase": "LF-B",
+  "work_package": "LM-024 maintenance",
+  "phase_experiment_count": 2,
+  "experiment_slots_consumed": 0,
+  "next_work_package": "LM-004",
+  "evidence_sha256": {
+    "README.md": "eccee79c25617025abe6556a1d7777bdc3d7bcd3e840a1b2482e7cc3df3371bc",
+    "app-tests.xml": "2f44f4a628c11979ce7eed428f06f757e15d318d0d5428f5e5ebc278ab4807ee",
+    "input-provenance.json": "4b7b8a549afe97dffa1bd30d71c65bcda742378451713afa82422e7a459f8dc9",
+    "input-reports.tar.gz": "e7e44426353226c924a07a098daa365dde2a5fafc4e06d0af91a690cf533aadf",
+    "local-tests.xml": "e42c5d3efbb4325bad6533cba1f3a152b6b618f61737ad249b9fecef6b3a903b",
+    "source-and-publication-tests.xml": "abcc415e6a67061ef9ff71df5d2f62f707e0216122db5568c32531fd42836cd8",
+    "source-scan/findings.json": "18c80edd2e3dc641575f91e2afc6ed5b0685685c8f98524b7dc5e08e0eb6c23c",
+    "source-scan/findings.md": "7c65c33b2f3634a1507b9c1becd82b56afbf541c979558d0c9d6ed655fe44ec4",
+    "source-scan/scope.json": "4e27b851fbc0524cb5357fc1b9655e0cf955ce499a556fcf3678072d9d5f185d",
+    "workspace-metadata.json": "0c5244054107487f9a5d5eda63f5d3b986fa1c40c4d1d8eb2f720bf0d18bd52f"
+  }
+}

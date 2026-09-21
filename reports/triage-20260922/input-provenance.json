@@ -1,0 +1,17 @@
+{
+  "archive": "input-reports.tar.gz",
+  "archive_sha256": "e7e44426353226c924a07a098daa365dde2a5fafc4e06d0af91a690cf533aadf",
+  "original_sha256": {
+    "reports/findings.json": "013bfc43c5c9c35a78298966a484cc4220e4c063347097d0dd3d365047b3e54e",
+    "reports/findings.md": "46cd02d9efeb9e2e04a73772334de67c103905bc5fb99298ac6abcb89cef955e",
+    "reports/online/findings.json": "dd71fe4d760a7e13fddf053ac487c46ba0382cb1b45001b428ef03feba407bbf",
+    "reports/online/findings.md": "53b935770c8e4a21a435d576848d163e532150cd5537940966585d212ba76853"
+  },
+  "checked_in_sha256": {
+    "reports/findings.json": "013bfc43c5c9c35a78298966a484cc4220e4c063347097d0dd3d365047b3e54e",
+    "reports/findings.md": "fa35d8b57e304c99a4a5bde3b8a7ca7d76ef3a91a220ec9229853b4dffc1a90c",
+    "reports/online/findings.json": "dd71fe4d760a7e13fddf053ac487c46ba0382cb1b45001b428ef03feba407bbf",
+    "reports/online/findings.md": "b056e2d8442ac7d83b616b68e9a7bc622b6c2a7d0ef03d0b135b6335abff04d9"
+  },
+  "normalization": "Only trailing blank lines trimmed from the two Markdown reports for git diff --check. JSON unchanged. Archive preserves all four original files byte-for-byte."
+}

@@ -84,8 +84,10 @@ def main():
     if args.all or any(n in {"src/lakematch/publication.py", "tests/test_publication.py"} for n in contents):
         checks.append((ROOT / ".venv/bin/python", ROOT, ["tests/test_publication.py"]))
     if args.all or any(n.startswith("tools/check_changes") or n in {
-            "tests/test_source_hygiene.py", ".vibe-doctor/forbidden_patterns.json"} for n in contents):
-        checks.append((ROOT / ".venv/bin/python", ROOT, ["tests/test_source_hygiene.py"]))
+            "tools/scan_source.py", "tests/test_source_hygiene.py", "tests/test_source_scan.py",
+            ".vibe-doctor/forbidden_patterns.json"} for n in contents):
+        checks.append((ROOT / ".venv/bin/python", ROOT,
+                       ["tests/test_source_hygiene.py", "tests/test_source_scan.py"]))
     if args.all or any(n.startswith(("deployment/assets/", "tools/restore_frozen_inputs.py")) or
                       n == "tests/test_deployment_recovery.py" for n in contents):
         checks.append((ROOT / ".venv/bin/python", ROOT, ["tests/test_deployment_recovery.py"]))

@@ -107,6 +107,17 @@ Not here, on purpose:
 
 ## Resuming on another machine
 
+Run the offline source scan with `python tools/scan_source.py`. It writes a fresh,
+timestamped report under `reports/source-scan/`; use `--out <new-directory>` for
+a named run. This Git-aware snapshot includes nested application/engine code,
+migrations, examples and dependency files, while excluding generated copies in
+`data/`, `mlruns/`, build environments and historical reports. A raw
+`vibe-doctor scan .` traverses those artifacts despite `.gitignore`;
+`--no-recursive` would also miss nested source files. Local commit hooks enforce
+the regression guards in `.vibe-doctor/forbidden_patterns.json` and relevant tests.
+The [2026-09-22 scan triage](reports/triage-20260922/README.md) distinguishes
+confirmed source issues from heuristic findings and unevaluated workspace checks.
+
 For GitHub-to-workspace recovery, follow the [deployment runbook](deployment/README.md).
 It covers all three bundles, checksummed inputs, durable reviews and existing
 resource bindings. The illustrated [nontechnical explanation](reports/lakematch-explained/LakeMatch-Explained.pdf)

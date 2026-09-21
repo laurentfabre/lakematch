@@ -97,3 +97,13 @@ isolated build then passed. Both build attempts are retained in that receipt.
 This is an internal worker/storage capability. Actors in the evidence are
 synthetic fixtures; HTTP authentication, domain grants, database RLS, Lakebase
 OAuth/connection tests, publication and app integration are not claimed complete.
+
+## Scan maintenance — 22 September
+
+The [static/live triage](../../reports/triage-20260922/README.md) verifies the
+existing review/publication retry contracts and gives a reproducible source-only
+scan command. Generated source copies remain Git-ignored; the scanner snapshot
+now also excludes ignored tracked files, includes pilot examples/dependencies,
+and preserves previous reports. All 21 focused source/publication/app tests pass.
+Workspace reads started no compute. This is LM-024 maintenance, not a new LF-B
+experiment or product gate; the counter remains **2/8** and LM-004 remains next.

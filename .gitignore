@@ -4,6 +4,8 @@ __pycache__/
 mlflow.db
 mlruns/
 models/current.json
+# Includes test-runs/, frozen_models/, remote_models/ and serverless_runs/.
+# vibe-doctor does not honor this file; use tools/scan_source.py for static scans.
 data/
 spec/bench/data/
 spec/bench/work/
