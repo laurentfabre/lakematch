@@ -1,0 +1,11 @@
+{
+  "status": "failed",
+  "started_at": "2026-09-21T09:35:27.003570+00:00",
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "source_commit": "2bee089ccfb0a8f6b1c217e47021f8d1203611f0",
+  "input_and_model_hashes_verified": 8,
+  "output": "/Users/laurent.fabre/Projects/Claude/lakematch/data/test-runs/20260921T092956Z/replay",
+  "results": [],
+  "error": "CalledProcessError: Command '['/usr/bin/sandbox-exec', '-f', '/Users/laurent.fabre/Projects/Claude/lakematch/tools/offline.sb', '/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python', 'tools/run_frozen_linkage.py', 'all']' returned non-zero exit status 1.",
+  "ended_at": "2026-09-21T09:35:28.769152+00:00"
+}

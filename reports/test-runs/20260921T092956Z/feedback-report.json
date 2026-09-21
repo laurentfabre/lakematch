@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "reviewed": 20,
+  "resolved_training_pairs": 19,
+  "excluded_unsure": 1,
+  "baseline_model": "runs:/5f8673117166445686d16e7edc2a34b6/model",
+  "feedback_model": "runs:/abdc596836e14aed8c2c80c07e99d1bb/model",
+  "baseline_label_digest": "2c8302242d9ddb9c4c4c642a2a7fb26eadc0ed55b34720136a0ef61cf64ab152",
+  "feedback_label_digest": "df6df754d5100fa1fe94836bf169920097cda8e1ff447a83b02ed698d4cd8074",
+  "normal_cli_consumed_exact_snapshot": true,
+  "engine_modified": false,
+  "cleanup": "succeeded"
+}

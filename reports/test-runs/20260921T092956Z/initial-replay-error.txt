@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/laurent.fabre/Projects/Claude/lakematch/data/test-runs/20260921T092956Z/replay/tools/run_frozen_linkage.py", line 136, in <module>
+    main()
+  File "/Users/laurent.fabre/Projects/Claude/lakematch/data/test-runs/20260921T092956Z/replay/tools/run_frozen_linkage.py", line 30, in main
+    frozen = load_freeze(corpus.name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/laurent.fabre/Projects/Claude/lakematch/data/test-runs/20260921T092956Z/replay/tools/frozen.py", line 30, in load_freeze
+    assert sha256(ROOT / entry['selection_report']) == entry['selection_report_sha256']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/laurent.fabre/Projects/Claude/lakematch/data/test-runs/20260921T092956Z/replay/tools/evidence.py", line 9, in sha256
+    with Path(path).open("rb") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/laurent.fabre/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/laurent.fabre/Projects/Claude/lakematch/data/test-runs/20260921T092956Z/replay/experiments/20260920T013615Z-linkage-all-f5b121/evidence/report.json'

@@ -105,6 +105,16 @@ It covers all three bundles, checksummed inputs, durable reviews and existing
 resource bindings. The illustrated [nontechnical explanation](reports/lakematch-explained/LakeMatch-Explained.pdf)
 describes the measured campaign snapshot.
 
+The [2026-09-21 test session](reports/test-runs/20260921T092956Z/README.md)
+records the prepared corpus inventory, fresh Spark/Connect regression runs,
+browser review and retraining checks, and frozen-model replays. The replay tool
+`tools/replay_test_corpora.py --output <fresh-directory> --report <new-json>`
+copies the execution sources and corpus manifests, verifies frozen input/model
+hashes, and keeps new outputs separate from prior evidence. It requires the
+prepared local benchmark/model stores and the macOS `sandbox-exec` offline
+policy. Run it through `tools/experiment.py` with a finite timeout. The Connect
+test runner accepts `--junitxml <new-path>` so new runs preserve earlier reports.
+
 1. Java 17, Python 3.12, `pip install "pyspark[connect,pipelines]==4.1.3" mlflow pyyaml` in a virtualenv. Spark 4.1
    crashes on Java 23: pin `JAVA_HOME` to a 17.
 2. Databricks CLI profiles are per machine. This campaign explicitly selected `fevm-gdpr2` for both serverless and

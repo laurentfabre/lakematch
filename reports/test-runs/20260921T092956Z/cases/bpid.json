@@ -1,0 +1,358 @@
+{
+  "status": "completed",
+  "corpus": "bpid",
+  "partition": "confirmation",
+  "confirmation_scored": true,
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "frozen_model": {
+    "run_id": "2487309edbde4c5ab9fb1dc4bb49c976",
+    "model_uri": "runs:/2487309edbde4c5ab9fb1dc4bb49c976/model",
+    "logged_model_uri": "models:/m-d5f6ac991b154dad92ec459cb121cbed",
+    "label_set_sha256": "e8df1810c0c2039e31c4abf9fcc48b6afc609de1c214aeb9ee6c8c6dccd24254",
+    "artifact_bytes": 1074477,
+    "registry": false
+  },
+  "config": {
+    "profile": "laptop",
+    "runtime": {
+      "mode": "local",
+      "connect": false,
+      "remote": "sc://localhost:15002",
+      "materialize": "table",
+      "master": "local[2]",
+      "cli_profile": null
+    },
+    "classic": {
+      "profile": null
+    },
+    "storage": {
+      "catalog": null,
+      "root": "./data",
+      "scratch_schema": null
+    },
+    "entity": {
+      "name": "bpid",
+      "id_column": "rec_id",
+      "fields": {
+        "fullname": {
+          "type": "person_name"
+        },
+        "email": {
+          "type": "code",
+          "multiple": true
+        },
+        "phone": {
+          "type": "code",
+          "multiple": true
+        },
+        "addr": {
+          "type": "address",
+          "multiple": true
+        },
+        "dob": {
+          "type": "date",
+          "date_format": "yyyy-MM-dd"
+        }
+      }
+    },
+    "candidates": {
+      "method": "minhash_lsh",
+      "q": 3,
+      "k": 5,
+      "idf_weighted": true,
+      "gram_cap": 400,
+      "max_join_rows": 50000000,
+      "max_pairs": 100000,
+      "union_of": [
+        "gram_topk",
+        "field_blocks"
+      ],
+      "field_blocks": [
+        [
+          "fullname"
+        ],
+        [
+          "soundex(fullname)"
+        ],
+        [
+          "email"
+        ],
+        [
+          "phone"
+        ],
+        [
+          "addr"
+        ],
+        [
+          "prefix3(addr)"
+        ],
+        [
+          "dob"
+        ],
+        [
+          "year(dob)"
+        ]
+      ],
+      "max_block_rules": 3,
+      "num_hash_features": 128000,
+      "num_hash_tables": 4,
+      "seed": 0
+    },
+    "features": {
+      "string_similarity": "levenshtein",
+      "multi_token": [
+        "idf_token_cosine"
+      ],
+      "udf_features": false,
+      "field_families": true,
+      "exclude_field_types": [],
+      "max_tokens": 64,
+      "max_chars": 512,
+      "levenshtein_threshold": 64,
+      "embeddings": {
+        "fields_of_type": [],
+        "provider": "none",
+        "model": "data/models/all-MiniLM-L6-v2"
+      }
+    },
+    "matcher": {
+      "estimator": "gbt",
+      "max_model_mb": 100,
+      "max_iter": 20,
+      "max_depth": 3,
+      "seed": 0
+    },
+    "decision": {
+      "threshold": 0.31,
+      "cardinality": "unrestricted"
+    },
+    "cluster": {
+      "method": "verified_merge",
+      "max_rounds": 20
+    },
+    "quality": {
+      "engine": "native",
+      "checks": []
+    },
+    "labels": {
+      "llm": "none",
+      "llm_tau": 0.9
+    },
+    "mlflow": {
+      "tracking_uri": "sqlite:////Users/laurent.fabre/Projects/Claude/lakematch/data/candidate_pairs/bpid/mlflow.db",
+      "registry": false,
+      "model_name": "lakematch_person",
+      "registry_uri": null,
+      "alias": null,
+      "experiment": "zr3-candidate-pairs",
+      "acceptance_f1": null
+    },
+    "paid_features": {
+      "photon_on_classic": false,
+      "serverless_performance_mode": false,
+      "llm_labeller": false,
+      "ai_functions": false,
+      "embedding_endpoint": false,
+      "ai_search_blocking": false,
+      "lakebase_label_store": false,
+      "app": false,
+      "genie": false,
+      "predictive_optimization": false,
+      "data_quality_monitoring": false,
+      "llm_judges_in_evaluation": false,
+      "genie_auth_mode": "user"
+    },
+    "input": {
+      "left": null,
+      "right": null,
+      "labels": null,
+      "validation_labels": null,
+      "format": "csv"
+    },
+    "output": {
+      "root": "./data/output"
+    },
+    "model": {
+      "path": "./data/model",
+      "pointer": "models/current.json"
+    }
+  },
+  "manifest": {
+    "source": "Zenodo 13932202",
+    "license": "Apache-2.0",
+    "raw_sha256": "3ac6b206513a45dbc860e05570dbb7a1ac97a210311ec2edb89cb2a22e18b6fe",
+    "date_note": "ISO dates parsed; other/ambiguous formats remain missing typed features, raw text comparisons retained",
+    "split_method": "record_components",
+    "duplicate_or_reversed_pairs_removed": 0,
+    "conflicting_pair_keys_excluded": 0,
+    "shared_records_between_splits": {
+      "confirmation/train": 0,
+      "confirmation/valid": 0,
+      "train/valid": 0
+    },
+    "evaluation": "supplied labeled pairs, not all-pairs retrieval; unlabeled pairs are not negatives",
+    "split_counts": {
+      "confirmation": 1966,
+      "train": 5994,
+      "valid": 2040
+    },
+    "corpus": "bpid",
+    "seed": 2026091901,
+    "fields": {
+      "fullname": {
+        "type": "person_name"
+      },
+      "email": {
+        "type": "code",
+        "multiple": true
+      },
+      "phone": {
+        "type": "code",
+        "multiple": true
+      },
+      "addr": {
+        "type": "address",
+        "multiple": true
+      },
+      "dob": {
+        "type": "date",
+        "date_format": "yyyy-MM-dd"
+      }
+    },
+    "retrieval": false,
+    "files": {
+      "left": {
+        "path": "data/bench/bpid/left.jsonl",
+        "sha256": "14c1758eec3a520f1a5d7142d5e27619b3c5c7cafa6ef001e09285243eb46083",
+        "rows": 10000
+      },
+      "right": {
+        "path": "data/bench/bpid/right.jsonl",
+        "sha256": "28e4a3016f7a69c4f48db8c46d738c7296fd2ced763cfbfd0d3885bd882691d6",
+        "rows": 10000
+      },
+      "pairs": {
+        "path": "data/bench/bpid/pairs.jsonl",
+        "sha256": "d310543e1293fe922dc50e246ab4a0d63ff499020ce3189d36a2c99c94364ad7",
+        "rows": 10000
+      }
+    },
+    "confirmation_scored": false
+  },
+  "scope": "retrieval-filtered supplied held-out pairs; unknown pairs excluded; missing positives remain false negatives",
+  "cost": {
+    "remote_spend": 0,
+    "live_label_spend": 0
+  },
+  "candidate_budget": {
+    "join_rows_before_cap": 11071466,
+    "join_rows_after_cap": 3447647,
+    "dropped_grams": 11,
+    "method": "minhash_lsh",
+    "score": "exact unweighted gram-set cosine after retrieval",
+    "dropped_grams_semantics": "discarded blocking keys/hash buckets; summed across union children",
+    "candidate_pairs": 49898,
+    "max_join_rows": 50000000,
+    "max_pairs": 100000
+  },
+  "metrics": {
+    "tp": 438,
+    "fp": 290,
+    "fn": 397,
+    "tn": 841,
+    "precision": 0.6016483516483516,
+    "recall": 0.5245508982035928,
+    "f1": 0.5604606525911708,
+    "f1_95ci": [
+      0.5295989815404201,
+      0.5900581020012912
+    ],
+    "paired_delta_95ci": null,
+    "seed": 2026091902,
+    "resamples": 2000,
+    "groups": 1966
+  },
+  "candidate_recall": 0.5461077844311377,
+  "candidate_missed_positives": 379,
+  "retrieved_but_not_linked_positives": 18,
+  "baselines": {
+    "nearest_neighbour": {
+      "tp": 456,
+      "fp": 450,
+      "fn": 379,
+      "tn": 681,
+      "precision": 0.5033112582781457,
+      "recall": 0.5461077844311377,
+      "f1": 0.523836875358989,
+      "f1_95ci": [
+        0.4938132733408324,
+        0.5529479107040641
+      ],
+      "paired_delta_95ci": [
+        -0.04783035497365007,
+        -0.02569278342833725
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1966,
+      "threshold": 0.0,
+      "cardinality": "many_to_one",
+      "paired_delta_reference": "baseline minus frozen classifier"
+    },
+    "cosine_threshold": {
+      "tp": 456,
+      "fp": 449,
+      "fn": 379,
+      "tn": 682,
+      "precision": 0.5038674033149171,
+      "recall": 0.5461077844311377,
+      "f1": 0.5241379310344828,
+      "f1_95ci": [
+        0.494091164884637,
+        0.5535097813578826
+      ],
+      "paired_delta_95ci": [
+        -0.04751502758730097,
+        -0.025493646138807446
+      ],
+      "seed": 2026091902,
+      "resamples": 2000,
+      "groups": 1966,
+      "threshold": 0.18,
+      "cardinality": "unrestricted",
+      "paired_delta_reference": "baseline minus frozen classifier"
+    }
+  },
+  "error_slices": {
+    "all_positive_links": {
+      "true_links": 835,
+      "candidate_misses": 379,
+      "retrieved_but_not_linked": 18,
+      "true_links_recovered": 438
+    },
+    "any_field_missing": {
+      "true_links": 835,
+      "candidate_misses": 379,
+      "retrieved_but_not_linked": 18,
+      "true_links_recovered": 438
+    },
+    "unicode": {
+      "true_links": 0,
+      "candidate_misses": 0,
+      "retrieved_but_not_linked": 0,
+      "true_links_recovered": 0
+    },
+    "multi_value": {
+      "true_links": 835,
+      "candidate_misses": 379,
+      "retrieved_but_not_linked": 18,
+      "true_links_recovered": 438
+    }
+  },
+  "evaluation_run_id": "4cdb6171da4941bfa7e4da892f7375fe",
+  "cleanup": "succeeded",
+  "evidence_files": {
+    "heldout.predictions.json": "366ae86951c942ba15a6a33fc860c8ba27a34a6021739027c8c3ae5d3e02edfa"
+  },
+  "wall_seconds_including_spark": 87.42487720795907
+}

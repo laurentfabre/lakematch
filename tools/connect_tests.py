@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Own a local Spark Connect server, run the same suite, always stop the server."""
+import argparse
 import os
 from pathlib import Path
 import socket
@@ -12,6 +13,9 @@ from lakematch.runtime import LOCAL_JAVA_OPTIONS
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--junitxml', default='experiments/tests-connect.xml')
+    args = parser.parse_args()
     root = Path(pyspark.__file__).parent
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
@@ -37,7 +41,7 @@ def main():
         else:
             raise TimeoutError("Connect server did not bind within 60 seconds")
         env = {**os.environ, "LAKEMATCH_TEST_MODE": "connect", "LAKEMATCH_CONNECT_URL": f"sc://localhost:{port}"}
-        return subprocess.run([sys.executable, "-m", "pytest", "-q", "--junitxml=experiments/tests-connect.xml"], env=env).returncode
+        return subprocess.run([sys.executable, "-m", "pytest", "-q", f"--junitxml={args.junitxml}"], env=env).returncode
     finally:
         server.terminate()
         try:

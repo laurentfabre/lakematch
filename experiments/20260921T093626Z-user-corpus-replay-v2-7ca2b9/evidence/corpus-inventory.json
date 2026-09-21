@@ -1,0 +1,362 @@
+[
+  {
+    "corpus": "abt_buy",
+    "manifest": "data/bench/abt_buy/manifest.json",
+    "manifest_sha256": "45e95ee97eb819baf51366775415d9fbf1431f9bcf50cd9e0afc3ab5980fcec8",
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "files": {
+      "left": {
+        "path": "data/bench/abt_buy/left.jsonl",
+        "sha256": "8d555b2997b2818979727133928862955016ad12d946cc1c1e54b22ce87485d4",
+        "rows": 1068
+      },
+      "right": {
+        "path": "data/bench/abt_buy/right.jsonl",
+        "sha256": "ea712fb0925b3e737c1f53e6fa3a426496288e9eab7b78ac8fa5ba8a10633f58",
+        "rows": 1035
+      },
+      "pairs": {
+        "path": "data/bench/abt_buy/pairs.jsonl",
+        "sha256": "5850c15c8c5c8a981d71e33bb27f22dbcc79136ccffcf5c083969b2540627604",
+        "rows": 9489
+      }
+    },
+    "splits": {
+      "test": 1892,
+      "train": 5703,
+      "valid": 1894
+    },
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  },
+  {
+    "corpus": "affiliations",
+    "manifest": "data/bench/affiliations/manifest.json",
+    "manifest_sha256": "868efe8d03f7eff01f26c439da84ee9d4fd45273dc621bb11523cbd29b63915a",
+    "source": "Leipzig affiliationstrings.zip",
+    "license": "CC BY 4.0",
+    "files": {
+      "left": {
+        "path": "data/bench/affiliations/left.jsonl",
+        "sha256": "3bdb23a83013e7eff14aaf1153a75f3a967657ea5b767c15e5155bf7114a01b0",
+        "rows": 2257
+      },
+      "right": {
+        "path": "data/bench/affiliations/right.jsonl",
+        "sha256": "74ce49499fe66b374027f440f209ea330fe00e7892dfa8de61f06ba082a14899",
+        "rows": 2255
+      },
+      "pairs": {
+        "path": "data/bench/affiliations/pairs.jsonl",
+        "sha256": "854397cd05955cb6ccdc5f987f45fe53fd7f7917bd1b1a18d51daece4cb9fbb5",
+        "rows": 27950
+      }
+    },
+    "splits": {
+      "confirmation": 6896,
+      "train": 17078,
+      "valid": 3976
+    },
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  },
+  {
+    "corpus": "amazon_google",
+    "manifest": "data/bench/amazon_google/manifest.json",
+    "manifest_sha256": "f44238a46b475a2acc22dce1442619d7f5122b43e1ab865fae69e43f06f6834b",
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "files": {
+      "left": {
+        "path": "data/bench/amazon_google/left.jsonl",
+        "sha256": "f74ad08692686516f0aea58b39e707d8e5188b0b4a978a91864a66b167ed8319",
+        "rows": 1288
+      },
+      "right": {
+        "path": "data/bench/amazon_google/right.jsonl",
+        "sha256": "18946ca435c931520f228851440ad94c5342fa936b08c9316bf58ed5ab630671",
+        "rows": 2071
+      },
+      "pairs": {
+        "path": "data/bench/amazon_google/pairs.jsonl",
+        "sha256": "92b17485f68a17df1b9519f54a26dc96a67f8067cfc0fc643e3c685c95bbd420",
+        "rows": 10941
+      }
+    },
+    "splits": {
+      "test": 2127,
+      "train": 6653,
+      "valid": 2161
+    },
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  },
+  {
+    "corpus": "bpid",
+    "manifest": "data/bench/bpid/manifest.json",
+    "manifest_sha256": "68b37873ff994c578b325c431ca04484525db5230eeec1b63decf61d8b2e469c",
+    "source": "Zenodo 13932202",
+    "license": "Apache-2.0",
+    "files": {
+      "left": {
+        "path": "data/bench/bpid/left.jsonl",
+        "sha256": "14c1758eec3a520f1a5d7142d5e27619b3c5c7cafa6ef001e09285243eb46083",
+        "rows": 10000
+      },
+      "right": {
+        "path": "data/bench/bpid/right.jsonl",
+        "sha256": "28e4a3016f7a69c4f48db8c46d738c7296fd2ced763cfbfd0d3885bd882691d6",
+        "rows": 10000
+      },
+      "pairs": {
+        "path": "data/bench/bpid/pairs.jsonl",
+        "sha256": "d310543e1293fe922dc50e246ab4a0d63ff499020ce3189d36a2c99c94364ad7",
+        "rows": 10000
+      }
+    },
+    "splits": {
+      "confirmation": 1966,
+      "train": 5994,
+      "valid": 2040
+    },
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  },
+  {
+    "corpus": "dblp_acm",
+    "manifest": "data/bench/dblp_acm/manifest.json",
+    "manifest_sha256": "5d3df3fc6779ff8ea5b6e7e7b5bac570ec78f9efdf656439b3550c01de926664",
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "files": {
+      "left": {
+        "path": "data/bench/dblp_acm/left.jsonl",
+        "sha256": "ae18230a1000d9b6b274367e80a98600ef7d3a1ea1d4c6950bd1bfa5d0695ee0",
+        "rows": 2436
+      },
+      "right": {
+        "path": "data/bench/dblp_acm/right.jsonl",
+        "sha256": "6a2b35d27a96de2861abeba00adb8f8610a3727b7346773e13bf0dce27dbb8bd",
+        "rows": 2245
+      },
+      "pairs": {
+        "path": "data/bench/dblp_acm/pairs.jsonl",
+        "sha256": "b569260632aa0e98786c95da9a469a6a94d82269ccec703e1bb364e3c3b3d871",
+        "rows": 12096
+      }
+    },
+    "splits": {
+      "test": 2407,
+      "train": 7282,
+      "valid": 2407
+    },
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  },
+  {
+    "corpus": "febrl3",
+    "manifest": "data/bench/febrl3/manifest.json",
+    "manifest_sha256": "1deb9a245da7b155f8e0f28806cc1ee929e2abf7cedd59f55cc45d38f3058862",
+    "source": {
+      "sources": [
+        {
+          "name": "historical_50k",
+          "url": "https://raw.githubusercontent.com/moj-analytical-services/splink_datasets/75876d806d9eff72072d21878150ee50a96d5f41/data/historical_figures_with_errors_50k.parquet",
+          "revision": "75876d806d9eff72072d21878150ee50a96d5f41",
+          "path": "data/sources/clustering/historical_figures_with_errors_50k.parquet",
+          "sha256": "b8b748402ff37b15c2d5e8a5b9374abe269b9d297aacb7f4c9498365b7cace43",
+          "provenance": "Public Wikidata historical figures with introduced duplicate errors, per Splink 4.0.16 metadata",
+          "license": "MIT repository distribution; original Wikidata source CC0"
+        },
+        {
+          "name": "febrl3",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3.csv",
+          "sha256": "5b0443f2568a0e258e52ab015b34fc1736a6ee1863086617f08b2e6997e92458",
+          "license": "BSD-3-Clause distribution"
+        },
+        {
+          "name": "febrl3_links",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3_links.json",
+          "sha256": "d85cd011c5f57f386feb2c27428883663ef08a1c858f9de418fca6be3a39bc99",
+          "license": "BSD-3-Clause distribution"
+        }
+      ]
+    },
+    "license": null,
+    "files": {},
+    "splits": {
+      "train": 2939,
+      "confirmation": 1011,
+      "valid": 1050
+    },
+    "records": 5000,
+    "entities": 2000,
+    "file_hashes_verified": null
+  },
+  {
+    "corpus": "febrl4_half_all",
+    "manifest": "data/bench/febrl4_half_all/manifest.json",
+    "manifest_sha256": "123dbe6fa8dc8930c50e858f2ce0c4723a632f3d2bab30163450d0c358241430",
+    "source": "recordlinkage 0.16 FEBRL4",
+    "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+    "files": {
+      "left": {
+        "path": "data/bench/febrl4_half_all/left.jsonl",
+        "sha256": "e63cf16cbfec77c5a8ab04c0930edce6317b6a9342acff89161aca9816f64fd9",
+        "rows": 5000
+      },
+      "right": {
+        "path": "data/bench/febrl4_half_all/right.jsonl",
+        "sha256": "0d8cf31c830e8a0e58035e4b8fef43f85079e3484b8ba5b4bb3119254788628b",
+        "rows": 2500
+      },
+      "pairs": {
+        "path": "data/bench/febrl4_half_all/pairs.jsonl",
+        "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+        "rows": 2500
+      }
+    },
+    "splits": null,
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  },
+  {
+    "corpus": "febrl4_half_no_ssn",
+    "manifest": "data/bench/febrl4_half_no_ssn/manifest.json",
+    "manifest_sha256": "d256726701502f0e24b27822fa72b52e238297561a922d6c920ac76f4482b355",
+    "source": "recordlinkage 0.16 FEBRL4",
+    "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+    "files": {
+      "left": {
+        "path": "data/bench/febrl4_half_no_ssn/left.jsonl",
+        "sha256": "60dd56407bbb965fe69e7d2e1dc41081c06c8f741f16498303a5dddaf2067366",
+        "rows": 5000
+      },
+      "right": {
+        "path": "data/bench/febrl4_half_no_ssn/right.jsonl",
+        "sha256": "8e88c758e32e5088da97b91eb393bb21d213c231ad8a593b3b05f6f540b9b97f",
+        "rows": 2500
+      },
+      "pairs": {
+        "path": "data/bench/febrl4_half_no_ssn/pairs.jsonl",
+        "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+        "rows": 2500
+      }
+    },
+    "splits": null,
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  },
+  {
+    "corpus": "febrl4_half_no_ssn_dob",
+    "manifest": "data/bench/febrl4_half_no_ssn_dob/manifest.json",
+    "manifest_sha256": "626448e797a446b4d18531168974b3c85ff8fe2b3434048481e4544c7fbdfc62",
+    "source": "recordlinkage 0.16 FEBRL4",
+    "license": "BSD-3-Clause distribution, synthetic FEBRL data",
+    "files": {
+      "left": {
+        "path": "data/bench/febrl4_half_no_ssn_dob/left.jsonl",
+        "sha256": "4a1039cbfc6952a4d258889bc7866b0e5ca41fa265cb17c409124bf9ee74df3f",
+        "rows": 5000
+      },
+      "right": {
+        "path": "data/bench/febrl4_half_no_ssn_dob/right.jsonl",
+        "sha256": "7cb8f897245eb5b78a8356c05d4c82412ba54ad85a1f5c0176aea80e1bff8c02",
+        "rows": 2500
+      },
+      "pairs": {
+        "path": "data/bench/febrl4_half_no_ssn_dob/pairs.jsonl",
+        "sha256": "aab4cdcd65652d9edbf7f6a085f8b3c83dcd4efa0539be5a593d36bf2f96d19c",
+        "rows": 2500
+      }
+    },
+    "splits": null,
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  },
+  {
+    "corpus": "historical_50k",
+    "manifest": "data/bench/historical_50k/manifest.json",
+    "manifest_sha256": "89c1b2a07487da7495b0cc7685c4e523aa1de12e54b356a36f54d591b2133ecf",
+    "source": {
+      "sources": [
+        {
+          "name": "historical_50k",
+          "url": "https://raw.githubusercontent.com/moj-analytical-services/splink_datasets/75876d806d9eff72072d21878150ee50a96d5f41/data/historical_figures_with_errors_50k.parquet",
+          "revision": "75876d806d9eff72072d21878150ee50a96d5f41",
+          "path": "data/sources/clustering/historical_figures_with_errors_50k.parquet",
+          "sha256": "b8b748402ff37b15c2d5e8a5b9374abe269b9d297aacb7f4c9498365b7cace43",
+          "provenance": "Public Wikidata historical figures with introduced duplicate errors, per Splink 4.0.16 metadata",
+          "license": "MIT repository distribution; original Wikidata source CC0"
+        },
+        {
+          "name": "febrl3",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3.csv",
+          "sha256": "5b0443f2568a0e258e52ab015b34fc1736a6ee1863086617f08b2e6997e92458",
+          "license": "BSD-3-Clause distribution"
+        },
+        {
+          "name": "febrl3_links",
+          "source": "recordlinkage 0.16 bundled FEBRL3 synthetic data",
+          "path": "data/sources/clustering/febrl3_links.json",
+          "sha256": "d85cd011c5f57f386feb2c27428883663ef08a1c858f9de418fca6be3a39bc99",
+          "license": "BSD-3-Clause distribution"
+        }
+      ]
+    },
+    "license": null,
+    "files": {},
+    "splits": {
+      "train": 30660,
+      "confirmation": 9836,
+      "valid": 10082
+    },
+    "records": 50578,
+    "entities": 5156,
+    "file_hashes_verified": null
+  },
+  {
+    "corpus": "walmart_amazon",
+    "manifest": "data/bench/walmart_amazon/manifest.json",
+    "manifest_sha256": "dd79a22cbe5f71110c34dbda32abf6f78b155043497cec6955080f3857ad5d75",
+    "source": "megagonlabs/ditto@52985564a93fb11308439516d3e17a033d43ec8f",
+    "license": "mirror Apache-2.0; upstream unspecified",
+    "files": {
+      "left": {
+        "path": "data/bench/walmart_amazon/left.jsonl",
+        "sha256": "2317233925ba4486b439429849b2158d4ecbdf459dabdc519c5520ed20db3691",
+        "rows": 1688
+      },
+      "right": {
+        "path": "data/bench/walmart_amazon/right.jsonl",
+        "sha256": "821805742e55a69c1460dee1773fae4751899a1f026846336155bf279a3a4348",
+        "rows": 5247
+      },
+      "pairs": {
+        "path": "data/bench/walmart_amazon/pairs.jsonl",
+        "sha256": "fbcea580202359bf0147d080b0ca334de4b10c02bf77ed1a01ab18f400021769",
+        "rows": 10235
+      }
+    },
+    "splits": {
+      "test": 2047,
+      "train": 6141,
+      "valid": 2047
+    },
+    "records": null,
+    "entities": null,
+    "file_hashes_verified": true
+  }
+]

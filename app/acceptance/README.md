@@ -1,5 +1,16 @@
 # APX acceptance runners
 
+For a new local run, `local_flow.py --root data/test-runs/<new-run>/acceptance
+--report-dir reports/test-runs/<new-run>` performs the complete synthetic flow.
+Run it with the root Python environment, Java 17 and `SPARK_LOCAL_IP=127.0.0.1`,
+inside a bounded `tools/experiment.py` invocation. It runs the app unit tests,
+trains a fresh model, starts a separate Uvicorn process on a free loopback port,
+exercises the browser, restarts the process and retrains from the exact exported
+labels. It refuses a previously used database/output directory. The test app is
+always stopped; any separately running interactive demo remains available.
+Set `LAKEMATCH_CHROMIUM_EXECUTABLE` if Playwright's Chromium is not installed.
+This tests the packaged FastAPI/React app; it does not restart the APX dev manager.
+
 These runners use only the new synthetic fixture and the explicitly selected
 `fevm-gdpr2` campaign. Run one experiment at a time through `tools/experiment.py`.
 The runner adds the app's `app-source.json` artifact because the existing engine
