@@ -1,0 +1,341 @@
+{
+  "phase": "LF-B",
+  "packages": [
+    "LM-002",
+    "LM-003"
+  ],
+  "status": "passed",
+  "started_at": "2026-09-21T22:18:25.835706+00:00",
+  "driver": {
+    "psycopg": "3.3.5",
+    "psycopg-binary": "3.3.5"
+  },
+  "dependency_lock_sha256": "ca06b24731e76418bcebd7e56c313502a9c29547f2ef42c263d9739a12d117f6",
+  "confirmation_materialized": false,
+  "cloud_calls": 0,
+  "actor_source": "synthetic internal fixtures; not authenticated application users",
+  "cleanup": "owned Postgres stopped",
+  "tests": {
+    "tests": 93,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "input_hashes": {
+    "validation.erp_vendor.jsonl": "8994beef3ea69b9f94f871b9befb515539c5ff3f46a2072b948f1b3bfd057993",
+    "validation.crm_account.jsonl": "25b84795bb12f051daae17d9345c7cbdb35272fd8fee61dd354257932ee6c683",
+    "validation.truth.jsonl": "b526ab9f294b8a8ab347c2245e5dbde72bb4f843ec0bc4fe2c4c81ae8d3455a7"
+  },
+  "postgres": "postgres (PostgreSQL) 16.15 (Homebrew)",
+  "migrations": {
+    "1": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+    "2": "93ceb067358119a6b3680a0e64aba4c98468a905c22fb2e86a51bf9316e00a60"
+  },
+  "binding": {
+    "schema_version": 1,
+    "execution": {
+      "execution_id": "company_validation",
+      "version": 1,
+      "domain_id": "company",
+      "domain_version": 1,
+      "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+      "left_source_id": "erp_vendor",
+      "left_mapping_version": 1,
+      "left_mapping_sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+      "right_source_id": "crm_account",
+      "right_mapping_version": 1,
+      "right_mapping_sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+      "retrieval_alternative": "identifier_name",
+      "retrieval_sha256": "5e5bbe205968f25df5642510722c37b807782307b6529052b6f908483b969002",
+      "limits": {
+        "per_left": 50,
+        "pairs": 2000000,
+        "posting_visits": 20000000,
+        "seconds": 120,
+        "input_rows_per_source": 20000
+      },
+      "schema_version": 1
+    },
+    "execution_sha256": "ded6ae265eb337913a9f9f471691d6dacee10205c30b682c017e992f14140e36",
+    "domain": {
+      "domain_id": "company",
+      "version": 1,
+      "identity_granularity": "legal_company",
+      "fields": [
+        {
+          "name": "record_kind",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "legal_name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "registration_id",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "address_line1",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "postal_code",
+          "type": "string",
+          "required": false
+        },
+        {
+          "name": "parent_source_key",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "schema_version": 1
+    },
+    "approvals": [
+      {
+        "kind": "domain",
+        "domain_id": "company",
+        "object_id": "company",
+        "version": 1,
+        "definition_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+        "state": "approved",
+        "revision": 2,
+        "created_by": "fixture_engineer",
+        "approved_by": "fixture_approver",
+        "approval_reason": "Reviewed frozen company domain",
+        "approved_at": "2026-09-22T00:18:29.693950+02:00"
+      },
+      {
+        "kind": "mapping",
+        "domain_id": "company",
+        "object_id": "erp_vendor",
+        "version": 1,
+        "definition_sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+        "state": "approved",
+        "revision": 2,
+        "created_by": "fixture_engineer",
+        "approved_by": "fixture_approver",
+        "approval_reason": "Reviewed frozen mapping and source preview",
+        "approved_at": "2026-09-22T00:18:29.701930+02:00"
+      },
+      {
+        "kind": "mapping",
+        "domain_id": "company",
+        "object_id": "crm_account",
+        "version": 1,
+        "definition_sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+        "state": "approved",
+        "revision": 2,
+        "created_by": "fixture_engineer",
+        "approved_by": "fixture_approver",
+        "approval_reason": "Reviewed frozen mapping and source preview",
+        "approved_at": "2026-09-22T00:18:29.709982+02:00"
+      },
+      {
+        "kind": "execution",
+        "domain_id": "company",
+        "object_id": "company_validation",
+        "version": 1,
+        "definition_sha256": "ded6ae265eb337913a9f9f471691d6dacee10205c30b682c017e992f14140e36",
+        "state": "approved",
+        "revision": 2,
+        "created_by": "fixture_engineer",
+        "approved_by": "fixture_approver",
+        "approval_reason": "Pin existing cheapest-passing validation retrieval; retain known misses",
+        "approved_at": "2026-09-22T00:18:29.718569+02:00"
+      }
+    ],
+    "left_mapping": {
+      "schema_version": 1,
+      "source_id": "erp_vendor",
+      "version": 1,
+      "domain_id": "company",
+      "domain_version": 1,
+      "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+      "source_key": "vendor_id",
+      "source_columns": [
+        "vendor_id",
+        "record_type",
+        "vendor_name",
+        "country_code",
+        "registration_number",
+        "street",
+        "city",
+        "postal_code",
+        "parent_vendor_id"
+      ],
+      "fields": [
+        {
+          "target": "record_kind",
+          "source": "record_type",
+          "transforms": []
+        },
+        {
+          "target": "legal_name",
+          "source": "vendor_name",
+          "transforms": [
+            "strip",
+            "collapse_whitespace"
+          ]
+        },
+        {
+          "target": "country",
+          "source": "country_code",
+          "transforms": [
+            "strip",
+            "upper"
+          ]
+        },
+        {
+          "target": "registration_id",
+          "source": "registration_number",
+          "transforms": []
+        },
+        {
+          "target": "address_line1",
+          "source": "street",
+          "transforms": []
+        },
+        {
+          "target": "city",
+          "source": "city",
+          "transforms": []
+        },
+        {
+          "target": "postal_code",
+          "source": "postal_code",
+          "transforms": []
+        },
+        {
+          "target": "parent_source_key",
+          "source": "parent_vendor_id",
+          "transforms": []
+        }
+      ]
+    },
+    "right_mapping": {
+      "schema_version": 1,
+      "source_id": "crm_account",
+      "version": 1,
+      "domain_id": "company",
+      "domain_version": 1,
+      "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+      "source_key": "account_id",
+      "source_columns": [
+        "account_id",
+        "account_type",
+        "account_name",
+        "country",
+        "company_registration",
+        "billing_street",
+        "billing_city",
+        "billing_postcode",
+        "parent_account_id"
+      ],
+      "fields": [
+        {
+          "target": "record_kind",
+          "source": "account_type",
+          "transforms": []
+        },
+        {
+          "target": "legal_name",
+          "source": "account_name",
+          "transforms": [
+            "strip",
+            "collapse_whitespace"
+          ]
+        },
+        {
+          "target": "country",
+          "source": "country",
+          "transforms": [
+            "strip",
+            "upper"
+          ]
+        },
+        {
+          "target": "registration_id",
+          "source": "company_registration",
+          "transforms": []
+        },
+        {
+          "target": "address_line1",
+          "source": "billing_street",
+          "transforms": []
+        },
+        {
+          "target": "city",
+          "source": "billing_city",
+          "transforms": []
+        },
+        {
+          "target": "postal_code",
+          "source": "billing_postcode",
+          "transforms": []
+        },
+        {
+          "target": "parent_source_key",
+          "source": "parent_account_id",
+          "transforms": []
+        }
+      ]
+    },
+    "feature_allowlist": [
+      "address_line1",
+      "city",
+      "country",
+      "legal_name",
+      "postal_code",
+      "registration_id"
+    ],
+    "authority": "approved at registry resolution; no authentication or publication approval"
+  },
+  "input_snapshots": {
+    "erp_vendor": {
+      "rows": 4000,
+      "sha256": "417717adbf3fcfa90e789f18175b7fc3b063647294ee7151a8195d1bb5b0c1cb"
+    },
+    "crm_account": {
+      "rows": 4000,
+      "sha256": "9b1ae715b8ee0be31b0d0f5dcf9c8b2b59691bf633c5ac9927ec39fbd24efb1f"
+    }
+  },
+  "candidate_rows_sha256": "26069eb720e980d827e3624270bae4b379a5d28beceabeffdf4b1f2906ebe785",
+  "baseline_candidate_rows_sha256": "26069eb720e980d827e3624270bae4b379a5d28beceabeffdf4b1f2906ebe785",
+  "baseline_commit": "e4cf355",
+  "candidates_equal": true,
+  "approvals_survive_restart": true,
+  "candidate_recall": 0.95,
+  "known_positives": 4000,
+  "found_positives": 3800,
+  "retained_pairs": 8552,
+  "retrieval_wall_seconds": 0.08655254216864705,
+  "crm_integration_preview": {
+    "input_rows": 7,
+    "accepted": 6,
+    "errors": [
+      {
+        "row_index": 6,
+        "error": "ineligible_record_kind"
+      }
+    ]
+  },
+  "process_peak_rss_bytes": 93536256,
+  "ended_at": "2026-09-21T22:18:30.358026+00:00",
+  "wall_seconds": 4.522
+}

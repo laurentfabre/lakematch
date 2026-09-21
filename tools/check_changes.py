@@ -3,6 +3,7 @@ import argparse
 import ast
 import fnmatch
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -72,7 +73,12 @@ def main():
                                      "examples/mastering/")) for n in contents):
         checks.append((ROOT / ".venv/bin/python", ROOT,
                        ["tests/test_mastering_contracts.py", "tests/test_mastering_policy.py",
-                        "tests/test_mastering_retrieval.py"]))
+                        "tests/test_mastering_retrieval.py", "tests/test_mastering_execution.py",
+                        "tests/test_config.py"]))
+    if args.all or any(n.startswith(("src/lakematch/mastering/registry", "src/lakematch/mastering/execution",
+                                     "app/migrations/mastering/", "tests/postgres/", "tools/local_postgres")) or
+                      n in {"requirements-postgres.in", "requirements-postgres.lock"} for n in contents):
+        checks.append((ROOT / ".venv/bin/python", ROOT, ["tests/postgres"]))
     if any(n.startswith(("app/src/", "app/tests/", "app/acceptance/")) for n in contents):
         checks.append((ROOT / "app/.venv/bin/python", ROOT / "app", ["tests"]))
     if args.all or any(n in {"src/lakematch/publication.py", "tests/test_publication.py"} for n in contents):
@@ -86,7 +92,8 @@ def main():
     for python, cwd, tests in checks:
         if not python.exists():
             raise SystemExit(f"Missing {python}; prepare the documented project environment before committing.")
-        subprocess.run([str(python), "-m", "pytest", "-q", *tests], cwd=cwd, check=True, timeout=120)
+        env = {**os.environ, "LAKEMATCH_TEST_POSTGRES": "1"} if "tests/postgres" in tests else None
+        subprocess.run([str(python), "-m", "pytest", "-q", *tests], cwd=cwd, env=env, check=True, timeout=120)
     return 0
 
 

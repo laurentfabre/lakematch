@@ -1,6 +1,6 @@
-# LF-B checkpoint — 21 September 2026
+# LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 1/8 experiment slots consumed.** Phase A and LM-001 are
+**Phase B is in progress: 2/8 experiment slots consumed.** Phase A and LM-001 are
 complete at commit `96edbf8`. This increment adds portable company normalization
 and bounded candidate unions, separate from the existing Spark v1 configuration
 and frozen replay contracts. It does not add a classifier or deploy an app flow.
@@ -54,10 +54,40 @@ general customer data, merge precision, online latency or Spark scalability.
 
 ## Next work
 
-LM-002 has a passing validation retrieval result but stays in progress until the
-chosen candidate configuration is bound into the versioned mastering execution
-contract. LM-003 needs a durable approved domain/mapping registry and compatibility
-adapter. Transactional identity allocation (LM-004), survivorship and field
-provenance (LM-005/006), publication and the first golden-record app view remain
-unimplemented. These are the next Phase B tasks; later remote acceptance gates
-listed in the Phase A freeze remain mandatory.
+LM-002/003 are complete for the declared two-source contract: the selected
+candidate method now has a durable approved execution binding. Transactional
+identity allocation (LM-004) is next. Survivorship and field provenance
+(LM-005/006), publication and the first golden-record app view remain unimplemented.
+Later remote/application gates listed in the Phase A freeze remain mandatory.
+
+## Durable registry and exact job replay — 22 September
+
+The second [LF-B experiment](../../experiments/20260921T221824Z-lf-b-registry-5fab9f/manifest.json)
+passed **93 tests with no errors, failures or skips**, including 18 real PostgreSQL
+integration cases. The [report](registry-20260922.json) and
+[JUnit evidence](registry-tests-20260922.xml) retain exact results.
+
+The optional PostgreSQL adapter persists immutable domain, mapping and execution
+definitions, expected-version/revision checks, independent approval and append-only
+history. Checksummed migration 0002 is additive; changed migrations, downgrades and
+unattributed legacy approvals fail without partial application. Concurrent submits
+and approvals have one winner; failed audit insertion rolls back the definition.
+Approvals remain identical after an actual PostgreSQL process restart.
+
+The bound job validates both input schemas, code and contract hashes, then
+reproduces the preceding `identifier_name` candidate rows exactly: **8,552 pairs,
+3,800/4,000 positives, 95% recall**. This preserves the original 200 combined-error
+misses and does not tune or regenerate confirmation data. The separate seven-row
+CRM preview accepts six legal companies and quarantines one branch. The explicit
+v1 adapter preserves string identifiers and rejects incompatible old configs
+without mutating them.
+
+Observed main-process peak RSS was **89.2 MiB**. Local PostgreSQL 16.15 used a
+private Unix socket with TCP disabled and fsync enabled; owned server/process
+cleanup passed. psycopg 3.3.5 is an optional locked dependency. No cloud service or
+AI call ran, and no existing database was used for resets. The full contract,
+operator instructions and limitations are in [REGISTRY.md](../../spec/lakefusion/REGISTRY.md).
+
+This is an internal worker/storage capability. Actors in the evidence are
+synthetic fixtures; HTTP authentication, domain grants, database RLS, Lakebase
+OAuth/connection tests, publication and app integration are not claimed complete.

@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (1/8 experiments)**.
+Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (2/8 experiments)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -129,7 +129,7 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 | Phase | Deliverable | Entry dependency | Indicative timing | Status | Acceptance evidence |
 |---|---|---|---|---|---|
 | LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Done | [Frozen contracts, capability evidence and limits](bench/lakefusion/PHASE_A.md) |
-| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | In progress | [First candidate comparison](bench/lakefusion/PHASE_B.md) |
+| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | In progress | [Candidate comparison and durable registry](bench/lakefusion/PHASE_B.md) |
 | LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | Not started | None yet |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
 | LF-E | PIM catalog and editorial workflows | LF-C plus LF-D reference/nested contracts | Weeks 19–30 | Not started | None yet |
@@ -142,8 +142,8 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 | Package | Work | Completion phase | Status |
 |---|---|---|---|
 | LM-001 | Pilot contract and capability checks | LF-A | Done |
-| LM-002 | Candidate coverage | LF-B | In progress |
-| LM-003 | Domain and mapping registry | LF-B | In progress |
+| LM-002 | Candidate coverage | LF-B | Done |
+| LM-003 | Domain and mapping registry | LF-B | Done |
 | LM-004 | Persistent business identity | LF-B | Not started |
 | LM-005 | Scalar survivorship | LF-B | Not started |
 | LM-006 | Winning-value provenance | LF-B | Not started |
@@ -220,10 +220,16 @@ Deliverables:
   [Four-alternative validation comparison](bench/lakefusion/PHASE_B.md): 65%
   identifier baseline, 95% with normalized names, 100% with lexical tokens.
   Cheapest passing configuration misses all 200 combined-error pairs; lexical
-  coverage costs 22.2× more pairs but stays inside caps. Execution binding and
-  automatic-merge quality remain incomplete; confirmation is untouched.
-- [ ] Implement approved domain/source-mapping versions with drift detection
+  coverage costs 22.2× more pairs but stays inside caps. The selected method now
+  replays exactly through a versioned registry binding. Automatic-merge quality
+  remains incomplete; confirmation is untouched.
+- [x] Implement approved domain/source-mapping versions with drift detection
   and explicit compatibility with existing engine configurations.
+  [Operational registry and execution contract](spec/lakefusion/REGISTRY.md):
+  immutable definitions, approval/revision history, bounded mapping preview,
+  pinned candidate jobs and an explicit v1 feature-row adapter. **93 tests pass**,
+  including 18 PostgreSQL integration cases and actual restart persistence.
+  Lakebase OAuth/RLS and authenticated app APIs remain later gates.
 - [ ] Allocate persistent business IDs transactionally. Add aliases and
   identity-event history; retain historical deterministic ID interpretation.
 - [ ] Implement scalar survivorship with steward override, source precedence,
@@ -455,6 +461,8 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 |---|---|---|
 | 2026-09-21: plan created | Research committed at `a007166`; LF-A–F have no execution evidence. Existing [local test receipts](reports/test-runs/20260921T092956Z/README.md) and [redeployment audit](bench/REDEPLOYMENT.md) remain the baseline. | When execution is requested, start §4 with LM-001 and the two-source company/supplier contract. |
 | 2026-09-21: LF-A execution | Typed contracts, synthetic fixture, policy and Postgres prototypes verified; eight metadata reads, 12 database checks and 37 final local tests pass. Five bounded receipts, including one retained runner-cleanup failure. [Evidence](bench/lakefusion/PHASE_A.md). | Resolve the four §1 decisions against the [pilot proposal](spec/lakefusion/PHASE_A.md) and [protocol](spec/lakefusion/PROTOCOL.md); then freeze the contract and select remaining capability spikes. |
+| 2026-09-21: LF-A closed / LF-B started | All four decisions resolved; protocol/generator freeze committed; Unity Gateway smoke passes. Candidate comparison records 65% baseline, 95% name union and 100% lexical coverage. LF-A 8/8; LF-B 1/8. | Bind the selected candidate method to durable approved domain/mapping versions. |
+| 2026-09-22: registry and execution binding | LM-002/003 complete for the declared pilot contract. 93 checks pass; immutable PostgreSQL versions, concurrent approval, restart persistence and exact candidate replay verified. LF-B 2/8. [Evidence](bench/lakefusion/registry-20260922.json). | LM-004: transactional persistent master IDs, aliases and identity-event history, preserving old deterministic IDs. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

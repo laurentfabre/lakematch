@@ -1,0 +1,2 @@
+# Optional operational registry adapter; not imported by the Spark engine.
+psycopg[binary]>=3.2,<4
