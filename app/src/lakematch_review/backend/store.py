@@ -39,6 +39,21 @@ class Store:
     def table(self, name):
         raise NotImplementedError
 
+    def insert_once(self, name, values, keys):
+        """Insert immutable data by its unique keys, including statement retries."""
+        raise NotImplementedError
+
+    def set_metadata(self, key, value):
+        """Job-only immutable metadata; retries preserve the original value."""
+        with self.transaction():
+            table = self.table("review_metadata")
+            rows = self.query(f"SELECT payload FROM {table} WHERE key=:key", {"key": key})
+            if rows:
+                if len(rows) != 1 or json.loads(rows[0][0]) != value:
+                    raise Conflict("Different metadata already uses this key")
+                return
+            self.insert_once("review_metadata", {"key": key, "payload": json.dumps(value)}, ("key",))
+
     @contextmanager
     def transaction(self):
         with _writer:
@@ -56,13 +71,16 @@ class Store:
                     raise Conflict("A different queue item already uses this key")
                 return
             uncertainty = 0.0 if pair.llm_decision == "unsure" else abs(pair.probability - pair.threshold)
-            self.query(f"INSERT INTO {table} VALUES (:id,:a,:b,:model,:u,:impact,:payload)",
-                       dict(id=pair.pair_id, a=pair.a_id, b=pair.b_id, model=pair.model_version,
-                            u=str(uncertainty), impact=pair.impact, payload=pair.model_dump_json()))
+            self.insert_once("review_queue",
+                             dict(pair_id=pair.pair_id, a_id=pair.a_id, b_id=pair.b_id,
+                                  model_version=pair.model_version, uncertainty=str(uncertainty),
+                                  impact=pair.impact, payload=pair.model_dump_json()), ("pair_id",))
 
     def queue(self, limit=20):
         q, labels = self.table("review_queue"), self.table("review_labels")
-        rows = self.query(f"SELECT q.payload FROM {q} q WHERE NOT EXISTS (SELECT 1 FROM {labels} l WHERE l.pair_id=q.pair_id) ORDER BY q.uncertainty, q.impact DESC, q.pair_id LIMIT :limit", {"limit": limit})
+        # Statement Execution binds Python ints as BIGINT; Spark requires an INT
+        # expression specifically for LIMIT. SQLite accepts the same explicit cast.
+        rows = self.query(f"SELECT q.payload FROM {q} q WHERE NOT EXISTS (SELECT 1 FROM {labels} l WHERE l.pair_id=q.pair_id) ORDER BY q.uncertainty, q.impact DESC, q.pair_id LIMIT CAST(:limit AS INT)", {"limit": limit})
         return [PairOut.model_validate_json(r[0]) for r in rows]
 
     def bounded_payloads(self, name):
@@ -96,9 +114,18 @@ class Store:
                 raise Conflict("This pair has already been reviewed; reload the queue")
             review = ReviewOut(**incoming.model_dump(), a_id=pair.a_id, b_id=pair.b_id,
                                user=user, reviewed_at=datetime.now(timezone.utc).isoformat())
-            self.query(f"INSERT INTO {table} (request_id, pair_id, payload) VALUES (:request, :pair, :payload)",
-                       {"request": review.request_id, "pair": review.pair_id, "payload": review.model_dump_json()})
-            return review
+            self.insert_once("review_labels",
+                             {"request_id": review.request_id, "pair_id": review.pair_id,
+                              "payload": review.model_dump_json()}, ("request_id", "pair_id"))
+            # An uncertain write acknowledgement must return the stored receipt,
+            # including its original timestamp, rather than a newly minted one.
+            saved = self.query(f"SELECT payload FROM {table} WHERE request_id=:id", {"id": incoming.request_id})
+            if len(saved) != 1:
+                raise Conflict("Review was not saved uniquely; reload the queue")
+            persisted = ReviewOut.model_validate_json(saved[0][0])
+            if any(getattr(persisted, k) != v for k, v in incoming.model_dump().items()) or persisted.user != user:
+                raise Conflict("This request ID already belongs to a different review")
+            return persisted
 
     def snapshot(self):
         reviews = self.reviews()
@@ -151,6 +178,11 @@ class SQLiteStore(Store):
     def query(self, sql, params=None):
         return self.connection.execute(sql, params or {}).fetchall()
 
+    def insert_once(self, name, values, keys):
+        columns = _insert_columns(name, values, keys)
+        self.query(f"INSERT INTO {self.table(name)} ({', '.join(columns)}) "
+                   f"VALUES ({', '.join(':' + c for c in columns)}) ON CONFLICT DO NOTHING", values)
+
     @contextmanager
     def transaction(self):
         self.connection.execute("BEGIN IMMEDIATE")
@@ -176,6 +208,18 @@ class DeltaStore(Store):
             raise ValueError("Unknown review table")
         return ".".join(f"`{p}`" for p in [*self.schema.split("."), name])
 
+    def insert_once(self, name, values, keys):
+        columns = _insert_columns(name, values, keys)
+        source = ", ".join(f":{c} AS `{c}`" for c in columns)
+        match = " OR ".join(f"t.`{c}` = s.`{c}`" for c in keys)
+        names = ", ".join(f"`{c}`" for c in columns)
+        selected = ", ".join(f"s.`{c}`" for c in columns)
+        # A repeated Statement Execution request cannot append the same queue,
+        # metadata or review key twice. The single-writer deployment rule still
+        # applies: MERGE is not a distributed uniqueness constraint.
+        self.query(f"MERGE INTO {self.table(name)} t USING (SELECT {source}) s ON {match} "
+                   f"WHEN NOT MATCHED THEN INSERT ({names}) VALUES ({selected})", values)
+
     def query(self, sql, params=None):
         from databricks.sdk.service.sql import StatementParameterListItem, StatementState, ExecuteStatementRequestOnWaitTimeout
         response = self.client.statement_execution.execute_statement(
@@ -186,7 +230,7 @@ class DeltaStore(Store):
         if not response.status or response.status.state != StatementState.SUCCEEDED:
             if response.statement_id:
                 self.client.statement_execution.cancel_execution(response.statement_id)
-            raise RuntimeError("Review storage query failed or exceeded 50 seconds")
+            raise RuntimeError(f"Review storage query failed or exceeded 50 seconds; statement={response.statement_id}")
         if response.manifest and response.manifest.truncated:
             raise ValueError("Review query exceeded its bounded result size")
         if response.result and response.result.next_chunk_index is not None:
@@ -195,3 +239,10 @@ class DeltaStore(Store):
 
     def close(self):
         pass
+
+
+def _insert_columns(name, values, keys):
+    allowed = {part.strip().split()[0] for part in TABLE_DDL[name].split(",")}
+    if set(values) != allowed or not keys or not set(keys) <= allowed:
+        raise ValueError("Insert columns and keys must match the review table")
+    return list(values)

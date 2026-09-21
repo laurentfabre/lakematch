@@ -1,0 +1,16 @@
+{
+  "catalog_name": "gdpr2_catalog",
+  "comment": "Public/synthetic experiment artifacts and model staging",
+  "created_at": 1789852679868,
+  "created_by": "laurent.fabre@databricks.com",
+  "full_name": "gdpr2_catalog.lakematch_20260919.artifacts",
+  "metastore_id": "9e4a709c-7388-4208-b90f-206a61cb2c40",
+  "name": "artifacts",
+  "owner": "laurent.fabre@databricks.com",
+  "schema_name": "lakematch_20260919",
+  "storage_location": "s3://gdpr2-ext-s3-049629455384-dseifc/__unitystorage/catalogs/06dd6a1e-9714-4151-a4eb-3d116d093799/volumes/845da574-e2ec-407f-8bf9-8fe7d7e78641",
+  "updated_at": 1789852679868,
+  "updated_by": "laurent.fabre@databricks.com",
+  "volume_id": "845da574-e2ec-407f-8bf9-8fe7d7e78641",
+  "volume_type": "MANAGED"
+}

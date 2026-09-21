@@ -68,7 +68,7 @@ def seed(root, database):
     evaluation = report['model']['evaluation']
     metadata = {'quarantine':sum(report['quarantine'].values()), 'evaluations':[dict(model_version=model,precision=evaluation['pairwise_precision'],recall=evaluation['pairwise_recall'],sample_size=8,context='synthetic record-disjoint validation')]}
     for key, value in metadata.items():
-        store.query('INSERT INTO review_metadata VALUES (:key,:value)',dict(key=key,value=json.dumps(value)))
+        store.set_metadata(key, value)
     store.close()
     (root/'queue.json').write_text(json.dumps([p.model_dump() for p in pairs],indent=2)+'\n')
     (root/'metadata.json').write_text(json.dumps(metadata,indent=2)+'\n')

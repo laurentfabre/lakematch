@@ -1,0 +1,75 @@
+{
+  "pages": 11,
+  "pdf_bytes": 232435,
+  "sha256": "add732f444074fdfc9a01c672c4c2bb72fba2e7532badd6e3f17bc889c07c2ae",
+  "source_commit": "910a4188e2ff11088ac55601494b4e0730f74c70",
+  "visual_review": "All pages reviewed as contact sheet; quality chart and final sources page inspected at higher resolution. Source-page overflow corrected.",
+  "page_checks": [
+    {
+      "page": 1,
+      "text_characters": 866,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 2,
+      "text_characters": 1687,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 3,
+      "text_characters": 1820,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 4,
+      "text_characters": 2089,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 5,
+      "text_characters": 1602,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 6,
+      "text_characters": 1709,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 7,
+      "text_characters": 1322,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 8,
+      "text_characters": 1521,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 9,
+      "text_characters": 1864,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 10,
+      "text_characters": 2191,
+      "links": 0,
+      "text_within_page": true
+    },
+    {
+      "page": 11,
+      "text_characters": 2351,
+      "links": 18,
+      "text_within_page": true
+    }
+  ]
+}

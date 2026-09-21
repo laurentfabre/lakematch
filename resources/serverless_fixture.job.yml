@@ -2,6 +2,11 @@ resources:
   jobs:
     cluster_fixture:
       name: lakematch-20260919-cluster-fixture
+      tags:
+        project: lakematch
+        environment: development
+        business_unit: field_engineering
+        campaign: "20260919"
       max_concurrent_runs: 1
       timeout_seconds: 1800
       performance_target: STANDARD
@@ -11,7 +16,7 @@ resources:
         - name: schema
           default: ${var.catalog}.${var.schema}
         - name: root
-          default: /Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture
+          default: ${var.fixture_root}/{{job.run_id}}
       tasks:
         - task_key: train
           timeout_seconds: 600

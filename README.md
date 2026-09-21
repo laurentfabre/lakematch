@@ -100,6 +100,11 @@ Not here, on purpose:
 
 ## Resuming on another machine
 
+For GitHub-to-workspace recovery, follow the [deployment runbook](deployment/README.md).
+It covers all three bundles, checksummed inputs, durable reviews and existing
+resource bindings. The illustrated [nontechnical explanation](reports/lakematch-explained/LakeMatch-Explained.pdf)
+describes the measured campaign snapshot.
+
 1. Java 17, Python 3.12, `pip install "pyspark[connect,pipelines]==4.1.3" mlflow pyyaml` in a virtualenv. Spark 4.1
    crashes on Java 23: pin `JAVA_HOME` to a 17.
 2. Databricks CLI profiles are per machine. This campaign explicitly selected `fevm-gdpr2` for both serverless and

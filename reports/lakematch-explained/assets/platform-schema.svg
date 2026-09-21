@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#5F7478"/></marker></defs>
+<style>text {font-family:"DM Sans",sans-serif;fill:#183B3F;} .small {font-size:20px;} .title {font-size:25px;font-weight:700;} .muted {fill:#5F7478;}</style>
+<rect x="15" y="15" width="420" height="145" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="39" y="55" font-size="23" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">LAPTOP · VERIFIED</text>
+<text x="39" y="100" font-size="21" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Local matching, models and review app</text>
+<text x="39" y="131" font-size="21" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Offline engine after preparation</text>
+<rect x="565" y="15" width="420" height="145" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="589" y="55" font-size="23" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">DATABRICKS · MEASURED</text>
+<text x="589" y="100" font-size="21" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Serverless matching and model reload</text>
+<text x="589" y="131" font-size="21" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Cloud review app still incomplete</text>
+<path d="M225,173 L343,221" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<path d="M775,173 L657,221" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<rect x="180" y="230" width="640" height="114" rx="16" fill="#E6F3ED" stroke="#CDDCD9"/>
+<text x="500" y="272" font-size="25" font-weight="700" fill="#183B3F" style="fill:#183B3F" text-anchor="middle">ONE MATCHING ENGINE</text>
+<text x="500" y="310" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="middle">The same comparison logic and saved decision rules</text>
+</svg>

@@ -1,0 +1,31 @@
+{
+  "auto_stop_mins": 10,
+  "cluster_size": "2X-Small",
+  "creator_name": "laurent.fabre@databricks.com",
+  "enable_photon": true,
+  "enable_serverless_compute": true,
+  "id": "ec3b6df6c1cabcd4",
+  "jdbc_url": "jdbc:spark://fevm-gdpr2.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/ec3b6df6c1cabcd4;",
+  "max_num_clusters": 1,
+  "min_num_clusters": 1,
+  "name": "lakematch-20260919-evidence-20260920T041603Z-35e82ec0",
+  "num_active_sessions": 0,
+  "num_clusters": 0,
+  "odbc_params": {
+    "hostname": "fevm-gdpr2.cloud.databricks.com",
+    "path": "/sql/1.0/warehouses/ec3b6df6c1cabcd4",
+    "port": 443,
+    "protocol": "https"
+  },
+  "spot_instance_policy": "COST_OPTIMIZED",
+  "state": "STOPPED",
+  "tags": {
+    "custom_tags": [
+      {
+        "key": "campaign",
+        "value": "lakematch-20260919"
+      }
+    ]
+  },
+  "warehouse_type": "PRO"
+}

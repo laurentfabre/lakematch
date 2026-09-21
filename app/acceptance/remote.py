@@ -104,9 +104,7 @@ def main():
         for pair in json.loads((root/'queue.json').read_text()):
             store.enqueue(PairOut.model_validate(pair))
         for key,value in json.loads((root/'metadata.json').read_text()).items():
-            table=store.table('review_metadata')
-            old=store.query(f'SELECT payload FROM {table} WHERE key=:key',{'key':key})
-            if not old:store.query(f'INSERT INTO {table} VALUES (:key,:payload)',dict(key=key,payload=json.dumps(value)))
+            store.set_metadata(key,value)
         store.query(f'GRANT USE CATALOG ON CATALOG gdpr2_catalog TO `{principal}`')
         store.query(f'GRANT USE SCHEMA ON SCHEMA {schema} TO `{principal}`')
         for name in TABLE_DDL:

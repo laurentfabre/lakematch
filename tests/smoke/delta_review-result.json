@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-09-21T02:50:38.910963+00:00",
+  "profile": "fevm-gdpr2",
+  "warehouse_id": "ec3b6df6c1cabcd4",
+  "prefix": "lm_deploy_probe_68b730b68c4e_",
+  "status": "cleanup_failed",
+  "cleanup": {
+    "review_metadata": "dropped disposable table",
+    "review_labels": "dropped disposable table",
+    "review_queue": "dropped disposable table"
+  },
+  "review_rows": 1,
+  "merge_replays": 2,
+  "stable_receipt_after_reload": true,
+  "changed_metadata_rejected": true,
+  "int_limit_passed": true,
+  "cleanup_errors": [
+    "timed out after 0:03:00: None"
+  ]
+}

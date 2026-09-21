@@ -1,0 +1,10 @@
+{
+  "archive": "frozen-inference-v1.zip",
+  "sha256": "34c77741894b737ea3708c3acae5b08d3a1ba19a257d2d1c1d7338082be37421",
+  "bytes": 1067514,
+  "files": 44,
+  "manifest_sha256": "c3c691db6384e0d08ce88af15cf4937eaa8f72abe5d8ec954aa7699460705a97",
+  "freeze_sha256": "d703ebc6f22bc1ee1534d6bfed3c1761f931df16eb0875c9e3501fdd84ea8829",
+  "source": "public synthetic FEBRL4; see bench/freeze.json and spec/bench/README.md; plus seeded invalid IDs",
+  "scope": "SQL inference state, IDF parquet, input rows and expected results; not the MLflow registry or historical model archives"
+}

@@ -1,11 +1,10 @@
 from concurrent.futures import ThreadPoolExecutor
-import json
 from uuid import uuid4
 
 import pytest
 from fastapi.testclient import TestClient
 from lakematch_review.backend.app import app
-from lakematch_review.backend.store import SQLiteStore, pair_key
+from lakematch_review.backend.store import Conflict, SQLiteStore, pair_key
 from lakematch_review.backend.models import PairOut, ReviewIn
 
 
@@ -99,9 +98,41 @@ def test_rank_llm_uncertainty_then_impact(client):
 def test_numeric_metadata_roundtrip(client):
     c, path = client
     store = SQLiteStore(path)
-    store.query('INSERT INTO review_metadata VALUES (:key, :value)', {'key':'quarantine','value':json.dumps(0)})
+    store.set_metadata('quarantine', 0)
     store.close()
     assert c.get('/api/statistics').json()['quarantine'] == 0
+
+
+def test_metadata_retry_preserves_original_and_rejects_conflict(client):
+    c, path = client
+    store = SQLiteStore(path)
+    store.set_metadata('quarantine', 0)
+    store.set_metadata('quarantine', 0)
+    with pytest.raises(Conflict, match='Different metadata'):
+        store.set_metadata('quarantine', 4)
+    assert store.query('SELECT COUNT(*) FROM review_metadata')[0][0] == 1
+    store.close()
+    assert c.get('/api/statistics').json()['quarantine'] == 0
+
+
+def test_retry_after_lost_acknowledgement_preserves_receipt(client, monkeypatch):
+    c, path = client
+    body = ReviewIn(**review_body(c.get('/api/queue').json()[0]))
+    store = SQLiteStore(path)
+    original = store.insert_once
+    def committed_then_lost_ack(name, values, keys):
+        original(name, values, keys)
+        # Simulate a remote commit whose response is lost to the caller.
+        store.connection.commit()
+        raise TimeoutError('write acknowledged too late')
+    monkeypatch.setattr(store, 'insert_once', committed_then_lost_ack)
+    with pytest.raises(TimeoutError):
+        store.review(body, 'reviewer')
+    saved = store.reviews()[0]
+    monkeypatch.setattr(store, 'insert_once', original)
+    assert store.review(body, 'reviewer') == saved
+    assert store.reviews() == [saved]
+    store.close()
 
 
 def test_llm_unsure_prioritizes_uncertainty_and_merge_impact(client):

@@ -1,0 +1,38 @@
+{
+  "app_status": {
+    "message": "App status is unavailable.",
+    "state": "UNAVAILABLE"
+  },
+  "compute_size": "MEDIUM",
+  "compute_status": {
+    "message": "Start the app compute to deploy the app.",
+    "state": "STOPPED"
+  },
+  "create_time": "2026-09-20T11:02:37Z",
+  "creator": "laurent.fabre@databricks.com",
+  "description": "lakematch 20260919 campaign: synthetic APX review acceptance; stop after experiments",
+  "effective_user_api_scopes": [
+    "iam.access-control:read",
+    "iam.current-user:read"
+  ],
+  "id": "d124e6f3-45aa-4693-86ee-b34898aac9d8",
+  "name": "lakematch-review-20260919",
+  "oauth2_app_client_id": "e8a6c0e5-496a-4e14-80bb-efee4fff87f8",
+  "oauth2_app_integration_id": "e8a6c0e5-496a-4e14-80bb-efee4fff87f8",
+  "resources": [
+    {
+      "name": "review-warehouse",
+      "sql_warehouse": {
+        "id": "ec3b6df6c1cabcd4",
+        "permission": "CAN_USE"
+      }
+    }
+  ],
+  "service_principal_client_id": "d124e6f3-45aa-4693-86ee-b34898aac9d8",
+  "service_principal_id": 72865873681094,
+  "service_principal_name": "app-2nqdd8 lakematch-review-20260919",
+  "thumbnail_url": "",
+  "update_time": "2026-09-20T11:03:07Z",
+  "updater": "laurent.fabre@databricks.com",
+  "url": "https://lakematch-review-20260919-7474658055368199.aws.databricksapps.com"
+}

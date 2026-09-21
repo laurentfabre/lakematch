@@ -33,6 +33,10 @@ spark-warehouse/
 artifacts/
 derby.log
 metastore_db/
+.DS_Store
+.mpl-cache/
+.isaac/
+reports/lakematch-explained/preview/
 
 # Tiny synthetic fixtures are source inputs, not downloaded corpus data.
 !examples/data/

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#5F7478"/></marker></defs>
+<style>text {font-family:"DM Sans",sans-serif;fill:#183B3F;} .small {font-size:20px;} .title {font-size:25px;font-weight:700;} .muted {fill:#5F7478;}</style>
+<rect x="10" y="12" width="300" height="151" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="30" y="51" font-size="23" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">1  CHECK</text>
+<text x="30" y="98" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Standardize formats</text>
+<text x="30" y="129" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Set bad rows aside</text>
+<rect x="350" y="12" width="300" height="151" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="370" y="51" font-size="23" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">2  SHORTLIST</text>
+<text x="370" y="98" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Find plausible pairs</text>
+<text x="370" y="129" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Limit comparison work</text>
+<rect x="690" y="12" width="300" height="151" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="710" y="51" font-size="23" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">3  COMPARE</text>
+<text x="710" y="98" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Names, dates, addresses</text>
+<text x="710" y="129" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Rare words add evidence</text>
+<rect x="690" y="238" width="300" height="151" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="710" y="277" font-size="23" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">4  SCORE</text>
+<text x="710" y="324" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Use a trained model</text>
+<text x="710" y="355" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Apply a decision rule</text>
+<rect x="350" y="238" width="300" height="151" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="370" y="277" font-size="23" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">5  LINK</text>
+<text x="370" y="324" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Keep accepted pairs</text>
+<text x="370" y="355" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Respect matching rules</text>
+<rect x="10" y="238" width="300" height="151" rx="16" fill="#E6F3ED" stroke="#CDDCD9"/>
+<text x="30" y="277" font-size="23" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">6  GROUP &amp; TRACK</text>
+<text x="30" y="324" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Create shared identities</text>
+<text x="30" y="355" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Record changes over time</text>
+<path d="M317,89 L341,89" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<path d="M657,89 L681,89" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<path d="M840,170 L840,227" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<path d="M681,315 L660,315" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<path d="M341,315 L320,315" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<rect x="115" y="420" width="770" height="51" rx="16" fill="#EAF0F5" stroke="#EAF0F5"/>
+<text x="500" y="453" font-size="21" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="middle">Human decisions can feed a later, separately validated training run.</text>
+</svg>

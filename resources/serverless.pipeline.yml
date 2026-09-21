@@ -2,6 +2,11 @@ resources:
   pipelines:
     matching:
       name: lakematch-20260919-frozen-matching
+      tags:
+        project: lakematch
+        environment: development
+        business_unit: field_engineering
+        campaign: "20260919"
       catalog: ${var.catalog}
       schema: ${var.schema}
       serverless: true

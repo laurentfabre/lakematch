@@ -1,0 +1,168 @@
+{
+  "source_commit": "910a4188e2ff11088ac55601494b4e0730f74c70",
+  "evidence_date": "2026-09-20",
+  "quality": [
+    {
+      "dataset": "febrl4_half_all / confirmation",
+      "precision": 1.0,
+      "recall": 0.978,
+      "f1": 0.9889,
+      "ci": [
+        0.9815,
+        0.995
+      ],
+      "seconds": 29.19
+    },
+    {
+      "dataset": "febrl4_half_no_ssn / confirmation",
+      "precision": 1.0,
+      "recall": 0.974,
+      "f1": 0.9868,
+      "ci": [
+        0.9793,
+        0.9932
+      ],
+      "seconds": 27.3
+    },
+    {
+      "dataset": "bpid / confirmation",
+      "precision": 0.6016,
+      "recall": 0.5246,
+      "f1": 0.5605,
+      "ci": [
+        0.5296,
+        0.5901
+      ],
+      "seconds": 89.47
+    },
+    {
+      "dataset": "abt_buy / test",
+      "precision": 0.6532,
+      "recall": 0.5567,
+      "f1": 0.6011,
+      "ci": [
+        0.5429,
+        0.6576
+      ],
+      "seconds": 20.44
+    },
+    {
+      "dataset": "amazon_google / test",
+      "precision": 0.5932,
+      "recall": 0.8028,
+      "f1": 0.6823,
+      "ci": [
+        0.6364,
+        0.7269
+      ],
+      "seconds": 17.12
+    },
+    {
+      "dataset": "walmart_amazon / test",
+      "precision": 0.8583,
+      "recall": 0.5677,
+      "f1": 0.6834,
+      "ci": [
+        0.622,
+        0.7399
+      ],
+      "seconds": 24.6
+    },
+    {
+      "dataset": "dblp_acm / test",
+      "precision": 0.9954,
+      "recall": 0.9797,
+      "f1": 0.9875,
+      "ci": [
+        0.9798,
+        0.9943
+      ],
+      "seconds": 28.24
+    },
+    {
+      "dataset": "affiliations / confirmation",
+      "precision": 1.0,
+      "recall": 0.152,
+      "f1": 0.2639,
+      "ci": [
+        0.2459,
+        0.2829
+      ],
+      "seconds": 25.45
+    }
+  ],
+  "scale": [
+    {
+      "records": 1000,
+      "seconds": 21.1,
+      "recall": 1.0,
+      "f1": 1.0,
+      "completed": true
+    },
+    {
+      "records": 10000,
+      "seconds": 34.45,
+      "recall": 1.0,
+      "f1": 1.0,
+      "completed": true
+    },
+    {
+      "records": 100000,
+      "seconds": 342.12,
+      "recall": 0.9555,
+      "f1": 0.9772,
+      "completed": true
+    },
+    {
+      "records": 1000000,
+      "seconds": 672.8,
+      "recall": null,
+      "f1": null,
+      "completed": false
+    }
+  ],
+  "screenshots": [
+    {
+      "source": "data/app-acceptance-v1/review-desktop.png",
+      "source_sha256": "881855d84a8d0bd612f27b477ea54f642f7730ac2ef8a4b0b19085ef4ca8503c",
+      "output": "assets/review-screen.png",
+      "crop": [
+        250,
+        90,
+        1410,
+        915
+      ],
+      "alteration": "Content crop only; no values or UI elements altered."
+    },
+    {
+      "source": "data/app-acceptance-v1/statistics-desktop.png",
+      "source_sha256": "c7ae633749226fe2c814bbe34011a875997430516038ba56c630c72832efc806",
+      "output": "assets/statistics-screen.png",
+      "crop": [
+        250,
+        90,
+        1410,
+        815
+      ],
+      "alteration": "Content crop only; no values or UI elements altered."
+    }
+  ],
+  "source_checksums": {
+    "goal.md": "f6b40e41916968af94b849361d1f7d48b463ab026a6ac4e89b3dc638fc8434ab",
+    "README.md": "b049bad6186c0fac172724966c33eaa1bdddab62ccc4f68a64e0f906a45dba8d",
+    "bench/BENCHMARKS.md": "cbdd3f3281716678ea5b051612eb0f1c1c57d931af0d41066e2fc58598af5438",
+    "bench/SCALE.md": "a8df3bd52cf28436126e2d2064cfd8b661065b74cade65f0848fbba467635086",
+    "bench/METHODS.md": "ac2bd2212a5a93c1072150ea0d5cb80bb2f805210a9c5e05b1752974044bdd27",
+    "bench/FEATURES.md": "488c060ba21475ab6ad4a3c8570b6697de48dc4b2295ff006820a659d982d8e8",
+    "bench/IDENTITY.md": "29700978d19a093a96e13127b05c1433b3f3fc1aef7773733c7238e12d298b31",
+    "bench/CLUSTERS.md": "c275487d1b0ac5fd5f45f67f94963d56975263d11fad46c381083b2f15030ffb",
+    "bench/MODELS.md": "a5678cb6e8a5d7a85db8a70500e155a71548a883a223e745a096bbc81092e18b",
+    "bench/SERVERLESS.md": "33cc7edcf70c35b82e11e95bac4cf0118f0b2dc7889936923d43f87033acb4af",
+    "bench/PHOTON.md": "63fb92485f29b099314d3229b5642fbed9f4f5e5af5884117f04fba263e3bad2",
+    "bench/APP.md": "68a9a1b8207a5b9efbc7af0c7004d85e87184dea4fd1a5e195328b9fabbd65ac",
+    "bench/BLOCKERS.md": "6a4d477a8f9ba6fe062eb638cf8a2204aca88c9fbe2b8e85561666e97517117a",
+    "experiments/app-acceptance-20260920.json": "86b66e5ead00431e9977ccc3c714ba4c18f12e4ecb7c31bed4d6616700d0ac6c",
+    "experiments/app-final-20260920/browser-report.json": "7721612dc27c58e331f8ecb7febe708cbba3a0c103d8d22a12566f2858c4f607",
+    "experiments/app-resource-cleanup-20260920.json": "e250cca61b6e7869e1444f919573976a8f8d78c965c5517127b9a5d0b4ac562f"
+  }
+}

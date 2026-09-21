@@ -1,0 +1,221 @@
+{
+  "plan_version": 2,
+  "cli_version": "1.17.0",
+  "lineage": "9e28a603-0d4c-4d87-b92a-dda9c6533671",
+  "serial": 2,
+  "plan": {
+    "resources.apps.review": {
+      "action": "skip",
+      "remote_state": {
+        "app_status": {
+          "message": "App status is unavailable.",
+          "state": "UNAVAILABLE"
+        },
+        "compute_size": "MEDIUM",
+        "compute_status": {
+          "message": "Start the app compute to deploy the app.",
+          "state": "STOPPED"
+        },
+        "create_time": "2026-09-20T11:02:37Z",
+        "creator": "laurent.fabre@databricks.com",
+        "description": "lakematch 20260919 campaign: synthetic APX review acceptance; stop after experiments",
+        "effective_user_api_scopes": [
+          "iam.access-control:read",
+          "iam.current-user:read"
+        ],
+        "id": "d124e6f3-45aa-4693-86ee-b34898aac9d8",
+        "lifecycle": {
+          "started": false
+        },
+        "name": "lakematch-review-20260919",
+        "oauth2_app_client_id": "e8a6c0e5-496a-4e14-80bb-efee4fff87f8",
+        "oauth2_app_integration_id": "e8a6c0e5-496a-4e14-80bb-efee4fff87f8",
+        "resources": [
+          {
+            "name": "review-warehouse",
+            "sql_warehouse": {
+              "id": "ec3b6df6c1cabcd4",
+              "permission": "CAN_USE"
+            }
+          }
+        ],
+        "service_principal_client_id": "d124e6f3-45aa-4693-86ee-b34898aac9d8",
+        "service_principal_id": 72865873681094,
+        "service_principal_name": "app-2nqdd8 lakematch-review-20260919",
+        "thumbnail_url": "",
+        "update_time": "2026-09-20T11:03:07Z",
+        "updater": "laurent.fabre@databricks.com",
+        "url": "https://lakematch-review-20260919-7474658055368199.aws.databricksapps.com"
+      },
+      "changes": {
+        "app_status": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": {
+            "message": "App status is unavailable.",
+            "state": "UNAVAILABLE"
+          }
+        },
+        "compute_status": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": {
+            "message": "Start the app compute to deploy the app.",
+            "state": "STOPPED"
+          }
+        },
+        "config": {
+          "action": "skip",
+          "reason": "no active deployment",
+          "old": {
+            "command": [
+              "uvicorn",
+              "lakematch_review.backend.app:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "8000",
+              "--workers",
+              "1"
+            ],
+            "env": [
+              {
+                "name": "LAKEMATCH_REVIEW_STORE",
+                "value": "delta"
+              },
+              {
+                "name": "LAKEMATCH_REVIEW_WAREHOUSE_ID",
+                "value_from": "review-warehouse"
+              },
+              {
+                "name": "LAKEMATCH_REVIEW_SCHEMA_NAME",
+                "value": "gdpr2_catalog.lakematch_20260919"
+              },
+              {
+                "name": "LAKEMATCH_REVIEW_GENIE_ENABLED",
+                "value": "false"
+              }
+            ]
+          },
+          "new": {
+            "command": [
+              "uvicorn",
+              "lakematch_review.backend.app:app",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "8000",
+              "--workers",
+              "1"
+            ],
+            "env": [
+              {
+                "name": "LAKEMATCH_REVIEW_STORE",
+                "value": "delta"
+              },
+              {
+                "name": "LAKEMATCH_REVIEW_WAREHOUSE_ID",
+                "value_from": "review-warehouse"
+              },
+              {
+                "name": "LAKEMATCH_REVIEW_SCHEMA_NAME",
+                "value": "gdpr2_catalog.lakematch_20260919"
+              },
+              {
+                "name": "LAKEMATCH_REVIEW_GENIE_ENABLED",
+                "value": "false"
+              }
+            ]
+          }
+        },
+        "create_time": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "2026-09-20T11:02:37Z"
+        },
+        "creator": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "laurent.fabre@databricks.com"
+        },
+        "effective_user_api_scopes": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": [
+            "iam.access-control:read",
+            "iam.current-user:read"
+          ]
+        },
+        "forward_user_access_token": {
+          "action": "skip",
+          "reason": "empty",
+          "old": false,
+          "new": false
+        },
+        "id": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "d124e6f3-45aa-4693-86ee-b34898aac9d8"
+        },
+        "lifecycle": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": {
+            "started": false
+          }
+        },
+        "oauth2_app_client_id": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "e8a6c0e5-496a-4e14-80bb-efee4fff87f8"
+        },
+        "oauth2_app_integration_id": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "e8a6c0e5-496a-4e14-80bb-efee4fff87f8"
+        },
+        "service_principal_client_id": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "d124e6f3-45aa-4693-86ee-b34898aac9d8"
+        },
+        "service_principal_id": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": 72865873681094
+        },
+        "service_principal_name": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "app-2nqdd8 lakematch-review-20260919"
+        },
+        "source_code_path": {
+          "action": "skip",
+          "reason": "no active deployment",
+          "old": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/review-bundle/files/.build",
+          "new": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/review-bundle/files/.build"
+        },
+        "thumbnail_url": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": ""
+        },
+        "update_time": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "2026-09-20T11:03:07Z"
+        },
+        "updater": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "laurent.fabre@databricks.com"
+        },
+        "url": {
+          "action": "skip",
+          "reason": "spec:output_only",
+          "remote": "https://lakematch-review-20260919-7474658055368199.aws.databricksapps.com"
+        }
+      }
+    }
+  }
+}

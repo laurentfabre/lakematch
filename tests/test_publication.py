@@ -1,5 +1,8 @@
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
+import sqlite3
+from threading import Barrier
 
 import pytest
 
@@ -77,3 +80,31 @@ publish(sys.argv[1], 'next', '2' * 64, interrupted)
     recovered = publish(root, 'next', '2' * 64, write)
     assert len(recovered['recovered_attempts']) == 1
     assert current(root)['batch_id'] == 'next'
+
+
+def test_concurrent_duplicate_publishers_build_and_commit_once(tmp_path):
+    """Independent SQLite connections must serialize the whole build/commit."""
+    root = tmp_path / 'published'
+    ready = Barrier(4)
+
+    def build(path, previous):
+        assert previous is None
+        # A second build would fail this exclusive creation, even if its
+        # eventual INSERT were ignored by a database uniqueness constraint.
+        with (tmp_path / 'build-started').open('x') as marker:
+            marker.write('once')
+        (path / 'crosswalk').write_text('complete')
+        return {'records': 1}
+
+    def write(_):
+        ready.wait(timeout=5)
+        return publish(root, 'same-batch', '3' * 64, build)
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        receipts = list(pool.map(write, range(4)))
+    assert sum(not r['reused'] for r in receipts) == 1
+    assert len({r['attempt'] for r in receipts}) == 1
+    assert len(list((root / 'attempts').iterdir())) == 1
+    with sqlite3.connect(root / 'commits.sqlite') as connection:
+        assert connection.execute('SELECT COUNT(*) FROM commits').fetchone()[0] == 1
+    assert current(root)['attempt'] == receipts[0]['attempt']

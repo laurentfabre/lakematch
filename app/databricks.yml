@@ -1,22 +1,58 @@
 bundle:
   name: lakematch-review
+  deployment:
+    lock:
+      enabled: true
+
+variables:
+  warehouse_id:
+    description: Campaign-owned serverless SQL warehouse; override after recovery.
+    default: ec3b6df6c1cabcd4
+  schema_name:
+    default: gdpr2_catalog.lakematch_20260919
+  app_name:
+    default: lakematch-review-20260919
 
 sync:
-  include:
-    - .build
+  paths: [.build]
+  include: [.build/**]
 
 artifacts:
   default:
-    build: apx build
+    build: python3 build_deploy.py
 
 resources:
   apps:
-    lakematch-review-app:
-      name: "lakematch-review"
-      description: "lakematch-review created with apx"
+    review:
+      name: ${var.app_name}
+      description: "lakematch 20260919 campaign: synthetic APX review acceptance; stop after experiments"
       source_code_path: ./.build
+      compute_size: MEDIUM
+      forward_user_access_token: false
+      lifecycle:
+        prevent_destroy: true
+        started: false
+      resources:
+        - name: review-warehouse
+          sql_warehouse:
+            id: ${var.warehouse_id}
+            permission: CAN_USE
+      config:
+        command: [uvicorn, "lakematch_review.backend.app:app", --host, "0.0.0.0", --port, "8000", --workers, "1"]
+        env:
+          - name: LAKEMATCH_REVIEW_STORE
+            value: delta
+          - name: LAKEMATCH_REVIEW_WAREHOUSE_ID
+            value_from: review-warehouse
+          - name: LAKEMATCH_REVIEW_SCHEMA_NAME
+            value: ${var.schema_name}
+          - name: LAKEMATCH_REVIEW_GENIE_ENABLED
+            value: "false"
 
 targets:
   dev:
     mode: development
     default: true
+    workspace:
+      host: https://fevm-gdpr2.cloud.databricks.com
+      root_path: /Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/review-bundle

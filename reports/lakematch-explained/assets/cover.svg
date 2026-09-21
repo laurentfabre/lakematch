@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#5F7478"/></marker></defs>
+<style>text {font-family:"DM Sans",sans-serif;fill:#183B3F;} .small {font-size:20px;} .title {font-size:25px;font-weight:700;} .muted {fill:#5F7478;}</style>
+<rect x="30" y="34" width="230" height="65" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="56" y="76" font-size="24" font-weight="700" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Record A</text>
+<path d="M274,67 L396,165" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<rect x="30" y="140" width="230" height="65" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="56" y="182" font-size="24" font-weight="700" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Record B</text>
+<path d="M274,173 L396,165" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<rect x="30" y="246" width="230" height="65" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="56" y="288" font-size="24" font-weight="700" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Record C</text>
+<path d="M274,279 L396,165" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<rect x="407" y="110" width="190" height="110" rx="16" fill="#167A60" stroke="#167A60"/>
+<text x="502" y="154" font-size="23" font-weight="400" fill="#FFFFFF" style="fill:#FFFFFF" text-anchor="middle">LakeMatch</text>
+<text x="502" y="185" font-size="23" font-weight="400" fill="#FFFFFF" style="fill:#FFFFFF" text-anchor="middle">compare + link</text>
+<path d="M611,165 L719,165" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<rect x="734" y="78" width="235" height="174" rx="16" fill="#E6F3ED" stroke="#CDDCD9"/>
+<text x="850" y="124" font-size="25" font-weight="700" fill="#183B3F" style="fill:#183B3F" text-anchor="middle">Shared identity</text>
+<text x="850" y="172" font-size="23" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="middle">Original records</text>
+<text x="850" y="203" font-size="23" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="middle">+ decision history</text>
+</svg>

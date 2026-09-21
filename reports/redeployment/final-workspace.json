@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-09-21T02:57:30.317378+00:00",
+  "profile": "fevm-gdpr2",
+  "app": {
+    "name": "lakematch-review-20260919",
+    "compute_state": "STOPPED",
+    "deployment_id": "01f1b56717f91c65861a8cf837d01e3f",
+    "deployment_status": "SUCCEEDED"
+  },
+  "warehouse": {
+    "id": "ec3b6df6c1cabcd4",
+    "state": "STOPPED",
+    "active_sessions": 0
+  },
+  "pipeline": {
+    "id": "887f3271-3247-4082-82a9-9b62fb89e135",
+    "state": "IDLE"
+  },
+  "active_campaign_runs": [],
+  "genie": {
+    "space_id": "01f1b55eb48a1c0bae6f117fbdbc064e",
+    "title": "LakeMatch \u2014 Entity Resolution (lakematch)",
+    "export_matches": true
+  },
+  "remaining_probe_tables": [],
+  "cleanup_retry": "Explicit stop reissued after probe stop waiter timeout"
+}

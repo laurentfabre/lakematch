@@ -107,8 +107,8 @@ acceptance evidence exists. The detailed phase clauses in the brief also apply.
 | ZR-4 | Compare verified merge, connected components, center and star on FEBRL3 and `historical_50k`, reporting pairwise and B-cubed metrics. Demonstrate convergence, unchanged-input stable `mdm_id`, and an exactly reconciled crosswalk/merge/split log after 1% additions, changes and deletions. | Passed at iteration 8 | [Clustering](bench/CLUSTERS.md), [identity](bench/IDENTITY.md), [exact prior-output audit](experiments/identity-replay-audit.json), [publication](bench/PUBLICATION.md). Both original models replay without refit; exact mutations/journals reproduce; three recovery tests and five fresh CLI calls produce three durable commits. `bash verify_zr.sh 4` exits 0. |
 | ZR-5 | Composite MLflow model includes classifier/pipeline, candidate and feature specs/order, config, thresholds and label-set digest, with signature, dataset lineage and evaluation. Local SQLite tracking resolves `runs:/<id>/model` without a registry. FEVM registers in UC, resolves the champion alias to an immutable version, and reloads with equivalent predictions in a fresh session. Respect the runtime model-size limit. | Passed at iteration 4 | [Model acceptance](bench/MODELS.md). Offline composite fit/reload and normal accepted-pointer CLI pass; FEVM run `827370737736333` registers UC `pair_model/3` and resolves champion in a fresh task. Complete artifact 222,391 bytes, maximum probability delta 4.58e-16. Terminal cleanup and exports verified; `bash verify_zr.sh 5` exits 0. |
 | ZR-6 | Bundle validates and an actual FEVM serverless run completes. SDP holds candidates, features, scoring and links; training/clustering are tasks. DQX and native quality engines agree on seeded bad rows. Each FEBRL4 variant is within 0.01 absolute F1 of its frozen local reference. Default config and all-paid-features-off config both deploy/run; query profiles support the Photon report. | Partial: capability runs pass | [Serverless evidence](bench/SERVERLESS.md). DQX and native/all-paid-off inference have exact frozen local F1 parity; iteration-6 run `994862043938979` passes separate fit/reload and independently audited Delta publication/recovery. All jobs terminal and pipelines IDLE. Per-stage Photon operator profiles and attributed billing remain missing. |
-| ZR-7 | APX confirmed still maintained and the built bundle is under the Databricks App file-size limit (checked before UI work). APX app runs locally and as a Databricks App. Uncertainty-ordered, keyboard-first review supports match/no-match/unsure; statistics and provenance persist. End-to-end review of 20 pairs writes user/time/model/reason, the next training run consumes the labels, and predictions or documented training inputs reflect them. Restart preserves the queue and labels. | Local flow verified; remote blocked after iteration 8 | [APX report](bench/APP.md): 20 HTTP reviews, 19 exact training inputs, durable process restart, responsive keyboard UI and final local checks pass. App created but not deployed; initial provisioning race stopped iteration 8. [Cleanup](experiments/app-resource-cleanup-20260920.json) confirms app/warehouse STOPPED. A bounded wait fix is prepared; no ninth iteration authorized. |
-| ZR-8 | Versioned Genie instructions and ten reference questions are deployed over gold tables. The app uses on-behalf-of-user auth; all ten queries have the expected tables/aggregations and correct fixture results. The panel disappears when `paid_features.genie` is off. Prove the Conversation API from the deployed app. **If the Conversation API does not answer for the app on behalf of the user on this workspace (see ENV), the phase parks with that finding — it does not loop.** | Pending | — |
+| ZR-7 | APX confirmed still maintained and the built bundle is under the Databricks App file-size limit (checked before UI work). APX app runs locally and as a Databricks App. Uncertainty-ordered, keyboard-first review supports match/no-match/unsure; statistics and provenance persist. End-to-end review of 20 pairs writes user/time/model/reason, the next training run consumes the labels, and predictions or documented training inputs reflect them. Restart preserves the queue and labels. | Local feedback and remote read smoke verified; full remote feedback pending | [APX report](bench/APP.md) retains the original eight-iteration campaign evidence. The user-authorized [redeployment follow-up](bench/REDEPLOYMENT.md) deployed the app and passed five HTTP checks with Delta and authenticated identity; owned compute stopped. Full remote 20-review/retraining and restart acceptance remains pending. |
+| ZR-8 | Versioned Genie instructions and ten reference questions are deployed over gold tables. The app uses on-behalf-of-user auth; all ten queries have the expected tables/aggregations and correct fixture results. The panel disappears when `paid_features.genie` is off. Prove the Conversation API from the deployed app. **If the Conversation API does not answer for the app on behalf of the user on this workspace (see ENV), the phase parks with that finding — it does not loop.** | Standalone space deployed; delegated acceptance pending | [Redeployment follow-up](bench/REDEPLOYMENT.md): versioned export, stable DAB binding and one NL count matched direct SQL (2,446 links). Full reference-question suite and app on-behalf-of-user proof remain pending; the app panel is disabled. |
 | ZR-9 | Bundle runs on explicitly selected FEVM classic compute with the same engine and passing suite. Each FEBRL4 variant is within 0.01 absolute F1 of local. PHOTON versus STANDARD comparison reports wall time, DBUs and operator fallbacks; prove classic materialization behavior and final cluster termination. | Parked at ENV | Classic Jobs submission explicitly rejected: “Only serverless compute is supported in the workspace.” [Finding](experiments/classic-capability.json). No cluster created. Classic capability must be enabled on this selected workspace; do not substitute profiles. |
 
 The 60-second gate belongs to the **local FEBRL4 reproduction**, not FEVM provisioning or startup.
@@ -348,7 +348,7 @@ and fresh-task composite-model loading now pass ZR-5.
 
 - ZR-1 and ZR-4 read-only verifiers now pass on current source; classic and Connect each pass the same 130 tests without skips. ZR-2 iteration 6 repeated all four fixed offline ablation fixtures and passes its verifier. ZR-5 iteration 4 local fit/reload and normal CLI acceptance pass; bounded remote tracking experiment `20260920T051312Z-tracking-serverless-017529` is active.
 
-## § 9 — Latest checkpoint: local APX delivered; remote cap reached
+## § 9 — 20 September checkpoint: local APX delivered; remote cap reached
 
 Laurent corrected the installed skill's APX designation on 2026-09-20: “It's not
 legacy.” This takes precedence for the selected stack. APX 0.3.8 remains in use;
@@ -386,3 +386,25 @@ the million-tier heap failure; ZR-6 needs executed Photon profiles and attribute
 billing; ZR-8 needs the deployed app and actual delegated Genie proof; ZR-9 needs
 classic capability or an explicit scope/target change. No alternate profile,
 ninth scale run, resource increase, AppKit substitution, push or release occurred.
+
+## § 10 — 21 September: user-authorized redeployment follow-up
+
+The subsequent instruction was: “Analyse the DAB, the code and the workspace.
+Make sure everything can be redeployed and push everything to github.” This
+authorized deployment repair and bounded smoke verification; the historical
+iteration-8 checkpoint above remains intact.
+
+All three bundles now manage the existing jobs/pipeline, review app and standalone
+Genie space. Repeat deployment plans show no resource changes. A source-only
+checkout restores the exact public inference inputs and builds/tests the pinned
+APX app. The deployed app passes five HTTP checks using authenticated workspace
+identity and Delta storage; Genie and direct SQL agree on 2,446 accepted links.
+[REDEPLOYMENT.md](bench/REDEPLOYMENT.md) records fixes, receipts and recovery limits.
+
+The app is now deployed, superseding the historical “created but not deployed”
+observation in ZR-7's iteration-8 evidence. Its complete remote 20-review/retraining
+and restart acceptance is still pending. ZR-8 has a deployed standalone space and
+one passing count question; delegated app access and the complete question suite
+remain pending. No new benchmark/training sweep or scale retry was performed.
+Existing phase acceptance, model freezes and source-compatibility seals are not
+promoted by these deployment checks.

@@ -1,0 +1,14 @@
+{
+  "started_at": "2026-09-21T02:37:37.568969+00:00",
+  "profile": "fevm-gdpr2",
+  "app": "lakematch-review-20260919",
+  "warehouse_id": "ec3b6df6c1cabcd4",
+  "status": "failed",
+  "checks": {},
+  "cleanup": {
+    "app": "STOPPED",
+    "warehouse": "STOPPED"
+  },
+  "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+  "finished_at": "2026-09-21T02:40:20.394008+00:00"
+}

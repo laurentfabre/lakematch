@@ -1,0 +1,8 @@
+{
+  "profile": "fevm-gdpr2",
+  "created": [],
+  "missing": [],
+  "schema": "gdpr2_catalog.lakematch_20260919",
+  "warehouse_id": "ec3b6df6c1cabcd4",
+  "review_tables": "created if absent; existing rows preserved; app grants applied"
+}

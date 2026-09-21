@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-09-21T02:46:25.755850+00:00",
+  "profile": "fevm-gdpr2",
+  "space_id": "01f1b55eb48a1c0bae6f117fbdbc064e",
+  "warehouse_id": "4aaa742e4712c3c9",
+  "question": "How many accepted matches (links) are there?",
+  "direct_sql": "SELECT COUNT(*) AS links FROM gdpr2_catalog.lakematch_20260919.lm_links_all",
+  "status": "passed",
+  "scope": "standalone Genie count smoke; does not test delegated app access or all benchmarks",
+  "direct_count": 2446,
+  "direct_result_rows": 1,
+  "conversation_id": "01f1b566a938125dbfdb7e6cbad1619f",
+  "message_id": "01f1b566a93f12bdba68e9977c9f56d4",
+  "genie_sql": "SELECT COUNT(*) AS num_links FROM `gdpr2_catalog`.`lakematch_20260919`.`lm_links_all`",
+  "genie_result_rows": 1,
+  "genie_count": 2446
+}

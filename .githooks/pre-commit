@@ -1,0 +1,3 @@
+#!/bin/sh
+# Git invokes pre-commit from the repository root.
+exec python3 tools/check_changes.py

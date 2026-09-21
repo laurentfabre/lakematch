@@ -1,0 +1,35 @@
+{
+  "started_at": "2026-09-21T02:47:13.163545+00:00",
+  "profile": "fevm-gdpr2",
+  "app": "lakematch-review-20260919",
+  "warehouse_id": "ec3b6df6c1cabcd4",
+  "status": "passed",
+  "checks": {
+    "/": {
+      "status_code": 200
+    },
+    "/api/session": {
+      "status_code": 200,
+      "storage": "delta",
+      "authenticated": true,
+      "genie_enabled": false
+    },
+    "/api/queue?limit=1": {
+      "status_code": 200,
+      "returned_rows": 0
+    },
+    "/api/reviews": {
+      "status_code": 200,
+      "returned_rows": 0
+    },
+    "/api/statistics": {
+      "status_code": 200
+    }
+  },
+  "cleanup": {
+    "app": "STOPPED",
+    "warehouse": "STOPPED"
+  },
+  "deployment_id": "01f1b56717f91c65861a8cf837d01e3f",
+  "finished_at": "2026-09-21T02:50:06.346255+00:00"
+}

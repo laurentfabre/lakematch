@@ -1,0 +1,28 @@
+{
+  "started_at": "2026-09-21T02:41:02.511501+00:00",
+  "profile": "fevm-gdpr2",
+  "app": "lakematch-review-20260919",
+  "warehouse_id": "ec3b6df6c1cabcd4",
+  "status": "failed",
+  "checks": {
+    "/": {
+      "status_code": 200
+    },
+    "/api/session": {
+      "status_code": 200,
+      "storage": "delta",
+      "authenticated": true,
+      "genie_enabled": false
+    },
+    "/api/queue?limit=1": {
+      "status_code": 500
+    }
+  },
+  "cleanup": {
+    "app": "STOPPED",
+    "warehouse": "STOPPED"
+  },
+  "deployment_id": "01f1b5663a31117db32a05d68a8503ce",
+  "error": "RuntimeError: App smoke /api/queue?limit=1: HTTP 500",
+  "finished_at": "2026-09-21T02:43:47.254382+00:00"
+}

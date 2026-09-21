@@ -1,0 +1,71 @@
+{
+  "observed_at": "2026-09-21T02:46:35.450181+00:00",
+  "warehouse_id": "ec3b6df6c1cabcd4",
+  "scope": "read-only recent failed query metadata; no SQL text or credentials",
+  "queries": [
+    {
+      "client_application": "unknown",
+      "error_message": "[INVALID_LIMIT_LIKE_EXPRESSION.DATA_TYPE] The limit like expression \"1\" is invalid. The limit expression must be integer type, but got \"BIGINT\". SQLSTATE: 42K0E; line 1 pos 245",
+      "executed_as_user_id": 72865873681094,
+      "query_id": "01f1b566-3d96-1aa6-b2ce-3d5ab879163b",
+      "query_start_time_ms": 1789958614982,
+      "status": "FAILED"
+    },
+    {
+      "client_application": "zig",
+      "error_message": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column, variable, or function parameter with name `table_size_bytes` cannot be resolved. Did you mean one of the following? [`table_schema`, `table_type`, `table_name`, `table_owner`, `table_catalog`]. SQLSTATE: 42703; line 1 pos 74",
+      "executed_as_user_id": 6729810946797236,
+      "query_id": "01f1b565-330b-19d1-b1ed-7e8ffb0a8dfb",
+      "query_start_time_ms": 1789958167796,
+      "status": "FAILED"
+    },
+    {
+      "client_application": "zig",
+      "error_message": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column, variable, or function parameter with name `table_size_bytes` cannot be resolved. Did you mean one of the following? [`table_schema`, `table_type`, `table_name`, `table_owner`, `table_catalog`]. SQLSTATE: 42703; line 1 pos 74",
+      "executed_as_user_id": 6729810946797236,
+      "query_id": "01f1b565-2c54-1e14-a040-7b0202947849",
+      "query_start_time_ms": 1789958156534,
+      "status": "FAILED"
+    },
+    {
+      "client_application": "zig",
+      "error_message": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column, variable, or function parameter with name `queued_overflow_count` cannot be resolved. Did you mean one of the following? [`cluster_count`, `event_time`, `event_type`, `warehouse_id`, `account_id`]. SQLSTATE: 42703; line 1 pos 11",
+      "executed_as_user_id": 6729810946797236,
+      "query_id": "01f1b565-2b36-1aa5-a4e8-bbb15bb19d8f",
+      "query_start_time_ms": 1789958154657,
+      "status": "FAILED"
+    },
+    {
+      "client_application": "zig",
+      "error_message": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column, variable, or function parameter with name `spill_to_disk_bytes` cannot be resolved. Did you mean one of the following? [`spilled_local_bytes`, `pruned_files_bytes`, `read_files_bytes`, `read_bytes`, `shuffle_read_bytes`]. SQLSTATE: 42703; line 1 pos 48",
+      "executed_as_user_id": 6729810946797236,
+      "query_id": "01f1b565-2a98-1508-923e-640f9b222542",
+      "query_start_time_ms": 1789958153619,
+      "status": "FAILED"
+    },
+    {
+      "client_application": "zig",
+      "error_message": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column, variable, or function parameter with name `duration_ms` cannot be resolved. Did you mean one of the following? [`session_id`, `total_duration_ms`, `update_time`, `written_rows`, `account_id`]. SQLSTATE: 42703; line 1 pos 48",
+      "executed_as_user_id": 6729810946797236,
+      "query_id": "01f1b565-29ac-1e4b-adc9-ec4d1398a32c",
+      "query_start_time_ms": 1789958152077,
+      "status": "FAILED"
+    },
+    {
+      "client_application": "zig",
+      "error_message": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column, variable, or function parameter with name `queued_overflow_count` cannot be resolved. Did you mean one of the following? [`cluster_count`, `event_time`, `event_type`, `warehouse_id`, `account_id`]. SQLSTATE: 42703; line 1 pos 11",
+      "executed_as_user_id": 6729810946797236,
+      "query_id": "01f1b565-2903-1fb0-a4d1-19667e1cbcd7",
+      "query_start_time_ms": 1789958150970,
+      "status": "FAILED"
+    },
+    {
+      "client_application": "zig",
+      "error_message": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column, variable, or function parameter with name `queued_overflow_count` cannot be resolved. Did you mean one of the following? [`cluster_count`, `event_time`, `event_type`, `warehouse_id`, `account_id`]. SQLSTATE: 42703; line 1 pos 11",
+      "executed_as_user_id": 6729810946797236,
+      "query_id": "01f1b565-2620-1718-8053-db4b00f91e8a",
+      "query_start_time_ms": 1789958146124,
+      "status": "FAILED"
+    }
+  ]
+}

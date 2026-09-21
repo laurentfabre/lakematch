@@ -2,6 +2,10 @@
 
 # Lakematch review — APX
 
+Workspace deployment and recovery use [the deployment runbook](../deployment/README.md).
+Build with `python3 build_deploy.py` to preserve the committed dependency versions.
+The completed app bundle binds the warehouse and Delta environment explicitly.
+
 The isolated APX 0.3.8 FastAPI/React app provides an uncertainty-ordered review
 queue, keyboard match/no-match/unsure decisions, mandatory reasons, immutable
 model provenance, review history and evaluation statistics. Server-supplied
@@ -53,6 +57,13 @@ also enforces unique requests/pairs and transaction locking. Queue snapshots and
 statistics are bounded to 10,000 rows and fail explicitly on truncation. Optional
 Lakebase is disabled. The engine never imports the app, and no app dependencies
 are added to the Apache-2.0 package.
+
+The static-scan follow-up uses insert-only Delta `MERGE` statements for queue,
+review and metadata keys, protecting against sequential Statement Execution
+replays after uncertain acknowledgements. Metadata retries must preserve the
+original value, and reviews return the stored receipt. The single-writer rule
+still applies. These changes have local regression checks; remote acceptance
+remains subject to the campaign's iteration limit.
 
 Dependencies and lockfiles belong to this subproject. FastAPI is pinned to
 0.128.0 for APX route introspection. APX-derived material uses the separate

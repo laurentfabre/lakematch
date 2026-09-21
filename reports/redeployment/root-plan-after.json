@@ -1,0 +1,406 @@
+{
+  "plan_version": 2,
+  "cli_version": "1.17.0",
+  "lineage": "06683bb7-190d-428f-a03c-f67008d7c4c3",
+  "serial": 5,
+  "plan": {
+    "resources.jobs.cluster_fixture": {
+      "action": "skip",
+      "remote_state": {
+        "created_time": 1789873606523,
+        "creator_user_name": "laurent.fabre@databricks.com",
+        "deployment": {
+          "kind": "BUNDLE",
+          "metadata_file_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/state/metadata.json"
+        },
+        "edit_mode": "UI_LOCKED",
+        "email_notifications": {},
+        "environments": [
+          {
+            "environment_key": "engine",
+            "spec": {
+              "dependencies": [
+                "mlflow==3.16.0",
+                "pyyaml==6.0.3"
+              ],
+              "environment_version": "4"
+            }
+          }
+        ],
+        "format": "MULTI_TASK",
+        "job_id": 1048559310465200,
+        "max_concurrent_runs": 1,
+        "name": "[dev laurent_fabre] lakematch-20260919-cluster-fixture",
+        "parameters": [
+          {
+            "default": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src",
+            "name": "source_root"
+          },
+          {
+            "default": "gdpr2_catalog.lakematch_20260919",
+            "name": "schema"
+          },
+          {
+            "default": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/cluster_fixture/{{job.run_id}}",
+            "name": "root"
+          }
+        ],
+        "performance_target": "STANDARD",
+        "queue": {
+          "enabled": true
+        },
+        "run_as_user_name": "laurent.fabre@databricks.com",
+        "tags": {
+          "business_unit": "field_engineering",
+          "campaign": "20260919",
+          "dev": "laurent_fabre",
+          "environment": "development",
+          "project": "lakematch"
+        },
+        "tasks": [
+          {
+            "depends_on": [
+              {
+                "task_key": "train"
+              }
+            ],
+            "disabled": false,
+            "email_notifications": {},
+            "environment_key": "engine",
+            "notebook_task": {
+              "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/cluster_fixture",
+              "source": "WORKSPACE"
+            },
+            "run_if": "ALL_SUCCESS",
+            "task_key": "cluster",
+            "timeout_seconds": 900
+          },
+          {
+            "disabled": false,
+            "email_notifications": {},
+            "environment_key": "engine",
+            "notebook_task": {
+              "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/train_cluster_fixture",
+              "source": "WORKSPACE"
+            },
+            "run_if": "ALL_SUCCESS",
+            "task_key": "train",
+            "timeout_seconds": 600
+          }
+        ],
+        "timeout_seconds": 1800,
+        "webhook_notifications": {}
+      },
+      "changes": {
+        "email_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        },
+        "tasks[task_key='cluster'].disabled": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": false
+        },
+        "tasks[task_key='cluster'].email_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        },
+        "tasks[task_key='cluster'].notebook_task.source": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "WORKSPACE"
+        },
+        "tasks[task_key='cluster'].run_if": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "ALL_SUCCESS"
+        },
+        "tasks[task_key='train'].disabled": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": false
+        },
+        "tasks[task_key='train'].email_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        },
+        "tasks[task_key='train'].notebook_task.source": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "WORKSPACE"
+        },
+        "tasks[task_key='train'].run_if": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "ALL_SUCCESS"
+        },
+        "webhook_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        }
+      }
+    },
+    "resources.jobs.frozen_pipeline": {
+      "depends_on": [
+        {
+          "node": "resources.pipelines.matching",
+          "label": "${resources.pipelines.matching.id}"
+        }
+      ],
+      "action": "skip",
+      "remote_state": {
+        "created_time": 1789872443420,
+        "creator_user_name": "laurent.fabre@databricks.com",
+        "deployment": {
+          "kind": "BUNDLE",
+          "metadata_file_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/state/metadata.json"
+        },
+        "edit_mode": "UI_LOCKED",
+        "email_notifications": {},
+        "environments": [
+          {
+            "environment_key": "engine",
+            "spec": {
+              "dependencies": [
+                "mlflow==3.16.0",
+                "pyyaml==6.0.3",
+                "databricks-labs-dqx==0.16.0"
+              ],
+              "environment_version": "4"
+            }
+          }
+        ],
+        "format": "MULTI_TASK",
+        "job_id": 489495267612522,
+        "max_concurrent_runs": 1,
+        "name": "[dev laurent_fabre] lakematch-20260919-frozen-pipeline",
+        "parameters": [
+          {
+            "default": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src",
+            "name": "source_root"
+          },
+          {
+            "default": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/serverless_frozen",
+            "name": "input_root"
+          },
+          {
+            "default": "gdpr2_catalog.lakematch_20260919",
+            "name": "schema"
+          },
+          {
+            "default": "dqx",
+            "name": "quality_engine"
+          }
+        ],
+        "performance_target": "STANDARD",
+        "queue": {
+          "enabled": true
+        },
+        "run_as_user_name": "laurent.fabre@databricks.com",
+        "tags": {
+          "business_unit": "field_engineering",
+          "campaign": "20260919",
+          "dev": "laurent_fabre",
+          "environment": "development",
+          "project": "lakematch"
+        },
+        "tasks": [
+          {
+            "depends_on": [
+              {
+                "task_key": "pipeline"
+              }
+            ],
+            "disabled": false,
+            "email_notifications": {},
+            "environment_key": "engine",
+            "notebook_task": {
+              "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/audit",
+              "source": "WORKSPACE"
+            },
+            "run_if": "ALL_SUCCESS",
+            "task_key": "audit",
+            "timeout_seconds": 420
+          },
+          {
+            "depends_on": [
+              {
+                "task_key": "prepare"
+              }
+            ],
+            "disabled": false,
+            "email_notifications": {},
+            "pipeline_task": {
+              "pipeline_id": "887f3271-3247-4082-82a9-9b62fb89e135"
+            },
+            "run_if": "ALL_SUCCESS",
+            "task_key": "pipeline",
+            "timeout_seconds": 900
+          },
+          {
+            "disabled": false,
+            "email_notifications": {},
+            "environment_key": "engine",
+            "notebook_task": {
+              "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/prepare",
+              "source": "WORKSPACE"
+            },
+            "run_if": "ALL_SUCCESS",
+            "task_key": "prepare",
+            "timeout_seconds": 420
+          }
+        ],
+        "timeout_seconds": 1800,
+        "webhook_notifications": {}
+      },
+      "changes": {
+        "email_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        },
+        "tasks[task_key='audit'].disabled": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": false
+        },
+        "tasks[task_key='audit'].email_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        },
+        "tasks[task_key='audit'].notebook_task.source": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "WORKSPACE"
+        },
+        "tasks[task_key='audit'].run_if": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "ALL_SUCCESS"
+        },
+        "tasks[task_key='pipeline'].disabled": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": false
+        },
+        "tasks[task_key='pipeline'].email_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        },
+        "tasks[task_key='pipeline'].run_if": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "ALL_SUCCESS"
+        },
+        "tasks[task_key='prepare'].disabled": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": false
+        },
+        "tasks[task_key='prepare'].email_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        },
+        "tasks[task_key='prepare'].notebook_task.source": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "WORKSPACE"
+        },
+        "tasks[task_key='prepare'].run_if": {
+          "action": "skip",
+          "reason": "backend_default",
+          "remote": "ALL_SUCCESS"
+        },
+        "webhook_notifications": {
+          "action": "skip",
+          "reason": "empty",
+          "remote": {}
+        }
+      }
+    },
+    "resources.pipelines.matching": {
+      "action": "skip",
+      "remote_state": {
+        "catalog": "gdpr2_catalog",
+        "channel": "CURRENT",
+        "configuration": {
+          "lakematch.app_enabled": "true",
+          "lakematch.genie_enabled": "true",
+          "lakematch.input_root": "/Volumes/gdpr2_catalog/lakematch_20260919/artifacts/serverless_frozen",
+          "lakematch.quality_engine": "dqx",
+          "lakematch.source_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/src"
+        },
+        "continuous": false,
+        "creator_user_name": "laurent.fabre@databricks.com",
+        "deployment": {
+          "kind": "BUNDLE",
+          "metadata_file_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/state/metadata.json"
+        },
+        "development": true,
+        "edition": "ADVANCED",
+        "effective_publishing_mode": "DEFAULT_PUBLISHING_MODE",
+        "effective_serverless_compute_id": "9b3a6e1c-49ee-33e1-be47-90b4e2be6b04",
+        "environment": {
+          "dependencies": [
+            "mlflow==3.16.0",
+            "pyyaml==6.0.3",
+            "databricks-labs-dqx==0.16.0"
+          ]
+        },
+        "id": "887f3271-3247-4082-82a9-9b62fb89e135",
+        "last_modified": 1789958062525,
+        "latest_updates": [
+          {
+            "creation_time": "2026-09-20T03:41:25.367Z",
+            "state": "COMPLETED",
+            "update_id": "d6bfdd30-fc5d-4d10-b389-7f6094a1478e"
+          },
+          {
+            "creation_time": "2026-09-20T03:13:50.758Z",
+            "state": "COMPLETED",
+            "update_id": "8a8613de-98c0-4e67-835e-3fca82830d18"
+          },
+          {
+            "creation_time": "2026-09-20T02:58:25.464Z",
+            "state": "CANCELED",
+            "update_id": "ac6eb6ee-0626-4f24-a65b-881e2c186ffc"
+          },
+          {
+            "creation_time": "2026-09-20T02:54:53.640Z",
+            "state": "FAILED",
+            "update_id": "2930351a-08ce-4df8-803c-c1b799014838"
+          }
+        ],
+        "libraries": [
+          {
+            "glob": {
+              "include": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/pipeline/transformations/**"
+            }
+          }
+        ],
+        "name": "[dev laurent_fabre] lakematch-20260919-frozen-matching",
+        "photon": true,
+        "pipeline_id": "887f3271-3247-4082-82a9-9b62fb89e135",
+        "root_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/20260919/bundle/files/deployment/pipeline",
+        "run_as_user_name": "laurent.fabre@databricks.com",
+        "schema": "lakematch_20260919",
+        "serverless": true,
+        "state": "IDLE",
+        "tags": {
+          "business_unit": "field_engineering",
+          "campaign": "20260919",
+          "dev": "laurent_fabre",
+          "environment": "development",
+          "project": "lakematch"
+        }
+      }
+    }
+  }
+}

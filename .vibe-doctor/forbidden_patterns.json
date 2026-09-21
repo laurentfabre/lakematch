@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "patterns": [
+    {
+      "pattern": "(?s)class DeltaStore\\b.*?\\bINSERT\\s+INTO\\b",
+      "scope_glob": "app/src/lakematch_review/backend/store.py",
+      "justification": "Delta review writes must use immutable-key MERGE so replayed statements cannot append duplicate receipts. SQLite INSERT with unique constraints remains valid.",
+      "locked_at": "2026-09-20"
+    },
+    {
+      "pattern": "(?i)\\bINSERT\\s+INTO\\b",
+      "scope_glob": "app/acceptance/remote.py",
+      "justification": "Remote acceptance metadata must use the retry-safe store API, not check-then-append SQL.",
+      "locked_at": "2026-09-20"
+    }
+  ]
+}

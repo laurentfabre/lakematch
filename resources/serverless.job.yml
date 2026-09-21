@@ -2,6 +2,11 @@ resources:
   jobs:
     frozen_pipeline:
       name: lakematch-20260919-frozen-pipeline
+      tags:
+        project: lakematch
+        environment: development
+        business_unit: field_engineering
+        campaign: "20260919"
       max_concurrent_runs: 1
       timeout_seconds: 1800
       performance_target: STANDARD

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#5F7478"/></marker></defs>
+<style>text {font-family:"DM Sans",sans-serif;fill:#183B3F;} .small {font-size:20px;} .title {font-size:25px;font-weight:700;} .muted {fill:#5F7478;}</style>
+<rect x="10" y="12" width="410" height="175" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="34" y="48" font-size="19" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">SYSTEM A · RECORD A-17</text>
+<text x="34" y="94" font-size="29" font-weight="700" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Maya Laurent</text>
+<text x="34" y="135" font-size="24" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">14 Willow Road</text>
+<text x="34" y="166" font-size="18" font-weight="400" fill="#5F7478" style="fill:#5F7478" text-anchor="start">Fictional example</text>
+<rect x="10" y="223" width="410" height="175" rx="16" fill="#FFFFFF" stroke="#CDDCD9"/>
+<text x="34" y="259" font-size="19" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">SYSTEM B · RECORD B-92</text>
+<text x="34" y="305" font-size="29" font-weight="700" fill="#183B3F" style="fill:#183B3F" text-anchor="start">M. Laurent</text>
+<text x="34" y="346" font-size="24" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">14 Willow Rd</text>
+<text x="34" y="377" font-size="18" font-weight="400" fill="#5F7478" style="fill:#5F7478" text-anchor="start">Fictional example</text>
+<path d="M434,98 L571,174" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<path d="M434,310 L571,231" fill="none" stroke="#5F7478" stroke-width="2.5" marker-end="url(#arrow)" />
+<rect x="587" y="117" width="402" height="203" rx="16" fill="#E6F3ED" stroke="#CDDCD9"/>
+<text x="612" y="157" font-size="19" font-weight="700" fill="#167A60" style="fill:#167A60" text-anchor="start">IF THE MATCH IS ACCEPTED</text>
+<text x="612" y="203" font-size="29" font-weight="700" fill="#183B3F" style="fill:#183B3F" text-anchor="start">Shared identity E-104</text>
+<text x="612" y="247" font-size="24" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">A-17 → E-104</text>
+<text x="612" y="278" font-size="24" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="start">B-92 → E-104</text>
+<text x="500" y="424" font-size="22" font-weight="400" fill="#183B3F" style="fill:#183B3F" text-anchor="middle">Links connect the source records; a saved history records later changes.</text>
+</svg>

@@ -1,0 +1,11 @@
+# tools/install_hooks.py also installs this check beneath the managed Databricks hook.
+repos:
+  - repo: local
+    hooks:
+      - id: lakematch-local-checks
+        name: LakeMatch staged regression and affected unit checks
+        entry: python3 tools/check_changes.py
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
