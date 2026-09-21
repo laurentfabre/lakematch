@@ -26,6 +26,8 @@ schemas, APIs, delivery phases and measurable acceptance gates. The
 [backlog](backlog.csv) turns the recommendations into ordered work packages.
 [Sources](SOURCES.md) links every public reference and records limitations;
 [sources.json](sources.json) preserves retrieval dates and content hashes.
+The [goal file](../../../goal_lakefusion.md) organizes all six phases and 25 work
+packages into an execution ledger with dependencies and acceptance criteria.
 
 ## What LakeFusion publicly offers
 

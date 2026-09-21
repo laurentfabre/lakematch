@@ -1,0 +1,402 @@
+# Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
+
+Created: **2026-09-21**. Status: **planned; execution not started**.
+Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
+
+Deliver the capabilities defined in the
+[LakeFusion assessment](spec/research/lakefusion/README.md) and
+[implementation design](spec/research/lakefusion/IMPLEMENTATION.md): a governed
+master-data application with persistent identities, explainable golden records,
+concurrent stewardship, incremental processing, online resolution, business
+relationships, product catalogs and reliable deployment.
+
+This file is the execution and acceptance ledger for the new product roadmap.
+It contains all six delivery phases and all 25 work packages from the
+[backlog](spec/research/lakefusion/backlog.csv). Creating this plan does not start
+implementation, experiments or deployment. Start when requested with:
+
+```text
+$goal ./goal_lakefusion.md
+```
+
+A section selector narrows work while retaining dependencies; for example,
+`$goal ./goal_lakefusion.md 4` selects Phase A. The original [goal.md](goal.md)
+remains authoritative for the ZR campaign and its existing results and limits.
+
+## § 1 — Outcome and scope
+
+The first release is a company/supplier MDM pilot with two public or synthetic
+source systems. It must explain every published field, distribute review work,
+apply approved edits and reversible identity changes, and recover from partial
+failures. Later releases add online access, relationship intelligence and PIM.
+
+Required functional scope:
+
+- Versioned domains, source mappings, onboarding, quality checks and remediation.
+- Bounded candidate retrieval; deterministic rules, calibrated matching and
+  evidence; an optional LLM adapter with abstention and measured benefit.
+- Persistent master IDs, aliases, source crosswalks, scalar/nested survivorship,
+  reference data and winning-value provenance.
+- Concurrent steward tasks, roles, approvals, overrides, merge/split/unmerge,
+  immutable decisions and recoverable publication.
+- Incremental source changes/deletes, online search-before-create, typed
+  relationships, hierarchies and bounded graph exploration.
+- MCP tools and delegated Genie access over authorized data.
+- PIM families/variants/SKUs, taxonomies/crosswalks, assets, locale/channel values,
+  completeness, editorial review, catalog releases and controlled delivery.
+- Isolated environments, operational metrics, job controls, a constrained
+  pipeline editor, graph alerts/actions, migrations, recovery and user help.
+
+Commercial licensing/marketplace distribution is a conditional workstream
+included in Phase F. Licensed enrichment connectors require a concrete source
+and usage rights before activation. Optional AI integrations must have tested
+enabled and disabled contracts; a paid-feature flag alone is not implementation.
+
+The [source register](spec/research/lakefusion/SOURCES.md) distinguishes vendor
+claims from platform documentation and repository evidence. The finish line is
+the explicit acceptance contract below. Advertised vendor speed, scale or cost
+figures are not Lakematch results or automatic acceptance thresholds.
+
+## § 2 — Architecture and execution context
+
+- Retain **APX 0.3.8, React and FastAPI**. Preserve the independent Apache-2.0
+  Spark engine, portable local execution and separate optional integrations.
+- Delta/Unity Catalog owns versioned source data and published master records,
+  memberships, relationships and analytic audit history. Lakebase/Postgres owns
+  operational commands, task leases, approvals, ID allocation and PIM drafts.
+  Serving projections are rebuildable and carry publication/freshness metadata.
+- Use real transactional constraints for workflow uniqueness. Synced Lakebase
+  tables are serving projections, with their documented permission restrictions;
+  they are not the operational write store. Keep the existing immutable-snapshot
+  publisher until a measured migration justifies changing its contract.
+- Keep the existing v1 engine configuration, historical model artifacts, label
+  receipts, benchmark IDs and sealed replays readable through explicit adapters.
+- Use only public or synthetic corpora. Preserve the private repository; do not
+  copy LakeFusion implementation assets or incompatible third-party source.
+- Laurent already selected **`fevm-gdpr2`** in this conversation. Pass
+  `--profile fevm-gdpr2` to workspace CLI commands and configure SDK clients
+  explicitly. Do not substitute a different profile. Load `databricks-core`
+  and the relevant product skills before remote operations.
+- The earlier dev-workspace quota/expiry prerequisite was waived. Keep finite
+  resource/time envelopes, measured consumption and cleanup. Capability checks
+  still apply to Lakebase, Apps authorization, AI Search, serving and previews.
+- The original million-record campaign remains parked at its iteration cap;
+  classic compute was unavailable in this workspace. This goal does not reset
+  those limits, reopen sealed confirmation tuning or authorize another workspace.
+  Keep the original ZR gates visible where new work depends on them.
+
+## § 3 — Phase and work-package ledger
+
+All statuses start at **Not started**. A foundation can be delivered in an earlier
+phase without closing its full work package. Close a package only when all its
+acceptance criteria pass; update the CSV status as a projection of this ledger.
+The backlog retains the detailed package dependencies and code-area mapping.
+
+| Phase | Deliverable | Entry dependency | Indicative timing | Status | Acceptance evidence |
+|---|---|---|---|---|---|
+| LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Not started | None yet |
+| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | Not started | None yet |
+| LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | Not started | None yet |
+| LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
+| LF-E | PIM catalog and editorial workflows | LF-C plus LF-D reference/nested contracts | Weeks 19–30 | Not started | None yet |
+| LF-F | Production qualification and release | Relevant phase implementations; qualification starts earlier | Through months 6–9 | Not started | None yet |
+
+Timing is a planning estimate: roughly 4–5 engineers for the pilot and 5–7 plus
+QA for the broader product. Work can overlap once its prerequisites are met;
+dates do not waive acceptance gates. Re-estimate after Phase A.
+
+| Package | Work | Completion phase | Status |
+|---|---|---|---|
+| LM-001 | Pilot contract and capability checks | LF-A | Not started |
+| LM-002 | Candidate coverage | LF-B | Not started |
+| LM-003 | Domain and mapping registry | LF-B | Not started |
+| LM-004 | Persistent business identity | LF-B | Not started |
+| LM-005 | Scalar survivorship | LF-B | Not started |
+| LM-006 | Winning-value provenance | LF-B | Not started |
+| LM-007 | Transactional workflow adapter | LF-C; allocation foundation in LF-B | Not started |
+| LM-008 | Domain and action authorization | LF-C; extended checks in LF-D/E | Not started |
+| LM-009 | Command publication and recovery | LF-C; first publication in LF-B | Not started |
+| LM-010 | Entity explorer and steward inbox | LF-C | Not started |
+| LM-011 | Governed edits and reversible merge/split | LF-C | Not started |
+| LM-012 | Onboarding and quality remediation | LF-C | Not started |
+| LM-013 | Incremental mastering | LF-C | Not started |
+| LM-014 | Calibrated decisions and explanations | LF-D; pilot decisions in LF-C | Not started |
+| LM-015 | Selective LLM adjudication | LF-D; activation optional | Not started |
+| LM-016 | Reference entities and nested structures | LF-D; foundation in LF-C | Not started |
+| LM-017 | Search-before-create and online scoring | LF-D | Not started |
+| LM-018 | Business relationships and hierarchies | LF-D | Not started |
+| LM-019 | Interactive graph serving | LF-D | Not started |
+| LM-020 | MCP and delegated Genie | LF-D | Not started |
+| LM-021 | PIM catalog and editorial core | LF-E | Not started |
+| LM-022 | Taxonomy crosswalks | LF-E | Not started |
+| LM-023 | Media, enrichment and channel delivery | LF-E | Not started |
+| LM-024 | Environment separation and operational qualification | LF-F; milestones in every phase | Not started |
+| LM-025 | Commercial distribution and entitlements | LF-F, conditional on commercial scope | Conditional; not started |
+
+## § 4 — Phase A: contracts and feasibility
+
+**Packages:** LM-001; initial LM-002/003/007/008/024 work.
+
+Deliverables:
+
+- [ ] Define the company/supplier domain, distinguishing legal company, branch
+  and corporate family; select two source schemas and representative tasks.
+- [ ] Freeze domain/mapping contracts, role/action matrix and first API/table
+  definitions using the implementation design's ownership boundaries.
+- [ ] Prepare a synthetic vertical-slice fixture with conflicting addresses,
+  parent-child relationships, an identifier collision and merge/split history.
+- [ ] Declare development/validation/untouched evaluation splits and candidate,
+  join, memory, time and experiment budgets before comparing methods.
+- [ ] Record the local baseline and reusability of prior evidence. Probe the
+  selected workspace's needed capabilities with bounded checks and explicit
+  supported/unsupported/untested results.
+- [ ] Design genuinely isolated bundle state/resources for each environment;
+  establish operational schema/migration and authorization prototypes.
+- [ ] Freeze the initial workload, quality/latency/freshness targets and cost
+  measurement method. Record preview dependencies and fallback adapters.
+
+**Exit gate:** LM-001 has a versioned contract, evaluation protocol, capability
+matrix, dependency decisions and resource envelope. Every later gate has a
+measurement method. An unavailable remote capability is recorded precisely;
+independent local work remains eligible. A capability listing is not proof that
+an application flow works.
+
+## § 5 — Phase B: matching and golden records
+
+**Packages:** LM-002 through LM-006; LM-007 allocation foundation;
+initial LM-009/014/024 work. **Depends on:** Phase A.
+
+Deliverables:
+
+- [ ] Improve domain normalization and complementary candidate unions; record
+  retrieval method, recall losses and cap/top-k truncation at equal budgets.
+- [ ] Implement approved domain/source-mapping versions with drift detection
+  and explicit compatibility with existing engine configurations.
+- [ ] Allocate persistent business IDs transactionally. Add aliases and
+  identity-event history; retain historical deterministic ID interpretation.
+- [ ] Implement scalar survivorship with steward override, source precedence,
+  quality/freshness, null semantics and deterministic tie-breaking.
+- [ ] Publish field-level winning-value provenance and source crosswalks in
+  versioned snapshots, including rule/model/configuration references.
+- [ ] Version deterministic match rules, develop calibrated decision bands,
+  and show actual field comparisons before adding model-specific explanations.
+- [ ] Deliver the first APX golden-record detail view using the synthetic slice.
+
+**Exit gate:** two-source inputs reproduce the same golden records and provenance
+on retry. Earlier-sorting source keys do not rekey public IDs. Every selected
+value resolves to source versions and a policy/override. Candidate coverage meets
+the frozen Phase A gate, with losses and budgets reported separately from scoring.
+Existing frozen replay contracts remain intact. Complete LM-002–006 and record
+the remaining operational work for LM-007/009/014.
+
+## § 6 — Phase C: governed MDM pilot
+
+**Packages:** LM-007 through LM-013; pilot LM-014, reference foundation LM-016,
+and LM-024. **Depends on:** Phase B and the authorization/workflow foundations.
+
+Deliverables:
+
+- [ ] Implement Postgres/Lakebase tasks, leases, optimistic revisions,
+  immutable decisions and idempotent commands; preserve existing label receipts.
+- [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
+  domain/object/action scopes and separation of proposal/approval where required.
+- [ ] Add paginated entity search, task inbox, provenance, history and visible
+  pending/approved/applying/published/conflict/failed operation states.
+- [ ] Implement preview/propose/approve/apply for overrides and merge/split;
+  reconcile reversal against subsequent edits and downstream references.
+- [ ] Connect workflow outbox events to recoverable immutable publication and
+  analytic audit export; reconcile lost acknowledgements without double-apply.
+- [ ] Add source import/mapping preview, quality profiles, quarantine ownership
+  and corrected-row resubmission. AI mapping suggestions require explicit review.
+- [ ] Handle inserts, updates, deletes and late events; recompute affected
+  matching neighborhoods and recover from change-history gaps with a full rebuild.
+- [ ] Exercise the real app-to-review-to-training-to-publication path and restart
+  persistence in the selected workspace under a separately declared run plan.
+- [ ] Demonstrate isolated pilot deployment, schema migrations and restoration.
+
+**Exit gate:** business users can complete the two-source MDM workflow. Concurrent
+claims have one winner; stale decisions conflict; retries and crashes cannot
+double-apply changes. Merge followed by split follows the recorded identity
+policy. Incremental results agree with a full rebuild for the declared mutation
+cases. Role denials and revocation hold across reads, writes and caches. Pilot
+auto-merge quality passes its frozen gate and the local/remote receipts identify
+the tested source revision. An unresolved required remote gate keeps the pilot
+incomplete even if local tests pass.
+
+## § 7 — Phase D: online access and relationship intelligence
+
+**Packages:** finish LM-014; LM-015 through LM-020; graph operations in LM-024.
+**Depends on:** Phase C. Package-level work may overlap after prerequisites pass.
+
+Deliverables:
+
+- [ ] Complete calibration, decision-band and explanation contracts; validate
+  model-specific SHAP output/background compatibility where enabled.
+- [ ] Implement optional structured LLM adjudication for uncertain pairs with
+  abstention, versioned caching, latency/cost evidence and human fallback.
+- [ ] Complete governed reference entities, dependent values, typed nested
+  records and array survivorship that preserves structured tuples.
+- [ ] Implement a measured non-Spark online feature/scorer path and governed
+  candidate lookup. Return evidence, revision, freshness and explicit outcomes.
+- [ ] Separate search from creation: use an idempotent create command, exact-key
+  reservations and stewardship for ambiguous concurrent fuzzy duplicates.
+- [ ] Add typed, effective-dated business relationships and hierarchies with
+  domain, direction, cardinality and cycle rules.
+- [ ] Add indexed adjacency projections and bounded graph traversal with
+  explicit hop/node/edge/time limits, truncation and policy-aware caches.
+- [ ] Expose narrow MCP tools over shared services; mutation tools propose
+  governed operations. Demonstrate delegated Genie over approved master views.
+- [ ] Add scheduled graph rules, deduplicated alerts and approved downstream
+  actions using an outbox and visible delivery status.
+
+**Exit gate:** online and graph workloads meet the frozen Phase A targets, with
+warm/cold latency and freshness reported. Claimed batch/online parity is measured;
+no request starts Spark as its online scoring strategy. Intermediate graph nodes,
+edges and cached results enforce authorization. Reference/nested values remain
+valid and explainable. MCP obeys the same policy as the UI; the deployed app
+demonstrates the complete delegated Genie reference suite. Optional LLM activation
+requires measured marginal benefit, validated error handling and the configured
+provider boundary; disabled mode remains functional. Unsupported required
+delegation remains an explicit dependency, not a passing smoke test.
+
+## § 8 — Phase E: PIM and editorial workflows
+
+**Packages:** LM-021 through LM-023, with LM-024 operations.
+**Depends on:** Phase C and completed reference/nested contracts from Phase D.
+
+Deliverables:
+
+- [ ] Define separate product family, variant and SKU identities; add typed
+  attributes, specifications, units, requiredness and inheritance rules.
+- [ ] Implement import preview, bulk edits, category-specific completeness,
+  working/live catalogs and immutable release manifests.
+- [ ] Version taxonomies and reviewed crosswalks. Preview affected products,
+  propagated values, cycles and editorial conflicts before applying a change.
+- [ ] Store governed asset references with checksums, rights/provenance and
+  approval state; support locale/channel values and visible fallback rules.
+- [ ] Add optional copy/translation/enrichment proposals with source evidence,
+  factual review and approval; do not present generated values as source facts.
+- [ ] Publish approved releases through explicit channel connector contracts
+  with idempotent delivery, retries and operator-visible failures.
+- [ ] Extend domain roles, audit views, accessible UI and recovery tests to PIM.
+
+**Exit gate:** a representative product collection passes import → enrich/edit →
+classify in two taxonomies → review → publish to a test channel. Only approved,
+type-valid content is live. Locale fallback and taxonomy conflicts are visible;
+retries do not duplicate deliveries. Historic releases are reproducible and
+source/asset provenance remains inspectable after later edits.
+
+## § 9 — Phase F: production qualification and release
+
+**Packages:** finish LM-024; conditional LM-025.
+**Depends on:** the required Phase A–E capabilities. Qualification work starts
+earlier and is repeated only when relevant changes invalidate evidence.
+
+Deliverables:
+
+- [ ] Provision isolated development/staging/production state, catalogs/schemas,
+  service bindings and deployment identities appropriate to the selected scope.
+- [ ] Make clean install, redeploy, migration, upgrade, rollback and restoration
+  reproducible from the private repository and durable versioned artifacts.
+- [ ] Finish approved job templates, status/log/cancel/retry controls and a
+  constrained visual pipeline editor that emits validated job definitions.
+- [ ] Qualify target workloads, bounded degradation, concurrency, permission
+  revocation, projection lag, model/rule promotion and channel recovery.
+- [ ] Publish measured quality, latency, capacity and cost with limitations;
+  document operational ownership, troubleshooting, API/schema contracts and help.
+- [ ] Deliver a nontechnical guide with workflow diagrams, measured statistics,
+  application screenshots and PDF export for the released behavior.
+- [ ] Reconcile all phase/package statuses against final-source evidence;
+  retain failed results and clean up owned experimental resources.
+- [ ] If commercial distribution is selected, complete LM-025: check the exact
+  marketplace route/preview eligibility, implement signed entitlements and
+  outage/grace behavior, and demonstrate versioned install/upgrade/rollback.
+  Otherwise record LM-025 as **Not applicable — internal distribution**.
+
+**Exit gate:** all required phase gates pass for the released configuration;
+restoration and redeployment use the documented source and artifacts; user and
+operator flows are demonstrated end to end. Optional/unavailable integrations
+and commercial packaging status are stated explicitly. No complete feature-parity,
+scale, SLA or cost claim exceeds the measured evidence.
+
+## § 10 — Evaluation and shared acceptance contract
+
+The research proposes the following initial targets. Freeze their workload,
+sampling and measurement definitions during Phase A, before optimization. They
+are not achieved results; changes require a recorded rationale and must not
+retroactively convert a failed run into a pass.
+
+| Area | Proposed gate | Measurement requirements |
+|---|---|---|
+| Retrieval | Candidate recall ≥95% on each chosen pilot validation task | Fixed truth/splits; candidate/join budgets; cap/truncation losses; no averaging away a failing domain |
+| Auto-merge | Lower one-sided 95% precision confidence bound ≥99.5% | Representative labelled decisions; coverage and false negatives; grouping for dependent pairs |
+| Online resolve | Warm p95 <1 second at 100,000 masters and 20 requests/second | Fixed request mix, index/configuration and error rate; cold starts separately |
+| Graph | Warm p95 bounded 3-hop <2 seconds at 100,000 nodes/1 million edges and 10 requests/second | 10,000 visited-node and 2,000 returned-edge caps; degree distribution, truncation, cold starts and error rate |
+| Serving freshness | p95 <60 seconds at the declared pilot input rate | Source-to-serving watermark; lag visible; authoritative recheck before creation/merge |
+| Mutation correctness | No double application, silent stale overwrite or mixed publication | Concurrent claims, retries, lost acknowledgements and crash/restart fixtures |
+| Authorization | Every tested denied action and record/path access is denied | Domain/field/action matrix; cache and index paths; revocation independent of data lag |
+| PIM release | Approved, valid, attributable content and retry-safe delivery | Locale/taxonomy/asset fixtures; failed channel recovery; historic release replay |
+
+For the precision target, roughly 600 independent error-free decisions are
+needed even for a one-sided 95% error bound near 0.5%; grouped dependence can
+require more. Report the sampling method and uncertainty rather than displaying
+a small synthetic fixture as broad quality evidence.
+
+Preserve the eight sealed corpus replays as regression evidence. Establish a
+new untouched evaluation source/partition for improvement claims; do not tune
+against the exposed confirmation results. Diagnose retrieval, scoring,
+cardinality and clustering errors separately. Record preprocessing and startup
+as well as scoring costs. Run affected classic-local/Connect, app, transactional
+integration and remote checks appropriate to each change, retaining applicable
+existing evidence instead of rerunning unrelated experiments.
+
+Track DBUs/dollars per 1,000 input records and online requests, pairs per record,
+LLM escalation/error rate, queue age, disagreements, publication/projection lag,
+graph expansion, storage/index size and delivery retries. Missing billing data
+is missing evidence, never zero cost. Optional AI Search, Lakebase CDF, model
+serving and marketplace routes require capability checks against current docs;
+keep preview-specific dependencies visible.
+
+## § 11 — Execution loop, evidence and finish line
+
+Once execution is requested:
+
+1. Read this ledger, the backlog dependencies and the latest relevant evidence.
+   Select the first eligible unmet gate and record its hypothesis and bounds.
+2. Implement a reviewable increment within the selected architecture; run checks
+   appropriate to the change. Preserve source/configuration/label compatibility.
+3. For an experiment, use the existing bounded runner and append-only run ledger.
+   Record exact commands, commit/patch digest, environment, corpus/split/config
+   hashes, seeds, resources, metrics, timing and cleanup. Never record credentials.
+4. Capture terminal success or failure and diagnose the result. Retry a transient
+   infrastructure failure at most twice; repeated unsupported operations park
+   their dependent work while independent tasks continue.
+5. Update phase/package status, evidence links, iteration count and next action.
+   Keep the research backlog status synchronized. A code commit or deployed app
+   alone cannot mark a feature gate passed.
+6. Commit completed work and compact evidence to the existing private GitHub
+   repository under the standing push instruction, preserving managed hooks.
+
+Retain one active remote experiment and an eight-iteration experiment cap per
+new LF phase, with finite per-run/sweep limits declared before execution. These
+caps do not reset old ZR counters. Stop a sweep at its bound, retain the diagnosis
+and continue eligible nondependent work. Stop only owned experimental resources
+after evidence capture; respect an explicit user request to leave a demo running.
+Record ongoing services required by an accepted deployment separately.
+
+Store compact manifests and reports in the existing `experiments/` and `bench/`
+evidence structure, with an LF phase/package identifier. Keep bulk models,
+datasets, logs and generated caches ignored; preserve reproducible download/build
+instructions and checksummed durable references. Missing or stale evidence must
+remain visible. A read-only acceptance verifier must not generate its own proof.
+
+| Checkpoint | Observed state | Next eligible action |
+|---|---|---|
+| 2026-09-21: plan created | Research committed at `a007166`; LF-A–F have no execution evidence. Existing [local test receipts](reports/test-runs/20260921T092956Z/README.md) and [redeployment audit](bench/REDEPLOYMENT.md) remain the baseline. | When execution is requested, start §4 with LM-001 and the two-source company/supplier contract. |
+
+**Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
+disposition, including conditional LM-025; the final app-to-master-to-graph/PIM
+flows, upgrades and recovery are demonstrated; evidence and user/operator
+documentation are committed; owned experimental resources are cleaned up. Any
+remaining required capability leaves this goal incomplete until resolved or
+explicitly removed from scope by the user.

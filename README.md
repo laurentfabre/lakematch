@@ -32,6 +32,8 @@ The [LakeFusion assessment and proposed roadmap](spec/research/lakefusion/README
 compares public MDM, Graph and PIM capabilities with the current code and test evidence.
 It includes architecture, schemas and an ordered implementation backlog; it does not
 change the campaign's acceptance status.
+The [LakeFusion goal file](goal_lakefusion.md) tracks all six delivery phases and
+25 work packages for that roadmap.
 
 ## Run locally
 
