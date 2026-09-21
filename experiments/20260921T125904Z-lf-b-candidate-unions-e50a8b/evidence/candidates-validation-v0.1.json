@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "phase": "LF-B",
+  "package": "LM-002",
+  "partition": "validation",
+  "started_at": "2026-09-21T12:59:05.199406+00:00",
+  "limits": {
+    "per_left": 50,
+    "pairs": 2000000,
+    "posting_visits": 20000000,
+    "seconds": 120,
+    "input_rows_per_source": 20000
+  },
+  "source_manifest_sha256": "9b41248914cfea70956d52ab5768245b79e6b29b43b652b7203cb9855e786436",
+  "confirmation_materialized": false,
+  "input_hashes": {
+    "validation.erp_vendor.jsonl": "8994beef3ea69b9f94f871b9befb515539c5ff3f46a2072b948f1b3bfd057993",
+    "validation.crm_account.jsonl": "25b84795bb12f051daae17d9345c7cbdb35272fd8fee61dd354257932ee6c683",
+    "validation.truth.jsonl": "b526ab9f294b8a8ab347c2245e5dbde72bb4f843ec0bc4fe2c4c81ae8d3455a7"
+  },
+  "feature_preparation_wall_seconds": 0.34823545906692743,
+  "memory_limit_bytes": 4294967296,
+  "memory_enforcement": "measured peak gate",
+  "cost": {
+    "cloud_resources_started": [],
+    "status": "local CPU only; no billed cloud operation"
+  },
+  "alternatives": [
+    {
+      "alternative": "identifier",
+      "retained_pairs": 3000,
+      "posting_visits": 3000,
+      "wall_seconds": 0.06605441705323756,
+      "known_positives": 4000,
+      "found_positives": 2600,
+      "candidate_recall": 0.65,
+      "truncated_anchors": 0,
+      "max_pre_cap_per_anchor": 2,
+      "max_post_cap_per_anchor": 2,
+      "cap_positive_losses": 0,
+      "by_stratum": {
+        "changed_address": {
+          "positives": 600,
+          "pre_cap_found": 600,
+          "post_cap_found": 600,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "clean": {
+          "positives": 800,
+          "pre_cap_found": 800,
+          "post_cap_found": 800,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "combined": {
+          "positives": 200,
+          "pre_cap_found": 0,
+          "post_cap_found": 0,
+          "cap_losses": 0,
+          "recall": 0.0
+        },
+        "cross_jurisdiction_name": {
+          "positives": 200,
+          "pre_cap_found": 200,
+          "post_cap_found": 200,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "identifier_collision": {
+          "positives": 400,
+          "pre_cap_found": 0,
+          "post_cap_found": 0,
+          "cap_losses": 0,
+          "recall": 0.0
+        },
+        "missing_identifier": {
+          "positives": 800,
+          "pre_cap_found": 0,
+          "post_cap_found": 0,
+          "cap_losses": 0,
+          "recall": 0.0
+        },
+        "multilingual": {
+          "positives": 400,
+          "pre_cap_found": 400,
+          "post_cap_found": 400,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "spelling_suffix": {
+          "positives": 600,
+          "pre_cap_found": 600,
+          "post_cap_found": 600,
+          "cap_losses": 0,
+          "recall": 1.0
+        }
+      },
+      "retained_pairs_by_method": {
+        "identifier": 3000
+      },
+      "retained_positives_by_method": {
+        "identifier": 2600
+      },
+      "process_peak_rss_bytes": 57606144,
+      "raw_artifact": "data/lakefusion/candidate-validation-v0.1/identifier.json",
+      "raw_sha256": "9f6894c8fcc0315bbbbb21fa541d778442ef3688c104b1dae49ad337780f6abb",
+      "candidate_gate_passed": false
+    },
+    {
+      "alternative": "identifier_name",
+      "retained_pairs": 8552,
+      "posting_visits": 10552,
+      "wall_seconds": 0.08032491710036993,
+      "known_positives": 4000,
+      "found_positives": 3800,
+      "candidate_recall": 0.95,
+      "truncated_anchors": 0,
+      "max_pre_cap_per_anchor": 7,
+      "max_post_cap_per_anchor": 7,
+      "cap_positive_losses": 0,
+      "by_stratum": {
+        "changed_address": {
+          "positives": 600,
+          "pre_cap_found": 600,
+          "post_cap_found": 600,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "clean": {
+          "positives": 800,
+          "pre_cap_found": 800,
+          "post_cap_found": 800,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "combined": {
+          "positives": 200,
+          "pre_cap_found": 0,
+          "post_cap_found": 0,
+          "cap_losses": 0,
+          "recall": 0.0
+        },
+        "cross_jurisdiction_name": {
+          "positives": 200,
+          "pre_cap_found": 200,
+          "post_cap_found": 200,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "identifier_collision": {
+          "positives": 400,
+          "pre_cap_found": 400,
+          "post_cap_found": 400,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "missing_identifier": {
+          "positives": 800,
+          "pre_cap_found": 800,
+          "post_cap_found": 800,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "multilingual": {
+          "positives": 400,
+          "pre_cap_found": 400,
+          "post_cap_found": 400,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "spelling_suffix": {
+          "positives": 600,
+          "pre_cap_found": 600,
+          "post_cap_found": 600,
+          "cap_losses": 0,
+          "recall": 1.0
+        }
+      },
+      "retained_pairs_by_method": {
+        "name": 7552,
+        "identifier": 3000
+      },
+      "retained_positives_by_method": {
+        "name": 2800,
+        "identifier": 2600
+      },
+      "process_peak_rss_bytes": 58802176,
+      "raw_artifact": "data/lakefusion/candidate-validation-v0.1/identifier_name.json",
+      "raw_sha256": "ff478b0a3368a874589a0bbedefa87705999792383ed0d9bc690326784e93ceb",
+      "candidate_gate_passed": true
+    },
+    {
+      "alternative": "identifier_name_tokens",
+      "retained_pairs": 190137,
+      "posting_visits": 216687,
+      "wall_seconds": 0.614492499968037,
+      "known_positives": 4000,
+      "found_positives": 4000,
+      "candidate_recall": 1.0,
+      "truncated_anchors": 1966,
+      "max_pre_cap_per_anchor": 77,
+      "max_post_cap_per_anchor": 50,
+      "cap_positive_losses": 0,
+      "by_stratum": {
+        "changed_address": {
+          "positives": 600,
+          "pre_cap_found": 600,
+          "post_cap_found": 600,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "clean": {
+          "positives": 800,
+          "pre_cap_found": 800,
+          "post_cap_found": 800,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "combined": {
+          "positives": 200,
+          "pre_cap_found": 200,
+          "post_cap_found": 200,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "cross_jurisdiction_name": {
+          "positives": 200,
+          "pre_cap_found": 200,
+          "post_cap_found": 200,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "identifier_collision": {
+          "positives": 400,
+          "pre_cap_found": 400,
+          "post_cap_found": 400,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "missing_identifier": {
+          "positives": 800,
+          "pre_cap_found": 800,
+          "post_cap_found": 800,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "multilingual": {
+          "positives": 400,
+          "pre_cap_found": 400,
+          "post_cap_found": 400,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "spelling_suffix": {
+          "positives": 600,
+          "pre_cap_found": 600,
+          "post_cap_found": 600,
+          "cap_losses": 0,
+          "recall": 1.0
+        }
+      },
+      "retained_pairs_by_method": {
+        "name": 7552,
+        "tokens": 185719,
+        "identifier": 3000
+      },
+      "retained_positives_by_method": {
+        "tokens": 3600,
+        "name": 2800,
+        "identifier": 2600
+      },
+      "process_peak_rss_bytes": 139444224,
+      "raw_artifact": "data/lakefusion/candidate-validation-v0.1/identifier_name_tokens.json",
+      "raw_sha256": "b2a785728445895d8c4aec47e68b16395a7771b016eb94756bbb01f0424d869d",
+      "candidate_gate_passed": true
+    },
+    {
+      "alternative": "identifier_name_tokens_trigrams",
+      "retained_pairs": 200000,
+      "posting_visits": 1326629,
+      "wall_seconds": 2.1273644589819014,
+      "known_positives": 4000,
+      "found_positives": 4000,
+      "candidate_recall": 1.0,
+      "truncated_anchors": 4000,
+      "max_pre_cap_per_anchor": 477,
+      "max_post_cap_per_anchor": 50,
+      "cap_positive_losses": 0,
+      "by_stratum": {
+        "changed_address": {
+          "positives": 600,
+          "pre_cap_found": 600,
+          "post_cap_found": 600,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "clean": {
+          "positives": 800,
+          "pre_cap_found": 800,
+          "post_cap_found": 800,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "combined": {
+          "positives": 200,
+          "pre_cap_found": 200,
+          "post_cap_found": 200,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "cross_jurisdiction_name": {
+          "positives": 200,
+          "pre_cap_found": 200,
+          "post_cap_found": 200,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "identifier_collision": {
+          "positives": 400,
+          "pre_cap_found": 400,
+          "post_cap_found": 400,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "missing_identifier": {
+          "positives": 800,
+          "pre_cap_found": 800,
+          "post_cap_found": 800,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "multilingual": {
+          "positives": 400,
+          "pre_cap_found": 400,
+          "post_cap_found": 400,
+          "cap_losses": 0,
+          "recall": 1.0
+        },
+        "spelling_suffix": {
+          "positives": 600,
+          "pre_cap_found": 600,
+          "post_cap_found": 600,
+          "cap_losses": 0,
+          "recall": 1.0
+        }
+      },
+      "retained_pairs_by_method": {
+        "name": 7552,
+        "trigrams": 173910,
+        "tokens": 75649,
+        "identifier": 3000
+      },
+      "retained_positives_by_method": {
+        "tokens": 3600,
+        "trigrams": 4000,
+        "name": 2800,
+        "identifier": 2600
+      },
+      "process_peak_rss_bytes": 233390080,
+      "raw_artifact": "data/lakefusion/candidate-validation-v0.1/identifier_name_tokens_trigrams.json",
+      "raw_sha256": "bda748fff5ff7127956089031667608978dbeee7f5ce568f1f2647419488e3e7",
+      "candidate_gate_passed": true
+    }
+  ],
+  "selected": "identifier_name",
+  "ended_at": "2026-09-21T12:59:08.430503+00:00",
+  "limitations": "Validation candidate recall only; not merge precision, scoring, online serving, remote scale or general customer quality"
+}

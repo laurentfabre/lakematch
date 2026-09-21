@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A complete; LF-B starting**.
+Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (1/8 experiments)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -129,7 +129,7 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 | Phase | Deliverable | Entry dependency | Indicative timing | Status | Acceptance evidence |
 |---|---|---|---|---|---|
 | LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Done | [Frozen contracts, capability evidence and limits](bench/lakefusion/PHASE_A.md) |
-| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | Not started | None yet |
+| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | In progress | [First candidate comparison](bench/lakefusion/PHASE_B.md) |
 | LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | Not started | None yet |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
 | LF-E | PIM catalog and editorial workflows | LF-C plus LF-D reference/nested contracts | Weeks 19–30 | Not started | None yet |
@@ -142,7 +142,7 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 | Package | Work | Completion phase | Status |
 |---|---|---|---|
 | LM-001 | Pilot contract and capability checks | LF-A | Done |
-| LM-002 | Candidate coverage | LF-B | Not started |
+| LM-002 | Candidate coverage | LF-B | In progress |
 | LM-003 | Domain and mapping registry | LF-B | In progress |
 | LM-004 | Persistent business identity | LF-B | Not started |
 | LM-005 | Scalar survivorship | LF-B | Not started |
@@ -215,8 +215,13 @@ initial LM-009/014/024 work. **Depends on:** Phase A.
 
 Deliverables:
 
-- [ ] Improve domain normalization and complementary candidate unions; record
+- [x] Improve domain normalization and complementary candidate unions; record
   retrieval method, recall losses and cap/top-k truncation at equal budgets.
+  [Four-alternative validation comparison](bench/lakefusion/PHASE_B.md): 65%
+  identifier baseline, 95% with normalized names, 100% with lexical tokens.
+  Cheapest passing configuration misses all 200 combined-error pairs; lexical
+  coverage costs 22.2× more pairs but stays inside caps. Execution binding and
+  automatic-merge quality remain incomplete; confirmation is untouched.
 - [ ] Implement approved domain/source-mapping versions with drift detection
   and explicit compatibility with existing engine configurations.
 - [ ] Allocate persistent business IDs transactionally. Add aliases and
