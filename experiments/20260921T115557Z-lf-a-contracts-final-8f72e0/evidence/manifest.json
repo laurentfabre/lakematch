@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "draft_not_evaluation_freeze",
+  "purpose": "Reviewable domain/mapping and integration fixture proposal; no model fitting or matching score",
+  "files": {
+    "crm_account_mapping.json": "56e8a5bf67feb316cd8f38fbfa054510a403c24897cf1f4132d013358cf8ca04",
+    "domain.json": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+    "erp_vendor_mapping.json": "3b842fb0ba221a7ff8e5648debd467ad902a2518d7cf3f2787c41b38663b77fa",
+    "fixture.json": "9845f8343714f728b8d5125064fbe9b97afca96e4464edbb9c1835b769d55317"
+  },
+  "hash_representation": "canonical parsed JSON, sorted keys, UTF-8, compact separators",
+  "source_rows": {
+    "erp_vendor": 6,
+    "crm_account": 7
+  },
+  "legal_companies": 6,
+  "branch_rows": 1
+}

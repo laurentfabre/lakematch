@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "status": "proposed_source_choice; integration_fixture_only",
+  "data_classification": "entirely synthetic; identifiers are deliberately TEST-prefixed",
+  "sources": {
+    "erp_vendor": [
+      {
+        "vendor_id": "V001",
+        "record_type": "legal_company",
+        "vendor_name": "Cedar Components SA",
+        "country_code": "FR",
+        "registration_number": "TEST-FR-001",
+        "street": "10 Example Avenue",
+        "city": "Lyon",
+        "postal_code": "69000",
+        "parent_vendor_id": null
+      },
+      {
+        "vendor_id": "V002",
+        "record_type": "legal_company",
+        "vendor_name": "Cedar Logistics SAS",
+        "country_code": "FR",
+        "registration_number": "TEST-FR-002",
+        "street": "10 Example Avenue",
+        "city": "Lyon",
+        "postal_code": "69000",
+        "parent_vendor_id": "V001"
+      },
+      {
+        "vendor_id": "V003",
+        "record_type": "legal_company",
+        "vendor_name": "Atlas Supplies SAS",
+        "country_code": "FR",
+        "registration_number": "TEST-FR-003",
+        "street": "20 Sample Street",
+        "city": "Paris",
+        "postal_code": "75000",
+        "parent_vendor_id": null
+      },
+      {
+        "vendor_id": "V004",
+        "record_type": "legal_company",
+        "vendor_name": "Atlas Supplies SRL",
+        "country_code": "BE",
+        "registration_number": "TEST-BE-003",
+        "street": "20 Sample Street",
+        "city": "Brussels",
+        "postal_code": "1000",
+        "parent_vendor_id": null
+      },
+      {
+        "vendor_id": "V005",
+        "record_type": "legal_company",
+        "vendor_name": "Orbit Industrial Ltd",
+        "country_code": "GB",
+        "registration_number": "TEST-GB-004",
+        "street": "30 Fixture Road",
+        "city": "Leeds",
+        "postal_code": "LS1 1AA",
+        "parent_vendor_id": null
+      },
+      {
+        "vendor_id": "V006",
+        "record_type": "legal_company",
+        "vendor_name": "Harbor Industrial Ltd",
+        "country_code": "GB",
+        "registration_number": "TEST-GB-005",
+        "street": "40 Fixture Road",
+        "city": "Leeds",
+        "postal_code": "LS1 1AA",
+        "parent_vendor_id": null
+      }
+    ],
+    "crm_account": [
+      {
+        "account_id": "A001",
+        "account_type": "legal_company",
+        "account_name": "Cedar Components S.A.",
+        "country": "fr",
+        "company_registration": "TEST-FR-001",
+        "billing_street": "99 Updated Example Avenue",
+        "billing_city": "Lyon",
+        "billing_postcode": "69000",
+        "parent_account_id": null
+      },
+      {
+        "account_id": "A002",
+        "account_type": "legal_company",
+        "account_name": "Cedar Logistics",
+        "country": "fr",
+        "company_registration": "TEST-FR-002",
+        "billing_street": "10 Example Avenue",
+        "billing_city": "Lyon",
+        "billing_postcode": "69000",
+        "parent_account_id": "A001"
+      },
+      {
+        "account_id": "A003",
+        "account_type": "legal_company",
+        "account_name": "Atlas Supplies",
+        "country": "fr",
+        "company_registration": "TEST-FR-003",
+        "billing_street": "20 Sample Street",
+        "billing_city": "Paris",
+        "billing_postcode": "75000",
+        "parent_account_id": null
+      },
+      {
+        "account_id": "A004",
+        "account_type": "legal_company",
+        "account_name": "Atlas Supplies",
+        "country": "be",
+        "company_registration": "TEST-BE-003",
+        "billing_street": "20 Sample Street",
+        "billing_city": "Brussels",
+        "billing_postcode": "1000",
+        "parent_account_id": null
+      },
+      {
+        "account_id": "A005",
+        "account_type": "legal_company",
+        "account_name": "Orbit Industrial Limited",
+        "country": "gb",
+        "company_registration": "TEST-GB-004",
+        "billing_street": "30 Fixture Road",
+        "billing_city": "Leeds",
+        "billing_postcode": "LS1 1AA",
+        "parent_account_id": null
+      },
+      {
+        "account_id": "A006",
+        "account_type": "legal_company",
+        "account_name": "Harbour Industrial",
+        "country": "gb",
+        "company_registration": "TEST-GB-004",
+        "billing_street": "40 Fixture Road",
+        "billing_city": "Leeds",
+        "billing_postcode": "LS1 1AA",
+        "parent_account_id": null
+      },
+      {
+        "account_id": "A101",
+        "account_type": "branch",
+        "account_name": "Cedar Components Lyon Branch",
+        "country": "FR",
+        "company_registration": "TEST-FR-001",
+        "billing_street": "12 Branch Example Avenue",
+        "billing_city": "Lyon",
+        "billing_postcode": "69000",
+        "parent_account_id": "A001"
+      }
+    ]
+  },
+  "truth": [
+    {
+      "truth_id": "cedar",
+      "members": [
+        [
+          "erp_vendor",
+          "V001"
+        ],
+        [
+          "crm_account",
+          "A001"
+        ]
+      ]
+    },
+    {
+      "truth_id": "cedar_branch_co",
+      "members": [
+        [
+          "erp_vendor",
+          "V002"
+        ],
+        [
+          "crm_account",
+          "A002"
+        ]
+      ]
+    },
+    {
+      "truth_id": "atlas_fr",
+      "members": [
+        [
+          "erp_vendor",
+          "V003"
+        ],
+        [
+          "crm_account",
+          "A003"
+        ]
+      ]
+    },
+    {
+      "truth_id": "atlas_be",
+      "members": [
+        [
+          "erp_vendor",
+          "V004"
+        ],
+        [
+          "crm_account",
+          "A004"
+        ]
+      ]
+    },
+    {
+      "truth_id": "orbit",
+      "members": [
+        [
+          "erp_vendor",
+          "V005"
+        ],
+        [
+          "crm_account",
+          "A005"
+        ]
+      ]
+    },
+    {
+      "truth_id": "harbor",
+      "members": [
+        [
+          "erp_vendor",
+          "V006"
+        ],
+        [
+          "crm_account",
+          "A006"
+        ]
+      ]
+    }
+  ],
+  "excluded_from_legal_company_matching": [
+    [
+      "crm_account",
+      "A101"
+    ]
+  ],
+  "expected_review_cases": [
+    {
+      "kind": "conflicting_address",
+      "members": [
+        [
+          "erp_vendor",
+          "V001"
+        ],
+        [
+          "crm_account",
+          "A001"
+        ]
+      ]
+    },
+    {
+      "kind": "identifier_collision",
+      "members": [
+        [
+          "erp_vendor",
+          "V005"
+        ],
+        [
+          "crm_account",
+          "A006"
+        ]
+      ]
+    }
+  ],
+  "expected_relationships": [
+    {
+      "from_truth": "cedar_branch_co",
+      "to_truth": "cedar",
+      "type": "subsidiary_of"
+    }
+  ],
+  "mutation_scenarios": [
+    {
+      "action": "merge",
+      "truth_ids": [
+        "orbit",
+        "harbor"
+      ],
+      "reason": "Synthetic mistaken merge for reversal acceptance"
+    },
+    {
+      "action": "split",
+      "restore_truth_ids": [
+        "orbit",
+        "harbor"
+      ],
+      "reason": "Restore distinct legal companies with original IDs"
+    },
+    {
+      "action": "source_update",
+      "source_id": "erp_vendor",
+      "source_key": "V001",
+      "field": "street",
+      "value": "99 Updated Example Avenue"
+    },
+    {
+      "action": "source_delete",
+      "source_id": "crm_account",
+      "source_key": "A003"
+    }
+  ]
+}

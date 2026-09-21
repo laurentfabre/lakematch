@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "phase": "LF-A",
+  "profile": "fevm-gdpr2",
+  "cli": "Databricks CLI v1.17.0",
+  "started_at": "2026-09-21T11:46:52.353644+00:00",
+  "resource_mutations": [],
+  "checks": [
+    {
+      "capability": "identity",
+      "command": [
+        "databricks",
+        "current-user",
+        "me",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "status": "metadata_access_verified",
+      "detail": {
+        "authenticated": true
+      },
+      "wall_seconds": 0.793
+    },
+    {
+      "capability": "lakebase",
+      "command": [
+        "databricks",
+        "postgres",
+        "list-projects",
+        "--limit",
+        "1",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "status": "metadata_access_verified",
+      "detail": {
+        "returned_resources": 1,
+        "limit": 1,
+        "creation_permission": "untested",
+        "data_plane": "untested"
+      },
+      "wall_seconds": 0.29
+    },
+    {
+      "capability": "ai_search",
+      "command": [
+        "databricks",
+        "vector-search-endpoints",
+        "list-endpoints",
+        "--limit",
+        "1",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "status": "metadata_access_verified",
+      "detail": {
+        "returned_resources": 1,
+        "limit": 1,
+        "creation_permission": "untested",
+        "data_plane": "untested"
+      },
+      "wall_seconds": 0.807
+    },
+    {
+      "capability": "model_serving",
+      "command": [
+        "databricks",
+        "serving-endpoints",
+        "list",
+        "--limit",
+        "1",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "status": "metadata_access_verified",
+      "detail": {
+        "returned_resources": 1,
+        "limit": 1,
+        "creation_permission": "untested",
+        "data_plane": "untested"
+      },
+      "wall_seconds": 0.31
+    },
+    {
+      "capability": "app",
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-review-20260919",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "status": "metadata_access_verified",
+      "detail": {
+        "name": "lakematch-review-20260919",
+        "compute_status": {
+          "message": "Start the app compute to deploy the app.",
+          "state": "STOPPED"
+        },
+        "forward_user_access_token": null,
+        "delegated_flow": "untested"
+      },
+      "wall_seconds": 0.606
+    },
+    {
+      "capability": "warehouse",
+      "command": [
+        "databricks",
+        "warehouses",
+        "get",
+        "ec3b6df6c1cabcd4",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "status": "metadata_access_verified",
+      "detail": {
+        "id": "ec3b6df6c1cabcd4",
+        "state": "STOPPED",
+        "warehouse_type": "PRO",
+        "enable_serverless_compute": true,
+        "auto_stop_mins": 10
+      },
+      "wall_seconds": 0.191
+    },
+    {
+      "capability": "genie",
+      "command": [
+        "databricks",
+        "genie",
+        "get-space",
+        "01f1b55eb48a1c0bae6f117fbdbc064e",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "status": "metadata_access_verified",
+      "detail": {
+        "space_id": "01f1b55eb48a1c0bae6f117fbdbc064e",
+        "conversation_execution": "not_requested"
+      },
+      "wall_seconds": 1.695
+    },
+    {
+      "capability": "schema",
+      "command": [
+        "databricks",
+        "schemas",
+        "get",
+        "gdpr2_catalog.lakematch_20260919",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "status": "metadata_access_verified",
+      "detail": {
+        "full_name": "gdpr2_catalog.lakematch_20260919",
+        "write_permission": "untested"
+      },
+      "wall_seconds": 0.173
+    }
+  ],
+  "ended_at": "2026-09-21T11:46:57.219915+00:00",
+  "note": "Metadata access is not creation permission, inference, SQL, index, database or delegated app acceptance."
+}

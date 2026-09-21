@@ -1,0 +1,48 @@
+{
+  "domain_id": "company",
+  "version": 1,
+  "identity_granularity": "legal_company",
+  "fields": [
+    {
+      "name": "record_kind",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "legal_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "registration_id",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "address_line1",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "postal_code",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "parent_source_key",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "schema_version": 1
+}

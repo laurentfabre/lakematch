@@ -65,6 +65,10 @@ def main():
     if not args.all:
         subprocess.run(["git", "diff", "--cached", "--check"], cwd=ROOT, check=True)
     checks = []
+    if args.all or any(n.startswith(("src/lakematch/mastering/", "tests/test_mastering_",
+                                     "examples/mastering/")) for n in contents):
+        checks.append((ROOT / ".venv/bin/python", ROOT,
+                       ["tests/test_mastering_contracts.py", "tests/test_mastering_policy.py"]))
     if any(n.startswith(("app/src/", "app/tests/", "app/acceptance/")) for n in contents):
         checks.append((ROOT / "app/.venv/bin/python", ROOT / "app", ["tests"]))
     if args.all or any(n in {"src/lakematch/publication.py", "tests/test_publication.py"} for n in contents):

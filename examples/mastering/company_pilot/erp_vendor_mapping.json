@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "source_id": "erp_vendor",
+  "version": 1,
+  "domain_id": "company",
+  "domain_version": 1,
+  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+  "source_key": "vendor_id",
+  "source_columns": [
+    "vendor_id",
+    "record_type",
+    "vendor_name",
+    "country_code",
+    "registration_number",
+    "street",
+    "city",
+    "postal_code",
+    "parent_vendor_id"
+  ],
+  "fields": [
+    {
+      "source": "record_type",
+      "target": "record_kind",
+      "transforms": []
+    },
+    {
+      "source": "vendor_name",
+      "target": "legal_name",
+      "transforms": [
+        "strip",
+        "collapse_whitespace"
+      ]
+    },
+    {
+      "source": "country_code",
+      "target": "country",
+      "transforms": [
+        "strip",
+        "upper"
+      ]
+    },
+    {
+      "source": "registration_number",
+      "target": "registration_id",
+      "transforms": []
+    },
+    {
+      "source": "street",
+      "target": "address_line1",
+      "transforms": []
+    },
+    {
+      "source": "city",
+      "target": "city",
+      "transforms": []
+    },
+    {
+      "source": "postal_code",
+      "target": "postal_code",
+      "transforms": []
+    },
+    {
+      "source": "parent_vendor_id",
+      "target": "parent_source_key",
+      "transforms": []
+    }
+  ]
+}

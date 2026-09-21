@@ -1,0 +1,59 @@
+{
+  "phase": "LF-A",
+  "started_at": "2026-09-21T11:58:51.776092+00:00",
+  "postgres": "postgres (PostgreSQL) 16.15 (Homebrew)",
+  "migration_sha256": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+  "checks": [
+    {
+      "name": "migration_retry_once",
+      "passed": true
+    },
+    {
+      "name": "changed_migration_rejected",
+      "passed": true
+    },
+    {
+      "name": "mapping_requires_existing_domain_version",
+      "passed": true
+    },
+    {
+      "name": "concurrent_claim_has_one_winner",
+      "passed": true
+    },
+    {
+      "name": "stale_revision_updates_nothing",
+      "passed": true
+    },
+    {
+      "name": "rolled_back_intent_is_absent",
+      "passed": true
+    },
+    {
+      "name": "caller_idempotency_key_is_unique",
+      "passed": true
+    },
+    {
+      "name": "intent_and_outbox_committed_together",
+      "passed": true
+    },
+    {
+      "name": "decision_cannot_cross_domains",
+      "passed": true
+    },
+    {
+      "name": "decisions_are_append_only",
+      "passed": true
+    },
+    {
+      "name": "publication_receipt_required",
+      "passed": true
+    },
+    {
+      "name": "blank_publication_receipt_rejected",
+      "passed": true
+    }
+  ],
+  "cleanup": "owned Postgres stopped",
+  "status": "passed",
+  "ended_at": "2026-09-21T11:58:53.452742+00:00"
+}

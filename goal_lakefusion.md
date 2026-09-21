@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **planned; execution not started**.
+Created: **2026-09-21**. Status: **LF-A in progress; required pilot decisions pending**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -12,16 +12,20 @@ relationships, product catalogs and reliable deployment.
 
 This file is the execution and acceptance ledger for the new product roadmap.
 It contains all six delivery phases and all 25 work packages from the
-[backlog](spec/research/lakefusion/backlog.csv). Creating this plan does not start
-implementation, experiments or deployment. Start when requested with:
+[backlog](spec/research/lakefusion/backlog.csv). Execution was requested on
+2026-09-21; the [Phase A checkpoint](bench/lakefusion/PHASE_A.md) records the
+delivered prototypes, measured evidence and pending decisions. Resume with:
 
 ```text
 $goal ./goal_lakefusion.md
 ```
 
 A section selector narrows work while retaining dependencies; for example,
-`$goal ./goal_lakefusion.md 4` selects Phase A. The original [goal.md](goal.md)
-remains authoritative for the ZR campaign and its existing results and limits.
+`$goal ./goal_lakefusion.md 4` selects Phase A. The selector is the section
+number, which maps to phases as **§4→LF-A, §5→LF-B, §6→LF-C, §7→LF-D, §8→LF-E,
+§9→LF-F** (§1–3 and §10–11 are always in scope as context). The original
+[goal.md](goal.md) remains authoritative for the ZR campaign and its existing
+results and limits.
 
 ## § 1 — Outcome and scope
 
@@ -56,6 +60,19 @@ The [source register](spec/research/lakefusion/SOURCES.md) distinguishes vendor
 claims from platform documentation and repository evidence. The finish line is
 the explicit acceptance contract below. Advertised vendor speed, scale or cost
 figures are not Lakematch results or automatic acceptance thresholds.
+
+**Decisions required before Phase A can close.** These are start blockers, not
+implementation work; resolve them with the user during LM-001:
+
+- The two concrete source systems for the pilot (public or synthetic) and the
+  company/supplier granularity (legal company vs branch vs corporate family).
+- Commercial vs internal distribution: whether LM-025 is in scope, which fixes
+  the marketplace/entitlements workstream in Phase F or records it Not applicable.
+- Whether any optional AI integration (selective LLM adjudication LM-015,
+  enrichment LM-023) is activated for the pilot, given each needs a tested
+  enabled/disabled contract and a concrete provider boundary before use.
+- The frozen Phase A workload, split definitions and cost-measurement method,
+  since every later gate in §10 is measured against them.
 
 ## § 2 — Architecture and execution context
 
@@ -92,9 +109,21 @@ phase without closing its full work package. Close a package only when all its
 acceptance criteria pass; update the CSV status as a projection of this ledger.
 The backlog retains the detailed package dependencies and code-area mapping.
 
+Two reconciliation rules keep this ledger and the backlog consistent:
+
+- **Status vocabulary.** This ledger's `Not started` / `In progress` / `Done`
+  map to the CSV's `proposed_not_started` / `in_progress` / `done`; the ledger's
+  `Conditional; not started` maps to CSV `conditional`. LM-025 is `conditional`
+  in both; this was reconciled on the first execution status write.
+- **Phase columns.** The backlog `stage` is the **work span** across which a
+  package is active (e.g. `A-B`); this ledger's `Completion phase` is the phase
+  in which the package **closes** (e.g. `LF-B`). A span that starts earlier than
+  its completion phase is expected wherever a foundation is delivered ahead of
+  closure (LM-004, LM-007, LM-009, LM-014, LM-016, LM-024).
+
 | Phase | Deliverable | Entry dependency | Indicative timing | Status | Acceptance evidence |
 |---|---|---|---|---|---|
-| LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Not started | None yet |
+| LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | In progress | [Prototypes and evidence; decisions pending](bench/lakefusion/PHASE_A.md) |
 | LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | Not started | None yet |
 | LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | Not started | None yet |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
@@ -107,14 +136,14 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 
 | Package | Work | Completion phase | Status |
 |---|---|---|---|
-| LM-001 | Pilot contract and capability checks | LF-A | Not started |
+| LM-001 | Pilot contract and capability checks | LF-A | In progress |
 | LM-002 | Candidate coverage | LF-B | Not started |
-| LM-003 | Domain and mapping registry | LF-B | Not started |
+| LM-003 | Domain and mapping registry | LF-B | In progress |
 | LM-004 | Persistent business identity | LF-B | Not started |
 | LM-005 | Scalar survivorship | LF-B | Not started |
 | LM-006 | Winning-value provenance | LF-B | Not started |
-| LM-007 | Transactional workflow adapter | LF-C; allocation foundation in LF-B | Not started |
-| LM-008 | Domain and action authorization | LF-C; extended checks in LF-D/E | Not started |
+| LM-007 | Transactional workflow adapter | LF-C; allocation foundation in LF-B | In progress |
+| LM-008 | Domain and action authorization | LF-C; extended checks in LF-D/E | In progress |
 | LM-009 | Command publication and recovery | LF-C; first publication in LF-B | Not started |
 | LM-010 | Entity explorer and steward inbox | LF-C | Not started |
 | LM-011 | Governed edits and reversible merge/split | LF-C | Not started |
@@ -130,7 +159,7 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 | LM-021 | PIM catalog and editorial core | LF-E | Not started |
 | LM-022 | Taxonomy crosswalks | LF-E | Not started |
 | LM-023 | Media, enrichment and channel delivery | LF-E | Not started |
-| LM-024 | Environment separation and operational qualification | LF-F; milestones in every phase | Not started |
+| LM-024 | Environment separation and operational qualification | LF-F; milestones in every phase | In progress |
 | LM-025 | Commercial distribution and entitlements | LF-F, conditional on commercial scope | Conditional; not started |
 
 ## § 4 — Phase A: contracts and feasibility
@@ -143,15 +172,20 @@ Deliverables:
   and corporate family; select two source schemas and representative tasks.
 - [ ] Freeze domain/mapping contracts, role/action matrix and first API/table
   definitions using the implementation design's ownership boundaries.
-- [ ] Prepare a synthetic vertical-slice fixture with conflicting addresses,
+- [x] Prepare a synthetic vertical-slice fixture with conflicting addresses,
   parent-child relationships, an identifier collision and merge/split history.
+  [Thirteen-row draft fixture](examples/mastering/company_pilot/README.md), ready
+  for source selection; mutation scenarios are specified, not yet executed.
 - [ ] Declare development/validation/untouched evaluation splits and candidate,
   join, memory, time and experiment budgets before comparing methods.
-- [ ] Record the local baseline and reusability of prior evidence. Probe the
+- [x] Record the local baseline and reusability of prior evidence. Probe the
   selected workspace's needed capabilities with bounded checks and explicit
   supported/unsupported/untested results.
-- [ ] Design genuinely isolated bundle state/resources for each environment;
+  [Eight metadata checks and capability limits](bench/lakefusion/PHASE_A.md).
+- [x] Design genuinely isolated bundle state/resources for each environment;
   establish operational schema/migration and authorization prototypes.
+  [Draft isolation/API/role contract](spec/lakefusion/PHASE_A.md); 12 Postgres
+  checks and 37 final local tests pass. Application/remote integration is pending.
 - [ ] Freeze the initial workload, quality/latency/freshness targets and cost
   measurement method. Record preview dependencies and fallback adapters.
 
@@ -246,6 +280,11 @@ Deliverables:
   explicit hop/node/edge/time limits, truncation and policy-aware caches.
 - [ ] Expose narrow MCP tools over shared services; mutation tools propose
   governed operations. Demonstrate delegated Genie over approved master views.
+  The ZR-8 Genie Agent already created on `fevm-gdpr2` (space
+  `01f1b55eb48a1c0bae6f117fbdbc064e`, over `gdpr2_catalog.lakematch_20260919`
+  gold tables; see [goal.md](goal.md) ZR-8) is the baseline to extend from — it
+  proves the Conversation API answers as the user, but not yet on-behalf-of-user
+  from the deployed app, which this package must establish.
 - [ ] Add scheduled graph rules, deduplicated alerts and approved downstream
   actions using an outbox and visible delivery status.
 
@@ -393,6 +432,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | Checkpoint | Observed state | Next eligible action |
 |---|---|---|
 | 2026-09-21: plan created | Research committed at `a007166`; LF-A–F have no execution evidence. Existing [local test receipts](reports/test-runs/20260921T092956Z/README.md) and [redeployment audit](bench/REDEPLOYMENT.md) remain the baseline. | When execution is requested, start §4 with LM-001 and the two-source company/supplier contract. |
+| 2026-09-21: LF-A execution | Typed contracts, synthetic fixture, policy and Postgres prototypes verified; eight metadata reads, 12 database checks and 37 final local tests pass. Five bounded receipts, including one retained runner-cleanup failure. [Evidence](bench/lakefusion/PHASE_A.md). | Resolve the four §1 decisions against the [pilot proposal](spec/lakefusion/PHASE_A.md) and [protocol](spec/lakefusion/PROTOCOL.md); then freeze the contract and select remaining capability spikes. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

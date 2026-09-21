@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "source_id": "crm_account",
+  "version": 1,
+  "domain_id": "company",
+  "domain_version": 1,
+  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+  "source_key": "account_id",
+  "source_columns": [
+    "account_id",
+    "account_type",
+    "account_name",
+    "country",
+    "company_registration",
+    "billing_street",
+    "billing_city",
+    "billing_postcode",
+    "parent_account_id"
+  ],
+  "fields": [
+    {
+      "source": "account_type",
+      "target": "record_kind",
+      "transforms": []
+    },
+    {
+      "source": "account_name",
+      "target": "legal_name",
+      "transforms": [
+        "strip",
+        "collapse_whitespace"
+      ]
+    },
+    {
+      "source": "country",
+      "target": "country",
+      "transforms": [
+        "strip",
+        "upper"
+      ]
+    },
+    {
+      "source": "company_registration",
+      "target": "registration_id",
+      "transforms": []
+    },
+    {
+      "source": "billing_street",
+      "target": "address_line1",
+      "transforms": []
+    },
+    {
+      "source": "billing_city",
+      "target": "city",
+      "transforms": []
+    },
+    {
+      "source": "billing_postcode",
+      "target": "postal_code",
+      "transforms": []
+    },
+    {
+      "source": "parent_account_id",
+      "target": "parent_source_key",
+      "transforms": []
+    }
+  ]
+}
