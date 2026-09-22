@@ -80,10 +80,12 @@ on the roadmap.
 **Today:** batch matching, quality checks, model tracking, human review and
 exporting reviewed labels are implemented and tested. The company pilot has
 bounded candidate retrieval and a durable registry for approved definitions.
+Its internal worker also allocates persistent company IDs, resolves older aliases
+and records repeatable merge/split operations.
 The deployed review store currently requires one app worker and one instance.
 
-**Next:** persistent company IDs, golden records with an explanation for every
-chosen value, and richer stewardship workflows. The pilot uses synthetic ERP
+**Next:** golden records with an explanation for every chosen value, and richer
+stewardship workflows. The pilot uses synthetic ERP
 vendors and CRM accounts, with each master representing a legal company.
 
 **Later:** incremental updates, online resolution, business relationships,
@@ -101,6 +103,7 @@ The accelerator is not yet qualified as a complete production MDM system.
 | Matching quality | F1, which balances missed and incorrect matches, ranges from **26.39% to 98.89%** across the tested tasks. Results depend strongly on the dataset. [Measurements and evaluation scope](bench/BENCHMARKS.md). |
 | Company candidate coverage | The selected method retrieves **3,800 of 4,000 known matches (95%)** on synthetic validation data. It misses all 200 cases with combined errors; a larger lexical shortlist recovers them at 22.2× as many pairs. [Comparison](bench/lakefusion/PHASE_B.md). |
 | Registry reliability | **93 checks passed**, including 18 PostgreSQL integration cases covering concurrent changes, rollback and restart persistence. [Registry evidence](bench/lakefusion/registry-20260922.json). |
+| Persistent identity | IDs stay stable as records are added; merge/split receipts and older aliases survive retries and database restarts. [Identity evidence](bench/lakefusion/identity-20260922-final.json). |
 
 Candidate coverage measures which pairs reach scoring, not whether they should
 be merged. The local scale ladder reached 100,000 records; the million-record

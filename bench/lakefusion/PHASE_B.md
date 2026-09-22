@@ -1,9 +1,10 @@
 # LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 2/8 experiment slots consumed.** Phase A and LM-001 are
-complete at commit `96edbf8`. This increment adds portable company normalization
-and bounded candidate unions, separate from the existing Spark v1 configuration
-and frozen replay contracts. It does not add a classifier or deploy an app flow.
+**Phase B is in progress: 4/8 experiment slots consumed.** Phase A and LM-001 are
+complete at commit `96edbf8`. LM-002/003/004 now provide bounded company candidate
+retrieval, a durable approved registry and persistent identity workers. Existing
+Spark v1 configuration and frozen replay contracts remain unchanged. A new
+classifier, golden-record publication and the corresponding app flow are pending.
 
 ## Candidate comparison
 
@@ -54,10 +55,9 @@ general customer data, merge precision, online latency or Spark scalability.
 
 ## Next work
 
-LM-002/003 are complete for the declared two-source contract: the selected
-candidate method now has a durable approved execution binding. Transactional
-identity allocation (LM-004) is next. Survivorship and field provenance
-(LM-005/006), publication and the first golden-record app view remain unimplemented.
+LM-002/003/004 are complete for the declared internal worker contracts. Scalar
+survivorship (LM-005) is next, followed by winning-value provenance (LM-006),
+publication and the first golden-record app view.
 Later remote/application gates listed in the Phase A freeze remain mandatory.
 
 ## Durable registry and exact job replay — 22 September
@@ -107,3 +107,50 @@ now also excludes ignored tracked files, includes pilot examples/dependencies,
 and preserves previous reports. All 21 focused source/publication/app tests pass.
 Workspace reads started no compute. This is LM-024 maintenance, not a new LF-B
 experiment or product gate; the counter remains **2/8** and LM-004 remains next.
+
+## Persistent identities — 22 September
+
+LM-004 now has an optional PostgreSQL worker adapter selected through the
+`persistent_uuid_v1` context. It allocates a public UUID once, enforces unique
+source references, preserves immutable legacy aliases and records every command
+with its before/after state. Adding an earlier-sorting source key preserves the
+UUID. A merge names its survivor; a split explicitly creates a new ID or restores
+the original IDs from a recorded merge. Nested merges restore in reverse order,
+with current expected revisions and no silent loss of intervening changes.
+
+The [first run](../../experiments/20260922T084351Z-lf-b-persistent-identity-6122ca/manifest.json)
+passed 134 checks plus the identity lifecycle. Review found that timestamps were
+serialized in the session timezone, which could reject an otherwise valid
+restoration through a differently configured connection. The predeclared
+[follow-up](IDENTITY_FOLLOWUP_PLAN.md) normalizes timestamps to UTC and adds
+timezone, populated-schema upgrade and source-namespace checks.
+
+The [final run](../../experiments/20260922T084732Z-lf-b-identity-upgrade-dbab23/manifest.json)
+passed **138 tests, zero failures/errors/skips**, including 30 identity PostgreSQL
+cases, 18 existing registry integration cases, unchanged Spark identity tests and
+an actual Spark-to-legacy-alias bridge. [Final report](identity-20260922-final.json)
+and [JUnit](identity-tests-20260922-final.xml) preserve the results. The earlier
+[134-test report](identity-20260922.json) remains intact.
+
+Verified behavior includes one UUID under concurrent reservations, stale/conflict
+rejection, exact retries after later changes or lost acknowledgements, atomic
+rollback when a process dies before commit, immutable audit/alias guards and
+bounded redirect chains. A real PostgreSQL restart preserves exact current state
+and all saved command receipts. Additive migration 0003 preserves valid prototype
+IDs and fails atomically for merged prototype rows without a redirect; 0001/0002
+checksums and all frozen Phase A files are unchanged.
+
+The final lifecycle retained three active identities, five source references,
+two legacy aliases and six events after allocate → attach → merge → restore →
+new-ID split. It took **21.60 seconds** including the test suite and independent
+restart probe. Main Python process peak RSS was **41.3 MiB**; this is not aggregate
+Spark/Postgres memory. PostgreSQL 16.15 used a private Unix socket, TCP disabled
+and fsync enabled. Both experiments cleaned up every owned process. No cloud,
+AI or evaluation-corpus call ran; confirmation remains untouched.
+
+The [worker contract and usage](../../spec/lakefusion/IDENTITY.md) describe finite
+member/alias/redirect limits and the serialized writer. These operations return
+`identity_applied`, not a Delta publication receipt. They do not implement HTTP
+authentication, domain RLS, business approval, source deletion, golden values or
+the steward UI. LM-007/008/009/011 remain open. GitHub publishing is also pending
+the repository visibility decision; the work is available locally.

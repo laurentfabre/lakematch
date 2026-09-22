@@ -1,0 +1,1232 @@
+{
+  "phase": "LF-B",
+  "packages": [
+    "LM-004",
+    "LM-007"
+  ],
+  "status": "passed",
+  "started_at": "2026-09-22T08:43:51.482283+00:00",
+  "cloud_calls": 0,
+  "confirmation_materialized": false,
+  "corpus": "small synthetic identity fixtures only",
+  "actor_source": "trusted synthetic worker fixtures; no HTTP authentication claim",
+  "driver": {
+    "psycopg": "3.3.5"
+  },
+  "cleanup": "owned Postgres stopped",
+  "phase_a_freeze_verified": true,
+  "source_hashes": {
+    "src/lakematch/mastering/identity_contract.py": "76ad833e2638c242f4a46fa6a2b83929b150d9fc65645847f93c9c0ca42bcb81",
+    "src/lakematch/mastering/identity_registry.py": "f30dd4818cd58a8304c4aec84bb3c2e91864da392ecae4a44cf7f6e9be30a51c",
+    "src/lakematch/identity.py": "69b163df8b0fd1016ebd29c4700bdfd8643a365b9f34b1c9d37320b5d10fc77a",
+    "spec/lakefusion/IDENTITY.md": "eb09e3e0d60e7e950e4138b3900db3aa419c8d679f7abdf8f8f3c02b7587f687",
+    "bench/lakefusion/IDENTITY_PLAN.md": "d318bab7f85aaad5d3f60312c9c7e8c335af0bea4c0a3a1588c3b1775aa5290b",
+    "tools/lakefusion_identity_run.py": "05da78e25875aa5820b994657a3fe8435d5f094d11bc12278c529e5f7d8d74bd",
+    "requirements-postgres.lock": "ca06b24731e76418bcebd7e56c313502a9c29547f2ef42c263d9739a12d117f6",
+    "app/migrations/mastering/0001_control.sql": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+    "app/migrations/mastering/0002_registry.sql": "93ceb067358119a6b3680a0e64aba4c98468a905c22fb2e86a51bf9316e00a60",
+    "app/migrations/mastering/0003_identity.sql": "23f21310e6faaccb765986fb56035bde274cf2f027cf2472d7d4d767f16645d3"
+  },
+  "test_command": [
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_mastering_contracts.py",
+    "tests/test_mastering_policy.py",
+    "tests/test_mastering_retrieval.py",
+    "tests/test_mastering_execution.py",
+    "tests/test_mastering_identity_contract.py",
+    "tests/test_config.py",
+    "tests/test_source_hygiene.py",
+    "tests/test_source_scan.py",
+    "tests/postgres",
+    "tests/test_identity.py",
+    "tests/test_identity_bridge.py",
+    "--junitxml=bench/lakefusion/identity-tests-20260922.xml"
+  ],
+  "tests": {
+    "tests": 134,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "context": {
+    "domain_id": "company",
+    "domain_version": 1,
+    "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+    "policy_version": "persistent_uuid_v1"
+  },
+  "postgres": "postgres (PostgreSQL) 16.15 (Homebrew)",
+  "migrations": {
+    "1": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+    "2": "93ceb067358119a6b3680a0e64aba4c98468a905c22fb2e86a51bf9316e00a60",
+    "3": "23f21310e6faaccb765986fb56035bde274cf2f027cf2472d7d4d767f16645d3"
+  },
+  "earlier_key_preserves_id": true,
+  "explicit_survivor_verified": true,
+  "legacy_alias_redirect_and_restore": true,
+  "new_id_split_verified": true,
+  "original_receipts_replay_after_later_changes": true,
+  "database_restart_exact": true,
+  "lifecycle": {
+    "a": {
+      "requested_master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+      "requested_revision": 5,
+      "requested_state": "active",
+      "redirect_chain": [
+        "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22"
+      ],
+      "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+      "revision": 5,
+      "state": "active",
+      "redirect_to": null,
+      "created_at": "2026-09-22T10:44:14.693257+02:00",
+      "members": [
+        {
+          "source_id": "crm_account",
+          "source_key": "account-100"
+        },
+        {
+          "source_id": "erp_vendor",
+          "source_key": "vendor-100"
+        }
+      ],
+      "aliases": [
+        {
+          "namespace": "synthetic_example",
+          "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "policy_version": "spark_min_member_sha256_v1"
+        }
+      ]
+    },
+    "b": {
+      "requested_master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+      "requested_revision": 3,
+      "requested_state": "active",
+      "redirect_chain": [
+        "2f340e5d-f17b-4685-9005-0c977204d88c"
+      ],
+      "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+      "revision": 3,
+      "state": "active",
+      "redirect_to": null,
+      "created_at": "2026-09-22T10:44:14.699644+02:00",
+      "members": [
+        {
+          "source_id": "crm_account",
+          "source_key": "account-200"
+        },
+        {
+          "source_id": "erp_vendor",
+          "source_key": "vendor-200"
+        }
+      ],
+      "aliases": [
+        {
+          "namespace": "synthetic_example",
+          "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "policy_version": "spark_min_member_sha256_v1"
+        }
+      ]
+    },
+    "new": {
+      "requested_master_id": "897adbed-f45a-4d28-80e7-054189c77eaf",
+      "requested_revision": 1,
+      "requested_state": "active",
+      "redirect_chain": [
+        "897adbed-f45a-4d28-80e7-054189c77eaf"
+      ],
+      "master_id": "897adbed-f45a-4d28-80e7-054189c77eaf",
+      "revision": 1,
+      "state": "active",
+      "redirect_to": null,
+      "created_at": "2026-09-22T10:44:14.734800+02:00",
+      "members": [
+        {
+          "source_id": "erp_vendor",
+          "source_key": "vendor-000"
+        }
+      ],
+      "aliases": []
+    },
+    "events": [
+      {
+        "sequence": 1,
+        "receipt": {
+          "kind": "allocate",
+          "actor": "fixture_worker",
+          "after": [
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                }
+              ],
+              "revision": 1,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            }
+          ],
+          "state": "identity_applied",
+          "before": [],
+          "reason": "Synthetic identity lifecycle demonstration",
+          "result": {
+            "outcome": "allocated",
+            "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22"
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "persistent_uuid_v1"
+          },
+          "event_id": "7ee13090-305b-4c86-8b46-cf6c7f5f0bfa",
+          "domain_id": "company",
+          "applied_at": "2026-09-22T10:44:14.693257+02:00",
+          "payload_sha256": "fa2c62fe8d12a6fcad522443dfa39a53cc85ddf6c04582ddd6819b5b8fd2c1b9",
+          "idempotency_key": "allocate-a"
+        }
+      },
+      {
+        "sequence": 2,
+        "receipt": {
+          "kind": "allocate",
+          "actor": "fixture_worker",
+          "after": [
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-200"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-200"
+                }
+              ],
+              "revision": 1,
+              "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+              "created_at": "2026-09-22T10:44:14.699644+02:00",
+              "redirect_to": null
+            }
+          ],
+          "state": "identity_applied",
+          "before": [],
+          "reason": "Synthetic identity lifecycle demonstration",
+          "result": {
+            "outcome": "allocated",
+            "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c"
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "persistent_uuid_v1"
+          },
+          "event_id": "f7f1b1b7-37e1-4ad7-9c62-3a56583b18a5",
+          "domain_id": "company",
+          "applied_at": "2026-09-22T10:44:14.699644+02:00",
+          "payload_sha256": "13ea5dce1589b3a154d9aafefada3fbf338ec637ff53333e8d2ef1655a802916",
+          "idempotency_key": "allocate-b"
+        }
+      },
+      {
+        "sequence": 3,
+        "receipt": {
+          "kind": "attach",
+          "actor": "fixture_worker",
+          "after": [
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-000"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                }
+              ],
+              "revision": 2,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            }
+          ],
+          "state": "identity_applied",
+          "before": [
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                }
+              ],
+              "revision": 1,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            }
+          ],
+          "reason": "Synthetic identity lifecycle demonstration",
+          "result": {
+            "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22"
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "persistent_uuid_v1"
+          },
+          "event_id": "c71254a1-694f-4e5c-8908-e8c61adc504e",
+          "domain_id": "company",
+          "applied_at": "2026-09-22T10:44:14.705027+02:00",
+          "payload_sha256": "9b5502e0b1fa278b3b84fe3147e57aceeed8473756f4a44eaffd2a73eab83b7a",
+          "idempotency_key": "attach-earlier"
+        }
+      },
+      {
+        "sequence": 4,
+        "receipt": {
+          "kind": "merge",
+          "actor": "fixture_worker",
+          "after": [
+            {
+              "state": "merged",
+              "aliases": [
+                {
+                  "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [],
+              "revision": 2,
+              "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+              "created_at": "2026-09-22T10:44:14.699644+02:00",
+              "redirect_to": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22"
+            },
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-200"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-000"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-200"
+                }
+              ],
+              "revision": 3,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            }
+          ],
+          "state": "identity_applied",
+          "before": [
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-200"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-200"
+                }
+              ],
+              "revision": 1,
+              "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+              "created_at": "2026-09-22T10:44:14.699644+02:00",
+              "redirect_to": null
+            },
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-000"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                }
+              ],
+              "revision": 2,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            }
+          ],
+          "reason": "Synthetic identity lifecycle demonstration",
+          "result": {
+            "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+            "redirected_ids": [
+              "2f340e5d-f17b-4685-9005-0c977204d88c"
+            ]
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "persistent_uuid_v1"
+          },
+          "event_id": "6b138e55-9405-4f5b-acc2-8c0e9549df8e",
+          "domain_id": "company",
+          "applied_at": "2026-09-22T10:44:14.713965+02:00",
+          "payload_sha256": "7ee252801dce5240ba2f45de7199d4935fe0350999d1a5f7e4838045aca6eb1d",
+          "idempotency_key": "merge"
+        }
+      },
+      {
+        "sequence": 5,
+        "receipt": {
+          "kind": "restore_merge",
+          "actor": "fixture_worker",
+          "after": [
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-200"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-200"
+                }
+              ],
+              "revision": 3,
+              "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+              "created_at": "2026-09-22T10:44:14.699644+02:00",
+              "redirect_to": null
+            },
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-000"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                }
+              ],
+              "revision": 4,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            }
+          ],
+          "state": "identity_applied",
+          "before": [
+            {
+              "state": "merged",
+              "aliases": [
+                {
+                  "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [],
+              "revision": 2,
+              "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+              "created_at": "2026-09-22T10:44:14.699644+02:00",
+              "redirect_to": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22"
+            },
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-200"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-000"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-200"
+                }
+              ],
+              "revision": 3,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            }
+          ],
+          "reason": "Synthetic identity lifecycle demonstration",
+          "result": {
+            "split_policy": "restore_prior_identities",
+            "restored_master_ids": [
+              "2f340e5d-f17b-4685-9005-0c977204d88c",
+              "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22"
+            ],
+            "restored_merge_event_id": "6b138e55-9405-4f5b-acc2-8c0e9549df8e"
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "persistent_uuid_v1"
+          },
+          "event_id": "249e2428-7915-4749-8261-9ed491912eba",
+          "domain_id": "company",
+          "applied_at": "2026-09-22T10:44:14.724088+02:00",
+          "payload_sha256": "f230e1fd9f0c37c9e5e6f33d47a68f21d971ec25af4b5bc5973f8343bc81f40a",
+          "idempotency_key": "restore"
+        }
+      },
+      {
+        "sequence": 6,
+        "receipt": {
+          "kind": "split_new",
+          "actor": "fixture_worker",
+          "after": [
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                }
+              ],
+              "revision": 5,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            },
+            {
+              "state": "active",
+              "aliases": [],
+              "members": [
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-000"
+                }
+              ],
+              "revision": 1,
+              "master_id": "897adbed-f45a-4d28-80e7-054189c77eaf",
+              "created_at": "2026-09-22T10:44:14.734800+02:00",
+              "redirect_to": null
+            }
+          ],
+          "state": "identity_applied",
+          "before": [
+            {
+              "state": "active",
+              "aliases": [
+                {
+                  "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "namespace": "synthetic_example",
+                  "policy_version": "spark_min_member_sha256_v1"
+                }
+              ],
+              "members": [
+                {
+                  "source_id": "crm_account",
+                  "source_key": "account-100"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-000"
+                },
+                {
+                  "source_id": "erp_vendor",
+                  "source_key": "vendor-100"
+                }
+              ],
+              "revision": 4,
+              "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+              "created_at": "2026-09-22T10:44:14.693257+02:00",
+              "redirect_to": null
+            }
+          ],
+          "reason": "Synthetic identity lifecycle demonstration",
+          "result": {
+            "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+            "split_policy": "new_identity",
+            "new_master_id": "897adbed-f45a-4d28-80e7-054189c77eaf"
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "persistent_uuid_v1"
+          },
+          "event_id": "5aa02a1c-52b8-4710-9f5f-b9f25e72f1e8",
+          "domain_id": "company",
+          "applied_at": "2026-09-22T10:44:14.734800+02:00",
+          "payload_sha256": "707dd38e3c274eaa75f8dea9b57ffbdce32a64e123d16c683f07be1260f606e2",
+          "idempotency_key": "split-new"
+        }
+      }
+    ]
+  },
+  "lifecycle_sha256": "82e52696ad0da764f711d627de1759dad37178a9cce50879460d08f1041f680a",
+  "commands": [
+    {
+      "event_id": "7ee13090-305b-4c86-8b46-cf6c7f5f0bfa",
+      "domain_id": "company",
+      "context": {
+        "domain_id": "company",
+        "domain_version": 1,
+        "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+        "policy_version": "persistent_uuid_v1"
+      },
+      "kind": "allocate",
+      "actor": "fixture_worker",
+      "reason": "Synthetic identity lifecycle demonstration",
+      "idempotency_key": "allocate-a",
+      "payload_sha256": "fa2c62fe8d12a6fcad522443dfa39a53cc85ddf6c04582ddd6819b5b8fd2c1b9",
+      "applied_at": "2026-09-22T10:44:14.693257+02:00",
+      "state": "identity_applied",
+      "before": [],
+      "after": [
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 1,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+        "outcome": "allocated"
+      }
+    },
+    {
+      "event_id": "f7f1b1b7-37e1-4ad7-9c62-3a56583b18a5",
+      "domain_id": "company",
+      "context": {
+        "domain_id": "company",
+        "domain_version": 1,
+        "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+        "policy_version": "persistent_uuid_v1"
+      },
+      "kind": "allocate",
+      "actor": "fixture_worker",
+      "reason": "Synthetic identity lifecycle demonstration",
+      "idempotency_key": "allocate-b",
+      "payload_sha256": "13ea5dce1589b3a154d9aafefada3fbf338ec637ff53333e8d2ef1655a802916",
+      "applied_at": "2026-09-22T10:44:14.699644+02:00",
+      "state": "identity_applied",
+      "before": [],
+      "after": [
+        {
+          "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+          "revision": 1,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.699644+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-200"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-200"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+        "outcome": "allocated"
+      }
+    },
+    {
+      "event_id": "c71254a1-694f-4e5c-8908-e8c61adc504e",
+      "domain_id": "company",
+      "context": {
+        "domain_id": "company",
+        "domain_version": 1,
+        "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+        "policy_version": "persistent_uuid_v1"
+      },
+      "kind": "attach",
+      "actor": "fixture_worker",
+      "reason": "Synthetic identity lifecycle demonstration",
+      "idempotency_key": "attach-earlier",
+      "payload_sha256": "9b5502e0b1fa278b3b84fe3147e57aceeed8473756f4a44eaffd2a73eab83b7a",
+      "applied_at": "2026-09-22T10:44:14.705027+02:00",
+      "state": "identity_applied",
+      "before": [
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 1,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 2,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-000"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22"
+      }
+    },
+    {
+      "event_id": "6b138e55-9405-4f5b-acc2-8c0e9549df8e",
+      "domain_id": "company",
+      "context": {
+        "domain_id": "company",
+        "domain_version": 1,
+        "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+        "policy_version": "persistent_uuid_v1"
+      },
+      "kind": "merge",
+      "actor": "fixture_worker",
+      "reason": "Synthetic identity lifecycle demonstration",
+      "idempotency_key": "merge",
+      "payload_sha256": "7ee252801dce5240ba2f45de7199d4935fe0350999d1a5f7e4838045aca6eb1d",
+      "applied_at": "2026-09-22T10:44:14.713965+02:00",
+      "state": "identity_applied",
+      "before": [
+        {
+          "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+          "revision": 1,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.699644+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-200"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-200"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        },
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 2,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-000"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+          "revision": 2,
+          "state": "merged",
+          "redirect_to": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "created_at": "2026-09-22T10:44:14.699644+02:00",
+          "members": [],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        },
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 3,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "crm_account",
+              "source_key": "account-200"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-000"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-200"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+        "redirected_ids": [
+          "2f340e5d-f17b-4685-9005-0c977204d88c"
+        ]
+      }
+    },
+    {
+      "event_id": "249e2428-7915-4749-8261-9ed491912eba",
+      "domain_id": "company",
+      "context": {
+        "domain_id": "company",
+        "domain_version": 1,
+        "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+        "policy_version": "persistent_uuid_v1"
+      },
+      "kind": "restore_merge",
+      "actor": "fixture_worker",
+      "reason": "Synthetic identity lifecycle demonstration",
+      "idempotency_key": "restore",
+      "payload_sha256": "f230e1fd9f0c37c9e5e6f33d47a68f21d971ec25af4b5bc5973f8343bc81f40a",
+      "applied_at": "2026-09-22T10:44:14.724088+02:00",
+      "state": "identity_applied",
+      "before": [
+        {
+          "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+          "revision": 2,
+          "state": "merged",
+          "redirect_to": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "created_at": "2026-09-22T10:44:14.699644+02:00",
+          "members": [],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        },
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 3,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "crm_account",
+              "source_key": "account-200"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-000"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-200"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "master_id": "2f340e5d-f17b-4685-9005-0c977204d88c",
+          "revision": 3,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.699644+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-200"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-200"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        },
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 4,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-000"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "restored_merge_event_id": "6b138e55-9405-4f5b-acc2-8c0e9549df8e",
+        "restored_master_ids": [
+          "2f340e5d-f17b-4685-9005-0c977204d88c",
+          "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22"
+        ],
+        "split_policy": "restore_prior_identities"
+      }
+    },
+    {
+      "event_id": "5aa02a1c-52b8-4710-9f5f-b9f25e72f1e8",
+      "domain_id": "company",
+      "context": {
+        "domain_id": "company",
+        "domain_version": 1,
+        "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+        "policy_version": "persistent_uuid_v1"
+      },
+      "kind": "split_new",
+      "actor": "fixture_worker",
+      "reason": "Synthetic identity lifecycle demonstration",
+      "idempotency_key": "split-new",
+      "payload_sha256": "707dd38e3c274eaa75f8dea9b57ffbdce32a64e123d16c683f07be1260f606e2",
+      "applied_at": "2026-09-22T10:44:14.734800+02:00",
+      "state": "identity_applied",
+      "before": [
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 4,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-000"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        }
+      ],
+      "after": [
+        {
+          "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+          "revision": 5,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.693257+02:00",
+          "members": [
+            {
+              "source_id": "crm_account",
+              "source_key": "account-100"
+            },
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-100"
+            }
+          ],
+          "aliases": [
+            {
+              "namespace": "synthetic_example",
+              "old_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "policy_version": "spark_min_member_sha256_v1"
+            }
+          ]
+        },
+        {
+          "master_id": "897adbed-f45a-4d28-80e7-054189c77eaf",
+          "revision": 1,
+          "state": "active",
+          "redirect_to": null,
+          "created_at": "2026-09-22T10:44:14.734800+02:00",
+          "members": [
+            {
+              "source_id": "erp_vendor",
+              "source_key": "vendor-000"
+            }
+          ],
+          "aliases": []
+        }
+      ],
+      "result": {
+        "master_id": "9d5239b4-0644-4fdb-a7b3-e9f53c4bbb22",
+        "new_master_id": "897adbed-f45a-4d28-80e7-054189c77eaf",
+        "split_policy": "new_identity"
+      }
+    }
+  ],
+  "main_process_peak_rss_bytes": 42926080,
+  "ended_at": "2026-09-22T08:44:14.957005+00:00",
+  "wall_seconds": 23.475
+}

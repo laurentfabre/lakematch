@@ -74,8 +74,10 @@ def main():
         checks.append((ROOT / ".venv/bin/python", ROOT,
                        ["tests/test_mastering_contracts.py", "tests/test_mastering_policy.py",
                         "tests/test_mastering_retrieval.py", "tests/test_mastering_execution.py",
+                        "tests/test_mastering_identity_contract.py",
                         "tests/test_config.py"]))
     if args.all or any(n.startswith(("src/lakematch/mastering/registry", "src/lakematch/mastering/execution",
+                                     "src/lakematch/mastering/identity",
                                      "app/migrations/mastering/", "tests/postgres/", "tools/local_postgres")) or
                       n in {"requirements-postgres.in", "requirements-postgres.lock"} for n in contents):
         checks.append((ROOT / ".venv/bin/python", ROOT, ["tests/postgres"]))
