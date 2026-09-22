@@ -1,0 +1,17 @@
+........................................................................ [ 16%]
+........................................................................ [ 32%]
+........................................................................ [ 48%]
+........................................................................ [ 64%]
+........................................................................ [ 80%]
+........................................................................ [ 96%]
+..............                                                           [100%]
+446 passed in 20.58s
+.........................                                                [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:45
+  /Users/laurent.fabre/Projects/Claude/lakematch/app/.venv/lib/python3.11/site-packages/starlette/testclient.py:45: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+25 passed, 1 warning in 1.03s
+{"status": "passed", "tests": {"command": ["/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python", "-m", "pytest", "-q", "tests/test_mastering_contracts.py", "tests/test_mastering_execution.py", "tests/test_mastering_identity_contract.py", "tests/test_mastering_lineage.py", "tests/test_mastering_match_evidence.py", "tests/test_mastering_policy.py", "tests/test_mastering_probability.py", "tests/test_mastering_retrieval.py", "tests/test_mastering_survivorship.py", "tests/test_mastering_workflow.py", "tests/test_config.py", "tests/test_publication.py", "tests/test_source_hygiene.py", "tests/test_source_scan.py", "tests/postgres", "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/bench/lakefusion/workflow-tests-20260922.xml"], "exit_code": 0, "tests": 446, "failures": 0, "errors": 0, "skipped": 0}, "app_tests": {"command": ["/Users/laurent.fabre/Projects/Claude/lakematch/app/.venv/bin/python", "-m", "pytest", "-q", "tests", "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/bench/lakefusion/workflow-app-tests-20260922.xml"], "exit_code": 0, "tests": 25, "failures": 0, "errors": 0, "skipped": 0}, "database_restart_exact": true, "cleanup": "owned Postgres stopped", "error": null}

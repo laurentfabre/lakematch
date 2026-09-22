@@ -1,0 +1,566 @@
+{
+  "phase": "LF-C",
+  "slot": 1,
+  "packages": [
+    "LM-007",
+    "LM-009"
+  ],
+  "status": "passed",
+  "started_at": "2026-09-22T20:45:54.097362+00:00",
+  "cloud_calls": 0,
+  "confirmation_materialized": false,
+  "corpus": "small synthetic workflow fixtures",
+  "actor_source": "trusted synthetic workers; no authentication claim",
+  "driver": {
+    "psycopg": "3.3.5"
+  },
+  "cleanup": "owned Postgres stopped",
+  "frozen_files_verified": 15,
+  "scanner_inputs_verified": 4,
+  "source_hashes": {
+    "src/lakematch/mastering/__init__.py": "d3d49f2e4c1a2f78fdceeeb701ae0461636c2d0526842aa5768c5cb17402390d",
+    "src/lakematch/mastering/company_score.py": "02b21d3937fd3968af1a531716b5ce67b8c32fe378c1dba46e6aff208f790b48",
+    "src/lakematch/mastering/contracts.py": "48526bc39f3a5f8e41bd4ef3cae1f27c3271679081c3fb5daf0fa49cd9dd7925",
+    "src/lakematch/mastering/execution.py": "88db36825d570307068d40f9ac461c9072adf776c75a3382afdb9f5e382d9519",
+    "src/lakematch/mastering/identity_contract.py": "76ad833e2638c242f4a46fa6a2b83929b150d9fc65645847f93c9c0ca42bcb81",
+    "src/lakematch/mastering/identity_registry.py": "35160b4a497abb9bcf2e4c10c65a16b8a8d556b2a8f30cf3801492fe0ab1dd59",
+    "src/lakematch/mastering/lineage.py": "ef7b24d4dcd10afe610e23149672833a75cc27f24dc4c1590ae4fa326c0447ab",
+    "src/lakematch/mastering/lineage_delta.py": "5ec85bdf8385256d741c29351149a8165ea0bb54351519a94e40a4eede5d9ba3",
+    "src/lakematch/mastering/lineage_publication.py": "a127890e3922c90684e5d80b7250151bee475ae28a4f8bac53a72054c34f948e",
+    "src/lakematch/mastering/match_contract.py": "2ca980e6b3a3a89e483fd33709829daa9d787e51086ab0d08f56996a8018c3d4",
+    "src/lakematch/mastering/match_evidence.py": "83a428b7725e28900b0dd092db7d358b3fa94371372dac98ea52262e8a5fe2f1",
+    "src/lakematch/mastering/policy.py": "a71c646ff9c3ca9b7dc19507739eee3e1e8c41961d54013072716c520815c3ba",
+    "src/lakematch/mastering/probability.py": "84ebd784a51e0cbcc948d183fd08a6d427a3b8caeffe6a3bcaae7068932c7d0c",
+    "src/lakematch/mastering/registry.py": "dd9f1710a1b00f2f8755b2c1c101f734e757fdd74edc83a6dfe5f5aeadc5bdb2",
+    "src/lakematch/mastering/retrieval.py": "5e5bbe205968f25df5642510722c37b807782307b6529052b6f908483b969002",
+    "src/lakematch/mastering/score_contract.py": "5e65dd48acab88e82ec708576814178057b4f47f1fe9d978a1a26d00c3a6339e",
+    "src/lakematch/mastering/survivorship.py": "c9a5bff3cc7a72e304246366ee7abfa7e17e4523313373cf4e2b3cfd16ccfca9",
+    "src/lakematch/mastering/survivorship_contract.py": "1b52be834a0c4c71ba07654fd7221664aeba09a4e4caeb4693760d57b50a3325",
+    "src/lakematch/mastering/workflow.py": "77f017fe4a51875f2daa1f3f411d200ab0e2d75462f5b0048f22b9c9f68c472b",
+    "src/lakematch/mastering/workflow_contract.py": "11835091a05db06f416e796cc52999743e0fda92f37442fba88e1eedfa7acfec",
+    "app/migrations/mastering/0001_control.sql": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+    "app/migrations/mastering/0002_registry.sql": "93ceb067358119a6b3680a0e64aba4c98468a905c22fb2e86a51bf9316e00a60",
+    "app/migrations/mastering/0003_identity.sql": "23f21310e6faaccb765986fb56035bde274cf2f027cf2472d7d4d767f16645d3",
+    "app/migrations/mastering/0004_survivorship.sql": "08d81d140fd0722edaac120d76678670e91139bbb0a16aaea837984103d68767",
+    "app/migrations/mastering/0005_workflow.sql": "9dd3d1e2a6ec2b1589bff67a7b635ce4359e2d8fc01dbb4120936083b0683489",
+    "tests/postgres/test_identity_registry.py": "4f5de32854a981459611899b72732836e0006e4c4bf978e429c17bce5fe74cbd",
+    "tests/postgres/test_registry.py": "c08672a9cfaa337f8922cbf6fe559487822153a4e9a910b36b07cf1b4a2cdeb4",
+    "tests/postgres/test_survivorship_registry.py": "9caad0601bd3402a064d615076b681b9d84b775ff6fef5ecd71d45fbd4a5ecb4",
+    "tests/postgres/test_workflow.py": "28631cc8ca1f528f63e23d94a3ffb17aee308c66dea837a996d122f4f35be495",
+    "tests/test_mastering_contracts.py": "4178256390f0bb316f34bb785bab07fd02107ac6c25b009eceef69468fbad0f9",
+    "tests/test_mastering_execution.py": "b9318e9cca64476a0d32325398e54dd9211928d78953e5f0ff1441cf955badf3",
+    "tests/test_mastering_identity_contract.py": "939bd327cc4cc7b1b5514e18ed0131d4db6787d0c209897e0198b62cb60922a1",
+    "tests/test_mastering_lineage.py": "a34f5f323d888335f35a2cf2626dbb216cb1b4f7eec8fd2ae02462c8eda0b1a8",
+    "tests/test_mastering_match_evidence.py": "3cc69a706c57c062d731af50cca8cec4c28e903653d55486df00289554f836e2",
+    "tests/test_mastering_policy.py": "3d5f9599ac5477018da34fedcb43ae3b7dac0b0c9bf8959df39d96d6fd5d2aa5",
+    "tests/test_mastering_probability.py": "05585944e8d8b3dcc937bcd876e96a8d6f41c4ba75646f234c59afa258886c34",
+    "tests/test_mastering_retrieval.py": "386bb6624b35b6efe275c945df5c572b4dbbf337a760d1548f93cf8e629d74e6",
+    "tests/test_mastering_survivorship.py": "308de12b32c7bde62e5380d8ec580a1824fee9a06b34c25299abd3155f87db16",
+    "tests/test_mastering_workflow.py": "f8655bc1824072d0993f015f1c84a05429c1848cd451e760fb396cfc28c0876e",
+    "app/tests/test_golden_demo.py": "2f015c4e86af6f9cfacae53af7929c5b3215a0e45e88397ce72db7a8d0c278ef",
+    "app/tests/test_lifecycle.py": "e661ed06bc9c983b753b567be21c87147134848f2b88ef2a547470f1b3a0c702",
+    "app/tests/test_reviews.py": "bc20ebcc9aba305e22ac3b06c2135deca94f78ac389540ffdcedd6896ad426c5",
+    "spec/lakefusion/WORKFLOW.md": "8e6ccfc449789dcf74d58606c05352dc6ca56b782d482fd29958832adb592c5c",
+    "bench/lakefusion/WORKFLOW_PLAN.md": "ebb7df80d78da33e91270c160db174a2eaf07bf8ffb71db387ab33810afe7860",
+    "tools/lakefusion_workflow_run.py": "eb97e2ccec62eef086c7946cbfcfd407146016230e955ff97eeba1b789bcb51e",
+    "tools/local_postgres.py": "f116f10b356532408ab9dce0ac8276ef080d0d8e00a92904d2d2f64cf5cc6570",
+    "requirements-postgres.lock": "ca06b24731e76418bcebd7e56c313502a9c29547f2ef42c263d9739a12d117f6",
+    "app/pyproject.toml": "b12896f16569c758e9f886835705b0bc1af0619b0578a695168de6f4fe4a8b68"
+  },
+  "tests": {
+    "command": [
+      "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_mastering_contracts.py",
+      "tests/test_mastering_execution.py",
+      "tests/test_mastering_identity_contract.py",
+      "tests/test_mastering_lineage.py",
+      "tests/test_mastering_match_evidence.py",
+      "tests/test_mastering_policy.py",
+      "tests/test_mastering_probability.py",
+      "tests/test_mastering_retrieval.py",
+      "tests/test_mastering_survivorship.py",
+      "tests/test_mastering_workflow.py",
+      "tests/test_config.py",
+      "tests/test_publication.py",
+      "tests/test_source_hygiene.py",
+      "tests/test_source_scan.py",
+      "tests/postgres",
+      "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/bench/lakefusion/workflow-tests-20260922.xml"
+    ],
+    "exit_code": 0,
+    "tests": 446,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app_tests": {
+    "command": [
+      "/Users/laurent.fabre/Projects/Claude/lakematch/app/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests",
+      "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/bench/lakefusion/workflow-app-tests-20260922.xml"
+    ],
+    "exit_code": 0,
+    "tests": 25,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "context": {
+    "domain_id": "company",
+    "domain_version": 1,
+    "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+    "policy_version": "steward_workflow_v1"
+  },
+  "postgres": "postgres (PostgreSQL) 16.15 (Homebrew)",
+  "migrations": {
+    "1": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+    "2": "93ceb067358119a6b3680a0e64aba4c98468a905c22fb2e86a51bf9316e00a60",
+    "3": "23f21310e6faaccb765986fb56035bde274cf2f027cf2472d7d4d767f16645d3",
+    "4": "08d81d140fd0722edaac120d76678670e91139bbb0a16aaea837984103d68767",
+    "5": "9dd3d1e2a6ec2b1589bff67a7b635ce4359e2d8fc01dbb4120936083b0683489"
+  },
+  "database_restart_exact": true,
+  "all_four_receipts_replay_exactly": true,
+  "identities_unchanged": true,
+  "approved_outbox_count": 1,
+  "lifecycle": {
+    "task": {
+      "domain_id": "company",
+      "task_id": "c5ac3f9c-4e75-420d-af8a-6fa4ea947e01",
+      "kind": "merge",
+      "entity_ids": [
+        "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+        "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+      ],
+      "state": "resolved",
+      "assignee": null,
+      "lease_until": null,
+      "revision": 3,
+      "priority": 0,
+      "workflow_schema": 1,
+      "domain_version": 1,
+      "definition": {
+        "actor": "fixture_steward",
+        "action": "create_task",
+        "reason": "Synthetic workflow lifecycle",
+        "context": {
+          "domain_id": "company",
+          "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+          "domain_version": 1,
+          "policy_version": "steward_workflow_v1"
+        },
+        "arguments": {
+          "kind": "merge",
+          "evidence": {
+            "fixture": true
+          },
+          "priority": 0,
+          "entity_ids": [
+            "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+            "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+          ]
+        }
+      },
+      "definition_sha256": "f6a1af0a8cfe23b49db1552dd070b5ac6005a4602f5af6da954b38902de10863",
+      "lease_token": null,
+      "created_at": "2026-09-22T20:46:17.476976+00:00"
+    },
+    "operation": {
+      "operation_id": "f26f0457-915e-4d11-ae9a-f54d77642c70",
+      "domain_id": "company",
+      "caller": "fixture_steward",
+      "idempotency_key": "propose",
+      "payload_sha256": "f1240792b9e0a658ad4009437bc11b6b78d9ba44e00945c336687a4854d7a764",
+      "expected_versions": {
+        "149416c9-7d8c-4cbd-9df0-0ca447cbe416": 1,
+        "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b": 1
+      },
+      "payload": {
+        "kind": "merge",
+        "intent": {
+          "survivor_id": "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+        },
+        "context": {
+          "domain_id": "company",
+          "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+          "domain_version": 1,
+          "policy_version": "steward_workflow_v1"
+        },
+        "evidence": {
+          "reviewed": true
+        },
+        "versions": {
+          "149416c9-7d8c-4cbd-9df0-0ca447cbe416": 1,
+          "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b": 1
+        }
+      },
+      "state": "approved",
+      "revision": 2,
+      "publication_id": null,
+      "created_at": "2026-09-22T20:46:17.486853+00:00",
+      "workflow_schema": 1,
+      "domain_version": 1,
+      "kind": "merge",
+      "task_id": "c5ac3f9c-4e75-420d-af8a-6fa4ea947e01",
+      "approved_by": "fixture_approver",
+      "approval_reason": "Synthetic workflow lifecycle",
+      "approved_at": "2026-09-22T20:46:17.493251+00:00"
+    },
+    "history": {
+      "items": [
+        {
+          "actor": "fixture_steward",
+          "action": "create_task",
+          "reason": "Synthetic workflow lifecycle",
+          "result": {
+            "task": {
+              "kind": "merge",
+              "state": "open",
+              "task_id": "c5ac3f9c-4e75-420d-af8a-6fa4ea947e01",
+              "assignee": null,
+              "priority": 0,
+              "revision": 1,
+              "domain_id": "company",
+              "created_at": "2026-09-22T20:46:17.476976+00:00",
+              "definition": {
+                "actor": "fixture_steward",
+                "action": "create_task",
+                "reason": "Synthetic workflow lifecycle",
+                "context": {
+                  "domain_id": "company",
+                  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+                  "domain_version": 1,
+                  "policy_version": "steward_workflow_v1"
+                },
+                "arguments": {
+                  "kind": "merge",
+                  "evidence": {
+                    "fixture": true
+                  },
+                  "priority": 0,
+                  "entity_ids": [
+                    "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+                    "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+                  ]
+                }
+              },
+              "entity_ids": [
+                "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+                "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+              ],
+              "lease_token": null,
+              "lease_until": null,
+              "domain_version": 1,
+              "workflow_schema": 1,
+              "definition_sha256": "f6a1af0a8cfe23b49db1552dd070b5ac6005a4602f5af6da954b38902de10863"
+            }
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "steward_workflow_v1"
+          },
+          "command_id": "a2fd80d2-2815-4dc7-92f5-b95494b2c8c7",
+          "recorded_at": "2026-09-22T20:46:17.477839+00:00",
+          "request_sha256": "f6a1af0a8cfe23b49db1552dd070b5ac6005a4602f5af6da954b38902de10863",
+          "idempotency_key": "create"
+        },
+        {
+          "actor": "fixture_steward",
+          "action": "claim",
+          "reason": "Synthetic workflow lifecycle",
+          "result": {
+            "task": {
+              "kind": "merge",
+              "state": "claimed",
+              "task_id": "c5ac3f9c-4e75-420d-af8a-6fa4ea947e01",
+              "assignee": "fixture_steward",
+              "priority": 0,
+              "revision": 2,
+              "domain_id": "company",
+              "created_at": "2026-09-22T20:46:17.476976+00:00",
+              "definition": {
+                "actor": "fixture_steward",
+                "action": "create_task",
+                "reason": "Synthetic workflow lifecycle",
+                "context": {
+                  "domain_id": "company",
+                  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+                  "domain_version": 1,
+                  "policy_version": "steward_workflow_v1"
+                },
+                "arguments": {
+                  "kind": "merge",
+                  "evidence": {
+                    "fixture": true
+                  },
+                  "priority": 0,
+                  "entity_ids": [
+                    "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+                    "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+                  ]
+                }
+              },
+              "entity_ids": [
+                "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+                "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+              ],
+              "lease_token": "98894a10-4b9b-4a51-a7e8-3bc805eff117",
+              "lease_until": "2026-09-22T20:47:17.481374+00:00",
+              "domain_version": 1,
+              "workflow_schema": 1,
+              "definition_sha256": "f6a1af0a8cfe23b49db1552dd070b5ac6005a4602f5af6da954b38902de10863"
+            }
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "steward_workflow_v1"
+          },
+          "command_id": "0fe363ba-6230-498c-b7ec-5e90075b6ccf",
+          "recorded_at": "2026-09-22T20:46:17.482604+00:00",
+          "request_sha256": "7f00c33c901e1aec5feea5075c2c44a23d46db9689a9fa394c5375004e95ac90",
+          "idempotency_key": "claim"
+        },
+        {
+          "actor": "fixture_steward",
+          "action": "propose",
+          "reason": "Synthetic workflow lifecycle",
+          "result": {
+            "task": {
+              "kind": "merge",
+              "state": "resolved",
+              "task_id": "c5ac3f9c-4e75-420d-af8a-6fa4ea947e01",
+              "assignee": null,
+              "priority": 0,
+              "revision": 3,
+              "domain_id": "company",
+              "created_at": "2026-09-22T20:46:17.476976+00:00",
+              "definition": {
+                "actor": "fixture_steward",
+                "action": "create_task",
+                "reason": "Synthetic workflow lifecycle",
+                "context": {
+                  "domain_id": "company",
+                  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+                  "domain_version": 1,
+                  "policy_version": "steward_workflow_v1"
+                },
+                "arguments": {
+                  "kind": "merge",
+                  "evidence": {
+                    "fixture": true
+                  },
+                  "priority": 0,
+                  "entity_ids": [
+                    "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+                    "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+                  ]
+                }
+              },
+              "entity_ids": [
+                "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+                "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+              ],
+              "lease_token": null,
+              "lease_until": null,
+              "domain_version": 1,
+              "workflow_schema": 1,
+              "definition_sha256": "f6a1af0a8cfe23b49db1552dd070b5ac6005a4602f5af6da954b38902de10863"
+            },
+            "operation": {
+              "kind": "merge",
+              "state": "pending_approval",
+              "caller": "fixture_steward",
+              "payload": {
+                "kind": "merge",
+                "intent": {
+                  "survivor_id": "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+                },
+                "context": {
+                  "domain_id": "company",
+                  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+                  "domain_version": 1,
+                  "policy_version": "steward_workflow_v1"
+                },
+                "evidence": {
+                  "reviewed": true
+                },
+                "versions": {
+                  "149416c9-7d8c-4cbd-9df0-0ca447cbe416": 1,
+                  "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b": 1
+                }
+              },
+              "task_id": "c5ac3f9c-4e75-420d-af8a-6fa4ea947e01",
+              "revision": 1,
+              "domain_id": "company",
+              "created_at": "2026-09-22T20:46:17.486853+00:00",
+              "approved_at": null,
+              "approved_by": null,
+              "operation_id": "f26f0457-915e-4d11-ae9a-f54d77642c70",
+              "domain_version": 1,
+              "payload_sha256": "f1240792b9e0a658ad4009437bc11b6b78d9ba44e00945c336687a4854d7a764",
+              "publication_id": null,
+              "approval_reason": null,
+              "idempotency_key": "propose",
+              "workflow_schema": 1,
+              "expected_versions": {
+                "149416c9-7d8c-4cbd-9df0-0ca447cbe416": 1,
+                "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b": 1
+              }
+            },
+            "decision_id": "5e9dd079-0f63-4363-9bb7-16ab661a8a8a"
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "steward_workflow_v1"
+          },
+          "command_id": "347f8341-42e0-4762-a792-cf6f3d028e33",
+          "recorded_at": "2026-09-22T20:46:17.489022+00:00",
+          "request_sha256": "9ba7dea0a8913c551cc73b44a8959cf4a712d06189694a7007edf91ddf2566bd",
+          "idempotency_key": "propose"
+        },
+        {
+          "actor": "fixture_approver",
+          "action": "approve",
+          "reason": "Synthetic workflow lifecycle",
+          "result": {
+            "task": {
+              "kind": "merge",
+              "state": "resolved",
+              "task_id": "c5ac3f9c-4e75-420d-af8a-6fa4ea947e01",
+              "assignee": null,
+              "priority": 0,
+              "revision": 3,
+              "domain_id": "company",
+              "created_at": "2026-09-22T20:46:17.476976+00:00",
+              "definition": {
+                "actor": "fixture_steward",
+                "action": "create_task",
+                "reason": "Synthetic workflow lifecycle",
+                "context": {
+                  "domain_id": "company",
+                  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+                  "domain_version": 1,
+                  "policy_version": "steward_workflow_v1"
+                },
+                "arguments": {
+                  "kind": "merge",
+                  "evidence": {
+                    "fixture": true
+                  },
+                  "priority": 0,
+                  "entity_ids": [
+                    "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+                    "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+                  ]
+                }
+              },
+              "entity_ids": [
+                "149416c9-7d8c-4cbd-9df0-0ca447cbe416",
+                "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+              ],
+              "lease_token": null,
+              "lease_until": null,
+              "domain_version": 1,
+              "workflow_schema": 1,
+              "definition_sha256": "f6a1af0a8cfe23b49db1552dd070b5ac6005a4602f5af6da954b38902de10863"
+            },
+            "conflict": null,
+            "operation": {
+              "kind": "merge",
+              "state": "approved",
+              "caller": "fixture_steward",
+              "payload": {
+                "kind": "merge",
+                "intent": {
+                  "survivor_id": "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b"
+                },
+                "context": {
+                  "domain_id": "company",
+                  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+                  "domain_version": 1,
+                  "policy_version": "steward_workflow_v1"
+                },
+                "evidence": {
+                  "reviewed": true
+                },
+                "versions": {
+                  "149416c9-7d8c-4cbd-9df0-0ca447cbe416": 1,
+                  "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b": 1
+                }
+              },
+              "task_id": "c5ac3f9c-4e75-420d-af8a-6fa4ea947e01",
+              "revision": 2,
+              "domain_id": "company",
+              "created_at": "2026-09-22T20:46:17.486853+00:00",
+              "approved_at": "2026-09-22T20:46:17.493251+00:00",
+              "approved_by": "fixture_approver",
+              "operation_id": "f26f0457-915e-4d11-ae9a-f54d77642c70",
+              "domain_version": 1,
+              "payload_sha256": "f1240792b9e0a658ad4009437bc11b6b78d9ba44e00945c336687a4854d7a764",
+              "publication_id": null,
+              "approval_reason": "Synthetic workflow lifecycle",
+              "idempotency_key": "propose",
+              "workflow_schema": 1,
+              "expected_versions": {
+                "149416c9-7d8c-4cbd-9df0-0ca447cbe416": 1,
+                "34f13d80-6f62-4ad2-8fe7-fe3bbc04f40b": 1
+              }
+            },
+            "decision_id": "6e6047fd-28a6-490a-960a-b75722861158",
+            "outbox_event_id": "d85c236b-d4ca-4811-a8fb-97960bc0a9c0"
+          },
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "steward_workflow_v1"
+          },
+          "command_id": "e3c8adc0-f867-43e1-babf-746606f1d2e7",
+          "recorded_at": "2026-09-22T20:46:17.495533+00:00",
+          "request_sha256": "33b275fb1d48432e12c1f4ea8d4da163121e85bf35fd48869374917d7768c75d",
+          "idempotency_key": "approve"
+        }
+      ],
+      "next": null
+    },
+    "outbox": [
+      [
+        "d85c236b-d4ca-4811-a8fb-97960bc0a9c0",
+        "workflow.approved.v1",
+        {
+          "context": {
+            "domain_id": "company",
+            "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+            "domain_version": 1,
+            "policy_version": "steward_workflow_v1"
+          },
+          "operation_id": "f26f0457-915e-4d11-ae9a-f54d77642c70",
+          "intent_sha256": "f1240792b9e0a658ad4009437bc11b6b78d9ba44e00945c336687a4854d7a764",
+          "operation_revision": 2,
+          "approval_decision_id": "6e6047fd-28a6-490a-960a-b75722861158"
+        },
+        "pending",
+        0
+      ]
+    ]
+  },
+  "lifecycle_sha256": "ed8359635e5bc0976d43c2f2bfcfb00a90f6d11a5fa158a8520d1d192a3c017c",
+  "peak_rss_bytes": {
+    "parent": 42713088,
+    "highest_child": 196984832
+  },
+  "ended_at": "2026-09-22T20:46:17.701383+00:00",
+  "wall_seconds": 23.604
+}
