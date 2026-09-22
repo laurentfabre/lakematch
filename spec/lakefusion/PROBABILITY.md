@@ -154,5 +154,5 @@ fidelity and workflow authorization remain open LM-014/integration work.
 The synthetic APX comparison display is documented in [MATCH_EVIDENCE.md](MATCH_EVIDENCE.md);
 it carries no model score or probability-band output.
 The [approved experiment extension](../../bench/lakefusion/NEXT_EXPERIMENTS.md)
-allows four further LF-B runs under LF-DEC-005. Calibration still requires a
+raises LF-B's total cap to twelve under LF-DEC-005. Calibration still requires a
 committed feature/model/partition and threshold-selection plan before evaluation.

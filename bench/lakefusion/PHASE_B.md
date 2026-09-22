@@ -1,6 +1,6 @@
 # LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 9/12 experiment slots consumed.** The extension and
+**Phase B is in progress: 10/12 experiment slots consumed.** The extension and
 public repository publication were approved in
 [LF-DEC-005/006](../../spec/lakefusion/EXECUTION_DECISIONS.md). Phase A and LM-001 are
 complete at commit `96edbf8`. LM-002–006 now provide bounded company candidate
@@ -59,10 +59,10 @@ general customer data, merge precision, online latency or Spark scalability.
 ## Next work
 
 LM-002–006 are complete for the declared bounded internal worker contracts.
-Matching-quality acceptance and the first golden-record app acceptance remain
-Phase B work. The approved twelve-slot LF-B budget leaves three iterations;
-slot 10 is the reserved follow-up to slot 9's harness failure, followed by the
-predeclared model/calibration work in the [extension plan](NEXT_EXPERIMENTS.md).
+Matching/calibration acceptance remains Phase B work. The synthetic golden-record
+view passed fresh-package acceptance in slot 10. The approved twelve-slot LF-B
+budget leaves two iterations for the predeclared initial model/calibration work
+and frozen validation in the [extension plan](NEXT_EXPERIMENTS.md).
 Later remote/application gates listed in the Phase A freeze remain mandatory.
 
 ## Durable registry and exact job replay — 22 September
@@ -446,3 +446,35 @@ temporary root, pins a v2 input binding and repeats the same gates with fresh
 outputs. It takes slot 10; the initial model/calibration run moves to slot 11.
 No app behavior, data, dependency or quality threshold changes. Public publication
 is resolved: the ten previously pending commits are on GitHub through `ed38a6d`.
+
+## Slot 10 — fresh-package synthetic APX view accepted
+
+The [reserved follow-up](../../experiments/20260922T182853Z-lf-b-packaged-ui-followup-a3e01e/manifest.json)
+passes from source `938fe86`. A newly built wheel was extracted into an owned
+temporary directory; backend origin and exact backend/demo contents were checked
+before tests. **25 app tests pass with zero errors/failures/skips** against that
+package. The production build and final Python/TypeScript checks also pass.
+[Report](ui-acceptance-20260922-final.json) and
+[JUnit](ui-acceptance-tests-20260922-final.xml) retain the evidence.
+
+The [fresh-wheel browser flow](../../reports/lakefusion-ui-acceptance-20260922-final/README.md)
+passes at desktop/mobile sizes with no page errors or horizontal mobile overflow.
+It shows approved edits, earlier values, deleted sources, identifier conflicts
+and normalized names; keyboard disclosure and recovery from a simulated 503
+pass. No review data is fetched or written by the browser. The six companies
+across two publications retain 96 field explanations and twelve explicit pair
+comparisons. Their memberships remain declared fixture truth.
+
+The outer run took **18.70 seconds**. Main Python process peak RSS was **25.4 MiB**,
+excluding child build/browser memory. Four deployment files remain under 10 MiB,
+largest **163,756 bytes**, with the exact 191,907-byte demo JSON packaged. All 89
+bound inputs and fifteen frozen Phase A files pass their hashes. The extracted
+wheel and browser store were removed; the outer runner verified no live owned
+process-group members. No Spark, pilot corpus, model fitting, threshold search,
+confirmation release, AI or remote workspace operation ran.
+
+This closes only the first synthetic APX detail-view deliverable in goal §5.
+LF-B and LM-014 remain in progress at **10/12**. The reserved follow-up is now
+consumed. Slots 11 and 12 remain for the initial model/calibration evaluation and
+frozen validation under committed plans. Live data, domain/field authorization,
+transactional stewardship, deployed app acceptance and LM-010 remain later gates.

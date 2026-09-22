@@ -1,0 +1,42 @@
+{"command": ["/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python", "/Users/laurent.fabre/Projects/Claude/lakematch/tools/build_golden_demo.py", "--check"], "timeout_seconds": 30}
+Synthetic golden demo: 6 companies, 2 publications, 191,907 bytes
+{"command": ["/Users/laurent.fabre/Projects/Claude/lakematch/app/.venv/bin/python", "build_deploy.py"], "timeout_seconds": 420}
+bun install v1.3.8 (b64edcb4)
+
+Checked 214 installs across 249 packages (no changes) [42.00ms]
+Building project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+Skipping UI build
+✅ Python wheel built in 1s 332ms
+Build completed
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1829 modules transformed.
+rendering chunks...
+computing gzip size...
+src/lakematch_review/__dist__/index.html                   0.48 kB │ gzip:   0.31 kB
+src/lakematch_review/__dist__/assets/index-BR7wt8sG.css   39.73 kB │ gzip:   8.47 kB
+src/lakematch_review/__dist__/assets/index-BK6WnQfz.js   399.46 kB │ gzip: 122.02 kB
+
+✓ built in 180ms
+Building project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+Skipping UI build
+✅ Python wheel built in 1s 237ms
+Build completed
+APX build: 4 files; largest 163,756 bytes
+{"command": ["node", "node_modules/typescript/bin/tsc", "--noEmit"], "timeout_seconds": 45}
+{"command": ["/Users/laurent.fabre/Projects/Claude/lakematch/app/.venv/bin/ty", "check"], "timeout_seconds": 45}
+All checks passed!
+{"command": ["/Users/laurent.fabre/Projects/Claude/lakematch/app/.venv/bin/python", "-c", "import pathlib, sys; import lakematch_review.backend.golden_demo as demo; assert pathlib.Path(demo.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[1])), demo.__file__; print('Backend import verified inside fresh wheel'); import pytest; raise SystemExit(pytest.main(sys.argv[2:]))", "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lakematch-ui-acceptance-hcj6mlbq", "-q", "/Users/laurent.fabre/Projects/Claude/lakematch/app/tests", "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/bench/lakefusion/ui-acceptance-tests-20260922-final.xml"], "timeout_seconds": 120}
+Backend import verified inside fresh wheel
+.........................                                                [100%]
+=============================== warnings summary ===============================
+app/.venv/lib/python3.11/site-packages/starlette/testclient.py:45
+  /Users/laurent.fabre/Projects/Claude/lakematch/app/.venv/lib/python3.11/site-packages/starlette/testclient.py:45: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+25 passed, 1 warning in 0.97s
+{"command": ["/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python", "/Users/laurent.fabre/Projects/Claude/lakematch/tools/preview_golden_app.py", "--output", "/Users/laurent.fabre/Projects/Claude/lakematch/reports/lakefusion-ui-acceptance-20260922-final"], "timeout_seconds": 130}
+Previewing http://127.0.0.1:53064/#golden-records
+Preview saved to /Users/laurent.fabre/Projects/Claude/lakematch/reports/lakefusion-ui-acceptance-20260922-final; owned server stopped.
+{"status": "passed", "report": "bench/lakefusion/ui-acceptance-20260922-final.json"}

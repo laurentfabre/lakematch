@@ -1,0 +1,28 @@
+{
+  "kind": "local_development_preview",
+  "acceptance_gate": "determined_by_campaign_runner",
+  "app": "APX 0.3.8",
+  "corpus_access": false,
+  "remote_calls": false,
+  "review_writes": false,
+  "desktop": [
+    1440,
+    1100
+  ],
+  "mobile": [
+    390,
+    844
+  ],
+  "page_errors": [],
+  "mobile_fits": true,
+  "views": [
+    "approved_name_override",
+    "earlier_publication",
+    "deleted_source",
+    "identifier_conflict",
+    "normalized_name_agreement"
+  ],
+  "keyboard_disclosure": true,
+  "error_recovery": true,
+  "comparison_fields": 7
+}

@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (9/12 experiments)**.
+Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (10/12 experiments)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -259,8 +259,8 @@ Deliverables:
   pass; local/Delta snapshot hashes match. Temporary tables/workspace files were
   removed. Matching uses declared fixture memberships, with no model; operational
   watermark rechecks, authorization, outbox delivery and UI remain open. LF-B
-  used all eight originally authorized slots. The approved extension now sets
-  the current count to **8/12** under LF-DEC-005.
+  used all eight originally authorized slots. LF-DEC-005 subsequently raised
+  the total phase limit to twelve.
 - [ ] Version deterministic match rules, develop calibrated decision bands,
   and show actual field comparisons before adding model-specific explanations.
   [Worker comparison foundation](spec/lakefusion/MATCH_EVIDENCE.md) implemented:
@@ -272,14 +272,16 @@ Deliverables:
   source pairs, with explicit origin and no model score. **301 portable and 25
   app checks pass**; type/build and desktop/mobile development checks pass.
   Empirical calibration, registry promotion, live comparison integration and
-  matching-quality acceptance remain open. LF-B currently uses **9/12** slots.
-- [ ] Deliver the first APX golden-record detail view using the synthetic slice.
-  [Local APX preview](reports/lakefusion-comparison-ui-20260922/README.md) implemented:
+  matching-quality acceptance remain open. LF-B currently uses **10/12** slots.
+- [x] Deliver the first APX golden-record detail view using the synthetic slice.
+  [Fresh-package APX acceptance](reports/lakefusion-ui-acceptance-20260922-final/README.md)
+  passes from source `938fe86`:
   six companies, two publications, field alternatives, overrides and deleted
-  sources. App/type/build and desktop/mobile development checks pass. The next
-  full acceptance attempt passed build/types but stopped at a macOS path-alias
-  check before app/browser tests. [The reserved follow-up](bench/lakefusion/UI_ACCEPTANCE_FOLLOWUP_PLAN.md)
-  repeats acceptance after canonicalizing the owned temporary path.
+  sources plus explicit field comparisons. The fresh wheel passes 25 app tests,
+  types/build, desktop/mobile navigation, keyboard access and error recovery.
+  Slot 9's harness failure is retained; slot 10's reserved follow-up passes after
+  canonicalizing the temporary root. This accepts the synthetic detail view;
+  live data, domain/field authorization and LM-010 remain later gates.
 
 **Exit gate:** two-source inputs reproduce the same golden records and provenance
 on retry. Earlier-sorting source keys do not rekey public IDs. Every selected
@@ -516,6 +518,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: synthetic comparison explorer | The APX demo displays seven actual/normalized field comparisons for six companies across two publications, with conflicts, deletion and explicit pair origin. 301 portable and 25 app checks pass; pinned build, types, keyboard/error recovery and desktop/mobile preview pass. [Evidence](reports/lakefusion-comparison-ui-20260922/README.md). Historic publication values/hashes and frozen inputs are preserved. LF-B stays 8/8; LM-014 remains in progress. | Empirical calibration, promotion/live integration and full acceptance remain open. Further experiments need a revised bound; GitHub publication still awaits the repository-visibility decision. |
 | 2026-09-22: extension and public publication approved | Laurent explicitly selected “raise it to 12” and “change to public”. [LF-DEC-005/006](spec/lakefusion/EXECUTION_DECISIONS.md) authorize LF-B 8/12 and publication to the existing public GitHub repository. Earlier protocol bytes and eight consumed runs remain unchanged. | Push completed commits through managed hooks, then execute slot 9's bounded APX acceptance plan. Calibration and quality gates remain open. |
 | 2026-09-22: public push and first packaged UI attempt | Ten pending commits were pushed to public GitHub through `ed38a6d` using the verified `laurentfabre` account. Slot 9's fresh build/types pass, but the harness rejects a normal wheel member because `/var` and `/private/var` paths are compared before canonicalizing the root. [Failure retained](experiments/20260922T182532Z-lf-b-packaged-ui-d838a1/manifest.json); owned cleanup passes. LF-B 9/12. | Use the single reserved follow-up as slot 10 with the canonical-root fix; move initial model/calibration evaluation to slot 11. No acceptance gate closed. |
+| 2026-09-22: fresh-package APX view accepted | Slot 10 passes from source `938fe86`: fresh wheel imports, 25 app tests, pinned build/types and desktop/mobile flows including comparisons, keyboard access and error recovery. [Evidence](reports/lakefusion-ui-acceptance-20260922-final/README.md). Owned cleanup and all source/frozen checks pass. The synthetic detail-view checkbox closes; LF-B remains in progress at 10/12. | Prepare and commit the explicit model/features, disjoint fitting/calibration/validation families and finite threshold-selection plan before slot 11. Slot 12 remains reserved for frozen validation. No model-quality gate is yet achieved. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

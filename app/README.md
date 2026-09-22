@@ -56,14 +56,15 @@ experiment output. The root Python 3.12 environment can rebuild it with
 `python tools/build_golden_demo.py` (from the repository root); `--check` detects
 stale generated content. The Python 3.11 app never imports the engine. Bounded
 `/api/demo/golden-records` routes use the existing session dependency and expose
-no mutation or configurable live-data path. This is a local development preview;
-production domain/field authorization and scalable entity APIs remain open.
+no mutation or configurable live-data path. The synthetic view passes local
+fresh-package acceptance; production domain/field authorization and scalable
+entity APIs remain open.
 
-[Current comparison screenshots and reproduction steps](../reports/lakefusion-comparison-ui-20260922/README.md)
-record the preview; the [earlier provenance-only view](../reports/lakefusion-ui-20260922-final/README.md)
-is retained. The [LF-B extension](../bench/lakefusion/NEXT_EXPERIMENTS.md) now
-authorizes a fresh full acceptance run; no such experiment was run as part of
-these earlier development checks.
+[Fresh-package acceptance and screenshots](../reports/lakefusion-ui-acceptance-20260922-final/README.md)
+record the passing slot-10 result. The [comparison development preview](../reports/lakefusion-comparison-ui-20260922/README.md)
+and [earlier provenance-only view](../reports/lakefusion-ui-20260922-final/README.md)
+remain unchanged. The accepted package uses the same synthetic source data and
+does not claim live workspace or customer-data qualification.
 
 In the UI, use **R** to focus the reason, **Esc** to return to shortcuts,
 **M** for match, **N** for no match and **U** for unsure. Shortcuts ignore typing
