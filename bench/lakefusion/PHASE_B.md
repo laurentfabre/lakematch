@@ -1,8 +1,8 @@
 # LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 4/8 experiment slots consumed.** Phase A and LM-001 are
-complete at commit `96edbf8`. LM-002/003/004 now provide bounded company candidate
-retrieval, a durable approved registry and persistent identity workers. Existing
+**Phase B is in progress: 5/8 experiment slots consumed.** Phase A and LM-001 are
+complete at commit `96edbf8`. LM-002/003/004/005 now provide bounded company candidate
+retrieval, a durable approved registry, persistent identities and scalar survivorship. Existing
 Spark v1 configuration and frozen replay contracts remain unchanged. A new
 classifier, golden-record publication and the corresponding app flow are pending.
 
@@ -55,9 +55,9 @@ general customer data, merge precision, online latency or Spark scalability.
 
 ## Next work
 
-LM-002/003/004 are complete for the declared internal worker contracts. Scalar
-survivorship (LM-005) is next, followed by winning-value provenance (LM-006),
-publication and the first golden-record app view.
+LM-002/003/004/005 are complete for the declared internal worker contracts.
+Winning-value provenance (LM-006) is next, followed by publication and the first
+golden-record app view.
 Later remote/application gates listed in the Phase A freeze remain mandatory.
 
 ## Durable registry and exact job replay — 22 September
@@ -154,3 +154,50 @@ member/alias/redirect limits and the serialized writer. These operations return
 authentication, domain RLS, business approval, source deletion, golden values or
 the steward UI. LM-007/008/009/011 remain open. GitHub publishing is also pending
 the repository visibility decision; the work is available locally.
+
+## Scalar survivorship — 22 September
+
+LM-005 now calculates golden values using an immutable policy resolved through
+approved domain and source mapping versions. The ordered rules select an
+approved override, then verification status, source priority, quality, freshness
+and deterministic source/key ties. Quality assessments and steward approvals
+are explicit trusted inputs; the evidence uses synthetic actors and assessments.
+It does not establish an authenticated stewardship workflow.
+
+Missing, null, blank, disallowed and type-invalid values have separate exclusion
+reasons. Source tombstones remove a source's values from consideration while
+preserving identity bindings; an incomplete snapshot fails instead of guessing
+a deletion. No prior golden value is carried forward. Required-value gaps,
+all-deleted sources and mixed-source address components require review. Optional
+fields can be explicitly cleared by an approved override. Stale identity/policy
+approvals and conflicting active overrides fail visibly.
+
+The [declared run](SURVIVORSHIP_PLAN.md) consumed slot 5 and
+[passed](../../experiments/20260922T090927Z-lf-b-scalar-survivorship-c619ae/manifest.json)
+**195 checks, zero failures/errors/skips**, including **55 PostgreSQL cases**.
+The [report](survivorship-20260922.json) and
+[JUnit](survivorship-tests-20260922.xml) retain exact evidence. Six legal companies
+from twelve ERP/CRM rows reproduce the same complete calculation after database
+restart; the thirteenth branch row stays outside company memberships. Memberships
+come from the integration fixture's declared truth, not a new matching result.
+Source update, winner deletion, the fixture's CRM deletion and an approved
+override behave as declared. No public ID or identity member is deleted.
+
+Additive migration 0004 introduces the policy registry using existing immutable
+definition/audit guards. Upgrade from populated 0003, independent approval,
+retirement, dependency drift and audit-event checks pass. Registry timestamps now
+serialize in UTC so a session timezone change preserves the same binding receipt.
+Earlier SQL migrations, frozen Phase A files and legacy Spark code are unchanged.
+
+The run took **10.44 seconds**; main Python process peak RSS was **42.3 MiB**
+(not aggregate PostgreSQL/test-process memory). PostgreSQL 16.15 used only owned
+temporary storage, private Unix sockets, TCP disabled and fsync enabled. Database
+and experiment process-group cleanup passed. No Spark, cloud, AI or evaluation
+corpus ran; confirmation remains untouched.
+
+The [scalar contract](../../spec/lakefusion/SURVIVORSHIP.md) bounds each master to
+1,000 source members, 100 fields, 200 override decisions and 4 MiB input JSON.
+Outputs include explanations, source version/hash, assessment and decision
+references, policy/domain/mapping bindings and implementation/input hashes.
+Durable historic provenance and publication remain LM-006/009; CDC, nested
+addresses and application authorization remain their separate work packages.

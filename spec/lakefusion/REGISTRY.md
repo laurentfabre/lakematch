@@ -7,7 +7,8 @@ legacy model artifacts or sealed confirmation results.
 
 ## What is persistent
 
-PostgreSQL stores domain, source-mapping and candidate-execution versions.
+PostgreSQL stores domain, source-mapping, candidate-execution and scalar
+survivorship policy versions.
 Definitions are immutable even while in draft; edits create a new version.
 Each namespace requires an explicit expected latest version. Submitting the
 same version and content returns its original receipt; different content or a
@@ -102,6 +103,8 @@ checks their SHA-256 values on every retry, and refuses gaps, changed applied
 files and downgrade attempts. **Never edit applied migration 0001.** Migration
 0002 adds revisions, approval attribution, execution definitions, immutable
 registry events and definition/state guards.
+Migration 0003 adds [persistent identities](IDENTITY.md); migration 0004 adds
+the [scalar policy registry](SURVIVORSHIP.md). Applied migrations stay immutable.
 
 An older prototype database containing approved rows without attribution fails
 the upgrade atomically. Export and review those records before migration;
@@ -126,6 +129,11 @@ restart all pass. The registry-bound validation candidate rows exactly equal
 the preceding retained artifact; source and implementation hashes are recorded.
 The branch preview accepts six CRM legal companies and quarantines one branch.
 
-Persistent public master IDs, merge/split identity policy, scalar survivorship,
-field provenance, publication and the golden-record app view remain Phase B
-work. The registry alone does not complete the MDM pilot.
+Subsequent increments implement [persistent identities](IDENTITY.md) and
+[scalar survivorship](SURVIVORSHIP.md) for internal workers. Use
+`submit_survivorship(policy, actor=..., expected_latest=...)`, the existing
+`transition("survivorship", ...)` lifecycle and
+`resolve_survivorship(domain_id, policy_id, version)` to bind currently approved
+domain/mapping/policy versions. Field provenance storage, publication and the
+golden-record app view remain Phase B work. The registry alone does not complete
+the MDM pilot.

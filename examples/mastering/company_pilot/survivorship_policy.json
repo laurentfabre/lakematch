@@ -1,0 +1,165 @@
+{
+  "policy_id": "company_scalar",
+  "version": 1,
+  "domain_id": "company",
+  "domain_version": 1,
+  "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+  "mappings": [
+    {
+      "source_id": "erp_vendor",
+      "version": 1,
+      "sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727"
+    },
+    {
+      "source_id": "crm_account",
+      "version": 1,
+      "sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a"
+    }
+  ],
+  "fields": [
+    {
+      "field": "record_kind",
+      "sources": [
+        {
+          "source_id": "erp_vendor",
+          "priority": 0
+        },
+        {
+          "source_id": "crm_account",
+          "priority": 1
+        }
+      ],
+      "minimum_quality": 50,
+      "maximum_age_seconds": null,
+      "allowed_values": [
+        "legal_company"
+      ]
+    },
+    {
+      "field": "legal_name",
+      "sources": [
+        {
+          "source_id": "erp_vendor",
+          "priority": 0
+        },
+        {
+          "source_id": "crm_account",
+          "priority": 1
+        }
+      ],
+      "minimum_quality": 50,
+      "maximum_age_seconds": null,
+      "allowed_values": []
+    },
+    {
+      "field": "country",
+      "sources": [
+        {
+          "source_id": "erp_vendor",
+          "priority": 0
+        },
+        {
+          "source_id": "crm_account",
+          "priority": 1
+        }
+      ],
+      "minimum_quality": 50,
+      "maximum_age_seconds": null,
+      "allowed_values": [
+        "FR",
+        "BE",
+        "GB"
+      ]
+    },
+    {
+      "field": "registration_id",
+      "sources": [
+        {
+          "source_id": "erp_vendor",
+          "priority": 0
+        },
+        {
+          "source_id": "crm_account",
+          "priority": 1
+        }
+      ],
+      "minimum_quality": 50,
+      "maximum_age_seconds": null,
+      "allowed_values": []
+    },
+    {
+      "field": "address_line1",
+      "sources": [
+        {
+          "source_id": "erp_vendor",
+          "priority": 0
+        },
+        {
+          "source_id": "crm_account",
+          "priority": 1
+        }
+      ],
+      "minimum_quality": 50,
+      "maximum_age_seconds": null,
+      "allowed_values": []
+    },
+    {
+      "field": "city",
+      "sources": [
+        {
+          "source_id": "erp_vendor",
+          "priority": 0
+        },
+        {
+          "source_id": "crm_account",
+          "priority": 1
+        }
+      ],
+      "minimum_quality": 50,
+      "maximum_age_seconds": null,
+      "allowed_values": []
+    },
+    {
+      "field": "postal_code",
+      "sources": [
+        {
+          "source_id": "erp_vendor",
+          "priority": 0
+        },
+        {
+          "source_id": "crm_account",
+          "priority": 1
+        }
+      ],
+      "minimum_quality": 50,
+      "maximum_age_seconds": null,
+      "allowed_values": []
+    },
+    {
+      "field": "parent_source_key",
+      "sources": [
+        {
+          "source_id": "erp_vendor",
+          "priority": 0
+        },
+        {
+          "source_id": "crm_account",
+          "priority": 1
+        }
+      ],
+      "minimum_quality": 50,
+      "maximum_age_seconds": null,
+      "allowed_values": []
+    }
+  ],
+  "coherence_groups": [
+    [
+      "country",
+      "address_line1",
+      "city",
+      "postal_code"
+    ]
+  ],
+  "algorithm": "scalar_survivorship_v1",
+  "schema_version": 1
+}

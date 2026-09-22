@@ -104,6 +104,7 @@ The accelerator is not yet qualified as a complete production MDM system.
 | Company candidate coverage | The selected method retrieves **3,800 of 4,000 known matches (95%)** on synthetic validation data. It misses all 200 cases with combined errors; a larger lexical shortlist recovers them at 22.2× as many pairs. [Comparison](bench/lakefusion/PHASE_B.md). |
 | Registry reliability | **93 checks passed**, including 18 PostgreSQL integration cases covering concurrent changes, rollback and restart persistence. [Registry evidence](bench/lakefusion/registry-20260922.json). |
 | Persistent identity | IDs stay stable as records are added; merge/split receipts and older aliases survive retries and database restarts. [Identity evidence](bench/lakefusion/identity-20260922-final.json). |
+| Choosing trusted values | Six synthetic company records reproduce the same field choices after a database restart. Overrides, conflicting values and deleted sources have explicit rules. [Scalar policy evidence](bench/lakefusion/survivorship-20260922.json). |
 
 Candidate coverage measures which pairs reach scoring, not whether they should
 be merged. The local scale ladder reached 100,000 records; the million-record

@@ -6,6 +6,7 @@ this module accepts server-derived actor IDs and grants no SQL privileges.
 """
 from contextlib import contextmanager
 from dataclasses import asdict
+from datetime import timezone
 import hashlib
 from pathlib import Path
 from uuid import uuid4
@@ -16,6 +17,7 @@ from psycopg.types.json import Jsonb
 
 from lakematch.mastering.contracts import ContractError, DomainContract, SourceMapping, identifier, positive_version
 from lakematch.mastering.execution import ExecutionBinding, ExecutionSpec, mapping_definition
+from lakematch.mastering.survivorship_contract import SurvivorshipBinding, SurvivorshipPolicy
 
 
 class RegistryConflict(ValueError):
@@ -27,7 +29,8 @@ class RegistryUnavailable(ValueError):
 
 
 TABLES = {"domain": ("domain_version", None), "mapping": ("source_mapping_version", "source_id"),
-          "execution": ("execution_version", "execution_id")}
+          "execution": ("execution_version", "execution_id"),
+          "survivorship": ("survivorship_version", "policy_id")}
 
 
 def nonblank(value, label):
@@ -130,11 +133,11 @@ class PostgresRegistry:
     @staticmethod
     def _receipt(kind, row):
         return {"kind": kind, "domain_id": row["domain_id"],
-                "object_id": row.get("source_id", row.get("execution_id", row["domain_id"])),
+                "object_id": row.get("source_id", row.get("execution_id", row.get("policy_id", row["domain_id"]))),
                 "version": row["version"], "definition_sha256": row["definition_sha256"],
                 "state": row["state"], "revision": row["revision"], "created_by": row["created_by"],
                 "approved_by": row["approved_by"], "approval_reason": row["approval_reason"],
-                "approved_at": row["approved_at"].isoformat() if row["approved_at"] else None}
+                "approved_at": row["approved_at"].astimezone(timezone.utc).isoformat() if row["approved_at"] else None}
 
     def _domain(self, cursor, domain_id, version, *, approved=False):
         row = self._fetch(cursor, "domain", domain_id, domain_id, version, approved=approved)
@@ -216,6 +219,38 @@ class PostgresRegistry:
             return self._insert(cursor, "execution", spec.domain_id, spec.execution_id, spec.version,
                                 asdict(spec), spec.sha256, actor, expected_latest, extra)
 
+    def _survivorship_binding(self, cursor, policy, policy_row=None):
+        domain, drow = self._domain(cursor, policy.domain_id, policy.domain_version, approved=True)
+        mappings, approvals = [], [self._receipt("domain", drow)]
+        for pin in policy.mappings:
+            mapping, row = self._mapping(cursor, domain, pin.source_id, pin.version, approved=True)
+            mappings.append(mapping)
+            approvals.append(self._receipt("mapping", row))
+        if policy_row is not None:
+            approvals.append(self._receipt("survivorship", policy_row))
+        return SurvivorshipBinding(policy, domain, tuple(mappings), tuple(approvals))
+
+    @staticmethod
+    def _survivorship_policy(row):
+        policy = SurvivorshipPolicy.from_dict(row["definition"])
+        names = ("domain_id", "policy_id", "version", "domain_version")
+        if policy.sha256 != row["definition_sha256"] or any(getattr(policy, n) != row[n] for n in names):
+            raise RegistryUnavailable("Stored survivorship definition integrity check failed")
+        return policy
+
+    def submit_survivorship(self, policy, *, actor, expected_latest):
+        with self._transaction(write=True) as cursor:
+            self._survivorship_binding(cursor, policy)
+            return self._insert(cursor, "survivorship", policy.domain_id, policy.policy_id, policy.version,
+                                asdict(policy), policy.sha256, actor, expected_latest,
+                                {"domain_version": policy.domain_version})
+
+    def resolve_survivorship(self, domain_id, policy_id, version):
+        """Resolve currently approved policy/domain/mappings for a trusted worker."""
+        with self._transaction() as cursor:
+            row = self._fetch(cursor, "survivorship", domain_id, policy_id, version, approved=True)
+            return self._survivorship_binding(cursor, self._survivorship_policy(row), row)
+
     def transition(self, kind, domain_id, object_id, version, *, state, expected_revision, actor, reason):
         nonblank(actor, "Actor")
         nonblank(reason, "Reason")
@@ -241,6 +276,8 @@ class PostgresRegistry:
                 elif kind == "mapping":
                     domain, _ = self._domain(cursor, domain_id, row["domain_version"], approved=True)
                     self._mapping(cursor, domain, object_id, version)
+                elif kind == "survivorship":
+                    self._survivorship_binding(cursor, self._survivorship_policy(row))
                 else:
                     self._binding(cursor, self._spec(row))
             values = self._key(kind, domain_id, object_id, version)

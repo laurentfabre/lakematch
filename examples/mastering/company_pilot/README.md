@@ -10,18 +10,22 @@ integration fixture, not a training, validation or confirmation dataset.
   columns to the exact domain definition hash, using allowlisted transforms.
 - `fixture.json` separates source records from truth, expected exceptions and
   mutation scenarios. Truth must never be passed as matching features.
+- `survivorship_policy.json` adds a scalar policy for registry approval over the
+  frozen domain and mappings: verification, ERP/CRM precedence, quality,
+  freshness and deterministic ties. [Policy behavior and limits](../../../spec/lakefusion/SURVIVORSHIP.md).
 - `manifest.json` records canonical-JSON hashes and counts; it is explicitly a
   draft fixture manifest, not an evaluation freeze.
 
 The examples include a shared address between distinct related companies, similar
 names across countries, a conflicting address, an erroneous identifier shared
 by distinct companies, and a branch that must not become another legal-company
-master. Merge/split, source update and deletion scenarios are specified for later
-acceptance. Matching, survivorship and mutation execution are not implemented by
-this fixture or its mapping validator.
+master. The identity worker now exercises merge/split; the scalar worker exercises
+source update/deletion and approved override calculations. The fixture and its
+mapping validator alone do not execute these operations. See the
+[measured Phase B evidence](../../../bench/lakefusion/PHASE_B.md).
 
 `DomainContract`/`SourceMapping` currently validate scalar types, source-schema
 drift, required fields, version binding and deterministic mapping receipts.
-Business eligibility, reference resolution and golden-value policy are later
-services. A syntactically valid `record_kind=branch` is not permission to merge
+Company retrieval and scalar selection enforce business eligibility; reference
+resolution remains later work. A syntactically valid `record_kind=branch` is not permission to merge
 that row into the legal-company domain.
