@@ -4,6 +4,7 @@ import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import { Building2, GitBranch, History, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SourceComparison } from "@/components/source-comparison";
 import { useGoldenDemoCatalogSuspense, useGoldenDemoDetailSuspense } from "@/lib/api";
 import type { DemoFieldOut } from "@/lib/api";
 
@@ -76,6 +77,7 @@ function CompanyDetail({ masterId, publication }: { masterId: string; publicatio
     <header className="golden-header"><div className="golden-company-icon"><Building2 size={28} /></div><div><p className="eyebrow">LEGAL COMPANY</p><h2 id="golden-title">{entity.values.legal_name}</h2><p>{entity.values.country} · {entity.values.registration_id ?? "Registration identifier unavailable"}</p></div></header>
     <div className="golden-revisions"><span><History size={15} />Data revision <strong>{entity.revision}</strong></span><span><GitBranch size={15} />Identity revision <strong>{entity.identity_revision}</strong></span><span>{entity.sources.filter(s => !s.deleted).length} active sources · {entity.sources.filter(s => s.deleted).length} deleted</span></div>
     <p className="golden-freshness">{publication === "first" ? "Earlier publication. Later changes are hidden." : "Second publication, including source updates and the approved name edit."} Frozen synthetic data as of {new Date(detail.as_of).toLocaleDateString("en-GB", { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" })}.</p>
+    <SourceComparison comparison={entity.comparison} />
     <section className="golden-values" aria-label="Published values and provenance"><div className="golden-section-heading"><h3>Every value has a story.</h3><p>Open a field to compare the source values and see why one was selected.</p></div>
       {entity.fields.map(f => <FieldEvidence key={`${detail.publication_id}-${f.name}`} field={f} />)}
     </section>

@@ -314,3 +314,15 @@ def test_precision_count_validation(args):
 def test_precision_confidence_validation(confidence):
     with pytest.raises(ContractError):
         precision_lower_bound(1, 2, confidence=confidence)
+
+
+def test_probability_preview_preserves_explicit_origin_and_rejects_relabelling(setup):
+    binding, records = setup
+    comparison = compare_pair(binding.comparison, *records, candidate_methods=[], pair_origin="explicit_comparison")
+    score = PairScore(binding.context.sha256, comparison["evidence_sha256"], .99)
+    result = preview_decision(binding, comparison, score)
+    assert result["comparison"]["pair_origin"] == "explicit_comparison"
+    assert result["decision"]["route"] == "review"
+    relabelled = {**comparison, "pair_origin": "retrieval_candidate"}
+    with pytest.raises(ContractError, match="candidate methods"):
+        preview_decision(binding, relabelled, score)

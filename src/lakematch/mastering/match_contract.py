@@ -7,7 +7,7 @@ from .survivorship_contract import MappingPin
 
 FIELDS = ("record_kind", "legal_name", "country", "registration_id", "address_line1", "city", "postal_code")
 METHODS = frozenset({"identifier", "name", "tokens", "trigrams"})
-ALGORITHM = "company_pair_evidence_v1"
+ALGORITHM = "company_pair_evidence_v2"
 NORMALIZATION = "unicode_company_comparison_v1"
 # Fixed precedence is part of the algorithm, not caller-controlled code.
 PRECEDENCE = ("deleted_source", "same_source_record", "ineligible_granularity", "incomplete_identity",

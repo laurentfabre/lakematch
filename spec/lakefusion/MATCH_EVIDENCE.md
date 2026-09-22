@@ -13,7 +13,8 @@ round-trip through JSON. These are worker previews, not registry approvals;
 durable rule approval/promotion remains part of the later integration.
 
 `mastering.match_evidence.compare_pair(binding, left, right,
-candidate_methods=[...])` accepts exactly two mapped source snapshots. Each has
+candidate_methods=[...], pair_origin="retrieval_candidate")` accepts exactly two
+mapped source snapshots. Each has
 `source_id`, `source_key`, `version`, `mapping_version`, `mapping_sha256`,
 `deleted` and `values`. Unknown envelope/field names, mapping drift, nonfinite
 values and oversized input are rejected. When both inputs claim the same
@@ -23,12 +24,23 @@ enforce that invariant before invoking it.
 The service never mutates its inputs, writes records, allocates IDs or publishes.
 
 The output contains the two detached snapshots and their hashes, a stable pair
-ID, the versioned rule definition, retrieval-method provenance, seven field
+ID, the versioned rule definition, pair origin/retrieval-method provenance, seven field
 comparisons, all triggered rules and the selected rule. Reversing the pair or
 candidate-method order produces the same evidence. `left` and `right` in the
 result use canonical source/key/version order, not the caller's display order.
 The evidence checksum covers the complete result. Candidate methods are supplied
 by the trusted worker; the comparator does not prove retrieval occurred.
+
+For two directly selected records, use `pair_origin="explicit_comparison"` and
+`candidate_methods=[]`. This makes no retrieval claim. Retrieved candidates still
+require one to four unique supported methods. Changing origin changes the evidence
+hash; probability replay must preserve it. Origin cannot override comparison rules.
+
+The current algorithm is `company_pair_evidence_v2`, with evidence schema 2;
+the ruleset definition format remains schema 1. Earlier v1 algorithms and changed
+implementation pins are rejected by the current worker, not silently reinterpreted.
+Historic reports remain tied to their original source revisions. No previously
+fitted or approved model depends on this development comparator.
 
 ## Field comparisons
 
@@ -69,7 +81,33 @@ Every eligible suggestion has `route=review` and `auto_merge_eligible=false`.
 agreement nor a candidate block is a calibrated score or a merge command.
 
 Limits: one pair, ten mapping pins, 2,048 characters per input scalar, 64 KiB pair
-JSON and four declared retrieval methods. This is not a batch or public HTTP API.
+JSON and four declared retrieval methods (zero for explicit comparisons). This
+is not a batch or public HTTP API.
+
+## Synthetic app projection
+
+The APX **Golden records** screen now shows a comparison for each of its six
+companies in each of two publications. The build tool invokes the real comparator
+on the existing fixture's source snapshots, with explicit origin and no retrieval
+methods. The schema-2 demo bundle carries a typed display projection: seven raw
+and normalized field comparisons, source versions, triggered/selected rules,
+review/exclusion reasons and original evidence/ruleset digests. The full worker
+evidence is reproducible with the pinned build source; the display projection
+is not itself the payload hashed by `evidence_sha256`.
+
+The Python 3.11 app checks the package checksum, schema, source/version/value
+correspondence, unique fields and selected-rule consistency. It never imports
+the Python 3.12 comparator. The build's `--check` verifies exact projection parity
+and runs in the local commit hook for comparator changes. This establishes the
+packaged fixture's provenance, not authentication of arbitrary live input.
+
+The screen distinguishes unchanged values, normalized agreements, differences
+and unavailable comparisons. It shows identifier conflicts, deleted sources,
+historical snapshots and all triggered rule reasons. Every score is explicitly
+absent. Memberships are predefined; there is no merge action, candidate discovery
+or model-quality claim. [Screenshots and development evidence](../../reports/lakefusion-comparison-ui-20260922/README.md)
+retain the observed behavior. Live adapters, domain grants and full acceptance
+remain separate gates.
 
 ## Remaining decision-band work
 
@@ -90,8 +128,7 @@ The [protocol](PROTOCOL.md) still requires a one-sided 95% precision lower bound
 of at least 99.5% with independent family sampling. Candidate misses remain false
 negatives. Model-specific explanations and their fidelity checks come after
 actual value comparisons. Model/feature parity, durable rule approval, workflow
-authorization, UI integration of this comparison service and quality acceptance
-remain open.
+authorization, live comparison UI integration and quality acceptance remain open.
 
 Development checks are in `tests/test_mastering_match_evidence.py`; the
 [development plan](../../bench/lakefusion/MATCH_EVIDENCE_PLAN.md) and

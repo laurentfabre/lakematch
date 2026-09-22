@@ -265,11 +265,14 @@ Deliverables:
   36 new portable checks pass, with pinned rules and actual values. All eligible
   suggestions require review. The [probability/band foundation](spec/lakefusion/PROBABILITY.md)
   adds explicit transforms, metadata bindings, conflict vetoes and diagnostic
-  helpers; **294 portable checks pass**, including 88 new probability cases.
-  Empirical calibration, registry promotion, comparison UI integration and
+  helpers. The [synthetic comparison UI](reports/lakefusion-comparison-ui-20260922/README.md)
+  now displays actual/normalized values, conflicts and exclusions for twelve
+  source pairs, with explicit origin and no model score. **301 portable and 25
+  app checks pass**; type/build and desktop/mobile development checks pass.
+  Empirical calibration, registry promotion, live comparison integration and
   matching-quality acceptance remain open. LF-B stays **8/8**.
 - [ ] Deliver the first APX golden-record detail view using the synthetic slice.
-  [Local APX preview](reports/lakefusion-ui-20260922-final/README.md) implemented:
+  [Local APX preview](reports/lakefusion-comparison-ui-20260922/README.md) implemented:
   six companies, two publications, field alternatives, overrides and deleted
   sources. App/type/build and desktop/mobile development checks pass. The next
   full acceptance run awaits the revised LF-B bound; no experiment was added.
@@ -505,6 +508,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: comparison foundation and APX preview | LM-014 in progress. 206 portable and 19 app checks pass; versioned comparison evidence routes eligible suggestions to review. A packaged six-company APX screen shows two publications and all field provenance. Type/build and desktop/mobile development checks pass. [Checkpoint](bench/lakefusion/PHASE_B.md). No new experiment; LF-B stays 8/8. | Approve or revise the [proposed four-run extension](bench/lakefusion/NEXT_EXPERIMENTS.md) before calibration/acceptance experiments. Phase B remains open. GitHub publishing still awaits resolution of the public/private visibility conflict. |
 | 2026-09-22: recurring scan follow-up | Fresh source-only scan: 294 files, 0 errors, 21 warnings; warning rule/file locations unchanged. Latest raw JSON has no findings in the named review store/acceptance files. Live errors are 7 SQL, 1 HTTP 400 and 4 HTTP 404; cold-start cause is unproved. [Triage](reports/scan-followup-20260922/README.md). No code change or experiment; LF-B remains 8/8. | Existing calibration/acceptance and repository-visibility decisions remain pending. Scan repetition does not close those gates. |
 | 2026-09-22: probability and band foundation | 294 portable checks pass, including 88 new analytical probability cases. Immutable model/feature/calibration/band metadata, declared split disjointness, deterministic vetoes and Brier/ECE/precision-bound helpers are implemented. [Contract](spec/lakefusion/PROBABILITY.md). Every eligible preview still routes to review; no fitting, corpus evaluation or automatic quality claim. LF-B remains 8/8; LM-014 remains in progress. | Calibration and acceptance experiments await the proposed bound extension. Comparison UI and promotion integration remain open. GitHub publication still awaits resolution of the public/private visibility conflict. |
+| 2026-09-22: synthetic comparison explorer | The APX demo displays seven actual/normalized field comparisons for six companies across two publications, with conflicts, deletion and explicit pair origin. 301 portable and 25 app checks pass; pinned build, types, keyboard/error recovery and desktop/mobile preview pass. [Evidence](reports/lakefusion-comparison-ui-20260922/README.md). Historic publication values/hashes and frozen inputs are preserved. LF-B stays 8/8; LM-014 remains in progress. | Empirical calibration, promotion/live integration and full acceptance remain open. Further experiments need a revised bound; GitHub publication still awaits the repository-visibility decision. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

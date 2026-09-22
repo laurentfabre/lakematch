@@ -99,6 +99,7 @@ def main():
                       n == "tests/test_deployment_recovery.py" for n in contents):
         checks.append((ROOT / ".venv/bin/python", ROOT, ["tests/test_deployment_recovery.py"]))
     if args.all or any(n.startswith(("app/src/lakematch_review/demo/", "tools/build_golden_demo",
+                                     "src/lakematch/mastering/match_",
                                      "tools/lakefusion_lineage_fixture", "tools/lakefusion_survivorship_fixture",
                                      "src/lakematch/mastering/lineage", "src/lakematch/mastering/survivorship",
                                      "examples/mastering/company_pilot/")) for n in contents):

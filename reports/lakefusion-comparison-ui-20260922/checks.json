@@ -1,0 +1,138 @@
+{
+  "kind": "local_development_checks",
+  "date": "2026-09-22",
+  "package": "LM-014",
+  "qualification": "development_preview_only",
+  "base_commit": "b13c2eab7da5545db870d48acc3d289059124cb4",
+  "source_binding": "raw file hashes; containing commit identifies the increment",
+  "files": {
+    "src/lakematch/mastering/match_contract.py": "2ca980e6b3a3a89e483fd33709829daa9d787e51086ab0d08f56996a8018c3d4",
+    "src/lakematch/mastering/match_evidence.py": "83a428b7725e28900b0dd092db7d358b3fa94371372dac98ea52262e8a5fe2f1",
+    "src/lakematch/mastering/probability.py": "84ebd784a51e0cbcc948d183fd08a6d427a3b8caeffe6a3bcaae7068932c7d0c",
+    "tests/test_mastering_match_evidence.py": "3cc69a706c57c062d731af50cca8cec4c28e903653d55486df00289554f836e2",
+    "tests/test_mastering_probability.py": "05585944e8d8b3dcc937bcd876e96a8d6f41c4ba75646f234c59afa258886c34",
+    "tools/build_golden_demo.py": "eecb994d0c4ad251c10980a46ff7e40787a38471e2550527218a8e72c4bb40df",
+    "tools/check_changes.py": "bdcdcbbb1751ee87e7b1273d82209341f7caea58c6a8a5cf219251e99cc09f2c",
+    "app/src/lakematch_review/backend/golden_demo.py": "ccea69eb9c9c470bf857f86d1df682e24d9ba81023a7150bb0e172dec2cd1fd3",
+    "app/src/lakematch_review/demo/company_lineage.json": "36a81e7e440cf132dda67f5029528edaf374256a0cd7cd7807849aa7ee1a07d0",
+    "app/src/lakematch_review/ui/components/source-comparison.tsx": "5a2ad7e8b823de7fd42c11a717ed4ed7047f171f1f9da63b8b1053eeafa05e7e",
+    "app/src/lakematch_review/ui/components/golden-records.tsx": "77f0f2e3ec9dd38ef46782f04f723911e6b4fba35adc5e0cf31785b05139fc38",
+    "app/src/lakematch_review/ui/lib/api.ts": "4801a24de6d46d2e02d2da7f938fc690a5ccbb9e9fcb3ea054a106b6ab7dc2cc",
+    "app/src/lakematch_review/ui/styles/globals.css": "3d5038242d25eef33df89303ec43f586c532c58ee3cb74169d9a89c0b554140a",
+    "app/tests/test_golden_demo.py": "2f015c4e86af6f9cfacae53af7929c5b3215a0e45e88397ce72db7a8d0c278ef",
+    "app/dev/preview_golden.mjs": "e8978602d0fbfcfb2f706a032500d6a8e4c11ac464b4caa572833f9df880f6e0",
+    "tools/preview_golden_app.py": "68556fa476045a9a15844f52a3af4e019b39d1a27332f5dc6f6a94c73582a1b6",
+    "bench/lakefusion/COMPARISON_UI_PLAN.md": "466d2e8ae635573cc04eb5db4c76831a026705217e3e402f9a0fedafd103270b"
+  },
+  "comparison_implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+  "test_suites": {
+    "portable": {
+      "tests": 301,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": 2.153,
+      "junit_sha256": "61ff2ebf42402a22256f6c11ba0dbc784c54d5ebf744cadd58647626a092c692"
+    },
+    "app": {
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": 0.92,
+      "junit_sha256": "9488fec240cc9c2541e9c3931e9019e702a017cbb05226883749b8c6ca41d459"
+    }
+  },
+  "test_process_timeout_seconds": 120,
+  "commands": [
+    ".venv/bin/python -m pytest -q tests/test_mastering_contracts.py tests/test_mastering_policy.py tests/test_mastering_retrieval.py tests/test_mastering_execution.py tests/test_mastering_identity_contract.py tests/test_mastering_survivorship.py tests/test_mastering_lineage.py tests/test_mastering_match_evidence.py tests/test_mastering_probability.py tests/test_publication.py tests/test_config.py tests/test_source_hygiene.py tests/test_source_scan.py --junitxml=reports/lakefusion-comparison-ui-20260922/portable-tests.xml",
+    "app/.venv/bin/python -m pytest -q app/tests --junitxml=reports/lakefusion-comparison-ui-20260922/app-tests.xml",
+    "(from app/) apx dev check",
+    "(from app/) .venv/bin/python build_deploy.py",
+    "(from app/) node node_modules/typescript/bin/tsc --noEmit",
+    "(from app/) .venv/bin/ty check",
+    ".venv/bin/python tools/preview_golden_app.py --output reports/lakefusion-comparison-ui-20260922/preview"
+  ],
+  "type_checks": {
+    "apx_check": "passed outside sandbox; incidental package/lock changes restored",
+    "final_direct_typescript": "passed against restored pins",
+    "final_direct_python": "passed"
+  },
+  "build": {
+    "deployment_files": 4,
+    "largest_file_bytes": 163466,
+    "demo_json_bytes": 191907,
+    "wheel_contains_exact_demo": true
+  },
+  "browser": {
+    "kind": "local_development_preview",
+    "acceptance_gate": "pending_authorized_experiment",
+    "app": "APX 0.3.8",
+    "corpus_access": false,
+    "remote_calls": false,
+    "review_writes": false,
+    "desktop": [
+      1440,
+      1100
+    ],
+    "mobile": [
+      390,
+      844
+    ],
+    "page_errors": [],
+    "mobile_fits": true,
+    "views": [
+      "approved_name_override",
+      "earlier_publication",
+      "deleted_source",
+      "identifier_conflict",
+      "normalized_name_agreement"
+    ],
+    "keyboard_disclosure": true,
+    "error_recovery": true,
+    "comparison_fields": 7
+  },
+  "preservation": {
+    "frozen_phase_a_files_verified": 15,
+    "user_report_hashes": {
+      "reports/findings.json": "1330b75048cf88d6e615a512b6fccc93575872e99c07510f3be112a5a9ffbe29",
+      "reports/findings.md": "e54dfed5f111088f5b9ca4b8d80c2f80580ffc1129958ec509195ab544d129ab",
+      "reports/online/findings.json": "ff653d5854649889bc68e67ce215749b60491eefcf5e7ac8d8e8608186e9d11c",
+      "reports/online/findings.md": "00ee8f874fbd74121e21405e42d100c4359a2daf4f62ada73c63538cf083455d"
+    },
+    "dependency_pins": {
+      "app/package.json": "8a4c455d43ca6c0c78b977424fd9e5f99fe5123b106846beaf9bd7e87739b4ab",
+      "app/bun.lock": "5bf48fbd1bfea91d7944bc32431f7070e21ad5a9210de6ce0cd5ac731103f88d",
+      "app/uv.lock": "eb534d2cd137c0b18f264d11b5479009bba747ca13dce5c57b6fc7957399c2cc"
+    },
+    "historic_publication_hashes": [
+      "299391219ff56d3f535ea86ba23ce5d20dd3591111aa7f9948f6b910a3b94e8a",
+      "7613c948a6e69b74c62748b7cd763b5c85abfdde9a434c9f5c7eae6e20a15fed"
+    ],
+    "preexisting_golden_and_source_values_unchanged": true
+  },
+  "tool_failures": [
+    "APX dev check and apx bun tsc crashed under sandbox macOS system configuration access; APX check passed with escalation and direct final tsc passed",
+    "Native Chrome connector could not open its occupied profile; existing browser left untouched; isolated Playwright preview passed"
+  ],
+  "cleanup": {
+    "scripted_browser_and_server": "runner completed and removed temporary store",
+    "unused_native_preview": "120-second bound expired; process stopped and temporary directory removed"
+  },
+  "new_experiments": 0,
+  "lf_b_experiments_consumed": 8,
+  "lf_b_experiment_limit": 8,
+  "pilot_corpus_evaluation": false,
+  "model_fitting": false,
+  "threshold_search": false,
+  "confirmation_materialized": false,
+  "workspace_operations": false,
+  "quality_gate_passed": false,
+  "remaining": [
+    "empirical calibration",
+    "registry/model promotion",
+    "live comparison adapters and domain/field authorization",
+    "full Phase B acceptance",
+    "experiment bound and repository visibility decisions"
+  ]
+}

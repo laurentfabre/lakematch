@@ -372,3 +372,48 @@ and no Spark session, database, AI endpoint, remote experiment or deployment ran
 The application is unchanged; its prior checks remain applicable. The four
 user-refreshed scan reports remain untouched. The proposed experiment extension
 and the §2 repository-visibility conflict are still unresolved.
+
+## Actual comparisons in the synthetic APX explorer — 2026-09-22
+
+The [bounded plan](COMPARISON_UI_PLAN.md) connects LM-014's deterministic worker
+to the existing six-company demo through a build-time display projection.
+**No new experiment ran; LF-B remains 8/8.** The two Phase B checkboxes remain
+open for empirical calibration and full acceptance.
+
+Every company/publication now carries seven comparisons with raw values,
+normalization, present/missing/deleted states, source versions, triggered rules
+and the review/exclusion reason. The UI shows identifier conflicts, normalized
+name agreements and historical/deleted sources, with no model score or merge
+action. Its pairs come from predefined fixture memberships. Comparator algorithm
+and evidence v2 add explicit pair origin, so these pairs make no candidate
+retrieval claim. Existing retrieval callers still require method provenance;
+probability replay preserves the origin. Earlier development artifacts retain
+their original source pins and are not silently reinterpreted.
+
+Observed checks: **301 portable tests and 25 app tests pass**, including seven
+new worker cases and six app cases. APX type checks, final direct type checks
+against restored dependency pins and the pinned production build pass. The wheel
+contains the 191,907-byte schema-2 demo JSON; four deployment files remain below
+10 MiB (largest 163,466 bytes). The app checks all twelve comparisons against
+the displayed source snapshots and rejects inconsistent projections.
+
+The [desktop/mobile browser preview](../../reports/lakefusion-comparison-ui-20260922/README.md)
+passes at 1440×1100 and 390×844, with no page errors or horizontal mobile overflow.
+Keyboard disclosure, publication changes, conflict/normalization examples and
+recovery from a simulated 503 response pass. Only read requests occur; no review
+queue/statistics/history data is fetched. The native connector's occupied Chrome
+profile was left alone; an isolated Playwright browser supplied the preview.
+Both owned loopback servers stopped and their temporary stores were removed.
+
+APX's sandbox system-configuration failures and temporary dependency refresh are
+recorded in the preview report. Original dependency files were restored, and
+the pinned build reinstalled them before final checks. All fifteen frozen Phase
+A checksums, both publication hashes, prior golden/source/field values and the
+four user-refreshed scan reports are unchanged. No pilot corpus, fitting,
+threshold search, confirmation release, remote experiment or deployment occurred.
+
+The [comparison contract](../../spec/lakefusion/MATCH_EVIDENCE.md) describes the
+projection/replay boundary. Live adapters, authenticated domain/field grants,
+durable rule/model promotion and matching-quality acceptance remain open.
+The goal and backlog still mark LM-014 in progress. The proposed experiment
+extension and repository-visibility decisions remain unresolved.

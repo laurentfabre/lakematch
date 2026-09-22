@@ -96,3 +96,69 @@ def test_packaged_data_is_detached_and_detects_corruption(tmp_path, monkeypatch)
     asset.write_bytes(b"x" * (1024 * 1024 + 1))
     with pytest.raises(ValueError, match="exceeds"):
         golden_demo.read_demo()
+
+
+def test_comparisons_follow_each_publications_actual_source_versions(client):
+    catalog = client.get("/api/demo/golden-records").json()
+    observed = 0
+    for company in catalog["companies"]:
+        for publication in catalog["publications"]:
+            entity = client.get(f"/api/demo/golden-records/{company['master_id']}?publication={publication}").json()["entity"]
+            comparison = entity["comparison"]
+            assert comparison["pair_origin"] == "explicit_comparison"
+            assert comparison["probability"] is None
+            assert comparison["decision"]["auto_merge_eligible"] is False
+            assert len(comparison["fields"]) == 7
+            for index, record in enumerate(comparison["records"]):
+                source = next(s for s in entity["sources"] if s["source_id"] == record["source_id"] and s["source_key"] == record["source_key"])
+                assert record["version"] == source["version"]
+                side = "left" if index == 0 else "right"
+                assert all(f[side]["value"] == source["values"].get(f["name"]) for f in comparison["fields"])
+            observed += 1
+    assert observed == 12
+    assert client.get("/api/queue").json() == []
+    assert client.get("/api/reviews").json() == []
+
+
+def test_comparison_explains_identifier_conflict_normalization_and_deletion(client):
+    companies = client.get("/api/demo/golden-records").json()["companies"]
+    def comparison(name, publication="second"):
+        company = next(c for c in companies if c["legal_name"] == name)
+        return client.get(f"/api/demo/golden-records/{company['master_id']}?publication={publication}").json()["entity"]["comparison"]
+    harbor = comparison("Harbor Industrial Ltd")
+    assert harbor["decision"]["rule_id"] == "identifier_conflict"
+    identifier = next(f for f in harbor["fields"] if f["name"] == "registration_id")
+    assert {identifier[s]["value"] for s in ("left", "right")} == {"TEST-GB-004", "TEST-GB-005"}
+    assert identifier["comparison"] == "differ"
+    name = next(f for f in comparison("Cedar Logistics SAS")["fields"] if f["name"] == "legal_name")
+    assert name["comparison"] == "agree" and name["raw_equal"] is False
+    assert name["left"]["normalized"] == name["right"]["normalized"] == "cedar logistics"
+    old, current = comparison("Atlas Supplies SAS", "first"), comparison("Atlas Supplies SAS")
+    assert old["decision"]["route"] == "review"
+    assert current["decision"]["route"] == "exclude"
+    assert current["decision"]["rule_id"] == "deleted_source"
+    assert all(f["comparison"] == "unavailable" for f in current["fields"])
+    assert old["evidence_sha256"] != current["evidence_sha256"]
+
+
+@pytest.mark.parametrize("mutation", ["source_version", "raw_value", "fields", "merge_authority"])
+def test_inconsistent_comparison_projection_is_rejected_even_with_new_bundle_checksum(tmp_path, monkeypatch, mutation):
+    from hashlib import sha256
+    payload = golden_demo.read_demo().model_dump()
+    comparison = payload["publications"][0]["entities"][0]["comparison"]
+    if mutation == "source_version":
+        comparison["records"][0]["version"] += 1
+    elif mutation == "raw_value":
+        comparison["fields"][0]["left"]["value"] = "Unrelated value"
+    elif mutation == "fields":
+        comparison["fields"][0] = comparison["fields"][1]
+    else:
+        comparison["decision"]["auto_merge_eligible"] = True
+    payload.pop("bundle_sha256")
+    payload["bundle_sha256"] = sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode()).hexdigest()
+    asset = tmp_path / "demo/company_lineage.json"
+    asset.parent.mkdir()
+    asset.write_text(json.dumps(payload))
+    monkeypatch.setattr(golden_demo, "files", lambda _: tmp_path)
+    with pytest.raises(ValueError):
+        golden_demo.read_demo()

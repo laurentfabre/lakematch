@@ -1,0 +1,3 @@
+✅ [tsc] TypeScript compilation succeeded
+✅ [ty] Python type check succeeded
+[?25h

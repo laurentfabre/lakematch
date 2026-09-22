@@ -43,6 +43,14 @@ and approved edit; switch publications to see the earlier values. Data revision
 and identity revision are shown separately. Deleted sources remain explainable.
 The demo does not seed the review queue or connect to customer/workspace data.
 
+**Do the source records agree?** shows all seven compared fields, their original
+and normalized values, and the reason for review or exclusion. Try Harbor for
+conflicting registration numbers, Cedar Logistics for normalized name agreement,
+and Atlas Supplies SAS for a deleted CRM source. Switch publication to inspect
+the earlier evidence. These are directly selected fixture pairs; no candidate
+retrieval, model score or automatic merge is implied. The comparison is built
+from the portable worker and packaged as a schema-2 display projection.
+
 Its immutable JSON is packaged with the app, so a fresh checkout needs no prior
 experiment output. The root Python 3.12 environment can rebuild it with
 `python tools/build_golden_demo.py` (from the repository root); `--check` detects
@@ -51,8 +59,9 @@ stale generated content. The Python 3.11 app never imports the engine. Bounded
 no mutation or configurable live-data path. This is a local development preview;
 production domain/field authorization and scalable entity APIs remain open.
 
-[Desktop/mobile screenshots and reproduction steps](../reports/lakefusion-ui-20260922-final/README.md)
-record the preview. A new full acceptance experiment is pending the LF-B cap
+[Current comparison screenshots and reproduction steps](../reports/lakefusion-comparison-ui-20260922/README.md)
+record the preview; the [earlier provenance-only view](../reports/lakefusion-ui-20260922-final/README.md)
+is retained. A new full acceptance experiment is pending the LF-B cap
 extension; no such experiment was run as part of these development checks.
 
 In the UI, use **R** to focus the reason, **Esc** to return to shortcuts,

@@ -44,6 +44,59 @@ class DemoSourceOut(DemoModel):
     values: dict[str, str | None]
 
 
+class DemoComparisonValueOut(DemoModel):
+    state: Literal["present", "missing", "null", "blank", "invalid_type", "invalid_format", "deleted"]
+    value: str | None
+    normalized: str | None
+
+
+class DemoComparisonFieldOut(DemoModel):
+    name: Literal["record_kind", "legal_name", "country", "registration_id", "address_line1", "city", "postal_code"]
+    left: DemoComparisonValueOut
+    right: DemoComparisonValueOut
+    comparison: Literal["agree", "differ", "unavailable"]
+    raw_equal: bool | None
+
+
+class DemoComparedRecordOut(DemoModel):
+    source_id: str
+    source_key: str
+    version: int
+    deleted: bool
+
+
+class DemoComparisonRuleOut(DemoModel):
+    rule_id: str
+    selected: bool
+    reason: str
+
+
+class DemoComparisonDecisionOut(DemoModel):
+    rule_id: str
+    suggestion: Literal["match", "no_match", "unsure", "not_applicable"]
+    route: Literal["review", "exclude"]
+    reason: str
+    auto_merge_eligible: Literal[False]
+
+
+class DemoComparisonOut(DemoModel):
+    schema_version: Literal[2]
+    pair_origin: Literal["explicit_comparison"]
+    pair_id: str
+    evidence_sha256: str
+    ruleset_id: str
+    ruleset_version: int
+    ruleset_sha256: str
+    algorithm: Literal["company_pair_evidence_v2"]
+    implementation_sha256: str
+    records: list[DemoComparedRecordOut] = Field(min_length=2, max_length=2)
+    fields: list[DemoComparisonFieldOut] = Field(min_length=7, max_length=7)
+    rules: list[DemoComparisonRuleOut] = Field(min_length=1, max_length=10)
+    decision: DemoComparisonDecisionOut
+    probability: None
+    qualification: Literal["development_preview_only"]
+
+
 class DemoEntityOut(DemoModel):
     master_id: str
     revision: int
@@ -54,6 +107,7 @@ class DemoEntityOut(DemoModel):
     policy_version: int
     policy_sha256: str
     sources: list[DemoSourceOut] = Field(max_length=2)
+    comparison: DemoComparisonOut
 
 
 class DemoPublication(DemoModel):
@@ -64,7 +118,7 @@ class DemoPublication(DemoModel):
 
 
 class DemoBundle(DemoModel):
-    schema_version: Literal[1]
+    schema_version: Literal[2]
     kind: Literal["synthetic_company_demo"]
     membership_basis: Literal["synthetic_fixture_truth"]
     default_master_id: str
@@ -111,6 +165,21 @@ def read_demo():
     ids = {e.master_id for e in bundle.publications[0].entities}
     if len(ids) != 6 or bundle.default_master_id not in ids or ids != {e.master_id for e in bundle.publications[1].entities}:
         raise ValueError("Packaged demo identities differ")
+    for publication in bundle.publications:
+        for entity in publication.entities:
+            comparison = entity.comparison
+            sources = sorted(entity.sources, key=lambda s: (s.source_id, s.source_key, s.version))
+            references = [{k: getattr(s, k) for k in ("source_id", "source_key", "version", "deleted")} for s in sources]
+            if references != [r.model_dump() for r in comparison.records]:
+                raise ValueError("Comparison source versions differ from the displayed entity")
+            if len({f.name for f in comparison.fields}) != 7:
+                raise ValueError("Comparison fields must be unique")
+            for field in comparison.fields:
+                if [field.left.value, field.right.value] != [s.values.get(field.name) for s in sources]:
+                    raise ValueError("Comparison values differ from the displayed source snapshots")
+            selected = [r.rule_id for r in comparison.rules if r.selected]
+            if selected != [comparison.decision.rule_id]:
+                raise ValueError("Comparison selected rule differs from its decision")
     return bundle
 
 

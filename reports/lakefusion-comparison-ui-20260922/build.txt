@@ -1,0 +1,30 @@
+[?25hChecked 36 packages in 1ms
+[0.08ms] ".env"
+bun install v1.3.8 (b64edcb4)
+
++ @tanstack/router-generator@1.167.35
++ @tanstack/router-plugin@1.168.37
+
+4 packages installed [47.00ms]
+[?25hBuilding project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+Skipping UI build
+✅ Python wheel built in 1s 336ms
+Build completed
+[?25h(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vite.deploy.config.ts:2:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1829 modules transformed.
+rendering chunks...
+computing gzip size...
+src/lakematch_review/__dist__/index.html                   0.48 kB │ gzip:   0.31 kB
+src/lakematch_review/__dist__/assets/index-BR7wt8sG.css   39.73 kB │ gzip:   8.47 kB
+src/lakematch_review/__dist__/assets/index-BK6WnQfz.js   399.46 kB │ gzip: 122.02 kB
+
+✓ built in 217ms
+[?25hBuilding project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+Skipping UI build
+✅ Python wheel built in 996ms
+Build completed
+[?25hAPX build: 4 files; largest 163,466 bytes

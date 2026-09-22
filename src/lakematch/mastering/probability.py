@@ -61,7 +61,8 @@ def preview_decision(binding, comparison, score):
         evidence = json.loads(raw)
         if not isinstance(evidence, dict) or not isinstance(evidence.get("records"), list) or len(evidence["records"]) != 2:
             raise ContractError("Two-record comparison evidence required")
-        actual = compare_pair(binding.comparison, *evidence["records"], candidate_methods=evidence["candidate_methods"])
+        actual = compare_pair(binding.comparison, *evidence["records"],
+                              candidate_methods=evidence["candidate_methods"], pair_origin=evidence["pair_origin"])
         if digest(evidence) != digest(actual):
             raise ContractError("Comparison evidence does not replay with its pinned inputs")
     except (KeyError, TypeError, ValueError, RecursionError) as error:

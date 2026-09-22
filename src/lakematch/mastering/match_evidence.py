@@ -98,19 +98,24 @@ def _record(binding, record):
     return record
 
 
-def compare_pair(binding, left, right, *, candidate_methods):
+def compare_pair(binding, left, right, *, candidate_methods, pair_origin="retrieval_candidate"):
     """Explain one supplied pair. Inputs are trusted mapped snapshots, not HTTP.
 
     Evidence carries no authenticated approval and no calibrated probability.
-    Candidate methods are provenance only. The result cannot allocate or merge IDs.
+    Candidate methods are provenance only. Explicit comparisons make no retrieval
+    claim. The result cannot allocate or merge IDs.
     """
     if not isinstance(binding, MatchBinding):
         raise ContractError("Typed comparison binding required")
     binding.check_implementation()
-    if (not isinstance(candidate_methods, (list, tuple)) or not 1 <= len(candidate_methods) <= 4
+    if pair_origin not in ("retrieval_candidate", "explicit_comparison"):
+        raise ContractError("Unsupported pair origin")
+    minimum = 1 if pair_origin == "retrieval_candidate" else 0
+    maximum = 4 if pair_origin == "retrieval_candidate" else 0
+    if (not isinstance(candidate_methods, (list, tuple)) or not minimum <= len(candidate_methods) <= maximum
             or any(not isinstance(m, str) or m not in METHODS for m in candidate_methods)
             or len(set(candidate_methods)) != len(candidate_methods)):
-        raise ContractError("Expected 1–4 unique declared candidate methods")
+        raise ContractError("Expected 1–4 candidate methods for retrieval; none for explicit comparison")
     try:
         raw = json.dumps([left, right], ensure_ascii=False, allow_nan=False, sort_keys=True, separators=(",", ":"))
         if len(raw.encode()) > MAX_BYTES:
@@ -160,10 +165,10 @@ def compare_pair(binding, left, right, *, candidate_methods):
         suggestion = "no_match"
     if excluded:
         suggestion = "not_applicable"
-    result = {"schema_version": 1, "pair_id": digest([{**{k: r[k] for k in ("source_id", "source_key", "version")},
+    result = {"schema_version": 2, "pair_id": digest([{**{k: r[k] for k in ("source_id", "source_key", "version")},
                                                        "sha256": h} for r, h in zip(records, hashes)]),
               "binding": binding.manifest(), "records": records, "record_sha256": hashes,
-              "candidate_methods": sorted(candidate_methods), "fields": fields,
+              "pair_origin": pair_origin, "candidate_methods": sorted(candidate_methods), "fields": fields,
               "rules": [{"rule_id": r, "selected": r == winner, "reason": REASONS[r]} for r in triggered],
               "decision": {"rule_id": winner, "suggestion": suggestion,
                            "route": "exclude" if excluded else "review", "reason": REASONS[winner],

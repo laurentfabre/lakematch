@@ -177,3 +177,28 @@ def test_fields_and_byte_bounds(inputs):
 def test_candidate_provenance_is_explicit(inputs, methods):
     with pytest.raises(ContractError, match="candidate methods"):
         compare(inputs, methods)
+
+
+def test_explicit_pair_has_no_retrieval_claim_and_distinct_evidence(inputs):
+    binding, records = inputs
+    explicit = compare_pair(binding, *records, candidate_methods=[], pair_origin="explicit_comparison")
+    retrieved = compare(inputs)
+    assert explicit["schema_version"] == 2
+    assert explicit["binding"]["ruleset"]["algorithm"] == "company_pair_evidence_v2"
+    assert explicit["pair_origin"] == "explicit_comparison" and explicit["candidate_methods"] == []
+    assert retrieved["pair_origin"] == "retrieval_candidate"
+    assert explicit["fields"] == retrieved["fields"]
+    assert explicit["decision"] == retrieved["decision"]
+    assert explicit["evidence_sha256"] != retrieved["evidence_sha256"]
+    assert explicit == compare_pair(binding, *reversed(records), candidate_methods=[], pair_origin="explicit_comparison")
+
+
+@pytest.mark.parametrize("origin,methods", [("explicit_comparison", ["name"]), (None, []), ("unknown", []), ([], [])])
+def test_inconsistent_pair_origin_is_rejected(inputs, origin, methods):
+    with pytest.raises(ContractError):
+        compare_pair(inputs[0], *inputs[1], candidate_methods=methods, pair_origin=origin)
+
+
+def test_old_evidence_algorithm_is_not_silently_reinterpreted(inputs):
+    with pytest.raises(ContractError, match="Unsupported comparison"):
+        replace(inputs[0].ruleset, algorithm="company_pair_evidence_v1")

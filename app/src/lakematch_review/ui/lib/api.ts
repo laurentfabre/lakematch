@@ -36,6 +36,59 @@ export type DemoCompanyOut = {
     master_id: string;
 } & {
 };
+export type DemoComparedRecordOut = {
+    deleted: boolean;
+    source_id: string;
+    source_key: string;
+    version: number;
+} & {
+};
+export type DemoComparisonDecisionOut = {
+    auto_merge_eligible: false;
+    reason: string;
+    route: "review" | "exclude";
+    rule_id: string;
+    suggestion: "match" | "no_match" | "unsure" | "not_applicable";
+} & {
+};
+export type DemoComparisonFieldOut = {
+    comparison: "agree" | "differ" | "unavailable";
+    left: DemoComparisonValueOut;
+    name: "record_kind" | "legal_name" | "country" | "registration_id" | "address_line1" | "city" | "postal_code";
+    raw_equal: boolean | null;
+    right: DemoComparisonValueOut;
+} & {
+};
+export type DemoComparisonOut = {
+    algorithm: "company_pair_evidence_v2";
+    decision: DemoComparisonDecisionOut;
+    evidence_sha256: string;
+    fields: DemoComparisonFieldOut[];
+    implementation_sha256: string;
+    pair_id: string;
+    pair_origin: "explicit_comparison";
+    probability: null;
+    qualification: "development_preview_only";
+    records: DemoComparedRecordOut[];
+    rules: DemoComparisonRuleOut[];
+    ruleset_id: string;
+    ruleset_sha256: string;
+    ruleset_version: number;
+    schema_version: 2;
+} & {
+};
+export type DemoComparisonRuleOut = {
+    reason: string;
+    rule_id: string;
+    selected: boolean;
+} & {
+};
+export type DemoComparisonValueOut = {
+    normalized: string | null;
+    state: "present" | "missing" | "null" | "blank" | "invalid_type" | "invalid_format" | "deleted";
+    value: string | null;
+} & {
+};
 export type DemoDetailOut = {
     as_of: string;
     entity: DemoEntityOut;
@@ -46,6 +99,7 @@ export type DemoDetailOut = {
 } & {
 };
 export type DemoEntityOut = {
+    comparison: DemoComparisonOut;
     fields: DemoFieldOut[];
     identity_revision: number;
     master_id: string;

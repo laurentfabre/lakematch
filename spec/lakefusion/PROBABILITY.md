@@ -83,6 +83,8 @@ pinned source snapshots and declared candidate methods. Canonical content hashes
 must match, including the original comparison digest; changing a field, decision,
 source version or score context invalidates the input. This detects stale or
 altered evidence, but does not authenticate its producer.
+Replay also preserves the schema-2 comparison's explicit pair origin; a directly
+selected pair cannot be relabelled as retrieved without consistent provenance.
 
 The result separates three values:
 
@@ -147,7 +149,9 @@ All operations are in-process and have no database, model-loader or service
 dependency. The definitions have no registry approval, authenticated API,
 calibration fitter, threshold selector, campaign evaluator or promotion path.
 Automatic merge execution is absent. Model/feature parity, calibration on declared
-splits, matching-quality acceptance, comparison UI, model-specific explanation
+splits, matching-quality acceptance, live comparison UI, model-specific explanation
 fidelity and workflow authorization remain open LM-014/integration work.
+The synthetic APX comparison display is documented in [MATCH_EVIDENCE.md](MATCH_EVIDENCE.md);
+it carries no model score or probability-band output.
 The pending [experiment extension](../../bench/lakefusion/NEXT_EXPERIMENTS.md)
 must be resolved before calibration or acceptance experiments.

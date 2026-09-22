@@ -1,5 +1,5 @@
 {
-  "bundle_sha256": "4624c76886bfe1c64bfb0c807097ae1b59388b307c305a2d0774de4bbfdf558a",
+  "bundle_sha256": "59d4b6694375b4a903097d2157bb4f56d938cf715fdc13d6ba77b3fd5c3e4f44",
   "default_master_id": "00000000-0000-0000-0000-000000000001",
   "kind": "synthetic_company_demo",
   "membership_basis": "synthetic_fixture_truth",
@@ -8,6 +8,159 @@
       "as_of": "2026-09-22T12:00:00+00:00",
       "entities": [
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "6642f8e31c2c53e8407f8dabd4abdb5a190728df8bd04367c84169bdb5666777",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "cedar components s a",
+                  "state": "present",
+                  "value": "Cedar Components S.A."
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "cedar components",
+                  "state": "present",
+                  "value": "Cedar Components SA"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testfr001",
+                  "state": "present",
+                  "value": "TEST-FR-001"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testfr001",
+                  "state": "present",
+                  "value": "TEST-FR-001"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "99 updated example avenue",
+                  "state": "present",
+                  "value": "99 Updated Example Avenue"
+                },
+                "name": "address_line1",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "10 example avenue",
+                  "state": "present",
+                  "value": "10 Example Avenue"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "lyon",
+                  "state": "present",
+                  "value": "Lyon"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "lyon",
+                  "state": "present",
+                  "value": "Lyon"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "69000",
+                  "state": "present",
+                  "value": "69000"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "69000",
+                  "state": "present",
+                  "value": "69000"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "2a260263544553d612114636fd461fa127b2375676b37994ed18dd38736153a6",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A001",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V001",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -320,6 +473,164 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "9743368d6f4eaec17d612f47d398f52d6e45f621e5f0fa13c762aa06f254dafc",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "cedar logistics",
+                  "state": "present",
+                  "value": "Cedar Logistics"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "cedar logistics",
+                  "state": "present",
+                  "value": "Cedar Logistics SAS"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testfr002",
+                  "state": "present",
+                  "value": "TEST-FR-002"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testfr002",
+                  "state": "present",
+                  "value": "TEST-FR-002"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "10 example avenue",
+                  "state": "present",
+                  "value": "10 Example Avenue"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "10 example avenue",
+                  "state": "present",
+                  "value": "10 Example Avenue"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "lyon",
+                  "state": "present",
+                  "value": "Lyon"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "lyon",
+                  "state": "present",
+                  "value": "Lyon"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "69000",
+                  "state": "present",
+                  "value": "69000"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "69000",
+                  "state": "present",
+                  "value": "69000"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "5940fb604c60c943b86369b41864e48955fb8a6008ef16dbbf4bbd96ddc3771b",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A002",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V002",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "Normalized names agree; name agreement alone does not establish identity.",
+                "rule_id": "name_agreement",
+                "selected": false
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -632,6 +943,164 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "f474386380bf4ef45adb1ac1c76a27a740488fdeb4f68c11ac83e5480465f0a8",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "atlas supplies",
+                  "state": "present",
+                  "value": "Atlas Supplies"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "atlas supplies",
+                  "state": "present",
+                  "value": "Atlas Supplies SAS"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testfr003",
+                  "state": "present",
+                  "value": "TEST-FR-003"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testfr003",
+                  "state": "present",
+                  "value": "TEST-FR-003"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "20 sample street",
+                  "state": "present",
+                  "value": "20 Sample Street"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "20 sample street",
+                  "state": "present",
+                  "value": "20 Sample Street"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "paris",
+                  "state": "present",
+                  "value": "Paris"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "paris",
+                  "state": "present",
+                  "value": "Paris"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "75000",
+                  "state": "present",
+                  "value": "75000"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "75000",
+                  "state": "present",
+                  "value": "75000"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "b3178b709f089c297b6590d0fbb4d759f8bd000769292c8fd17526e83a7a2784",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A003",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V003",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "Normalized names agree; name agreement alone does not establish identity.",
+                "rule_id": "name_agreement",
+                "selected": false
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -944,6 +1413,159 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "2ace9ce07025f71149677b7f5460064d382c1bccc65b4b0b015c94317ea0419a",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "atlas supplies",
+                  "state": "present",
+                  "value": "Atlas Supplies"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "atlas supplies srl",
+                  "state": "present",
+                  "value": "Atlas Supplies SRL"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "BE",
+                  "state": "present",
+                  "value": "BE"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "BE",
+                  "state": "present",
+                  "value": "BE"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testbe003",
+                  "state": "present",
+                  "value": "TEST-BE-003"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testbe003",
+                  "state": "present",
+                  "value": "TEST-BE-003"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "20 sample street",
+                  "state": "present",
+                  "value": "20 Sample Street"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "20 sample street",
+                  "state": "present",
+                  "value": "20 Sample Street"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "brussels",
+                  "state": "present",
+                  "value": "Brussels"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "brussels",
+                  "state": "present",
+                  "value": "Brussels"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "1000",
+                  "state": "present",
+                  "value": "1000"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "1000",
+                  "state": "present",
+                  "value": "1000"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "6105d5e4280e88249008d20722a3dfc7240b26acf44eca82407a4d76234aa12b",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A004",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V004",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -1256,6 +1878,164 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "3d90dd1e490311e9069d0eee689d61c6c0de88a47d4d27b4b1181a5d6862caee",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "orbit industrial",
+                  "state": "present",
+                  "value": "Orbit Industrial Limited"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "orbit industrial",
+                  "state": "present",
+                  "value": "Orbit Industrial Ltd"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "GB",
+                  "state": "present",
+                  "value": "GB"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "GB",
+                  "state": "present",
+                  "value": "GB"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testgb004",
+                  "state": "present",
+                  "value": "TEST-GB-004"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testgb004",
+                  "state": "present",
+                  "value": "TEST-GB-004"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "30 fixture road",
+                  "state": "present",
+                  "value": "30 Fixture Road"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "30 fixture road",
+                  "state": "present",
+                  "value": "30 Fixture Road"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "leeds",
+                  "state": "present",
+                  "value": "Leeds"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "leeds",
+                  "state": "present",
+                  "value": "Leeds"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "ls1 1aa",
+                  "state": "present",
+                  "value": "LS1 1AA"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "ls1 1aa",
+                  "state": "present",
+                  "value": "LS1 1AA"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "7d5d53d128ef3788106b5cffbef94f27d14893b6e8c0b471210d89317cf00909",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A005",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V005",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "Normalized names agree; name agreement alone does not establish identity.",
+                "rule_id": "name_agreement",
+                "selected": false
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -1568,6 +2348,159 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers disagree in the same jurisdiction; resolve the conflict first.",
+              "route": "review",
+              "rule_id": "identifier_conflict",
+              "suggestion": "unsure"
+            },
+            "evidence_sha256": "ccb1361888df71390af06e2875ea960ac63991e8a85a51fd2f716e1826ca287b",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "harbour industrial",
+                  "state": "present",
+                  "value": "Harbour Industrial"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "harbor industrial",
+                  "state": "present",
+                  "value": "Harbor Industrial Ltd"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "GB",
+                  "state": "present",
+                  "value": "GB"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "GB",
+                  "state": "present",
+                  "value": "GB"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "testgb004",
+                  "state": "present",
+                  "value": "TEST-GB-004"
+                },
+                "name": "registration_id",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "testgb005",
+                  "state": "present",
+                  "value": "TEST-GB-005"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "40 fixture road",
+                  "state": "present",
+                  "value": "40 Fixture Road"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "40 fixture road",
+                  "state": "present",
+                  "value": "40 Fixture Road"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "leeds",
+                  "state": "present",
+                  "value": "Leeds"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "leeds",
+                  "state": "present",
+                  "value": "Leeds"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "ls1 1aa",
+                  "state": "present",
+                  "value": "LS1 1AA"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "ls1 1aa",
+                  "state": "present",
+                  "value": "LS1 1AA"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "613b61be8eeccd1c49c36cd835d47a7cd16182698ce4a0be545d9ca7beccde03",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A006",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V006",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers disagree in the same jurisdiction; resolve the conflict first.",
+                "rule_id": "identifier_conflict",
+                "selected": true
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -1887,6 +2820,159 @@
       "as_of": "2026-09-22T12:00:00+00:00",
       "entities": [
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "2dcb559615d768e3d46029ac188e0a7c8c8a7d8cb3f688d0add6f86d64e529e2",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "cedar components s a",
+                  "state": "present",
+                  "value": "Cedar Components S.A."
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "cedar components",
+                  "state": "present",
+                  "value": "Cedar Components SA"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testfr001",
+                  "state": "present",
+                  "value": "TEST-FR-001"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testfr001",
+                  "state": "present",
+                  "value": "TEST-FR-001"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "99 updated example avenue",
+                  "state": "present",
+                  "value": "99 Updated Example Avenue"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "99 updated example avenue",
+                  "state": "present",
+                  "value": "99 Updated Example Avenue"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "lyon",
+                  "state": "present",
+                  "value": "Lyon"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "lyon",
+                  "state": "present",
+                  "value": "Lyon"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "69000",
+                  "state": "present",
+                  "value": "69000"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "69000",
+                  "state": "present",
+                  "value": "69000"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "c1b9b09e452446bd07b0c97f630cf3f445b3f978a3794e5f7aa770b382e9d585",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A001",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V001",
+                "version": 2
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -2199,6 +3285,164 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "9743368d6f4eaec17d612f47d398f52d6e45f621e5f0fa13c762aa06f254dafc",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "cedar logistics",
+                  "state": "present",
+                  "value": "Cedar Logistics"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "cedar logistics",
+                  "state": "present",
+                  "value": "Cedar Logistics SAS"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testfr002",
+                  "state": "present",
+                  "value": "TEST-FR-002"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testfr002",
+                  "state": "present",
+                  "value": "TEST-FR-002"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "10 example avenue",
+                  "state": "present",
+                  "value": "10 Example Avenue"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "10 example avenue",
+                  "state": "present",
+                  "value": "10 Example Avenue"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "lyon",
+                  "state": "present",
+                  "value": "Lyon"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "lyon",
+                  "state": "present",
+                  "value": "Lyon"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "69000",
+                  "state": "present",
+                  "value": "69000"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "69000",
+                  "state": "present",
+                  "value": "69000"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "5940fb604c60c943b86369b41864e48955fb8a6008ef16dbbf4bbd96ddc3771b",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A002",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V002",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "Normalized names agree; name agreement alone does not establish identity.",
+                "rule_id": "name_agreement",
+                "selected": false
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -2511,6 +3755,164 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "A deleted source is not eligible for a new identity decision.",
+              "route": "exclude",
+              "rule_id": "deleted_source",
+              "suggestion": "not_applicable"
+            },
+            "evidence_sha256": "44b813fd485423028ab7227255155ca785d9db0bcee97b8bfcc47d1507c705e0",
+            "fields": [
+              {
+                "comparison": "unavailable",
+                "left": {
+                  "normalized": null,
+                  "state": "deleted",
+                  "value": null
+                },
+                "name": "record_kind",
+                "raw_equal": null,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "unavailable",
+                "left": {
+                  "normalized": null,
+                  "state": "deleted",
+                  "value": null
+                },
+                "name": "legal_name",
+                "raw_equal": null,
+                "right": {
+                  "normalized": "atlas supplies",
+                  "state": "present",
+                  "value": "Atlas Supplies SAS"
+                }
+              },
+              {
+                "comparison": "unavailable",
+                "left": {
+                  "normalized": null,
+                  "state": "deleted",
+                  "value": null
+                },
+                "name": "country",
+                "raw_equal": null,
+                "right": {
+                  "normalized": "FR",
+                  "state": "present",
+                  "value": "FR"
+                }
+              },
+              {
+                "comparison": "unavailable",
+                "left": {
+                  "normalized": null,
+                  "state": "deleted",
+                  "value": null
+                },
+                "name": "registration_id",
+                "raw_equal": null,
+                "right": {
+                  "normalized": "testfr003",
+                  "state": "present",
+                  "value": "TEST-FR-003"
+                }
+              },
+              {
+                "comparison": "unavailable",
+                "left": {
+                  "normalized": null,
+                  "state": "deleted",
+                  "value": null
+                },
+                "name": "address_line1",
+                "raw_equal": null,
+                "right": {
+                  "normalized": "20 sample street",
+                  "state": "present",
+                  "value": "20 Sample Street"
+                }
+              },
+              {
+                "comparison": "unavailable",
+                "left": {
+                  "normalized": null,
+                  "state": "deleted",
+                  "value": null
+                },
+                "name": "city",
+                "raw_equal": null,
+                "right": {
+                  "normalized": "paris",
+                  "state": "present",
+                  "value": "Paris"
+                }
+              },
+              {
+                "comparison": "unavailable",
+                "left": {
+                  "normalized": null,
+                  "state": "deleted",
+                  "value": null
+                },
+                "name": "postal_code",
+                "raw_equal": null,
+                "right": {
+                  "normalized": "75000",
+                  "state": "present",
+                  "value": "75000"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "4fa00cb5ec063c8dcc2c6f936da7e8c9abe44a791c3518456146ddbf475b697c",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": true,
+                "source_id": "crm_account",
+                "source_key": "A003",
+                "version": 2
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V003",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "A deleted source is not eligible for a new identity decision.",
+                "rule_id": "deleted_source",
+                "selected": true
+              },
+              {
+                "reason": "Record kind, legal name or country is missing or invalid.",
+                "rule_id": "incomplete_identity",
+                "selected": false
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -2814,6 +4216,159 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "2ace9ce07025f71149677b7f5460064d382c1bccc65b4b0b015c94317ea0419a",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "atlas supplies",
+                  "state": "present",
+                  "value": "Atlas Supplies"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "atlas supplies srl",
+                  "state": "present",
+                  "value": "Atlas Supplies SRL"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "BE",
+                  "state": "present",
+                  "value": "BE"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "BE",
+                  "state": "present",
+                  "value": "BE"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testbe003",
+                  "state": "present",
+                  "value": "TEST-BE-003"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testbe003",
+                  "state": "present",
+                  "value": "TEST-BE-003"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "20 sample street",
+                  "state": "present",
+                  "value": "20 Sample Street"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "20 sample street",
+                  "state": "present",
+                  "value": "20 Sample Street"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "brussels",
+                  "state": "present",
+                  "value": "Brussels"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "brussels",
+                  "state": "present",
+                  "value": "Brussels"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "1000",
+                  "state": "present",
+                  "value": "1000"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "1000",
+                  "state": "present",
+                  "value": "1000"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "6105d5e4280e88249008d20722a3dfc7240b26acf44eca82407a4d76234aa12b",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A004",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V004",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -3126,6 +4681,164 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "route": "review",
+              "rule_id": "identifier_agreement",
+              "suggestion": "match"
+            },
+            "evidence_sha256": "3d90dd1e490311e9069d0eee689d61c6c0de88a47d4d27b4b1181a5d6862caee",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "orbit industrial",
+                  "state": "present",
+                  "value": "Orbit Industrial Limited"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "orbit industrial",
+                  "state": "present",
+                  "value": "Orbit Industrial Ltd"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "GB",
+                  "state": "present",
+                  "value": "GB"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "GB",
+                  "state": "present",
+                  "value": "GB"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "testgb004",
+                  "state": "present",
+                  "value": "TEST-GB-004"
+                },
+                "name": "registration_id",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "testgb004",
+                  "state": "present",
+                  "value": "TEST-GB-004"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "30 fixture road",
+                  "state": "present",
+                  "value": "30 Fixture Road"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "30 fixture road",
+                  "state": "present",
+                  "value": "30 Fixture Road"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "leeds",
+                  "state": "present",
+                  "value": "Leeds"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "leeds",
+                  "state": "present",
+                  "value": "Leeds"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "ls1 1aa",
+                  "state": "present",
+                  "value": "LS1 1AA"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "ls1 1aa",
+                  "state": "present",
+                  "value": "LS1 1AA"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "7d5d53d128ef3788106b5cffbef94f27d14893b6e8c0b471210d89317cf00909",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A005",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V005",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+                "rule_id": "identifier_agreement",
+                "selected": true
+              },
+              {
+                "reason": "Normalized names agree; name agreement alone does not establish identity.",
+                "rule_id": "name_agreement",
+                "selected": false
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -3438,6 +5151,159 @@
           }
         },
         {
+          "comparison": {
+            "algorithm": "company_pair_evidence_v2",
+            "decision": {
+              "auto_merge_eligible": false,
+              "reason": "Registration identifiers disagree in the same jurisdiction; resolve the conflict first.",
+              "route": "review",
+              "rule_id": "identifier_conflict",
+              "suggestion": "unsure"
+            },
+            "evidence_sha256": "ccb1361888df71390af06e2875ea960ac63991e8a85a51fd2f716e1826ca287b",
+            "fields": [
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                },
+                "name": "record_kind",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "legal_company",
+                  "state": "present",
+                  "value": "legal_company"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "harbour industrial",
+                  "state": "present",
+                  "value": "Harbour Industrial"
+                },
+                "name": "legal_name",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "harbor industrial",
+                  "state": "present",
+                  "value": "Harbor Industrial Ltd"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "GB",
+                  "state": "present",
+                  "value": "GB"
+                },
+                "name": "country",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "GB",
+                  "state": "present",
+                  "value": "GB"
+                }
+              },
+              {
+                "comparison": "differ",
+                "left": {
+                  "normalized": "testgb004",
+                  "state": "present",
+                  "value": "TEST-GB-004"
+                },
+                "name": "registration_id",
+                "raw_equal": false,
+                "right": {
+                  "normalized": "testgb005",
+                  "state": "present",
+                  "value": "TEST-GB-005"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "40 fixture road",
+                  "state": "present",
+                  "value": "40 Fixture Road"
+                },
+                "name": "address_line1",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "40 fixture road",
+                  "state": "present",
+                  "value": "40 Fixture Road"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "leeds",
+                  "state": "present",
+                  "value": "Leeds"
+                },
+                "name": "city",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "leeds",
+                  "state": "present",
+                  "value": "Leeds"
+                }
+              },
+              {
+                "comparison": "agree",
+                "left": {
+                  "normalized": "ls1 1aa",
+                  "state": "present",
+                  "value": "LS1 1AA"
+                },
+                "name": "postal_code",
+                "raw_equal": true,
+                "right": {
+                  "normalized": "ls1 1aa",
+                  "state": "present",
+                  "value": "LS1 1AA"
+                }
+              }
+            ],
+            "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+            "pair_id": "613b61be8eeccd1c49c36cd835d47a7cd16182698ce4a0be545d9ca7beccde03",
+            "pair_origin": "explicit_comparison",
+            "probability": null,
+            "qualification": "development_preview_only",
+            "records": [
+              {
+                "deleted": false,
+                "source_id": "crm_account",
+                "source_key": "A006",
+                "version": 1
+              },
+              {
+                "deleted": false,
+                "source_id": "erp_vendor",
+                "source_key": "V006",
+                "version": 1
+              }
+            ],
+            "rules": [
+              {
+                "reason": "Registration identifiers disagree in the same jurisdiction; resolve the conflict first.",
+                "rule_id": "identifier_conflict",
+                "selected": true
+              },
+              {
+                "reason": "No stronger deterministic identity rule applies.",
+                "rule_id": "insufficient_evidence",
+                "selected": false
+              }
+            ],
+            "ruleset_id": "synthetic_company_comparison",
+            "ruleset_sha256": "226b2dc3b4e01d9b624e75579df47121881b362481a7bc95e1287808e7ae8ba6",
+            "ruleset_version": 1,
+            "schema_version": 2
+          },
           "fields": [
             {
               "alternatives": [
@@ -3754,5 +5620,5 @@
       "snapshot_sha256": "7613c948a6e69b74c62748b7cd763b5c85abfdde9a434c9f5c7eae6e20a15fed"
     }
   ],
-  "schema_version": 1
+  "schema_version": 2
 }

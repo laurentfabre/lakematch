@@ -9,7 +9,11 @@ from pathlib import Path
 
 from lakematch.mastering.contracts import digest
 from lakematch.mastering.lineage import build_snapshot, entity_detail
+from lakematch.mastering.match_contract import FIELDS, MatchBinding, MatchRuleset
+from lakematch.mastering.match_evidence import compare_pair, implementation_digest
+from lakematch.mastering.survivorship_contract import MappingPin
 from lakefusion_lineage_fixture import dataset
+from lakefusion_survivorship_fixture import fixture
 
 ROOT = Path(__file__).resolve().parents[1]
 DESTINATION = ROOT / "app/src/lakematch_review/demo/company_lineage.json"
@@ -17,6 +21,12 @@ DESTINATION = ROOT / "app/src/lakematch_review/demo/company_lineage.json"
 
 def export():
     data = dataset()
+    policy, _, _ = fixture()
+    rules = MatchRuleset("synthetic_company_comparison", 1, policy.domain.domain_id,
+                        policy.domain.version, policy.domain.sha256,
+                        tuple(MappingPin(m.source_id, m.version, m.sha256) for m in policy.mappings),
+                        implementation_digest())
+    comparison_binding = MatchBinding(rules, policy.domain, policy.mappings)
     first = build_snapshot("first", data["first"], data["context"], expected_previous=None)
     second = build_snapshot("second", data["second"], data["context"], expected_previous="first", previous=first)
     publications = []
@@ -25,6 +35,19 @@ def export():
         for master in snapshot["tables"]["golden_records"]:
             detail = entity_detail(snapshot, master["master_id"])
             binding = detail["contract"]["binding"]
+            comparison = compare_pair(comparison_binding,
+                *[{k: s[k] for k in ("source_id", "source_key", "version", "mapping_version", "mapping_sha256", "deleted", "values")}
+                  for s in detail["sources"]], candidate_methods=[], pair_origin="explicit_comparison")
+            comparison_display = {
+                "schema_version": comparison["schema_version"], "pair_origin": comparison["pair_origin"],
+                "pair_id": comparison["pair_id"], "evidence_sha256": comparison["evidence_sha256"],
+                "ruleset_id": rules.ruleset_id, "ruleset_version": rules.version, "ruleset_sha256": rules.sha256,
+                "algorithm": rules.algorithm, "implementation_sha256": rules.implementation_sha256,
+                "records": [{k: r[k] for k in ("source_id", "source_key", "version", "deleted")} for r in comparison["records"]],
+                "fields": [{"name": name, **comparison["fields"][name]} for name in FIELDS],
+                "rules": comparison["rules"], "decision": comparison["decision"],
+                "probability": comparison["probability"], "qualification": comparison["qualification"],
+            }
             fields = []
             for name, field in detail["fields"].items():
                 winner = field["winner"]
@@ -47,11 +70,12 @@ def export():
                 "identity_revision": detail["identity_revision"], "values": detail["values"], "fields": fields,
                 "policy_id": binding["policy"]["policy_id"], "policy_version": binding["policy"]["version"],
                 "policy_sha256": binding["policy_sha256"],
+                "comparison": comparison_display,
                 "sources": [{k: s[k] for k in ("source_id", "source_key", "version", "deleted", "updated_at", "values")}
                             for s in detail["sources"]]})
         publications.append({"publication_id": snapshot["publication_id"], "snapshot_sha256": snapshot["snapshot_sha256"],
                              "as_of": data["first"][0]["calculation"]["inputs"]["as_of"], "entities": entities})
-    result = {"schema_version": 1, "kind": "synthetic_company_demo", "membership_basis": "synthetic_fixture_truth",
+    result = {"schema_version": 2, "kind": "synthetic_company_demo", "membership_basis": "synthetic_fixture_truth",
               "default_master_id": data["cedar_id"], "publications": publications}
     return {**result, "bundle_sha256": digest(result)}
 
