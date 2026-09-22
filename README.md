@@ -129,4 +129,3 @@ and runtime outputs stay out of Git.
 The engine is licensed under [Apache-2.0](LICENSE). The optional APX review app
 and DQX integration have separate Databricks license terms; see the
 [app notices](app/NOTICE) and [APX license](app/APX-LICENSE.txt).
-This is currently a private development repository.
