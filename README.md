@@ -1,149 +1,132 @@
-# lakematch
+# Lakematch
 
-*An entity-resolution engine for the lakehouse: one PySpark codebase for a laptop, Databricks serverless and
-classic compute. Apache-2.0. **Private repository** — not for publication.*
+**Messy records. Meaningful matches.**
 
-## What / why
+The same customer appears twice. A supplier has a different name in finance and
+sales. Two product listings look almost identical. Lakematch helps you work out
+which records belong together—and gives people a place to review the tricky ones.
 
-Matching, linking and mastering records with Spark SQL built-ins only (no JVM code, no UDF on a default path), inside
-Spark Declarative Pipelines where the platform allows it, tracked in MLflow, with a human arbitration app (APX) and a
-Genie agent. The full specification, the nine bounded phases ZR-1..9 and the ledger of the 28 design decisions are in
-[`spec/BRIEF.md`](spec/BRIEF.md).
+Built with Apache Spark and Databricks, Lakematch combines a matching engine,
+a browser review app and reproducible experiments. It is a **Solution Accelerator
+in development** for customer teams and Solutions Architects building and
+demonstrating entity resolution.
 
-**State on 2026-09-20: ZR-1, ZR-2, ZR-4 and ZR-5 pass on the current source.** The engine includes YAML configuration,
-native quality checks, bounded IDF candidates, comparison features, MLlib estimators and deterministic links.
-The full classic local Spark and Spark Connect suites each pass the same 130 tests with no skips.
-Earlier offline CLI, serverless model registration and fresh-task reload checks passed.
-Typed native comparisons, optional similarities and an offline embedding provider are implemented;
-see the [feature contract](bench/FEATURES.md) and measured [ablations](bench/ABLATION.md).
-Frozen FEBRL confirmation passed at F1 0.9889 (all fields, 29.19s) and 0.9868 (SSN hidden, 27.30s).
-The scale ladder completed through 100,000 records; the million-record run exhausted the fixed JVM heap
-during candidate materialization. [Benchmarks](bench/BENCHMARKS.md) and [scale limits](bench/SCALE.md)
-retain the measurements. Later phase acceptance is pending. [goal.md](goal.md) is the authoritative acceptance ledger;
-[bench/ENGINE.md](bench/ENGINE.md) records development evidence and limitations.
-Both DQX and native/all-paid-off serverless pipelines reproduce the frozen FEBRL F1 values exactly and quarantine
-the seeded bad rows; remaining remote gates are tracked in [serverless evidence](bench/SERVERLESS.md).
-`lakematch bench --all` executed eight exact frozen-model replays, the original-FEBRL diagnostic and both clustering comparisons, then stopped at the retained million-record failure. Full campaign acceptance remains blocked; `--plan` previews its stages.
-Composite MLflow tracking and CLI integration are verified locally and on FEVM;
-[model acceptance](bench/MODELS.md) records the evidence. The selected workspace explicitly
-rejects classic compute, so ZR-9 remains parked; the remaining phases are pending.
+[Illustrated guide](reports/lakematch-explained/LakeMatch-Explained.pdf) ·
+[Try locally](#try-it-locally) ·
+[Review app](app/README.md) ·
+[Roadmap](goal_lakefusion.md)
 
-The [LakeFusion assessment and proposed roadmap](spec/research/lakefusion/README.md)
-compares public MDM, Graph and PIM capabilities with the current code and test evidence.
-It includes architecture, schemas and an ordered implementation backlog; it does not
-change the campaign's acceptance status.
-The [LakeFusion goal file](goal_lakefusion.md) tracks all six delivery phases and
-25 work packages for that roadmap.
+## Put a person behind the decision
 
-## Run locally
+Compare records side by side, choose **Match**, **No match** or **Unsure**, and
+leave a reason. The app keeps the reviewer, time and model version with each
+decision. Resolved reviews can become labels for the next training run.
 
-Use Python 3.12 and Java 17. Install the private package and prepare the public synthetic corpus once:
+![Lakematch review app showing two synthetic records, a model score and review actions](reports/test-runs/20260921T092956Z/review-desktop.png)
+
+*The actual review app, captured during the September 2026 synthetic demo.
+The score shown belongs to this example pair; it is not an overall accuracy claim.*
+
+## From source records to useful matches
+
+1. **Prepare.** Describe your fields, check data quality and set aside invalid rows.
+2. **Shortlist.** Find plausible candidate pairs within explicit limits on work
+   and memory, so every record does not need to be compared with every other one.
+3. **Compare.** Score similarities in names, addresses, identifiers and other
+   fields, then apply the configured matching policy.
+4. **Review and improve.** Queue selected pairs for people to inspect, export
+   their decisions and retrain through the normal engine workflow.
+
+The engine runs locally with PySpark and has tested Databricks serverless paths.
+MLflow records models and evaluations. A standalone Genie space lets you ask
+questions about the demo's source records and matching results.
+
+The new company/supplier pilot also has versioned domain definitions, source
+mappings and approved candidate-job configurations in PostgreSQL. This is an
+engineering foundation; its customer-facing app workflows are still being built.
+
+## Try it locally
+
+Start with the tiny synthetic fixture included in the repository. You need
+**Python 3.12**, **Java 17** and [uv](https://docs.astral.sh/uv/). Make sure
+`JAVA_HOME` points to Java 17, then run these commands from your checkout:
 
 ```bash
 uv venv --python 3.12
-uv pip install -e '.[dev,connect,bench]'
+uv pip install -e '.[dev,connect]'
 source .venv/bin/activate
-python tools/prepare_febrl.py
-lakematch doctor --config examples/febrl4.yaml
-lakematch run --config examples/febrl4.yaml
+export SPARK_LOCAL_IP=127.0.0.1
+
+lakematch doctor --config examples/synthetic.yaml
+lakematch run --config examples/synthetic.yaml --save-scores
 ```
 
-The example uses development truth labels, not held-out benchmark labels. It writes Parquet links and quarantine
-rows under `data/febrl4/output`, plus runtime and budget metrics. `examples/synthetic.yaml` is a small fixture.
-Every run logs its enabled paid features; laptop configs reject paid integrations.
+This trains a small local model and writes links, candidate scores, quarantined
+rows and a metrics report under `data/synthetic/output/`. It uses the bundled
+CSV files and needs no Databricks credentials or AI endpoint. The example is a
+walkthrough, not a measurement of performance on your data.
 
-New configurations default to MinHash retrieval, Levenshtein, IDF token cosine, GBT and verified merge with a
-30-round limit, following the [validation selections](bench/METHODS.md). The examples explicitly retain their
-historical gram/scalar settings. All eight frozen prediction replays now match exactly; the remaining integration gates are tracked in the ledger.
+For the browser experience, follow the [review app setup](app/README.md) and
+[synthetic demo flow](app/acceptance/README.md). A new app starts with an empty
+queue; the demo flow prepares records and scores for review.
 
-Run `pytest` with local Spark, or `python tools/connect_tests.py` to own a temporary local Connect server and
-run the same tests. `tools/experiment.py` captures bounded commands and evidence; `bash verify_zr.sh 1` only
-reads that evidence and fails when it is missing or stale. `bash verify_zr.sh 2` also checks all four corpus ablations. ZR-3 is blocked at its iteration cap; ZR-6/7/8 remain incomplete; ZR-9 is parked on a confirmed workspace restriction.
+For Databricks, use the [deployment runbook](deployment/README.md). It covers the
+jobs, pipeline, app and Genie bundles, including data recovery. It currently
+recreates the existing demo environment; a general customer installer is still
+on the roadmap.
 
-Prepare additional public corpora and the optional embedding snapshot with
-`python tools/prepare_sources.py --model` after installing `.[embeddings]`.
-`python tools/accept_zr2.py` runs the fixed local validation sweep; its four Spark runs each
-have a 15-minute limit and deny external egress at the OS level. Embeddings remain off by default
-because their paired validation improvement was inconclusive on both tested domains.
+## What is ready, and what comes next
 
-Training logs a composite model to local SQLite, including the Spark pipeline, raw-pair
-signature, candidate/feature specs, training label digest and evaluation. Supply
-`input.validation_labels` and an explicit `mlflow.acceptance_f1` to promote a model;
-the validation records must be separate from training records. Passing local runs
-write `models/current.json` (configurable with `model.pointer`). A `run` without
-`input.labels` resolves that immutable MLflow run. A training-only diagnostic does
-not promote a model. See [the model contract](bench/MODELS.md) for batch-input semantics.
+**Today:** batch matching, quality checks, model tracking, human review and
+exporting reviewed labels are implemented and tested. The company pilot has
+bounded candidate retrieval and a durable registry for approved definitions.
+The deployed review store currently requires one app worker and one instance.
 
-## What is here
+**Next:** persistent company IDs, golden records with an explanation for every
+chosen value, and richer stewardship workflows. The pilot uses synthetic ERP
+vendors and CRM accounts, with each master representing a legal company.
 
-```text
-lakematch/
-├── LICENSE                  Apache-2.0
-├── goal.md                  authoritative task and acceptance ledger
-├── src/lakematch/           ZR-1 engine, configuration, runtime, quality and CLI
-├── examples/                small synthetic fixture and public FEBRL4 config
-├── tests/                   same suite on classic local Spark and Spark Connect
-├── experiments/             append-only run ledger, manifests and environment report
-├── bench/                   measured new-engine evidence (historical harness stays below)
-├── verify_zr.sh             read-only acceptance verifier; execution is tools/accept_zr1.py
-├── spec/
-│   ├── BRIEF.md             the brief: rules, config, method choices, phases, benchmarks, decisions
-│   ├── zr_decisions.html    the 28-card decision board (open locally in a browser)
-│   ├── research/            similarity_sota.md · platform_facts.md
-│   ├── porting/             PORTING.md (adapt vs rewrite study) · PORTING_ASTRA_OPINION.md (adversarial review)
-│   └── bench/               the measurement harness, the ~90-line pure-Spark prototype (proto_spark_native.py),
-│                            README.md (results), ASTRA_REVIEW.md (independent review), cache/ (LLM judgments on
-│                            public corpora, so reruns cost nothing)
-└── tools/                   experiment runners, corpus preparation and Spark 4.3 release watcher
-```
+**Later:** incremental updates, online resolution, business relationships,
+graph exploration and product information management. Planned AI assistance
+uses Unity Gateway; AI adjudication and enrichment are not released features.
 
-Not here, on purpose:
+Progress and acceptance criteria live in the [delivery roadmap](goal_lakefusion.md).
+The accelerator is not yet qualified as a complete production MDM system.
 
-- **Zingg code**: the Spark 4.1 port and its patch live in the public fork `github.com/laurentfabre/zingg` (AGPL v3).
-  AGPL code cannot be mixed into this Apache-2.0 repository; reading it is fine, copying it is not.
-- `goals/goal_mdm.md` and every personal dataset. Only public or synthetic corpora are used, here and on any workspace.
-- The corpora themselves (`spec/bench/data/`, `spec/bench/work/`, ~90 MB): `spec/bench/README.md` says where each one
-  comes from; the loaders download them again.
+## Results you can inspect
 
-## Resuming on another machine
+| What we checked | What the evidence shows |
+|---|---|
+| Reproducibility | Eight frozen benchmark cases replayed with identical scores and decisions. [Test session](reports/test-runs/20260921T092956Z/README.md). |
+| Matching quality | F1, which balances missed and incorrect matches, ranges from **26.39% to 98.89%** across the tested tasks. Results depend strongly on the dataset. [Measurements and evaluation scope](bench/BENCHMARKS.md). |
+| Company candidate coverage | The selected method retrieves **3,800 of 4,000 known matches (95%)** on synthetic validation data. It misses all 200 cases with combined errors; a larger lexical shortlist recovers them at 22.2× as many pairs. [Comparison](bench/lakefusion/PHASE_B.md). |
+| Registry reliability | **93 checks passed**, including 18 PostgreSQL integration cases covering concurrent changes, rollback and restart persistence. [Registry evidence](bench/lakefusion/registry-20260922.json). |
 
-Run the offline source scan with `python tools/scan_source.py`. It writes a fresh,
-timestamped report under `reports/source-scan/`; use `--out <new-directory>` for
-a named run. This Git-aware snapshot includes nested application/engine code,
-migrations, examples and dependency files, while excluding generated copies in
-`data/`, `mlruns/`, build environments and historical reports. A raw
-`vibe-doctor scan .` traverses those artifacts despite `.gitignore`;
-`--no-recursive` would also miss nested source files. Local commit hooks enforce
-the regression guards in `.vibe-doctor/forbidden_patterns.json` and relevant tests.
-The [2026-09-22 scan triage](reports/triage-20260922/README.md) distinguishes
-confirmed source issues from heuristic findings and unevaluated workspace checks.
+Candidate coverage measures which pairs reach scoring, not whether they should
+be merged. The local scale ladder reached 100,000 records; the million-record
+attempt exhausted its fixed heap. See the [scale report](bench/SCALE.md) for the
+workload and limits.
 
-For GitHub-to-workspace recovery, follow the [deployment runbook](deployment/README.md).
-It covers all three bundles, checksummed inputs, durable reviews and existing
-resource bindings. The illustrated [nontechnical explanation](reports/lakematch-explained/LakeMatch-Explained.pdf)
-describes the measured campaign snapshot.
+## Find your way around
 
-The [2026-09-21 test session](reports/test-runs/20260921T092956Z/README.md)
-records the prepared corpus inventory, fresh Spark/Connect regression runs,
-browser review and retraining checks, and frozen-model replays. The replay tool
-`tools/replay_test_corpora.py --output <fresh-directory> --report <new-json>`
-copies the execution sources and corpus manifests, verifies frozen input/model
-hashes, and keeps new outputs separate from prior evidence. It requires the
-prepared local benchmark/model stores and the macOS `sandbox-exec` offline
-policy. Run it through `tools/experiment.py` with a finite timeout. The Connect
-test runner accepts `--junitxml <new-path>` so new runs preserve earlier reports.
+| Start here | For |
+|---|---|
+| [Illustrated guide](reports/lakematch-explained/LakeMatch-Explained.pdf) | A nontechnical introduction to the tested matching and review demo |
+| [Company pilot](examples/mastering/company_pilot/README.md) | Synthetic ERP/CRM records and mapping examples |
+| [Review app](app/README.md) | Local setup, keyboard shortcuts and storage options |
+| [Deployment](deployment/README.md) | Workspace setup, redeployment and recovery |
+| [Engine](src/lakematch/) / [tests](tests/) | Matching code and executable checks |
+| [Roadmap](goal_lakefusion.md) | Planned capabilities, current status and acceptance gates |
 
-1. Java 17, Python 3.12, `pip install "pyspark[connect,pipelines]==4.1.3" mlflow pyyaml` in a virtualenv. Spark 4.1
-   crashes on Java 23: pin `JAVA_HOME` to a 17.
-2. Databricks CLI profiles are per machine. This campaign explicitly selected `fevm-gdpr2` for both serverless and
-   classic; historical `fourth-pat` references are not execution settings. Always pass the selected profile.
-3. The LLM labeller is optional and off by default; its key is read from the environment, never from the repository.
-4. Stop the warehouse and terminate the cluster the moment a run ends.
+For development, run `pytest` for local Spark or `python tools/connect_tests.py`
+for Spark Connect. Install local commit checks with `python tools/install_hooks.py`.
+Use `python tools/scan_source.py` for a static scan that excludes generated
+datasets and model copies and writes a fresh report. Models, downloaded corpora
+and runtime outputs stay out of Git.
 
 ## License
 
-Apache-2.0 — see [`LICENSE`](LICENSE). The arbitration app (`app/`, APX) and the DQX adapter rely on components under
-the Databricks licence; they are optional and never dependencies of the engine.
-
-Prior art and comparison sources include Fellegi–Sunter, Splink, the Magellan group, SecondString and published
-Zingg figures. This engine is independently implemented; no Zingg source, translation, JAR or adapter is included.
+The engine is licensed under [Apache-2.0](LICENSE). The optional APX review app
+and DQX integration have separate Databricks license terms; see the
+[app notices](app/NOTICE) and [APX license](app/APX-LICENSE.txt).
+This is currently a private development repository.
