@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (10/12 experiments)**.
+Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (11/12 experiments)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -272,7 +272,12 @@ Deliverables:
   source pairs, with explicit origin and no model score. **301 portable and 25
   app checks pass**; type/build and desktop/mobile development checks pass.
   Empirical calibration, registry promotion, live comparison integration and
-  matching-quality acceptance remain open. LF-B currently uses **10/12** slots.
+  matching-quality acceptance remain open. The [slot-11 calibration evaluation](bench/lakefusion/calibration-20260922.json)
+  fits one fixed model on 4,000 families and a Platt transform on 2,000 disjoint
+  families. Validation proposes 3,400 correct accepts, zero observed errors and
+  600 unresolved anchors; the adjusted family-audit lower bound is 99.747%.
+  Automatic execution stays disabled. LF-B uses **11/12** slots; the
+  [committed frozen replay](bench/lakefusion/CALIBRATION_REPLAY_PLAN.md) is next.
 - [x] Deliver the first APX golden-record detail view using the synthetic slice.
   [Fresh-package APX acceptance](reports/lakefusion-ui-acceptance-20260922-final/README.md)
   passes from source `938fe86`:

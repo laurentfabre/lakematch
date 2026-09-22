@@ -1,0 +1,2000 @@
+{
+  "schema_version": 1,
+  "phase": "LF-B",
+  "package": "LM-014",
+  "mode": "fit",
+  "slot": 11,
+  "started_at": "2026-09-22T18:56:00.354128+00:00",
+  "source_commit": "785b0ca066f124fdc87d168f80aee7bd79bded66",
+  "config_sha256": "f6c1ba52b5af046b81bde1b802b8a000f8e8137cf3af0032f894c2af03edcdc5",
+  "versions": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "confirmation_materialized": false,
+  "remote_operations": false,
+  "automatic_execution_enabled": false,
+  "cost": "local CPU only; no billed cloud operation",
+  "memory_limit_bytes": 4294967296,
+  "memory_enforcement": "measured process peak gate; outer process timeout 900 seconds",
+  "fitting": {
+    "pairs": 48000,
+    "positives": 8000,
+    "families": 4000,
+    "pairs_sha256": "0265466523723f1ab5bb4292d6829be5cb9882de3d00e7a87666d82de410aaf4",
+    "optimizer": {
+      "coefficients": [
+        -0.05017451221747803,
+        1.0447092884527829,
+        0.8521730632648784,
+        1.6097349922165263,
+        4.126471757091182,
+        1.6124744157340598,
+        1.4405269656843904,
+        2.37810888589779,
+        0.5157430462077671,
+        0.283242674610585,
+        -1.13541850038282
+      ],
+      "intercept": -7.619380498235514,
+      "optimizer_iterations": 34,
+      "objective": 0.032442547216324426
+    },
+    "portable_probability_max_error": 4.440892098500626e-16
+  },
+  "calibration_population": {
+    "retrieval": {
+      "alternative": "identifier_name",
+      "retained_pairs": 8524,
+      "posting_visits": 10530,
+      "candidate_sha256": "e50e2aa769e907f9d2be5e9d025a7975ea3f34253a8d29d980fd6e1c84881ce8",
+      "truncated_anchors": 0,
+      "cap_positive_losses": 0,
+      "max_candidates": 8,
+      "max_pre_cap": 8
+    },
+    "optimizer": {
+      "coefficients": [
+        8.866714723381616
+      ],
+      "intercept": -15.710166752681099,
+      "optimizer_iterations": 16,
+      "objective": 0.008878898508015938
+    },
+    "diagnostics": {
+      "schema_version": 1,
+      "scope": "supplied_scored_pairs_only",
+      "quality_qualified": false,
+      "pairs": 8524,
+      "positive_labels": 3790,
+      "raw": {
+        "brier": 0.009944920065058984,
+        "ece": 0.028549025211754352,
+        "reliability": [
+          {
+            "lower_inclusive": 0.0,
+            "upper": 0.1,
+            "upper_inclusive": false,
+            "count": 4152,
+            "mean_probability": 0.015601556716264715,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.1,
+            "upper": 0.2,
+            "upper_inclusive": false,
+            "count": 408,
+            "mean_probability": 0.13328403889778742,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.2,
+            "upper": 0.3,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.3,
+            "upper": 0.4,
+            "upper_inclusive": false,
+            "count": 28,
+            "mean_probability": 0.31377658523415075,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.4,
+            "upper": 0.5,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.5,
+            "upper": 0.6,
+            "upper_inclusive": false,
+            "count": 96,
+            "mean_probability": 0.5562203972220067,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.6,
+            "upper": 0.7,
+            "upper_inclusive": false,
+            "count": 1,
+            "mean_probability": 0.6291733433703617,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.7,
+            "upper": 0.8,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.8,
+            "upper": 0.9,
+            "upper_inclusive": false,
+            "count": 677,
+            "mean_probability": 0.8940613287939543,
+            "observed_positive_rate": 0.9276218611521418
+          },
+          {
+            "lower_inclusive": 0.9,
+            "upper": 1.0,
+            "upper_inclusive": true,
+            "count": 3162,
+            "mean_probability": 0.9877729970654543,
+            "observed_positive_rate": 1.0
+          }
+        ]
+      },
+      "transformed": {
+        "brier": 0.0009235586514116852,
+        "ece": 0.004089286049066943,
+        "reliability": [
+          {
+            "lower_inclusive": 0.0,
+            "upper": 0.1,
+            "upper_inclusive": false,
+            "count": 4685,
+            "mean_probability": 2.7678805959981952e-08,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.1,
+            "upper": 0.2,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.2,
+            "upper": 0.3,
+            "upper_inclusive": false,
+            "count": 20,
+            "mean_probability": 0.29191518341808326,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.3,
+            "upper": 0.4,
+            "upper_inclusive": false,
+            "count": 24,
+            "mean_probability": 0.313289905004602,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.4,
+            "upper": 0.5,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.5,
+            "upper": 0.6,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.6,
+            "upper": 0.7,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.7,
+            "upper": 0.8,
+            "upper_inclusive": false,
+            "count": 2,
+            "mean_probability": 0.7775453356296,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.8,
+            "upper": 0.9,
+            "upper_inclusive": false,
+            "count": 3,
+            "mean_probability": 0.8386847588796655,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.9,
+            "upper": 1.0,
+            "upper_inclusive": true,
+            "count": 3790,
+            "mean_probability": 0.9954014410895329,
+            "observed_positive_rate": 1.0
+          }
+        ]
+      }
+    }
+  },
+  "selection": {
+    "reject_below": 0.1,
+    "accept_at_least": 0.9,
+    "selection_table": [
+      {
+        "accept_at_least": 0.9,
+        "audit": {
+          "decisions": 1952,
+          "correct": 1952,
+          "errors": 0,
+          "pair_ids_sha256": "4e7c7d53836c0da0b7935ca8c47ad0ce92ced0dd4cde05c06accd26923324e32",
+          "lower_95": 0.9984664781375258,
+          "sampling": "seeded greedy family-disjoint accepted edges; not pair-weighted precision"
+        },
+        "simultaneous_lower_bound": 0.997471622634059,
+        "confidence_per_threshold": 0.9928571428571429,
+        "counts": {
+          "accept": 3400,
+          "review": 4705,
+          "reject": 447
+        },
+        "passes_selection": true
+      },
+      {
+        "accept_at_least": 0.95,
+        "audit": {
+          "decisions": 1952,
+          "correct": 1952,
+          "errors": 0,
+          "pair_ids_sha256": "4e7c7d53836c0da0b7935ca8c47ad0ce92ced0dd4cde05c06accd26923324e32",
+          "lower_95": 0.9984664781375258,
+          "sampling": "seeded greedy family-disjoint accepted edges; not pair-weighted precision"
+        },
+        "simultaneous_lower_bound": 0.997471622634059,
+        "confidence_per_threshold": 0.9928571428571429,
+        "counts": {
+          "accept": 3400,
+          "review": 4705,
+          "reject": 447
+        },
+        "passes_selection": true
+      },
+      {
+        "accept_at_least": 0.975,
+        "audit": {
+          "decisions": 1825,
+          "correct": 1825,
+          "errors": 0,
+          "pair_ids_sha256": "9cd4ac451b27588600962b4f06e0eea046135a304d1921c9c3971c587b6595e8",
+          "lower_95": 0.99835984938336,
+          "sampling": "seeded greedy family-disjoint accepted edges; not pair-weighted precision"
+        },
+        "simultaneous_lower_bound": 0.9972959133738106,
+        "confidence_per_threshold": 0.9928571428571429,
+        "counts": {
+          "accept": 2830,
+          "review": 5275,
+          "reject": 447
+        },
+        "passes_selection": true
+      },
+      {
+        "accept_at_least": 0.99,
+        "audit": {
+          "decisions": 1811,
+          "correct": 1811,
+          "errors": 0,
+          "pair_ids_sha256": "ce7803623273c55f36dffe54f05845b1e582604c0b4d445bc68b29a6e3454879",
+          "lower_95": 0.9983471806246075,
+          "sampling": "seeded greedy family-disjoint accepted edges; not pair-weighted precision"
+        },
+        "simultaneous_lower_bound": 0.9972750378430013,
+        "confidence_per_threshold": 0.9928571428571429,
+        "counts": {
+          "accept": 2800,
+          "review": 5305,
+          "reject": 447
+        },
+        "passes_selection": true
+      },
+      {
+        "accept_at_least": 0.995,
+        "audit": {
+          "decisions": 1811,
+          "correct": 1811,
+          "errors": 0,
+          "pair_ids_sha256": "ce7803623273c55f36dffe54f05845b1e582604c0b4d445bc68b29a6e3454879",
+          "lower_95": 0.9983471806246075,
+          "sampling": "seeded greedy family-disjoint accepted edges; not pair-weighted precision"
+        },
+        "simultaneous_lower_bound": 0.9972750378430013,
+        "confidence_per_threshold": 0.9928571428571429,
+        "counts": {
+          "accept": 2800,
+          "review": 5305,
+          "reject": 447
+        },
+        "passes_selection": true
+      },
+      {
+        "accept_at_least": 0.999,
+        "audit": {
+          "decisions": 1811,
+          "correct": 1811,
+          "errors": 0,
+          "pair_ids_sha256": "ce7803623273c55f36dffe54f05845b1e582604c0b4d445bc68b29a6e3454879",
+          "lower_95": 0.9983471806246075,
+          "sampling": "seeded greedy family-disjoint accepted edges; not pair-weighted precision"
+        },
+        "simultaneous_lower_bound": 0.9972750378430013,
+        "confidence_per_threshold": 0.9928571428571429,
+        "counts": {
+          "accept": 2800,
+          "review": 5305,
+          "reject": 447
+        },
+        "passes_selection": true
+      },
+      {
+        "accept_at_least": 1.0,
+        "audit": {
+          "decisions": 0,
+          "correct": 0,
+          "errors": 0,
+          "pair_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "lower_95": null,
+          "sampling": "seeded greedy family-disjoint accepted edges; not pair-weighted precision"
+        },
+        "simultaneous_lower_bound": null,
+        "confidence_per_threshold": 0.9928571428571429,
+        "counts": {
+          "review": 8105,
+          "reject": 447
+        },
+        "passes_selection": false
+      }
+    ],
+    "selection_adjustment": "Bonferroni across the predeclared accept grid",
+    "automatic_execution_enabled": false
+  },
+  "validation": {
+    "retrieval": {
+      "alternative": "identifier_name",
+      "retained_pairs": 8552,
+      "posting_visits": 10552,
+      "candidate_sha256": "48cca58311e55ca0dbea3502046f7a43a66ebff5a7dfe26bf8bb26480891fd04",
+      "truncated_anchors": 0,
+      "cap_positive_losses": 0,
+      "max_candidates": 7,
+      "max_pre_cap": 7
+    },
+    "workload": {
+      "accepted": 3400,
+      "accepted_correct": 3400,
+      "anchors": 4000,
+      "candidates": 8552,
+      "rejected_positives": 0,
+      "retrieved_positives": 3800,
+      "review_anchors": 600,
+      "review_pairs": 4705,
+      "candidate_recall": 0.95,
+      "acceptance_coverage": 0.85,
+      "accepted_recall": 0.85,
+      "accepted_pair_precision": 1.0,
+      "review_anchor_rate": 0.15,
+      "retrieval_misses": 200,
+      "accepted_errors": 0,
+      "by_stratum": {
+        "changed_address": {
+          "anchors": 600,
+          "candidates": 1283,
+          "retrieved_positives": 600,
+          "accepted": 600,
+          "accepted_correct": 600,
+          "rejected_positives": 0,
+          "review_pairs": 610,
+          "review_anchors": 0,
+          "candidate_recall": 1.0,
+          "acceptance_coverage": 1.0,
+          "accepted_recall": 1.0,
+          "accepted_pair_precision": 1.0,
+          "review_anchor_rate": 0.0
+        },
+        "clean": {
+          "anchors": 800,
+          "candidates": 1778,
+          "retrieved_positives": 800,
+          "accepted": 800,
+          "accepted_correct": 800,
+          "rejected_positives": 0,
+          "review_pairs": 884,
+          "review_anchors": 0,
+          "candidate_recall": 1.0,
+          "acceptance_coverage": 1.0,
+          "accepted_recall": 1.0,
+          "accepted_pair_precision": 1.0,
+          "review_anchor_rate": 0.0
+        },
+        "combined": {
+          "anchors": 200,
+          "candidates": 216,
+          "retrieved_positives": 0,
+          "accepted": 0,
+          "accepted_correct": 0,
+          "rejected_positives": 0,
+          "review_pairs": 206,
+          "review_anchors": 200,
+          "candidate_recall": 0.0,
+          "acceptance_coverage": 0.0,
+          "accepted_recall": 0.0,
+          "accepted_pair_precision": null,
+          "review_anchor_rate": 1.0
+        },
+        "cross_jurisdiction_name": {
+          "anchors": 200,
+          "candidates": 423,
+          "retrieved_positives": 200,
+          "accepted": 200,
+          "accepted_correct": 200,
+          "rejected_positives": 0,
+          "review_pairs": 208,
+          "review_anchors": 0,
+          "candidate_recall": 1.0,
+          "acceptance_coverage": 1.0,
+          "accepted_recall": 1.0,
+          "accepted_pair_precision": 1.0,
+          "review_anchor_rate": 0.0
+        },
+        "identifier_collision": {
+          "anchors": 400,
+          "candidates": 917,
+          "retrieved_positives": 400,
+          "accepted": 0,
+          "accepted_correct": 0,
+          "rejected_positives": 0,
+          "review_pairs": 859,
+          "review_anchors": 400,
+          "candidate_recall": 1.0,
+          "acceptance_coverage": 0.0,
+          "accepted_recall": 0.0,
+          "accepted_pair_precision": null,
+          "review_anchor_rate": 1.0
+        },
+        "missing_identifier": {
+          "anchors": 800,
+          "candidates": 1747,
+          "retrieved_positives": 800,
+          "accepted": 800,
+          "accepted_correct": 800,
+          "rejected_positives": 0,
+          "review_pairs": 859,
+          "review_anchors": 0,
+          "candidate_recall": 1.0,
+          "acceptance_coverage": 1.0,
+          "accepted_recall": 1.0,
+          "accepted_pair_precision": 1.0,
+          "review_anchor_rate": 0.0
+        },
+        "multilingual": {
+          "anchors": 400,
+          "candidates": 873,
+          "retrieved_positives": 400,
+          "accepted": 400,
+          "accepted_correct": 400,
+          "rejected_positives": 0,
+          "review_pairs": 425,
+          "review_anchors": 0,
+          "candidate_recall": 1.0,
+          "acceptance_coverage": 1.0,
+          "accepted_recall": 1.0,
+          "accepted_pair_precision": 1.0,
+          "review_anchor_rate": 0.0
+        },
+        "spelling_suffix": {
+          "anchors": 600,
+          "candidates": 1315,
+          "retrieved_positives": 600,
+          "accepted": 600,
+          "accepted_correct": 600,
+          "rejected_positives": 0,
+          "review_pairs": 654,
+          "review_anchors": 0,
+          "candidate_recall": 1.0,
+          "acceptance_coverage": 1.0,
+          "accepted_recall": 1.0,
+          "accepted_pair_precision": 1.0,
+          "review_anchor_rate": 0.0
+        }
+      },
+      "audit": {
+        "decisions": 1952,
+        "correct": 1952,
+        "errors": 0,
+        "pair_ids_sha256": "4e7c7d53836c0da0b7935ca8c47ad0ce92ced0dd4cde05c06accd26923324e32",
+        "lower_95": 0.9984664781375258,
+        "sampling": "seeded greedy family-disjoint accepted edges; not pair-weighted precision"
+      },
+      "family_bootstrap_95": {
+        "candidate_recall": [
+          0.9424875,
+          0.95751875
+        ],
+        "acceptance_coverage": [
+          0.83849375,
+          0.86076875
+        ],
+        "accepted_recall": [
+          0.83849375,
+          0.86076875
+        ],
+        "accepted_pair_precision": [
+          1.0,
+          1.0
+        ],
+        "review_anchor_rate": [
+          0.13923125,
+          0.16150625000000002
+        ]
+      },
+      "bootstrap_repetitions": 200,
+      "bootstrap_scope": "ERP-family grouped descriptive intervals; cross-family retrieval dependencies remain",
+      "actual_route": "review",
+      "automatic_execution_enabled": false
+    },
+    "calibration": {
+      "schema_version": 1,
+      "scope": "supplied_scored_pairs_only",
+      "quality_qualified": false,
+      "pairs": 8552,
+      "positive_labels": 3800,
+      "raw": {
+        "brier": 0.009266067177552528,
+        "ece": 0.028040155848194734,
+        "reliability": [
+          {
+            "lower_inclusive": 0.0,
+            "upper": 0.1,
+            "upper_inclusive": false,
+            "count": 4183,
+            "mean_probability": 0.015327678540412957,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.1,
+            "upper": 0.2,
+            "upper_inclusive": false,
+            "count": 400,
+            "mean_probability": 0.1335806873432806,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.2,
+            "upper": 0.3,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.3,
+            "upper": 0.4,
+            "upper_inclusive": false,
+            "count": 37,
+            "mean_probability": 0.31351074722636224,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.4,
+            "upper": 0.5,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.5,
+            "upper": 0.6,
+            "upper_inclusive": false,
+            "count": 85,
+            "mean_probability": 0.557885003214769,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.6,
+            "upper": 0.7,
+            "upper_inclusive": false,
+            "count": 2,
+            "mean_probability": 0.6291733433703617,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.7,
+            "upper": 0.8,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.8,
+            "upper": 0.9,
+            "upper_inclusive": false,
+            "count": 644,
+            "mean_probability": 0.8940061111409845,
+            "observed_positive_rate": 0.9301242236024845
+          },
+          {
+            "lower_inclusive": 0.9,
+            "upper": 1.0,
+            "upper_inclusive": true,
+            "count": 3201,
+            "mean_probability": 0.9879059904688147,
+            "observed_positive_rate": 1.0
+          }
+        ]
+      },
+      "transformed": {
+        "brier": 0.0006010094561592279,
+        "ece": 0.003590912520416304,
+        "reliability": [
+          {
+            "lower_inclusive": 0.0,
+            "upper": 0.1,
+            "upper_inclusive": false,
+            "count": 4707,
+            "mean_probability": 2.932631502779169e-08,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.1,
+            "upper": 0.2,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.2,
+            "upper": 0.3,
+            "upper_inclusive": false,
+            "count": 28,
+            "mean_probability": 0.2917748028822432,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.3,
+            "upper": 0.4,
+            "upper_inclusive": false,
+            "count": 16,
+            "mean_probability": 0.3193164376866943,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.4,
+            "upper": 0.5,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.5,
+            "upper": 0.6,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.6,
+            "upper": 0.7,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.7,
+            "upper": 0.8,
+            "upper_inclusive": false,
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "lower_inclusive": 0.8,
+            "upper": 0.9,
+            "upper_inclusive": false,
+            "count": 1,
+            "mean_probability": 0.8095982843643919,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "lower_inclusive": 0.9,
+            "upper": 1.0,
+            "upper_inclusive": true,
+            "count": 3800,
+            "mean_probability": 0.9956260552453734,
+            "observed_positive_rate": 1.0
+          }
+        ]
+      }
+    },
+    "bands_sha256": "670f1f3bb1eacd63e583b964d9a15148e44d51253274a86539dc1efbf8189dce",
+    "scored_pairs_sha256": "5e55ed97b7647afd49f7de957b7ec6784b0797349197423dc7c13ac5d261a79d"
+  },
+  "validation_sha256": "2c9b1c243c1fd79e7516b1d2b2f3db0ea897c4611b725633ca16be2833497999",
+  "worker_preview_samples": [
+    {
+      "pair_id": "1206aa6178e58df33dac0c5de0015b61df6301ff8503eb82ff97ebb7cd7af978",
+      "label": 1,
+      "result": {
+        "schema_version": 1,
+        "comparison": {
+          "binding": {
+            "authority": "unapproved_worker_preview",
+            "domain": {
+              "domain_id": "company",
+              "fields": [
+                {
+                  "name": "record_kind",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "legal_name",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "registration_id",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "address_line1",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "postal_code",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "parent_source_key",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "identity_granularity": "legal_company",
+              "schema_version": 1,
+              "version": 1
+            },
+            "ruleset": {
+              "algorithm": "company_pair_evidence_v2",
+              "domain_id": "company",
+              "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+              "domain_version": 1,
+              "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+              "mappings": [
+                {
+                  "sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+                  "source_id": "erp_vendor",
+                  "version": 1
+                },
+                {
+                  "sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+                  "source_id": "crm_account",
+                  "version": 1
+                }
+              ],
+              "normalization": "unicode_company_comparison_v1",
+              "precedence": [
+                "deleted_source",
+                "same_source_record",
+                "ineligible_granularity",
+                "incomplete_identity",
+                "different_jurisdictions",
+                "identifier_conflict",
+                "same_source_duplicate",
+                "identifier_agreement",
+                "name_agreement",
+                "insufficient_evidence"
+              ],
+              "ruleset_id": "pilot_calibration_rules",
+              "schema_version": 1,
+              "version": 1
+            },
+            "ruleset_sha256": "5d7dd9b76df89034ce01d6758af51a49616e8994156dcf34876b5c91785aa37d"
+          },
+          "calibration": null,
+          "candidate_methods": [
+            "name"
+          ],
+          "decision": {
+            "auto_merge_eligible": false,
+            "reason": "Normalized names agree; name agreement alone does not establish identity.",
+            "route": "review",
+            "rule_id": "name_agreement",
+            "suggestion": "unsure"
+          },
+          "evidence_sha256": "fac77a36556b69e732b26f6d159eb7f23e4e30dc7c2c32aaabd8726cce17e10e",
+          "fields": {
+            "address_line1": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "219 indigo road",
+                "state": "present",
+                "value": "219 Indigo Road"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "219 indigo road",
+                "state": "present",
+                "value": "219 Indigo Road"
+              }
+            },
+            "city": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "bristol",
+                "state": "present",
+                "value": "Bristol"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "bristol",
+                "state": "present",
+                "value": "Bristol"
+              }
+            },
+            "country": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "GB",
+                "state": "present",
+                "value": "GB"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "GB",
+                "state": "present",
+                "value": "GB"
+              }
+            },
+            "legal_name": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "orchard terra foods",
+                "state": "present",
+                "value": "Orchard Terra Foods Limited"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "orchard terra foods",
+                "state": "present",
+                "value": "Orchard Terra Foods Limited"
+              }
+            },
+            "postal_code": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "07590",
+                "state": "present",
+                "value": "07590"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "07590",
+                "state": "present",
+                "value": "07590"
+              }
+            },
+            "record_kind": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "legal_company",
+                "state": "present",
+                "value": "legal_company"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "legal_company",
+                "state": "present",
+                "value": "legal_company"
+              }
+            },
+            "registration_id": {
+              "comparison": "unavailable",
+              "left": {
+                "normalized": null,
+                "state": "null",
+                "value": null
+              },
+              "raw_equal": null,
+              "right": {
+                "normalized": "840914827863",
+                "state": "present",
+                "value": "840914827863"
+              }
+            }
+          },
+          "model": null,
+          "pair_id": "1206aa6178e58df33dac0c5de0015b61df6301ff8503eb82ff97ebb7cd7af978",
+          "pair_origin": "retrieval_candidate",
+          "probability": null,
+          "qualification": "development_preview_only",
+          "record_sha256": [
+            "4d3b98183b497d4e1e6a2853616aa847243a3ad97621b1baf3bf14a3c7f3c792",
+            "ef42fed25f374f5b77224b9efbe86059ae4bd319b31b7617002f58e7cefdc82a"
+          ],
+          "records": [
+            {
+              "deleted": false,
+              "mapping_sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+              "mapping_version": 1,
+              "source_id": "crm_account",
+              "source_key": "53f79331330f98e42a3287f78997e21a",
+              "values": {
+                "address_line1": "219 Indigo Road",
+                "city": "Bristol",
+                "country": "GB",
+                "legal_name": "Orchard Terra Foods Limited",
+                "parent_source_key": "b31d849957cc049b13ac4d6554ec8313",
+                "postal_code": "07590",
+                "record_kind": "legal_company",
+                "registration_id": null
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "mapping_sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+              "mapping_version": 1,
+              "source_id": "erp_vendor",
+              "source_key": "0013b3612529d6827e767abc787debd2",
+              "values": {
+                "address_line1": "219 Indigo Road",
+                "city": "Bristol",
+                "country": "GB",
+                "legal_name": "Orchard Terra Foods Limited",
+                "parent_source_key": "7174f77ef0870b7789bd467512b81ee3",
+                "postal_code": "07590",
+                "record_kind": "legal_company",
+                "registration_id": "840914827863"
+              },
+              "version": 1
+            }
+          ],
+          "rules": [
+            {
+              "reason": "Normalized names agree; name agreement alone does not establish identity.",
+              "rule_id": "name_agreement",
+              "selected": true
+            },
+            {
+              "reason": "No stronger deterministic identity rule applies.",
+              "rule_id": "insufficient_evidence",
+              "selected": false
+            }
+          ],
+          "schema_version": 2
+        },
+        "score": {
+          "score_context_sha256": "15f36bf9fd05f9a5511226902f1c2c776732dc45325f2ccc9a9b2816b73da5c0",
+          "comparison_sha256": "fac77a36556b69e732b26f6d159eb7f23e4e30dc7c2c32aaabd8726cce17e10e",
+          "probability": 0.9952339360066313
+        },
+        "contracts": {
+          "score_context_sha256": "15f36bf9fd05f9a5511226902f1c2c776732dc45325f2ccc9a9b2816b73da5c0",
+          "model": {
+            "id": "pilot_logistic",
+            "version": 1,
+            "sha256": "78b2bcb0aeaac33ebef175e8a1124ece0741535b377981efaafb2adb8331a3cf"
+          },
+          "feature_contract": {
+            "id": "pilot_features",
+            "version": 1,
+            "sha256": "4383b1930da900b74ef1ff091ada911c9033d33cea7b76557b67051b556f8409"
+          },
+          "calibration_sha256": "22155927a19aa822e4fb5f5827b2fd7290ea67ce4a7045d26b802ce0e1a54fef",
+          "bands_sha256": "e1201db7d21bf5a9ae7bd0282124f713edaa47b5440e24c8bbdaa910ac88f898"
+        },
+        "transform": {
+          "probability": 0.999999999999982,
+          "input_probability": 0.9952339360066313,
+          "clipped_probability": 0.9952339360066313,
+          "input_was_clipped": false
+        },
+        "decision": {
+          "numerical_band": "accept",
+          "proposed_band": "accept",
+          "route": "review",
+          "reason": "unqualified_probability_policy",
+          "vetoes": [],
+          "auto_merge_eligible": false
+        },
+        "qualification": "development_preview_only",
+        "result_sha256": "81d9cb73874e6de579c38a4015f6bbe5d61a23fef3ef92c30d0ffc8a116f7006"
+      }
+    },
+    {
+      "pair_id": "6c6eae5880ae5260672806dca0c8499ee89c7284a35ac6cb96bfb90d693fd187",
+      "label": 0,
+      "result": {
+        "schema_version": 1,
+        "comparison": {
+          "binding": {
+            "authority": "unapproved_worker_preview",
+            "domain": {
+              "domain_id": "company",
+              "fields": [
+                {
+                  "name": "record_kind",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "legal_name",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "registration_id",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "address_line1",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "postal_code",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "parent_source_key",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "identity_granularity": "legal_company",
+              "schema_version": 1,
+              "version": 1
+            },
+            "ruleset": {
+              "algorithm": "company_pair_evidence_v2",
+              "domain_id": "company",
+              "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+              "domain_version": 1,
+              "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+              "mappings": [
+                {
+                  "sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+                  "source_id": "erp_vendor",
+                  "version": 1
+                },
+                {
+                  "sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+                  "source_id": "crm_account",
+                  "version": 1
+                }
+              ],
+              "normalization": "unicode_company_comparison_v1",
+              "precedence": [
+                "deleted_source",
+                "same_source_record",
+                "ineligible_granularity",
+                "incomplete_identity",
+                "different_jurisdictions",
+                "identifier_conflict",
+                "same_source_duplicate",
+                "identifier_agreement",
+                "name_agreement",
+                "insufficient_evidence"
+              ],
+              "ruleset_id": "pilot_calibration_rules",
+              "schema_version": 1,
+              "version": 1
+            },
+            "ruleset_sha256": "5d7dd9b76df89034ce01d6758af51a49616e8994156dcf34876b5c91785aa37d"
+          },
+          "calibration": null,
+          "candidate_methods": [
+            "name"
+          ],
+          "decision": {
+            "auto_merge_eligible": false,
+            "reason": "The records declare different legal jurisdictions; review the source values.",
+            "route": "review",
+            "rule_id": "different_jurisdictions",
+            "suggestion": "no_match"
+          },
+          "evidence_sha256": "f3223236c502cf0b624dda7f87702187abe7847115272046ffb8ca31cabf418e",
+          "fields": {
+            "address_line1": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "7 falcon road",
+                "state": "present",
+                "value": "7 Falcon Road"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "219 indigo road",
+                "state": "present",
+                "value": "219 Indigo Road"
+              }
+            },
+            "city": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "bonn",
+                "state": "present",
+                "value": "Bonn"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "bristol",
+                "state": "present",
+                "value": "Bristol"
+              }
+            },
+            "country": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "DE",
+                "state": "present",
+                "value": "DE"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "GB",
+                "state": "present",
+                "value": "GB"
+              }
+            },
+            "legal_name": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "orchard terra foods",
+                "state": "present",
+                "value": "Orchard Terra Foods GmbH"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "orchard terra foods",
+                "state": "present",
+                "value": "Orchard Terra Foods Limited"
+              }
+            },
+            "postal_code": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "25015",
+                "state": "present",
+                "value": "25015"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "07590",
+                "state": "present",
+                "value": "07590"
+              }
+            },
+            "record_kind": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "legal_company",
+                "state": "present",
+                "value": "legal_company"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "legal_company",
+                "state": "present",
+                "value": "legal_company"
+              }
+            },
+            "registration_id": {
+              "comparison": "unavailable",
+              "left": {
+                "normalized": null,
+                "state": "null",
+                "value": null
+              },
+              "raw_equal": null,
+              "right": {
+                "normalized": "840914827863",
+                "state": "present",
+                "value": "840914827863"
+              }
+            }
+          },
+          "model": null,
+          "pair_id": "6c6eae5880ae5260672806dca0c8499ee89c7284a35ac6cb96bfb90d693fd187",
+          "pair_origin": "retrieval_candidate",
+          "probability": null,
+          "qualification": "development_preview_only",
+          "record_sha256": [
+            "f9c917655f2f1e893105e0cad12899ce57c224998c2784803e37200363380ed9",
+            "ef42fed25f374f5b77224b9efbe86059ae4bd319b31b7617002f58e7cefdc82a"
+          ],
+          "records": [
+            {
+              "deleted": false,
+              "mapping_sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+              "mapping_version": 1,
+              "source_id": "crm_account",
+              "source_key": "b31d849957cc049b13ac4d6554ec8313",
+              "values": {
+                "address_line1": "7 Falcon Road",
+                "city": "Bonn",
+                "country": "DE",
+                "legal_name": "Orchard Terra Foods GmbH",
+                "parent_source_key": null,
+                "postal_code": "25015",
+                "record_kind": "legal_company",
+                "registration_id": null
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "mapping_sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+              "mapping_version": 1,
+              "source_id": "erp_vendor",
+              "source_key": "0013b3612529d6827e767abc787debd2",
+              "values": {
+                "address_line1": "219 Indigo Road",
+                "city": "Bristol",
+                "country": "GB",
+                "legal_name": "Orchard Terra Foods Limited",
+                "parent_source_key": "7174f77ef0870b7789bd467512b81ee3",
+                "postal_code": "07590",
+                "record_kind": "legal_company",
+                "registration_id": "840914827863"
+              },
+              "version": 1
+            }
+          ],
+          "rules": [
+            {
+              "reason": "The records declare different legal jurisdictions; review the source values.",
+              "rule_id": "different_jurisdictions",
+              "selected": true
+            },
+            {
+              "reason": "Normalized names agree; name agreement alone does not establish identity.",
+              "rule_id": "name_agreement",
+              "selected": false
+            },
+            {
+              "reason": "No stronger deterministic identity rule applies.",
+              "rule_id": "insufficient_evidence",
+              "selected": false
+            }
+          ],
+          "schema_version": 2
+        },
+        "score": {
+          "score_context_sha256": "15f36bf9fd05f9a5511226902f1c2c776732dc45325f2ccc9a9b2816b73da5c0",
+          "comparison_sha256": "f3223236c502cf0b624dda7f87702187abe7847115272046ffb8ca31cabf418e",
+          "probability": 0.029483463171989983
+        },
+        "contracts": {
+          "score_context_sha256": "15f36bf9fd05f9a5511226902f1c2c776732dc45325f2ccc9a9b2816b73da5c0",
+          "model": {
+            "id": "pilot_logistic",
+            "version": 1,
+            "sha256": "78b2bcb0aeaac33ebef175e8a1124ece0741535b377981efaafb2adb8331a3cf"
+          },
+          "feature_contract": {
+            "id": "pilot_features",
+            "version": 1,
+            "sha256": "4383b1930da900b74ef1ff091ada911c9033d33cea7b76557b67051b556f8409"
+          },
+          "calibration_sha256": "22155927a19aa822e4fb5f5827b2fd7290ea67ce4a7045d26b802ce0e1a54fef",
+          "bands_sha256": "e1201db7d21bf5a9ae7bd0282124f713edaa47b5440e24c8bbdaa910ac88f898"
+        },
+        "transform": {
+          "probability": 5.279485526670739e-21,
+          "input_probability": 0.029483463171989983,
+          "clipped_probability": 0.029483463171989983,
+          "input_was_clipped": false
+        },
+        "decision": {
+          "numerical_band": "reject",
+          "proposed_band": "review",
+          "route": "review",
+          "reason": "deterministic_conflict",
+          "vetoes": [
+            "different_jurisdictions"
+          ],
+          "auto_merge_eligible": false
+        },
+        "qualification": "development_preview_only",
+        "result_sha256": "f499e9f705d56f7e5be5b70407792ab978d005f60f278b33789eaa51e36ec8d1"
+      }
+    },
+    {
+      "pair_id": "896b68d189679d6fa5d6a6af11bdd70474f5ee4398c144658e60bca13590439d",
+      "label": 0,
+      "result": {
+        "schema_version": 1,
+        "comparison": {
+          "binding": {
+            "authority": "unapproved_worker_preview",
+            "domain": {
+              "domain_id": "company",
+              "fields": [
+                {
+                  "name": "record_kind",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "legal_name",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "registration_id",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "address_line1",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "postal_code",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "parent_source_key",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "identity_granularity": "legal_company",
+              "schema_version": 1,
+              "version": 1
+            },
+            "ruleset": {
+              "algorithm": "company_pair_evidence_v2",
+              "domain_id": "company",
+              "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+              "domain_version": 1,
+              "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+              "mappings": [
+                {
+                  "sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+                  "source_id": "erp_vendor",
+                  "version": 1
+                },
+                {
+                  "sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+                  "source_id": "crm_account",
+                  "version": 1
+                }
+              ],
+              "normalization": "unicode_company_comparison_v1",
+              "precedence": [
+                "deleted_source",
+                "same_source_record",
+                "ineligible_granularity",
+                "incomplete_identity",
+                "different_jurisdictions",
+                "identifier_conflict",
+                "same_source_duplicate",
+                "identifier_agreement",
+                "name_agreement",
+                "insufficient_evidence"
+              ],
+              "ruleset_id": "pilot_calibration_rules",
+              "schema_version": 1,
+              "version": 1
+            },
+            "ruleset_sha256": "5d7dd9b76df89034ce01d6758af51a49616e8994156dcf34876b5c91785aa37d"
+          },
+          "calibration": null,
+          "candidate_methods": [
+            "identifier",
+            "name"
+          ],
+          "decision": {
+            "auto_merge_eligible": false,
+            "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+            "route": "review",
+            "rule_id": "identifier_agreement",
+            "suggestion": "match"
+          },
+          "evidence_sha256": "e1f51ed6ffcf258228280bb774ae1c966ca726cf67d51161c3c6ff83a82bbf3c",
+          "fields": {
+            "address_line1": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "69 aster road",
+                "state": "present",
+                "value": "69 Aster Road"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "211 aster road",
+                "state": "present",
+                "value": "211 Aster Road"
+              }
+            },
+            "city": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "namur",
+                "state": "present",
+                "value": "Namur"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "essen",
+                "state": "present",
+                "value": "Essen"
+              }
+            },
+            "country": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "DE",
+                "state": "present",
+                "value": "DE"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "DE",
+                "state": "present",
+                "value": "DE"
+              }
+            },
+            "legal_name": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "summit river trading",
+                "state": "present",
+                "value": "Summit River Trading SA"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "summit river trading",
+                "state": "present",
+                "value": "Summit River Trading GmbH"
+              }
+            },
+            "postal_code": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "54794",
+                "state": "present",
+                "value": "54794"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "25905",
+                "state": "present",
+                "value": "25905"
+              }
+            },
+            "record_kind": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "legal_company",
+                "state": "present",
+                "value": "legal_company"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "legal_company",
+                "state": "present",
+                "value": "legal_company"
+              }
+            },
+            "registration_id": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "014707959572",
+                "state": "present",
+                "value": "014707959572"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "014707959572",
+                "state": "present",
+                "value": "014707959572"
+              }
+            }
+          },
+          "model": null,
+          "pair_id": "896b68d189679d6fa5d6a6af11bdd70474f5ee4398c144658e60bca13590439d",
+          "pair_origin": "retrieval_candidate",
+          "probability": null,
+          "qualification": "development_preview_only",
+          "record_sha256": [
+            "7bbaff181e7f60de7496a646cf73b9ca6bb3f8d6b55a5ac9dd9e399c53800a27",
+            "3da14c61aaee00ab0bb5954f5dc8c8eae0366b627883b35c92ccdc904c05a3e2"
+          ],
+          "records": [
+            {
+              "deleted": false,
+              "mapping_sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+              "mapping_version": 1,
+              "source_id": "crm_account",
+              "source_key": "43404346db4adb741783f7833ed8cd38",
+              "values": {
+                "address_line1": "69 Aster Road",
+                "city": "Namur",
+                "country": "DE",
+                "legal_name": "Summit River Trading SA",
+                "parent_source_key": null,
+                "postal_code": "54794",
+                "record_kind": "legal_company",
+                "registration_id": "014707959572"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "mapping_sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+              "mapping_version": 1,
+              "source_id": "erp_vendor",
+              "source_key": "007f58d8be22e34b8be023f72fc8401b",
+              "values": {
+                "address_line1": "211 Aster Road",
+                "city": "Essen",
+                "country": "DE",
+                "legal_name": "Summit River Trading GmbH",
+                "parent_source_key": "cdeed610089e2b25ce0c982f7e9ebfad",
+                "postal_code": "25905",
+                "record_kind": "legal_company",
+                "registration_id": "014707959572"
+              },
+              "version": 1
+            }
+          ],
+          "rules": [
+            {
+              "reason": "Registration identifiers agree in the same jurisdiction; uniqueness is unverified.",
+              "rule_id": "identifier_agreement",
+              "selected": true
+            },
+            {
+              "reason": "Normalized names agree; name agreement alone does not establish identity.",
+              "rule_id": "name_agreement",
+              "selected": false
+            },
+            {
+              "reason": "No stronger deterministic identity rule applies.",
+              "rule_id": "insufficient_evidence",
+              "selected": false
+            }
+          ],
+          "schema_version": 2
+        },
+        "score": {
+          "score_context_sha256": "15f36bf9fd05f9a5511226902f1c2c776732dc45325f2ccc9a9b2816b73da5c0",
+          "comparison_sha256": "e1f51ed6ffcf258228280bb774ae1c966ca726cf67d51161c3c6ff83a82bbf3c",
+          "probability": 0.16486207081286433
+        },
+        "contracts": {
+          "score_context_sha256": "15f36bf9fd05f9a5511226902f1c2c776732dc45325f2ccc9a9b2816b73da5c0",
+          "model": {
+            "id": "pilot_logistic",
+            "version": 1,
+            "sha256": "78b2bcb0aeaac33ebef175e8a1124ece0741535b377981efaafb2adb8331a3cf"
+          },
+          "feature_contract": {
+            "id": "pilot_features",
+            "version": 1,
+            "sha256": "4383b1930da900b74ef1ff091ada911c9033d33cea7b76557b67051b556f8409"
+          },
+          "calibration_sha256": "22155927a19aa822e4fb5f5827b2fd7290ea67ce4a7045d26b802ce0e1a54fef",
+          "bands_sha256": "e1201db7d21bf5a9ae7bd0282124f713edaa47b5440e24c8bbdaa910ac88f898"
+        },
+        "transform": {
+          "probability": 8.498493544802474e-14,
+          "input_probability": 0.16486207081286433,
+          "clipped_probability": 0.16486207081286433,
+          "input_was_clipped": false
+        },
+        "decision": {
+          "numerical_band": "reject",
+          "proposed_band": "reject",
+          "route": "review",
+          "reason": "unqualified_probability_policy",
+          "vetoes": [],
+          "auto_merge_eligible": false
+        },
+        "qualification": "development_preview_only",
+        "result_sha256": "844c7c6fbe4a9fe90ac9090bf2f8c7dd0cf5893c0b43a2739c721940f55abae6"
+      }
+    },
+    {
+      "pair_id": "69e848f9c1d34f966b1d1e932b1eb72b1e36d189a2064092e32a56c19d4d9a01",
+      "label": 1,
+      "result": {
+        "schema_version": 1,
+        "comparison": {
+          "binding": {
+            "authority": "unapproved_worker_preview",
+            "domain": {
+              "domain_id": "company",
+              "fields": [
+                {
+                  "name": "record_kind",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "legal_name",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "country",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "registration_id",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "address_line1",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "city",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "postal_code",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "parent_source_key",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "identity_granularity": "legal_company",
+              "schema_version": 1,
+              "version": 1
+            },
+            "ruleset": {
+              "algorithm": "company_pair_evidence_v2",
+              "domain_id": "company",
+              "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+              "domain_version": 1,
+              "implementation_sha256": "beea9fdffe9cfbe5b94779eefb869868e025a7ed7228a38a5c05ca81657bcb1d",
+              "mappings": [
+                {
+                  "sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+                  "source_id": "erp_vendor",
+                  "version": 1
+                },
+                {
+                  "sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+                  "source_id": "crm_account",
+                  "version": 1
+                }
+              ],
+              "normalization": "unicode_company_comparison_v1",
+              "precedence": [
+                "deleted_source",
+                "same_source_record",
+                "ineligible_granularity",
+                "incomplete_identity",
+                "different_jurisdictions",
+                "identifier_conflict",
+                "same_source_duplicate",
+                "identifier_agreement",
+                "name_agreement",
+                "insufficient_evidence"
+              ],
+              "ruleset_id": "pilot_calibration_rules",
+              "schema_version": 1,
+              "version": 1
+            },
+            "ruleset_sha256": "5d7dd9b76df89034ce01d6758af51a49616e8994156dcf34876b5c91785aa37d"
+          },
+          "calibration": null,
+          "candidate_methods": [
+            "name"
+          ],
+          "decision": {
+            "auto_merge_eligible": false,
+            "reason": "The records declare different legal jurisdictions; review the source values.",
+            "route": "review",
+            "rule_id": "different_jurisdictions",
+            "suggestion": "no_match"
+          },
+          "evidence_sha256": "77ec284b645a07fef2dad62caee814c4e13ab1e7cc1801cf868e83ced7bdd611",
+          "fields": {
+            "address_line1": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "227 aster road",
+                "state": "present",
+                "value": "227 Aster Road"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "227 aster road",
+                "state": "present",
+                "value": "227 Aster Road"
+              }
+            },
+            "city": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "delft",
+                "state": "present",
+                "value": "Delft"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "delft",
+                "state": "present",
+                "value": "Delft"
+              }
+            },
+            "country": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "GB",
+                "state": "present",
+                "value": "GB"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "NL",
+                "state": "present",
+                "value": "NL"
+              }
+            },
+            "legal_name": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "orchard northern materials",
+                "state": "present",
+                "value": "Orchard Northern Materials BV"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "orchard northern materials",
+                "state": "present",
+                "value": "Orchard Northern Materials BV"
+              }
+            },
+            "postal_code": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "80150",
+                "state": "present",
+                "value": "80150"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "80150",
+                "state": "present",
+                "value": "80150"
+              }
+            },
+            "record_kind": {
+              "comparison": "agree",
+              "left": {
+                "normalized": "legal_company",
+                "state": "present",
+                "value": "legal_company"
+              },
+              "raw_equal": true,
+              "right": {
+                "normalized": "legal_company",
+                "state": "present",
+                "value": "legal_company"
+              }
+            },
+            "registration_id": {
+              "comparison": "differ",
+              "left": {
+                "normalized": "031257017436",
+                "state": "present",
+                "value": "031257017436"
+              },
+              "raw_equal": false,
+              "right": {
+                "normalized": "726607023131",
+                "state": "present",
+                "value": "726607023131"
+              }
+            }
+          },
+          "model": null,
+          "pair_id": "69e848f9c1d34f966b1d1e932b1eb72b1e36d189a2064092e32a56c19d4d9a01",
+          "pair_origin": "retrieval_candidate",
+          "probability": null,
+          "qualification": "development_preview_only",
+          "record_sha256": [
+            "d3f964e60bc6169e71527725d57833cdafaf4599d78b3d0a4a69202eee027d9a",
+            "c598e785dacad0e6ef6f15a6c3b7e1f6cb1f77741ae5b1e1731b80b48a49b312"
+          ],
+          "records": [
+            {
+              "deleted": false,
+              "mapping_sha256": "fc29fc3d14a7d8639ac020aa277b4fe55b3b2f995d7dc2ee47f279d5a946e88a",
+              "mapping_version": 1,
+              "source_id": "crm_account",
+              "source_key": "b67613ebaaca6338da91e6ea61ffbba8",
+              "values": {
+                "address_line1": "227 Aster Road",
+                "city": "Delft",
+                "country": "GB",
+                "legal_name": "Orchard Northern Materials BV",
+                "parent_source_key": "c12d2629f4fed4f1fe7f36e2eaf5b866",
+                "postal_code": "80150",
+                "record_kind": "legal_company",
+                "registration_id": "031257017436"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "mapping_sha256": "f54e47b0fe0ac1bd5f93af6f93642d4303a392916fb1098c84f8a7edfe0cf727",
+              "mapping_version": 1,
+              "source_id": "erp_vendor",
+              "source_key": "00e78246655d76a896ea67a1a7a3030c",
+              "values": {
+                "address_line1": "227 Aster Road",
+                "city": "Delft",
+                "country": "NL",
+                "legal_name": "Orchard Northern Materials BV",
+                "parent_source_key": "a38e03178503b959bfaeda5371952a14",
+                "postal_code": "80150",
+                "record_kind": "legal_company",
+                "registration_id": "726607023131"
+              },
+              "version": 1
+            }
+          ],
+          "rules": [
+            {
+              "reason": "The records declare different legal jurisdictions; review the source values.",
+              "rule_id": "different_jurisdictions",
+              "selected": true
+            },
+            {
+              "reason": "Normalized names agree; name agreement alone does not establish identity.",
+              "rule_id": "name_agreement",
+              "selected": false
+            },
+            {
+              "reason": "No stronger deterministic identity rule applies.",
+              "rule_id": "insufficient_evidence",
+              "selected": false
+            }
+          ],
+          "schema_version": 2
+        },
+        "score": {
+          "score_context_sha256": "15f36bf9fd05f9a5511226902f1c2c776732dc45325f2ccc9a9b2816b73da5c0",
+          "comparison_sha256": "77ec284b645a07fef2dad62caee814c4e13ab1e7cc1801cf868e83ced7bdd611",
+          "probability": 0.946752484863002
+        },
+        "contracts": {
+          "score_context_sha256": "15f36bf9fd05f9a5511226902f1c2c776732dc45325f2ccc9a9b2816b73da5c0",
+          "model": {
+            "id": "pilot_logistic",
+            "version": 1,
+            "sha256": "78b2bcb0aeaac33ebef175e8a1124ece0741535b377981efaafb2adb8331a3cf"
+          },
+          "feature_contract": {
+            "id": "pilot_features",
+            "version": 1,
+            "sha256": "4383b1930da900b74ef1ff091ada911c9033d33cea7b76557b67051b556f8409"
+          },
+          "calibration_sha256": "22155927a19aa822e4fb5f5827b2fd7290ea67ce4a7045d26b802ce0e1a54fef",
+          "bands_sha256": "e1201db7d21bf5a9ae7bd0282124f713edaa47b5440e24c8bbdaa910ac88f898"
+        },
+        "transform": {
+          "probability": 0.9999450485563843,
+          "input_probability": 0.946752484863002,
+          "clipped_probability": 0.946752484863002,
+          "input_was_clipped": false
+        },
+        "decision": {
+          "numerical_band": "accept",
+          "proposed_band": "review",
+          "route": "review",
+          "reason": "deterministic_conflict",
+          "vetoes": [
+            "different_jurisdictions"
+          ],
+          "auto_merge_eligible": false
+        },
+        "qualification": "development_preview_only",
+        "result_sha256": "06ea1f6953e2924fa8224d192d2b7a7b62b68cab59f91fc8492c30a561107cca"
+      }
+    }
+  ],
+  "status": "completed",
+  "model_sha256": "35b67e19051a9429c01d9c96d7b50bc8e99856c123b49b6abf90f2f20aaa9259",
+  "raw_scores": "data/lakefusion/calibration-v1/fit-validation-scores.json",
+  "raw_scores_sha256": "3c7c87ca50cbe847fa0991fed0a6dcb46653727a5924cbda37f4e95f77dae4e8",
+  "process_peak_rss_bytes": 280395776,
+  "wall_seconds": 18.997365791816264,
+  "validation_selection_gate_passed": true,
+  "quality_qualified": false,
+  "confirmation_gate": "not evaluated; untouched",
+  "cleanup": "no child service, database or remote resource started",
+  "ended_at": "2026-09-22T18:56:18.309977+00:00"
+}

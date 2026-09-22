@@ -1,6 +1,6 @@
 # LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 10/12 experiment slots consumed.** The extension and
+**Phase B is in progress: 11/12 experiment slots consumed.** The extension and
 public repository publication were approved in
 [LF-DEC-005/006](../../spec/lakefusion/EXECUTION_DECISIONS.md). Phase A and LM-001 are
 complete at commit `96edbf8`. LM-002–006 now provide bounded company candidate
@@ -59,10 +59,10 @@ general customer data, merge precision, online latency or Spark scalability.
 ## Next work
 
 LM-002–006 are complete for the declared bounded internal worker contracts.
-Matching/calibration acceptance remains Phase B work. The synthetic golden-record
-view passed fresh-package acceptance in slot 10. The approved twelve-slot LF-B
-budget leaves two iterations for the predeclared initial model/calibration work
-and frozen validation in the [extension plan](NEXT_EXPERIMENTS.md).
+Slot 11 completed the fixed model/calibration evaluation with a passing synthetic
+validation selection. The golden-record view passed fresh-package acceptance in
+slot 10. One iteration remains for the [frozen validation replay](CALIBRATION_REPLAY_PLAN.md).
+Confirmation and production decision approval remain open.
 Later remote/application gates listed in the Phase A freeze remain mandatory.
 
 ## Durable registry and exact job replay — 22 September

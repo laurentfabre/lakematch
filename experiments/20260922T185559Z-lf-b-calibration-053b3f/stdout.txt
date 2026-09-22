@@ -1,0 +1,1 @@
+{"status": "completed", "slot": 11, "validation_selection_gate_passed": true, "wall_seconds": 18.997365791816264, "process_peak_rss_bytes": 280395776}
