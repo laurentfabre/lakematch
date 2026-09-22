@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (8/12 experiments)**.
+Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (9/12 experiments)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -272,13 +272,14 @@ Deliverables:
   source pairs, with explicit origin and no model score. **301 portable and 25
   app checks pass**; type/build and desktop/mobile development checks pass.
   Empirical calibration, registry promotion, live comparison integration and
-  matching-quality acceptance remain open. LF-B currently uses **8/12** slots.
+  matching-quality acceptance remain open. LF-B currently uses **9/12** slots.
 - [ ] Deliver the first APX golden-record detail view using the synthetic slice.
   [Local APX preview](reports/lakefusion-comparison-ui-20260922/README.md) implemented:
   six companies, two publications, field alternatives, overrides and deleted
   sources. App/type/build and desktop/mobile development checks pass. The next
-  full acceptance run is authorized as slot 9 under the approved extension;
-  no acceptance result has been recorded yet.
+  full acceptance attempt passed build/types but stopped at a macOS path-alias
+  check before app/browser tests. [The reserved follow-up](bench/lakefusion/UI_ACCEPTANCE_FOLLOWUP_PLAN.md)
+  repeats acceptance after canonicalizing the owned temporary path.
 
 **Exit gate:** two-source inputs reproduce the same golden records and provenance
 on retry. Earlier-sorting source keys do not rekey public IDs. Every selected
@@ -514,6 +515,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: probability and band foundation | 294 portable checks pass, including 88 new analytical probability cases. Immutable model/feature/calibration/band metadata, declared split disjointness, deterministic vetoes and Brier/ECE/precision-bound helpers are implemented. [Contract](spec/lakefusion/PROBABILITY.md). Every eligible preview still routes to review; no fitting, corpus evaluation or automatic quality claim. LF-B remains 8/8; LM-014 remains in progress. | Calibration and acceptance experiments await the proposed bound extension. Comparison UI and promotion integration remain open. GitHub publication still awaits resolution of the public/private visibility conflict. |
 | 2026-09-22: synthetic comparison explorer | The APX demo displays seven actual/normalized field comparisons for six companies across two publications, with conflicts, deletion and explicit pair origin. 301 portable and 25 app checks pass; pinned build, types, keyboard/error recovery and desktop/mobile preview pass. [Evidence](reports/lakefusion-comparison-ui-20260922/README.md). Historic publication values/hashes and frozen inputs are preserved. LF-B stays 8/8; LM-014 remains in progress. | Empirical calibration, promotion/live integration and full acceptance remain open. Further experiments need a revised bound; GitHub publication still awaits the repository-visibility decision. |
 | 2026-09-22: extension and public publication approved | Laurent explicitly selected “raise it to 12” and “change to public”. [LF-DEC-005/006](spec/lakefusion/EXECUTION_DECISIONS.md) authorize LF-B 8/12 and publication to the existing public GitHub repository. Earlier protocol bytes and eight consumed runs remain unchanged. | Push completed commits through managed hooks, then execute slot 9's bounded APX acceptance plan. Calibration and quality gates remain open. |
+| 2026-09-22: public push and first packaged UI attempt | Ten pending commits were pushed to public GitHub through `ed38a6d` using the verified `laurentfabre` account. Slot 9's fresh build/types pass, but the harness rejects a normal wheel member because `/var` and `/private/var` paths are compared before canonicalizing the root. [Failure retained](experiments/20260922T182532Z-lf-b-packaged-ui-d838a1/manifest.json); owned cleanup passes. LF-B 9/12. | Use the single reserved follow-up as slot 10 with the canonical-root fix; move initial model/calibration evaluation to slot 11. No acceptance gate closed. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

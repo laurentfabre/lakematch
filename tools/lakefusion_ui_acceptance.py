@@ -51,7 +51,7 @@ def main():
     report_path.parent.mkdir(parents=True, exist_ok=True)
     config = json.loads(args.config.read_text())
     start = time.perf_counter()
-    report = {"kind": "fresh_packaged_synthetic_ui_acceptance", "phase": "LF-B", "slot": 9,
+    report = {"kind": "fresh_packaged_synthetic_ui_acceptance", "phase": "LF-B", "slot": config["slot"],
               "status": "running", "started_at": datetime.now(timezone.utc).isoformat(),
               "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
               "config_sha256": sha(args.config), "source_files": config["files"],
@@ -84,7 +84,7 @@ def main():
         report["build"] = {str(p.relative_to(ROOT)): {"sha256": sha(p), "bytes": p.stat().st_size} for p in build}
         wheel = wheels[0]
         with tempfile.TemporaryDirectory(prefix="lakematch-ui-acceptance-") as directory:
-            package = Path(directory)
+            package = Path(directory).resolve()
             extracted_path = package
             report["cleanup"] = "owned extracted wheel active"
             with zipfile.ZipFile(wheel) as archive:

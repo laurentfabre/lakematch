@@ -1,6 +1,6 @@
 # LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 8/12 experiment slots consumed.** The extension and
+**Phase B is in progress: 9/12 experiment slots consumed.** The extension and
 public repository publication were approved in
 [LF-DEC-005/006](../../spec/lakefusion/EXECUTION_DECISIONS.md). Phase A and LM-001 are
 complete at commit `96edbf8`. LM-002–006 now provide bounded company candidate
@@ -60,8 +60,8 @@ general customer data, merge precision, online latency or Spark scalability.
 
 LM-002–006 are complete for the declared bounded internal worker contracts.
 Matching-quality acceptance and the first golden-record app acceptance remain
-Phase B work. The approved twelve-slot LF-B budget leaves four iterations;
-slot 9 is reserved for a fresh bounded APX acceptance run, followed by the
+Phase B work. The approved twelve-slot LF-B budget leaves three iterations;
+slot 10 is the reserved follow-up to slot 9's harness failure, followed by the
 predeclared model/calibration work in the [extension plan](NEXT_EXPERIMENTS.md).
 Later remote/application gates listed in the Phase A freeze remain mandatory.
 
@@ -429,3 +429,20 @@ repository. A read-only check confirms it is already public. Current consumption
 is **8/12**; no new experiment result is implied. Earlier dated entries above
 retain the limits and publication status that applied when they were written.
 The fifteen frozen Phase A files and all prior experiment evidence are preserved.
+
+## Slot 9 — packaged UI acceptance stopped in the harness
+
+The [declared acceptance](UI_ACCEPTANCE_PLAN.md) freshly built the app and passed
+both type checks, then failed before app tests/browser startup. Its path guard
+compared a resolved wheel member under `/private/var` with the unresolved owned
+temporary root under `/var`, an alias on this Mac. All archive entries remain
+inside the canonical root. [The report](ui-acceptance-20260922.json) and
+[experiment](../../experiments/20260922T182532Z-lf-b-packaged-ui-d838a1/manifest.json)
+retain the failure; the extracted directory was removed and owned process-group
+cleanup passed. The run took **11.17 seconds** and consumed slot **9/12**.
+
+The [single reserved follow-up](UI_ACCEPTANCE_FOLLOWUP_PLAN.md) canonicalizes the
+temporary root, pins a v2 input binding and repeats the same gates with fresh
+outputs. It takes slot 10; the initial model/calibration run moves to slot 11.
+No app behavior, data, dependency or quality threshold changes. Public publication
+is resolved: the ten previously pending commits are on GitHub through `ed38a6d`.
