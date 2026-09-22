@@ -1,0 +1,70 @@
+{
+  "kind": "offline_scan_followup",
+  "source_commit": "d09b46c5d6f0ae3a03c41a9af6cc4dc76c409378",
+  "input_reports": {
+    "reports/findings.json": {
+      "sha256": "1330b75048cf88d6e615a512b6fccc93575872e99c07510f3be112a5a9ffbe29"
+    },
+    "reports/findings.md": {
+      "sha256": "e54dfed5f111088f5b9ca4b8d80c2f80580ffc1129958ec509195ab544d129ab"
+    },
+    "reports/online/findings.json": {
+      "sha256": "ff653d5854649889bc68e67ce215749b60491eefcf5e7ac8d8e8608186e9d11c"
+    },
+    "reports/online/findings.md": {
+      "sha256": "00ee8f874fbd74121e21405e42d100c4359a2daf4f62ada73c63538cf083455d"
+    }
+  },
+  "raw_static": {
+    "scan_id": "1c0dde9a8782",
+    "files_scanned": 10006,
+    "severity": {
+      "warn": 333,
+      "info": 1492
+    },
+    "warnings_in_generated_trees": 294
+  },
+  "current_source": {
+    "files_scanned": 294,
+    "severity": {
+      "warn": 21,
+      "info": 94
+    },
+    "added_warning_locations": [],
+    "removed_warning_locations": []
+  },
+  "named_file_findings": {
+    "app/src/lakematch_review/backend/store.py": [],
+    "app/acceptance/fixture.py": [],
+    "app/acceptance/remote.py": []
+  },
+  "live_report": {
+    "scan_id": "6a9537205fe5",
+    "counters": {
+      "online_checks_total": 442,
+      "online_checks_attempted": 46,
+      "online_checks_evaluated": 10,
+      "online_checks_passed": 9,
+      "online_checks_failed": 1,
+      "online_checks_unsupported_predicate": 24,
+      "online_checks_skipped_templated": 391,
+      "online_checks_skipped_account_level": 5,
+      "online_checks_skipped_mutating_sql": 0,
+      "online_checks_errored": 12,
+      "online_checks_skipped_min_severity": 0
+    },
+    "errors": {
+      "http-error / HTTP 400": 1,
+      "SqlFailed / HTTP 0": 7,
+      "not-found / HTTP 404": 4
+    },
+    "cold_start_cause": "not established by report",
+    "evaluated_failure": "BP-273; not reproduced by the earlier metadata triage; no fresh remote check"
+  },
+  "remote_operations": false,
+  "new_experiments": 0,
+  "lf_b_experiments_consumed": 8,
+  "lf_b_experiment_limit": 8,
+  "verification": "Read current source and report JSON; fresh offline source scan only. Existing retry tests and prior metadata evidence reused.",
+  "implementation_changed": false
+}
