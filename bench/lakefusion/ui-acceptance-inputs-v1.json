@@ -25,6 +25,7 @@
     "app/acceptance/source.py": "060e759232e2c4682a493aca2bd8f71e98441ae0a6dfce0d1703609c61062b2c",
     "app/build_deploy.py": "222b999b140cd3ff7c615343ced9a17727f20158bbf4486dca56829766e90d15",
     "app/bun.lock": "5bf48fbd1bfea91d7944bc32431f7070e21ad5a9210de6ce0cd5ac731103f88d",
+    "app/dev/preview_golden.mjs": "269339b79f40e2e4814162de19469b57267dac81c41e39da0340e78e556a6bdd",
     "app/package.json": "8a4c455d43ca6c0c78b977424fd9e5f99fe5123b106846beaf9bd7e87739b4ab",
     "app/pyproject.toml": "b12896f16569c758e9f886835705b0bc1af0619b0578a695168de6f4fe4a8b68",
     "app/src/lakematch_review/__init__.py": "e0f615798d184f29e3764968415a3a1a0b786d20a85e96f6e0863c8d224c1600",
