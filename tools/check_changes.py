@@ -76,6 +76,7 @@ def main():
                         "tests/test_mastering_retrieval.py", "tests/test_mastering_execution.py",
                         "tests/test_mastering_identity_contract.py",
                         "tests/test_mastering_survivorship.py",
+                        "tests/test_mastering_lineage.py", "tests/test_publication.py",
                         "tests/test_config.py"]))
     if args.all or any(n.startswith(("src/lakematch/mastering/registry", "src/lakematch/mastering/execution",
                                      "src/lakematch/mastering/identity",

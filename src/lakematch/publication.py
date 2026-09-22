@@ -54,6 +54,17 @@ def current(root):
     return _verified(root, json.loads(row[0])) if row else None
 
 
+def committed(root, batch_id):
+    """Resolve a historical committed batch without initializing or moving head."""
+    root = Path(root).resolve()
+    database = root / 'commits.sqlite'
+    if not database.is_file():
+        return None
+    with closing(sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)) as connection:
+        row = connection.execute('SELECT body FROM commits WHERE batch_id=?', (batch_id,)).fetchone()
+    return _verified(root, json.loads(row[0])) if row else None
+
+
 def publish(root, batch_id, digest, build):
     """Serialize a local writer, stage build(path, previous), then commit once.
 

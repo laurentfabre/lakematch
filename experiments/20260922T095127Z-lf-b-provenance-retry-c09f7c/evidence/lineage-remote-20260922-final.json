@@ -1,0 +1,992 @@
+{
+  "phase": "LF-B",
+  "packages": [
+    "LM-006",
+    "LM-009 foundation"
+  ],
+  "status": "passed",
+  "profile": "fevm-gdpr2",
+  "started_at": "2026-09-22T09:51:40.368183+00:00",
+  "namespace": "lfb_lineage_20260922T095140Z_a583dc07",
+  "observed_cost": null,
+  "cost_status": "unreconciled",
+  "confirmation_materialized": false,
+  "commands": [
+    [
+      "databricks",
+      "current-user",
+      "me",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "mkdirs",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "import-dir",
+      "src",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07/src",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "import",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07/fixture.json",
+      "--file",
+      "data/lakefusion/lineage-20260922-final/fixture.json",
+      "--format",
+      "RAW",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "import",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07/proof",
+      "--file",
+      "tools/lakefusion_lineage_notebook.py",
+      "--format",
+      "SOURCE",
+      "--language",
+      "PYTHON",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "submit",
+      "--no-wait",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json",
+      "--json",
+      "{\"run_name\": \"lakematch-lfb_lineage_20260922T095140Z_a583dc07\", \"timeout_seconds\": 900, \"performance_target\": \"STANDARD\", \"idempotency_token\": \"lfb_lineage_20260922T095140Z_a583dc07\", \"tasks\": [{\"task_key\": \"provenance\", \"timeout_seconds\": 720, \"notebook_task\": {\"notebook_path\": \"/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07/proof\", \"base_parameters\": {\"source_root\": \"/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07\", \"namespace\": \"lfb_lineage_20260922T095140Z_a583dc07\"}}, \"environment_key\": \"provenance\"}], \"environments\": [{\"environment_key\": \"provenance\", \"spec\": {\"client\": \"4\", \"dependencies\": []}}]}"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run",
+      "823127979502708",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "jobs",
+      "get-run-output",
+      "397745388413974",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ],
+    [
+      "databricks",
+      "workspace",
+      "delete",
+      "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07",
+      "--recursive",
+      "--profile",
+      "fevm-gdpr2",
+      "--output",
+      "json"
+    ]
+  ],
+  "cleanup": {
+    "run_terminal": true,
+    "workspace_files_removed": true,
+    "tables": {
+      "errors": [],
+      "remaining": [],
+      "removed": [
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_attribute_lineage",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_contracts",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_golden_records",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_memberships",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_source_versions",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_attribute_lineage",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_contracts",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_golden_records",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_memberships",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_source_versions",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_commits"
+      ]
+    }
+  },
+  "workspace_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07",
+  "source_hashes": {
+    "tools/lakefusion_lineage_notebook.py": "0387837496932657cba0e8d32a85c465f016a8bf8abb4e3993443d6c750b5cb9",
+    "tools/lakefusion_lineage_remote.py": "7d4ecedd468103372626531f8ff8f33e8bd6dcc8f88f2439f74eb86f02c004e0",
+    "bench/lakefusion/LINEAGE_PLAN.md": "adb6704de997c70bc7f4b2faeeb089ba270ef1a449eab49135a97bd6d6e04a9e",
+    "src/lakematch/mastering/__init__.py": "d3d49f2e4c1a2f78fdceeeb701ae0461636c2d0526842aa5768c5cb17402390d",
+    "src/lakematch/mastering/contracts.py": "48526bc39f3a5f8e41bd4ef3cae1f27c3271679081c3fb5daf0fa49cd9dd7925",
+    "src/lakematch/mastering/execution.py": "88db36825d570307068d40f9ac461c9072adf776c75a3382afdb9f5e382d9519",
+    "src/lakematch/mastering/identity_contract.py": "76ad833e2638c242f4a46fa6a2b83929b150d9fc65645847f93c9c0ca42bcb81",
+    "src/lakematch/mastering/identity_registry.py": "35160b4a497abb9bcf2e4c10c65a16b8a8d556b2a8f30cf3801492fe0ab1dd59",
+    "src/lakematch/mastering/lineage.py": "ef7b24d4dcd10afe610e23149672833a75cc27f24dc4c1590ae4fa326c0447ab",
+    "src/lakematch/mastering/lineage_delta.py": "5ec85bdf8385256d741c29351149a8165ea0bb54351519a94e40a4eede5d9ba3",
+    "src/lakematch/mastering/lineage_publication.py": "a127890e3922c90684e5d80b7250151bee475ae28a4f8bac53a72054c34f948e",
+    "src/lakematch/mastering/policy.py": "a71c646ff9c3ca9b7dc19507739eee3e1e8c41961d54013072716c520815c3ba",
+    "src/lakematch/mastering/registry.py": "dd9f1710a1b00f2f8755b2c1c101f734e757fdd74edc83a6dfe5f5aeadc5bdb2",
+    "src/lakematch/mastering/retrieval.py": "5e5bbe205968f25df5642510722c37b807782307b6529052b6f908483b969002",
+    "src/lakematch/mastering/survivorship.py": "c9a5bff3cc7a72e304246366ee7abfa7e17e4523313373cf4e2b3cfd16ccfca9",
+    "src/lakematch/mastering/survivorship_contract.py": "1b52be834a0c4c71ba07654fd7221664aeba09a4e4caeb4693760d57b50a3325",
+    "src/lakematch/publication.py": "ed9f332f5a552c6bfd36f65c823b97eae32e84b8aa10bc88c51ae50f710594b9",
+    "src/lakematch/delta_publication.py": "61708f732844913410084d0f2749c7f3a770574ccb7fc7a43b72c6dd186ccfd1",
+    "bench/lakefusion/LINEAGE_RETRY_PLAN.md": "4cd86d5474123086b4202867d746dac7af6173a1b7845f689c659a0f1208cc3f"
+  },
+  "fixture_sha256": "2172e2c07463265349302fc33882ed71ca3f95e5fb11873fa7d268194dddb4ba",
+  "request": {
+    "run_name": "lakematch-lfb_lineage_20260922T095140Z_a583dc07",
+    "timeout_seconds": 900,
+    "performance_target": "STANDARD",
+    "idempotency_token": "lfb_lineage_20260922T095140Z_a583dc07",
+    "tasks": [
+      {
+        "task_key": "provenance",
+        "timeout_seconds": 720,
+        "notebook_task": {
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07/proof",
+          "base_parameters": {
+            "source_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07",
+            "namespace": "lfb_lineage_20260922T095140Z_a583dc07"
+          }
+        },
+        "environment_key": "provenance"
+      }
+    ],
+    "environments": [
+      {
+        "environment_key": "provenance",
+        "spec": {
+          "client": "4",
+          "dependencies": []
+        }
+      }
+    ]
+  },
+  "run_id": 823127979502708,
+  "run": {
+    "cleanup_duration": 0,
+    "creator_user_name": "laurent.fabre@databricks.com",
+    "effective_performance_target": "STANDARD",
+    "end_time": 1790071150283,
+    "execution_duration": 295000,
+    "job_id": 334399003340800,
+    "job_run_id": 823127979502708,
+    "number_in_job": 823127979502708,
+    "run_duration": 432282,
+    "run_id": 823127979502708,
+    "run_name": "lakematch-lfb_lineage_20260922T095140Z_a583dc07",
+    "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/334399003340800/run/823127979502708",
+    "run_type": "SUBMIT_RUN",
+    "setup_duration": 136000,
+    "start_time": 1790070718001,
+    "state": {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "state_message": "",
+      "user_cancelled_or_timedout": false
+    },
+    "status": {
+      "state": "TERMINATED",
+      "termination_details": {
+        "code": "SUCCESS",
+        "message": "",
+        "type": "SUCCESS"
+      }
+    },
+    "tasks": [
+      {
+        "attempt_number": 0,
+        "cleanup_duration": 0,
+        "effective_performance_target": "STANDARD",
+        "end_time": 1790071149879,
+        "environment_key": "provenance",
+        "execution_duration": 295000,
+        "notebook_task": {
+          "base_parameters": {
+            "namespace": "lfb_lineage_20260922T095140Z_a583dc07",
+            "source_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07"
+          },
+          "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07/proof",
+          "source": "WORKSPACE"
+        },
+        "run_id": 397745388413974,
+        "run_if": "ALL_SUCCESS",
+        "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/334399003340800/run/397745388413974",
+        "setup_duration": 136000,
+        "start_time": 1790070718035,
+        "state": {
+          "life_cycle_state": "TERMINATED",
+          "result_state": "SUCCESS",
+          "state_message": "",
+          "user_cancelled_or_timedout": false
+        },
+        "status": {
+          "state": "TERMINATED",
+          "termination_details": {
+            "code": "SUCCESS",
+            "message": "",
+            "type": "SUCCESS"
+          }
+        },
+        "task_key": "provenance"
+      }
+    ]
+  },
+  "output": {
+    "metadata": {
+      "cleanup_duration": 0,
+      "creator_user_name": "laurent.fabre@databricks.com",
+      "effective_performance_target": "STANDARD",
+      "end_time": 1790071149879,
+      "execution_duration": 295000,
+      "job_id": 334399003340800,
+      "job_run_id": 823127979502708,
+      "number_in_job": 397745388413974,
+      "run_id": 397745388413974,
+      "run_name": "provenance",
+      "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/334399003340800/run/397745388413974",
+      "run_type": "SUBMIT_RUN",
+      "setup_duration": 136000,
+      "start_time": 1790070718035,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS",
+        "state_message": "",
+        "user_cancelled_or_timedout": false
+      },
+      "status": {
+        "state": "TERMINATED",
+        "termination_details": {
+          "code": "SUCCESS",
+          "message": "",
+          "type": "SUCCESS"
+        }
+      },
+      "tasks": [
+        {
+          "attempt_number": 0,
+          "cleanup_duration": 0,
+          "effective_performance_target": "STANDARD",
+          "end_time": 1790071149879,
+          "environment_key": "provenance",
+          "execution_duration": 295000,
+          "notebook_task": {
+            "base_parameters": {
+              "namespace": "lfb_lineage_20260922T095140Z_a583dc07",
+              "source_root": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07"
+            },
+            "notebook_path": "/Workspace/Users/laurent.fabre@databricks.com/lakematch/lfb_lineage_20260922T095140Z_a583dc07/proof",
+            "source": "WORKSPACE"
+          },
+          "run_id": 397745388413974,
+          "run_page_url": "https://fevm-gdpr2.cloud.databricks.com/?o=7474658055368199#job/334399003340800/run/397745388413974",
+          "setup_duration": 136000,
+          "start_time": 1790070718035,
+          "state": {
+            "life_cycle_state": "TERMINATED",
+            "result_state": "SUCCESS",
+            "state_message": "",
+            "user_cancelled_or_timedout": false
+          },
+          "status": {
+            "state": "TERMINATED",
+            "termination_details": {
+              "code": "SUCCESS",
+              "message": "",
+              "type": "SUCCESS"
+            }
+          },
+          "task_key": "provenance"
+        }
+      ]
+    },
+    "notebook_output": {
+      "result": "{\"abandoned_table_recovered\": true, \"cleanup\": {\"errors\": [], \"remaining\": [], \"removed\": [\"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_attribute_lineage\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_contracts\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_golden_records\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_memberships\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_source_versions\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_attribute_lineage\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_contracts\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_golden_records\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_memberships\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_source_versions\", \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_commits\"]}, \"committed_retry_without_current_code\": true, \"cost_status\": \"unreconciled\", \"counts\": {\"attribute_lineage\": 48, \"contracts\": 1, \"golden_records\": 6, \"memberships\": 12, \"source_versions\": 12}, \"fixture_sha256\": \"2172e2c07463265349302fc33882ed71ca3f95e5fb11873fa7d268194dddb4ba\", \"historical_read_exact\": true, \"local_delta_hash_parity\": true, \"namespace\": \"lfb_lineage_20260922T095140Z_a583dc07\", \"new_publication_requires_current_code\": true, \"observed_cost\": null, \"old_retry_preserves_head\": true, \"partial_tables_invisible\": true, \"planned_interruption\": \"planned interruption after one Delta table\", \"prefix\": \"lm_pub_dc04c286a1ae179c\", \"publications\": [{\"attempt\": \"02a2cf83fdb6423ea33419af62e93671\", \"batch_id\": \"first\", \"metadata\": {\"kind\": \"golden_provenance_v1\", \"snapshot\": {\"counts\": {\"attribute_lineage\": 48, \"contracts\": 1, \"golden_records\": 6, \"memberships\": 12, \"source_versions\": 12}, \"domain_id\": \"company\", \"matching_context\": {\"configuration\": {\"id\": \"company_provenance_fixture\", \"sha256\": \"13771c02e67ef3d33db140ad24d8d71cc9783ec6f57d5f8867b5821f72f1ff40\", \"version\": 1}, \"membership_basis\": \"synthetic_fixture_truth\", \"model\": null, \"ruleset\": {\"id\": \"declared_fixture_membership\", \"sha256\": \"5a26f528d3c3e0754ca293d54445284a18419de0ec03989e52cb61659f79c89d\", \"version\": 1}}, \"previous_publication_id\": null, \"publication_id\": \"first\", \"schema_version\": 1, \"snapshot_sha256\": \"dbf20909c539856f94a6b4a5a4b9254ed1c7c1d37ea0f97b2dd60b04a5f18a2c\", \"table_sha256\": {\"attribute_lineage\": \"33d8945b3e45a87600244222f0f08f55c874bcdd60a3b64c0961e10a9176f91e\", \"contracts\": \"56f2c810668251672ec0670775654c32800e71ec38ae4e654a6cbadfd46e6d3e\", \"golden_records\": \"76cdfff6ebe4f00d7f68cdd5755293b8d1aca60538890879d854ce892df53b14\", \"memberships\": \"ad359e67129af8727f5117b21f768a9391cdd2413c5d942e5749e17821f9ffb0\", \"source_versions\": \"f0036fce17ba6beb05c86c883b689875a0c4ca8372d9272489253e9ab7a4ceb0\"}}}, \"previous_batch_id\": null, \"recovered_tables\": [], \"request_digest\": \"0b462f41d0358b523dbe66777c3602071c00dba18abab2ffdcbfa36853a42355\", \"reused\": false, \"schema_version\": 1, \"sequence\": 1, \"tables\": {\"attribute_lineage\": {\"rows\": 48, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_attribute_lineage\", \"version\": 0}, \"contracts\": {\"rows\": 1, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_contracts\", \"version\": 0}, \"golden_records\": {\"rows\": 6, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_golden_records\", \"version\": 0}, \"memberships\": {\"rows\": 12, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_memberships\", \"version\": 0}, \"source_versions\": {\"rows\": 12, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_source_versions\", \"version\": 0}}}, {\"attempt\": \"20bd8ae593fc40c5be236e68018e071c\", \"batch_id\": \"second\", \"metadata\": {\"kind\": \"golden_provenance_v1\", \"snapshot\": {\"counts\": {\"attribute_lineage\": 48, \"contracts\": 1, \"golden_records\": 6, \"memberships\": 12, \"source_versions\": 12}, \"domain_id\": \"company\", \"matching_context\": {\"configuration\": {\"id\": \"company_provenance_fixture\", \"sha256\": \"13771c02e67ef3d33db140ad24d8d71cc9783ec6f57d5f8867b5821f72f1ff40\", \"version\": 1}, \"membership_basis\": \"synthetic_fixture_truth\", \"model\": null, \"ruleset\": {\"id\": \"declared_fixture_membership\", \"sha256\": \"5a26f528d3c3e0754ca293d54445284a18419de0ec03989e52cb61659f79c89d\", \"version\": 1}}, \"previous_publication_id\": \"first\", \"publication_id\": \"second\", \"schema_version\": 1, \"snapshot_sha256\": \"fd91d6957a8cb6989878b0eed375e9f19c2fd5d49521984028fa19454d733e6e\", \"table_sha256\": {\"attribute_lineage\": \"d028d30a39cc0e7047cd0eb6343c3e271b9e3b8343ef17012d7e49ff5a180430\", \"contracts\": \"64cf6a556cb6fdf419dc1c0cab14af8e10b25ff5ad6ac364de6d514a97d31a9b\", \"golden_records\": \"e4bd0677ea9747ab4f71d859fe7829d6674910861ccbfb4c02d9eae96c9c23f2\", \"memberships\": \"6693b4ceb66390a0bf7b683d7cad71b6ba65b3c94340644b9ae7514f24d7dd7c\", \"source_versions\": \"ff68226e369d139a2e63a85585b97b9650cbd95973e72127d617f94abe8e8358\"}}}, \"previous_batch_id\": \"first\", \"recovered_tables\": [\"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_70aa902764374d0295dc770fca5421bb_golden_records\"], \"request_digest\": \"4743290873bb3762f9393a716a4fd2bcf1b03911cfa6e194fae9a360b1626110\", \"reused\": false, \"schema_version\": 1, \"sequence\": 2, \"tables\": {\"attribute_lineage\": {\"rows\": 48, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_attribute_lineage\", \"version\": 0}, \"contracts\": {\"rows\": 1, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_contracts\", \"version\": 0}, \"golden_records\": {\"rows\": 6, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_golden_records\", \"version\": 0}, \"memberships\": {\"rows\": 12, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_memberships\", \"version\": 0}, \"source_versions\": {\"rows\": 12, \"table\": \"gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_source_versions\", \"version\": 0}}}], \"sample\": {\"master_id\": \"844dd335-dd60-4f71-b16a-c316ac0e17da\", \"new_address\": \"99 Updated Example Avenue\", \"old_address\": \"10 Example Avenue\", \"override\": {\"decision_id\": \"synthetic-decision-1\", \"sha256\": \"a213f9b1ac133004e0bf3c2168e6f03111060cbdcded464f8564dec7a7d5b095\"}}, \"schema\": \"gdpr2_catalog.lakematch_20260919\", \"snapshot_hashes\": {\"first\": \"dbf20909c539856f94a6b4a5a4b9254ed1c7c1d37ea0f97b2dd60b04a5f18a2c\", \"second\": \"fd91d6957a8cb6989878b0eed375e9f19c2fd5d49521984028fa19454d733e6e\"}, \"source_hashes\": {\"src/lakematch/delta_publication.py\": \"61708f732844913410084d0f2749c7f3a770574ccb7fc7a43b72c6dd186ccfd1\", \"src/lakematch/mastering/__init__.py\": \"d3d49f2e4c1a2f78fdceeeb701ae0461636c2d0526842aa5768c5cb17402390d\", \"src/lakematch/mastering/contracts.py\": \"48526bc39f3a5f8e41bd4ef3cae1f27c3271679081c3fb5daf0fa49cd9dd7925\", \"src/lakematch/mastering/execution.py\": \"88db36825d570307068d40f9ac461c9072adf776c75a3382afdb9f5e382d9519\", \"src/lakematch/mastering/identity_contract.py\": \"76ad833e2638c242f4a46fa6a2b83929b150d9fc65645847f93c9c0ca42bcb81\", \"src/lakematch/mastering/identity_registry.py\": \"35160b4a497abb9bcf2e4c10c65a16b8a8d556b2a8f30cf3801492fe0ab1dd59\", \"src/lakematch/mastering/lineage.py\": \"ef7b24d4dcd10afe610e23149672833a75cc27f24dc4c1590ae4fa326c0447ab\", \"src/lakematch/mastering/lineage_delta.py\": \"5ec85bdf8385256d741c29351149a8165ea0bb54351519a94e40a4eede5d9ba3\", \"src/lakematch/mastering/lineage_publication.py\": \"a127890e3922c90684e5d80b7250151bee475ae28a4f8bac53a72054c34f948e\", \"src/lakematch/mastering/policy.py\": \"a71c646ff9c3ca9b7dc19507739eee3e1e8c41961d54013072716c520815c3ba\", \"src/lakematch/mastering/registry.py\": \"dd9f1710a1b00f2f8755b2c1c101f734e757fdd74edc83a6dfe5f5aeadc5bdb2\", \"src/lakematch/mastering/retrieval.py\": \"5e5bbe205968f25df5642510722c37b807782307b6529052b6f908483b969002\", \"src/lakematch/mastering/survivorship.py\": \"c9a5bff3cc7a72e304246366ee7abfa7e17e4523313373cf4e2b3cfd16ccfca9\", \"src/lakematch/mastering/survivorship_contract.py\": \"1b52be834a0c4c71ba07654fd7221664aeba09a4e4caeb4693760d57b50a3325\", \"src/lakematch/publication.py\": \"ed9f332f5a552c6bfd36f65c823b97eae32e84b8aa10bc88c51ae50f710594b9\"}, \"status\": \"passed\", \"wall_seconds\": 290.085}",
+      "truncated": false
+    }
+  },
+  "result": {
+    "abandoned_table_recovered": true,
+    "cleanup": {
+      "errors": [],
+      "remaining": [],
+      "removed": [
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_attribute_lineage",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_contracts",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_golden_records",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_memberships",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_source_versions",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_attribute_lineage",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_contracts",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_golden_records",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_memberships",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_source_versions",
+        "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_commits"
+      ]
+    },
+    "committed_retry_without_current_code": true,
+    "cost_status": "unreconciled",
+    "counts": {
+      "attribute_lineage": 48,
+      "contracts": 1,
+      "golden_records": 6,
+      "memberships": 12,
+      "source_versions": 12
+    },
+    "fixture_sha256": "2172e2c07463265349302fc33882ed71ca3f95e5fb11873fa7d268194dddb4ba",
+    "historical_read_exact": true,
+    "local_delta_hash_parity": true,
+    "namespace": "lfb_lineage_20260922T095140Z_a583dc07",
+    "new_publication_requires_current_code": true,
+    "observed_cost": null,
+    "old_retry_preserves_head": true,
+    "partial_tables_invisible": true,
+    "planned_interruption": "planned interruption after one Delta table",
+    "prefix": "lm_pub_dc04c286a1ae179c",
+    "publications": [
+      {
+        "attempt": "02a2cf83fdb6423ea33419af62e93671",
+        "batch_id": "first",
+        "metadata": {
+          "kind": "golden_provenance_v1",
+          "snapshot": {
+            "counts": {
+              "attribute_lineage": 48,
+              "contracts": 1,
+              "golden_records": 6,
+              "memberships": 12,
+              "source_versions": 12
+            },
+            "domain_id": "company",
+            "matching_context": {
+              "configuration": {
+                "id": "company_provenance_fixture",
+                "sha256": "13771c02e67ef3d33db140ad24d8d71cc9783ec6f57d5f8867b5821f72f1ff40",
+                "version": 1
+              },
+              "membership_basis": "synthetic_fixture_truth",
+              "model": null,
+              "ruleset": {
+                "id": "declared_fixture_membership",
+                "sha256": "5a26f528d3c3e0754ca293d54445284a18419de0ec03989e52cb61659f79c89d",
+                "version": 1
+              }
+            },
+            "previous_publication_id": null,
+            "publication_id": "first",
+            "schema_version": 1,
+            "snapshot_sha256": "dbf20909c539856f94a6b4a5a4b9254ed1c7c1d37ea0f97b2dd60b04a5f18a2c",
+            "table_sha256": {
+              "attribute_lineage": "33d8945b3e45a87600244222f0f08f55c874bcdd60a3b64c0961e10a9176f91e",
+              "contracts": "56f2c810668251672ec0670775654c32800e71ec38ae4e654a6cbadfd46e6d3e",
+              "golden_records": "76cdfff6ebe4f00d7f68cdd5755293b8d1aca60538890879d854ce892df53b14",
+              "memberships": "ad359e67129af8727f5117b21f768a9391cdd2413c5d942e5749e17821f9ffb0",
+              "source_versions": "f0036fce17ba6beb05c86c883b689875a0c4ca8372d9272489253e9ab7a4ceb0"
+            }
+          }
+        },
+        "previous_batch_id": null,
+        "recovered_tables": [],
+        "request_digest": "0b462f41d0358b523dbe66777c3602071c00dba18abab2ffdcbfa36853a42355",
+        "reused": false,
+        "schema_version": 1,
+        "sequence": 1,
+        "tables": {
+          "attribute_lineage": {
+            "rows": 48,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_attribute_lineage",
+            "version": 0
+          },
+          "contracts": {
+            "rows": 1,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_contracts",
+            "version": 0
+          },
+          "golden_records": {
+            "rows": 6,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_golden_records",
+            "version": 0
+          },
+          "memberships": {
+            "rows": 12,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_memberships",
+            "version": 0
+          },
+          "source_versions": {
+            "rows": 12,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_02a2cf83fdb6423ea33419af62e93671_source_versions",
+            "version": 0
+          }
+        }
+      },
+      {
+        "attempt": "20bd8ae593fc40c5be236e68018e071c",
+        "batch_id": "second",
+        "metadata": {
+          "kind": "golden_provenance_v1",
+          "snapshot": {
+            "counts": {
+              "attribute_lineage": 48,
+              "contracts": 1,
+              "golden_records": 6,
+              "memberships": 12,
+              "source_versions": 12
+            },
+            "domain_id": "company",
+            "matching_context": {
+              "configuration": {
+                "id": "company_provenance_fixture",
+                "sha256": "13771c02e67ef3d33db140ad24d8d71cc9783ec6f57d5f8867b5821f72f1ff40",
+                "version": 1
+              },
+              "membership_basis": "synthetic_fixture_truth",
+              "model": null,
+              "ruleset": {
+                "id": "declared_fixture_membership",
+                "sha256": "5a26f528d3c3e0754ca293d54445284a18419de0ec03989e52cb61659f79c89d",
+                "version": 1
+              }
+            },
+            "previous_publication_id": "first",
+            "publication_id": "second",
+            "schema_version": 1,
+            "snapshot_sha256": "fd91d6957a8cb6989878b0eed375e9f19c2fd5d49521984028fa19454d733e6e",
+            "table_sha256": {
+              "attribute_lineage": "d028d30a39cc0e7047cd0eb6343c3e271b9e3b8343ef17012d7e49ff5a180430",
+              "contracts": "64cf6a556cb6fdf419dc1c0cab14af8e10b25ff5ad6ac364de6d514a97d31a9b",
+              "golden_records": "e4bd0677ea9747ab4f71d859fe7829d6674910861ccbfb4c02d9eae96c9c23f2",
+              "memberships": "6693b4ceb66390a0bf7b683d7cad71b6ba65b3c94340644b9ae7514f24d7dd7c",
+              "source_versions": "ff68226e369d139a2e63a85585b97b9650cbd95973e72127d617f94abe8e8358"
+            }
+          }
+        },
+        "previous_batch_id": "first",
+        "recovered_tables": [
+          "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_70aa902764374d0295dc770fca5421bb_golden_records"
+        ],
+        "request_digest": "4743290873bb3762f9393a716a4fd2bcf1b03911cfa6e194fae9a360b1626110",
+        "reused": false,
+        "schema_version": 1,
+        "sequence": 2,
+        "tables": {
+          "attribute_lineage": {
+            "rows": 48,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_attribute_lineage",
+            "version": 0
+          },
+          "contracts": {
+            "rows": 1,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_contracts",
+            "version": 0
+          },
+          "golden_records": {
+            "rows": 6,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_golden_records",
+            "version": 0
+          },
+          "memberships": {
+            "rows": 12,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_memberships",
+            "version": 0
+          },
+          "source_versions": {
+            "rows": 12,
+            "table": "gdpr2_catalog.lakematch_20260919.lm_pub_dc04c286a1ae179c_20bd8ae593fc40c5be236e68018e071c_source_versions",
+            "version": 0
+          }
+        }
+      }
+    ],
+    "sample": {
+      "master_id": "844dd335-dd60-4f71-b16a-c316ac0e17da",
+      "new_address": "99 Updated Example Avenue",
+      "old_address": "10 Example Avenue",
+      "override": {
+        "decision_id": "synthetic-decision-1",
+        "sha256": "a213f9b1ac133004e0bf3c2168e6f03111060cbdcded464f8564dec7a7d5b095"
+      }
+    },
+    "schema": "gdpr2_catalog.lakematch_20260919",
+    "snapshot_hashes": {
+      "first": "dbf20909c539856f94a6b4a5a4b9254ed1c7c1d37ea0f97b2dd60b04a5f18a2c",
+      "second": "fd91d6957a8cb6989878b0eed375e9f19c2fd5d49521984028fa19454d733e6e"
+    },
+    "source_hashes": {
+      "src/lakematch/delta_publication.py": "61708f732844913410084d0f2749c7f3a770574ccb7fc7a43b72c6dd186ccfd1",
+      "src/lakematch/mastering/__init__.py": "d3d49f2e4c1a2f78fdceeeb701ae0461636c2d0526842aa5768c5cb17402390d",
+      "src/lakematch/mastering/contracts.py": "48526bc39f3a5f8e41bd4ef3cae1f27c3271679081c3fb5daf0fa49cd9dd7925",
+      "src/lakematch/mastering/execution.py": "88db36825d570307068d40f9ac461c9072adf776c75a3382afdb9f5e382d9519",
+      "src/lakematch/mastering/identity_contract.py": "76ad833e2638c242f4a46fa6a2b83929b150d9fc65645847f93c9c0ca42bcb81",
+      "src/lakematch/mastering/identity_registry.py": "35160b4a497abb9bcf2e4c10c65a16b8a8d556b2a8f30cf3801492fe0ab1dd59",
+      "src/lakematch/mastering/lineage.py": "ef7b24d4dcd10afe610e23149672833a75cc27f24dc4c1590ae4fa326c0447ab",
+      "src/lakematch/mastering/lineage_delta.py": "5ec85bdf8385256d741c29351149a8165ea0bb54351519a94e40a4eede5d9ba3",
+      "src/lakematch/mastering/lineage_publication.py": "a127890e3922c90684e5d80b7250151bee475ae28a4f8bac53a72054c34f948e",
+      "src/lakematch/mastering/policy.py": "a71c646ff9c3ca9b7dc19507739eee3e1e8c41961d54013072716c520815c3ba",
+      "src/lakematch/mastering/registry.py": "dd9f1710a1b00f2f8755b2c1c101f734e757fdd74edc83a6dfe5f5aeadc5bdb2",
+      "src/lakematch/mastering/retrieval.py": "5e5bbe205968f25df5642510722c37b807782307b6529052b6f908483b969002",
+      "src/lakematch/mastering/survivorship.py": "c9a5bff3cc7a72e304246366ee7abfa7e17e4523313373cf4e2b3cfd16ccfca9",
+      "src/lakematch/mastering/survivorship_contract.py": "1b52be834a0c4c71ba07654fd7221664aeba09a4e4caeb4693760d57b50a3325",
+      "src/lakematch/publication.py": "ed9f332f5a552c6bfd36f65c823b97eae32e84b8aa10bc88c51ae50f710594b9"
+    },
+    "status": "passed",
+    "wall_seconds": 290.085
+  },
+  "ended_at": "2026-09-22T09:59:16.153701+00:00"
+}

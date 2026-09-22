@@ -1,0 +1,217 @@
+{
+  "phase": "LF-B",
+  "packages": [
+    "LM-006",
+    "LM-009 foundation"
+  ],
+  "status": "passed",
+  "started_at": "2026-09-22T09:51:27.913779+00:00",
+  "cloud_calls": 0,
+  "confirmation_materialized": false,
+  "cleanup": "owned Postgres stopped; owned local publication directory removed",
+  "phase_a_freeze_verified": true,
+  "source_hashes": {
+    "src/lakematch/mastering/__init__.py": "d3d49f2e4c1a2f78fdceeeb701ae0461636c2d0526842aa5768c5cb17402390d",
+    "src/lakematch/mastering/contracts.py": "48526bc39f3a5f8e41bd4ef3cae1f27c3271679081c3fb5daf0fa49cd9dd7925",
+    "src/lakematch/mastering/execution.py": "88db36825d570307068d40f9ac461c9072adf776c75a3382afdb9f5e382d9519",
+    "src/lakematch/mastering/identity_contract.py": "76ad833e2638c242f4a46fa6a2b83929b150d9fc65645847f93c9c0ca42bcb81",
+    "src/lakematch/mastering/identity_registry.py": "35160b4a497abb9bcf2e4c10c65a16b8a8d556b2a8f30cf3801492fe0ab1dd59",
+    "src/lakematch/mastering/lineage.py": "ef7b24d4dcd10afe610e23149672833a75cc27f24dc4c1590ae4fa326c0447ab",
+    "src/lakematch/mastering/lineage_delta.py": "5ec85bdf8385256d741c29351149a8165ea0bb54351519a94e40a4eede5d9ba3",
+    "src/lakematch/mastering/lineage_publication.py": "a127890e3922c90684e5d80b7250151bee475ae28a4f8bac53a72054c34f948e",
+    "src/lakematch/mastering/policy.py": "a71c646ff9c3ca9b7dc19507739eee3e1e8c41961d54013072716c520815c3ba",
+    "src/lakematch/mastering/registry.py": "dd9f1710a1b00f2f8755b2c1c101f734e757fdd74edc83a6dfe5f5aeadc5bdb2",
+    "src/lakematch/mastering/retrieval.py": "5e5bbe205968f25df5642510722c37b807782307b6529052b6f908483b969002",
+    "src/lakematch/mastering/survivorship.py": "c9a5bff3cc7a72e304246366ee7abfa7e17e4523313373cf4e2b3cfd16ccfca9",
+    "src/lakematch/mastering/survivorship_contract.py": "1b52be834a0c4c71ba07654fd7221664aeba09a4e4caeb4693760d57b50a3325",
+    "src/lakematch/publication.py": "ed9f332f5a552c6bfd36f65c823b97eae32e84b8aa10bc88c51ae50f710594b9",
+    "src/lakematch/delta_publication.py": "61708f732844913410084d0f2749c7f3a770574ccb7fc7a43b72c6dd186ccfd1",
+    "app/migrations/mastering/0001_control.sql": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+    "app/migrations/mastering/0002_registry.sql": "93ceb067358119a6b3680a0e64aba4c98468a905c22fb2e86a51bf9316e00a60",
+    "app/migrations/mastering/0003_identity.sql": "23f21310e6faaccb765986fb56035bde274cf2f027cf2472d7d4d767f16645d3",
+    "app/migrations/mastering/0004_survivorship.sql": "08d81d140fd0722edaac120d76678670e91139bbb0a16aaea837984103d68767",
+    "tools/lakefusion_lineage_fixture.py": "773e0075f34580b09e2e729a5c3c5749786351a6aba3e059484ecc62ec7b775d",
+    "tools/lakefusion_lineage_followup.py": "26ba78cfe939c76139bdd3e33c1e5de4927ed37152214d5f7a070020a51c6ac8",
+    "tools/lakefusion_lineage_notebook.py": "0387837496932657cba0e8d32a85c465f016a8bf8abb4e3993443d6c750b5cb9",
+    "tools/lakefusion_lineage_remote.py": "7d4ecedd468103372626531f8ff8f33e8bd6dcc8f88f2439f74eb86f02c004e0",
+    "tools/lakefusion_lineage_run.py": "144b964d21c74118c0bcd4dcd9576659d5b12355db438354583e5733ce2c3a83",
+    "tools/check_changes.py": "799b60a5b322df49d909bddd8e84f607ced2e5f3778c4787732869ca03dcbfe0",
+    "tests/test_mastering_lineage.py": "a34f5f323d888335f35a2cf2626dbb216cb1b4f7eec8fd2ae02462c8eda0b1a8",
+    "spec/lakefusion/LINEAGE.md": "a05b7a13e6882912f3df32e5f7b5427e1677cb5bd6059f0b5dd885132240b048",
+    "bench/lakefusion/LINEAGE_PLAN.md": "adb6704de997c70bc7f4b2faeeb089ba270ef1a449eab49135a97bd6d6e04a9e",
+    "bench/lakefusion/LINEAGE_RETRY_PLAN.md": "4cd86d5474123086b4202867d746dac7af6173a1b7845f689c659a0f1208cc3f"
+  },
+  "test_command": [
+    "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_mastering_contracts.py",
+    "tests/test_mastering_policy.py",
+    "tests/test_mastering_retrieval.py",
+    "tests/test_mastering_execution.py",
+    "tests/test_mastering_identity_contract.py",
+    "tests/test_mastering_survivorship.py",
+    "tests/test_mastering_lineage.py",
+    "tests/test_publication.py",
+    "tests/test_config.py",
+    "tests/postgres",
+    "tests/test_source_hygiene.py",
+    "tests/test_source_scan.py",
+    "--junitxml=bench/lakefusion/lineage-tests-20260922-final.xml"
+  ],
+  "tests": {
+    "tests": 225,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "snapshot_hashes": {
+    "first": "dbf20909c539856f94a6b4a5a4b9254ed1c7c1d37ea0f97b2dd60b04a5f18a2c",
+    "second": "fd91d6957a8cb6989878b0eed375e9f19c2fd5d49521984028fa19454d733e6e"
+  },
+  "counts": {
+    "attribute_lineage": 48,
+    "contracts": 1,
+    "golden_records": 6,
+    "memberships": 12,
+    "source_versions": 12
+  },
+  "historical_restart_exact": true,
+  "old_batch_retry_does_not_rewind": true,
+  "publications": [
+    "first",
+    "second"
+  ],
+  "fixture": {
+    "path": "data/lakefusion/lineage-20260922-final/fixture.json",
+    "sha256": "2172e2c07463265349302fc33882ed71ca3f95e5fb11873fa7d268194dddb4ba"
+  },
+  "sample": {
+    "master_id": "844dd335-dd60-4f71-b16a-c316ac0e17da",
+    "old_revision": 1,
+    "new_revision": 2,
+    "identity_revision": 1,
+    "old_address": "10 Example Avenue",
+    "new_address": "99 Updated Example Avenue",
+    "old_field": {
+      "alternatives": [
+        {
+          "assessment": {
+            "quality": 90,
+            "reference": "synthetic-assessment-v1",
+            "verified": true
+          },
+          "excluded": null,
+          "rank": [
+            false,
+            1,
+            -90,
+            -1789862400000000,
+            "crm_account",
+            "A001"
+          ],
+          "source": {
+            "sha256": "0a5bac6f1df5c5f274de1d7086567cc1c8f3fc5c56e44291f70f08acf9705954",
+            "source_id": "crm_account",
+            "source_key": "A001",
+            "version": 1
+          },
+          "value": "99 Updated Example Avenue"
+        },
+        {
+          "assessment": {
+            "quality": 90,
+            "reference": "synthetic-assessment-v1",
+            "verified": true
+          },
+          "excluded": null,
+          "rank": [
+            false,
+            0,
+            -90,
+            -1789862400000000,
+            "erp_vendor",
+            "V001"
+          ],
+          "source": {
+            "sha256": "f5b7e38c848698812b31c3042894a2a800f2a99e86f46fb6b37630343aebded8",
+            "source_id": "erp_vendor",
+            "source_key": "V001",
+            "version": 1
+          },
+          "value": "10 Example Avenue"
+        }
+      ],
+      "conflicting_values": true,
+      "reason": "source_priority",
+      "value_sha256": "eb9e136e13eceddf40aebdb989cb57f8e881340b91d7b1ab688711d88472a971",
+      "winner": {
+        "sha256": "f5b7e38c848698812b31c3042894a2a800f2a99e86f46fb6b37630343aebded8",
+        "source_id": "erp_vendor",
+        "source_key": "V001",
+        "version": 1
+      }
+    },
+    "new_field": {
+      "alternatives": [
+        {
+          "assessment": {
+            "quality": 90,
+            "reference": "synthetic-assessment-v1",
+            "verified": true
+          },
+          "excluded": null,
+          "rank": [
+            false,
+            1,
+            -90,
+            -1789862400000000,
+            "crm_account",
+            "A001"
+          ],
+          "source": {
+            "sha256": "0a5bac6f1df5c5f274de1d7086567cc1c8f3fc5c56e44291f70f08acf9705954",
+            "source_id": "crm_account",
+            "source_key": "A001",
+            "version": 1
+          },
+          "value": "Cedar Components S.A."
+        },
+        {
+          "assessment": {
+            "quality": 90,
+            "reference": "synthetic-assessment-v1",
+            "verified": true
+          },
+          "excluded": null,
+          "rank": [
+            false,
+            0,
+            -90,
+            -1789862400000000,
+            "erp_vendor",
+            "V001"
+          ],
+          "source": {
+            "sha256": "70cd4f44ad9145719779d8918a5c4e9af1ed8278d4d64ecab4a4e4cb5632df9e",
+            "source_id": "erp_vendor",
+            "source_key": "V001",
+            "version": 2
+          },
+          "value": "Cedar Components SA"
+        }
+      ],
+      "conflicting_values": true,
+      "reason": "approved_override",
+      "value_sha256": "0e5f1c873d61950e4e5d4c2aa0a3ec7598896ea8e7b2e6478868ce07fa58c827",
+      "winner": {
+        "decision_id": "synthetic-decision-1",
+        "sha256": "a213f9b1ac133004e0bf3c2168e6f03111060cbdcded464f8564dec7a7d5b095"
+      }
+    }
+  },
+  "main_process_peak_rss_bytes": 48316416,
+  "ended_at": "2026-09-22T09:51:39.396827+00:00",
+  "wall_seconds": 11.483
+}

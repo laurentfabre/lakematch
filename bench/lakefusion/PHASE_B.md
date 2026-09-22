@@ -1,10 +1,11 @@
 # LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 5/8 experiment slots consumed.** Phase A and LM-001 are
-complete at commit `96edbf8`. LM-002/003/004/005 now provide bounded company candidate
-retrieval, a durable approved registry, persistent identities and scalar survivorship. Existing
+**Phase B is in progress: 8/8 experiment slots consumed.** Phase A and LM-001 are
+complete at commit `96edbf8`. LM-002–006 now provide bounded company candidate
+retrieval, an approved registry, persistent identities, scalar survivorship and
+immutable provenance snapshots. Existing
 Spark v1 configuration and frozen replay contracts remain unchanged. A new
-classifier, golden-record publication and the corresponding app flow are pending.
+classifier and the corresponding app flow are pending.
 
 ## Candidate comparison
 
@@ -55,9 +56,11 @@ general customer data, merge precision, online latency or Spark scalability.
 
 ## Next work
 
-LM-002/003/004/005 are complete for the declared internal worker contracts.
-Winning-value provenance (LM-006) is next, followed by publication and the first
-golden-record app view.
+LM-002–006 are complete for the declared bounded internal worker contracts.
+Deterministic matching/decision foundations and the first golden-record app view
+remain Phase B work. The eight-slot LF-B experiment budget is exhausted; do not
+start another experiment without a revised bound. Independent implementation
+and documentation can continue.
 Later remote/application gates listed in the Phase A freeze remain mandatory.
 
 ## Durable registry and exact job replay — 22 September
@@ -201,3 +204,84 @@ Outputs include explanations, source version/hash, assessment and decision
 references, policy/domain/mapping bindings and implementation/input hashes.
 Durable historic provenance and publication remain LM-006/009; CDC, nested
 addresses and application authorization remain their separate work packages.
+
+## Immutable field provenance — 22 September
+
+The [provenance contract](../../spec/lakefusion/LINEAGE.md) adds complete snapshots
+of golden records, field explanations, source versions, source memberships and
+domain/mapping/policy definitions. It uses the existing immutable publication
+catalog and an explicit expected previous publication. Data revisions advance
+independently of operational identity revisions; unchanged calculations retain
+their data revision. Ruleset/configuration references and an explicit model
+reference accompany the result. These fixtures use declared truth memberships
+and no matching model.
+
+Slot 6's [local run](../../experiments/20260922T093900Z-lf-b-provenance-local-56351f/manifest.json)
+passed **224 checks, zero failures/errors/skips**, including 55 existing PostgreSQL
+cases and 25 new provenance cases. The [local report](lineage-local-20260922.json)
+and [JUnit](lineage-tests-20260922.xml) retain the evidence. Two publications each
+contain **6 masters, 48 field explanations, 12 source versions, 12 memberships
+and one complete contract definition**. Earlier field values remain explainable
+after the address update, CRM tombstone and independently approved name override.
+
+Checks include concurrent publication, process death during projection writes,
+old-batch retries without head rewind, stale heads, source-version rollback,
+changed content under a reused version, missing approvals, incomplete projection
+integrity, review-required results and the absence of side effects on reads.
+Historical reads succeed when the current survivorship function is deliberately
+unavailable. A new worker and an actual PostgreSQL restart preserve the original
+local snapshots and identity/data revision distinction.
+
+The local run took **12.825 seconds**, with **44.3 MiB** observed main-process
+peak RSS (not aggregate PostgreSQL/test-process memory). Owned PostgreSQL and
+temporary publication storage were removed. Frozen Phase A content remains
+unchanged; no evaluation corpus, confirmation data or AI endpoint was accessed.
+The exact synthetic remote fixture is reproducible by the runner, stored under
+ignored `data/lakefusion/`, and checksummed in the report.
+
+Limits are 100 masters, 2,000 source versions, 10,000 field rows and 32 MiB per
+snapshot. The entity-detail reader is an internal bounded service. Application
+authorization, scalable query routes, operational watermark rechecks, outbox
+delivery and Postgres/Delta command reconciliation remain LM-007/008/009/010 work.
+
+Slot 7's [serverless run](../../experiments/20260922T094201Z-lf-b-provenance-delta-00774a/manifest.json)
+also passed. [Workspace evidence](lineage-remote-20260922.json) records job run
+`397340405198492` and task `967668840508116` on `fevm-gdpr2`. Both Delta snapshot
+hashes exactly match the local artifacts. After deliberately interrupting a write
+following its first table, readers still see the earlier complete publication;
+the next successful write removes that abandoned table. New reader instances
+resolve original field/source/override evidence, and retrying the old batch does
+not move the head backward.
+
+The first remote proof took **275.814 seconds** inside the notebook, after a
+**216-second** serverless startup; the bounded outer run took **519.51 seconds**.
+It removed all **11** owned final tables and its workspace directory, with no
+remaining tables or cleanup errors. Billing is **unreconciled**, not zero. No
+existing demo table, app, bundle deployment, permanent job or warehouse changed.
+
+Review identified a stricter upgrade case: the adapters recomputed calculations
+before resolving a committed duplicate. The [last-slot follow-up](LINEAGE_RETRY_PLAN.md)
+moves full replay into the new-publication builder, retaining structural/integrity
+checks before catalog lookup. The [final local report](lineage-local-20260922-final.json)
+passes **225 checks** in **11.483 seconds**, at **46.1 MiB** main-process peak RSS.
+It verifies that a committed retry works with the current calculator unavailable,
+while a new batch still fails until its calculation can be reproduced. The
+follow-up's [final remote proof](lineage-remote-20260922-final.json) also passes;
+previous reports remain unchanged.
+
+The final [experiment](../../experiments/20260922T095127Z-lf-b-provenance-retry-c09f7c/manifest.json)
+consumed slot **8/8**. Serverless job `823127979502708`, task `397745388413974`,
+repeated local/Delta hash parity, historic reads, partial-write isolation and
+abandoned-table recovery using the final source. It additionally retried the
+committed first publication while the current scalar implementation was disabled,
+then proved that a new publication was refused under the same condition.
+The final notebook took **290.085 seconds** after a **136-second** startup; the
+combined local/remote experiment took **468.60 seconds**. Its 11 final tables and
+workspace files were removed with no remaining resources or cleanup errors.
+
+LM-006 is complete for this bounded internal service. LM-009 has a tested first
+publication foundation but remains in progress for operational outbox and command
+reconciliation. LM-014 matching/decision foundations and the golden-record UI
+remain Phase B work. This exhausts the phase's experiment cap; further experiments
+need a revised bound. Final-source hashes and all frozen Phase A files are
+verified. GitHub publishing remains pending the repository visibility decision.

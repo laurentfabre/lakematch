@@ -134,6 +134,7 @@ Subsequent increments implement [persistent identities](IDENTITY.md) and
 `submit_survivorship(policy, actor=..., expected_latest=...)`, the existing
 `transition("survivorship", ...)` lifecycle and
 `resolve_survivorship(domain_id, policy_id, version)` to bind currently approved
-domain/mapping/policy versions. Field provenance storage, publication and the
-golden-record app view remain Phase B work. The registry alone does not complete
-the MDM pilot.
+domain/mapping/policy versions. The [provenance adapter](LINEAGE.md) now persists
+those definitions with immutable golden-record snapshots and historical field
+explanations. Operational publication reconciliation and the golden-record app
+view remain open. The registry alone does not complete the MDM pilot.

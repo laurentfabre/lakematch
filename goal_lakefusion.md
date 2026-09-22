@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (5/8 experiments)**.
+Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (8/8 experiments)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -129,7 +129,7 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 | Phase | Deliverable | Entry dependency | Indicative timing | Status | Acceptance evidence |
 |---|---|---|---|---|---|
 | LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Done | [Frozen contracts, capability evidence and limits](bench/lakefusion/PHASE_A.md) |
-| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | In progress | [Candidates, registry, identity and scalar survivorship](bench/lakefusion/PHASE_B.md) |
+| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | In progress | [Candidates, identity, survivorship and published provenance](bench/lakefusion/PHASE_B.md) |
 | LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | Not started | None yet |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
 | LF-E | PIM catalog and editorial workflows | LF-C plus LF-D reference/nested contracts | Weeks 19–30 | Not started | None yet |
@@ -146,10 +146,10 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 | LM-003 | Domain and mapping registry | LF-B | Done |
 | LM-004 | Persistent business identity | LF-B | Done |
 | LM-005 | Scalar survivorship | LF-B | Done |
-| LM-006 | Winning-value provenance | LF-B | Not started |
+| LM-006 | Winning-value provenance | LF-B | Done |
 | LM-007 | Transactional workflow adapter | LF-C; allocation foundation in LF-B | In progress |
 | LM-008 | Domain and action authorization | LF-C; extended checks in LF-D/E | In progress |
-| LM-009 | Command publication and recovery | LF-C; first publication in LF-B | Not started |
+| LM-009 | Command publication and recovery | LF-C; first publication in LF-B | In progress |
 | LM-010 | Entity explorer and steward inbox | LF-C | Not started |
 | LM-011 | Governed edits and reversible merge/split | LF-C | Not started |
 | LM-012 | Onboarding and quality remediation | LF-C | Not started |
@@ -248,8 +248,17 @@ Deliverables:
   approval and migration from populated 0003 pass. Mixed address sources require
   review. This calculates records from trusted snapshots; workflow approval,
   CDC and durable publication are later gates. LF-B now uses **5/8** slots.
-- [ ] Publish field-level winning-value provenance and source crosswalks in
+- [x] Publish field-level winning-value provenance and source crosswalks in
   versioned snapshots, including rule/model/configuration references.
+  [Immutable provenance contract](spec/lakefusion/LINEAGE.md): **225 final local
+  checks** and [live Delta acceptance](bench/lakefusion/lineage-remote-20260922-final.json)
+  pass. Two publications each retain six masters, 48 field explanations and
+  twelve source versions/crosswalks. Historical reads, interrupted-write isolation,
+  source updates/deletes, overrides and retries across implementation changes
+  pass; local/Delta snapshot hashes match. Temporary tables/workspace files were
+  removed. Matching uses declared fixture memberships, with no model; operational
+  watermark rechecks, authorization, outbox delivery and UI remain open. LF-B
+  uses **8/8** slots; further experiments require a revised bound.
 - [ ] Version deterministic match rules, develop calibrated decision bands,
   and show actual field comparisons before adding model-specific explanations.
 - [ ] Deliver the first APX golden-record detail view using the synthetic slice.
@@ -481,6 +490,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: human-facing README | Rewrote the [project introduction](README.md) around customer use, the actual review app, a bundled local example, measured results and the delivery roadmap. Removed competitor references from the README. All 24 local links/images resolve and the synthetic quickstart configuration validates. Documentation only; LF-B remains 2/8. | LM-004 remains next; no implementation or acceptance status changed. |
 | 2026-09-22: persistent identity | LM-004 complete for the internal worker contract. Two bounded local experiments pass (134 checks, then 138 after UTC/upgrade verification). IDs, legacy aliases and merge/split receipts survive concurrency and restart; old Spark behavior is unchanged. [Evidence](bench/lakefusion/identity-20260922-final.json). LF-B 4/8. | LM-005: scalar survivorship, followed by LM-006 provenance. GitHub publication remains pending resolution of the observed public visibility versus §2's private-repository requirement; local development continues. |
 | 2026-09-22: scalar survivorship | LM-005 complete for the internal worker contract. Approved domain/mapping/policy bindings produce deterministic scalar records with explicit override, invalid-value and deletion behavior. 195 checks and six-company restart replay pass. [Evidence](bench/lakefusion/survivorship-20260922.json). LF-B 5/8. | LM-006: persist winning-value provenance and source crosswalks in versioned snapshots, keeping historic revisions explainable. GitHub publication remains pending the repository visibility decision. |
+| 2026-09-22: immutable provenance | LM-006 complete for bounded internal publication/read services. Initial local/Delta proofs pass; the final [follow-up](experiments/20260922T095127Z-lf-b-provenance-retry-c09f7c/manifest.json) passes 225 local checks and live Delta verification, including retries with current scalar code unavailable. All owned tables/workspace files cleaned. LM-009 publication foundation is in progress; outbox/reconciliation remain open. LF-B 8/8. | Continue LM-014 matching/decision foundations and the first APX golden-record detail view; revise the LF-B experiment bound before further experiments. Phase B remains open. GitHub publishing remains pending the public/private visibility decision. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

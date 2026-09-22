@@ -29,3 +29,30 @@ drift, required fields, version binding and deterministic mapping receipts.
 Company retrieval and scalar selection enforce business eligibility; reference
 resolution remains later work. A syntactically valid `record_kind=branch` is not permission to merge
 that row into the legal-company domain.
+
+The [provenance adapter](../../../spec/lakefusion/LINEAGE.md) publishes the scalar
+result, source crosswalks and field explanations together. The local acceptance
+runner creates two publications: Cedar's address changes with a reviewed name,
+and Atlas's CRM record becomes a tombstone. The earlier publication still explains
+its original values. These scenarios use the fixture's declared memberships;
+they do not demonstrate automatic matching quality.
+
+Internal readers select a publication before opening a company:
+
+```python
+from lakematch.mastering.lineage_publication import LocalLineageStore
+from lakematch.mastering.lineage import entity_detail
+
+store = LocalLineageStore("path/to/published-fixture")
+snapshot = store.read("first")
+if snapshot is not None:
+    master_id = snapshot["tables"]["golden_records"][0]["master_id"]
+    detail = entity_detail(snapshot, master_id)
+    print(detail["values"], detail["fields"]["legal_name"])
+```
+
+Reading does not create missing data. The fixture publications are produced by
+`tools/lakefusion_lineage_run.py` during bounded acceptance and its temporary
+publication directory is then removed; use an explicitly owned persistent path
+when integrating the store into a demo. Application authorization and the entity
+detail screen are separate roadmap work.

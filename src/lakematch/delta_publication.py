@@ -55,6 +55,11 @@ class DeltaPublisher:
         row = self._row('head')
         return json.loads(row.body) if row and row.body else None
 
+    def committed(self, batch_id):
+        """Read an existing historical batch; never initialize or move the head."""
+        row = self._row('batch:' + batch_id)
+        return json.loads(row.body) if row and row.body else None
+
     def cleanup_abandoned(self):
         """Run only in the serialized writer, when no other build is active."""
         referenced = set()

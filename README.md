@@ -81,10 +81,11 @@ on the roadmap.
 exporting reviewed labels are implemented and tested. The company pilot has
 bounded candidate retrieval and a durable registry for approved definitions.
 Its internal worker also allocates persistent company IDs, resolves older aliases
-and records repeatable merge/split operations.
+and records repeatable merge/split operations. It can choose trusted field values
+and preserve their source records, rules and review decisions in versioned snapshots.
 The deployed review store currently requires one app worker and one instance.
 
-**Next:** golden records with an explanation for every chosen value, and richer
+**Next:** golden-record screens with an explanation for every chosen value, and richer
 stewardship workflows. The pilot uses synthetic ERP
 vendors and CRM accounts, with each master representing a legal company.
 
@@ -105,6 +106,7 @@ The accelerator is not yet qualified as a complete production MDM system.
 | Registry reliability | **93 checks passed**, including 18 PostgreSQL integration cases covering concurrent changes, rollback and restart persistence. [Registry evidence](bench/lakefusion/registry-20260922.json). |
 | Persistent identity | IDs stay stable as records are added; merge/split receipts and older aliases survive retries and database restarts. [Identity evidence](bench/lakefusion/identity-20260922-final.json). |
 | Choosing trusted values | Six synthetic company records reproduce the same field choices after a database restart. Overrides, conflicting values and deleted sources have explicit rules. [Scalar policy evidence](bench/lakefusion/survivorship-20260922.json). |
+| Explaining earlier records | Two versions retain 48 field explanations each. Local and Delta snapshots agree; earlier values remain explainable after updates, deletions and reviewed changes. [Provenance evidence](bench/lakefusion/PHASE_B.md). |
 
 Candidate coverage measures which pairs reach scoring, not whether they should
 be merged. The local scale ladder reached 100,000 records; the million-record
