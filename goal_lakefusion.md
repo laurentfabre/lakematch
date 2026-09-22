@@ -263,8 +263,11 @@ Deliverables:
   and show actual field comparisons before adding model-specific explanations.
   [Worker comparison foundation](spec/lakefusion/MATCH_EVIDENCE.md) implemented:
   36 new portable checks pass, with pinned rules and actual values. All eligible
-  suggestions require review. Calibration, registry promotion, comparison UI
-  integration and matching-quality acceptance remain open.
+  suggestions require review. The [probability/band foundation](spec/lakefusion/PROBABILITY.md)
+  adds explicit transforms, metadata bindings, conflict vetoes and diagnostic
+  helpers; **294 portable checks pass**, including 88 new probability cases.
+  Empirical calibration, registry promotion, comparison UI integration and
+  matching-quality acceptance remain open. LF-B stays **8/8**.
 - [ ] Deliver the first APX golden-record detail view using the synthetic slice.
   [Local APX preview](reports/lakefusion-ui-20260922-final/README.md) implemented:
   six companies, two publications, field alternatives, overrides and deleted
@@ -501,6 +504,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: immutable provenance | LM-006 complete for bounded internal publication/read services. Initial local/Delta proofs pass; the final [follow-up](experiments/20260922T095127Z-lf-b-provenance-retry-c09f7c/manifest.json) passes 225 local checks and live Delta verification, including retries with current scalar code unavailable. All owned tables/workspace files cleaned. LM-009 publication foundation is in progress; outbox/reconciliation remain open. LF-B 8/8. | Continue LM-014 matching/decision foundations and the first APX golden-record detail view; revise the LF-B experiment bound before further experiments. Phase B remains open. GitHub publishing remains pending the public/private visibility decision. |
 | 2026-09-22: comparison foundation and APX preview | LM-014 in progress. 206 portable and 19 app checks pass; versioned comparison evidence routes eligible suggestions to review. A packaged six-company APX screen shows two publications and all field provenance. Type/build and desktop/mobile development checks pass. [Checkpoint](bench/lakefusion/PHASE_B.md). No new experiment; LF-B stays 8/8. | Approve or revise the [proposed four-run extension](bench/lakefusion/NEXT_EXPERIMENTS.md) before calibration/acceptance experiments. Phase B remains open. GitHub publishing still awaits resolution of the public/private visibility conflict. |
 | 2026-09-22: recurring scan follow-up | Fresh source-only scan: 294 files, 0 errors, 21 warnings; warning rule/file locations unchanged. Latest raw JSON has no findings in the named review store/acceptance files. Live errors are 7 SQL, 1 HTTP 400 and 4 HTTP 404; cold-start cause is unproved. [Triage](reports/scan-followup-20260922/README.md). No code change or experiment; LF-B remains 8/8. | Existing calibration/acceptance and repository-visibility decisions remain pending. Scan repetition does not close those gates. |
+| 2026-09-22: probability and band foundation | 294 portable checks pass, including 88 new analytical probability cases. Immutable model/feature/calibration/band metadata, declared split disjointness, deterministic vetoes and Brier/ECE/precision-bound helpers are implemented. [Contract](spec/lakefusion/PROBABILITY.md). Every eligible preview still routes to review; no fitting, corpus evaluation or automatic quality claim. LF-B remains 8/8; LM-014 remains in progress. | Calibration and acceptance experiments await the proposed bound extension. Comparison UI and promotion integration remain open. GitHub publication still awaits resolution of the public/private visibility conflict. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

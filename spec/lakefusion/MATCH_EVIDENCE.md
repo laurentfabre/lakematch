@@ -73,13 +73,18 @@ JSON and four declared retrieval methods. This is not a batch or public HTTP API
 
 ## Remaining decision-band work
 
-There are no active reject/review/accept probability thresholds in this new
-service. Before adding them, pin the feature order, model, calibrator, ruleset,
-development/calibration/validation family manifests and evidence hashes. Fit the
-calibrator without confirmation exposure. Report Brier score, reliability bins,
-precision bounds, acceptance coverage, rejected positives and review burden.
-Choose thresholds from the approved error/precision contract, with explicit
-boundary and conflict precedence; no universal 0.5 default is implied.
+The separate [probability foundation](PROBABILITY.md) now pins feature order,
+model, calibrator, ruleset, declared fitting/calibration/validation family sets
+and evidence hashes. It applies supplied coefficients and explicit band
+boundaries, preserves conflict vetoes and keeps every eligible result in review.
+Analytical Brier/reliability and precision-bound helpers are implemented. These
+contracts do not establish score origin, complete populations or fitted quality.
+
+There are still no active production thresholds. Fit the calibrator without
+confirmation exposure and choose thresholds from the approved error/precision
+contract. Report Brier score, reliability bins, precision bounds, acceptance
+coverage, rejected positives and review burden on the declared populations;
+no universal 0.5 default is implied.
 
 The [protocol](PROTOCOL.md) still requires a one-sided 95% precision lower bound
 of at least 99.5% with independent family sampling. Candidate misses remain false

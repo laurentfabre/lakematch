@@ -1,0 +1,95 @@
+{
+  "kind": "local_development_checks",
+  "date": "2026-09-22",
+  "package": "LM-014",
+  "qualification": "development_preview_only",
+  "base_commit": "a730dcad301443476b15173ff70d2c9e245c41ac",
+  "source_binding": "raw file hashes; commit containing this receipt identifies the increment",
+  "files": {
+    "src/lakematch/mastering/probability.py": "632929c955d1fc164a94547741ef652c38c46f8a33585febefb4423c97ea5556",
+    "src/lakematch/mastering/score_contract.py": "5e65dd48acab88e82ec708576814178057b4f47f1fe9d978a1a26d00c3a6339e",
+    "tests/test_mastering_probability.py": "50084d808472cdb5365c977292bc20df86191babe232f995b81758aa7611086f",
+    "tools/check_changes.py": "d0f057c0bcfc67c972eeb11f918f79609448db2db9a8276110b8382b80b680d8",
+    "bench/lakefusion/PROBABILITY_PLAN.md": "cb4edbf5ea4cc3726ef0c75e20483f8d80fe09794d068c6d3c455bdc17016387",
+    "spec/lakefusion/PROBABILITY.md": "8c2aae83689fffee44a7ab79b14688ad301f03c45c3a8f85b80cb59f5bee7d03",
+    "bench/lakefusion/probability-development-20260922.xml": "f1156c69d34c00a87e17631313c5a53ba99c716f076aeb9f71d08e96c9738913"
+  },
+  "implementation_sha256": "a595dc2a9f0d080db768a8725f36eeb6f4e1d4900d2631368e2ce13fa271d3e6",
+  "comparison_implementation_sha256": "f1b03da264411f3b17f29ab75e5afcaf1f83892e042aa3d24723507e6eca60d3",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Darwin",
+    "machine": "arm64"
+  },
+  "verification": {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_mastering_contracts.py",
+      "tests/test_mastering_policy.py",
+      "tests/test_mastering_retrieval.py",
+      "tests/test_mastering_execution.py",
+      "tests/test_mastering_identity_contract.py",
+      "tests/test_mastering_survivorship.py",
+      "tests/test_mastering_lineage.py",
+      "tests/test_mastering_match_evidence.py",
+      "tests/test_mastering_probability.py",
+      "tests/test_publication.py",
+      "tests/test_config.py",
+      "tests/test_source_hygiene.py",
+      "tests/test_source_scan.py",
+      "--junitxml=bench/lakefusion/probability-development-20260922.xml"
+    ],
+    "process_timeout_seconds": 120,
+    "tests": 294,
+    "new_probability_tests": 88,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_elapsed_seconds": 2.12,
+    "junit_suite_seconds": 2.113,
+    "timestamp": "2026-09-22T18:42:14.992447+02:00",
+    "numerical_reference": {
+      "method": "Independent SciPy beta.ppf(0.05, k, 10000-k+1) comparison; fixed constants retained in tests",
+      "success_counts": [
+        1,
+        100,
+        5000,
+        9999
+      ],
+      "absolute_difference_below": 1e-12,
+      "test_assertion": "absolute tolerance 1e-12 with relative tolerance disabled",
+      "runtime_scipy_dependency_added": false
+    }
+  },
+  "preservation": {
+    "frozen_phase_a_files_verified": 15,
+    "user_report_hashes": {
+      "reports/findings.json": "1330b75048cf88d6e615a512b6fccc93575872e99c07510f3be112a5a9ffbe29",
+      "reports/findings.md": "e54dfed5f111088f5b9ca4b8d80c2f80580ffc1129958ec509195ab544d129ab",
+      "reports/online/findings.json": "ff653d5854649889bc68e67ce215749b60491eefcf5e7ac8d8e8608186e9d11c",
+      "reports/online/findings.md": "00ee8f874fbd74121e21405e42d100c4359a2daf4f62ada73c63538cf083455d"
+    }
+  },
+  "test_inputs": "Hand-specified coefficients, probabilities and unrelated family IDs; tiny frozen domain/mapping definitions only",
+  "new_experiments": 0,
+  "lf_b_experiments_consumed": 8,
+  "lf_b_experiment_limit": 8,
+  "model_fitting": false,
+  "threshold_search": false,
+  "pilot_corpus_evaluation": false,
+  "confirmation_materialized": false,
+  "remote_operations": false,
+  "quality_gate_passed": false,
+  "remaining": [
+    "empirical calibration and threshold selection",
+    "model/feature parity",
+    "registry approval and promotion",
+    "comparison UI and authorization",
+    "matching-quality acceptance",
+    "LF-B experiment-bound decision",
+    "repository-visibility decision before GitHub publication"
+  ]
+}

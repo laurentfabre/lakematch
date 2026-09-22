@@ -332,3 +332,43 @@ These checks support a development increment, not calibrated quality, a remote
 acceptance result or phase closure. The [proposed four-slot extension](NEXT_EXPERIMENTS.md)
 is pending authorization. GitHub still reports `laurentfabre/lakematch` as public;
 publishing remains pending the §2 private-repository requirement's resolution.
+
+## Probability and decision-band foundation — 2026-09-22
+
+The [bounded development plan](PROBABILITY_PLAN.md) adds immutable score,
+calibration and band contracts to LM-014. **No new experiment ran; LF-B remains
+8/8.** The [worker specification](../../spec/lakefusion/PROBABILITY.md) describes
+implementation/version pins, declared family disjointness, exact thresholds and
+the limits of trusted score/partition metadata.
+
+The preview applies an explicitly parameterized logit transform to a supplied
+probability, replays its exact comparison evidence and separates a numerical band
+from a proposed band and actual route. Conflicting identifiers, jurisdiction or
+identity fields and same-source duplicates require review even at a high score;
+deleted/self/branch comparisons remain excluded. Every eligible result has
+`route=review` and `auto_merge_eligible=false`. No model loader, fitting routine,
+threshold selector, registry promotion, API or merge executor is introduced.
+
+**294 portable checks pass, zero failures/errors/skips**, including **88 new
+probability cases**, in **2.12 seconds**. [JUnit](probability-development-20260922.xml)
+and the [source/check receipt](probability-development-20260922.json) retain the
+result. The checks use hand-specified coefficients, unrelated family
+IDs and analytical probabilities; they read only the tiny domain/mapping
+definitions, not pilot corpus rows. Existing mastering, publication,
+configuration and source-hygiene checks also pass.
+
+Coverage includes clipping/saturation, exact band boundaries, conflict vetoes,
+stale context/evidence rejection, type-sensitive evidence hashes, deterministic
+retries, family overlap, implementation drift and input bounds. Brier/ECE results
+match hand calculations. Four 10,000-trial binomial-bound references were checked
+independently with SciPy beta quantiles; absolute differences are below 1e-12.
+The test constants add no runtime SciPy dependency. These diagnostic helpers
+describe supplied rows/counts only and do not qualify population completeness,
+sampling, retrieval recall or an automatic-merge precision gate.
+
+Model fitting, calibration on declared splits, threshold selection, quality
+acceptance and comparison UI remain open. No confirmation rows were materialized,
+and no Spark session, database, AI endpoint, remote experiment or deployment ran.
+The application is unchanged; its prior checks remain applicable. The four
+user-refreshed scan reports remain untouched. The proposed experiment extension
+and the §2 repository-visibility conflict are still unresolved.
