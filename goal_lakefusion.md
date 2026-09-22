@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C next**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (0/8)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -131,7 +131,7 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 |---|---|---|---|---|---|
 | LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Done | [Frozen contracts, capability evidence and limits](bench/lakefusion/PHASE_A.md) |
 | LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | Done | [Candidates, identity, provenance, calibrated worker suggestions and synthetic UI](bench/lakefusion/PHASE_B.md) |
-| LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | Not started | None yet |
+| LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | In progress | [Transactional worker contract and slot-1 plan](bench/lakefusion/WORKFLOW_PLAN.md); acceptance pending |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
 | LF-E | PIM catalog and editorial workflows | LF-C plus LF-D reference/nested contracts | Weeks 19–30 | Not started | None yet |
 | LF-F | Production qualification and release | Relevant phase implementations; qualification starts earlier | Through months 6–9 | Not started | None yet |
@@ -316,6 +316,10 @@ Deliverables:
 
 - [ ] Implement Postgres/Lakebase tasks, leases, optimistic revisions,
   immutable decisions and idempotent commands; preserve existing label receipts.
+  [Transactional worker](spec/lakefusion/WORKFLOW.md) implemented locally; 145
+  focused checks pass, including 44 workflow PostgreSQL cases. The
+  [slot-1 acceptance plan](bench/lakefusion/WORKFLOW_PLAN.md) is declared;
+  bounded acceptance, Lakebase and authenticated app integration remain pending.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
 - [ ] Add paginated entity search, task inbox, provenance, history and visible

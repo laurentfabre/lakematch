@@ -130,7 +130,7 @@ def test_populated_upgrade_preserves_identity_and_registry_with_restart(registry
     before = identities.get(master_id)
     domain_before = registry.get_domain("company", 1, approved=True)
     with postgres.connect() as connection:
-        assert list(apply_migrations(connection, migrations)) == [1, 2, 3, 4]
+        assert list(apply_migrations(connection, migrations)) == [1, 2, 3, 4, 5]
     for mapping in b.mappings:
         registry.submit_mapping(mapping, actor="engineer", expected_latest=0)
         registry.transition("mapping", "company", mapping.source_id, 1, state="approved", expected_revision=1,

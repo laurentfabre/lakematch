@@ -75,11 +75,11 @@ def registry(postgres):
 
 def test_migrations_are_checksumming_retry_safe_and_reject_downgrade(registry, postgres, tmp_path):
     with postgres.connect() as connection:
-        assert list(apply_migrations(connection, MIGRATIONS)) == [1, 2, 3, 4]
-        assert connection.execute("SELECT count(*) FROM lm_control.schema_migration").fetchone()[0] == 4
+        assert list(apply_migrations(connection, MIGRATIONS)) == [1, 2, 3, 4, 5]
+        assert connection.execute("SELECT count(*) FROM lm_control.schema_migration").fetchone()[0] == 5
         for path in MIGRATIONS.glob("*.sql"):
             shutil.copy2(path, tmp_path / path.name)
-        path = tmp_path / "0004_survivorship.sql"
+        path = tmp_path / "0005_workflow.sql"
         path.write_text(path.read_text() + "\n-- changed")
         with pytest.raises(RegistryConflict, match="checksum"):
             apply_migrations(connection, tmp_path)
