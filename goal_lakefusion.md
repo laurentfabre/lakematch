@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (8/8 experiments)**.
+Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (8/12 experiments)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -93,8 +93,9 @@ selections for LM-001:
   publisher until a measured migration justifies changing its contract.
 - Keep the existing v1 engine configuration, historical model artifacts, label
   receipts, benchmark IDs and sealed replays readable through explicit adapters.
-- Use only public or synthetic corpora. Preserve the private repository; do not
-  copy LakeFusion implementation assets or incompatible third-party source.
+- Use only public or synthetic corpora. Publish completed work to the public
+  `laurentfabre/lakematch` repository under [LF-DEC-006](spec/lakefusion/EXECUTION_DECISIONS.md).
+  Do not copy LakeFusion implementation assets or incompatible third-party source.
 - Laurent already selected **`fevm-gdpr2`** in this conversation. Pass
   `--profile fevm-gdpr2` to workspace CLI commands and configure SDK clients
   explicitly. Do not substitute a different profile. Load `databricks-core`
@@ -258,7 +259,8 @@ Deliverables:
   pass; local/Delta snapshot hashes match. Temporary tables/workspace files were
   removed. Matching uses declared fixture memberships, with no model; operational
   watermark rechecks, authorization, outbox delivery and UI remain open. LF-B
-  uses **8/8** slots; further experiments require a revised bound.
+  used all eight originally authorized slots. The approved extension now sets
+  the current count to **8/12** under LF-DEC-005.
 - [ ] Version deterministic match rules, develop calibrated decision bands,
   and show actual field comparisons before adding model-specific explanations.
   [Worker comparison foundation](spec/lakefusion/MATCH_EVIDENCE.md) implemented:
@@ -270,12 +272,13 @@ Deliverables:
   source pairs, with explicit origin and no model score. **301 portable and 25
   app checks pass**; type/build and desktop/mobile development checks pass.
   Empirical calibration, registry promotion, live comparison integration and
-  matching-quality acceptance remain open. LF-B stays **8/8**.
+  matching-quality acceptance remain open. LF-B currently uses **8/12** slots.
 - [ ] Deliver the first APX golden-record detail view using the synthetic slice.
   [Local APX preview](reports/lakefusion-comparison-ui-20260922/README.md) implemented:
   six companies, two publications, field alternatives, overrides and deleted
   sources. App/type/build and desktop/mobile development checks pass. The next
-  full acceptance run awaits the revised LF-B bound; no experiment was added.
+  full acceptance run is authorized as slot 9 under the approved extension;
+  no acceptance result has been recorded yet.
 
 **Exit gate:** two-source inputs reproduce the same golden records and provenance
 on retry. Earlier-sorting source keys do not rekey public IDs. Every selected
@@ -397,7 +400,7 @@ Deliverables:
 - [ ] Provision isolated development/staging/production state, catalogs/schemas,
   service bindings and deployment identities appropriate to the selected scope.
 - [ ] Make clean install, redeploy, migration, upgrade, rollback and restoration
-  reproducible from the private repository and durable versioned artifacts.
+  reproducible from the public repository and durable versioned artifacts.
 - [ ] Package a customer Solution Accelerator with explicit workspace/profile,
   catalog/schema and resource bindings, prerequisite/permission checks, sample
   data and deployment/run/reset/cleanup instructions. Provide SA demo scripts and
@@ -478,12 +481,13 @@ Once execution is requested:
 5. Update phase/package status, evidence links, iteration count and next action.
    Keep the research backlog status synchronized. A code commit or deployed app
    alone cannot mark a feature gate passed.
-6. Commit completed work and compact evidence to the existing private GitHub
+6. Commit completed work and compact evidence to the existing public GitHub
    repository under the standing push instruction, preserving managed hooks.
 
 Retain one active remote experiment and an eight-iteration experiment cap per
-new LF phase, with finite per-run/sweep limits declared before execution. These
-caps do not reset old ZR counters. Stop a sweep at its bound, retain the diagnosis
+new LF phase, with **LF-B increased to twelve** by
+[LF-DEC-005](spec/lakefusion/EXECUTION_DECISIONS.md). Declare finite per-run/sweep
+limits before execution. These caps do not reset old ZR counters. Stop a sweep at its bound, retain the diagnosis
 and continue eligible nondependent work. Stop only owned experimental resources
 after evidence capture; respect an explicit user request to leave a demo running.
 Record ongoing services required by an accepted deployment separately.
@@ -509,6 +513,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: recurring scan follow-up | Fresh source-only scan: 294 files, 0 errors, 21 warnings; warning rule/file locations unchanged. Latest raw JSON has no findings in the named review store/acceptance files. Live errors are 7 SQL, 1 HTTP 400 and 4 HTTP 404; cold-start cause is unproved. [Triage](reports/scan-followup-20260922/README.md). No code change or experiment; LF-B remains 8/8. | Existing calibration/acceptance and repository-visibility decisions remain pending. Scan repetition does not close those gates. |
 | 2026-09-22: probability and band foundation | 294 portable checks pass, including 88 new analytical probability cases. Immutable model/feature/calibration/band metadata, declared split disjointness, deterministic vetoes and Brier/ECE/precision-bound helpers are implemented. [Contract](spec/lakefusion/PROBABILITY.md). Every eligible preview still routes to review; no fitting, corpus evaluation or automatic quality claim. LF-B remains 8/8; LM-014 remains in progress. | Calibration and acceptance experiments await the proposed bound extension. Comparison UI and promotion integration remain open. GitHub publication still awaits resolution of the public/private visibility conflict. |
 | 2026-09-22: synthetic comparison explorer | The APX demo displays seven actual/normalized field comparisons for six companies across two publications, with conflicts, deletion and explicit pair origin. 301 portable and 25 app checks pass; pinned build, types, keyboard/error recovery and desktop/mobile preview pass. [Evidence](reports/lakefusion-comparison-ui-20260922/README.md). Historic publication values/hashes and frozen inputs are preserved. LF-B stays 8/8; LM-014 remains in progress. | Empirical calibration, promotion/live integration and full acceptance remain open. Further experiments need a revised bound; GitHub publication still awaits the repository-visibility decision. |
+| 2026-09-22: extension and public publication approved | Laurent explicitly selected “raise it to 12” and “change to public”. [LF-DEC-005/006](spec/lakefusion/EXECUTION_DECISIONS.md) authorize LF-B 8/12 and publication to the existing public GitHub repository. Earlier protocol bytes and eight consumed runs remain unchanged. | Push completed commits through managed hooks, then execute slot 9's bounded APX acceptance plan. Calibration and quality gates remain open. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

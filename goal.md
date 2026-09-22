@@ -29,7 +29,7 @@ actual external dependency prevents progress.
   the selected runtime; the brief's final decisions take precedence over older recommendations.
 - Use this repository root. Old `~/Projects/Pro/lakematch` paths, `fourth-pat` profile names, warehouse
   IDs, Free Edition quotas and commands in the research are historical, not execution settings.
-- Preserve the private Apache-2.0 repository and independent PySpark implementation: no Zingg source,
+- Preserve the public Apache-2.0 repository and independent PySpark implementation: no Zingg source,
   translation, JAR or adapter. Keep Zingg comparisons as recorded figures. Only public or synthetic
   corpora enter the campaign; personal lake data is outside scope.
 - Mandatory engine dependencies remain `pyspark`, `mlflow` and `pyyaml`. Benchmark tools and optional

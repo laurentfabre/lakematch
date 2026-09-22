@@ -1,6 +1,8 @@
 # LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 8/8 experiment slots consumed.** Phase A and LM-001 are
+**Phase B is in progress: 8/12 experiment slots consumed.** The extension and
+public repository publication were approved in
+[LF-DEC-005/006](../../spec/lakefusion/EXECUTION_DECISIONS.md). Phase A and LM-001 are
 complete at commit `96edbf8`. LM-002–006 now provide bounded company candidate
 retrieval, an approved registry, persistent identities, scalar survivorship and
 immutable provenance snapshots. Existing
@@ -57,10 +59,10 @@ general customer data, merge precision, online latency or Spark scalability.
 ## Next work
 
 LM-002–006 are complete for the declared bounded internal worker contracts.
-Deterministic matching/decision foundations and the first golden-record app view
-remain Phase B work. The eight-slot LF-B experiment budget is exhausted; do not
-start another experiment without a revised bound. Independent implementation
-and documentation can continue.
+Matching-quality acceptance and the first golden-record app acceptance remain
+Phase B work. The approved twelve-slot LF-B budget leaves four iterations;
+slot 9 is reserved for a fresh bounded APX acceptance run, followed by the
+predeclared model/calibration work in the [extension plan](NEXT_EXPERIMENTS.md).
 Later remote/application gates listed in the Phase A freeze remain mandatory.
 
 ## Durable registry and exact job replay — 22 September
@@ -417,3 +419,13 @@ projection/replay boundary. Live adapters, authenticated domain/field grants,
 durable rule/model promotion and matching-quality acceptance remain open.
 The goal and backlog still mark LM-014 in progress. The proposed experiment
 extension and repository-visibility decisions remain unresolved.
+
+## Approved execution amendments — 2026-09-22
+
+Laurent selected “raise it to 12” and “change to public”. The
+[amendment record](../../spec/lakefusion/EXECUTION_DECISIONS.md) sets LF-B's total
+cap to twelve and authorizes publication to the public `laurentfabre/lakematch`
+repository. A read-only check confirms it is already public. Current consumption
+is **8/12**; no new experiment result is implied. Earlier dated entries above
+retain the limits and publication status that applied when they were written.
+The fifteen frozen Phase A files and all prior experiment evidence are preserved.

@@ -1,11 +1,13 @@
-# Proposed LF-B extension — not authorized or executed
+# Approved LF-B extension — 12 total experiments
 
-Current bound: **8 experiments; 8 consumed**. Proposed new total: **12**, allowing
-at most four additional iterations. Existing failures/results remain counted;
-LF-A and the original campaign limits do not change. This file does not modify
-the approved protocol or grant permission to run an experiment.
+Current bound: **12 experiments; 8 consumed**. Laurent approved “raise it to 12”
+on 2026-09-22; [LF-DEC-005](../../spec/lakefusion/EXECUTION_DECISIONS.md) records
+the amendment to the original frozen eight-slot limit for LF-B only. At most
+four additional iterations are authorized. Existing failures/results remain
+counted; LF-A, other LF phases and original campaign limits do not change.
+No additional experiment has run yet.
 
-| Slot | Proposed purpose | Required before starting |
+| Slot | Authorized purpose | Required before starting |
 |---|---|---|
 | 9 | Accept the first APX synthetic golden-record view from a fresh build: pinned historical field provenance, overrides, deleted sources and desktop/mobile navigation | Final app/source digest, fresh owned local store, browser plan and frozen demo hashes |
 | 10 | First LM-014 model/calibration evaluation using the selected candidate path and approved development/validation families | Implement and review one explicit feature/model/calibrator contract; commit family manifests, negative sampling, thresholds-selection procedure and all hyperparameters before reading results |
@@ -24,4 +26,4 @@ The local UI iteration needs no Spark or remote service and has a ten-minute
 outer bound. Remote work, if necessary, requires an explicit per-run plan within
 30-minute job/60-minute outer limits; it uses only `fevm-gdpr2`, one run at a time,
 and cleans owned resources. No permanent deployment or service expansion is
-included in this proposal. Missing billing evidence is reported as missing.
+included in this extension. Missing billing evidence is reported as missing.
