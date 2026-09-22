@@ -1,10 +1,12 @@
 # Modified for lakematch on 2026-09-20 from the APX 0.3.8 scaffold.
-from typing import Annotated
+from typing import Annotated, Literal
+from uuid import UUID
 import os
 from fastapi import Depends, HTTPException, Query, Request
 from .core import Dependencies, create_router
 from .models import PairOut, ReviewIn, ReviewOut, SessionOut, SnapshotOut, StatsOut
 from .store import Conflict, DeltaStore, SQLiteStore, Store
+from . import golden_demo
 
 router = create_router()
 
@@ -33,6 +35,29 @@ def get_actor(config: Dependencies.Config, headers: Dependencies.Headers):
 
 
 Actor = Annotated[str, Depends(get_actor)]
+
+
+def get_demo():
+    try:
+        return golden_demo.read_demo()
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise HTTPException(503, "The packaged company demo is unavailable. Rebuild the app to restore it.") from exc
+
+
+Demo = Annotated[golden_demo.DemoBundle, Depends(get_demo)]
+
+
+@router.get("/demo/golden-records", response_model=golden_demo.DemoCatalogOut, operation_id="goldenDemoCatalog")
+def golden_demo_catalog(demo: Demo, actor: Actor):
+    return golden_demo.catalog(demo)
+
+
+@router.get("/demo/golden-records/{master_id}", response_model=golden_demo.DemoDetailOut, operation_id="goldenDemoDetail")
+def golden_demo_detail(master_id: UUID, demo: Demo, actor: Actor, publication: Literal["first", "second"] = "second"):
+    result = golden_demo.detail(demo, str(master_id), publication)
+    if result is None:
+        raise HTTPException(404, "Company is not in this synthetic demo")
+    return result
 
 
 @router.get("/session", response_model=SessionOut, operation_id="session")

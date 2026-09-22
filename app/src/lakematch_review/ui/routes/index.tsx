@@ -3,9 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Check, X, HelpCircle, ArrowRight, Layers, BarChart3, History, RefreshCw } from "lucide-react";
+import { Check, X, HelpCircle, ArrowRight, Layers, BarChart3, History, RefreshCw, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ApiError, useReviewQueue, useReviewStats, useReviewHistory, useSession, saveReview } from "@/lib/api";
+import { GoldenRecords } from "@/components/golden-records";
 import type { ReviewIn } from "@/lib/api";
 
 export const Route = createFileRoute("/")({ component: () => <ErrorBoundary fallback={<main className="review-shell"><h1>Review could not load</h1><p>Reload the page to try again. Saved reviews are preserved.</p></main>}><ReviewApp /></ErrorBoundary> });
@@ -18,10 +19,10 @@ function errorText(error: unknown) {
 
 function ReviewApp() {
   const client = useQueryClient();
-  const queue = useReviewQueue({ query: { retry: false } });
-  const stats = useReviewStats({ query: { retry: false } });
+  const [tab, setTab] = useState<"review" | "statistics" | "history" | "golden">(window.location.hash === "#golden-records" ? "golden" : "review");
+  const queue = useReviewQueue({ query: { enabled: tab !== "golden", retry: false } });
+  const stats = useReviewStats({ query: { enabled: tab !== "golden", retry: false } });
   const session = useSession({ query: { retry: false } });
-  const [tab, setTab] = useState<"review" | "statistics" | "history">("review");
   const history = useReviewHistory({ query: { enabled: tab === "history", retry: false } });
   const [reason, setReason] = useState("");
   const [saving, setSaving] = useState(false);
@@ -71,15 +72,16 @@ function ReviewApp() {
       <a className="brand" href="/" aria-label="Lakematch home"><span className="brand-mark"><Layers size={23} /></span>lakematch<span className="brand-dot">.</span></a>
       <p className="eyebrow sidebar-label">ENTITY RESOLUTION</p>
       <nav aria-label="Main navigation">
-        {([{ id: "review", label: "Review queue", icon: Layers }, { id: "statistics", label: "Statistics", icon: BarChart3 }, { id: "history", label: "Review history", icon: History }] as const).map(item => <button key={item.id} aria-current={tab === item.id ? "page" : undefined} onClick={() => setTab(item.id)}><item.icon size={18} />{item.label}{item.id === "review" && counts && <span className="nav-count">{counts.queue_depth}</span>}</button>)}
+        {([{ id: "review", label: "Review queue", icon: Layers }, { id: "statistics", label: "Statistics", icon: BarChart3 }, { id: "history", label: "Review history", icon: History }, { id: "golden", label: "Golden records", icon: Building2 }] as const).map(item => <button key={item.id} aria-current={tab === item.id ? "page" : undefined} onClick={() => setTab(item.id)}><item.icon size={18} />{item.label}{item.id === "review" && counts && <span className="nav-count">{counts.queue_depth}</span>}</button>)}
       </nav>
       <div className="sidebar-footer"><span className="status-dot" />{session.data ? session.data.data.user : "Connecting…"}<p>Decisions with a traceable history.</p></div>
     </aside>
     <div className="review-content">
-      <header className="topbar"><span>Workspace <span className="crumb">/</span> {tab === "review" ? "Review queue" : tab === "statistics" ? "Statistics" : "Review history"}</span><Button variant="ghost" onClick={() => void refresh()} disabled={saving}><RefreshCw size={15} /> Refresh</Button></header>
+      <header className="topbar"><span>Workspace <span className="crumb">/</span> {tab === "review" ? "Review queue" : tab === "statistics" ? "Statistics" : tab === "golden" ? "Golden records" : "Review history"}</span><Button variant="ghost" onClick={() => void refresh()} disabled={saving}><RefreshCw size={15} /> Refresh</Button></header>
       <main className="review-shell" ref={workspace} tabIndex={-1}>
-        <div className="page-heading"><div><p className="eyebrow">HUMAN REVIEW</p><h1>{tab === "review" ? "A closer look." : tab === "statistics" ? "Every decision counts." : "The decision trail."}</h1><p>{tab === "review" ? "Compare the records. Leave a reason. Help the next model learn." : tab === "statistics" ? "Review progress and recorded model quality, in one place." : "Your saved decisions, with the context that led to them."}</p></div><span className="batch-badge">{counts ? `${counts.reviewed} reviewed` : "Loading batch"}</span></div>
-        {(queue.error || stats.error || session.error || history.error) && <div role="alert" className="error-banner">{errorText(queue.error || stats.error || session.error || history.error)} <button onClick={() => void refresh()}>Retry</button></div>}
+        <div className="page-heading"><div><p className="eyebrow">{tab === "golden" ? "COMPANY MASTER DATA" : "HUMAN REVIEW"}</p><h1>{tab === "review" ? "A closer look." : tab === "statistics" ? "Every decision counts." : tab === "golden" ? "One company. The full picture." : "The decision trail."}</h1><p>{tab === "review" ? "Compare the records. Leave a reason. Help the next model learn." : tab === "statistics" ? "Review progress and recorded model quality, in one place." : tab === "golden" ? "Trace a golden record back to the people, policies and sources behind it." : "Your saved decisions, with the context that led to them."}</p></div><span className="batch-badge">{tab === "golden" ? "Synthetic demo" : counts ? `${counts.reviewed} reviewed` : "Loading batch"}</span></div>
+        {tab !== "golden" && (queue.error || stats.error || session.error || history.error) && <div role="alert" className="error-banner">{errorText(queue.error || stats.error || session.error || history.error)} <button onClick={() => void refresh()}>Retry</button></div>}
+        {tab === "golden" && <GoldenRecords />}
         {tab === "review" && <>
           <div className="queue-summary"><span><strong>{counts?.queue_depth ?? "—"}</strong> pairs awaiting a decision</span><span>Uncertain pairs first <ArrowRight size={14} /></span></div>
           {queue.isPending ? <div className="empty-state" role="status">Loading the review queue…</div> : pair ? <>

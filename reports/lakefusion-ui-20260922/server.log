@@ -1,0 +1,16 @@
+INFO:     Started server process [62144]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on socket ('127.0.0.1', 54072) (Press CTRL+C to quit)
+INFO:     127.0.0.1:54073 - "GET /api/demo/golden-records HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54084 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54084 - "GET /assets/index-BNHS8baX.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54085 - "GET /assets/index-CY5z6pD_.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54085 - "GET /api/session HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54084 - "GET /api/demo/golden-records HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54084 - "GET /logo.svg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54084 - "GET /api/demo/golden-records/00000000-0000-0000-0000-000000000001?publication=second HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [62144]

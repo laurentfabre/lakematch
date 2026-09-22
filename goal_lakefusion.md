@@ -154,7 +154,7 @@ dates do not waive acceptance gates. Re-estimate after Phase A.
 | LM-011 | Governed edits and reversible merge/split | LF-C | Not started |
 | LM-012 | Onboarding and quality remediation | LF-C | Not started |
 | LM-013 | Incremental mastering | LF-C | Not started |
-| LM-014 | Calibrated decisions and explanations | LF-D; pilot decisions in LF-C | Not started |
+| LM-014 | Calibrated decisions and explanations | LF-D; pilot decisions in LF-C | In progress |
 | LM-015 | Selective LLM adjudication | LF-D; activation optional | Not started |
 | LM-016 | Reference entities and nested structures | LF-D; foundation in LF-C | Not started |
 | LM-017 | Search-before-create and online scoring | LF-D | Not started |
@@ -261,7 +261,15 @@ Deliverables:
   uses **8/8** slots; further experiments require a revised bound.
 - [ ] Version deterministic match rules, develop calibrated decision bands,
   and show actual field comparisons before adding model-specific explanations.
+  [Worker comparison foundation](spec/lakefusion/MATCH_EVIDENCE.md) implemented:
+  36 new portable checks pass, with pinned rules and actual values. All eligible
+  suggestions require review. Calibration, registry promotion, comparison UI
+  integration and matching-quality acceptance remain open.
 - [ ] Deliver the first APX golden-record detail view using the synthetic slice.
+  [Local APX preview](reports/lakefusion-ui-20260922-final/README.md) implemented:
+  six companies, two publications, field alternatives, overrides and deleted
+  sources. App/type/build and desktop/mobile development checks pass. The next
+  full acceptance run awaits the revised LF-B bound; no experiment was added.
 
 **Exit gate:** two-source inputs reproduce the same golden records and provenance
 on retry. Earlier-sorting source keys do not rekey public IDs. Every selected
@@ -491,6 +499,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: persistent identity | LM-004 complete for the internal worker contract. Two bounded local experiments pass (134 checks, then 138 after UTC/upgrade verification). IDs, legacy aliases and merge/split receipts survive concurrency and restart; old Spark behavior is unchanged. [Evidence](bench/lakefusion/identity-20260922-final.json). LF-B 4/8. | LM-005: scalar survivorship, followed by LM-006 provenance. GitHub publication remains pending resolution of the observed public visibility versus §2's private-repository requirement; local development continues. |
 | 2026-09-22: scalar survivorship | LM-005 complete for the internal worker contract. Approved domain/mapping/policy bindings produce deterministic scalar records with explicit override, invalid-value and deletion behavior. 195 checks and six-company restart replay pass. [Evidence](bench/lakefusion/survivorship-20260922.json). LF-B 5/8. | LM-006: persist winning-value provenance and source crosswalks in versioned snapshots, keeping historic revisions explainable. GitHub publication remains pending the repository visibility decision. |
 | 2026-09-22: immutable provenance | LM-006 complete for bounded internal publication/read services. Initial local/Delta proofs pass; the final [follow-up](experiments/20260922T095127Z-lf-b-provenance-retry-c09f7c/manifest.json) passes 225 local checks and live Delta verification, including retries with current scalar code unavailable. All owned tables/workspace files cleaned. LM-009 publication foundation is in progress; outbox/reconciliation remain open. LF-B 8/8. | Continue LM-014 matching/decision foundations and the first APX golden-record detail view; revise the LF-B experiment bound before further experiments. Phase B remains open. GitHub publishing remains pending the public/private visibility decision. |
+| 2026-09-22: comparison foundation and APX preview | LM-014 in progress. 206 portable and 19 app checks pass; versioned comparison evidence routes eligible suggestions to review. A packaged six-company APX screen shows two publications and all field provenance. Type/build and desktop/mobile development checks pass. [Checkpoint](bench/lakefusion/PHASE_B.md). No new experiment; LF-B stays 8/8. | Approve or revise the [proposed four-run extension](bench/lakefusion/NEXT_EXPERIMENTS.md) before calibration/acceptance experiments. Phase B remains open. GitHub publishing still awaits resolution of the public/private visibility conflict. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

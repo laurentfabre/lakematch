@@ -45,6 +45,11 @@ The new company/supplier pilot also has versioned domain definitions, source
 mappings and approved candidate-job configurations in PostgreSQL. This is an
 engineering foundation; its customer-facing app workflows are still being built.
 
+Want to see what a golden record looks like? The app's **Golden records** tab
+has a six-company synthetic preview. Open a field to see where its value came
+from, then switch publications to inspect an earlier address or name.
+[Explore the screenshots and local setup](reports/lakefusion-ui-20260922-final/README.md).
+
 ## Try it locally
 
 Start with the tiny synthetic fixture included in the repository. You need
@@ -85,8 +90,11 @@ and records repeatable merge/split operations. It can choose trusted field value
 and preserve their source records, rules and review decisions in versioned snapshots.
 The deployed review store currently requires one app worker and one instance.
 
-**Next:** golden-record screens with an explanation for every chosen value, and richer
-stewardship workflows. The pilot uses synthetic ERP
+**Preview:** a golden-record screen explains selected values, source alternatives
+and approved edits across two synthetic publications. Live data integration and
+the next acceptance run are still pending.
+
+**Next:** calibrated matching decisions and richer stewardship workflows. The pilot uses synthetic ERP
 vendors and CRM accounts, with each master representing a legal company.
 
 **Later:** incremental updates, online resolution, business relationships,

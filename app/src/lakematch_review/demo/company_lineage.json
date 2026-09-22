@@ -1,0 +1,3758 @@
+{
+  "bundle_sha256": "4624c76886bfe1c64bfb0c807097ae1b59388b307c305a2d0774de4bbfdf558a",
+  "default_master_id": "00000000-0000-0000-0000-000000000001",
+  "kind": "synthetic_company_demo",
+  "membership_basis": "synthetic_fixture_truth",
+  "publications": [
+    {
+      "as_of": "2026-09-22T12:00:00+00:00",
+      "entities": [
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "99 Updated Example Avenue",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "10 Example Avenue",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "10 Example Avenue",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "Lyon",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "Lyon",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Lyon",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "FR",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "Cedar Components S.A.",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "Cedar Components SA",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Cedar Components SA",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "69000",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "69000",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "69000",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "TEST-FR-001",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "TEST-FR-001",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-FR-001",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000001",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A001",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "99 Updated Example Avenue",
+                "city": "Lyon",
+                "country": "FR",
+                "legal_name": "Cedar Components S.A.",
+                "parent_source_key": null,
+                "postal_code": "69000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-001"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V001",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "10 Example Avenue",
+                "city": "Lyon",
+                "country": "FR",
+                "legal_name": "Cedar Components SA",
+                "parent_source_key": null,
+                "postal_code": "69000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-001"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "10 Example Avenue",
+            "city": "Lyon",
+            "country": "FR",
+            "legal_name": "Cedar Components SA",
+            "parent_source_key": null,
+            "postal_code": "69000",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-FR-001"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "10 Example Avenue",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "10 Example Avenue",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "10 Example Avenue",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "Lyon",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "Lyon",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Lyon",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "FR",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "Cedar Logistics",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "Cedar Logistics SAS",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Cedar Logistics SAS",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "A001",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "V001",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "source_priority",
+              "value": "V001",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "69000",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "69000",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "69000",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "TEST-FR-002",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "TEST-FR-002",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-FR-002",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000002",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A002",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "10 Example Avenue",
+                "city": "Lyon",
+                "country": "FR",
+                "legal_name": "Cedar Logistics",
+                "parent_source_key": "A001",
+                "postal_code": "69000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-002"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V002",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "10 Example Avenue",
+                "city": "Lyon",
+                "country": "FR",
+                "legal_name": "Cedar Logistics SAS",
+                "parent_source_key": "V001",
+                "postal_code": "69000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-002"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "10 Example Avenue",
+            "city": "Lyon",
+            "country": "FR",
+            "legal_name": "Cedar Logistics SAS",
+            "parent_source_key": "V001",
+            "postal_code": "69000",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-FR-002"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": "20 Sample Street",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "20 Sample Street",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "20 Sample Street",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": "Paris",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "Paris",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Paris",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "FR",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": "Atlas Supplies",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "Atlas Supplies SAS",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Atlas Supplies SAS",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": "75000",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "75000",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "75000",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": "TEST-FR-003",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "TEST-FR-003",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-FR-003",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000003",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A003",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "20 Sample Street",
+                "city": "Paris",
+                "country": "FR",
+                "legal_name": "Atlas Supplies",
+                "parent_source_key": null,
+                "postal_code": "75000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-003"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V003",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "20 Sample Street",
+                "city": "Paris",
+                "country": "FR",
+                "legal_name": "Atlas Supplies SAS",
+                "parent_source_key": null,
+                "postal_code": "75000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-003"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "20 Sample Street",
+            "city": "Paris",
+            "country": "FR",
+            "legal_name": "Atlas Supplies SAS",
+            "parent_source_key": null,
+            "postal_code": "75000",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-FR-003"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "20 Sample Street",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "20 Sample Street",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "20 Sample Street",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "Brussels",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "Brussels",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Brussels",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "BE",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "BE",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "BE",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "Atlas Supplies",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "Atlas Supplies SRL",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Atlas Supplies SRL",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "1000",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "1000",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "1000",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "TEST-BE-003",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "TEST-BE-003",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-BE-003",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000004",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A004",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "20 Sample Street",
+                "city": "Brussels",
+                "country": "BE",
+                "legal_name": "Atlas Supplies",
+                "parent_source_key": null,
+                "postal_code": "1000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-BE-003"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V004",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "20 Sample Street",
+                "city": "Brussels",
+                "country": "BE",
+                "legal_name": "Atlas Supplies SRL",
+                "parent_source_key": null,
+                "postal_code": "1000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-BE-003"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "20 Sample Street",
+            "city": "Brussels",
+            "country": "BE",
+            "legal_name": "Atlas Supplies SRL",
+            "parent_source_key": null,
+            "postal_code": "1000",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-BE-003"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "30 Fixture Road",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "30 Fixture Road",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "30 Fixture Road",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "Leeds",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "Leeds",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Leeds",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "GB",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "GB",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "GB",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "Orbit Industrial Limited",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "Orbit Industrial Ltd",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Orbit Industrial Ltd",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "LS1 1AA",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "LS1 1AA",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "LS1 1AA",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "TEST-GB-004",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "TEST-GB-004",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-GB-004",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000005",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A005",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "30 Fixture Road",
+                "city": "Leeds",
+                "country": "GB",
+                "legal_name": "Orbit Industrial Limited",
+                "parent_source_key": null,
+                "postal_code": "LS1 1AA",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-GB-004"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V005",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "30 Fixture Road",
+                "city": "Leeds",
+                "country": "GB",
+                "legal_name": "Orbit Industrial Ltd",
+                "parent_source_key": null,
+                "postal_code": "LS1 1AA",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-GB-004"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "30 Fixture Road",
+            "city": "Leeds",
+            "country": "GB",
+            "legal_name": "Orbit Industrial Ltd",
+            "parent_source_key": null,
+            "postal_code": "LS1 1AA",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-GB-004"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "40 Fixture Road",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "40 Fixture Road",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "40 Fixture Road",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "Leeds",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "Leeds",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Leeds",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "GB",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "GB",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "GB",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "Harbour Industrial",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "Harbor Industrial Ltd",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Harbor Industrial Ltd",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "LS1 1AA",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "LS1 1AA",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "LS1 1AA",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "TEST-GB-004",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "TEST-GB-005",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-GB-005",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000006",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A006",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "40 Fixture Road",
+                "city": "Leeds",
+                "country": "GB",
+                "legal_name": "Harbour Industrial",
+                "parent_source_key": null,
+                "postal_code": "LS1 1AA",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-GB-004"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V006",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "40 Fixture Road",
+                "city": "Leeds",
+                "country": "GB",
+                "legal_name": "Harbor Industrial Ltd",
+                "parent_source_key": null,
+                "postal_code": "LS1 1AA",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-GB-005"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "40 Fixture Road",
+            "city": "Leeds",
+            "country": "GB",
+            "legal_name": "Harbor Industrial Ltd",
+            "parent_source_key": null,
+            "postal_code": "LS1 1AA",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-GB-005"
+          }
+        }
+      ],
+      "publication_id": "first",
+      "snapshot_sha256": "299391219ff56d3f535ea86ba23ce5d20dd3591111aa7f9948f6b910a3b94e8a"
+    },
+    {
+      "as_of": "2026-09-22T12:00:00+00:00",
+      "entities": [
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "99 Updated Example Avenue",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "99 Updated Example Avenue",
+                  "verified": true,
+                  "version": 2
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "99 Updated Example Avenue",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 2
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "Lyon",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "Lyon",
+                  "verified": true,
+                  "version": 2
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Lyon",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 2
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 2
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "FR",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 2
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "Cedar Components S.A.",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "Cedar Components SA",
+                  "verified": true,
+                  "version": 2
+                }
+              ],
+              "approved_by": "synthetic_approver",
+              "conflicting_values": true,
+              "decision_id": "synthetic-decision-1",
+              "decision_reason": "Synthetic independent review",
+              "name": "legal_name",
+              "reason": "approved_override",
+              "value": "Cedar Components — reviewed name",
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": null,
+                  "verified": true,
+                  "version": 2
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "69000",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "69000",
+                  "verified": true,
+                  "version": 2
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "69000",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 2
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 2
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 2
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A001",
+                  "value": "TEST-FR-001",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V001",
+                  "value": "TEST-FR-001",
+                  "verified": true,
+                  "version": 2
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-FR-001",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V001",
+              "winner_version": 2
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000001",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 2,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A001",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "99 Updated Example Avenue",
+                "city": "Lyon",
+                "country": "FR",
+                "legal_name": "Cedar Components S.A.",
+                "parent_source_key": null,
+                "postal_code": "69000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-001"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V001",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "99 Updated Example Avenue",
+                "city": "Lyon",
+                "country": "FR",
+                "legal_name": "Cedar Components SA",
+                "parent_source_key": null,
+                "postal_code": "69000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-001"
+              },
+              "version": 2
+            }
+          ],
+          "values": {
+            "address_line1": "99 Updated Example Avenue",
+            "city": "Lyon",
+            "country": "FR",
+            "legal_name": "Cedar Components — reviewed name",
+            "parent_source_key": null,
+            "postal_code": "69000",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-FR-001"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "10 Example Avenue",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "10 Example Avenue",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "10 Example Avenue",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "Lyon",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "Lyon",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Lyon",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "FR",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "Cedar Logistics",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "Cedar Logistics SAS",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Cedar Logistics SAS",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "A001",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "V001",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "source_priority",
+              "value": "V001",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "69000",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "69000",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "69000",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A002",
+                  "value": "TEST-FR-002",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V002",
+                  "value": "TEST-FR-002",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-FR-002",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V002",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000002",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A002",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "10 Example Avenue",
+                "city": "Lyon",
+                "country": "FR",
+                "legal_name": "Cedar Logistics",
+                "parent_source_key": "A001",
+                "postal_code": "69000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-002"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V002",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "10 Example Avenue",
+                "city": "Lyon",
+                "country": "FR",
+                "legal_name": "Cedar Logistics SAS",
+                "parent_source_key": "V001",
+                "postal_code": "69000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-002"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "10 Example Avenue",
+            "city": "Lyon",
+            "country": "FR",
+            "legal_name": "Cedar Logistics SAS",
+            "parent_source_key": "V001",
+            "postal_code": "69000",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-FR-002"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": "deleted",
+                  "quality": null,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": null,
+                  "version": 2
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "20 Sample Street",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "only_eligible_value",
+              "value": "20 Sample Street",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "deleted",
+                  "quality": null,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": null,
+                  "version": 2
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "Paris",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "only_eligible_value",
+              "value": "Paris",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "deleted",
+                  "quality": null,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": null,
+                  "version": 2
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "FR",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "only_eligible_value",
+              "value": "FR",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "deleted",
+                  "quality": null,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": null,
+                  "version": 2
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "Atlas Supplies SAS",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "only_eligible_value",
+              "value": "Atlas Supplies SAS",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "deleted",
+                  "quality": null,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": null,
+                  "version": 2
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "deleted",
+                  "quality": null,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": null,
+                  "version": 2
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "75000",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "only_eligible_value",
+              "value": "75000",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "deleted",
+                  "quality": null,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": null,
+                  "version": 2
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "only_eligible_value",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "deleted",
+                  "quality": null,
+                  "source_id": "crm_account",
+                  "source_key": "A003",
+                  "value": null,
+                  "verified": null,
+                  "version": 2
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V003",
+                  "value": "TEST-FR-003",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "only_eligible_value",
+              "value": "TEST-FR-003",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V003",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000003",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 2,
+          "sources": [
+            {
+              "deleted": true,
+              "source_id": "crm_account",
+              "source_key": "A003",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {},
+              "version": 2
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V003",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "20 Sample Street",
+                "city": "Paris",
+                "country": "FR",
+                "legal_name": "Atlas Supplies SAS",
+                "parent_source_key": null,
+                "postal_code": "75000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-FR-003"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "20 Sample Street",
+            "city": "Paris",
+            "country": "FR",
+            "legal_name": "Atlas Supplies SAS",
+            "parent_source_key": null,
+            "postal_code": "75000",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-FR-003"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "20 Sample Street",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "20 Sample Street",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "20 Sample Street",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "Brussels",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "Brussels",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Brussels",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "BE",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "BE",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "BE",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "Atlas Supplies",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "Atlas Supplies SRL",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Atlas Supplies SRL",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "1000",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "1000",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "1000",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A004",
+                  "value": "TEST-BE-003",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V004",
+                  "value": "TEST-BE-003",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-BE-003",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V004",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000004",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A004",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "20 Sample Street",
+                "city": "Brussels",
+                "country": "BE",
+                "legal_name": "Atlas Supplies",
+                "parent_source_key": null,
+                "postal_code": "1000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-BE-003"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V004",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "20 Sample Street",
+                "city": "Brussels",
+                "country": "BE",
+                "legal_name": "Atlas Supplies SRL",
+                "parent_source_key": null,
+                "postal_code": "1000",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-BE-003"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "20 Sample Street",
+            "city": "Brussels",
+            "country": "BE",
+            "legal_name": "Atlas Supplies SRL",
+            "parent_source_key": null,
+            "postal_code": "1000",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-BE-003"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "30 Fixture Road",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "30 Fixture Road",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "30 Fixture Road",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "Leeds",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "Leeds",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Leeds",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "GB",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "GB",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "GB",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "Orbit Industrial Limited",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "Orbit Industrial Ltd",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Orbit Industrial Ltd",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "LS1 1AA",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "LS1 1AA",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "LS1 1AA",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A005",
+                  "value": "TEST-GB-004",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V005",
+                  "value": "TEST-GB-004",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-GB-004",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V005",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000005",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A005",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "30 Fixture Road",
+                "city": "Leeds",
+                "country": "GB",
+                "legal_name": "Orbit Industrial Limited",
+                "parent_source_key": null,
+                "postal_code": "LS1 1AA",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-GB-004"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V005",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "30 Fixture Road",
+                "city": "Leeds",
+                "country": "GB",
+                "legal_name": "Orbit Industrial Ltd",
+                "parent_source_key": null,
+                "postal_code": "LS1 1AA",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-GB-004"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "30 Fixture Road",
+            "city": "Leeds",
+            "country": "GB",
+            "legal_name": "Orbit Industrial Ltd",
+            "parent_source_key": null,
+            "postal_code": "LS1 1AA",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-GB-004"
+          }
+        },
+        {
+          "fields": [
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "40 Fixture Road",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "40 Fixture Road",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "address_line1",
+              "reason": "source_priority",
+              "value": "40 Fixture Road",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "Leeds",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "Leeds",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "city",
+              "reason": "source_priority",
+              "value": "Leeds",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "GB",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "GB",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "country",
+              "reason": "source_priority",
+              "value": "GB",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "Harbour Industrial",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "Harbor Industrial Ltd",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "legal_name",
+              "reason": "source_priority",
+              "value": "Harbor Industrial Ltd",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": "null",
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": null,
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "parent_source_key",
+              "reason": "no_eligible_value",
+              "value": null,
+              "winner_source_id": null,
+              "winner_source_key": null,
+              "winner_version": null
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "LS1 1AA",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "LS1 1AA",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "postal_code",
+              "reason": "source_priority",
+              "value": "LS1 1AA",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "legal_company",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": false,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "record_kind",
+              "reason": "source_priority",
+              "value": "legal_company",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            },
+            {
+              "alternatives": [
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "crm_account",
+                  "source_key": "A006",
+                  "value": "TEST-GB-004",
+                  "verified": true,
+                  "version": 1
+                },
+                {
+                  "excluded": null,
+                  "quality": 90,
+                  "source_id": "erp_vendor",
+                  "source_key": "V006",
+                  "value": "TEST-GB-005",
+                  "verified": true,
+                  "version": 1
+                }
+              ],
+              "approved_by": null,
+              "conflicting_values": true,
+              "decision_id": null,
+              "decision_reason": null,
+              "name": "registration_id",
+              "reason": "source_priority",
+              "value": "TEST-GB-005",
+              "winner_source_id": "erp_vendor",
+              "winner_source_key": "V006",
+              "winner_version": 1
+            }
+          ],
+          "identity_revision": 1,
+          "master_id": "00000000-0000-0000-0000-000000000006",
+          "policy_id": "company_scalar",
+          "policy_sha256": "25b7e200592df1db7ad6621e5c98697589fbf939762f7967640ac62f49f92cf4",
+          "policy_version": 1,
+          "revision": 1,
+          "sources": [
+            {
+              "deleted": false,
+              "source_id": "crm_account",
+              "source_key": "A006",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "40 Fixture Road",
+                "city": "Leeds",
+                "country": "GB",
+                "legal_name": "Harbour Industrial",
+                "parent_source_key": null,
+                "postal_code": "LS1 1AA",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-GB-004"
+              },
+              "version": 1
+            },
+            {
+              "deleted": false,
+              "source_id": "erp_vendor",
+              "source_key": "V006",
+              "updated_at": "2026-09-20T00:00:00+00:00",
+              "values": {
+                "address_line1": "40 Fixture Road",
+                "city": "Leeds",
+                "country": "GB",
+                "legal_name": "Harbor Industrial Ltd",
+                "parent_source_key": null,
+                "postal_code": "LS1 1AA",
+                "record_kind": "legal_company",
+                "registration_id": "TEST-GB-005"
+              },
+              "version": 1
+            }
+          ],
+          "values": {
+            "address_line1": "40 Fixture Road",
+            "city": "Leeds",
+            "country": "GB",
+            "legal_name": "Harbor Industrial Ltd",
+            "parent_source_key": null,
+            "postal_code": "LS1 1AA",
+            "record_kind": "legal_company",
+            "registration_id": "TEST-GB-005"
+          }
+        }
+      ],
+      "publication_id": "second",
+      "snapshot_sha256": "7613c948a6e69b74c62748b7cd763b5c85abfdde9a434c9f5c7eae6e20a15fed"
+    }
+  ],
+  "schema_version": 1
+}

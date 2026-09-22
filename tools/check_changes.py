@@ -77,6 +77,7 @@ def main():
                         "tests/test_mastering_identity_contract.py",
                         "tests/test_mastering_survivorship.py",
                         "tests/test_mastering_lineage.py", "tests/test_publication.py",
+                        "tests/test_mastering_match_evidence.py",
                         "tests/test_config.py"]))
     if args.all or any(n.startswith(("src/lakematch/mastering/registry", "src/lakematch/mastering/execution",
                                      "src/lakematch/mastering/identity",
@@ -96,6 +97,12 @@ def main():
     if args.all or any(n.startswith(("deployment/assets/", "tools/restore_frozen_inputs.py")) or
                       n == "tests/test_deployment_recovery.py" for n in contents):
         checks.append((ROOT / ".venv/bin/python", ROOT, ["tests/test_deployment_recovery.py"]))
+    if args.all or any(n.startswith(("app/src/lakematch_review/demo/", "tools/build_golden_demo",
+                                     "tools/lakefusion_lineage_fixture", "tools/lakefusion_survivorship_fixture",
+                                     "src/lakematch/mastering/lineage", "src/lakematch/mastering/survivorship",
+                                     "examples/mastering/company_pilot/")) for n in contents):
+        subprocess.run([str(ROOT / ".venv/bin/python"), "tools/build_golden_demo.py", "--check"],
+                       cwd=ROOT, check=True, timeout=120)
     for python, cwd, tests in checks:
         if not python.exists():
             raise SystemExit(f"Missing {python}; prepare the documented project environment before committing.")

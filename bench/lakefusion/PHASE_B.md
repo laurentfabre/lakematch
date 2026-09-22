@@ -285,3 +285,50 @@ reconciliation. LM-014 matching/decision foundations and the golden-record UI
 remain Phase B work. This exhausts the phase's experiment cap; further experiments
 need a revised bound. Final-source hashes and all frozen Phase A files are
 verified. GitHub publishing remains pending the repository visibility decision.
+
+## LM-014 foundations and first APX preview — 2026-09-22
+
+Development continued under the exhausted experiment cap, following the
+[bounded development plan](MATCH_EVIDENCE_PLAN.md). **No new experiment ran;
+LF-B remains 8/8.** LM-014 is now in progress. The Phase B checkboxes remain open
+pending calibrated bands and the next authorized acceptance run.
+
+The [comparison contract](../../spec/lakefusion/MATCH_EVIDENCE.md) pins domain,
+mapping, normalization, Unicode and implementation versions. It preserves actual
+mapped values, absent/invalid states, field agreements, source hashes and rule
+precedence. Identifier conflicts, incompatible granularity and self-comparison
+are explicit. Eligible suggestions route to review and expose no probability or
+automatic-merge authority. This is separate from the v1 engine; rule registry
+approval, model/calibrator integration, quality evidence and comparison UI
+integration remain open.
+
+The APX **Golden records** tab uses a packaged export of the existing synthetic
+fixture and provenance transforms. It displays six companies, two publications,
+all eight fields per company, source alternatives, approved name edits, deleted
+sources and policy/publication references. The app reads bounded JSON under
+`/api/demo/`; it never imports the Python 3.12 engine into the Python 3.11 app.
+The synthetic demo has no customer-data adapter and does not fetch or seed the
+review store. It is not a completed LM-010 workflow or a live-authorization gate.
+
+Observed development checks:
+
+- **206 portable checks pass**, including 36 new comparison cases and existing
+  mastering/publication/configuration/hygiene compatibility.
+- **19 app checks pass**, including six demo API/packaging cases. An initial
+  assertion used the wrong fixture company name; its expectation was corrected.
+- APX Python/TypeScript checks and the pinned production build pass. APX's check
+  command refreshed two router-development dependency pins; those incidental
+  changes were restored, and final direct type checks use the original lockfile.
+  Four deployment files, largest **156,717 bytes**; synthetic JSON is in the wheel.
+- [Final desktop/mobile preview](../../reports/lakefusion-ui-20260922-final/README.md)
+  passes with no page errors or horizontal overflow, showing an earlier
+  publication and source deletion. The initial selector-label failure is retained.
+  Owned preview servers and temporary databases were cleaned up.
+- All **15 frozen Phase A files** retain their checksums. No model training,
+  development/validation corpus evaluation, confirmation materialization, AI
+  call, remote experiment or workspace deployment occurred.
+
+These checks support a development increment, not calibrated quality, a remote
+acceptance result or phase closure. The [proposed four-slot extension](NEXT_EXPERIMENTS.md)
+is pending authorization. GitHub still reports `laurentfabre/lakematch` as public;
+publishing remains pending the §2 private-repository requirement's resolution.

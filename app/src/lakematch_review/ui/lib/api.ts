@@ -13,6 +13,73 @@ export class ApiError extends Error {
         this.body = body;
     }
 }
+export type DemoAlternativeOut = {
+    excluded: string | null;
+    quality: number | null;
+    source_id: string;
+    source_key: string;
+    value: string | null;
+    verified: boolean | null;
+    version: number;
+} & {
+};
+export type DemoCatalogOut = {
+    companies: DemoCompanyOut[];
+    default_master_id: string;
+    kind?: "synthetic_company_demo";
+    publications: ("first" | "second")[];
+} & {
+};
+export type DemoCompanyOut = {
+    country: string;
+    legal_name: string;
+    master_id: string;
+} & {
+};
+export type DemoDetailOut = {
+    as_of: string;
+    entity: DemoEntityOut;
+    kind?: "synthetic_company_demo";
+    membership_basis?: "synthetic_fixture_truth";
+    publication_id: "first" | "second";
+    snapshot_sha256: string;
+} & {
+};
+export type DemoEntityOut = {
+    fields: DemoFieldOut[];
+    identity_revision: number;
+    master_id: string;
+    policy_id: string;
+    policy_sha256: string;
+    policy_version: number;
+    revision: number;
+    sources: DemoSourceOut[];
+    values: Record<string, string | null>;
+} & {
+};
+export type DemoFieldOut = {
+    alternatives: DemoAlternativeOut[];
+    approved_by: string | null;
+    conflicting_values: boolean;
+    decision_id: string | null;
+    decision_reason: string | null;
+    name: string;
+    reason: string;
+    value: string | null;
+    winner_source_id: string | null;
+    winner_source_key: string | null;
+    winner_version: number | null;
+} & {
+};
+export type DemoSourceOut = {
+    deleted: boolean;
+    source_id: string;
+    source_key: string;
+    updated_at: string;
+    values: Record<string, string | null>;
+    version: number;
+} & {
+};
 export interface EvaluationOut {
     context: string;
     model_version: string;
@@ -86,6 +153,180 @@ export interface ValidationError {
     loc: (string | number)[];
     msg: string;
     type: string;
+}
+export interface GoldenDemoCatalogParams {
+    "X-Forwarded-Host"?: string | null;
+    "X-Forwarded-Preferred-Username"?: string | null;
+    "X-Forwarded-User"?: string | null;
+    "X-Forwarded-Email"?: string | null;
+    "X-Request-Id"?: string | null;
+    "X-Forwarded-Access-Token"?: string | null;
+}
+export const goldenDemoCatalog = async (params?: GoldenDemoCatalogParams, options?: RequestInit): Promise<{
+    data: DemoCatalogOut;
+}> =>{
+    const res = await fetch("/api/demo/golden-records", {
+        ...options,
+        method: "GET",
+        headers: {
+            ...(params?.["X-Forwarded-Host"] != null && {
+                "X-Forwarded-Host": params["X-Forwarded-Host"]
+            }),
+            ...(params?.["X-Forwarded-Preferred-Username"] != null && {
+                "X-Forwarded-Preferred-Username": params["X-Forwarded-Preferred-Username"]
+            }),
+            ...(params?.["X-Forwarded-User"] != null && {
+                "X-Forwarded-User": params["X-Forwarded-User"]
+            }),
+            ...(params?.["X-Forwarded-Email"] != null && {
+                "X-Forwarded-Email": params["X-Forwarded-Email"]
+            }),
+            ...(params?.["X-Request-Id"] != null && {
+                "X-Request-Id": params["X-Request-Id"]
+            }),
+            ...(params?.["X-Forwarded-Access-Token"] != null && {
+                "X-Forwarded-Access-Token": params["X-Forwarded-Access-Token"]
+            }),
+            ...options?.headers
+        }
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const goldenDemoCatalogKey = (params?: GoldenDemoCatalogParams)=>{
+    return [
+        "/api/demo/golden-records",
+        params
+    ] as const;
+};
+export function useGoldenDemoCatalog<TData = {
+    data: DemoCatalogOut;
+}>(options?: {
+    params?: GoldenDemoCatalogParams;
+    query?: Omit<UseQueryOptions<{
+        data: DemoCatalogOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: goldenDemoCatalogKey(options?.params),
+        queryFn: ()=>goldenDemoCatalog(options?.params),
+        ...options?.query
+    });
+}
+export function useGoldenDemoCatalogSuspense<TData = {
+    data: DemoCatalogOut;
+}>(options?: {
+    params?: GoldenDemoCatalogParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: DemoCatalogOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: goldenDemoCatalogKey(options?.params),
+        queryFn: ()=>goldenDemoCatalog(options?.params),
+        ...options?.query
+    });
+}
+export interface GoldenDemoDetailParams {
+    master_id: string;
+    publication?: "first" | "second";
+    "X-Forwarded-Host"?: string | null;
+    "X-Forwarded-Preferred-Username"?: string | null;
+    "X-Forwarded-User"?: string | null;
+    "X-Forwarded-Email"?: string | null;
+    "X-Request-Id"?: string | null;
+    "X-Forwarded-Access-Token"?: string | null;
+}
+export const goldenDemoDetail = async (params: GoldenDemoDetailParams, options?: RequestInit): Promise<{
+    data: DemoDetailOut;
+}> =>{
+    const searchParams = new URLSearchParams();
+    if (params?.publication != null) searchParams.set("publication", String(params?.publication));
+    const queryString = searchParams.toString();
+    const url = queryString ? `/api/demo/golden-records/${params.master_id}?${queryString}` : `/api/demo/golden-records/${params.master_id}`;
+    const res = await fetch(url, {
+        ...options,
+        method: "GET",
+        headers: {
+            ...(params?.["X-Forwarded-Host"] != null && {
+                "X-Forwarded-Host": params["X-Forwarded-Host"]
+            }),
+            ...(params?.["X-Forwarded-Preferred-Username"] != null && {
+                "X-Forwarded-Preferred-Username": params["X-Forwarded-Preferred-Username"]
+            }),
+            ...(params?.["X-Forwarded-User"] != null && {
+                "X-Forwarded-User": params["X-Forwarded-User"]
+            }),
+            ...(params?.["X-Forwarded-Email"] != null && {
+                "X-Forwarded-Email": params["X-Forwarded-Email"]
+            }),
+            ...(params?.["X-Request-Id"] != null && {
+                "X-Request-Id": params["X-Request-Id"]
+            }),
+            ...(params?.["X-Forwarded-Access-Token"] != null && {
+                "X-Forwarded-Access-Token": params["X-Forwarded-Access-Token"]
+            }),
+            ...options?.headers
+        }
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const goldenDemoDetailKey = (params?: GoldenDemoDetailParams)=>{
+    return [
+        "/api/demo/golden-records/{master_id}",
+        params
+    ] as const;
+};
+export function useGoldenDemoDetail<TData = {
+    data: DemoDetailOut;
+}>(options: {
+    params: GoldenDemoDetailParams;
+    query?: Omit<UseQueryOptions<{
+        data: DemoDetailOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: goldenDemoDetailKey(options.params),
+        queryFn: ()=>goldenDemoDetail(options.params),
+        ...options?.query
+    });
+}
+export function useGoldenDemoDetailSuspense<TData = {
+    data: DemoDetailOut;
+}>(options: {
+    params: GoldenDemoDetailParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: DemoDetailOut;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: goldenDemoDetailKey(options.params),
+        queryFn: ()=>goldenDemoDetail(options.params),
+        ...options?.query
+    });
 }
 export interface ReviewQueueParams {
     limit?: number;
