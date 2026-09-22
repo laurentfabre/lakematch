@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A complete; LF-B in progress (11/12 experiments)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C next**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -130,7 +130,7 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 | Phase | Deliverable | Entry dependency | Indicative timing | Status | Acceptance evidence |
 |---|---|---|---|---|---|
 | LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Done | [Frozen contracts, capability evidence and limits](bench/lakefusion/PHASE_A.md) |
-| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | In progress | [Candidates, identity, survivorship and published provenance](bench/lakefusion/PHASE_B.md) |
+| LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | Done | [Candidates, identity, provenance, calibrated worker suggestions and synthetic UI](bench/lakefusion/PHASE_B.md) |
 | LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | Not started | None yet |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
 | LF-E | PIM catalog and editorial workflows | LF-C plus LF-D reference/nested contracts | Weeks 19–30 | Not started | None yet |
@@ -261,7 +261,7 @@ Deliverables:
   watermark rechecks, authorization, outbox delivery and UI remain open. LF-B
   used all eight originally authorized slots. LF-DEC-005 subsequently raised
   the total phase limit to twelve.
-- [ ] Version deterministic match rules, develop calibrated decision bands,
+- [x] Version deterministic match rules, develop calibrated decision bands,
   and show actual field comparisons before adding model-specific explanations.
   [Worker comparison foundation](spec/lakefusion/MATCH_EVIDENCE.md) implemented:
   36 new portable checks pass, with pinned rules and actual values. All eligible
@@ -271,13 +271,17 @@ Deliverables:
   now displays actual/normalized values, conflicts and exclusions for twelve
   source pairs, with explicit origin and no model score. **301 portable and 25
   app checks pass**; type/build and desktop/mobile development checks pass.
-  Empirical calibration, registry promotion, live comparison integration and
-  matching-quality acceptance remain open. The [slot-11 calibration evaluation](bench/lakefusion/calibration-20260922.json)
+  The [slot-11 calibration evaluation](bench/lakefusion/calibration-20260922.json)
   fits one fixed model on 4,000 families and a Platt transform on 2,000 disjoint
   families. Validation proposes 3,400 correct accepts, zero observed errors and
   600 unresolved anchors; the adjusted family-audit lower bound is 99.747%.
-  Automatic execution stays disabled. LF-B uses **11/12** slots; the
-  [committed frozen replay](bench/lakefusion/CALIBRATION_REPLAY_PLAN.md) is next.
+  The [slot-12 frozen replay](bench/lakefusion/calibration-replay-20260922.json)
+  reproduces every validation score, band and metric without fitting or selection.
+  [Results and limitations](reports/lakefusion-calibration-20260922/README.md)
+  retain 320 portable checks, 95% retrieval recall and unachieved confirmation.
+  Automatic execution stays disabled. LF-B uses **12/12** slots; registry
+  promotion, live score integration and full matching-quality qualification
+  remain LM-014 work in later phases.
 - [x] Deliver the first APX golden-record detail view using the synthetic slice.
   [Fresh-package APX acceptance](reports/lakefusion-ui-acceptance-20260922-final/README.md)
   passes from source `938fe86`:
@@ -294,6 +298,14 @@ value resolves to source versions and a policy/override. Candidate coverage meet
 the frozen Phase A gate, with losses and budgets reported separately from scoring.
 Existing frozen replay contracts remain intact. Complete LM-002–006 and record
 the remaining operational work for LM-007/009/014.
+
+**Exit disposition, 2026-09-22:** passed for the declared internal worker and
+synthetic UI foundations. All Phase B deliverables and LM-002–006 have evidence.
+The UI result is reused with its exact source revision and the root optional-extra
+compatibility review in the [final report](reports/lakefusion-calibration-20260922/README.md).
+LM-007 transactional tasks, LM-009 outbox/reconciliation and LM-014 confirmation,
+policy approval and live integration remain in progress. This phase disposition
+does not qualify automatic merges or complete the governed MDM pilot.
 
 ## § 6 — Phase C: governed MDM pilot
 
@@ -524,6 +536,7 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: extension and public publication approved | Laurent explicitly selected “raise it to 12” and “change to public”. [LF-DEC-005/006](spec/lakefusion/EXECUTION_DECISIONS.md) authorize LF-B 8/12 and publication to the existing public GitHub repository. Earlier protocol bytes and eight consumed runs remain unchanged. | Push completed commits through managed hooks, then execute slot 9's bounded APX acceptance plan. Calibration and quality gates remain open. |
 | 2026-09-22: public push and first packaged UI attempt | Ten pending commits were pushed to public GitHub through `ed38a6d` using the verified `laurentfabre` account. Slot 9's fresh build/types pass, but the harness rejects a normal wheel member because `/var` and `/private/var` paths are compared before canonicalizing the root. [Failure retained](experiments/20260922T182532Z-lf-b-packaged-ui-d838a1/manifest.json); owned cleanup passes. LF-B 9/12. | Use the single reserved follow-up as slot 10 with the canonical-root fix; move initial model/calibration evaluation to slot 11. No acceptance gate closed. |
 | 2026-09-22: fresh-package APX view accepted | Slot 10 passes from source `938fe86`: fresh wheel imports, 25 app tests, pinned build/types and desktop/mobile flows including comparisons, keyboard access and error recovery. [Evidence](reports/lakefusion-ui-acceptance-20260922-final/README.md). Owned cleanup and all source/frozen checks pass. The synthetic detail-view checkbox closes; LF-B remains in progress at 10/12. | Prepare and commit the explicit model/features, disjoint fitting/calibration/validation families and finite threshold-selection plan before slot 11. Slot 12 remains reserved for frozen validation. No model-quality gate is yet achieved. |
+| 2026-09-22: calibrated suggestions and exact validation replay | Slots 11/12 pass under committed plans: 4,000 fitting, 2,000 calibration and 2,000 validation families; 3,400 correct proposed accepts, zero observed errors, 99.747% selection-adjusted audit lower bound. All 8,552 validation candidates/scores/metrics replay exactly. [Evidence](reports/lakefusion-calibration-20260922/README.md). 320 portable checks pass; 15 frozen files preserved; owned cleanup passes. LF-B closes at 12/12 for its bounded foundations; LM-014 stays in progress. | LF-C/LM-007: transactional task claims, leases, revisions and immutable command receipts, followed by authorization and publication recovery. Confirmation and production decision approval remain later gates; no further LF-B experiments are available. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

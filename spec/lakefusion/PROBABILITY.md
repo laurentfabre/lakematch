@@ -1,15 +1,20 @@
 # Probability and decision-band previews — LM-014
 
-Status: **local development foundation; unqualified for automatic decisions**.
+Status: **synthetic model/calibration evaluation and exact replay complete;
+unqualified for automatic decisions**.
 The worker can apply an explicitly supplied probability transform and describe
 reject/review/accept bands for one scored comparison. Every eligible result still
-routes to review. No pilot model or calibrator was fitted, no production threshold
-was selected, and no matching-quality gate passed in this increment.
+routes to review. The [separate fixed evaluator](../../reports/lakefusion-calibration-20260922/README.md)
+has now fitted a model and calibration on disjoint development families and
+selected validation bands. No production threshold was approved; confirmation
+and live integration remain open.
 
 This extends the [actual-value comparison contract](MATCH_EVIDENCE.md) without
 changing the existing Spark engine, historical models or v1 configuration.
-LF-B remains **8/8 experiments**. The [development plan](../../bench/lakefusion/PROBABILITY_PLAN.md)
-and [check evidence](../../bench/lakefusion/PHASE_B.md) describe the permitted scope.
+LF-B is complete at **12/12 experiments** for its declared foundations. The
+[original development plan](../../bench/lakefusion/PROBABILITY_PLAN.md) describes
+the unfitted helper increment; the [calibration plan](../../bench/lakefusion/CALIBRATION_PLAN.md)
+and [check evidence](../../bench/lakefusion/PHASE_B.md) record subsequent evaluation.
 
 ## Contracts and binding
 
@@ -145,14 +150,19 @@ and family-dependence requirements. The helper has no promotion authority.
 | Reliability bins | 2–20 equal-width bins |
 | Precision observations | 0–10,000 integer trials; at most 64 inversion steps |
 
-All operations are in-process and have no database, model-loader or service
-dependency. The definitions have no registry approval, authenticated API,
-calibration fitter, threshold selector, campaign evaluator or promotion path.
-Automatic merge execution is absent. Model/feature parity, calibration on declared
-splits, matching-quality acceptance, live comparison UI, model-specific explanation
-fidelity and workflow authorization remain open LM-014/integration work.
+These probability helpers are in-process and have no database, model-loader or
+service dependency. The definitions have no registry approval, authenticated API
+or promotion path. The separate `company_score` and `benchmark.company_calibration`
+modules provide fixed feature/JSON model inference, fitting and grouped evaluation
+through the bounded `tools/lakefusion_calibration.py` runner. The saved model,
+calibrator and bands are tied to actual input files and executed candidate
+populations. Scalar and NumPy inference agree within 4.45e-16; validation replays
+exactly. Automatic merge execution is absent. Untouched confirmation, general
+matching quality, live score UI, model-specific explanation fidelity and workflow
+authorization remain open LM-014/integration work.
 The synthetic APX comparison display is documented in [MATCH_EVIDENCE.md](MATCH_EVIDENCE.md);
 it carries no model score or probability-band output.
 The [approved experiment extension](../../bench/lakefusion/NEXT_EXPERIMENTS.md)
-raises LF-B's total cap to twelve under LF-DEC-005. Calibration still requires a
-committed feature/model/partition and threshold-selection plan before evaluation.
+raised LF-B's total cap to twelve under LF-DEC-005; all twelve are consumed.
+Further quality work requires an appropriate new phase/run plan and must preserve
+the unused confirmation partition.

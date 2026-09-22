@@ -1,13 +1,14 @@
 # LF-B checkpoint — updated 22 September 2026
 
-**Phase B is in progress: 11/12 experiment slots consumed.** The extension and
+**Phase B is complete for its declared foundations: 12/12 experiment slots consumed.** The extension and
 public repository publication were approved in
 [LF-DEC-005/006](../../spec/lakefusion/EXECUTION_DECISIONS.md). Phase A and LM-001 are
 complete at commit `96edbf8`. LM-002–006 now provide bounded company candidate
 retrieval, an approved registry, persistent identities, scalar survivorship and
 immutable provenance snapshots. Existing
 Spark v1 configuration and frozen replay contracts remain unchanged. A new
-classifier and the corresponding app flow are pending.
+classifier and calibrator now pass synthetic validation selection and exact
+replay. Live model integration and approved automatic decisions remain pending.
 
 ## Candidate comparison
 
@@ -59,10 +60,13 @@ general customer data, merge precision, online latency or Spark scalability.
 ## Next work
 
 LM-002–006 are complete for the declared bounded internal worker contracts.
-Slot 11 completed the fixed model/calibration evaluation with a passing synthetic
-validation selection. The golden-record view passed fresh-package acceptance in
-slot 10. One iteration remains for the [frozen validation replay](CALIBRATION_REPLAY_PLAN.md).
-Confirmation and production decision approval remain open.
+Slots 11/12 completed the fixed model/calibration evaluation and exact frozen
+validation replay. The golden-record view passed fresh-package acceptance in
+slot 10, reused with a documented root optional-dependency compatibility review.
+[The final report](../../reports/lakefusion-calibration-20260922/README.md) records
+the bounded phase exit and remaining work. Phase C begins with transactional
+tasks/commands in LM-007, followed by authorization and publication recovery.
+LM-014 remains in progress; confirmation and production decision approval stay open.
 Later remote/application gates listed in the Phase A freeze remain mandatory.
 
 ## Durable registry and exact job replay — 22 September
@@ -478,3 +482,39 @@ LF-B and LM-014 remain in progress at **10/12**. The reserved follow-up is now
 consumed. Slots 11 and 12 remain for the initial model/calibration evaluation and
 frozen validation under committed plans. Live data, domain/field authorization,
 transactional stewardship, deployed app acceptance and LM-010 remain later gates.
+
+## Slots 11/12 — calibrated worker suggestions and exact replay
+
+The [predeclared fixed model plan](CALIBRATION_PLAN.md) was committed at
+`785b0ca` before source evaluation. Fit on 4,000 development families using
+48,000 sampled pairs; calibrate on the complete candidate population of 2,000
+other development families. Both endpoints of fitting negatives stay in fitting
+families. The original 2,000 validation families select bands; confirmation
+remains unmaterialized. Eleven actual-value features exclude routing and truth.
+
+The [slot-11 report](calibration-20260922.json) records 8,552 validation candidates,
+95% retrieval recall, 3,400 correct proposed accepts, zero observed incorrect
+accepts, zero rejected true matches and 600 unresolved anchors. The latter are
+400 identifier/country conflicts and all 200 combined-error retrieval misses.
+Selected reject/accept boundaries are 0.1/0.9 after deterministic vetoes and
+one-to-one ambiguity checks. The family-disjoint audit has 1,952 correct decisions:
+99.8466% nominal lower 95% bound, **99.7472% after seven-threshold selection
+adjustment**. This is the audit's sampling population, not pair-weighted accuracy.
+Validation Brier improves from 0.009266 to 0.000601; calibration error from
+0.028040 to 0.003591. Bootstrap intervals and all strata remain in the report.
+
+The model, source and selected result were committed with their immutable replay
+freeze at `06bfcfe`. [Slot 12](calibration-replay-20260922.json) reproduces every
+validation candidate, score, band and metric exactly, with no fitting or threshold
+search. The two outer runs took 19.18 and 9.16 seconds, at 267.4 and 132.6 MiB
+main-process peak RSS. Cleanup passed; no remote resources were started. The
+source commit hooks passed 320 portable checks, including 19 new calibration
+tests; all fifteen frozen Phase A files remain unchanged.
+
+[The final report](../../reports/lakefusion-calibration-20260922/README.md) contains
+the human-readable interpretation, current app screenshot and UI evidence reuse
+review. LF-B exits at **12/12** for its declared internal worker and synthetic UI
+foundations. LM-014 stays in progress: this reused validation is not confirmation,
+no policy is approved for production, every actual worker route remains review,
+and live score integration, customer quality and explanation fidelity are open.
+LM-007 tasks/commands and LM-009 operational publication recovery are Phase C work.

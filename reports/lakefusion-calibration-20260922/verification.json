@@ -1,0 +1,65 @@
+{
+  "kind": "read_only_post_run_verification",
+  "source_commit": "06bfcfeb3120bad8da8000125d7db2776db0d820",
+  "lf_b_runs_consumed": 12,
+  "phase_limit": 12,
+  "validation_equal": true,
+  "validation_sha256": "2c9b1c243c1fd79e7516b1d2b2f3db0ea897c4611b725633ca16be2833497999",
+  "frozen_phase_a_files_verified": 15,
+  "calibration_input_files_verified": 36,
+  "local_markdown_links_checked": 179,
+  "package_statuses_consistent": 25,
+  "confirmation_materialized": false,
+  "frozen_inputs": {
+    "spec/lakefusion/frozen/protocol-v0.1-approved.md": "36e2b61cc0014c30ba0c736d8c0387724d7e40bcf67343905533276009d480e0",
+    "spec/lakefusion/PROTOCOL.md": "15c73bba64afb3cf231597e5e92ce40e71a4caa4895b0d451250e84019af39d2",
+    "spec/lakefusion/DECISIONS.md": "7087ecab297c4a1dd591b6b900374f13bec75fd31df337b6079ecbb49c41b6a4",
+    "spec/lakefusion/PHASE_A.md": "498c921ab17caa8e3e74be56773f1a9171645044456dda0afb387de927003a44",
+    "spec/lakefusion/GENERATOR.md": "085db45c261c4031c240dd8adc983178e4b35dd4a458528c7ab6db36607537b1",
+    "src/lakematch/mastering/contracts.py": "48526bc39f3a5f8e41bd4ef3cae1f27c3271679081c3fb5daf0fa49cd9dd7925",
+    "src/lakematch/mastering/policy.py": "a71c646ff9c3ca9b7dc19507739eee3e1e8c41961d54013072716c520815c3ba",
+    "app/migrations/mastering/0001_control.sql": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+    "src/lakematch/benchmark/company_pilot.py": "5f752722026322b1458c0c6db753d445b7e4920903a7ebafe375af5f9179ff02",
+    "bench/lakefusion/company-pilot-v0.1.json": "9b41248914cfea70956d52ab5768245b79e6b29b43b652b7203cb9855e786436",
+    "examples/mastering/company_pilot/crm_account_mapping.json": "debd01efb04d93c2399a68497d7d63c70c93969df998f3abe0dace1b50420efc",
+    "examples/mastering/company_pilot/domain.json": "0ca276da3a037118dcee6ba643f7b185df0448c2cb90c4c1a4284a17f132d780",
+    "examples/mastering/company_pilot/erp_vendor_mapping.json": "b8180d509d05410860f37bec5f9fa450e8bcdef0389f02fc8bd4e168881465ff",
+    "examples/mastering/company_pilot/fixture.json": "5a1b785a3ddc192b0b4c8f7c17ab85021a035e51bd382b0277a8f2f2fcc94840",
+    "examples/mastering/company_pilot/manifest.json": "58d329e19f7e2c21a85798b2cf44e5e6f58016c5626ff54d08afd02f4cbe6489"
+  },
+  "preserved_scanner_reports": {
+    "reports/findings.json": {
+      "sha256": "1330b75048cf88d6e615a512b6fccc93575872e99c07510f3be112a5a9ffbe29"
+    },
+    "reports/findings.md": {
+      "sha256": "e54dfed5f111088f5b9ca4b8d80c2f80580ffc1129958ec509195ab544d129ab"
+    },
+    "reports/online/findings.json": {
+      "sha256": "ff653d5854649889bc68e67ce215749b60491eefcf5e7ac8d8e8608186e9d11c"
+    },
+    "reports/online/findings.md": {
+      "sha256": "00ee8f874fbd74121e21405e42d100c4359a2daf4f62ada73c63538cf083455d"
+    }
+  },
+  "ui_evidence_reuse": {
+    "source_commit": "938fe86",
+    "unchanged_pins": 88,
+    "total_pins": 89,
+    "changed_path": "pyproject.toml",
+    "original_sha256": "18ffa357735c40996f87fe41f96ccf596fb6a01c425dadd98f6b9428448f7335",
+    "current_sha256": "69c96ce6f12c35a1861de0d58bdc2d556c3f8a952f5f22806319de9075079990",
+    "only_delta": "Added optional calibration extra with NumPy 2.5.3 and SciPy 1.18.1; these versions already exist in unchanged root lock",
+    "app_runtime_source_and_locks_changed": false,
+    "new_ui_acceptance_claim": false
+  },
+  "evidence_hashes": {
+    "bench/lakefusion/calibration-20260922.json": "51a999aff97d997f0d0b126c5275fc0a11ebc361aa315ff1249e99a2000250a6",
+    "bench/lakefusion/calibration-replay-20260922.json": "faea2eba1459911f7372043cacf296493129b04b021f6daf2780af7eeaffb1eb",
+    "bench/lakefusion/calibrated-model-v1.json": "35b67e19051a9429c01d9c96d7b50bc8e99856c123b49b6abf90f2f20aaa9259",
+    "bench/lakefusion/calibration-inputs-v1.json": "f6c1ba52b5af046b81bde1b802b8a000f8e8137cf3af0032f894c2af03edcdc5",
+    "bench/lakefusion/calibration-replay-freeze-v1.json": "bf7355c861fc11bcf13a0e11ebe8147c97eac2d5d38e6f0c87209d5ce1cf9889"
+  },
+  "prior_selected_retrieval_pair_and_method_equality": 8552,
+  "automatic_execution_enabled": false,
+  "phase_disposition": "LF-B declared worker/synthetic UI foundations complete; LM-014 still in progress"
+}

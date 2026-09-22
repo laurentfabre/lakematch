@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "phase": "LF-B",
+  "slot": 12,
+  "expected_prior_runs": 11,
+  "source_experiment": "20260922T185559Z-lf-b-calibration-053b3f",
+  "source_commit": "785b0ca066f124fdc87d168f80aee7bd79bded66",
+  "report": "bench/lakefusion/calibration-20260922.json",
+  "report_sha256": "51a999aff97d997f0d0b126c5275fc0a11ebc361aa315ff1249e99a2000250a6",
+  "model": "bench/lakefusion/calibrated-model-v1.json",
+  "model_sha256": "35b67e19051a9429c01d9c96d7b50bc8e99856c123b49b6abf90f2f20aaa9259",
+  "config": "bench/lakefusion/calibration-inputs-v1.json",
+  "config_sha256": "f6c1ba52b5af046b81bde1b802b8a000f8e8137cf3af0032f894c2af03edcdc5",
+  "validation_sha256": "2c9b1c243c1fd79e7516b1d2b2f3db0ea897c4611b725633ca16be2833497999",
+  "allow_fitting": false,
+  "allow_threshold_selection": false,
+  "confirmation_materialized": false,
+  "timeout_seconds": 900,
+  "memory_limit_bytes": 4294967296,
+  "claim": "Exact validation replay only; no independent confirmation or production approval"
+}

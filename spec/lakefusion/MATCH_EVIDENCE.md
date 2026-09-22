@@ -1,9 +1,10 @@
 # Company comparison evidence — LM-014 foundation
 
 Status: **local development foundation; unqualified for automatic decisions**.
-LF-B remains at 8/8 experiments. No new corpus evaluation, calibration or model
-training was performed for this increment. The existing Spark feature, matcher,
-decision, configuration and historical model contracts are unchanged.
+The comparator increment performed no fitting or corpus evaluation. The later
+[fixed model/calibration evaluation and exact replay](../../reports/lakefusion-calibration-20260922/README.md)
+completed LF-B's declared foundations at 12/12. The existing Spark feature,
+matcher, decision, configuration and historical model contracts are unchanged.
 
 `mastering.match_contract.MatchRuleset` pins the legal-company domain, source
 mapping versions/digests, comparison implementation, Unicode database,
@@ -106,8 +107,9 @@ and unavailable comparisons. It shows identifier conflicts, deleted sources,
 historical snapshots and all triggered rule reasons. Every score is explicitly
 absent. Memberships are predefined; there is no merge action, candidate discovery
 or model-quality claim. [Screenshots and development evidence](../../reports/lakefusion-comparison-ui-20260922/README.md)
-retain the observed behavior. Live adapters, domain grants and full acceptance
-remain separate gates.
+retain the observed behavior. The [fresh-package acceptance](../../reports/lakefusion-ui-acceptance-20260922-final/README.md)
+subsequently passed for this synthetic view. Live adapters, domain grants and
+deployed acceptance remain separate gates.
 
 ## Remaining decision-band work
 
@@ -118,17 +120,19 @@ boundaries, preserves conflict vetoes and keeps every eligible result in review.
 Analytical Brier/reliability and precision-bound helpers are implemented. These
 contracts do not establish score origin, complete populations or fitted quality.
 
-There are still no active production thresholds. Fit the calibrator without
-confirmation exposure and choose thresholds from the approved error/precision
-contract. Report Brier score, reliability bins, precision bounds, acceptance
-coverage, rejected positives and review burden on the declared populations;
-no universal 0.5 default is implied.
+There are still no active production thresholds. The subsequent
+[calibration evaluation](../../reports/lakefusion-calibration-20260922/README.md)
+fitted disjoint development populations and selected synthetic validation bands,
+with Brier/reliability, selection-adjusted precision bounds, coverage, rejected
+positives and review burden. Its exact replay used no fitting or threshold search.
+The selected 0.1/0.9 boundaries are frozen-model artifacts, not product defaults.
 
 The [protocol](PROTOCOL.md) still requires a one-sided 95% precision lower bound
 of at least 99.5% with independent family sampling. Candidate misses remain false
 negatives. Model-specific explanations and their fidelity checks come after
-actual value comparisons. Model/feature parity, durable rule approval, workflow
-authorization, live comparison UI integration and quality acceptance remain open.
+actual value comparisons. Portable model/feature parity now has evaluation
+evidence; durable rule approval, workflow authorization, live score UI integration,
+untouched confirmation and general quality acceptance remain open.
 
 Development checks are in `tests/test_mastering_match_evidence.py`; the
 [development plan](../../bench/lakefusion/MATCH_EVIDENCE_PLAN.md) and

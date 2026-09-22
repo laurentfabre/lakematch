@@ -91,10 +91,11 @@ and preserve their source records, rules and review decisions in versioned snaps
 The deployed review store currently requires one app worker and one instance.
 
 **Preview:** a golden-record screen explains selected values, source alternatives
-and approved edits across two synthetic publications. Live data integration and
-the next acceptance run are still pending.
+and approved edits across two synthetic publications. Its packaged desktop/mobile
+acceptance passes. A separate calibrated model now produces repeatable synthetic
+match suggestions; live data and score integration remain ahead.
 
-**Next:** calibrated matching decisions and richer stewardship workflows. The pilot uses synthetic ERP
+**Next:** shared steward tasks, governed approvals and recoverable changes. The pilot uses synthetic ERP
 vendors and CRM accounts, with each master representing a legal company.
 
 **Later:** incremental updates, online resolution, business relationships,
@@ -111,6 +112,7 @@ The accelerator is not yet qualified as a complete production MDM system.
 | Reproducibility | Eight frozen benchmark cases replayed with identical scores and decisions. [Test session](reports/test-runs/20260921T092956Z/README.md). |
 | Matching quality | F1, which balances missed and incorrect matches, ranges from **26.39% to 98.89%** across the tested tasks. Results depend strongly on the dataset. [Measurements and evaluation scope](bench/BENCHMARKS.md). |
 | Company candidate coverage | The selected method retrieves **3,800 of 4,000 known matches (95%)** on synthetic validation data. It misses all 200 cases with combined errors; a larger lexical shortlist recovers them at 22.2× as many pairs. [Comparison](bench/lakefusion/PHASE_B.md). |
+| Calibrated company suggestions | **3,400 proposed matches from 4,000 companies**, with zero observed incorrect accepts on synthetic validation. The selection-adjusted family-audit precision lower bound is **99.75%**. Every score and metric replays exactly; confirmation is untouched and automatic merging is disabled. [Results and limits](reports/lakefusion-calibration-20260922/README.md). |
 | Registry reliability | **93 checks passed**, including 18 PostgreSQL integration cases covering concurrent changes, rollback and restart persistence. [Registry evidence](bench/lakefusion/registry-20260922.json). |
 | Persistent identity | IDs stay stable as records are added; merge/split receipts and older aliases survive retries and database restarts. [Identity evidence](bench/lakefusion/identity-20260922-final.json). |
 | Choosing trusted values | Six synthetic company records reproduce the same field choices after a database restart. Overrides, conflicting values and deleted sources have explicit rules. [Scalar policy evidence](bench/lakefusion/survivorship-20260922.json). |
