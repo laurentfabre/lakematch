@@ -68,7 +68,7 @@ try {
   }
   if (errors.length) throw new Error(errors.join("\n"));
   fs.writeFileSync(path.join(output, "preview.json"), JSON.stringify({
-    kind: "local_development_preview", acceptance_gate: "pending_authorized_experiment",
+    kind: "local_development_preview", acceptance_gate: "determined_by_campaign_runner",
     app: "APX 0.3.8", corpus_access: false, remote_calls: false, review_writes: false,
     desktop: [1440, 1100], mobile: [390, 844], page_errors: errors, mobile_fits: fits,
     views: ["approved_name_override", "earlier_publication", "deleted_source", "identifier_conflict", "normalized_name_agreement"],
