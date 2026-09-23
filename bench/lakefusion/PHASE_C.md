@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 3/8 experiments.** The local
+**In progress, 2026-09-23. LF-C has consumed 4/8 experiments.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open.
 
@@ -174,3 +174,39 @@ business record. The next integration checkpoint needs reproducible app/worker
 assembly and selected Lakebase bindings, followed by a separately declared live
 acceptance plan using `fevm-gdpr2`. Independent business-execution preparation
 can continue. LF-A stays 8/8, LF-B 12/12 and LF-C now uses **3/8** slots.
+
+
+## Slot 4 — isolated runtime payload accepted
+
+Source **`6db3086`** passes the [committed runtime plan](RUNTIME_PLAN.md).
+The [manifest](../../experiments/20260923T124120Z-lf-c-runtime-d511b1/manifest.json),
+[runtime report](runtime-20260923.json), [matrix](runtime-matrix-20260923.json),
+[root JUnit](runtime-root-tests-20260923.xml) and both
+[3.11](runtime-tests-20260923/python-3.11.xml)/[3.12](runtime-tests-20260923/python-3.12.xml)
+JUnit reports retain the evidence and named cases.
+
+| Measurement | Observed result |
+|---|---|
+| Root suite | 492 passed |
+| Fresh production payload | 111 passed on Python 3.11.14; 111 on Python 3.12.13 |
+| Required total | **714 passed; zero failures/errors/skips** |
+| Installation | Hash-required production requirements in empty environments; installed imports; no engine/Spark/MLflow |
+| Checks | Explicit identity/resource bindings; credential renewal simulation; four-connection bound; roles, migrations and domain readiness |
+| APX | Pinned build, TypeScript and Python type checks pass |
+| Duration | Runner 60.840 seconds; outer experiment 60.976 seconds |
+| Observed peak RSS | Parent 23,953,408 bytes; highest individual child 349,241,344 bytes |
+| Preservation | 249 manifest source hashes, 93 runtime source hashes, 15 frozen files, seven scanner files and seven artifacts verified |
+| Cleanup | Owned payload, isolated runtimes and private PostgreSQL removed; no live owned process-group members |
+| Remote work | Zero workspace/AI calls; Apps ingress/OAuth/TLS simulated |
+
+This accepts reproducible local assembly only. **LM-007/008 remain in progress.**
+LF-DEC-007 now selects a new `lakematch-mdm-dev` project, `production` branch,
+`databricks_postgres` database and `lm_control` schema. Read-only inventory found
+that target/app and the isolated review schema absent; the existing Lakematch
+app and campaign-tagged serverless warehouse were stopped. No remote mutation
+has occurred at this checkpoint. The [slot-5 plan](DEPLOYMENT_PLAN.md) commits
+finite provisioning/deployment/restart checks before execution.
+
+LF-A remains 8/8, LF-B 12/12 and LF-C **4/8**. Live OAuth/TLS/role mapping,
+independent user approval, ingress isolation, per-user RLS, business execution,
+publication recovery and customer-style redeployment remain unqualified.

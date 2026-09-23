@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "profile": "fevm-gdpr2",
+  "workspace_host": "https://fevm-gdpr2.cloud.databricks.com",
+  "workspace_id": "7474658055368199",
+  "project_id": "lakematch-mdm-dev",
+  "branch_id": "production",
+  "database": "databricks_postgres",
+  "schema": "lm_control",
+  "app_name": "lakematch-mdm-dev",
+  "warehouse_id": "ec3b6df6c1cabcd4",
+  "review_catalog": "gdpr2_catalog",
+  "review_schema": "lakematch_mdm_dev"
+}

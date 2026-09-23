@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (3/8)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (4/8)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -135,7 +135,7 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 |---|---|---|---|---|---|
 | LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Done | [Frozen contracts, capability evidence and limits](bench/lakefusion/PHASE_A.md) |
 | LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | Done | [Candidates, identity, provenance, calibrated worker suggestions and synthetic UI](bench/lakefusion/PHASE_B.md) |
-| LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | In progress | [Worker and APX authorization: 545 checks, revocation/restart](bench/lakefusion/PHASE_C.md); live Apps/Lakebase integration pending |
+| LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | In progress | [Isolated runtime: 714 checks; authorization and revocation/restart](bench/lakefusion/PHASE_C.md); live Apps/Lakebase integration pending |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
 | LF-E | PIM catalog and editorial workflows | LF-C plus LF-D reference/nested contracts | Weeks 19–30 | Not started | None yet |
 | LF-F | Production qualification and release | Relevant phase implementations; qualification starts earlier | Through months 6–9 | Not started | None yet |
@@ -324,11 +324,13 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **3/8** slots;
+  process-death rollback and exact restart replay pass. LF-C uses **4/8** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
-  the [slot-4 plan](bench/lakefusion/RUNTIME_PLAN.md) precedes local acceptance.
+  the [slot-4 acceptance](bench/lakefusion/PHASE_C.md) passes all 714 checks.
+  The [slot-5 plan](bench/lakefusion/DEPLOYMENT_PLAN.md) declares the dedicated
+  live deployment and restart/revocation checks.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with
@@ -561,6 +563,8 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-22: transactional stewardship worker | LF-C slot 1 passes from source `9c7d12a`: 471 tests, current-owner lease tokens, exact immutable retries, independent approval and atomic outbox enqueue. Real process death, lost acknowledgement, migration and restart persistence pass. [Checkpoint](bench/lakefusion/PHASE_C.md). Frozen inputs/scanner edits preserved; owned local processes cleaned. LF-C 1/8. | LM-007 remains in progress for Lakebase and authenticated app integration. LM-008 authorization boundary is next; LM-009 outbox delivery/reconciliation and LM-011 business preview/apply remain open. |
 | 2026-09-23: authorization acceptance source drift | Slot 2 from `0a588a8` passed 545 tests and grant/revoke/restart/regrant checks, but failed source preservation: the build added the missing generated-client attribution comment. [Failed evidence](bench/lakefusion/access-20260923.json) and logs retained; frozen/scanner/dependency hashes and owned cleanup pass. LF-C 2/8. | Commit the attribution and [slot-3 plan](bench/lakefusion/ACCESS_FOLLOWUP_PLAN.md), then repeat the same acceptance contract. No authorization or phase gate closed. |
 | 2026-09-23: local APX authorization accepted | Slot 3 passes from `b34535b`: 545 checks, current role/domain/object/field grants, scoped inbox/history, denied revoked retries, restricted SQL role and exact original receipt replay after restart/regrant. [Evidence](bench/lakefusion/PHASE_C.md). Source/frozen/scanner/dependency hashes and owned cleanup pass. LF-C 3/8. | LM-007/008 remain in progress for reproducible deployment assembly, selected Lakebase bindings and live Apps/OAuth/RLS qualification. Field-projected entity/search/graph access, LM-009 delivery/reconciliation and LM-011 business preview/apply remain open. |
+
+| 2026-09-23: isolated workflow payload accepted | Slot 4 passes from `6db3086`: 492 root checks and 111 app/runtime checks on each of Python 3.11 and 3.12 (714 total), hashed production installation, restricted roles and readiness. All frozen/scanner/source hashes and owned cleanup pass. LF-C 4/8. | Execute the committed [slot-5 plan](bench/lakefusion/DEPLOYMENT_PLAN.md) for the LF-DEC-007 dedicated Lakebase target, isolated app and review schema. Live renewal, RLS and later business flows remain open. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

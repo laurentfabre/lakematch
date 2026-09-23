@@ -1,0 +1,222 @@
+{
+  "status": "passed",
+  "started_at": "2026-09-23T12:41:54.809179+00:00",
+  "network": "offline dependency caches only",
+  "runtimes": [
+    {
+      "python": "3.11.14",
+      "imports": {
+        "lakematch": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/lib/python3.11/site-packages/lakematch/__init__.py",
+        "lakematch.mastering.workflow_api": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/lib/python3.11/site-packages/lakematch/mastering/workflow_api.py",
+        "lakematch_runtime.app": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/lib/python3.11/site-packages/lakematch_runtime/app.py",
+        "lakematch_review.backend.app": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/lib/python3.11/site-packages/lakematch_review/backend/app.py"
+      },
+      "versions": {
+        "lakematch-workflow-runtime": "0.1.0",
+        "fastapi": "0.128.0",
+        "databricks-sdk": "0.140.0",
+        "psycopg": "3.3.5"
+      },
+      "tests": {
+        "tests": 111,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "python": "3.12.13",
+      "imports": {
+        "lakematch": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/lib/python3.12/site-packages/lakematch/__init__.py",
+        "lakematch.mastering.workflow_api": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/lib/python3.12/site-packages/lakematch/mastering/workflow_api.py",
+        "lakematch_runtime.app": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/lib/python3.12/site-packages/lakematch_runtime/app.py",
+        "lakematch_review.backend.app": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/lib/python3.12/site-packages/lakematch_review/backend/app.py"
+      },
+      "versions": {
+        "lakematch-workflow-runtime": "0.1.0",
+        "fastapi": "0.128.0",
+        "databricks-sdk": "0.140.0",
+        "psycopg": "3.3.5"
+      },
+      "tests": {
+        "tests": 111,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "uv",
+        "venv",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11",
+        "--python",
+        "3.11",
+        "--no-project"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/bin/python",
+        "--require-hashes",
+        "-r",
+        "requirements.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "check",
+        "--python",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/bin/python"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/bin/python",
+        "-c",
+        "\nfrom pathlib import Path\nfrom importlib.metadata import version,PackageNotFoundError\nimport importlib, json,sys\nbase=Path(sys.argv[1]).resolve()\nnames=['lakematch','lakematch.mastering.workflow_api','lakematch_runtime.app','lakematch_review.backend.app']\npaths={n:Path(importlib.import_module(n).__file__).resolve() for n in names}\nassert all(p.is_relative_to(base) for p in paths.values()), paths\nfor forbidden in ['pyspark','mlflow','lakematch']:\n    try: version(forbidden)\n    except PackageNotFoundError: pass\n    else: raise AssertionError('Unexpected engine dependency: '+forbidden)\nassert not any(n.startswith(('pyspark','mlflow')) for n in sys.modules)\nprint(json.dumps({'python':sys.version.split()[0],'imports':{n:str(p) for n,p in paths.items()},\n'versions':{n:version(n) for n in ['lakematch-workflow-runtime','fastapi','databricks-sdk','psycopg']}}))\n",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/bin/python",
+        "pytest==9.1.1",
+        "httpx==0.28.1"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.11/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/app/tests",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/app/acceptance/test_workflow_access.py",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/runtime/tests",
+        "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/bench/lakefusion/runtime-tests-20260923/python-3.11.xml"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "venv",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12",
+        "--python",
+        "3.12",
+        "--no-project"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/bin/python",
+        "--require-hashes",
+        "-r",
+        "requirements.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "check",
+        "--python",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/bin/python"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/bin/python",
+        "-c",
+        "\nfrom pathlib import Path\nfrom importlib.metadata import version,PackageNotFoundError\nimport importlib, json,sys\nbase=Path(sys.argv[1]).resolve()\nnames=['lakematch','lakematch.mastering.workflow_api','lakematch_runtime.app','lakematch_review.backend.app']\npaths={n:Path(importlib.import_module(n).__file__).resolve() for n in names}\nassert all(p.is_relative_to(base) for p in paths.values()), paths\nfor forbidden in ['pyspark','mlflow','lakematch']:\n    try: version(forbidden)\n    except PackageNotFoundError: pass\n    else: raise AssertionError('Unexpected engine dependency: '+forbidden)\nassert not any(n.startswith(('pyspark','mlflow')) for n in sys.modules)\nprint(json.dumps({'python':sys.version.split()[0],'imports':{n:str(p) for n,p in paths.items()},\n'versions':{n:version(n) for n in ['lakematch-workflow-runtime','fastapi','databricks-sdk','psycopg']}}))\n",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/bin/python",
+        "pytest==9.1.1",
+        "httpx==0.28.1"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-runtime-36_s7un4/python-3.12/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/app/tests",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/app/acceptance/test_workflow_access.py",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/runtime/tests",
+        "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/bench/lakefusion/runtime-tests-20260923/python-3.12.xml"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "payload_sha256": "ac27e8d3c6e55398666b6989cb50ef7d18010044beeac41b859e998aca1bac45",
+  "wheels": [
+    {
+      "name": "lakematch_review-0.0.0.post48.dev0+6db3086-py3-none-any.whl",
+      "sha256": "f02b220e16f526366b938c07f7ba5151378dc8edb7a222d4a2bc670252e2d9c6",
+      "bytes": 167965
+    },
+    {
+      "name": "lakematch_workflow_runtime-0.1.0-py3-none-any.whl",
+      "sha256": "02a4e94735097984b4f7359f07546ddaa89028d3f3d30f835c44d425c9544b91",
+      "bytes": 65877
+    }
+  ],
+  "portable_source_hashes": {
+    "lakematch/__init__.py": "07408f23b67c4d70b754b7118bcfc4b8b11d998853529ca1dfac69f7da2044da",
+    "lakematch/config.py": "a1446bbf11cfb1370e704b0954868f5214602d5d7040a4cfabfae6cdda7351fe",
+    "lakematch/mastering/__init__.py": "d3d49f2e4c1a2f78fdceeeb701ae0461636c2d0526842aa5768c5cb17402390d",
+    "lakematch/mastering/access_contract.py": "21e9b569d608dfab15808ff0b51db4e1a10af953ae7855ea79ad97fb906158c6",
+    "lakematch/mastering/access_registry.py": "4fd9bcf2032dcba86eeea5242647f579b60ca9d73dfcfbbbf11e58d0dc2c5726",
+    "lakematch/mastering/authorized_workflow.py": "fb0bc59d33219b6bb91d12a3d29ed544f1fa05f0573a701742bf5e53c44beda0",
+    "lakematch/mastering/contracts.py": "48526bc39f3a5f8e41bd4ef3cae1f27c3271679081c3fb5daf0fa49cd9dd7925",
+    "lakematch/mastering/execution.py": "88db36825d570307068d40f9ac461c9072adf776c75a3382afdb9f5e382d9519",
+    "lakematch/mastering/identity_contract.py": "76ad833e2638c242f4a46fa6a2b83929b150d9fc65645847f93c9c0ca42bcb81",
+    "lakematch/mastering/identity_registry.py": "35160b4a497abb9bcf2e4c10c65a16b8a8d556b2a8f30cf3801492fe0ab1dd59",
+    "lakematch/mastering/policy.py": "a71c646ff9c3ca9b7dc19507739eee3e1e8c41961d54013072716c520815c3ba",
+    "lakematch/mastering/registry.py": "dd9f1710a1b00f2f8755b2c1c101f734e757fdd74edc83a6dfe5f5aeadc5bdb2",
+    "lakematch/mastering/retrieval.py": "5e5bbe205968f25df5642510722c37b807782307b6529052b6f908483b969002",
+    "lakematch/mastering/survivorship_contract.py": "1b52be834a0c4c71ba07654fd7221664aeba09a4e4caeb4693760d57b50a3325",
+    "lakematch/mastering/workflow.py": "7150d0eb0240f0da4ec7dca9690c824693fdffb3bda361e6d8a029f471ef5278",
+    "lakematch/mastering/workflow_api.py": "df9068ff20d15a2be750484ed263c877a22e259b188a72ecbe982db46daee109",
+    "lakematch/mastering/workflow_contract.py": "11835091a05db06f416e796cc52999743e0fda92f37442fba88e1eedfa7acfec"
+  },
+  "cleanup": "owned wheel/runtime directories removed; private database cleanup asserted",
+  "ended_at": "2026-09-23T12:42:21.794760+00:00",
+  "wall_seconds": 26.986
+}
