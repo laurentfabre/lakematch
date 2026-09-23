@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 8/8 experiments.** The local
+**In progress, 2026-09-23. LF-C has consumed 8/32 experiments under LF-DEC-008.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open.
 
@@ -308,3 +308,17 @@ CA correction, not another acceptance experiment. Read-only workspace metadata
 then shows app **STOPPED**, warehouse **STOPPED** and Lakebase endpoint **IDLE**
 with its 300-second suspension and 1-CU maximum. The run ledger independently
 counts LF-A 8, LF-B 12 and LF-C 8. All frozen/scanner inputs remain intact.
+
+## LF-C cap amendment — slot 9 authorized
+
+Laurent's instruction “Increase the cap substantially” is implemented as
+**32 total LF-C experiments** in
+[LF-DEC-008](../../spec/lakefusion/EXECUTION_DECISIONS.md). All eight historical
+attempts above remain counted; **24 attempts remain**. Historical references to
+the eight-run ceiling describe the limit at that time. LF-A stays 8/8, LF-B
+12/12 and original ZR limits are unchanged.
+
+The [slot-9 installation plan](DEPLOYMENT_INSTALLATION_PLAN.md) is authorized
+under the amended cap, retaining every per-run resource/time, quality, input
+preservation and cleanup condition. This amendment alone consumes no slot and
+changes no acceptance status.

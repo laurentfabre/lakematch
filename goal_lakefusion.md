@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (8/8; further experiments require a limit amendment)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (8/32 under LF-DEC-008)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -324,14 +324,15 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **8/8** slots;
+  process-death rollback and exact restart replay pass. LF-C uses **8/32** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
   the [slot-4 acceptance](bench/lakefusion/PHASE_C.md) passes all 714 checks.
   The dedicated Lakebase project and stopped app now exist; a local CA trust
   failure prevented migrations. The [prepared installation continuation](bench/lakefusion/DEPLOYMENT_INSTALLATION_PLAN.md)
-  needs an explicit LF-C limit increase before live execution.
+  is authorized as slot 9 by [LF-DEC-008](spec/lakefusion/EXECUTION_DECISIONS.md),
+  with the per-run bounds and acceptance gates unchanged.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with
@@ -529,8 +530,8 @@ Once execution is requested:
    repository under the standing push instruction, preserving managed hooks.
 
 Retain one active remote experiment and an eight-iteration experiment cap per
-new LF phase, with **LF-B increased to twelve** by
-[LF-DEC-005](spec/lakefusion/EXECUTION_DECISIONS.md). Declare finite per-run/sweep
+new LF phase, with **LF-B increased to twelve** by LF-DEC-005 and **LF-C to
+thirty-two** by [LF-DEC-008](spec/lakefusion/EXECUTION_DECISIONS.md). Declare finite per-run/sweep
 limits before execution. These caps do not reset old ZR counters. Stop a sweep at its bound, retain the diagnosis
 and continue eligible nondependent work. Stop only owned experimental resources
 after evidence capture; respect an explicit user request to leave a demo running.
@@ -574,6 +575,8 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-23: Apps configuration capability identified | Slot 7 retains the real Apps error: this workspace does not enable manual instance counts. No app or SQL schema was created; dedicated Lakebase target remains. LF-C 7/8. | Execute the committed [slot-8 plan](bench/lakefusion/DEPLOYMENT_SINGLETON_PLAN.md): omit unsupported manual fields and require observed singleton compute before live acceptance. This is the last authorized LF-C attempt. |
 
 | 2026-09-23: dedicated app provisioned; certificate fix prepared | Slot 8 creates the stopped app, resource attachments and isolated DAB state. Operator TLS connection fails before migrations; read-only diagnosis succeeds with full verification using Certifi and confirms an unelevated app role and absent control schema. No warehouse started. LF-C 8/8. | The pinned-CA correction and [installation plan](bench/lakefusion/DEPLOYMENT_INSTALLATION_PLAN.md) are prepared; another LF-C experiment requires a limit amendment. Live app/migration/workflow qualification remains open. |
+
+| 2026-09-23: LF-C cap increased | Laurent requested “Increase the cap substantially”; LF-DEC-008 implements this as 32 total LF-C attempts. Existing eight attempts remain consumed; LF-A and LF-B limits are unchanged. LF-C 8/32. | Execute the committed [slot-9 installation](bench/lakefusion/DEPLOYMENT_INSTALLATION_PLAN.md) under the unchanged finite resource/time envelope. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

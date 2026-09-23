@@ -53,3 +53,23 @@ plan before execution. Use explicit resource metadata from creation, a restricte
 serving role, independent operator migrations, and finite compute/time limits.
 Do not infer live OAuth, Apps identity, TLS, RLS or redeployment acceptance from
 resource creation. The LF phase limits and remaining feature gates are unchanged.
+
+## LF-DEC-008 — Substantially increase the LF-C experiment cap
+
+**Selected by Laurent on 2026-09-23:** “Increase the cap substantially”.
+
+Implement this instruction as **32 total LF-C experiments**, increased from
+eight. Thirty-two is the execution choice implementing the requested substantial
+increase, not a number explicitly specified by the user. All eight existing runs
+remain consumed, including failures; 24 further attempts are available. The
+[prepared installation](../../bench/lakefusion/DEPLOYMENT_INSTALLATION_PLAN.md)
+is authorized as slot 9. This supersedes the protocol's eight-iteration cap for
+**LF-C only**. LF-A remains 8/8, LF-B 12/12, other LF phase caps and all original
+ZR limits remain unchanged.
+
+Keep one active remote experiment and all declared per-run time, memory,
+compute, SQL, candidate and join bounds. Quality gates, frozen inputs and the
+confirmation holdout are unchanged. Each new experiment still needs a committed
+implementation, plan and inputs, the bounded runner, terminal evidence and owned
+resource cleanup. This amendment neither resets failed attempts nor establishes
+feature acceptance.
