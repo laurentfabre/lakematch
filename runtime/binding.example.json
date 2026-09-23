@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "schema": "lm_control",
+  "app_name": "lakematch-mdm-fixture",
+  "workspace_host": "https://workspace.example.invalid",
+  "workspace_id": "1234",
+  "endpoint": "projects/fixture/branches/test/endpoints/primary",
+  "database_resource": "projects/fixture/branches/test/databases/postgres",
+  "host": "database.example.invalid",
+  "database": "postgres",
+  "contexts": [
+    {
+      "domain_id": "company",
+      "domain_version": 1,
+      "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7"
+    }
+  ]
+}

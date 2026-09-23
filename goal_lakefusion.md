@@ -103,6 +103,10 @@ selections for LM-001:
 - The earlier dev-workspace quota/expiry prerequisite was waived. Keep finite
   resource/time envelopes, measured consumption and cleanup. Capability checks
   still apply to Lakebase, Apps authorization, AI Search, serving and previews.
+- **LF-DEC-007:** create the dedicated `lakematch-mdm-dev` Lakebase project,
+  branch `production`, database `databricks_postgres`, schema `lm_control` on
+  `fevm-gdpr2`; the user selected this target on 2026-09-23. Preserve the existing
+  HR-demo project. Provision under a separately committed finite deployment plan.
 - The original million-record campaign remains parked at its iteration cap;
   classic compute was unavailable in this workspace. This goal does not reset
   those limits, reopen sealed confirmation tuning or authorize another workspace.
@@ -322,6 +326,9 @@ Deliverables:
   independent approvals, atomic outbox enqueue, lost acknowledgements,
   process-death rollback and exact restart replay pass. LF-C uses **3/8** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
+  The [optional runtime package](runtime/README.md) now prepares isolated app
+  deployment, explicit bindings, OAuth renewal and read-only readiness checks;
+  the [slot-4 plan](bench/lakefusion/RUNTIME_PLAN.md) precedes local acceptance.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with

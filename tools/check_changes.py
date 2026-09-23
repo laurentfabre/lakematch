@@ -119,7 +119,13 @@ def main():
             raise SystemExit(f"Missing {python}; prepare the documented project environment before committing.")
         env = {**os.environ, "LAKEMATCH_TEST_POSTGRES": "1"} if "tests/postgres" in tests else None
         subprocess.run([str(python), "-m", "pytest", "-q", *tests], cwd=cwd, env=env, check=True, timeout=120)
-    if args.all or any(n.startswith(("src/lakematch/mastering/access", "src/lakematch/mastering/authorized_workflow",
+    runtime_changed = args.all or any(n.startswith(("runtime/", "src/lakematch/mastering/")) or n in {
+        "src/lakematch/config.py", "tools/build_workflow_bundle.py", "tools/run_workflow_runtime_tests.py",
+        "app/build_deploy.py", "app/pyproject.toml", "app/uv.lock"} for n in contents)
+    if runtime_changed:
+        subprocess.run([str(ROOT / ".venv/bin/python"), "tools/run_workflow_runtime_tests.py"],
+                       cwd=ROOT, check=True, timeout=300)
+    elif args.all or any(n.startswith(("src/lakematch/mastering/access", "src/lakematch/mastering/authorized_workflow",
                                      "src/lakematch/mastering/workflow_api", "app/src/lakematch_review/backend/mastering",
                                      "app/acceptance/test_workflow_access", "tools/run_mastering_http_tests")) for n in contents):
         subprocess.run([str(ROOT / ".venv/bin/python"), "tools/run_mastering_http_tests.py"],

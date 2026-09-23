@@ -36,3 +36,20 @@ A read-only GitHub check on this date returned `private=false` and
 Apache-2.0 license and existing public/synthetic-data restrictions. This decision
 does not publish a package to PyPI, change commercial scope, choose a customer
 workspace or grant rights to third-party implementation assets.
+
+## LF-DEC-007 — Dedicated Lakebase target for the workflow pilot
+
+**Selected by Laurent on 2026-09-23:** “New dedicated Lakematch target
+(Recommended)”, in response to the explicit project/branch/database choice.
+
+Create a new Autoscaling project **`lakematch-mdm-dev`** on the already selected
+`fevm-gdpr2` workspace. Use its **`production`** branch, **`databricks_postgres`**
+database and the operational **`lm_control`** schema. The existing
+`hr-demo-20260914` project and its databases are outside this deployment.
+
+This resolves target selection and authorizes the dedicated target's creation.
+Keep the local runtime acceptance and a separately committed bounded deployment
+plan before execution. Use explicit resource metadata from creation, a restricted
+serving role, independent operator migrations, and finite compute/time limits.
+Do not infer live OAuth, Apps identity, TLS, RLS or redeployment acceptance from
+resource creation. The LF phase limits and remaining feature gates are unchanged.

@@ -129,10 +129,10 @@ def grant_workflow_role(connection, role):
             raise ContractError('Use a dedicated nonowner role without elevated flags or memberships')
         # Do not label a pre-existing broad role as restricted merely because
         # this installer only adds narrow privileges. PUBLIC grants count too.
-        for table in ('access_policy', 'access_event', 'access_subject', 'master_identity',
+        for table in ('schema_migration', 'access_policy', 'access_event', 'access_subject', 'master_identity',
                       'domain_version', 'identity_event', 'source_identity', 'identity_alias'):
             privileges = 'INSERT,DELETE,TRUNCATE'
-            if table in {'access_policy', 'access_event'}:
+            if table in {'schema_migration', 'access_policy', 'access_event'}:
                 privileges += ',UPDATE'
             if connection.execute('SELECT has_table_privilege(%s,%s,%s)',
                                   (role, 'lm_control.'+table, privileges)).fetchone()[0]:
@@ -145,7 +145,7 @@ def grant_workflow_role(connection, role):
                 raise ContractError('Role must not update identity or domain revisions')
         target = sql.Identifier(role)
         connection.execute(sql.SQL('GRANT USAGE ON SCHEMA lm_control TO {}').format(target))
-        for table in ('domain_version', 'registry_event', 'master_identity', 'access_subject', 'access_policy',
+        for table in ('schema_migration', 'domain_version', 'registry_event', 'master_identity', 'access_subject', 'access_policy',
                       'access_event', 'steward_task', 'operation', 'steward_decision', 'workflow_command'):
             connection.execute(sql.SQL('GRANT SELECT ON lm_control.{} TO {}').format(sql.Identifier(table), target))
         # The immutable key cannot actually be updated; PostgreSQL nevertheless

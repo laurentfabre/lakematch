@@ -123,3 +123,10 @@ assembly from the repository root with
 `.venv/bin/python tools/run_mastering_http_tests.py`. It builds and imports a
 fresh APX wheel, uses the pinned FastAPI runtime and private temporary PostgreSQL
 instances, and removes its owned runtime after the tests.
+
+The [optional deployment runtime](../runtime/README.md) packages the portable
+worker, migrations and connection/readiness boundary into a separate wheel.
+`tools/build_workflow_bundle.py` creates a complete, hash-pinned Apps payload
+from explicit resource bindings; `tools/run_workflow_runtime_tests.py --payload
+/path/to/output` checks clean installation on Python 3.11 and 3.12. Live
+qualification of the selected dedicated Lakebase target remains separate.

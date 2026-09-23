@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling==1.32.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lakematch-workflow-runtime"
+version = "0.1.0"
+description = "Isolated PostgreSQL workflow runtime for the Lakematch APX app"
+requires-python = ">=3.11,<3.13"
+license = "Apache-2.0"
+dependencies = ["databricks-sdk==0.140.0", "psycopg[binary]==3.3.5", "PyYAML==6.0.3"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lakematch_runtime"]
+
+# This alternative distribution contains the exact portable worker sources.
+# Install into an isolated app environment, never alongside the Spark engine.
+[tool.hatch.build.targets.wheel.force-include]
+"../LICENSE" = "lakematch_runtime/LICENSE"
+"../src/lakematch/__init__.py" = "lakematch/__init__.py"
+"../src/lakematch/config.py" = "lakematch/config.py"
+"../src/lakematch/mastering/__init__.py" = "lakematch/mastering/__init__.py"
+"../src/lakematch/mastering/access_contract.py" = "lakematch/mastering/access_contract.py"
+"../src/lakematch/mastering/access_registry.py" = "lakematch/mastering/access_registry.py"
+"../src/lakematch/mastering/authorized_workflow.py" = "lakematch/mastering/authorized_workflow.py"
+"../src/lakematch/mastering/contracts.py" = "lakematch/mastering/contracts.py"
+"../src/lakematch/mastering/execution.py" = "lakematch/mastering/execution.py"
+"../src/lakematch/mastering/identity_contract.py" = "lakematch/mastering/identity_contract.py"
+"../src/lakematch/mastering/identity_registry.py" = "lakematch/mastering/identity_registry.py"
+"../src/lakematch/mastering/policy.py" = "lakematch/mastering/policy.py"
+"../src/lakematch/mastering/registry.py" = "lakematch/mastering/registry.py"
+"../src/lakematch/mastering/retrieval.py" = "lakematch/mastering/retrieval.py"
+"../src/lakematch/mastering/survivorship_contract.py" = "lakematch/mastering/survivorship_contract.py"
+"../src/lakematch/mastering/workflow.py" = "lakematch/mastering/workflow.py"
+"../src/lakematch/mastering/workflow_api.py" = "lakematch/mastering/workflow_api.py"
+"../src/lakematch/mastering/workflow_contract.py" = "lakematch/mastering/workflow_contract.py"
+"../app/migrations/mastering" = "lakematch_runtime/migrations"
