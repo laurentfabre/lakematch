@@ -159,7 +159,10 @@ def test_connections_close_and_never_replay_business_work():
         with connections.connection():
             raise RuntimeError('lost acknowledgement')
     assert len(calls) == len(closed) == len(checked) == 1
-    assert calls[0]['sslmode'] == 'verify-full' and calls[0]['sslrootcert'] == 'system'
+    import certifi
+    from pathlib import Path
+    assert calls[0]['sslmode'] == 'verify-full' and calls[0]['sslrootcert'] == certifi.where()
+    assert Path(calls[0]['sslrootcert']).is_file()
     assert calls[0]['connect_timeout'] == 10 and calls[0]['autocommit'] is True
 
 

@@ -1,0 +1,376 @@
+{
+  "phase": "LF-C",
+  "slot": 8,
+  "status": "failed",
+  "inputs": {
+    "schema_version": 1,
+    "profile": "fevm-gdpr2",
+    "workspace_host": "https://fevm-gdpr2.cloud.databricks.com",
+    "workspace_id": "7474658055368199",
+    "project_id": "lakematch-mdm-dev",
+    "branch_id": "production",
+    "database": "databricks_postgres",
+    "schema": "lm_control",
+    "app_name": "lakematch-mdm-dev",
+    "warehouse_id": "ec3b6df6c1cabcd4",
+    "review_catalog": "gdpr2_catalog",
+    "review_schema": "lakematch_mdm_dev"
+  },
+  "started_at": "2026-09-23T12:58:51.210628+00:00",
+  "commands": [
+    {
+      "command": [
+        "databricks",
+        "postgres",
+        "get-endpoint",
+        "projects/lakematch-mdm-dev/branches/production/endpoints/primary",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "bundle",
+        "validate",
+        "--strict",
+        "--target",
+        "pilot",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "bundle",
+        "deploy",
+        "--auto-approve",
+        "--target",
+        "pilot",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "checks": [],
+  "cleanup": {
+    "app": "STOPPED",
+    "lakebase": {
+      "retained": "projects/lakematch-mdm-dev",
+      "default_endpoint_settings": {
+        "autoscaling_limit_max_cu": 1.0,
+        "autoscaling_limit_min_cu": 0.5,
+        "suspend_timeout_duration": "300s"
+      }
+    }
+  },
+  "observed_cost": null,
+  "cost_status": "billing unreconciled",
+  "confirmation_materialized": false,
+  "stage": "install operator migrations and restricted grants",
+  "warehouse_before": {
+    "auto_stop_mins": 10,
+    "cluster_size": "2X-Small",
+    "creator_name": "laurent.fabre@databricks.com",
+    "enable_photon": true,
+    "enable_serverless_compute": true,
+    "id": "ec3b6df6c1cabcd4",
+    "jdbc_url": "jdbc:spark://fevm-gdpr2.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/ec3b6df6c1cabcd4;",
+    "max_num_clusters": 1,
+    "min_num_clusters": 1,
+    "name": "lakematch-20260919-evidence-20260920T041603Z-35e82ec0",
+    "num_active_sessions": 0,
+    "num_clusters": 0,
+    "odbc_params": {
+      "hostname": "fevm-gdpr2.cloud.databricks.com",
+      "path": "/sql/1.0/warehouses/ec3b6df6c1cabcd4",
+      "port": 443,
+      "protocol": "https"
+    },
+    "spot_instance_policy": "COST_OPTIMIZED",
+    "state": "STOPPED",
+    "tags": {
+      "custom_tags": [
+        {
+          "key": "campaign",
+          "value": "lakematch-20260919"
+        }
+      ]
+    },
+    "warehouse_type": "PRO"
+  },
+  "project_request": {
+    "spec": {
+      "display_name": "Lakematch governed MDM pilot",
+      "pg_version": 17,
+      "enable_pg_native_login": false,
+      "default_endpoint_settings": {
+        "autoscaling_limit_min_cu": 0.5,
+        "autoscaling_limit_max_cu": 1,
+        "suspend_timeout_duration": "300s"
+      },
+      "custom_tags": [
+        {
+          "key": "application",
+          "value": "lakematch"
+        },
+        {
+          "key": "phase",
+          "value": "lf-c"
+        }
+      ]
+    },
+    "initial_endpoint_spec": {
+      "autoscaling_limit_min_cu": 0.5,
+      "autoscaling_limit_max_cu": 1,
+      "suspend_timeout_duration": "300s"
+    }
+  },
+  "endpoint": {
+    "create_time": "2026-09-23T12:51:43Z",
+    "endpoint_id": "primary",
+    "name": "projects/lakematch-mdm-dev/branches/production/endpoints/primary",
+    "parent": "projects/lakematch-mdm-dev/branches/production",
+    "status": {
+      "autoscaling_limit_max_cu": 1,
+      "autoscaling_limit_min_cu": 0.5,
+      "current_state": "IDLE",
+      "disabled": false,
+      "endpoint_id": "primary",
+      "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
+      "group": {
+        "enable_readable_secondaries": false,
+        "max": 1,
+        "min": 1
+      },
+      "hosts": {
+        "host": "ep-noisy-sky-d72wqgqr.database.eu-central-1.cloud.databricks.com",
+        "read_write_pooled_host": "ep-noisy-sky-d72wqgqr-pooler.database.eu-central-1.cloud.databricks.com"
+      },
+      "last_active_time": "2000-01-01T00:00:00Z",
+      "settings": {},
+      "suspend_timeout_duration": "300s"
+    },
+    "uid": "ep-noisy-sky-d72wqgqr",
+    "update_time": "2026-09-23T12:57:00Z"
+  },
+  "database": {
+    "create_time": "2026-09-23T12:51:43Z",
+    "database_id": "databricks-postgres",
+    "name": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+    "parent": "projects/lakematch-mdm-dev/branches/production",
+    "status": {
+      "database_id": "databricks-postgres",
+      "postgres_database": "databricks_postgres",
+      "role": "projects/lakematch-mdm-dev/branches/production/roles/laurent-fabre"
+    },
+    "update_time": "2026-09-23T12:51:47Z"
+  },
+  "payload": {
+    "schema_version": 1,
+    "status": "built; deployment not performed",
+    "binding_sha256": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+    "app_name": "lakematch-mdm-dev",
+    "python": [
+      "3.11",
+      "3.12"
+    ],
+    "files": {
+      "databricks.yml": {
+        "sha256": "0c6ab303649759c11491f2848bd26d1df5241be6b6ffa8735bf4a70a0e37e0c7",
+        "bytes": 1456
+      },
+      "app/app.yaml": {
+        "sha256": "a20442718fd637c57b9fefe02d28d1ae658687294da80c53cd36d9dc8b8ef9ff",
+        "bytes": 350
+      },
+      "app/binding.json": {
+        "sha256": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+        "bytes": 668
+      },
+      "app/requirements.txt": {
+        "sha256": "c9413b7280cc5c87009542854da3f3654f0b90e98af804c2560a1c811f7da8bb",
+        "bytes": 381
+      },
+      "app/dependencies-app.txt": {
+        "sha256": "c9d9c8567ba2323c79318a117bcdccc32f6706f702671b27a3fa470acba7661e",
+        "bytes": 37160
+      },
+      "app/dependencies-yaml.txt": {
+        "sha256": "1a93c75f001ccc68116b901bac4607e186a693ec971c6186ea8b47ec09fa254f",
+        "bytes": 6446
+      },
+      "app/dependencies-postgres.txt": {
+        "sha256": "ca06b24731e76418bcebd7e56c313502a9c29547f2ef42c263d9739a12d117f6",
+        "bytes": 5319
+      },
+      "app/wheels/lakematch_workflow_runtime-0.1.0-py3-none-any.whl": {
+        "sha256": "02a4e94735097984b4f7359f07546ddaa89028d3f3d30f835c44d425c9544b91",
+        "bytes": 65877
+      },
+      "app/wheels/lakematch_review-0.0.0.post52.dev0+a4b9f79-py3-none-any.whl": {
+        "sha256": "f6c038eb6b7a25bac8b009d0a25b4830c9263b3b05d9fba27508b6122bf091fb",
+        "bytes": 167967
+      }
+    }
+  },
+  "created_app": {
+    "app_status": {
+      "message": "App status is unavailable.",
+      "state": "UNAVAILABLE"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "Start the app compute to deploy the app.",
+      "state": "STOPPED"
+    },
+    "create_time": "2026-09-23T12:59:06Z",
+    "creator": "laurent.fabre@databricks.com",
+    "description": "Lakematch governed workflow pilot",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "name": "lakematch-mdm-dev",
+    "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "resources": [
+      {
+        "name": "postgres",
+        "postgres": {
+          "branch": "projects/lakematch-mdm-dev/branches/production",
+          "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+          "permission": "CAN_CONNECT_AND_CREATE"
+        }
+      },
+      {
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "service_principal_id": 77964494840289,
+    "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+    "thumbnail_url": "",
+    "update_time": "2026-09-23T12:59:39Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+  },
+  "error_type": "OperationalError",
+  "final_app": {
+    "app_status": {
+      "message": "App status is unavailable.",
+      "state": "UNAVAILABLE"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "Start the app compute to deploy the app.",
+      "state": "STOPPED"
+    },
+    "create_time": "2026-09-23T12:59:06Z",
+    "creator": "laurent.fabre@databricks.com",
+    "description": "Lakematch governed workflow pilot",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "name": "lakematch-mdm-dev",
+    "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "resources": [
+      {
+        "name": "postgres",
+        "postgres": {
+          "branch": "projects/lakematch-mdm-dev/branches/production",
+          "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+          "permission": "CAN_CONNECT_AND_CREATE"
+        }
+      },
+      {
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "service_principal_id": 77964494840289,
+    "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+    "thumbnail_url": "",
+    "update_time": "2026-09-23T12:59:39Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+  },
+  "final_endpoint": {
+    "create_time": "2026-09-23T12:51:43Z",
+    "endpoint_id": "primary",
+    "name": "projects/lakematch-mdm-dev/branches/production/endpoints/primary",
+    "parent": "projects/lakematch-mdm-dev/branches/production",
+    "status": {
+      "autoscaling_limit_max_cu": 1.0,
+      "autoscaling_limit_min_cu": 0.5,
+      "current_state": "ACTIVE",
+      "disabled": false,
+      "endpoint_id": "primary",
+      "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
+      "group": {
+        "enable_readable_secondaries": false,
+        "max": 1,
+        "min": 1
+      },
+      "hosts": {
+        "host": "ep-noisy-sky-d72wqgqr.database.eu-central-1.cloud.databricks.com",
+        "read_write_pooled_host": "ep-noisy-sky-d72wqgqr-pooler.database.eu-central-1.cloud.databricks.com"
+      },
+      "last_active_time": "2000-01-01T00:00:00Z",
+      "settings": {},
+      "suspend_timeout_duration": "300s"
+    },
+    "uid": "ep-noisy-sky-d72wqgqr",
+    "update_time": "2026-09-23T12:59:12Z"
+  },
+  "ended_at": "2026-09-23T12:59:45.891903+00:00",
+  "wall_seconds": 54.681
+}

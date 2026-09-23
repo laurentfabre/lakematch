@@ -13,6 +13,7 @@ import sys
 import time
 
 import psycopg
+import certifi
 import requests
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.core import Config
@@ -29,9 +30,15 @@ def main():
     choice.add_argument('--followup', action='store_true', help='Execute the committed slot-6 API correction plan')
     choice.add_argument('--resume', action='store_true', help='Execute slot 7 against the recorded dedicated project')
     choice.add_argument('--platform-default-instances', action='store_true', help='Execute slot 8 with platform compute defaults')
+    choice.add_argument('--continue-installation', action='store_true', help='Prepared slot 9; requires an approved phase-limit amendment')
+    parser.add_argument('--authorized-phase-limit', type=int, default=8)
     args = parser.parse_args()
-    suffix = '-singleton' if args.platform_default_instances else '-resume' if args.resume else '-followup' if args.followup else ''
-    retained_project = args.resume or args.platform_default_instances
+    slot = 9 if args.continue_installation else 8 if args.platform_default_instances else 7 if args.resume else 6 if args.followup else 5
+    if slot > args.authorized_phase_limit:
+        parser.error('This slot exceeds the phase limit; obtain an explicit user amendment before execution')
+    suffix = '-installation' if args.continue_installation else '-singleton' if args.platform_default_instances else '-resume' if args.resume else '-followup' if args.followup else ''
+    retained_project = args.resume or args.platform_default_instances or args.continue_installation
+    platform_default = args.platform_default_instances or args.continue_installation
     config = json.loads((ROOT/'bench/lakefusion/deployment-inputs-20260923.json').read_text())
     bench = ROOT/'bench/lakefusion'
     destination = bench/f'deployment-20260923{suffix}.json'
@@ -43,7 +50,7 @@ def main():
         raise SystemExit('This committed plan only authorizes the selected dedicated target')
     started = time.monotonic()
     deadline = started+2100  # outer runner reserves another 300 seconds for cleanup
-    report = {'phase': 'LF-C', 'slot': 8 if args.platform_default_instances else 7 if args.resume else 6 if args.followup else 5, 'status': 'running', 'inputs': config,
+    report = {'phase': 'LF-C', 'slot': slot, 'status': 'running', 'inputs': config,
         'started_at': datetime.now(timezone.utc).isoformat(), 'commands': [], 'checks': [],
         'cleanup': {}, 'observed_cost': None, 'cost_status': 'billing unreconciled',
         'confirmation_materialized': False, 'stage': 'inventory'}
@@ -131,7 +138,17 @@ def main():
             assert len(selected) == 1 and selected[0].uid == 'ca930294-0763-4eaa-9638-b8be2c4f98b6'
         else:
             assert not selected, 'Project already exists'
-        assert not any(a.name == config['app_name'] for a in w.apps.list()), 'App already exists'
+        found_apps = [a for a in w.apps.list() if a.name == config['app_name']]
+        if args.continue_installation:
+            assert len(found_apps) == 1
+            retained_app = w.apps.get(config['app_name']).as_dict()
+            prior_app = json.loads((bench/'deployment-20260923-singleton.json').read_text())['created_app']
+            assert retained_app['service_principal_client_id'] == prior_app['service_principal_client_id']
+            assert retained_app['resources'] == prior_app['resources']
+            assert retained_app['compute_status']['state'] == 'STOPPED'
+            report['retained_app'] = retained_app
+        else:
+            assert not found_apps, 'App already exists'
         for run in w.jobs.list_runs(active_only=True, limit=25):
             if (run.run_name or '').startswith('lakematch'):
                 raise RuntimeError('Another campaign job is running')
@@ -188,7 +205,7 @@ def main():
             build_command = [sys.executable, str(ROOT/'tools/build_workflow_bundle.py'), '--output', str(payload),
                 '--binding', str(binding_path), '--warehouse-id', config['warehouse_id'],
                 '--review-schema', review_schema]
-            if args.platform_default_instances:
+            if platform_default:
                 build_command += ['--platform-default-instances']
             subprocess.run(build_command, cwd=ROOT, check=True, timeout=480,
                 env={**os.environ, 'UV_OFFLINE': '1'})
@@ -206,7 +223,7 @@ def main():
             budget()
             credential = w.postgres.generate_database_credential(endpoint=endpoint_name)
             return psycopg.connect(host=binding['host'], dbname=config['database'], user=user.user_name,
-                password=credential.token, sslmode='verify-full', sslrootcert='system', connect_timeout=10,
+                password=credential.token, sslmode='verify-full', sslrootcert=certifi.where(), connect_timeout=10,
                 autocommit=True, options='-c statement_timeout=15000 -c lock_timeout=5000 -c search_path=pg_catalog')
         with connect() as connection:
             report['operator_tls'] = connection.execute(
@@ -247,7 +264,7 @@ def main():
                 raise RuntimeError('Apps deployment failed')
             return state == 'SUCCEEDED' and a.get('compute_status', {}).get('state') == 'ACTIVE'
         running = poll('running_app', app, ready, 600)
-        if args.platform_default_instances:
+        if platform_default:
             assert running.get('compute_status', {}).get('active_instances') == 1, 'Singleton compute must be observed'
         url = running['url'].rstrip('/')
         report['app_url'] = url

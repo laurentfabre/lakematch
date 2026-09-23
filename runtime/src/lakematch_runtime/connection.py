@@ -6,6 +6,7 @@ from threading import BoundedSemaphore, Lock
 import time
 
 import psycopg
+import certifi
 
 from lakematch.mastering.access_contract import AccessUnavailable
 
@@ -89,7 +90,7 @@ class Connections:
             try:
                 connection = self._connect(host=self._binding.host, port=5432,
                     dbname=self._binding.database, user=self._user, password=self._credentials.current(),
-                    sslmode='verify-full', sslrootcert='system', connect_timeout=10, autocommit=True,
+                    sslmode='verify-full', sslrootcert=certifi.where(), connect_timeout=10, autocommit=True,
                     application_name='lakematch-workflow',
                     options='-c search_path=pg_catalog -c statement_timeout=15000 -c lock_timeout=5000 '
                             '-c idle_in_transaction_session_timeout=20000 -c timezone=UTC')

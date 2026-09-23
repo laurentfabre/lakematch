@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 7/8 experiments.** The local
+**In progress, 2026-09-23. LF-C has consumed 8/8 experiments.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open.
 
@@ -265,3 +265,37 @@ All 252 source hashes and four artifact hashes match. LF-C is **7/8**.
 The [slot-8 plan](DEPLOYMENT_SINGLETON_PLAN.md) omits unsupported optional
 instance fields and requires a live observed count of one before acceptance.
 A missing count remains unqualified. This is the last available LF-C attempt.
+
+
+## Slot 8 — stopped app provisioned; local certificate trust blocked installation
+
+Source **`a4b9f79`**, [manifest](../../experiments/20260923T125850Z-lf-c-deployment-singleton-55310c/manifest.json),
+[report](deployment-20260923-singleton.json) and
+[binding](deployment-binding-20260923-singleton.json) retain this failed
+55.313-second attempt. The supported default-compute configuration creates
+`lakematch-mdm-dev` and its dedicated service principal, attaching the selected
+Lakebase database and the campaign warehouse. The app is **STOPPED**. Its source
+payload is uploaded under separate DAB state; no running deployment is qualified.
+
+The first operator database connection failed before any migration, grant,
+fixture or review schema was created. No warehouse was started. All 252 source
+hashes, four manifest artifacts, 15 frozen files and seven scanner inputs verify.
+The project is retained at 0.5–1 CU with a 300-second idle-suspension setting;
+storage persists and billing remains unreconciled.
+
+[Read-only diagnosis](deployment-diagnosis-20260923.json) identifies a local CA
+trust failure with `sslrootcert=system`. The same hostname and OAuth user connect
+with **verify-full and TLS 1.3** using the installed Certifi CA bundle. Catalog
+reads confirm `lm_control` absent and the app role has no elevated flags or
+memberships. These operator observations do not establish live app OAuth,
+permissions, singleton compute, migrations or workflow acceptance.
+
+The prepared correction uses the already hash-pinned Certifi version directly
+in both the operator and runtime; it preserves hostname/certificate validation.
+The [next installation plan](DEPLOYMENT_INSTALLATION_PLAN.md) binds the recorded
+project/app and refuses changed resources. Its slot-9 runner refuses execution
+under the default limit of eight. **It has not been executed.**
+
+LF-A stays **8/8**, LF-B **12/12**, LF-C is **8/8**. An explicit LF-C limit
+amendment is required before another experiment. LM-007/008/024 remain in
+progress; all business-execution/publication and later phase gates remain open.

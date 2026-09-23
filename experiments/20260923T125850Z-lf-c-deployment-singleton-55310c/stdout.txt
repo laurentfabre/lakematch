@@ -1,0 +1,28 @@
+verify retained project
+build and deploy stopped app
+bun install v1.3.8 (b64edcb4)
+
+Checked 214 installs across 249 packages (no changes) [39.00ms]
+Building project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+Skipping UI build
+✅ Python wheel built in 601ms
+Build completed
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1829 modules transformed.
+rendering chunks...
+computing gzip size...
+src/lakematch_review/__dist__/index.html                   0.48 kB │ gzip:   0.31 kB
+src/lakematch_review/__dist__/assets/index-BR7wt8sG.css   39.73 kB │ gzip:   8.47 kB
+src/lakematch_review/__dist__/assets/index-BK6WnQfz.js   399.46 kB │ gzip: 122.02 kB
+
+✓ built in 164ms
+Building project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+Skipping UI build
+✅ Python wheel built in 510ms
+Build completed
+APX build: 4 files; largest 167,912 bytes
+{"status": "built; deployment not performed", "files": 9, "bytes": 285624}
+install operator migrations and restricted grants
+Failed at install operator migrations and restricted grants: OperationalError
+{"status": "failed", "stage": "install operator migrations and restricted grants", "cleanup": {"app": "STOPPED", "lakebase": {"retained": "projects/lakematch-mdm-dev", "default_endpoint_settings": {"autoscaling_limit_max_cu": 1.0, "autoscaling_limit_min_cu": 0.5, "suspend_timeout_duration": "300s"}}}}

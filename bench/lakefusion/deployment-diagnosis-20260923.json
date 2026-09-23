@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "read-only post-run diagnosis; not acceptance",
+  "date": "2026-09-23",
+  "profile": "fevm-gdpr2",
+  "related_run": "20260923T125850Z-lf-c-deployment-singleton-55310c",
+  "system_ca_result": "certificate verify failed before SQL",
+  "certifi_ca_result": "connected with verify-full and TLSv1.3",
+  "certifi_version": "2026.7.22",
+  "ca_bundle_sha256": "9cc2a774b5198dcff14d9be1e66091f538975d867ce029a96bce15a55dfd730f",
+  "database": "databricks_postgres",
+  "operational_schema_exists": false,
+  "serving_role": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+  "role_flags": {
+    "superuser": false,
+    "bypassrls": false,
+    "createrole": false,
+    "createdb": false
+  },
+  "role_memberships": [],
+  "business_writes": 0,
+  "operator_identity_only": true,
+  "app_oauth_qualified": false,
+  "token_recorded": false
+}

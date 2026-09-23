@@ -107,7 +107,13 @@ delegation; current end-user grants are still evaluated inside each transaction.
 At most four owned connections can be active. Admission waits at most two
 seconds; connection timeout is ten seconds, statement/lock timeouts are 15/5
 seconds, and idle transactions time out at 20 seconds. Connections require TLS
-with hostname/system-CA verification and close at the end of each request.
+with hostname verification and the pinned Certifi CA bundle, and close at the
+end of each request. Certifi is already hash-pinned in the app production lock;
+the runtime declares that same version directly. No verification bypass or
+personal certificate is introduced. LF-C slot 8 found that the local libpq
+`sslrootcert=system` trust source rejected the Lakebase certificate; read-only
+diagnosis with Certifi succeeded using TLS 1.3. This diagnosis does not qualify
+the deployed runtime, which still requires its own live acceptance.
 Business transactions are never automatically replayed. The client may retry
 an idempotent request through the existing authorization/receipt contract.
 
