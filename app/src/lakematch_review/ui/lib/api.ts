@@ -1,4 +1,3 @@
-// Modified for lakematch on 2026-09-20 from the APX 0.3.8 scaffold.
 import { useQuery, useSuspenseQuery, useMutation } from "@tanstack/react-query";
 import type { UseQueryOptions, UseSuspenseQueryOptions, UseMutationOptions } from "@tanstack/react-query";
 export class ApiError extends Error {
@@ -13,6 +12,26 @@ export class ApiError extends Error {
         this.body = body;
     }
 }
+export type CancelIn = {
+    expected_revision: number;
+    lease_token?: string | null;
+    reason: string;
+} & {
+};
+export type ClaimIn = {
+    expected_revision: number;
+    reason: string;
+    seconds: number;
+} & {
+};
+export type CreateTaskIn = {
+    entity_ids: string[];
+    evidence: Record<string, unknown>;
+    kind: "merge" | "override" | "split_new" | "restore_merge";
+    priority?: number;
+    reason: string;
+} & {
+};
 export type DemoAlternativeOut = {
     excluded: string | null;
     quality: number | null;
@@ -149,6 +168,12 @@ export interface LabelOut {
     b_id: string;
     label: number;
 }
+export type LeaseIn = {
+    expected_revision: number;
+    lease_token: string;
+    reason: string;
+} & {
+};
 export interface PairOut {
     a_id: string;
     b_id: string;
@@ -161,6 +186,22 @@ export interface PairOut {
     right: Record<string, string | null>;
     threshold: number;
 }
+export type ProposeIn = {
+    evidence: Record<string, unknown>;
+    expected_revision: number;
+    lease_token: string;
+    payload: Record<string, unknown>;
+    reason: string;
+    versions: Record<string, number>;
+} & {
+};
+export type RenewIn = {
+    expected_revision: number;
+    lease_token: string;
+    reason: string;
+    seconds: number;
+} & {
+};
 export type ReviewIn = {
     decision: "match" | "no_match" | "unsure";
     model_version: string;
@@ -179,6 +220,11 @@ export type ReviewOut = {
     request_id: string;
     reviewed_at: string;
     user: string;
+} & {
+};
+export type RevisionIn = {
+    expected_revision: number;
+    reason: string;
 } & {
 };
 export interface SessionOut {
@@ -870,5 +916,622 @@ export function useTrainingLabelsSuspense<TData = {
         queryKey: trainingLabelsKey(options?.params),
         queryFn: ()=>trainingLabels(options?.params),
         ...options?.query
+    });
+}
+export interface MasteringGetOperationParams {
+    domain_id: string;
+    operation_id: string;
+}
+export const masteringGetOperation = async (params: MasteringGetOperationParams, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/operations/${params.operation_id}`, {
+        ...options,
+        method: "GET"
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const masteringGetOperationKey = (params?: MasteringGetOperationParams)=>{
+    return [
+        "/api/v1/domains/{domain_id}/operations/{operation_id}",
+        params
+    ] as const;
+};
+export function useMasteringGetOperation<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringGetOperationParams;
+    query?: Omit<UseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: masteringGetOperationKey(options.params),
+        queryFn: ()=>masteringGetOperation(options.params),
+        ...options?.query
+    });
+}
+export function useMasteringGetOperationSuspense<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringGetOperationParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: masteringGetOperationKey(options.params),
+        queryFn: ()=>masteringGetOperation(options.params),
+        ...options?.query
+    });
+}
+export interface MasteringApproveParams {
+    domain_id: string;
+    operation_id: string;
+}
+export const masteringApprove = async (params: MasteringApproveParams, data: RevisionIn, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/operations/${params.operation_id}/approve`, {
+        ...options,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...options?.headers
+        },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export function useMasteringApprove(options?: {
+    mutation?: UseMutationOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, {
+        params: MasteringApproveParams;
+        data: RevisionIn;
+    }>;
+}) {
+    return useMutation({
+        mutationFn: (vars)=>masteringApprove(vars.params, vars.data),
+        ...options?.mutation
+    });
+}
+export interface MasteringOperationHistoryParams {
+    domain_id: string;
+    operation_id: string;
+    limit?: number;
+    after?: string | null;
+}
+export const masteringOperationHistory = async (params: MasteringOperationHistoryParams, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const searchParams = new URLSearchParams();
+    if (params?.limit != null) searchParams.set("limit", String(params?.limit));
+    if (params?.after != null) searchParams.set("after", String(params?.after));
+    const queryString = searchParams.toString();
+    const url = queryString ? `/api/v1/domains/${params.domain_id}/operations/${params.operation_id}/history?${queryString}` : `/api/v1/domains/${params.domain_id}/operations/${params.operation_id}/history`;
+    const res = await fetch(url, {
+        ...options,
+        method: "GET"
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const masteringOperationHistoryKey = (params?: MasteringOperationHistoryParams)=>{
+    return [
+        "/api/v1/domains/{domain_id}/operations/{operation_id}/history",
+        params
+    ] as const;
+};
+export function useMasteringOperationHistory<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringOperationHistoryParams;
+    query?: Omit<UseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: masteringOperationHistoryKey(options.params),
+        queryFn: ()=>masteringOperationHistory(options.params),
+        ...options?.query
+    });
+}
+export function useMasteringOperationHistorySuspense<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringOperationHistoryParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: masteringOperationHistoryKey(options.params),
+        queryFn: ()=>masteringOperationHistory(options.params),
+        ...options?.query
+    });
+}
+export interface MasteringInboxParams {
+    domain_id: string;
+    state?: "open" | "claimed" | "resolved" | "canceled";
+    limit?: number;
+    after?: string | null;
+}
+export const masteringInbox = async (params: MasteringInboxParams, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const searchParams = new URLSearchParams();
+    if (params?.state != null) searchParams.set("state", String(params?.state));
+    if (params?.limit != null) searchParams.set("limit", String(params?.limit));
+    if (params?.after != null) searchParams.set("after", String(params?.after));
+    const queryString = searchParams.toString();
+    const url = queryString ? `/api/v1/domains/${params.domain_id}/tasks?${queryString}` : `/api/v1/domains/${params.domain_id}/tasks`;
+    const res = await fetch(url, {
+        ...options,
+        method: "GET"
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const masteringInboxKey = (params?: MasteringInboxParams)=>{
+    return [
+        "/api/v1/domains/{domain_id}/tasks",
+        params
+    ] as const;
+};
+export function useMasteringInbox<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringInboxParams;
+    query?: Omit<UseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: masteringInboxKey(options.params),
+        queryFn: ()=>masteringInbox(options.params),
+        ...options?.query
+    });
+}
+export function useMasteringInboxSuspense<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringInboxParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: masteringInboxKey(options.params),
+        queryFn: ()=>masteringInbox(options.params),
+        ...options?.query
+    });
+}
+export interface MasteringCreateTaskParams {
+    domain_id: string;
+}
+export const masteringCreateTask = async (params: MasteringCreateTaskParams, data: CreateTaskIn, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/tasks`, {
+        ...options,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...options?.headers
+        },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export function useMasteringCreateTask(options?: {
+    mutation?: UseMutationOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, {
+        params: MasteringCreateTaskParams;
+        data: CreateTaskIn;
+    }>;
+}) {
+    return useMutation({
+        mutationFn: (vars)=>masteringCreateTask(vars.params, vars.data),
+        ...options?.mutation
+    });
+}
+export interface MasteringGetTaskParams {
+    domain_id: string;
+    task_id: string;
+}
+export const masteringGetTask = async (params: MasteringGetTaskParams, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/tasks/${params.task_id}`, {
+        ...options,
+        method: "GET"
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const masteringGetTaskKey = (params?: MasteringGetTaskParams)=>{
+    return [
+        "/api/v1/domains/{domain_id}/tasks/{task_id}",
+        params
+    ] as const;
+};
+export function useMasteringGetTask<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringGetTaskParams;
+    query?: Omit<UseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: masteringGetTaskKey(options.params),
+        queryFn: ()=>masteringGetTask(options.params),
+        ...options?.query
+    });
+}
+export function useMasteringGetTaskSuspense<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringGetTaskParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: masteringGetTaskKey(options.params),
+        queryFn: ()=>masteringGetTask(options.params),
+        ...options?.query
+    });
+}
+export interface MasteringCancelTaskParams {
+    domain_id: string;
+    task_id: string;
+}
+export const masteringCancelTask = async (params: MasteringCancelTaskParams, data: CancelIn, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/tasks/${params.task_id}/cancel`, {
+        ...options,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...options?.headers
+        },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export function useMasteringCancelTask(options?: {
+    mutation?: UseMutationOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, {
+        params: MasteringCancelTaskParams;
+        data: CancelIn;
+    }>;
+}) {
+    return useMutation({
+        mutationFn: (vars)=>masteringCancelTask(vars.params, vars.data),
+        ...options?.mutation
+    });
+}
+export interface MasteringClaimTaskParams {
+    domain_id: string;
+    task_id: string;
+}
+export const masteringClaimTask = async (params: MasteringClaimTaskParams, data: ClaimIn, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/tasks/${params.task_id}/claim`, {
+        ...options,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...options?.headers
+        },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export function useMasteringClaimTask(options?: {
+    mutation?: UseMutationOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, {
+        params: MasteringClaimTaskParams;
+        data: ClaimIn;
+    }>;
+}) {
+    return useMutation({
+        mutationFn: (vars)=>masteringClaimTask(vars.params, vars.data),
+        ...options?.mutation
+    });
+}
+export interface MasteringTaskHistoryParams {
+    domain_id: string;
+    task_id: string;
+    limit?: number;
+    after?: string | null;
+}
+export const masteringTaskHistory = async (params: MasteringTaskHistoryParams, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const searchParams = new URLSearchParams();
+    if (params?.limit != null) searchParams.set("limit", String(params?.limit));
+    if (params?.after != null) searchParams.set("after", String(params?.after));
+    const queryString = searchParams.toString();
+    const url = queryString ? `/api/v1/domains/${params.domain_id}/tasks/${params.task_id}/history?${queryString}` : `/api/v1/domains/${params.domain_id}/tasks/${params.task_id}/history`;
+    const res = await fetch(url, {
+        ...options,
+        method: "GET"
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export const masteringTaskHistoryKey = (params?: MasteringTaskHistoryParams)=>{
+    return [
+        "/api/v1/domains/{domain_id}/tasks/{task_id}/history",
+        params
+    ] as const;
+};
+export function useMasteringTaskHistory<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringTaskHistoryParams;
+    query?: Omit<UseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useQuery({
+        queryKey: masteringTaskHistoryKey(options.params),
+        queryFn: ()=>masteringTaskHistory(options.params),
+        ...options?.query
+    });
+}
+export function useMasteringTaskHistorySuspense<TData = {
+    data: Record<string, unknown>;
+}>(options: {
+    params: MasteringTaskHistoryParams;
+    query?: Omit<UseSuspenseQueryOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, TData>, "queryKey" | "queryFn">;
+}) {
+    return useSuspenseQuery({
+        queryKey: masteringTaskHistoryKey(options.params),
+        queryFn: ()=>masteringTaskHistory(options.params),
+        ...options?.query
+    });
+}
+export interface MasteringProposeParams {
+    domain_id: string;
+    task_id: string;
+}
+export const masteringPropose = async (params: MasteringProposeParams, data: ProposeIn, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/tasks/${params.task_id}/propose`, {
+        ...options,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...options?.headers
+        },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export function useMasteringPropose(options?: {
+    mutation?: UseMutationOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, {
+        params: MasteringProposeParams;
+        data: ProposeIn;
+    }>;
+}) {
+    return useMutation({
+        mutationFn: (vars)=>masteringPropose(vars.params, vars.data),
+        ...options?.mutation
+    });
+}
+export interface MasteringReleaseTaskParams {
+    domain_id: string;
+    task_id: string;
+}
+export const masteringReleaseTask = async (params: MasteringReleaseTaskParams, data: LeaseIn, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/tasks/${params.task_id}/release`, {
+        ...options,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...options?.headers
+        },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export function useMasteringReleaseTask(options?: {
+    mutation?: UseMutationOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, {
+        params: MasteringReleaseTaskParams;
+        data: LeaseIn;
+    }>;
+}) {
+    return useMutation({
+        mutationFn: (vars)=>masteringReleaseTask(vars.params, vars.data),
+        ...options?.mutation
+    });
+}
+export interface MasteringRenewTaskParams {
+    domain_id: string;
+    task_id: string;
+}
+export const masteringRenewTask = async (params: MasteringRenewTaskParams, data: RenewIn, options?: RequestInit): Promise<{
+    data: Record<string, unknown>;
+}> =>{
+    const res = await fetch(`/api/v1/domains/${params.domain_id}/tasks/${params.task_id}/renew`, {
+        ...options,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            ...options?.headers
+        },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        let parsed: unknown;
+        try {
+            parsed = JSON.parse(body);
+        } catch  {
+            parsed = body;
+        }
+        throw new ApiError(res.status, res.statusText, parsed);
+    }
+    return {
+        data: await res.json()
+    };
+};
+export function useMasteringRenewTask(options?: {
+    mutation?: UseMutationOptions<{
+        data: Record<string, unknown>;
+    }, ApiError, {
+        params: MasteringRenewTaskParams;
+        data: RenewIn;
+    }>;
+}) {
+    return useMutation({
+        mutationFn: (vars)=>masteringRenewTask(vars.params, vars.data),
+        ...options?.mutation
     });
 }

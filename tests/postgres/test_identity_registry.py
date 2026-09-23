@@ -293,7 +293,7 @@ def previous_schema(postgres, directory, state):
 def test_additive_identity_upgrade_preserves_existing_prototype_ids(store, postgres, tmp_path):
     before = previous_schema(postgres, tmp_path, "active")
     with postgres.connect() as connection:
-        assert list(apply_migrations(connection, ROOT / "app/migrations/mastering")) == [1, 2, 3, 4, 5]
+        assert list(apply_migrations(connection, ROOT / "app/migrations/mastering")) == [1, 2, 3, 4, 5, 6]
         after = connection.execute("SELECT master_id,revision,state,created_at FROM lm_control.master_identity").fetchone()
         assert after == before
         assert connection.execute("SELECT redirect_to FROM lm_control.master_identity").fetchone()[0] is None

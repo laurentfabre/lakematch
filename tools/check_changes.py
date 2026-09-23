@@ -84,10 +84,13 @@ def main():
                         "tests/test_mastering_match_evidence.py",
                         "tests/test_mastering_probability.py",
                         "tests/test_mastering_workflow.py",
+                        "tests/test_mastering_access.py",
                         "tests/test_config.py"]))
     if args.all or any(n.startswith(("src/lakematch/mastering/registry", "src/lakematch/mastering/execution",
                                      "src/lakematch/mastering/identity",
                                      "src/lakematch/mastering/workflow",
+                                     "src/lakematch/mastering/access",
+                                     "src/lakematch/mastering/authorized_workflow",
                                      "src/lakematch/mastering/survivorship",
                                      "app/migrations/mastering/", "tests/postgres/", "tools/local_postgres")) or
                       n in {"requirements-postgres.in", "requirements-postgres.lock"} for n in contents):
@@ -116,6 +119,11 @@ def main():
             raise SystemExit(f"Missing {python}; prepare the documented project environment before committing.")
         env = {**os.environ, "LAKEMATCH_TEST_POSTGRES": "1"} if "tests/postgres" in tests else None
         subprocess.run([str(python), "-m", "pytest", "-q", *tests], cwd=cwd, env=env, check=True, timeout=120)
+    if args.all or any(n.startswith(("src/lakematch/mastering/access", "src/lakematch/mastering/authorized_workflow",
+                                     "src/lakematch/mastering/workflow_api", "app/src/lakematch_review/backend/mastering",
+                                     "app/acceptance/test_workflow_access", "tools/run_mastering_http_tests")) for n in contents):
+        subprocess.run([str(ROOT / ".venv/bin/python"), "tools/run_mastering_http_tests.py"],
+                       cwd=ROOT, check=True, timeout=120)
     return 0
 
 

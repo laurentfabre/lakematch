@@ -1,0 +1,13 @@
+{
+  "phase": "LF-C",
+  "slot": 2,
+  "scanner_inputs": {
+    "reports/findings.json": "1330b75048cf88d6e615a512b6fccc93575872e99c07510f3be112a5a9ffbe29",
+    "reports/findings.md": "e54dfed5f111088f5b9ca4b8d80c2f80580ffc1129958ec509195ab544d129ab",
+    "reports/online/findings.json": "ff653d5854649889bc68e67ce215749b60491eefcf5e7ac8d8e8608186e9d11c",
+    "reports/online/findings.md": "00ee8f874fbd74121e21405e42d100c4359a2daf4f62ada73c63538cf083455d",
+    "reports/static-scan-20260922/findings.json": "b97bb09b0f83c15d4c9620ed48684fea4f6a08729c1a463c3be34ca9653abe74"
+  },
+  "corpus": "synthetic workflow fixtures only",
+  "confirmation_materialized": false
+}

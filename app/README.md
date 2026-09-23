@@ -100,3 +100,18 @@ Dependencies and lockfiles belong to this subproject. FastAPI is pinned to
 [Databricks license](APX-LICENSE.txt) and this app is intended to connect to
 Databricks Services. Modified/generated files are maintained for this campaign;
 upstream notices are retained.
+
+The optional [mastering API boundary](../spec/lakefusion/ACCESS.md) adds
+`/api/v1/domains/{domain_id}/tasks` and operation routes with current role,
+object and field checks. The default app leaves this backend unconfigured.
+An explicit Python 3.12 entrypoint can attach the PostgreSQL `WorkflowAPI` using
+`create_review_app(api)`; connection credentials and approved domain contexts
+come from deployment configuration. Local review identity is never a mastering
+identity. Real Apps ingress, Lakebase OAuth/RLS and remote packaging remain
+qualification gates; existing review routes retain the behavior described above.
+
+After preparing the documented offline dependency cache, verify the optional
+assembly from the repository root with
+`.venv/bin/python tools/run_mastering_http_tests.py`. It builds and imports a
+fresh APX wheel, uses the pinned FastAPI runtime and private temporary PostgreSQL
+instances, and removes its owned runtime after the tests.

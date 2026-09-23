@@ -130,6 +130,7 @@ class PostgresWorkflow:
                    'action': request['action'], 'actor': request['actor'], 'reason': request['reason'],
                    'idempotency_key': key, 'request_sha256': digest(request),
                    'recorded_at': _json(at), 'result': result}
+        receipt.update(self._command_metadata(cursor, request))
         cursor.execute('''INSERT INTO lm_control.workflow_command
             (command_id,domain_id,domain_version,task_id,operation_id,actor,idempotency_key,
              action,request_sha256,request,receipt_sha256,receipt,created_at)
@@ -139,6 +140,10 @@ class PostgresWorkflow:
              request['actor'], key, request['action'], digest(request), Jsonb(request),
              digest(receipt), Jsonb(receipt), at))
         return receipt
+
+    def _command_metadata(self, cursor, request):
+        """Trusted-worker receipts retain their original shape by default."""
+        return {}
 
     @staticmethod
     def _receipt(row):
@@ -155,6 +160,7 @@ class PostgresWorkflow:
             lock -= 2**32
         with self._transaction(write=True) as cursor:
             cursor.execute('SELECT pg_advisory_xact_lock(127935,%s)', (lock,))
+            self._authorize_command(cursor, request)
             cursor.execute('SELECT * FROM lm_control.workflow_command WHERE actor=%s AND idempotency_key=%s',
                            (actor, key))
             prior = cursor.fetchone()
@@ -166,6 +172,13 @@ class PostgresWorkflow:
             domain = self._domain(cursor)
             result = getattr(self, '_' + action)(cursor, request, key, domain)
             return self._save_command(cursor, request, key, result)
+
+    def _authorize_command(self, cursor, request):
+        """Extension point for the application boundary, including receipt replay.
+
+        The base worker remains a trusted internal interface. Its authorized
+        subclass holds policy locks inside this same business transaction.
+        """
 
     def create_task(self, kind, entity_ids, *, priority=0, evidence, actor, reason, key):
         if type(priority) is not int or not -1000 <= priority <= 1000:

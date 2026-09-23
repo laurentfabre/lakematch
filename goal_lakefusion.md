@@ -324,6 +324,11 @@ Deliverables:
   Lakebase and authenticated app integration remain pending, so LM-007 stays open.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
+  [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with
+  scoped reads, revocation fencing, policy-attributed receipts and a restricted
+  nonowner database role. The [slot-2 plan](bench/lakefusion/ACCESS_PLAN.md)
+  declares local fresh-wheel acceptance; real Apps/Lakebase/RLS qualification
+  and future entity/search/graph paths remain open.
 - [ ] Add paginated entity search, task inbox, provenance, history and visible
   pending/approved/applying/published/conflict/failed operation states.
 - [ ] Implement preview/propose/approve/apply for overrides and merge/split;
