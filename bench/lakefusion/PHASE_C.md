@@ -1,8 +1,10 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 8/32 experiments under LF-DEC-008.** The local
+**In progress, 2026-09-23. LF-C has consumed 9/32 experiments under LF-DEC-008.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
-integration and the governed two-source pilot remain open.
+integration and the governed two-source pilot remain open. Slot 9 installs the
+database and isolated review tables; app startup times out before HTTP acceptance.
+The app and warehouse are stopped, and Lakebase is idle after verified cleanup.
 
 Slot 1 below remains the accepted worker checkpoint. Slot 2's source-preservation
 failure is retained. The separately declared slot-3 follow-up accepts the local
@@ -322,3 +324,46 @@ The [slot-9 installation plan](DEPLOYMENT_INSTALLATION_PLAN.md) is authorized
 under the amended cap, retaining every per-run resource/time, quality, input
 preservation and cleanup condition. This amendment alone consumes no slot and
 changes no acceptance status.
+
+## Slot 9 — database installed; app startup exceeded the local command timeout
+
+Source **`8320d42`** executes the [authorized installation plan](DEPLOYMENT_INSTALLATION_PLAN.md).
+The [manifest](../../experiments/20260923T142207Z-lf-c-deployment-installation-29b68f/manifest.json),
+[installation report](deployment-20260923-installation.json) and
+[binding](deployment-binding-20260923-installation.json) retain the failed attempt.
+The outer run lasts **171.199 seconds**; this remains a failure and consumes slot 9.
+
+- The rebuilt payload and strict DAB validation pass. Operator authentication
+  uses **verify-full and TLS 1.3** with the pinned CA bundle.
+- All six unchanged migrations and restricted serving-role grants are installed
+  in `lm_control`. The frozen company domain, one synthetic legal-company master,
+  ERP/CRM crosswalks and the operator's fixture access receipt are retained.
+- `gdpr2_catalog.lakematch_mdm_dev` and its three empty review tables are created,
+  with the intended scoped app grants. Existing review data is not shared.
+- The **120-second local timeout** around `bundle run workflow --no-wait`
+  expires while app compute is starting. No live HTTP checks run. Follow-on
+  metadata shows active compute with **no source deployment**, so this is not
+  app authentication, role readiness or workflow acceptance.
+- The first cleanup stop is rejected because the platform will not stop an app
+  that has been starting for less than 20 minutes. The warehouse stops normally.
+  A separately recorded [cleanup reconciliation](deployment-cleanup-20260923-installation.json)
+  observes active compute, stops only the owned app and confirms **STOPPED** in
+  15.932 seconds. The original failed report is unchanged. This is cleanup of
+  slot 9, not another experiment or a retroactive pass.
+
+The [read-only verification](deployment-verification-20260923-installation.json)
+matches **252 source hashes, four artifact hashes, the committed plan, all 15
+frozen files and all seven scanner inputs**. It confirms app **STOPPED**, warehouse
+**STOPPED**, and Lakebase **IDLE**, with its 1-CU maximum and 300-second suspension.
+Storage and installed data remain retained; billing is unreconciled. LF-A remains
+8/8, LF-B 12/12, and LF-C is **9/32**, leaving **23 attempts**.
+
+Next: commit a retained-state startup continuation before another run. Verify the
+recorded project/app bindings, payload, migrations, fixture receipts and review
+schema/grants without rerunning first-install bootstrap. Give cold startup its
+declared readiness allowance inside the unchanged 2,400-second envelope, retain
+timeout diagnostics, and reconcile a rejected startup stop explicitly. Require
+observed `active_instances == 1` before HTTP acceptance; the undeployed active
+compute observation omitted this field and cannot establish singleton operation.
+Live OAuth/Apps identity, receipt/revocation/restart, second-user approval, RLS,
+renewal, business publication and the broader pilot gates remain open.

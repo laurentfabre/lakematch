@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "schema": "lm_control",
+  "app_name": "lakematch-mdm-dev",
+  "workspace_host": "https://fevm-gdpr2.cloud.databricks.com",
+  "workspace_id": "7474658055368199",
+  "endpoint": "projects/lakematch-mdm-dev/branches/production/endpoints/primary",
+  "database_resource": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+  "host": "ep-noisy-sky-d72wqgqr.database.eu-central-1.cloud.databricks.com",
+  "database": "databricks_postgres",
+  "contexts": [
+    {
+      "domain_id": "company",
+      "domain_version": 1,
+      "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7"
+    }
+  ]
+}
