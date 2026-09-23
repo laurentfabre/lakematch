@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 4/8 experiments.** The local
+**In progress, 2026-09-23. LF-C has consumed 5/8 experiments.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open.
 
@@ -210,3 +210,20 @@ finite provisioning/deployment/restart checks before execution.
 LF-A remains 8/8, LF-B 12/12 and LF-C **4/8**. Live OAuth/TLS/role mapping,
 independent user approval, ingress isolation, per-user RLS, business execution,
 publication recovery and customer-style redeployment remain unqualified.
+
+
+## Slot 5 — project request rejected before provisioning
+
+Source **`10056ad`** failed after 2.349 seconds; [manifest](../../experiments/20260923T124916Z-lf-c-deployment-8a586f/manifest.json)
+and [report](deployment-20260923.json) retain the attempted request. The API
+rejects explicit `no_suspension: false` in endpoint defaults: that optional flag
+only accepts true when set. Auto-suspension requires omitting it and supplying
+`300s`. Read-only checks then confirmed the dedicated project and app absent.
+No binding artifact exists because creation failed. The cleanup message in the
+failed report was intent, not existence proof; no resource was retained.
+
+All 252 source hashes and three manifest artifacts match. No SQL, fixture,
+app/warehouse start or deployment occurred. LM-007/008 remain open and LF-C is
+**5/8**. The [slot-6 follow-up plan](DEPLOYMENT_FOLLOWUP_PLAN.md) preserves the
+same budgets and checks, corrects the optional boolean and records actual
+resource existence in cleanup. Existing resources and scanner files are intact.

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Bounded, first-install LF-C deployment; never adopts existing resources."""
 from datetime import datetime, timezone
+import argparse
 import json
 import os
 from pathlib import Path
@@ -22,18 +23,22 @@ from lakematch.mastering.access_registry import PostgresAccessRegistry
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--followup', action='store_true', help='Execute the committed slot-6 API correction plan')
+    args = parser.parse_args()
+    suffix = '-followup' if args.followup else ''
     config = json.loads((ROOT/'bench/lakefusion/deployment-inputs-20260923.json').read_text())
     bench = ROOT/'bench/lakefusion'
-    destination = bench/'deployment-20260923.json'
-    binding_path = bench/'deployment-binding-20260923.json'
-    payload = ROOT/'data/test-runs/workflow-deployment-20260923'
+    destination = bench/f'deployment-20260923{suffix}.json'
+    binding_path = bench/f'deployment-binding-20260923{suffix}.json'
+    payload = ROOT/f'data/test-runs/workflow-deployment-20260923{suffix}'
     if any(p.exists() for p in (destination, binding_path, payload)):
         raise SystemExit('Fresh evidence and payload paths required')
     if config['profile'] != 'fevm-gdpr2' or config['project_id'] != 'lakematch-mdm-dev':
         raise SystemExit('This committed plan only authorizes the selected dedicated target')
     started = time.monotonic()
     deadline = started+2100  # outer runner reserves another 300 seconds for cleanup
-    report = {'phase': 'LF-C', 'slot': 5, 'status': 'running', 'inputs': config,
+    report = {'phase': 'LF-C', 'slot': 6 if args.followup else 5, 'status': 'running', 'inputs': config,
         'started_at': datetime.now(timezone.utc).isoformat(), 'commands': [], 'checks': [],
         'cleanup': {}, 'observed_cost': None, 'cost_status': 'billing unreconciled',
         'confirmation_materialized': False, 'stage': 'inventory'}
@@ -136,7 +141,7 @@ def main():
 
         stage('create dedicated project')
         settings = {'autoscaling_limit_min_cu': .5, 'autoscaling_limit_max_cu': 1,
-                    'no_suspension': False, 'suspend_timeout_duration': '300s'}
+                    'suspend_timeout_duration': '300s'}
         project_owned = True  # absent above; reconcile a lost create acknowledgement
         request = {'spec': {'display_name': 'Lakematch governed MDM pilot', 'pg_version': 17,
             'enable_pg_native_login': False, 'default_endpoint_settings': settings,
@@ -289,7 +294,16 @@ def main():
         if project_owned:
             # Retain the explicitly requested target and all evidence for resume.
             # No project/branch/schema data is ever dropped by this runner.
-            report['cleanup']['lakebase'] = 'retained dedicated target; requested auto-suspend after 300 seconds'
+            try:
+                retained = w.postgres.get_project('projects/'+config['project_id'])
+                report['cleanup']['lakebase'] = {'retained': retained.name,
+                    'default_endpoint_settings': retained.as_dict().get('status', {}).get('default_endpoint_settings')}
+                if endpoint_name:
+                    report['final_endpoint'] = w.postgres.get_endpoint(endpoint_name).as_dict()
+            except NotFound:
+                report['cleanup']['lakebase'] = 'no dedicated resource exists'
+            except Exception as error:
+                report['cleanup']['lakebase_error'] = type(error).__name__
         if any(k.endswith('_error') for k in report['cleanup']):
             report['status'] = 'failed'
         report.update(ended_at=datetime.now(timezone.utc).isoformat(),
