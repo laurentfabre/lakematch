@@ -299,3 +299,12 @@ under the default limit of eight. **It has not been executed.**
 LF-A stays **8/8**, LF-B **12/12**, LF-C is **8/8**. An explicit LF-C limit
 amendment is required before another experiment. LM-007/008/024 remain in
 progress; all business-execution/publication and later phase gates remain open.
+
+
+Final checkpoint verification: source **`522bbe3`** passes **111 app/runtime
+checks on Python 3.11 and 111 on Python 3.12** through the managed commit hooks,
+with owned runtime/database cleanup. This is local regression coverage for the
+CA correction, not another acceptance experiment. Read-only workspace metadata
+then shows app **STOPPED**, warehouse **STOPPED** and Lakebase endpoint **IDLE**
+with its 300-second suspension and 1-CU maximum. The run ledger independently
+counts LF-A 8, LF-B 12 and LF-C 8. All frozen/scanner inputs remain intact.

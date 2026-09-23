@@ -21,5 +21,19 @@
   "business_writes": 0,
   "operator_identity_only": true,
   "app_oauth_qualified": false,
-  "token_recorded": false
+  "token_recorded": false,
+  "final_resource_state": {
+    "app": "STOPPED",
+    "warehouse": "STOPPED",
+    "lakebase_endpoint": "IDLE",
+    "suspend_timeout_seconds": 300,
+    "max_cu": 1.0
+  },
+  "local_correction_checks": {
+    "commit": "522bbe3",
+    "python_3_11_passed": 111,
+    "python_3_12_passed": 111,
+    "private_runtime_cleanup": "passed",
+    "live_acceptance": false
+  }
 }
