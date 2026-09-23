@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import signal
+import shutil
 import subprocess
 import sys
 import time
@@ -24,9 +25,11 @@ from lakematch.mastering.access_registry import PostgresAccessRegistry
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--followup', action='store_true', help='Execute the committed slot-6 API correction plan')
+    choice = parser.add_mutually_exclusive_group()
+    choice.add_argument('--followup', action='store_true', help='Execute the committed slot-6 API correction plan')
+    choice.add_argument('--resume', action='store_true', help='Execute slot 7 against the recorded dedicated project')
     args = parser.parse_args()
-    suffix = '-followup' if args.followup else ''
+    suffix = '-resume' if args.resume else '-followup' if args.followup else ''
     config = json.loads((ROOT/'bench/lakefusion/deployment-inputs-20260923.json').read_text())
     bench = ROOT/'bench/lakefusion'
     destination = bench/f'deployment-20260923{suffix}.json'
@@ -38,7 +41,7 @@ def main():
         raise SystemExit('This committed plan only authorizes the selected dedicated target')
     started = time.monotonic()
     deadline = started+2100  # outer runner reserves another 300 seconds for cleanup
-    report = {'phase': 'LF-C', 'slot': 6 if args.followup else 5, 'status': 'running', 'inputs': config,
+    report = {'phase': 'LF-C', 'slot': 7 if args.resume else 6 if args.followup else 5, 'status': 'running', 'inputs': config,
         'started_at': datetime.now(timezone.utc).isoformat(), 'commands': [], 'checks': [],
         'cleanup': {}, 'observed_cost': None, 'cost_status': 'billing unreconciled',
         'confirmation_materialized': False, 'stage': 'inventory'}
@@ -70,7 +73,8 @@ def main():
         save()
         if result.returncode:
             # These commands never request tokens or secrets.
-            report['command_error'] = result.stderr[-3000:]
+            report.setdefault('command_errors', []).append({'command': command,
+                'stderr': result.stderr[-6000:], 'stdout': result.stdout[-6000:]})
             raise RuntimeError('Deployment CLI command failed')
         try:
             return json.loads(result.stdout) if result.stdout.strip() else {}
@@ -120,7 +124,11 @@ def main():
         user = w.current_user.me()
         principal = f"databricks:{config['workspace_id']}:{user.id}"
         existing = list(w.postgres.list_projects())
-        assert not any(p.name == 'projects/'+config['project_id'] for p in existing), 'Project already exists'
+        selected = [p for p in existing if p.name == 'projects/'+config['project_id']]
+        if args.resume:
+            assert len(selected) == 1 and selected[0].uid == 'ca930294-0763-4eaa-9638-b8be2c4f98b6'
+        else:
+            assert not selected, 'Project already exists'
         assert not any(a.name == config['app_name'] for a in w.apps.list()), 'App already exists'
         for run in w.jobs.list_runs(active_only=True, limit=25):
             if (run.run_name or '').startswith('lakematch'):
@@ -139,7 +147,7 @@ def main():
         assert {'key': 'campaign', 'value': 'lakematch-20260919'} in warehouse['tags']['custom_tags']
         report['warehouse_before'] = warehouse
 
-        stage('create dedicated project')
+        stage('verify retained project' if args.resume else 'create dedicated project')
         settings = {'autoscaling_limit_min_cu': .5, 'autoscaling_limit_max_cu': 1,
                     'suspend_timeout_duration': '300s'}
         project_owned = True  # absent above; reconcile a lost create acknowledgement
@@ -148,7 +156,8 @@ def main():
             'custom_tags': [{'key': 'application', 'value': 'lakematch'},
                             {'key': 'phase', 'value': 'lf-c'}]}, 'initial_endpoint_spec': settings}
         report['project_request'] = request
-        operation(cli('postgres', 'create-project', config['project_id'], '--no-wait', body=request))
+        if not args.resume:
+            operation(cli('postgres', 'create-project', config['project_id'], '--no-wait', body=request))
         branch = f"projects/{config['project_id']}/branches/{config['branch_id']}"
         endpoint_name = branch+'/endpoints/primary'
         endpoint = poll('endpoint', lambda: cli('postgres', 'get-endpoint', endpoint_name),
@@ -166,14 +175,22 @@ def main():
         binding_path.write_text(json.dumps(binding, indent=2)+'\n')
 
         stage('build and deploy stopped app')
-        subprocess.run([sys.executable, str(ROOT/'tools/build_workflow_bundle.py'), '--output', str(payload),
-            '--binding', str(binding_path), '--warehouse-id', config['warehouse_id'],
-            '--review-schema', review_schema], cwd=ROOT, check=True, timeout=480,
-            env={**os.environ, 'UV_OFFLINE': '1'})
+        if args.resume:
+            prior = json.loads((bench/'deployment-20260923-followup.json').read_text())
+            previous_payload = ROOT/'data/test-runs/workflow-deployment-20260923-followup'
+            assert prior['payload']['binding_sha256'] == sha256(binding_path)
+            assert all(sha256(previous_payload/p) == v['sha256'] for p,v in prior['payload']['files'].items())
+            shutil.copytree(previous_payload, payload)
+            report['payload_source_commit'] = 'e296720'
+        else:
+            subprocess.run([sys.executable, str(ROOT/'tools/build_workflow_bundle.py'), '--output', str(payload),
+                '--binding', str(binding_path), '--warehouse-id', config['warehouse_id'],
+                '--review-schema', review_schema], cwd=ROOT, check=True, timeout=480,
+                env={**os.environ, 'UV_OFFLINE': '1'})
         report['payload'] = json.loads((payload/'payload.json').read_text())
         cli('bundle', 'validate', '--strict', '--target', 'pilot', cwd=payload)
         app_owned = True
-        cli('bundle', 'deploy', '--target', 'pilot', cwd=payload, timeout=300)
+        cli('bundle', 'deploy', '--auto-approve', '--target', 'pilot', cwd=payload, timeout=300)
         app_data = poll('created_app', app, lambda a: bool(a.get('service_principal_client_id')))
         serving_role = app_data['service_principal_client_id']
         assert re.fullmatch(r'[0-9a-f-]{36}', serving_role)
@@ -278,9 +295,15 @@ def main():
         cleaning = True
         if app_owned:
             try:
-                cli('apps', 'stop', config['app_name'], '--no-wait')
-                report['cleanup']['app'] = poll('final_app', app,
-                    lambda x: x.get('compute_status', {}).get('state') == 'STOPPED', 180)['compute_status']['state']
+                try:
+                    actual_app = w.apps.get(config['app_name'])
+                except NotFound:
+                    report['cleanup']['app'] = 'no dedicated app exists'
+                else:
+                    if actual_app.as_dict().get('compute_status', {}).get('state') != 'STOPPED':
+                        cli('apps', 'stop', config['app_name'], '--no-wait')
+                    report['cleanup']['app'] = poll('final_app', app,
+                        lambda x: x.get('compute_status', {}).get('state') == 'STOPPED', 180)['compute_status']['state']
             except Exception as error:
                 report['cleanup']['app_error'] = type(error).__name__
         if warehouse_owned:

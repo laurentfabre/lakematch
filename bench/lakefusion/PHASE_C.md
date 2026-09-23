@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 5/8 experiments.** The local
+**In progress, 2026-09-23. LF-C has consumed 6/8 experiments.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open.
 
@@ -227,3 +227,25 @@ app/warehouse start or deployment occurred. LM-007/008 remain open and LF-C is
 **5/8**. The [slot-6 follow-up plan](DEPLOYMENT_FOLLOWUP_PLAN.md) preserves the
 same budgets and checks, corrects the optional boolean and records actual
 resource existence in cleanup. Existing resources and scanner files are intact.
+
+
+## Slot 6 — dedicated project created; app deployment failed
+
+Source **`e296720`**, [manifest](../../experiments/20260923T125137Z-lf-c-deployment-followup-2eb17c/manifest.json),
+[report](deployment-20260923-followup.json) and
+[binding](deployment-binding-20260923-followup.json) retain this 20.911-second
+failed attempt. The selected project exists with UID
+`ca930294-0763-4eaa-9638-b8be2c4f98b6`, PostgreSQL 17, 0.5–1 CU and verified
+300-second suspension. Payload build and strict bundle validation passed.
+
+The app create/deploy failed. Its original stderr was overwritten by cleanup's
+“app does not exist” message; the cause cannot be established from this report.
+A subsequent read-only bundle plan passes with one intended app create. No app,
+control schema, fixture or review schema was created and the warehouse was not
+started. Workspace payload files/DAB deployment metadata and the selected
+Lakebase project are retained. Storage costs remain unreconciled.
+
+All 252 source hashes and four manifest artifacts verify. LF-C is **6/8**.
+The [slot-7 resume plan](DEPLOYMENT_RESUME_PLAN.md) pins the retained project UID,
+rechecks the payload hashes, preserves each command error and checks app
+existence before cleanup. Live application acceptance remains open.
