@@ -1,0 +1,9 @@
+[?25hChecked 36 packages in 10ms
+[0.19ms] ".env"
+[?25h[?25h(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vite.deploy.config.ts:2:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+[?25h[?25hBuilding wheel...
+Successfully built data/test-runs/workflow-deployment-20260923-installation/app/wheels/lakematch_review-0.0.0.post56.dev0+8320d42-py3-none-any.whl
+Building wheel...
+Successfully built data/test-runs/workflow-deployment-20260923-installation/app/wheels/lakematch_workflow_runtime-0.1.0-py3-none-any.whl
