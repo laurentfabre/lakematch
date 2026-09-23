@@ -22,11 +22,19 @@ Run commands **from this directory**, or use an absolute app path. APX 0.3.8 has
 a relative-path bug when invoked as `apx dev check app` from the parent directory.
 
 ```sh
-uv sync
-apx dev start --attached --skip-credentials-validation
-apx dev check
-apx build
+uv sync --frozen
+apx bun install --frozen-lockfile
+node node_modules/typescript/bin/tsc --noEmit
+.venv/bin/ty check
+.venv/bin/python build_deploy.py
 ```
+
+For an interactive preview, use `apx dev start --attached
+--skip-credentials-validation`. APX 0.3.8's development start/check commands can
+refresh router tooling and change `package.json`/`bun.lock`; inspect those changes
+before committing and retain the approved pins. Use the commands above for
+repeatable type checks and deployment builds. The build preserves the generated
+API client's APX attribution notice.
 
 Local mode defaults to SQLite at `data/review.sqlite`, with Genie disabled and
 no Databricks client constructed. Set `LAKEMATCH_REVIEW_DATABASE` to select an

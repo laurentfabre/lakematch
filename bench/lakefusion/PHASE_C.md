@@ -1,14 +1,15 @@
-# Phase C checkpoint — stewardship worker
+# Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 2/8 experiments.** The local
-transactional worker foundation passes. Lakebase deployment, authenticated
-application workflows and the governed two-source pilot remain open.
+**In progress, 2026-09-23. LF-C has consumed 3/8 experiments.** The local
+transactional worker and APX authorization boundary pass. Live Apps/Lakebase
+integration and the governed two-source pilot remain open.
 
-Slot 1 below remains the accepted worker checkpoint. Slot 2 implemented the
-local APX authorization boundary but failed its final source-preservation gate;
-the [slot-3 follow-up plan](ACCESS_FOLLOWUP_PLAN.md) is committed before retry.
+Slot 1 below remains the accepted worker checkpoint. Slot 2's source-preservation
+failure is retained. The separately declared slot-3 follow-up accepts the local
+APX authorization boundary with **545 tests passed**; its results and current
+remaining gates follow the historical worker evidence.
 
-The accepted source is **`9c7d12a`**, with the plan committed before execution.
+The slot-1 accepted source is **`9c7d12a`**, with the plan committed before execution.
 The [run manifest](../../experiments/20260922T204553Z-lf-c-workflow-f576b1/manifest.json)
 records the exact command, source digest, timing and cleanup. The
 [lifecycle report](workflow-20260922.json) contains migration/source hashes,
@@ -37,7 +38,7 @@ These are bounded correctness fixtures, not throughput, latency, scale or
 general matching-quality measurements. RSS is measured per process rather than
 as a sum across all processes. No confirmation corpus was materialized.
 
-## Accepted behavior
+## Slot 1 — accepted behavior
 
 - Only a current live lease holder can renew, release or propose. Tokens rotate
   on renewal/reclaim, stale revisions conflict, and expiry during a company-lock
@@ -65,7 +66,7 @@ new migration; it was corrected before the implementation/plan commit. All
 subsequent focused and hook checks passed. This was the first bounded LF-C
 acceptance attempt and it passed; the phase ledger retains one consumed slot.
 
-## Remaining gates
+## Slot 1 — remaining gates at the 2026-09-22 checkpoint
 
 LM-007 remains **in progress**. This is a trusted internal worker with caller-
 supplied fixture identities; it does not authenticate or authorize app users.
@@ -102,3 +103,74 @@ source-integrity guard before recording RSS. No local authorization acceptance
 gate is closed by this attempt. Slot 2 remains consumed; commit the attribution
 and execute the separately declared slot-3 plan without changing workflow or
 authorization behavior, tests or budgets.
+
+## Slot 3 — local APX authorization accepted
+
+Accepted source **`b34535b`** includes the attribution fix and the committed
+[follow-up plan](ACCESS_FOLLOWUP_PLAN.md). The
+[passing manifest](../../experiments/20260923T113812Z-lf-c-access-followup-72cb65/manifest.json),
+[access report](access-20260923-final.json),
+[fresh-wheel report](access-http-20260923-final.json),
+[root JUnit](access-tests-20260923-final.xml) and
+[HTTP/app JUnit](access-http-tests-20260923-final.xml) retain the exact evidence.
+Every manifest artifact, including the small process logs, is committed.
+
+| Measurement | Observed result |
+|---|---|
+| Root tests | 492 passed: 365 portable checks and 127 PostgreSQL cases |
+| Fresh-wheel tests | 53 passed: 45 app tests and 8 ASGI HTTP/PostgreSQL cases |
+| Required total | **545 passed; zero failures, errors or skips** |
+| New access coverage | 18 portable, 28 PostgreSQL, 20 transport and 8 integrated HTTP cases; included above |
+| App build/types | Pinned APX 0.3.8 build, TypeScript and Python checks pass |
+| Wheel runtime | Python 3.12; FastAPI 0.128.0, Starlette 0.50.0, psycopg 3.3.5; verified installed imports/source hash |
+| Database | PostgreSQL 16.15, private Unix socket, TCP disabled, fsync on |
+| Revocation lifecycle | Reads, history and exact retry denied after revocation; denial survives real restart |
+| Regrant | Original claim receipt replays exactly, retaining its original authorization proof |
+| SQL role | Supported operations run with the dedicated nonowner role; forbidden SQL cases pass |
+| Duration | Runner 45.273 seconds; outer experiment 45.478 seconds |
+| Observed peak RSS | Parent 43,155,456 bytes; highest individual child 350,994,432 bytes, below 4 GiB per process |
+| Preserved inputs | 80 access-source hashes, all 15 frozen files, five scanner inputs and all three dependency files match |
+| Cleanup | Owned databases stopped; temporary HTTP runtime removed; no live owned process-group members |
+| Remote activity | Zero cloud, workspace or AI calls; confirmation corpus remains untouched |
+
+The read-only verification also matched all 246 manifest source hashes and six
+artifact hashes. The only runtime warning was the existing AnyIO alias
+deprecation in Starlette's test client. The build emits an advisory about future
+Vite configuration loading; build and type checks passed with the pinned tools.
+These small synthetic correctness fixtures do not measure throughput, general
+matching quality or real workspace authentication.
+
+The [access contract](../../spec/lakefusion/ACCESS.md) now has local evidence for:
+
+- The five-role matrix, correct domain and every participating object, plus
+  refusal of partial field grants for unstructured workflow evidence.
+- Stable workspace/user principals from a simulated Apps envelope; refusal of
+  local review identity and request-supplied actors, roles or grants.
+- Current-policy checks before command-receipt replay, serialized revocation,
+  immutable grant events and original authorization proof on saved receipts.
+- SQL-filtered inboxes before pagination, user/policy-bound cursors, scoped
+  history, generic error responses, bounded JSON and `Cache-Control: no-store`.
+- Independent approval, denied lease mutations after downgrade, concurrent
+  revocation ordering, schema-5 upgrade and restricted database permissions.
+
+## Current remaining gates
+
+LM-007 and LM-008 remain **in progress**. Tests execute the actual APX routes
+through ASGI against PostgreSQL, but simulate the trusted platform identity
+envelope. Live Apps authentication, header sanitization and ingress isolation,
+Lakebase OAuth renewal, project/branch/database bindings, deployed migrations,
+combined app/worker packaging and per-user RLS have not been qualified. The
+default review app has no mastering backend attached and refuses these routes.
+
+Raw workflow access currently requires all domain fields. Field-projected
+entity/provenance/search/graph/cache paths remain future LM-008/010/019 work.
+Service-role SQL grants do not establish per-user RLS or UC inheritance. The
+existing review/demo routes retain their earlier contracts; no workflow UI
+controls were added or live app deployment performed in this increment.
+
+LM-009 delivery/reconciliation and LM-011 business preview/apply are still open:
+an approved operation queues an intent, but does not yet mutate or publish the
+business record. The next integration checkpoint needs reproducible app/worker
+assembly and selected Lakebase bindings, followed by a separately declared live
+acceptance plan using `fevm-gdpr2`. Independent business-execution preparation
+can continue. LF-A stays 8/8, LF-B 12/12 and LF-C now uses **3/8** slots.
