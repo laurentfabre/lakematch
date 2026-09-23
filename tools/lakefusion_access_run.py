@@ -35,6 +35,8 @@ def preserved():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--slot', type=int, choices=range(2, 9), default=2)
+    parser.add_argument('--plan', type=Path, default=Path('bench/lakefusion/ACCESS_PLAN.md'))
     for option in ('output', 'tests-output', 'http-report', 'http-tests'):
         parser.add_argument('--'+option, required=True, type=Path)
     args = parser.parse_args()
@@ -44,7 +46,7 @@ def main():
     for path in paths:
         path.parent.mkdir(parents=True, exist_ok=True)
     started, server = time.monotonic(), None
-    report = {'phase': 'LF-C', 'slot': 2, 'packages': ['LM-007', 'LM-008'], 'status': 'running',
+    report = {'phase': 'LF-C', 'slot': args.slot, 'packages': ['LM-007', 'LM-008'], 'status': 'running',
               'started_at': datetime.now(timezone.utc).isoformat(), 'cloud_calls': 0,
               'confirmation_materialized': False, 'platform_ingress': 'simulated; not live authentication proof',
               'cleanup': 'not started', 'commands': []}
@@ -65,6 +67,7 @@ def main():
                   ROOT/'app/acceptance/test_workflow_access.py', ROOT/'app/src/lakematch_review/ui/lib/api.ts',
                   ROOT/'app/pyproject.toml', ROOT/'app/uv.lock', ROOT/'app/package.json', ROOT/'app/bun.lock',
                   ROOT/'spec/lakefusion/ACCESS.md', ROOT/'bench/lakefusion/ACCESS_PLAN.md',
+                  args.plan.resolve(), ROOT/'app/build_deploy.py',
                   ROOT/'bench/lakefusion/access-inputs-20260923.json', ROOT/'tools/check_changes.py',
                   ROOT/'tools/lakefusion_access_run.py', ROOT/'tools/run_mastering_http_tests.py',
                   ROOT/'tools/local_postgres.py', ROOT/'requirements-postgres.lock']
@@ -144,7 +147,8 @@ def main():
                           lifecycle={'grant': first, 'revoke': revoked, 'regrant': restored,
                                      'claim': claimed, 'history_sha256': digest(store.history(task_id=task_id))})
         report.update(preserved())
-        assert all(sha256(ROOT/p) == h for p, h in report['source_hashes'].items()), 'Source changed during acceptance'
+        changed = [p for p, h in report['source_hashes'].items() if sha256(ROOT/p) != h]
+        assert not changed, f'Source changed during acceptance: {changed}'
         scale = 1 if sys.platform == 'darwin' else 1024
         report['peak_rss_bytes'] = {'parent': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*scale,
                                    'highest_child': resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss*scale}

@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "steps": [
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--project",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/app",
+        "--frozen",
+        "--no-install-project",
+        "--python",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/.venv/bin/python"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/runtime/bin/python",
+        "-r",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/requirements-postgres.lock",
+        "PyYAML==6.0.3"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "build",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/app",
+        "--wheel",
+        "--out-dir",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/wheels"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/runtime/bin/python",
+        "--no-deps",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/wheels/lakematch_review-0.0.0.post45.dev0+0a588a8-py3-none-any.whl"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/runtime/bin/python",
+        "-c",
+        "\nfrom pathlib import Path\nfrom importlib.metadata import version\nimport hashlib,json,sys\nimport lakematch_review.backend.app as app\nimport lakematch_review.backend.mastering as transport\nroot, runtime = map(Path,sys.argv[1:])\npaths={'app':Path(app.__file__).resolve(),'transport':Path(transport.__file__).resolve()}\nassert all(p.is_relative_to(runtime) for p in paths.values()), paths\nassert hashlib.sha256(paths['transport'].read_bytes()).hexdigest()==hashlib.sha256((root/'app/src/lakematch_review/backend/mastering.py').read_bytes()).hexdigest()\nassert version('fastapi')=='0.128.0'\nprint(json.dumps({'imports':{k:str(v) for k,v in paths.items()},'versions':{p:version(p) for p in ('fastapi','starlette','pydantic','psycopg','pyyaml','pytest')}}))\n",
+        "/Users/laurent.fabre/Projects/Claude/lakematch",
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/runtime"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/runtime/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/app/tests",
+        "/Users/laurent.fabre/Projects/Claude/lakematch/app/acceptance/test_workflow_access.py",
+        "--junitxml=/Users/laurent.fabre/Projects/Claude/lakematch/bench/lakefusion/access-http-tests-20260923.xml"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "network": "offline dependency cache only",
+  "started_at": "2026-09-23T11:35:31.037384+00:00",
+  "wheel": {
+    "name": "lakematch_review-0.0.0.post45.dev0+0a588a8-py3-none-any.whl",
+    "sha256": "caccebdd7bc476a40986465526f16748888e037c1f6630e6b812c9abff18c4e2",
+    "bytes": 167599
+  },
+  "imports": {
+    "app": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/runtime/lib/python3.12/site-packages/lakematch_review/backend/app.py",
+    "transport": "/private/var/folders/m4/qxnnrm4s5q5f_p71yp5qdzmc0000gp/T/lm-access-http-kn_rbj99/runtime/lib/python3.12/site-packages/lakematch_review/backend/mastering.py"
+  },
+  "versions": {
+    "fastapi": "0.128.0",
+    "starlette": "0.50.0",
+    "pydantic": "2.13.5",
+    "psycopg": "3.3.5",
+    "pyyaml": "6.0.3",
+    "pytest": "9.1.1"
+  },
+  "tests": {
+    "tests": 53,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "cleanup": "owned HTTP runtime removed; database fixture cleanup asserted",
+  "ended_at": "2026-09-23T11:35:40.773930+00:00",
+  "wall_seconds": 9.736
+}

@@ -1,3 +1,4 @@
+// Modified for lakematch on 2026-09-20 from the APX 0.3.8 scaffold.
 import { useQuery, useSuspenseQuery, useMutation } from "@tanstack/react-query";
 import type { UseQueryOptions, UseSuspenseQueryOptions, UseMutationOptions } from "@tanstack/react-query";
 export class ApiError extends Error {

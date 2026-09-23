@@ -1,8 +1,12 @@
 # Phase C checkpoint — stewardship worker
 
-**In progress, 2026-09-22. LF-C has consumed 1/8 experiments.** The local
+**In progress, 2026-09-23. LF-C has consumed 2/8 experiments.** The local
 transactional worker foundation passes. Lakebase deployment, authenticated
 application workflows and the governed two-source pilot remain open.
+
+Slot 1 below remains the accepted worker checkpoint. Slot 2 implemented the
+local APX authorization boundary but failed its final source-preservation gate;
+the [slot-3 follow-up plan](ACCESS_FOLLOWUP_PLAN.md) is committed before retry.
 
 The accepted source is **`9c7d12a`**, with the plan committed before execution.
 The [run manifest](../../experiments/20260922T204553Z-lf-c-workflow-f576b1/manifest.json)
@@ -82,3 +86,19 @@ boundary, followed by integration of approved commands with business execution
 and recoverable publication. Remote provisioning must use explicitly selected
 Lakebase project/branch/database bindings and the authorized `fevm-gdpr2` profile.
 LF-A stays 8/8 and LF-B stays 12/12; those historical limits do not reset.
+
+## Slot 2 — authorization acceptance failure
+
+Source **`0a588a8`** passed 492 root tests and 53 tests from a fresh APX wheel,
+plus the restricted-role grant/revoke/restart/regrant lifecycle. The build and
+type checks passed. The [manifest](../../experiments/20260923T113456Z-lf-c-access-27966f/manifest.json)
+and [report](access-20260923.json) retain the failed result: the pinned build
+restored the missing APX attribution comment in the generated API client, so
+the final source hash differed. That comment was the only source change.
+
+All 15 frozen files, five scanner inputs and dependency files were preserved;
+owned PostgreSQL/process/runtime cleanup passed. The runner stopped at the
+source-integrity guard before recording RSS. No local authorization acceptance
+gate is closed by this attempt. Slot 2 remains consumed; commit the attribution
+and execute the separately declared slot-3 plan without changing workflow or
+authorization behavior, tests or budgets.
