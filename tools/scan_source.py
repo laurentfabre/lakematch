@@ -9,7 +9,7 @@ import subprocess
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-PREFIXES = ("src/", "app/", "tests/", "tools/", "resources/", "deployment/", "integration/",
+PREFIXES = ("src/", "app/", "runtime/", "tests/", "tools/", "resources/", "deployment/", "integration/",
             ".github/", ".githooks/", ".vibe-doctor/", "genie/", "examples/")
 TOP_LEVEL = {"README.md", "goal.md", "goal_lakefusion.md", "pyproject.toml", "databricks.yml",
              ".gitignore", ".pre-commit-config.yaml", ".python-version", ".gitattributes",

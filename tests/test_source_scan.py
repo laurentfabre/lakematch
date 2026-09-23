@@ -28,12 +28,15 @@ def test_source_snapshot_excludes_generated_copies_and_includes_new_sources(tmp_
         "app/src/lakematch_review/backend/store.py", "src/lakematch/mastering/registry.py",
         "app/migrations/mastering/0002_registry.sql", "examples/mastering/pilot/domain.json",
         "requirements-postgres.lock", "genie/build_space.py", "tests/test_new_case.py",
+        "runtime/src/lakematch_runtime/connection.py", "runtime/pyproject.toml",
+        "runtime/tests/test_settings_credentials.py",
     }
     for name in fresh:
         write(tmp_path, name)
     for prefix in ("data/test-runs/run/replay", "data/test-runs/run/replay-v2",
                    "data/frozen_models", "data/remote_models", "data/serverless_runs", "mlruns",
-                   "app/.build", "app/.venv", "reports", "experiments", "spec/bench"):
+                   "app/.build", "app/.venv", "runtime/.build", "runtime/.venv",
+                   "reports", "experiments", "spec/bench"):
         write(tmp_path, f"{prefix}/src/lakematch/engine.py")
     # Tracked files are normally returned by ls-files even when now ignored.
     subprocess.run(["git", "add", "--force", "app/.build/src/lakematch/engine.py"],

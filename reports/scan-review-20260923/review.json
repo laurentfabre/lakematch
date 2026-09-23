@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-09-23T14:09:44.250800+00:00",
+  "mode": "read-only metadata and offline source scan",
+  "profile": "fevm-gdpr2",
+  "workspace_host": "https://fevm-gdpr2.cloud.databricks.com",
+  "global_init_scripts": {
+    "cli_rows": [],
+    "raw_api_response": {},
+    "script_count": 0,
+    "scanner_reported_count": 1,
+    "disposition": "not reproduced; earlier raw response unavailable"
+  },
+  "online_error_counts": {
+    "SqlFailed": 7,
+    "not-found": 4,
+    "http-error": 1
+  },
+  "workspace_mutations": 0,
+  "sql_queries": 0,
+  "deployment_experiments": 0,
+  "lf_c_count": 8,
+  "supplied_report_hashes": {
+    "reports/findings.json": "1330b75048cf88d6e615a512b6fccc93575872e99c07510f3be112a5a9ffbe29",
+    "reports/findings.md": "e54dfed5f111088f5b9ca4b8d80c2f80580ffc1129958ec509195ab544d129ab",
+    "reports/online/findings.json": "ff653d5854649889bc68e67ce215749b60491eefcf5e7ac8d8e8608186e9d11c",
+    "reports/online/findings.md": "00ee8f874fbd74121e21405e42d100c4359a2daf4f62ada73c63538cf083455d",
+    "reports/static-scan-20260922/findings.json": "b97bb09b0f83c15d4c9620ed48684fea4f6a08729c1a463c3be34ca9653abe74",
+    "reports/online-scan-20260922/findings.json": "58190612b8d34ba37f77941b448e2bfa8d8f5ea5ca9eb82cc29e0228e252bcc4",
+    "reports/online-scan-20260922/findings.md": "cd6f8fe5ecad9299a85e7eb1a7848f3f898861ad57696e1ca1eaaf2799720b0f"
+  }
+}

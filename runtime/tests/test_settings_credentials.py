@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 from types import SimpleNamespace
+from uuid import uuid4
 
 import pytest
 
@@ -130,6 +131,8 @@ def test_sdk_uses_explicit_service_oauth_and_endpoint(monkeypatch):
     from databricks.sdk import core
     from google.protobuf.timestamp_pb2 import Timestamp
     binding = Binding.from_dict(definition())
+    # Generated fixture value; the mocked SDK never acquires a real credential.
+    synthetic_credential = 'fixture-' + uuid4().hex
     seen = {}
     expires = Timestamp()
     expires.FromDatetime(datetime.now(timezone.utc)+timedelta(hours=1))
@@ -138,10 +141,10 @@ def test_sdk_uses_explicit_service_oauth_and_endpoint(monkeypatch):
         return kwargs
     def generate(**kwargs):
         seen.update(kwargs)
-        return SimpleNamespace(token='synthetic-credential', expire_time=expires)
+        return SimpleNamespace(token=synthetic_credential, expire_time=expires)
     monkeypatch.setattr(core, 'Config', config)
     monkeypatch.setattr(sdk, 'WorkspaceClient', lambda **_: SimpleNamespace(postgres=SimpleNamespace(generate_database_credential=generate)))
-    assert app_credentials(binding, environment(binding)).current() == 'synthetic-credential'
+    assert app_credentials(binding, environment(binding)).current() == synthetic_credential
     assert seen['host'] == binding.workspace_host and seen['auth_type'] == 'oauth-m2m'
     assert seen['client_id'] == USER and seen['endpoint'] == binding.endpoint
     assert seen['http_timeout_seconds'] == 10 and seen['retry_timeout_seconds'] == 20
