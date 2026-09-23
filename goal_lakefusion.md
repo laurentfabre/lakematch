@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (6/8)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (7/8)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -324,7 +324,7 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **6/8** slots;
+  process-death rollback and exact restart replay pass. LF-C uses **7/8** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
@@ -569,6 +569,8 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-23: deployment request rejected | Slot 5 fails before provisioning because Lakebase rejects explicit `no_suspension: false`. Read-only checks confirm no dedicated project/app exists; original evidence retained. LF-C 5/8. | Execute the separately committed [slot-6 correction](bench/lakefusion/DEPLOYMENT_FOLLOWUP_PLAN.md), omitting the optional boolean while retaining five-minute suspension and all original bounds. |
 
 | 2026-09-23: dedicated project provisioned | Slot 6 creates `lakematch-mdm-dev` with 0.5–1 CU and 300-second suspension; payload and strict validation pass, but app deployment fails before app creation. The original CLI diagnostic was overwritten by cleanup. No SQL/fixture or warehouse activity. LF-C 6/8. | Execute the committed [slot-7 resume](bench/lakefusion/DEPLOYMENT_RESUME_PLAN.md) using the recorded project UID and verified payload; retain original diagnostics and explicit cleanup. |
+
+| 2026-09-23: Apps configuration capability identified | Slot 7 retains the real Apps error: this workspace does not enable manual instance counts. No app or SQL schema was created; dedicated Lakebase target remains. LF-C 7/8. | Execute the committed [slot-8 plan](bench/lakefusion/DEPLOYMENT_SINGLETON_PLAN.md): omit unsupported manual fields and require observed singleton compute before live acceptance. This is the last authorized LF-C attempt. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

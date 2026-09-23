@@ -52,6 +52,13 @@ sync and have no generated ignore file. `app.yaml` uses `valueFrom`; DAB config
 uses the API's `value_from`. A bare bundle deployment leaves the app stopped.
 The builder rejects files at 10 MiB or more and aggregate payloads at 100 MiB.
 
+Workspaces that reject manual instance counts can use
+`--platform-default-instances`, which omits only the two instance-count fields.
+Medium compute and one Python worker remain configured. Check the live
+`compute_status.active_instances` before accepting a singleton deployment; an
+unreported count is unqualified, not evidence of one instance. The selected
+`fevm-gdpr2` workspace rejected manual counts during LF-C slot 7.
+
 Validate the completed binding before deployment, using the selected profile:
 
 ```sh

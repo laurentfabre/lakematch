@@ -28,8 +28,10 @@ def main():
     choice = parser.add_mutually_exclusive_group()
     choice.add_argument('--followup', action='store_true', help='Execute the committed slot-6 API correction plan')
     choice.add_argument('--resume', action='store_true', help='Execute slot 7 against the recorded dedicated project')
+    choice.add_argument('--platform-default-instances', action='store_true', help='Execute slot 8 with platform compute defaults')
     args = parser.parse_args()
-    suffix = '-resume' if args.resume else '-followup' if args.followup else ''
+    suffix = '-singleton' if args.platform_default_instances else '-resume' if args.resume else '-followup' if args.followup else ''
+    retained_project = args.resume or args.platform_default_instances
     config = json.loads((ROOT/'bench/lakefusion/deployment-inputs-20260923.json').read_text())
     bench = ROOT/'bench/lakefusion'
     destination = bench/f'deployment-20260923{suffix}.json'
@@ -41,7 +43,7 @@ def main():
         raise SystemExit('This committed plan only authorizes the selected dedicated target')
     started = time.monotonic()
     deadline = started+2100  # outer runner reserves another 300 seconds for cleanup
-    report = {'phase': 'LF-C', 'slot': 7 if args.resume else 6 if args.followup else 5, 'status': 'running', 'inputs': config,
+    report = {'phase': 'LF-C', 'slot': 8 if args.platform_default_instances else 7 if args.resume else 6 if args.followup else 5, 'status': 'running', 'inputs': config,
         'started_at': datetime.now(timezone.utc).isoformat(), 'commands': [], 'checks': [],
         'cleanup': {}, 'observed_cost': None, 'cost_status': 'billing unreconciled',
         'confirmation_materialized': False, 'stage': 'inventory'}
@@ -125,7 +127,7 @@ def main():
         principal = f"databricks:{config['workspace_id']}:{user.id}"
         existing = list(w.postgres.list_projects())
         selected = [p for p in existing if p.name == 'projects/'+config['project_id']]
-        if args.resume:
+        if retained_project:
             assert len(selected) == 1 and selected[0].uid == 'ca930294-0763-4eaa-9638-b8be2c4f98b6'
         else:
             assert not selected, 'Project already exists'
@@ -147,7 +149,7 @@ def main():
         assert {'key': 'campaign', 'value': 'lakematch-20260919'} in warehouse['tags']['custom_tags']
         report['warehouse_before'] = warehouse
 
-        stage('verify retained project' if args.resume else 'create dedicated project')
+        stage('verify retained project' if retained_project else 'create dedicated project')
         settings = {'autoscaling_limit_min_cu': .5, 'autoscaling_limit_max_cu': 1,
                     'suspend_timeout_duration': '300s'}
         project_owned = True  # absent above; reconcile a lost create acknowledgement
@@ -156,7 +158,7 @@ def main():
             'custom_tags': [{'key': 'application', 'value': 'lakematch'},
                             {'key': 'phase', 'value': 'lf-c'}]}, 'initial_endpoint_spec': settings}
         report['project_request'] = request
-        if not args.resume:
+        if not retained_project:
             operation(cli('postgres', 'create-project', config['project_id'], '--no-wait', body=request))
         branch = f"projects/{config['project_id']}/branches/{config['branch_id']}"
         endpoint_name = branch+'/endpoints/primary'
@@ -183,9 +185,12 @@ def main():
             shutil.copytree(previous_payload, payload)
             report['payload_source_commit'] = 'e296720'
         else:
-            subprocess.run([sys.executable, str(ROOT/'tools/build_workflow_bundle.py'), '--output', str(payload),
+            build_command = [sys.executable, str(ROOT/'tools/build_workflow_bundle.py'), '--output', str(payload),
                 '--binding', str(binding_path), '--warehouse-id', config['warehouse_id'],
-                '--review-schema', review_schema], cwd=ROOT, check=True, timeout=480,
+                '--review-schema', review_schema]
+            if args.platform_default_instances:
+                build_command += ['--platform-default-instances']
+            subprocess.run(build_command, cwd=ROOT, check=True, timeout=480,
                 env={**os.environ, 'UV_OFFLINE': '1'})
         report['payload'] = json.loads((payload/'payload.json').read_text())
         cli('bundle', 'validate', '--strict', '--target', 'pilot', cwd=payload)
@@ -242,6 +247,8 @@ def main():
                 raise RuntimeError('Apps deployment failed')
             return state == 'SUCCEEDED' and a.get('compute_status', {}).get('state') == 'ACTIVE'
         running = poll('running_app', app, ready, 600)
+        if args.platform_default_instances:
+            assert running.get('compute_status', {}).get('active_instances') == 1, 'Singleton compute must be observed'
         url = running['url'].rstrip('/')
         report['app_url'] = url
         def api(method, path, body=None, key=None, expected=200):

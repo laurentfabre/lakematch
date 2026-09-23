@@ -1,0 +1,4 @@
+verify retained project
+build and deploy stopped app
+Failed at build and deploy stopped app: RuntimeError
+{"status": "failed", "stage": "build and deploy stopped app", "cleanup": {"app": "no dedicated app exists", "lakebase": {"retained": "projects/lakematch-mdm-dev", "default_endpoint_settings": {"autoscaling_limit_max_cu": 1.0, "autoscaling_limit_min_cu": 0.5, "suspend_timeout_duration": "300s"}}}}

@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT/'runtime/src'))
 from lakematch_runtime.settings import Binding
 
 
-def build(output, binding_path, warehouse_id, review_schema):
+def build(output, binding_path, warehouse_id, review_schema, *, platform_default_instances=False):
     output = Path(output).resolve()
     if output.exists():
         raise ValueError('Choose a fresh output directory')
@@ -65,6 +65,12 @@ def build(output, binding_path, warehouse_id, review_schema):
         'targets': {'pilot': {'mode': 'development', 'presets': {'name_prefix': ''},
             'workspace': {'host': binding.workspace_host,
                 'root_path': '/Workspace/Users/${workspace.current_user.userName}/.bundle/lakematch-workflow/'+binding.app_name}}}}
+    if platform_default_instances:
+        # Some workspaces reject manual instance configuration altogether.
+        # Operators must verify actual singleton compute before accepting a run.
+        resource = bundle['resources']['apps']['workflow']
+        del resource['compute_min_instances']
+        del resource['compute_max_instances']
     (output/'databricks.yml').write_text(yaml.safe_dump(bundle, sort_keys=False))
     paths = [p for p in output.rglob('*') if p.is_file() and p.name != '.gitignore']
     if any(p.stat().st_size >= 10*1024**2 for p in paths) or sum(p.stat().st_size for p in paths) >= 100*1024**2:
@@ -82,8 +88,10 @@ def main():
     parser.add_argument('--binding', required=True, type=Path)
     parser.add_argument('--warehouse-id', required=True)
     parser.add_argument('--review-schema', required=True)
+    parser.add_argument('--platform-default-instances', action='store_true')
     args = parser.parse_args()
-    report = build(args.output, args.binding, args.warehouse_id, args.review_schema)
+    report = build(args.output, args.binding, args.warehouse_id, args.review_schema,
+                   platform_default_instances=args.platform_default_instances)
     print(json.dumps({'status': report['status'], 'files': len(report['files']),
                       'bytes': sum(v['bytes'] for v in report['files'].values())}), flush=True)
 

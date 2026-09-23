@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 6/8 experiments.** The local
+**In progress, 2026-09-23. LF-C has consumed 7/8 experiments.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open.
 
@@ -249,3 +249,19 @@ All 252 source hashes and four manifest artifacts verify. LF-C is **6/8**.
 The [slot-7 resume plan](DEPLOYMENT_RESUME_PLAN.md) pins the retained project UID,
 rechecks the payload hashes, preserves each command error and checks app
 existence before cleanup. Live application acceptance remains open.
+
+
+## Slot 7 — workspace rejects manual app instance counts
+
+Source **`13bfc9e`**, [manifest](../../experiments/20260923T125449Z-lf-c-deployment-resume-314c30/manifest.json)
+and [report](deployment-20260923-resume.json) retain the exact failed API response:
+**“Manual instance count configuration is not enabled in this workspace.”**
+The attempt lasted 4.813 seconds. The strict bundle plan is valid, but the live
+Apps create API rejects its explicit min/max instance counts. No app, SQL
+schema/fixture or warehouse start occurred. The dedicated project remains with
+its verified limits and five-minute suspension; no destructive cleanup ran.
+
+All 252 source hashes and four artifact hashes match. LF-C is **7/8**.
+The [slot-8 plan](DEPLOYMENT_SINGLETON_PLAN.md) omits unsupported optional
+instance fields and requires a live observed count of one before acceptance.
+A missing count remains unqualified. This is the last available LF-C attempt.
