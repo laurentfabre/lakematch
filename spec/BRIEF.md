@@ -17,6 +17,7 @@ Type one of these in a fresh session opened in `~/Projects/Pro/lakematch`:
 ```bash
 /goal ZR-1 is landed: the lakematch package exists at ~/Projects/Pro/lakematch as a private Apache-2.0 repository, one YAML config drives candidates, features, matcher, decision and native data-quality checks as pure PySpark with every method a named config choice, and the same test suite passes on local Spark 4.1 in classic-session mode and over a local Spark Connect server — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 1
 /goal ZR-2 is landed: the research-backed similarity library is in, every default feature is a Spark SQL built-in expression with zero UDFs, Jaro-Winkler and the affine-gap alignment exist only as optional UDF features, the embedding feature for organisation and title fields runs through a local provider, and an ablation table shows what each feature family adds — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 2
+/goal ZR-3a is landed: learned_blocker, minhash_lsh, field_blocks and union are implemented as candidate methods, bench/METHODS.md compares every candidate method (candidate recall at equal pair budget), string-similarity choice, estimator and cardinality policy on validation data across FEBRL4-half-unmatched, BPID, Abt-Buy and Leipzig Affiliations, and the defaults in config.py equal the winners it names — verify: cd ~/Projects/Personal && bash goals/verify_zr.sh 3a
 /goal ZR-3 is landed: the benchmark harness runs every corpus end to end on the laptop and writes BENCHMARKS.md with precision, recall, F1 with bootstrap intervals, candidate recall, latency and Jev cost next to the recorded Zingg, Splink and published figures, every candidate, similarity, estimator and cardinality choice is compared on validation data and the shipped defaults are the winners, and FEBRL4-half-unmatched reaches F1 >= 0.97 (all fields) and >= 0.96 (SSN hidden) in under 60 s — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 3
 /goal ZR-4 is landed: clusters larger than two are resolved by the clustering method that wins the comparison (verified merge, connected components, centre, star) with a convergence test, mdm_id is stable across reruns, and the crosswalk plus merge/split log survive an incremental run with added, changed and deleted records — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 4
 /goal ZR-5 is landed: a run logs one composite MLflow model (Spark pipeline + config + label-set digest + thresholds) with signature, datasets and evaluation metrics, the laptop uses tracking only on local SQLite and resolves the model by run id with no registry, and on the fourth-pat workspace the same run registers in Unity Catalog with an alias — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 5
@@ -386,6 +387,15 @@ features exist behind `features.udf_features`; `bench/ABLATION.md` reports, on F
 F1 with each family removed and with the UDF features added, with intervals; on an organisation-name corpus (Leipzig
 Affiliations) and a title corpus (Abt-Buy) the same table shows the embedding feature on and off, with its cost in
 seconds per 10^5 records — D12 keeps it on by default only if that row is positive.
+
+### ZR-3a — method choices (split from ZR-3 on 2026-09-26)
+
+**Finish line.** `verify_zr.sh 3a`: the four remaining candidate methods are implemented and each has a named test on
+both session kinds; `bench/METHODS.md` (from `bench/results/methods.json`) compares every candidate method at an equal
+pair budget (candidate recall), every string-similarity choice, estimator and cardinality policy on **validation**
+data across FEBRL4-half-unmatched, BPID, Abt-Buy and Leipzig Affiliations (cardinality on the linkage-shaped corpora);
+the defaults in `config.py` equal the winners. ZR-3 proper (the full corpus table, references, Jev cost, the FEBRL4
+thresholds) keeps its finish line and its judge phase `3`.
 
 ### ZR-3 — benchmarks and known tests
 

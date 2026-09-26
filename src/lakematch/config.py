@@ -29,8 +29,8 @@ class MethodNotReady(NotImplementedError):
 # config path -> {choice: None if implemented, else the phase that lands it}
 METHODS: dict[str, dict[str, str | None]] = {
     "runtime.mode": {"local": None, "serverless": "ZR-6", "classic": "ZR-9"},
-    "candidates.method": {"gram_topk": None, "learned_blocker": "ZR-3", "minhash_lsh": "ZR-3",
-                          "field_blocks": "ZR-3", "union": "ZR-3"},
+    "candidates.method": {"gram_topk": None, "learned_blocker": None, "minhash_lsh": None,
+                          "field_blocks": None, "union": None},
     "features.string_similarity": {"levenshtein": None, "jaro_winkler": None, "both": None},
     "features.multi_token": {"idf_token_cosine": None, "gram_overlap": None, "monge_elkan_token": None,
                              "affine_gap_udf": None},
@@ -77,7 +77,10 @@ DEFAULTS: dict[str, Any] = {
     "entity": {"name": "record", "fields": {}},
     # Starting hypotheses (spec/BRIEF.md); ZR-3 / ZR-4 replace them with the validation winners.
     "candidates": {"method": "gram_topk", "q": 3, "k": 5, "idf_weighted": True, "gram_cap": 400,
-                   "union_of": [], "field_blocks": []},
+                   "union_of": [], "field_blocks": [],
+                   # minhash_lsh: Jaccard-distance threshold and hash tables; learned_blocker: target coverage of
+                   # the labelled matches and the most predicates it may pick
+                   "lsh_threshold": 0.8, "lsh_tables": 5, "learned_coverage": 0.99, "learned_max_predicates": 8},
     "features": {"string_similarity": "levenshtein",
                  "multi_token": ["idf_token_cosine", "gram_overlap", "monge_elkan_token"],
                  "udf_features": False,
@@ -214,6 +217,16 @@ def validate(data: dict) -> None:
     for key in ("candidates.q", "candidates.k", "candidates.gram_cap", "cluster.max_rounds", "labels.n"):
         if not isinstance(cfg.get(key), int) or cfg.get(key) < 1:
             raise ConfigError(f"{key} must be a positive integer")
+    if not 0 < cfg.get("candidates.lsh_threshold") < 1:
+        raise ConfigError("candidates.lsh_threshold is a Jaccard distance in (0, 1)")
+    if not 0 < cfg.get("candidates.learned_coverage") <= 1:
+        raise ConfigError("candidates.learned_coverage must be in (0, 1]")
+    for key in ("candidates.lsh_tables", "candidates.learned_max_predicates"):
+        if not isinstance(cfg.get(key), int) or cfg.get(key) < 1:
+            raise ConfigError(f"{key} must be a positive integer")
+    for block in cfg.get("candidates.field_blocks"):
+        if not isinstance(block, list) or not block or not all(isinstance(e, str) for e in block):
+            raise ConfigError("candidates.field_blocks: each block is a non-empty list of Spark SQL expressions")
     thr = cfg.get("decision.threshold")
     if thr != "from_validation" and not (isinstance(thr, (int, float)) and 0 <= thr <= 1):
         raise ConfigError("decision.threshold must be 'from_validation' or a probability in [0, 1]")

@@ -78,7 +78,13 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
         left, right = features.prepare_sides(sides["left"], sides["right"], cfg)
         left, right = rt.materialize(left, "left"), rt.materialize(right, "right")
 
-        cand = rt.materialize(candidates.generate(left, right, cfg), "candidates")
+        seed_labels = None
+        uses = {cfg.get("candidates.method"), *cfg.get("candidates.union_of")}
+        if "learned_blocker" in uses:
+            # the blocker learns from labelled matches: label a gram_topk seed set first (same label source)
+            seed = rt.materialize(candidates.gram_topk(left, right, cfg), "seed_candidates")
+            seed_labels = rt.materialize(labels.labelled(spark, seed, cfg), "seed_labels")
+        cand = rt.materialize(candidates.generate(left, right, cfg, seed_labels), "candidates")
         pairs = (cand.join(_prefixed(left, "l_", "l_id"), "l_id").join(_prefixed(right, "r_", "r_id"), "r_id"))
         pairs, feature_cols = features.compare(pairs, cfg)
         pairs = rt.materialize(pairs.select("l_id", "r_id", *feature_cols), "features")

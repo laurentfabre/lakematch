@@ -5,7 +5,7 @@ classic compute. Apache-2.0. Public repository; no PyPI release.*
 
 ![Python](https://img.shields.io/badge/python-3.12-blue) ![Spark](https://img.shields.io/badge/spark-4.1-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green) ![Version](https://img.shields.io/badge/version-0.1.0-lightgrey)
-![Phase](https://img.shields.io/badge/phase-ZR--2-informational)
+![Phase](https://img.shields.io/badge/phase-ZR--3a-informational)
 
 ## Contents
 
@@ -27,7 +27,8 @@ Genie agent. The full specification, the nine bounded phases ZR-1..9 and the led
 |---|---|---|
 | ZR-1 | package, config, laptop engine, native quality gate | built 2026-09-26 — judge `goals/verify_zr.sh 1` |
 | ZR-2 | similarity library: a feature family per field type, optional UDF features, local embeddings, ablation | built 2026-09-26 — `goals/verify_zr.sh 2`, [`bench/ABLATION.md`](bench/ABLATION.md) |
-| ZR-3 … ZR-9 | benchmarks, clusters, MLflow, serverless, app, Genie, classic | not started |
+| ZR-3a | the four other candidate methods; every method choice compared on validation data, winners = defaults | built 2026-09-26 — `goals/verify_zr.sh 3a`, [`bench/METHODS.md`](bench/METHODS.md) |
+| ZR-3 … ZR-9 | the full benchmark table, clusters, MLflow, serverless, app, Genie, classic | not started |
 
 On FEBRL4 with half the partners removed (5 000 left, 2 500 right, 2 500 true links), the default config gives
 F1 0.9996 (held-out left records 0.9996) against 0.667 for "always link the nearest neighbour", with candidate
@@ -99,7 +100,7 @@ value today; a choice whose phase has not landed fails with a message naming tha
 
 | Key | Choices | Implemented |
 |---|---|---|
-| `candidates.method` | gram_topk · learned_blocker · minhash_lsh · field_blocks · union | gram_topk |
+| `candidates.method` | gram_topk · learned_blocker · minhash_lsh · field_blocks · union | all (compared in [`bench/METHODS.md`](bench/METHODS.md)) |
 | `features.exclude` | any feature family (the ablation's lever) | all |
 | `features.string_similarity` | levenshtein · jaro_winkler · both | all (Jaro-Winkler: UDF before Spark 4.3, needs `udf_features`) |
 | `features.multi_token` | idf_token_cosine · gram_overlap · monge_elkan_token · affine_gap_udf | all (affine gap: UDF, needs `udf_features`) |
@@ -145,7 +146,7 @@ lakematch/
 │   ├── pipeline.py          lakematch run
 │   └── cli.py               run · doctor · (train, bench: later phases)
 ├── examples/febrl4.yaml     the laptop example
-├── bench/                   prepare_febrl4.py · corpora.py (loaders) · ablation.py → ABLATION.md, results/
+├── bench/                   prepare_febrl4.py · corpora.py (loaders) · ablation.py → ABLATION.md · methods.py → METHODS.md · results/
 ├── scripts/                 env.sh · test.sh · offline.sb
 ├── tests/                   run twice: classic session and Spark Connect
 ├── spec/                    BRIEF.md, decisions board, research, porting study, the 2026-09-19 measurement harness
