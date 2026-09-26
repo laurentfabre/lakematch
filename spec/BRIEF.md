@@ -26,7 +26,7 @@ Type one of these in a fresh session opened in `~/Projects/Pro/lakematch`:
 /goal ZR-9 is landed: the classic target of the bundle deploys and runs on Laurent's paid workspace (the profile named in classic.profile, never auto-selected), FEBRL4 reproduces there within 0.01 F1 of the laptop, PHOTON_CLASSIC.md compares runtime_engine PHOTON and STANDARD on time, DBUs and operator fallbacks, and the cluster is terminated when the script ends — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 9
 ```
 
-Nothing is published. lakematch stays **private indefinitely** (D05): no public GitHub repository, no PyPI release;
+The GitHub repository is **public** (D05, revised by Laurent on 2026-09-26); there is no PyPI release and no announcement;
 see *Distribution*.
 
 ## Contents
@@ -362,7 +362,7 @@ Details and quotes: `spec/research/platform_facts.md`.
 ### ZR-1 — package, config, laptop engine
 
 **Finish line.** `bash verify_zr.sh 1` exits 0: `~/Projects/Pro/lakematch` is a git repository with `LICENSE`
-(Apache-2.0), no public remote, `pyproject.toml` whose mandatory dependencies are exactly `pyspark`, `mlflow`,
+(Apache-2.0), its remote's visibility reported (public by D05 as revised), `pyproject.toml` whose mandatory dependencies are exactly `pyspark`, `mlflow`,
 `pyyaml`; every method named in *Method choices* is accepted by the config validator (unimplemented ones fail with a
 clear message until their phase lands); `lakematch run --config examples/febrl4.yaml` produces links on the
 laptop; `pytest` passes twice, once with a classic session and once over a local Spark Connect server; a grep-based
@@ -508,9 +508,11 @@ start, peak shuffle, Jev tokens and dollars when the labeller is on, and — on 
 
 ## Distribution
 
-**Private indefinitely** (D05). `~/Projects/Pro/lakematch` is a local git repository; if a remote is wanted it is a
-*private* GitHub repository that Laurent creates. No public repository, no PyPI release, no announcement. The README
-still follows `~/.claude/DOCS-STYLE.md` so that opening it up later is a decision, not a project.
+**Public repository, nothing else published** (D05, revised 2026-09-26). The brief first said *private
+indefinitely*; the GitHub repository `laurentfabre/lakematch` was found public on 2026-09-26 and Laurent chose to keep
+it public. Still out: a PyPI release and any announcement. Pushing remains a deliberate step (a session commits
+locally and pushes only when asked), and nothing personal ever goes into the repository — only public or synthetic
+corpora, as before.
 
 ## Decisions
 
@@ -522,7 +524,7 @@ Laurent's arbitration of the 28 cards, 2026-09-19 (`spec/zr_decisions.html`).
 | D02 | Clean room | **Dropped entirely** (2026-09-19, after the board): no protocol, only "no Zingg code copied" |
 | D03 | Licence | **Apache-2.0** |
 | D04 | Name | **lakematch** |
-| D05 | Publication | **Private indefinitely** |
+| D05 | Publication | ~~Private indefinitely~~ → **public GitHub repository** (Laurent, 2026-09-26); no PyPI release, no announcement |
 | D06 | Candidates | Benchmark each approach to find the default; every approach a config choice |
 | D07 | String similarity | Levenshtein default, validated. Same benchmark-and-config rule. Jaro-Winkler accelerated only from Spark 4.3; reminder installed |
 | D08 | Affine-gap replacement | Validated; benchmark-and-config rule |
@@ -553,7 +555,7 @@ Laurent's arbitration of the 28 cards, 2026-09-19 (`spec/zr_decisions.html`).
 - Agent Bricks, Model Serving endpoints of our own, AI Search — until a benchmark shows they pay, and then behind
   `paid_features`.
 - Proving classic compute on Free Edition: impossible; ZR-9 uses Laurent's paid workspace.
-- Any public release.
+- A PyPI release or an announcement (the repository itself is public since D05 was revised).
 
 ## Skills to load, by phase
 

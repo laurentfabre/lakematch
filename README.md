@@ -1,7 +1,7 @@
 # lakematch
 
 *An entity-resolution engine for the lakehouse: one PySpark codebase for a laptop, Databricks serverless and
-classic compute. Apache-2.0. **Private repository** — not for publication.*
+classic compute. Apache-2.0. Public repository; no PyPI release.*
 
 ![Python](https://img.shields.io/badge/python-3.12-blue) ![Spark](https://img.shields.io/badge/spark-4.1-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green) ![Version](https://img.shields.io/badge/version-0.1.0-lightgrey)
