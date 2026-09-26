@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lakematch"
+version = "0.1.0"
+description = "Entity resolution for the lakehouse: one PySpark codebase for a laptop, Databricks serverless and classic compute."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+# Exactly three mandatory dependencies (spec/BRIEF.md, ZR-1). Everything else is an extra.
+dependencies = [
+    "pyspark>=4.1,<5",
+    "mlflow>=3",
+    "pyyaml>=6",
+]
+classifiers = ["Private :: Do Not Upload"]
+
+[project.optional-dependencies]
+# A local Spark Connect session (runtime.connect: true) and the second test pass.
+connect = ["pyspark[connect]>=4.1,<5"]
+# Local embedding model for organisation and title fields; the model is picked in ZR-2.
+embeddings = []
+# Databricks-licensed quality engine, imported lazily by quality/dqx_adapter.py (ZR-6). Never mandatory.
+dqx = ["databricks-labs-dqx"]
+# Corpus loaders for the benchmark harness and the FEBRL4 example.
+bench = ["recordlinkage>=0.16"]
+dev = ["pytest>=8", "pyspark[connect]>=4.1,<5", "recordlinkage>=0.16"]
+
+[project.scripts]
+lakematch = "lakematch.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning", "ignore::UserWarning"]

@@ -1,0 +1,42 @@
+# FEBRL4 with half the partners removed — the laptop example and the ZR-1 end-to-end run.
+# Inputs: python bench/prepare_febrl4.py (writes data/febrl4/, offline).
+# Run:    lakematch run --config examples/febrl4.yaml [--connect] [--root /tmp/somewhere]
+profile: laptop
+
+storage:
+  root: ../data/runs/febrl4
+
+inputs:
+  left:  {path: ../data/febrl4/left.csv,  id: rec_id}
+  right: {path: ../data/febrl4/right.csv, id: rec_id}
+
+entity:
+  name: person
+  fields:
+    given_name:    {type: person_name}
+    surname:       {type: person_name}
+    street_number: {type: code}
+    address_1:     {type: address}
+    address_2:     {type: address}
+    suburb:        {type: address}
+    postcode:      {type: code}
+    state:         {type: code}
+    date_of_birth: {type: date}
+    soc_sec_id:    {type: code}
+
+# Everything below restates the defaults, so the example shows every choice in one place.
+candidates: {method: gram_topk, q: 3, k: 5, idf_weighted: true, gram_cap: 400}
+features:
+  string_similarity: levenshtein
+  multi_token: [idf_token_cosine, gram_overlap, monge_elkan_token]
+matcher:  {estimator: gbt}
+decision: {threshold: from_validation, cardinality: one_to_one}
+quality:
+  engine: native
+  checks:
+    - {check: max_length, column: surname, n: 60, criticality: warn}
+
+# Benchmark labelling: 400 candidate pairs drawn in a fixed order, labelled from the truth file.
+labels:     {source: truth_sample, n: 400, llm: none}
+evaluation:
+  truth: {path: ../data/febrl4/truth.csv, left_id: l_id, right_id: r_id}

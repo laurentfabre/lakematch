@@ -1,0 +1,14 @@
+(version 1)
+(allow default)
+; Offline run (spec/BRIEF.md ZR-1: "with the network disabled the run still completes"):
+;   JAVA_TOOL_OPTIONS=-Djava.net.preferIPv4Stack=true sandbox-exec -f scripts/offline.sb <command>
+; Every outbound connection is refused, except:
+;   - loopback, for Spark's driver, block manager and the JVM side of a local Connect server (Java must be IPv4-only:
+;     its IPv6 loopback sockets are not matched by the "localhost" filter);
+;   - port 15002, the local Spark Connect server: the Python gRPC client reaches 127.0.0.1 through an IPv4-mapped
+;     IPv6 socket that the "localhost" filter does not match either (measured 2026-09-26);
+;   - unix sockets (local IPC).
+(deny network-outbound)
+(allow network-outbound (remote ip "localhost:*"))
+(allow network-outbound (remote ip "*:15002"))
+(allow network-outbound (remote unix-socket))

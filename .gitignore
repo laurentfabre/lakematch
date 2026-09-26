@@ -9,3 +9,6 @@ spec/bench/work/
 .databricks/
 .env
 *.env
+.pytest_cache/
+*.egg-info/
+build/
