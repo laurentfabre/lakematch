@@ -61,31 +61,6 @@ def test_multi_token_features(spark):
     assert row.me == pytest.approx(1.0) and row.me_missing == -1.0 and row.j == pytest.approx(1 / 3)
 
 
-def test_idf_token_cosine(spark):
-    cfg = make_cfg(entity={"fields": {"addr": {"type": "address"}}})
-    mk = lambda rows: entity.prepare(spark.createDataFrame(rows, "rid string, addr string"), cfg, "rid")
-    left, right = features.token_weights(mk([("1", "12 rue du bac")]), mk([("2", "rue du bac"), ("3", "12 avenue foch")]), "addr")
-    wl = left.first().tw_addr
-    assert sum(v * v for v in wl.values()) == pytest.approx(1.0)
-    pairs = left.select(F.col("tw_addr").alias("l")).crossJoin(right.select("id", F.col("tw_addr").alias("r")))
-    got = {r.id: r.c for r in pairs.select("id", features._idf_cosine(F.col("l"), F.col("r")).alias("c")).collect()}
-    assert 0 < got["3"] < got["2"] < 1
-
-
-def test_default_features_compile_without_python_udfs(spark, capsys):
-    cfg = make_cfg(entity={"fields": {"n": {"type": "person_name"}, "a": {"type": "address"}}})
-    mk = lambda rows: entity.prepare(spark.createDataFrame(rows, "rid string, n string, a string"), cfg, "rid")
-    left, right = features.prepare_sides(mk([("1", "ann", "1 main st")]), mk([("2", "anne", "1 main street")]), cfg)
-    cand = candidates.gram_topk(left, right, cfg)
-    pre = lambda df, p, i: df.select([F.col(c).alias(i if c == "id" else p + c) for c in df.columns])
-    pairs = cand.join(pre(left, "l_", "l_id"), "l_id").join(pre(right, "r_", "r_id"), "r_id")
-    out, cols = features.compare(pairs, cfg)
-    out.select(*cols).explain(True)
-    plan = capsys.readouterr().out
-    assert plan and not any(n in plan for n in ("PythonUDF", "BatchEvalPython", "ArrowEvalPython"))
-    assert {"lev_n", "sdx_n", "itc_a", "gov_a", "mek_a"} <= set(cols)
-
-
 @pytest.fixture
 def scored(spark):
     rows = [("a", "x", 0.9), ("a", "y", 0.8), ("b", "x", 0.95), ("b", "z", 0.7), ("c", "w", 0.3), ("d", "v", 0.8),

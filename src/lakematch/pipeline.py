@@ -25,6 +25,24 @@ def _prefixed(df: DataFrame, prefix: str, id_alias: str) -> DataFrame:
     return df.select([F.col(c).alias(id_alias if c == "id" else f"{prefix}{c}") for c in df.columns])
 
 
+def entity_sides(rt: Runtime, cfg: Config, left_raw: DataFrame, right_raw: DataFrame, id_column: str = "id"):
+    """Entity view + record-level features for both sides, pinned (the embedding UDF, if any, runs here once)."""
+    left, right = entity.prepare(left_raw, cfg, id_column), entity.prepare(right_raw, cfg, id_column)
+    left, right = features.prepare_sides(left, right, cfg)
+    return rt.materialize(left, "left"), rt.materialize(right, "right")
+
+
+def pair_features(rt: Runtime, cfg: Config, left: DataFrame, right: DataFrame, pairs: DataFrame,
+                  keep: tuple[str, ...] = ()) -> tuple[DataFrame, list[str]]:
+    """Comparison vectors for given pairs (l_id, r_id, ...) over entity sides from `entity_sides`: the pair-corpus
+    entry point (labelled pair benchmarks, a review queue). Columns of `pairs` named in `keep` are carried along."""
+    joined = pairs.join(_prefixed(left, "l_", "l_id"), "l_id").join(_prefixed(right, "r_", "r_id"), "r_id")
+    has_cand = "cand_score" in keep
+    out, cols = features.compare(joined, cfg, candidates=has_cand)
+    carry = [c for c in keep if c not in cols]
+    return rt.materialize(out.select("l_id", "r_id", *carry, *cols), "pair_features"), cols
+
+
 def run(cfg: Config, root: Path | None = None, t_process: float | None = None, rt: Runtime | None = None) -> dict:
     t_start = t_process or time.time()
     problems = cfg.runnable_problems()

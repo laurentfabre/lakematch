@@ -20,13 +20,15 @@ classifiers = ["Private :: Do Not Upload"]
 [project.optional-dependencies]
 # A local Spark Connect session (runtime.connect: true) and the second test pass.
 connect = ["pyspark[connect]>=4.1,<5"]
-# Local embedding model for organisation and title fields; the model is picked in ZR-2.
-embeddings = []
+# Local embedding provider for organisation and title fields (model2vec static models, MIT; model picked in ZR-2).
+embeddings = ["model2vec>=0.4", "pandas>=2", "pyarrow>=11"]
+# The optional UDF features (Jaro-Winkler before Spark 4.3, the affine-gap alignment): pandas UDFs.
+udf = ["pandas>=2", "pyarrow>=11"]
 # Databricks-licensed quality engine, imported lazily by quality/dqx_adapter.py (ZR-6). Never mandatory.
 dqx = ["databricks-labs-dqx"]
 # Corpus loaders for the benchmark harness and the FEBRL4 example.
 bench = ["recordlinkage>=0.16"]
-dev = ["pytest>=8", "pyspark[connect]>=4.1,<5", "recordlinkage>=0.16"]
+dev = ["pytest>=8", "pyspark[connect]>=4.1,<5", "recordlinkage>=0.16", "model2vec>=0.4"]
 
 [project.scripts]
 lakematch = "lakematch.cli:main"

@@ -90,9 +90,9 @@ def test_defaults_are_runnable_and_clustering_waits_for_zr4():
 
 
 def test_unimplemented_choice_blocks_the_run_with_its_phase():
-    cfg = config.build({"features": {"string_similarity": "jaro_winkler"}})
+    cfg = config.build({"features": {"embeddings": {"provider": "databricks_endpoint"}}})
     problems = cfg.runnable_problems()
-    assert len(problems) == 1 and "ZR-2" in problems[0]
+    assert len(problems) == 1 and "ZR-6" in problems[0]
 
 
 def test_example_config_loads():

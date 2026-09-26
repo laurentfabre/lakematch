@@ -31,10 +31,10 @@ METHODS: dict[str, dict[str, str | None]] = {
     "runtime.mode": {"local": None, "serverless": "ZR-6", "classic": "ZR-9"},
     "candidates.method": {"gram_topk": None, "learned_blocker": "ZR-3", "minhash_lsh": "ZR-3",
                           "field_blocks": "ZR-3", "union": "ZR-3"},
-    "features.string_similarity": {"levenshtein": None, "jaro_winkler": "ZR-2", "both": "ZR-2"},
+    "features.string_similarity": {"levenshtein": None, "jaro_winkler": None, "both": None},
     "features.multi_token": {"idf_token_cosine": None, "gram_overlap": None, "monge_elkan_token": None,
-                             "affine_gap_udf": "ZR-2"},
-    "features.embeddings.provider": {"auto": None, "none": None, "local": "ZR-2", "databricks_endpoint": "ZR-2"},
+                             "affine_gap_udf": None},
+    "features.embeddings.provider": {"auto": None, "none": None, "local": None, "databricks_endpoint": "ZR-6"},
     "matcher.estimator": {"gbt": None, "logistic_regression": None, "random_forest": None},
     "decision.cardinality": {"one_to_one": None, "many_to_one": None, "unrestricted": None},
     "cluster.method": {"verified_merge": "ZR-4", "connected_components": "ZR-4", "center": "ZR-4", "star": "ZR-4"},
@@ -44,6 +44,12 @@ METHODS: dict[str, dict[str, str | None]] = {
 }
 
 FIELD_TYPES = ("person_name", "address", "organisation", "title", "code", "date", "number")
+
+# Feature families (features/__init__.py documents which field types each applies to). `features.exclude` drops
+# families — the ablation's lever. The last two are UDF families: optional, only with `features.udf_features: true`.
+FAMILIES = ("candidate", "edit", "exact", "phonetic", "monge_elkan", "token_idf", "gram", "structure", "rarity",
+            "embedding", "jaro_winkler", "affine_gap")
+UDF_CHOICES = {"jaro_winkler", "both", "affine_gap_udf"}   # UDFs before Spark 4.3 (affine gap: always)
 
 # Everything that bills on top of plain compute. The laptop profile turns all of them off.
 PAID_FEATURES = {
@@ -75,7 +81,10 @@ DEFAULTS: dict[str, Any] = {
     "features": {"string_similarity": "levenshtein",
                  "multi_token": ["idf_token_cosine", "gram_overlap", "monge_elkan_token"],
                  "udf_features": False,
-                 "embeddings": {"fields_of_type": ["organisation", "title"], "provider": "auto", "model": None}},
+                 "exclude": [],
+                 "token_cap": 30,         # Monge-Elkan compares at most this many tokens per side (long titles)
+                 "embeddings": {"fields_of_type": ["organisation", "title"], "provider": "auto",
+                                "model": "minishlab/potion-base-32M"}},   # D12 winner, bench/ABLATION.md
     "matcher": {"estimator": "gbt", "max_model_mb": 100, "params": {}, "seed": 0},
     "decision": {"threshold": "from_validation", "cardinality": "one_to_one", "validation_share": 0.25},
     "cluster": {"method": "verified_merge", "max_rounds": 20},
@@ -190,6 +199,15 @@ def validate(data: dict) -> None:
     for name, spec in data["entity"]["fields"].items():
         if not isinstance(spec, dict) or spec.get("type") not in FIELD_TYPES:
             raise ConfigError(f"entity.fields.{name}: type must be one of {', '.join(FIELD_TYPES)}")
+        if set(spec) - {"type", "multi"}:
+            raise ConfigError(f"entity.fields.{name}: unknown option(s) {', '.join(sorted(set(spec) - {'type', 'multi'}))}")
+        if spec.get("multi") and spec["type"] != "code":
+            raise ConfigError(f"entity.fields.{name}: multi applies to code fields (a set of identifiers)")
+    for fam in cfg.get("features.exclude"):
+        if fam not in FAMILIES:
+            raise ConfigError(f"features.exclude: '{fam}' is not a feature family ({', '.join(FAMILIES)})")
+    # The UDF choices (affine_gap_udf always, jaro_winkler before Spark 4.3) are accepted here and gated in
+    # features.check(), which knows the session's Spark version: they need features.udf_features: true to run.
     for t in cfg.get("features.embeddings.fields_of_type"):
         if t not in FIELD_TYPES:
             raise ConfigError(f"features.embeddings.fields_of_type: '{t}' is not a field type")

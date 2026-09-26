@@ -5,7 +5,7 @@ classic compute. Apache-2.0. Public repository; no PyPI release.*
 
 ![Python](https://img.shields.io/badge/python-3.12-blue) ![Spark](https://img.shields.io/badge/spark-4.1-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green) ![Version](https://img.shields.io/badge/version-0.1.0-lightgrey)
-![Phase](https://img.shields.io/badge/phase-ZR--1-informational)
+![Phase](https://img.shields.io/badge/phase-ZR--2-informational)
 
 ## Contents
 
@@ -26,7 +26,8 @@ Genie agent. The full specification, the nine bounded phases ZR-1..9 and the led
 | Phase | What | State |
 |---|---|---|
 | ZR-1 | package, config, laptop engine, native quality gate | built 2026-09-26 — judge `goals/verify_zr.sh 1` |
-| ZR-2 … ZR-9 | similarity library, benchmarks, clusters, MLflow, serverless, app, Genie, classic | not started |
+| ZR-2 | similarity library: a feature family per field type, optional UDF features, local embeddings, ablation | built 2026-09-26 — `goals/verify_zr.sh 2`, [`bench/ABLATION.md`](bench/ABLATION.md) |
+| ZR-3 … ZR-9 | benchmarks, clusters, MLflow, serverless, app, Genie, classic | not started |
 
 On FEBRL4 with half the partners removed (5 000 left, 2 500 right, 2 500 true links), the default config gives
 F1 0.9996 (held-out left records 0.9996) against 0.667 for "always link the nearest neighbour", with candidate
@@ -68,6 +69,27 @@ Every step up to scoring is a lazy DataFrame transformation; `fit`, threshold se
 (job tasks on Databricks, ZR-6). `lakematch.runtime` is the only module that knows which kind of session it runs on;
 `materialize()` pins a reused plan with `localCheckpoint()`, `cache()` or a scratch table, whichever the session allows.
 
+## Features
+
+One family per field type, research-backed (`spec/research/similarity_sota.md`); the table with every family and the
+field types it covers is the docstring of [`features/__init__.py`](src/lakematch/features/__init__.py).
+
+| Field type | Families on by default |
+|---|---|
+| `person_name` | edit, exact, phonetic (soundex, soundex token set), Monge-Elkan per token, IDF token cosine, swapped order, initials, rarity |
+| `address` | edit, exact, IDF token cosine, q-gram Jaccard, Monge-Elkan, house-number agreement |
+| `organisation` | the address set + legal-form agreement, fingerprint equality and distance, containment, rarity, **embedding cosine** |
+| `title` | the address set (model numbers) + **embedding cosine** |
+| `code` | edit, exact; with `multi: true` (e-mails, phones) any-shared, set Jaccard, best-item Monge-Elkan |
+| `date` | edit, exact, same year, day/month/year Jaccard (month names mapped) |
+| `number` | exact, relative gap |
+
+Every default comparison is a Spark SQL built-in. **Jaro-Winkler** and the **affine-gap alignment** exist only as
+optional UDF features (`features.udf_features: true`; Jaro-Winkler becomes the built-in on Spark 4.3). Embeddings are
+computed once per record by a local model2vec model (MIT, `pip install -e ".[embeddings]"`) and pinned in the entity
+table, so the pair plan stays UDF-free. [`bench/ABLATION.md`](bench/ABLATION.md) measures what each family adds on
+FEBRL4, BPID, Leipzig Affiliations and Abt-Buy, with bootstrap intervals, and records the D12 decision.
+
 ## Configuration
 
 One YAML; [`examples/febrl4.yaml`](examples/febrl4.yaml) shows every choice. Every method of the brief is a legal
@@ -75,12 +97,13 @@ value today; a choice whose phase has not landed fails with a message naming tha
 
 <details><summary>Method choices and what is implemented</summary>
 
-| Key | Choices | Implemented in ZR-1 |
+| Key | Choices | Implemented |
 |---|---|---|
 | `candidates.method` | gram_topk · learned_blocker · minhash_lsh · field_blocks · union | gram_topk |
-| `features.string_similarity` | levenshtein · jaro_winkler · both | levenshtein |
-| `features.multi_token` | idf_token_cosine · gram_overlap · monge_elkan_token · affine_gap_udf | the three built-ins |
-| `features.embeddings.provider` | auto · none · local · databricks_endpoint | auto (skips with a warning) · none |
+| `features.exclude` | any feature family (the ablation's lever) | all |
+| `features.string_similarity` | levenshtein · jaro_winkler · both | all (Jaro-Winkler: UDF before Spark 4.3, needs `udf_features`) |
+| `features.multi_token` | idf_token_cosine · gram_overlap · monge_elkan_token · affine_gap_udf | all (affine gap: UDF, needs `udf_features`) |
+| `features.embeddings.provider` | auto · none · local · databricks_endpoint | auto · none · local (model2vec) — endpoint in ZR-6 |
 | `matcher.estimator` | gbt · logistic_regression · random_forest | all three |
 | `decision.cardinality` | one_to_one · many_to_one · unrestricted | all three |
 | `cluster.method` | verified_merge · connected_components · center · star | ZR-4 |
@@ -116,11 +139,13 @@ lakematch/
 │   ├── config.py            defaults, profiles, method registry, validation, paid-features guard
 │   ├── runtime.py           session factory, is_remote, capability probe, materialize
 │   ├── quality/native.py    row and dataset checks, error / warn, apply_and_split
-│   ├── entity.py · candidates.py · features/ · labels/ · matcher.py · decision.py · evaluate.py
+│   ├── entity.py · candidates.py · labels/ · matcher.py · decision.py · evaluate.py
+│   ├── features/            the families (__init__.py) · udf.py (optional Jaro-Winkler, affine gap)
+│   ├── embeddings/          providers: local model2vec | none | auto
 │   ├── pipeline.py          lakematch run
 │   └── cli.py               run · doctor · (train, bench: later phases)
 ├── examples/febrl4.yaml     the laptop example
-├── bench/prepare_febrl4.py  FEBRL4 with half the partners removed
+├── bench/                   prepare_febrl4.py · corpora.py (loaders) · ablation.py → ABLATION.md, results/
 ├── scripts/                 env.sh · test.sh · offline.sb
 ├── tests/                   run twice: classic session and Spark Connect
 ├── spec/                    BRIEF.md, decisions board, research, porting study, the 2026-09-19 measurement harness
