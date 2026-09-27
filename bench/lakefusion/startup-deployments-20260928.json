@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "python",
+      "-m",
+      "lakematch_runtime"
+    ],
+    "create_time": "2026-09-27T22:57:48Z",
+    "creator": "laurent.fabre@databricks.com",
+    "deployment_artifacts": {
+      "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bac6dc231db190762f2a3467e9e5"
+    },
+    "deployment_id": "01f1bac6dc231db190762f2a3467e9e5",
+    "env_vars": [
+      {
+        "name": "LAKEMATCH_WORKFLOW_BINDING"
+      },
+      {
+        "name": "LAKEMATCH_REVIEW_STORE"
+      },
+      {
+        "name": "LAKEMATCH_REVIEW_WAREHOUSE_ID"
+      },
+      {
+        "name": "LAKEMATCH_REVIEW_SCHEMA_NAME"
+      },
+      {
+        "name": "LAKEMATCH_REVIEW_GENIE_ENABLED"
+      }
+    ],
+    "mode": "SNAPSHOT",
+    "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "status": {
+      "message": "Error: app crashed unexpectedly. Please check /logz for more details",
+      "state": "FAILED"
+    },
+    "update_time": "2026-09-27T22:58:09Z"
+  }
+]

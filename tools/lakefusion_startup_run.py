@@ -4,6 +4,7 @@ import argparse
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 import shutil
 import signal
 import subprocess
@@ -23,6 +24,20 @@ from lakematch.mastering.access_registry import PostgresAccessRegistry
 from lakematch.mastering.contracts import digest
 
 
+def redact_app_logs(raw):
+    """Keep startup stack traces while excluding credential-bearing log lines."""
+    lines = []
+    for line in raw.splitlines():
+        if re.search(r'(?i)(?:password|client_secret|authorization|(?:access_|refresh_)?token)[\s"\x27]*[:=]', line):
+            lines.append('[credential-bearing log line omitted]')
+        else:
+            line = re.sub(r'eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+', '[REDACTED_JWT]', line)
+            line = re.sub(r'dapi[a-fA-F0-9]{32,}', '[REDACTED_PAT]', line)
+            line = re.sub(r'(https?://)[^\s/@:]+:[^\s/@]+@', r'\1[REDACTED]@', line)
+            lines.append(line)
+    return '\n'.join(lines)[-16000:]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--inputs', required=True, type=Path)
@@ -37,6 +52,7 @@ def main():
     for name, expected in inputs['preserved_inputs'].items():
         require(sha256(ROOT/name) == expected, 'Pinned installation evidence changed')
     prior = json.loads((ROOT/inputs['installation_report']).read_text())
+    require(config == prior['inputs'], 'Installation resource configuration changed')
     binding = json.loads((ROOT/inputs['binding']).read_text())
     destination, payload = ROOT/inputs['report'], ROOT/inputs['payload']
     require(not destination.exists() and not payload.exists(), 'Fresh report and payload paths required')
@@ -301,6 +317,17 @@ def main():
         if isinstance(error, RetainedStateError):
             report['validation_error'] = str(error)
         print('Failed at '+report['stage']+': '+type(error).__name__, flush=True)
+        if app_owned:
+            try:
+                report['failure_app'] = app()
+                command = ['databricks', 'apps', 'logs', config['app_name'], '--tail-lines', '150',
+                           '--source', 'APP', '--profile', config['profile']]
+                result = subprocess.run(command, capture_output=True, text=True, timeout=min(40, budget()))
+                report['app_log_diagnostic'] = {'command': command, 'exit_code': result.returncode,
+                    'redacted_log': redact_app_logs(result.stdout+'\n'+result.stderr)}
+            except Exception as diagnostic_error:
+                report['app_log_diagnostic_error'] = type(diagnostic_error).__name__
+            save()
     finally:
         cleaning = True
         if warehouse_owned:

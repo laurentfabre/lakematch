@@ -1,0 +1,47 @@
+{
+  "app_status": {
+    "message": "App status is unavailable.",
+    "state": "UNAVAILABLE"
+  },
+  "compute_size": "MEDIUM",
+  "compute_status": {
+    "message": "Start the app compute to deploy the app.",
+    "state": "STOPPED"
+  },
+  "create_time": "2026-09-23T12:59:06Z",
+  "creator": "laurent.fabre@databricks.com",
+  "default_source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+  "description": "Lakematch governed workflow pilot",
+  "effective_user_api_scopes": [
+    "iam.access-control:read",
+    "iam.current-user:read"
+  ],
+  "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+  "name": "lakematch-mdm-dev",
+  "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+  "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+  "resources": [
+    {
+      "name": "postgres",
+      "postgres": {
+        "branch": "projects/lakematch-mdm-dev/branches/production",
+        "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+        "permission": "CAN_CONNECT_AND_CREATE"
+      }
+    },
+    {
+      "name": "sql-warehouse",
+      "sql_warehouse": {
+        "id": "ec3b6df6c1cabcd4",
+        "permission": "CAN_USE"
+      }
+    }
+  ],
+  "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+  "service_principal_id": 77964494840289,
+  "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+  "thumbnail_url": "",
+  "update_time": "2026-09-27T22:58:23Z",
+  "updater": "laurent.fabre@databricks.com",
+  "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+}

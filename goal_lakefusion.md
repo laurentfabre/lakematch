@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (9/32 under LF-DEC-008)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (10/32 under LF-DEC-008)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -324,7 +324,7 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **9/32** slots;
+  process-death rollback and exact restart replay pass. LF-C uses **10/32** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
@@ -333,9 +333,10 @@ Deliverables:
   verified TLS 1.3, installs all six migrations and restricted grants, and creates
   the synthetic company fixture and isolated Delta review tables. The local
   startup command times out before app deployment; no live HTTP acceptance ran.
-  Cleanup is verified: app and warehouse stopped, Lakebase idle. The next attempt
-  must verify the retained installation and accommodate cold startup within the
-  unchanged per-run envelope; it must not reseed the existing schemas.
+  Slot 10 verifies the retained installation and fixes cold-start sequencing;
+  package installation succeeds, but the runtime crashes before HTTP acceptance.
+  Both app and warehouse stop cleanly. The [slot-11 diagnostic follow-up](bench/lakefusion/DEPLOYMENT_LOG_CAPTURE_PLAN.md)
+  captures initialization logs before cleanup; it preserves all original gates.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with
@@ -582,6 +583,8 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-23: LF-C cap increased | Laurent requested “Increase the cap substantially”; LF-DEC-008 implements this as 32 total LF-C attempts. Existing eight attempts remain consumed; LF-A and LF-B limits are unchanged. LF-C 8/32. | Execute the committed [slot-9 installation](bench/lakefusion/DEPLOYMENT_INSTALLATION_PLAN.md) under the unchanged finite resource/time envelope. |
 
 | 2026-09-23: database installation complete; app cold-start timeout | Slot 9 installs six migrations, scoped grants, the synthetic fixture and isolated review tables using verified TLS 1.3. The 120-second local startup command expires before source deployment. No HTTP acceptance; failed attempt retained. Follow-on cleanup verifies app/warehouse stopped and Lakebase idle. LF-C 9/32; 23 slots remain. [Evidence](bench/lakefusion/PHASE_C.md). | Prepare a bounded startup continuation that verifies the retained installation/payload without reseeding, preserves timeout diagnostics, and observes singleton compute before live workflow/revocation/restart checks. |
+
+| 2026-09-28: separate compute startup verified | Slot 10 verifies retained migrations/receipts and Delta grants; compute starts and packages install. Runtime initialization crashes before HTTP checks. Both owned resources stop; original payload and failed evidence retained. LF-C 10/32. | Execute the committed [slot-11 diagnostic plan](bench/lakefusion/DEPLOYMENT_LOG_CAPTURE_PLAN.md) to capture initialization logs before stopping compute. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM

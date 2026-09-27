@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "slot": 11,
+  "phase_limit": 32,
+  "installation_report": "bench/lakefusion/deployment-20260923-installation.json",
+  "binding": "bench/lakefusion/deployment-binding-20260923-installation.json",
+  "retained_payload": "data/test-runs/workflow-deployment-20260923-installation",
+  "payload": "data/test-runs/workflow-startup-logcapture-20260928",
+  "report": "bench/lakefusion/startup-logcapture-20260928.json",
+  "preserved_inputs": {
+    "bench/lakefusion/deployment-20260923-installation.json": "92fff4bbf766bacfd3849344e1099dede09a80faf5aa8ec3f38d38b9e385d34a",
+    "bench/lakefusion/deployment-binding-20260923-installation.json": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+    "bench/lakefusion/deployment-cleanup-20260923-installation.json": "c1066976f5a05ff3f115c1c7ec0c618ecdc217e53470c53a1c7c872f8a4ef897",
+    "bench/lakefusion/deployment-verification-20260923-installation.json": "75874fdeed1354db164d531131e4ab575156bf5770af4ff89265841f83db8bca",
+    "bench/lakefusion/startup-20260928.json": "2a3b2c1eb06f5ff755480a89b70f3c5237f176759088c7c9c17632dc47774826",
+    "bench/lakefusion/startup-app-state-20260928.json": "e39227477283597f97d52b5510de3d16c8c5c5f00c8de7940c83b85650928383",
+    "bench/lakefusion/startup-deployments-20260928.json": "5f1bea8bedd58531e6af5f17c16074ed8bb342b2f6aeacf8f0a849004c67753f"
+  }
+}

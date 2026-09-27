@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 9/32 experiments under LF-DEC-008.** The local
+**In progress, 2026-09-23. LF-C has consumed 10/32 experiments under LF-DEC-008.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open. Slot 9 installs the
 database and isolated review tables; app startup times out before HTTP acceptance.
@@ -367,3 +367,30 @@ observed `active_instances == 1` before HTTP acceptance; the undeployed active
 compute observation omitted this field and cannot establish singleton operation.
 Live OAuth/Apps identity, receipt/revocation/restart, second-user approval, RLS,
 renewal, business publication and the broader pilot gates remain open.
+
+## Slot 10 — cold startup resolved; runtime initialization failed
+
+Source **`21a275e`**, [manifest](../../experiments/20260927T225506Z-lf-c-startup-0a0b78/manifest.json),
+[report](startup-20260928.json) and [inputs](startup-inputs-20260928.json) retain
+this **199.075-second failed attempt**. The run began September 28 in Europe/Paris
+(September 27 UTC). **134 PostgreSQL regression tests** passed through managed
+hooks before execution, including six new retained-state cases.
+
+Live read-only PostgreSQL checks verify all six migrations, the approved domain,
+master/crosswalks, original identity/access receipts and revision-1 policy, with
+no prior workflow use. The three Delta tables are empty and their direct app
+grants match. Strict bundle validation/deployment pass. Compute becomes ACTIVE
+under the separate startup allowance, resolving the previous local timeout.
+Package installation then succeeds, but `python -m lakematch_runtime` crashes
+during initialization. No HTTP acceptance or task mutation ran.
+
+The failed [deployment record](startup-deployments-20260928.json) gives only the
+generic crash message. The [post-cleanup log request](startup-diagnosis-20260928.log)
+returns HTTP 503; it cannot establish the exception. Both app and warehouse are
+**STOPPED** in the run cleanup; [app metadata](startup-app-state-20260928.json)
+confirms no active deployment. Lakebase and installed data are retained.
+
+Before source changes, all **255 source hashes and four artifact hashes** matched
+the manifest. Frozen and scanner inputs remain intact. LF-C is **10/32**; no
+feature gate closes. The [slot-11 plan](DEPLOYMENT_LOG_CAPTURE_PLAN.md) retains
+the exact payload and captures redacted initialization logs before cleanup.
