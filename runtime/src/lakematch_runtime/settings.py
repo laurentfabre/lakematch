@@ -81,7 +81,11 @@ class Binding:
         expected = {'DATABRICKS_APP_NAME': self.app_name, 'DATABRICKS_HOST': self.workspace_host,
                     'DATABRICKS_WORKSPACE_ID': self.workspace_id, 'LAKEBASE_ENDPOINT': self.endpoint,
                     'PGHOST': self.host, 'PGDATABASE': self.database, 'PGPORT': '5432'}
-        require(all(env.get(k) == v for k, v in expected.items()), 'Injected resources do not match the selected binding')
+        mismatches = [k + ('=missing' if not env.get(k) else '=mismatch')
+                      for k, v in expected.items() if env.get(k) != v]
+        # Names and classifications only: an unexpected value may contain a
+        # credential, so neither the value nor the complete environment is logged.
+        require(not mismatches, 'Injected resources do not match the selected binding: ' + ', '.join(mismatches))
         require(env.get('PGSSLMODE') in {'require', 'verify-full'}, 'TLS is required')
         user = env.get('PGUSER', '')
         try:

@@ -83,6 +83,21 @@ def test_profile_and_personal_token_are_not_fallbacks():
             binding.validate_environment({**environment(binding), key: 'unwanted-fallback'})
 
 
+def test_binding_diagnostics_name_missing_and_mismatched_fields_without_values():
+    binding = Binding.from_dict(definition())
+    env = environment(binding)
+    unexpected_value = uuid4().hex
+    env['DATABRICKS_HOST'] = unexpected_value
+    env['DATABRICKS_CLIENT_SECRET'] = unexpected_value
+    del env['PGPORT']
+    with pytest.raises(ContractError) as error:
+        binding.validate_environment(env)
+    assert 'DATABRICKS_HOST=mismatch' in str(error.value)
+    assert 'PGPORT=missing' in str(error.value)
+    assert unexpected_value not in str(error.value)
+    assert 'DATABRICKS_CLIENT_SECRET' not in str(error.value)
+
+
 def test_credentials_renew_before_expiry_and_single_concurrent_generation():
     now = datetime(2026, 9, 23, tzinfo=timezone.utc)
     elapsed, generated = [0], []

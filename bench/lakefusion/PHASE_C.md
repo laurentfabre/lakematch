@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 10/32 experiments under LF-DEC-008.** The local
+**In progress, 2026-09-23. LF-C has consumed 11/32 experiments under LF-DEC-008.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open. Slot 9 installs the
 database and isolated review tables; app startup times out before HTTP acceptance.
@@ -394,3 +394,19 @@ Before source changes, all **255 source hashes and four artifact hashes** matche
 the manifest. Frozen and scanner inputs remain intact. LF-C is **10/32**; no
 feature gate closes. The [slot-11 plan](DEPLOYMENT_LOG_CAPTURE_PLAN.md) retains
 the exact payload and captures redacted initialization logs before cleanup.
+
+## Slot 11 — resource-binding check identified as the first startup failure
+
+Source **`0efd58f`**, [manifest](../../experiments/20260927T230225Z-lf-c-startup-logs-df741f/manifest.json)
+and [report](startup-logcapture-20260928.json) retain this **166.889-second failed
+attempt**. The unchanged package again installs, and APP logs captured before
+cleanup identify `Binding.validate_environment`: injected resource settings do
+not match the selected binding. The message does not identify which fields; no
+database authentication or HTTP acceptance ran. No task or policy was changed.
+
+The log redaction regression passes. All **256 source hashes and four artifact
+hashes** verify before further source edits, as do all frozen/scanner inputs.
+The app and warehouse are both **STOPPED**. Lakebase data and DAB state remain
+retained; billing remains unreconciled. LF-C is **11/32**. The
+[slot-12 plan](DEPLOYMENT_BINDING_DIAGNOSTIC_PLAN.md) adds credential-free field
+names to that failure and builds a fresh payload; it changes no accepted values.

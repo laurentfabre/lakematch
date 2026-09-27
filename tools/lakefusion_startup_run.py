@@ -3,6 +3,7 @@
 import argparse
 from datetime import datetime, timezone
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -39,6 +40,7 @@ def redact_app_logs(raw):
 
 
 def main():
+    start = time.monotonic()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--inputs', required=True, type=Path)
     args = parser.parse_args()
@@ -59,11 +61,11 @@ def main():
     original_payload = ROOT/inputs['retained_payload']
     for name, details in prior['payload']['files'].items():
         require(sha256(original_payload/name) == details['sha256'], 'Retained payload changed')
-        target = payload/name
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(original_payload/name, target)
-    require(sha256(payload/'app/binding.json') == sha256(ROOT/inputs['binding']), 'Payload binding mismatch')
-    start = time.monotonic()
+        if not inputs.get('rebuild', False):
+            target = payload/name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(original_payload/name, target)
+    active_payload = prior['payload']
     work_end, cleanup_end = start+2100, start+2370
     report = {'phase': 'LF-C', 'slot': inputs['slot'], 'status': 'running',
               'started_at': datetime.now(timezone.utc).isoformat(), 'inputs': inputs,
@@ -140,7 +142,7 @@ def main():
                           ('bench/lakefusion/runtime-inputs-20260923.json', 'scanner_inputs')]:
             entries = json.loads((ROOT/path).read_text())[key]
             require(all(sha256(ROOT/p) == h for p, h in entries.items()), 'Frozen/scanner input changed')
-        require(all(sha256(payload/p) == v['sha256'] for p, v in prior['payload']['files'].items()),
+        require(all(sha256(payload/p) == v['sha256'] for p, v in active_payload['files'].items()),
                 'Copied payload changed')
 
     def begin_start():
@@ -165,6 +167,20 @@ def main():
     signal.signal(signal.SIGTERM, interrupted)
     save()
     try:
+        if inputs.get('rebuild', False):
+            stage('build committed runtime payload')
+            subprocess.run([sys.executable, str(ROOT/'tools/build_workflow_bundle.py'),
+                '--output', str(payload), '--binding', str(ROOT/inputs['binding']),
+                '--warehouse-id', config['warehouse_id'],
+                '--review-schema', config['review_catalog']+'.'+config['review_schema'],
+                '--platform-default-instances'], cwd=ROOT, check=True, timeout=min(480, budget()),
+                env={**os.environ, 'UV_OFFLINE': '1'})
+            active_payload = json.loads((payload/'payload.json').read_text())
+            report['payload'] = active_payload
+            report['payload_source_commit'] = subprocess.check_output(
+                ['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+            save()
+        require(sha256(payload/'app/binding.json') == sha256(ROOT/inputs['binding']), 'Payload binding mismatch')
         preserved()
         w = WorkspaceClient(config=Config(profile=config['profile'], http_timeout_seconds=20,
                                            retry_timeout_seconds=30))
