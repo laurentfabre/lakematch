@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 13/32 experiments under LF-DEC-008.** The local
+**In progress, 2026-09-23. LF-C has consumed 14/32 experiments under LF-DEC-008.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open. Slot 9 installs the
 database and isolated review tables; app startup times out before HTTP acceptance.
@@ -456,3 +456,35 @@ It pins the returned deployment ID and verifies snapshot hashes before acceptanc
 Four local deployment-evidence tests pass, including stale-source and wrong-ID
 refusal. Database authentication, observed singleton compute and workflow HTTP
 acceptance remain open; billing is unreconciled.
+
+## Slot 14 — live application starts; instance-count qualification is unavailable
+
+Source **`7d54837`**, [manifest](../../experiments/20260927T232404Z-lf-c-source-dd61e4/manifest.json)
+and [report](startup-source-20260928.json) retain the **179.537-second attempt**.
+The selected SNAPSHOT deployment **SUCCEEDED**, app **RUNNING**, compute **ACTIVE**.
+Uvicorn logs show application startup complete, including the runtime's mandatory
+Lakebase OAuth, verify-full TLS, identity, restricted-role, migration and approved
+domain readiness checks. All **eight uploaded app files and eight snapshot files**
+match the declared sizes/hashes. No stale environment override was supplied.
+
+The overall attempt remains **failed**: `compute_status.active_instances` is
+absent even after successful deployment, so the original gate stops before HTTP.
+No workflow or access-policy mutation occurred. App and warehouse both stop;
+installed state is preserved. All **256 source hashes, four artifact hashes,
+nine payload files, 15 frozen files and seven scanner inputs** verify before
+later edits. LF-C is **14/32**, with 18 attempts remaining.
+
+The workspace previously rejected explicit counts with “Manual instance count
+configuration is not enabled in this workspace.” Public documentation distinguishes
+standard apps from opt-in horizontal scaling; it does not prove this app's current
+instance count. Browser inspection was unavailable because the managed Chrome
+profile was already in use; no browser was stopped or reconfigured.
+
+The [slot-15 diagnostic plan](DEPLOYMENT_FUNCTIONAL_PLAN.md) explicitly separates
+functional evidence collection from the still-failing instance qualification.
+It reuses the exact slot-14 payload and the existing standard Medium app, records
+missing telemetry as **unqualified**, and refuses any observed/configured count
+other than one or any larger compute size. Missing counts still prevent an
+overall pass after HTTP collection. **13 local harness tests** pass, including
+refusal of observed drift and preservation of the missing-telemetry failure.
+This changes the experiment's gate ordering, not the pilot's acceptance status.

@@ -69,6 +69,21 @@ def deployment_ready(value, deployment_id=None):
             and value.get('app_status', {}).get('state') == 'RUNNING')
 
 
+def instance_qualification(app, *, collect_when_unreported=False):
+    """Missing telemetry never passes qualification; observed drift always stops work."""
+    require(app.get('compute_size') == 'MEDIUM', 'Medium app compute is required')
+    for key in ('compute_min_instances', 'compute_max_instances'):
+        require(app.get(key) is None or type(app[key]) is int and app[key] == 1,
+                'Configured instance count exceeds the declared singleton envelope')
+    count = app.get('compute_status', {}).get('active_instances')
+    if count is None:
+        require(collect_when_unreported, 'Singleton compute must be observed')
+        return {'status': 'unqualified', 'active_instances': None,
+                'reason': 'Platform omitted the active-instance count'}
+    require(type(count) is int and count == 1, 'Observed instance count is not one')
+    return {'status': 'passed', 'active_instances': count}
+
+
 def main():
     start = time.monotonic()
     parser = argparse.ArgumentParser(description=__doc__)
@@ -84,23 +99,27 @@ def main():
     for name, expected in inputs['preserved_inputs'].items():
         require(sha256(ROOT/name) == expected, 'Pinned installation evidence changed')
     prior = json.loads((ROOT/inputs['installation_report']).read_text())
+    payload_evidence = prior
+    if inputs.get('runtime_report'):
+        require(inputs['runtime_report'] in inputs['preserved_inputs'], 'Runtime report must be hash-pinned')
+        payload_evidence = json.loads((ROOT/inputs['runtime_report']).read_text())
     require(config == prior['inputs'], 'Installation resource configuration changed')
     binding = json.loads((ROOT/inputs['binding']).read_text())
     destination, payload = ROOT/inputs['report'], ROOT/inputs['payload']
     require(not destination.exists() and not payload.exists(), 'Fresh report and payload paths required')
     original_payload = ROOT/inputs['retained_payload']
-    for name, details in prior['payload']['files'].items():
+    for name, details in payload_evidence['payload']['files'].items():
         require(sha256(original_payload/name) == details['sha256'], 'Retained payload changed')
         if not inputs.get('rebuild', False):
             target = payload/name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(original_payload/name, target)
-    active_payload = prior['payload']
+    active_payload = payload_evidence['payload']
     work_end, cleanup_end = start+2100, start+2370
     report = {'phase': 'LF-C', 'slot': inputs['slot'], 'status': 'running',
               'started_at': datetime.now(timezone.utc).isoformat(), 'inputs': inputs,
-              'payload_source_commit': prior['payload_source_commit'] if 'payload_source_commit' in prior else '8320d42',
-              'payload': prior['payload'], 'commands': [], 'checks': [], 'observations': [],
+              'payload_source_commit': payload_evidence.get('payload_source_commit', '8320d42'),
+              'payload': active_payload, 'commands': [], 'checks': [], 'observations': [],
               'cleanup': {}, 'stage': 'inventory', 'cost_status': 'billing unreconciled',
               'observed_cost': None, 'confirmation_materialized': False}
     cleaning = False
@@ -310,7 +329,8 @@ def main():
         running = poll('running_app', app,
                        lambda value: deployment_ready(value, deployment['deployment_id']), 600)
         report['snapshot_payload'] = uploaded(running['active_deployment']['deployment_artifacts']['source_code_path'])
-        require(running['compute_status'].get('active_instances') == 1, 'Singleton compute must be observed')
+        report['initial_instance_qualification'] = instance_qualification(running,
+            collect_when_unreported=inputs.get('collect_workflow_with_unreported_instances') is True)
         url = running['url'].rstrip('/')
         report['app_url'] = url
 
@@ -351,7 +371,8 @@ def main():
         begin_start()
         restarted = poll('restarted_app', app, deployment_ready, 600)
         report['restart_snapshot_payload'] = uploaded(restarted['active_deployment']['deployment_artifacts']['source_code_path'])
-        require(restarted['compute_status'].get('active_instances') == 1, 'Restart singleton must be observed')
+        report['restart_instance_qualification'] = instance_qualification(restarted,
+            collect_when_unreported=inputs.get('collect_workflow_with_unreported_instances') is True)
         api('GET', route, expected=403)
         access.replace(principal, 'company', fixture['grants'], expected_revision=2, actor=principal,
                        reason='Restore synthetic demo access', key='deployment-regrant-v1')
@@ -366,6 +387,10 @@ def main():
         report['original_receipt_after_restart_regrant'] = True
         report['live_renewal_rls_second_user'] = 'not qualified by this bounded run'
         preserved()
+        report['workflow_status'] = 'passed'
+        require(all(report[k]['status'] == 'passed' for k in (
+            'initial_instance_qualification', 'restart_instance_qualification')),
+            'Workflow passed; instance-count qualification remains unavailable')
         report['status'] = 'passed'
     except BaseException as error:
         report.update(status='failed', error_type=type(error).__name__)

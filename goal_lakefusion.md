@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (13/32 under LF-DEC-008)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (14/32 under LF-DEC-008)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -324,7 +324,7 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **13/32** slots;
+  process-death rollback and exact restart replay pass. LF-C uses **14/32** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
@@ -344,8 +344,12 @@ Deliverables:
   origin. Slot 13 resolves the host check, but stale bundle-state environment
   overrides omit the endpoint despite correct uploaded files. The
   [slot-14 source plan](bench/lakefusion/DEPLOYMENT_SOURCE_PLAN.md) uses the verified
-  app.yaml directly and pins the new deployment ID. Database authentication and
-  HTTP acceptance remain pending.
+  app.yaml directly and pins the new deployment ID. Slot 14 reaches successful
+  Apps startup and Lakebase readiness, with all eight uploaded/snapshot files
+  verified. Missing active-instance telemetry blocks qualification before HTTP.
+  The [slot-15 diagnostic plan](bench/lakefusion/DEPLOYMENT_FUNCTIONAL_PLAN.md)
+  collects bounded functional evidence while keeping singleton qualification
+  explicitly unresolved; it cannot turn missing telemetry into an overall pass.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with
