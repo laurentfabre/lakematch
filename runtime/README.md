@@ -27,6 +27,15 @@ The server compares this file with Apps-injected `DATABRICKS_APP_NAME`,
 Missing/mismatched resources, personal-token/profile fallback and disabled TLS
 are refused. Secrets remain platform-injected; none belong in the binding file.
 
+The bundle explicitly maps `LAKEBASE_ENDPOINT` to the `postgres` resource using
+`valueFrom` (`value_from` in DAB config); attaching the resource alone does not
+inject that key. The other PostgreSQL connection fields are platform-injected.
+The selected workspace hostname may arrive without `https://` or with one
+trailing slash. Only those equivalent spellings of the bound HTTPS origin are
+accepted; OAuth always uses the pinned HTTPS binding. Other hosts, HTTP URLs,
+paths, user information, ports and query strings are refused. Startup errors
+name missing/mismatched fields without printing environment values.
+
 Build from the repository root, after preparing the documented APX environment
 and APX 0.3.8:
 

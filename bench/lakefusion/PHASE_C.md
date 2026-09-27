@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 11/32 experiments under LF-DEC-008.** The local
+**In progress, 2026-09-23. LF-C has consumed 12/32 experiments under LF-DEC-008.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open. Slot 9 installs the
 database and isolated review tables; app startup times out before HTTP acceptance.
@@ -410,3 +410,20 @@ The app and warehouse are both **STOPPED**. Lakebase data and DAB state remain
 retained; billing remains unreconciled. LF-C is **11/32**. The
 [slot-12 plan](DEPLOYMENT_BINDING_DIAGNOSTIC_PLAN.md) adds credential-free field
 names to that failure and builds a fresh payload; it changes no accepted values.
+
+## Slot 12 — endpoint injection is absent; workspace host differs
+
+Source **`fa52dd9`**, [manifest](../../experiments/20260927T230921Z-lf-c-binding-diagnostic-f2b50f/manifest.json)
+and [report](startup-binding-diagnostic-20260928.json) retain this **227.192-second
+failed attempt**. The fresh payload passes local **112 + 112 runtime checks**
+and remote package installation. Before database authentication, the strict
+binding check reports exactly `DATABRICKS_HOST=mismatch, LAKEBASE_ENDPOINT=missing`.
+No environment values or credentials are disclosed. No HTTP request or task
+mutation occurs. App and warehouse cleanup both confirm **STOPPED**.
+
+All **256 source hashes and four artifact hashes** match before further edits;
+frozen/scanner inputs remain intact. LF-C is **12/32**. The
+[slot-13 correction](DEPLOYMENT_ENVIRONMENT_PLAN.md) follows the current resource
+guide's explicit endpoint mapping and tests equivalent selected-host spelling
+without allowing other origins. The host's actual spelling remains unobserved;
+the next run tests that hypothesis with every original gate retained.

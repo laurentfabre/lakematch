@@ -81,8 +81,15 @@ class Binding:
         expected = {'DATABRICKS_APP_NAME': self.app_name, 'DATABRICKS_HOST': self.workspace_host,
                     'DATABRICKS_WORKSPACE_ID': self.workspace_id, 'LAKEBASE_ENDPOINT': self.endpoint,
                     'PGHOST': self.host, 'PGDATABASE': self.database, 'PGPORT': '5432'}
+        observed = {key: env.get(key) for key in expected}
+        # Apps may inject the selected hostname without its scheme. Accept only
+        # equivalent spellings of this exact HTTPS origin, never HTTP or a new
+        # authority. OAuth still uses self.workspace_host, not the raw env value.
+        hostname = urlsplit(self.workspace_host).hostname
+        if observed['DATABRICKS_HOST'] in (hostname, hostname+'/', self.workspace_host+'/'):
+            observed['DATABRICKS_HOST'] = self.workspace_host
         mismatches = [k + ('=missing' if not env.get(k) else '=mismatch')
-                      for k, v in expected.items() if env.get(k) != v]
+                      for k, v in expected.items() if observed[k] != v]
         # Names and classifications only: an unexpected value may contain a
         # credential, so neither the value nor the complete environment is logged.
         require(not mismatches, 'Injected resources do not match the selected binding: ' + ', '.join(mismatches))

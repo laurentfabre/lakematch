@@ -98,6 +98,24 @@ def test_binding_diagnostics_name_missing_and_mismatched_fields_without_values()
     assert 'DATABRICKS_CLIENT_SECRET' not in str(error.value)
 
 
+@pytest.mark.parametrize('host', ['workspace.example.invalid', 'workspace.example.invalid/',
+                                'https://workspace.example.invalid/'])
+def test_same_https_workspace_origin_accepts_platform_spelling(host):
+    binding = Binding.from_dict(definition())
+    assert binding.validate_environment({**environment(binding), 'DATABRICKS_HOST': host}) == USER
+
+
+@pytest.mark.parametrize('host', ['http://workspace.example.invalid',
+    'https://other.example.invalid', 'https://workspace.example.invalid.evil.invalid',
+    'https://user:password@workspace.example.invalid', 'workspace.example.invalid/path',
+    'https://workspace.example.invalid/?x=1', 'https://workspace.example.invalid:443',
+    '//workspace.example.invalid', 'https://workspace.example.invalid//'])
+def test_workspace_origin_normalization_refuses_other_authorities_or_extra_url_parts(host):
+    binding = Binding.from_dict(definition())
+    with pytest.raises(ContractError, match='DATABRICKS_HOST=mismatch'):
+        binding.validate_environment({**environment(binding), 'DATABRICKS_HOST': host})
+
+
 def test_credentials_renew_before_expiry_and_single_concurrent_generation():
     now = datetime(2026, 9, 23, tzinfo=timezone.utc)
     elapsed, generated = [0], []

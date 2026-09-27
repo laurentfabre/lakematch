@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (11/32 under LF-DEC-008)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (12/32 under LF-DEC-008)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -324,7 +324,7 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **11/32** slots;
+  process-death rollback and exact restart replay pass. LF-C uses **12/32** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
@@ -338,7 +338,10 @@ Deliverables:
   Both app and warehouse stop cleanly. Slot 11 captures the exact failing boundary:
   injected resource settings do not match the deployment binding. The
   [slot-12 diagnostic plan](bench/lakefusion/DEPLOYMENT_BINDING_DIAGNOSTIC_PLAN.md)
-  identifies affected keys without exposing values or relaxing validation.
+  identifies `DATABRICKS_HOST=mismatch` and `LAKEBASE_ENDPOINT=missing`.
+  The [slot-13 plan](bench/lakefusion/DEPLOYMENT_ENVIRONMENT_PLAN.md) adds endpoint
+  resource injection and accepts only equivalent spellings of the selected HTTPS
+  origin. No database authentication or HTTP acceptance has yet passed.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with

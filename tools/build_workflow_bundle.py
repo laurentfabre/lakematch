@@ -44,6 +44,7 @@ def build(output, binding_path, warehouse_id, review_schema, *, platform_default
     shutil.copyfile(binding_path, app/'binding.json')
     config = {'command': ['python', '-m', 'lakematch_runtime'], 'env': [
         {'name': 'LAKEMATCH_WORKFLOW_BINDING', 'value': 'binding.json'},
+        {'name': 'LAKEBASE_ENDPOINT', 'valueFrom': 'postgres'},
         {'name': 'LAKEMATCH_REVIEW_STORE', 'value': 'delta'},
         {'name': 'LAKEMATCH_REVIEW_WAREHOUSE_ID', 'valueFrom': 'sql-warehouse'},
         {'name': 'LAKEMATCH_REVIEW_SCHEMA_NAME', 'value': review_schema},
