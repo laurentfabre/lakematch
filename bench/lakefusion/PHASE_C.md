@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 14/32 experiments under LF-DEC-008.** The local
+**In progress, 2026-09-23. LF-C has consumed 15/32 experiments under LF-DEC-008.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open. Slot 9 installs the
 database and isolated review tables; app startup times out before HTTP acceptance.
@@ -488,3 +488,30 @@ other than one or any larger compute size. Missing counts still prevent an
 overall pass after HTTP collection. **13 local harness tests** pass, including
 refusal of observed drift and preservation of the missing-telemetry failure.
 This changes the experiment's gate ordering, not the pilot's acceptance status.
+
+## Slot 15 — live session and queue pass; task identity is rejected
+
+Harness source **`ad7925e`**, retained runtime **`7d54837`**,
+[manifest](../../experiments/20260927T233008Z-lf-c-functional-7dc429/manifest.json)
+and [report](startup-functional-20260928.json) retain this **205.288-second failed
+attempt**. Source/snapshot readbacks match, live startup succeeds, and missing
+instance telemetry is explicitly **unqualified**. `GET /api/session` and the
+empty isolated review queue each return **200** as the actual signed-in user.
+The first workflow task POST returns **401** before dispatch. No receipt is
+created and the runner never reaches access revocation; cleanup confirms app
+and warehouse **STOPPED**.
+
+The mastering parser only accepted unqualified alphanumeric IDs. Public
+[Databricks template code](https://github.com/databricks/app-templates/pull/214)
+illustrates a numeric `user-id@workspace-id` proxy identity; that form was
+rejected. The actual header value was not captured, so this remains a testable
+cause rather than an observed header diagnosis. The [slot-16 plan](DEPLOYMENT_IDENTITY_PLAN.md)
+accepts this form only for the exact injected workspace and maps it to the
+existing canonical principal. It refuses email addresses, other workspaces and
+ambiguous values; failure logs classify the reason without printing headers.
+**29 app-boundary tests** pass before the managed commit regression suite.
+
+All **256 source hashes, four artifacts, declared plan, nine payload files,
+15 frozen inputs and seven scanner inputs** verify before source changes.
+LF-C is **15/32**. Receipt/revocation/restart evidence and singleton qualification
+remain open, as do broader pilot gates. Billing remains unreconciled.

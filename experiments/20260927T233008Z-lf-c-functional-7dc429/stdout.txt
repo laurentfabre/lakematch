@@ -1,0 +1,8 @@
+verify retained database without mutations
+verify isolated Delta metadata and grants
+validate and deploy retained payload while stopped
+start compute separately from source deployment
+deploy source onto ready compute
+live workflow retries and permission revocation
+Failed at live workflow retries and permission revocation: RetainedStateError
+{"status": "failed", "stage": "live workflow retries and permission revocation", "cleanup": {"warehouse": "STOPPED", "app": "STOPPED", "lakebase": "Dedicated project, data and DAB state retained; idle suspension configured"}}

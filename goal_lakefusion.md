@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (14/32 under LF-DEC-008)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (15/32 under LF-DEC-008)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -324,7 +324,7 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **14/32** slots;
+  process-death rollback and exact restart replay pass. LF-C uses **15/32** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
@@ -350,6 +350,10 @@ Deliverables:
   The [slot-15 diagnostic plan](bench/lakefusion/DEPLOYMENT_FUNCTIONAL_PLAN.md)
   collects bounded functional evidence while keeping singleton qualification
   explicitly unresolved; it cannot turn missing telemetry into an overall pass.
+  Slot 15 passes live session and isolated-queue requests, then denies task
+  creation with 401 before mutation. The [slot-16 identity plan](bench/lakefusion/DEPLOYMENT_IDENTITY_PLAN.md)
+  adds strictly workspace-matched numeric identity qualification and tests the
+  unchanged functional flow. The actual rejected header was not recorded.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with

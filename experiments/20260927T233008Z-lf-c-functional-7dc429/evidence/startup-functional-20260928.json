@@ -1,0 +1,2388 @@
+{
+  "phase": "LF-C",
+  "slot": 15,
+  "status": "failed",
+  "started_at": "2026-09-27T23:30:08.874743+00:00",
+  "inputs": {
+    "schema_version": 1,
+    "slot": 15,
+    "phase_limit": 32,
+    "installation_report": "bench/lakefusion/deployment-20260923-installation.json",
+    "binding": "bench/lakefusion/deployment-binding-20260923-installation.json",
+    "retained_payload": "data/test-runs/workflow-source-20260928",
+    "payload": "data/test-runs/workflow-functional-20260928",
+    "report": "bench/lakefusion/startup-functional-20260928.json",
+    "preserved_inputs": {
+      "bench/lakefusion/deployment-20260923-installation.json": "92fff4bbf766bacfd3849344e1099dede09a80faf5aa8ec3f38d38b9e385d34a",
+      "bench/lakefusion/deployment-binding-20260923-installation.json": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+      "bench/lakefusion/deployment-cleanup-20260923-installation.json": "c1066976f5a05ff3f115c1c7ec0c618ecdc217e53470c53a1c7c872f8a4ef897",
+      "bench/lakefusion/deployment-verification-20260923-installation.json": "75874fdeed1354db164d531131e4ab575156bf5770af4ff89265841f83db8bca",
+      "bench/lakefusion/startup-20260928.json": "2a3b2c1eb06f5ff755480a89b70f3c5237f176759088c7c9c17632dc47774826",
+      "bench/lakefusion/startup-app-state-20260928.json": "e39227477283597f97d52b5510de3d16c8c5c5f00c8de7940c83b85650928383",
+      "bench/lakefusion/startup-deployments-20260928.json": "5f1bea8bedd58531e6af5f17c16074ed8bb342b2f6aeacf8f0a849004c67753f",
+      "bench/lakefusion/startup-logcapture-20260928.json": "b700d25c8c90b0b82a51bd4c6fb0512b6de08641029325933df68d3e650e8930",
+      "bench/lakefusion/startup-binding-diagnostic-20260928.json": "a94a308617b8046b7568420caa530df573457d485313ccaeacf2c5e944a539d7",
+      "bench/lakefusion/startup-environment-20260928.json": "7d027034ae4b42184f9f603421b33144fc41f1de1a77c5392f5006b4ff34b062",
+      "bench/lakefusion/startup-environment-upload-20260928.json": "d0be00a4a3de4a0e7a9064ed7a5ed8e989e021f0d261d9a76f0bdedb62d9aba4",
+      "bench/lakefusion/startup-source-20260928.json": "9147d542e0da539551e1bea2ecffeb1f1fc45893d866556f15c47500e041a75e"
+    },
+    "rebuild": false,
+    "runtime_report": "bench/lakefusion/startup-source-20260928.json",
+    "collect_workflow_with_unreported_instances": true
+  },
+  "payload_source_commit": "7d54837275d0e942d724fd86a53dff05c5f0e226",
+  "payload": {
+    "schema_version": 1,
+    "status": "built; deployment not performed",
+    "binding_sha256": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+    "app_name": "lakematch-mdm-dev",
+    "python": [
+      "3.11",
+      "3.12"
+    ],
+    "files": {
+      "databricks.yml": {
+        "sha256": "ae82188af6ab62e1e66cd8c1d20c4b24dc5050feafeea8e2252354f29e1b6d11",
+        "bytes": 1521
+      },
+      "app/app.yaml": {
+        "sha256": "0d6d56a3aa60b7781a8427608688f9dfce204cec52072a06acd98af217ee8b1a",
+        "bytes": 398
+      },
+      "app/binding.json": {
+        "sha256": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+        "bytes": 668
+      },
+      "app/requirements.txt": {
+        "sha256": "d69f53c9dc1491d981b0ece7943abacc4114a704eb1ea019ef2d4d20eb50fdc1",
+        "bytes": 381
+      },
+      "app/dependencies-app.txt": {
+        "sha256": "c9d9c8567ba2323c79318a117bcdccc32f6706f702671b27a3fa470acba7661e",
+        "bytes": 37160
+      },
+      "app/dependencies-yaml.txt": {
+        "sha256": "1a93c75f001ccc68116b901bac4607e186a693ec971c6186ea8b47ec09fa254f",
+        "bytes": 6446
+      },
+      "app/dependencies-postgres.txt": {
+        "sha256": "ca06b24731e76418bcebd7e56c313502a9c29547f2ef42c263d9739a12d117f6",
+        "bytes": 5319
+      },
+      "app/wheels/lakematch_workflow_runtime-0.1.0-py3-none-any.whl": {
+        "sha256": "a949e2bf4efddf5c62492e32f6131aa23967263e20fc0372ec48756feb9c6dc3",
+        "bytes": 66200
+      },
+      "app/wheels/lakematch_review-0.0.0.post63.dev0+7d54837-py3-none-any.whl": {
+        "sha256": "b57171ac5dc44faaac11b9c0184fc87ac987aa7ae7eea51ef72369a389b118dd",
+        "bytes": 167966
+      }
+    }
+  },
+  "commands": [
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:10.306298+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "warehouses",
+        "start",
+        "ec3b6df6c1cabcd4",
+        "--no-wait",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:13.105998+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "warehouses",
+        "get",
+        "ec3b6df6c1cabcd4",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:13.327800+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "warehouses",
+        "get",
+        "ec3b6df6c1cabcd4",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:18.497486+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "bundle",
+        "validate",
+        "--strict",
+        "--target",
+        "pilot",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:23.178833+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "bundle",
+        "deploy",
+        "--auto-approve",
+        "--target",
+        "pilot",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:23.646046+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:26.468877+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "start",
+        "lakematch-mdm-dev",
+        "--no-wait",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:27.772608+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:28.549568+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:33.747157+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:38.948099+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:44.151202+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:49.342468+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:54.545217+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:30:59.745313+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:04.938354+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:10.122517+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:15.321368+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:20.511233+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:25.711351+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:30.921715+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:36.122534+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:41.318518+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:46.526534+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:51.722031+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:31:56.917248+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:02.115289+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:07.316606+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:12.563930+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:17.761322+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:22.958740+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:28.160982+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:33.361631+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:38.565655+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:43.758927+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:43.961518+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:49.171543+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:54.383793+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:59.587803+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "deploy",
+        "lakematch-mdm-dev",
+        "--source-code-path",
+        "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "--mode",
+        "SNAPSHOT",
+        "--no-wait",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:32:59.790883+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:00.159833+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:05.371503+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:10.576076+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:14.200319+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "warehouses",
+        "stop",
+        "ec3b6df6c1cabcd4",
+        "--no-wait",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:16.721959+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "warehouses",
+        "get",
+        "ec3b6df6c1cabcd4",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:16.938006+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "warehouses",
+        "get",
+        "ec3b6df6c1cabcd4",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:22.121825+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:22.290671+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "stop",
+        "lakematch-mdm-dev",
+        "--no-wait",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:22.550330+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:27.925347+00:00",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "databricks",
+        "apps",
+        "get",
+        "lakematch-mdm-dev",
+        "--profile",
+        "fevm-gdpr2",
+        "--output",
+        "json"
+      ],
+      "started_at": "2026-09-27T23:33:33.111977+00:00",
+      "exit_code": 0
+    }
+  ],
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/api/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/queue?limit=1",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/domains/company/tasks",
+      "status": 401
+    }
+  ],
+  "observations": [
+    {
+      "at": "2026-09-27T23:30:28.741674+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:30:33.942603+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:30:39.145679+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:30:44.336890+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:30:49.542908+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:30:54.744180+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:30:59.937555+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:05.121374+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:10.320437+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:15.505728+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:20.705790+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:25.916180+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:31.118939+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:36.314513+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:41.523422+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:46.718696+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:51.914300+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:31:57.109650+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:02.315476+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:07.560022+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:12.760028+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:17.954245+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:23.158441+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:28.359807+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:33.559866+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:38.754097+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is starting.",
+        "state": "STARTING"
+      },
+      "app_status": {
+        "message": "App status is unavailable.",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": null
+    },
+    {
+      "at": "2026-09-27T23:32:43.960153+00:00",
+      "label": "compute_ready",
+      "compute_status": {
+        "message": "App compute is running.",
+        "state": "ACTIVE"
+      },
+      "app_status": {
+        "message": "App has status: App status not available yet",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": {
+        "create_time": "2026-09-27T23:32:43Z",
+        "creator": "laurent.fabre@databricks.com",
+        "deployment_artifacts": {
+          "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512"
+        },
+        "deployment_id": "01f1bacbbccf114fa61c3ac2202dc512",
+        "mode": "SNAPSHOT",
+        "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "status": {
+          "message": "Downloading source code from /Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512",
+          "state": "IN_PROGRESS"
+        },
+        "update_time": "2026-09-27T23:32:46Z"
+      }
+    },
+    {
+      "at": "2026-09-27T23:32:44.168232+00:00",
+      "label": "prior_deployment_idle",
+      "compute_status": {
+        "message": "App compute is running.",
+        "state": "ACTIVE"
+      },
+      "app_status": {
+        "message": "App has status: App status not available yet",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": {
+        "create_time": "2026-09-27T23:32:43Z",
+        "creator": "laurent.fabre@databricks.com",
+        "deployment_artifacts": {
+          "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512"
+        },
+        "deployment_id": "01f1bacbbccf114fa61c3ac2202dc512",
+        "mode": "SNAPSHOT",
+        "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "status": {
+          "message": "Downloading source code from /Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512",
+          "state": "IN_PROGRESS"
+        },
+        "update_time": "2026-09-27T23:32:46Z"
+      }
+    },
+    {
+      "at": "2026-09-27T23:32:49.382229+00:00",
+      "label": "prior_deployment_idle",
+      "compute_status": {
+        "message": "App compute is running.",
+        "state": "ACTIVE"
+      },
+      "app_status": {
+        "message": "App has status: App status not available yet",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": {
+        "create_time": "2026-09-27T23:32:43Z",
+        "creator": "laurent.fabre@databricks.com",
+        "deployment_artifacts": {
+          "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512"
+        },
+        "deployment_id": "01f1bacbbccf114fa61c3ac2202dc512",
+        "mode": "SNAPSHOT",
+        "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "status": {
+          "message": "Installing packages...",
+          "state": "IN_PROGRESS"
+        },
+        "update_time": "2026-09-27T23:32:48Z"
+      }
+    },
+    {
+      "at": "2026-09-27T23:32:54.586462+00:00",
+      "label": "prior_deployment_idle",
+      "compute_status": {
+        "message": "App compute is running.",
+        "state": "ACTIVE"
+      },
+      "app_status": {
+        "message": "App has status: App status not available yet",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": {
+        "create_time": "2026-09-27T23:32:43Z",
+        "creator": "laurent.fabre@databricks.com",
+        "deployment_artifacts": {
+          "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512"
+        },
+        "deployment_id": "01f1bacbbccf114fa61c3ac2202dc512",
+        "mode": "SNAPSHOT",
+        "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "status": {
+          "message": "Installing packages...",
+          "state": "IN_PROGRESS"
+        },
+        "update_time": "2026-09-27T23:32:48Z"
+      }
+    },
+    {
+      "at": "2026-09-27T23:32:59.788685+00:00",
+      "label": "prior_deployment_idle",
+      "compute_status": {
+        "message": "App compute is running.",
+        "state": "ACTIVE"
+      },
+      "app_status": {
+        "message": "App has status: App is running",
+        "state": "RUNNING"
+      },
+      "active_deployment": {
+        "create_time": "2026-09-27T23:32:43Z",
+        "creator": "laurent.fabre@databricks.com",
+        "deployment_artifacts": {
+          "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512"
+        },
+        "deployment_id": "01f1bacbbccf114fa61c3ac2202dc512",
+        "mode": "SNAPSHOT",
+        "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "status": {
+          "message": "App started successfully",
+          "state": "SUCCEEDED"
+        },
+        "update_time": "2026-09-27T23:32:48Z"
+      }
+    },
+    {
+      "at": "2026-09-27T23:33:00.367511+00:00",
+      "label": "running_app",
+      "compute_status": {
+        "message": "App compute is running.",
+        "state": "ACTIVE"
+      },
+      "app_status": {
+        "message": "App has status: App is running",
+        "state": "RUNNING"
+      },
+      "active_deployment": {
+        "create_time": "2026-09-27T23:32:43Z",
+        "creator": "laurent.fabre@databricks.com",
+        "deployment_artifacts": {
+          "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512"
+        },
+        "deployment_id": "01f1bacbbccf114fa61c3ac2202dc512",
+        "mode": "SNAPSHOT",
+        "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "status": {
+          "message": "App started successfully",
+          "state": "SUCCEEDED"
+        },
+        "update_time": "2026-09-27T23:33:03Z"
+      }
+    },
+    {
+      "at": "2026-09-27T23:33:05.574118+00:00",
+      "label": "running_app",
+      "compute_status": {
+        "message": "App compute is running.",
+        "state": "ACTIVE"
+      },
+      "app_status": {
+        "message": "App has status: App stopped successfully",
+        "state": "UNAVAILABLE"
+      },
+      "active_deployment": {
+        "create_time": "2026-09-27T23:33:03Z",
+        "creator": "laurent.fabre@databricks.com",
+        "deployment_artifacts": {
+          "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbc8eb13738e2858e551ce7b54"
+        },
+        "deployment_id": "01f1bacbc8eb13738e2858e551ce7b54",
+        "mode": "SNAPSHOT",
+        "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "status": {
+          "message": "Starting app with command: python -m lakematch_runtime",
+          "state": "IN_PROGRESS"
+        },
+        "update_time": "2026-09-27T23:33:07Z"
+      }
+    },
+    {
+      "at": "2026-09-27T23:33:10.772908+00:00",
+      "label": "running_app",
+      "compute_status": {
+        "message": "App compute is running.",
+        "state": "ACTIVE"
+      },
+      "app_status": {
+        "message": "App has status: App is running",
+        "state": "RUNNING"
+      },
+      "active_deployment": {
+        "create_time": "2026-09-27T23:33:03Z",
+        "creator": "laurent.fabre@databricks.com",
+        "deployment_artifacts": {
+          "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbc8eb13738e2858e551ce7b54"
+        },
+        "deployment_id": "01f1bacbc8eb13738e2858e551ce7b54",
+        "mode": "SNAPSHOT",
+        "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+        "status": {
+          "message": "App started successfully",
+          "state": "SUCCEEDED"
+        },
+        "update_time": "2026-09-27T23:33:11Z"
+      }
+    }
+  ],
+  "cleanup": {
+    "warehouse": "STOPPED",
+    "app": "STOPPED",
+    "lakebase": "Dedicated project, data and DAB state retained; idle suspension configured"
+  },
+  "stage": "live workflow retries and permission revocation",
+  "cost_status": "billing unreconciled",
+  "observed_cost": null,
+  "confirmation_materialized": false,
+  "endpoint_before": {
+    "create_time": "2026-09-23T12:51:43Z",
+    "endpoint_id": "primary",
+    "name": "projects/lakematch-mdm-dev/branches/production/endpoints/primary",
+    "parent": "projects/lakematch-mdm-dev/branches/production",
+    "status": {
+      "autoscaling_limit_max_cu": 1.0,
+      "autoscaling_limit_min_cu": 0.5,
+      "current_state": "IDLE",
+      "disabled": false,
+      "endpoint_id": "primary",
+      "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
+      "group": {
+        "enable_readable_secondaries": false,
+        "max": 1,
+        "min": 1
+      },
+      "hosts": {
+        "host": "ep-noisy-sky-d72wqgqr.database.eu-central-1.cloud.databricks.com",
+        "read_write_pooled_host": "ep-noisy-sky-d72wqgqr-pooler.database.eu-central-1.cloud.databricks.com"
+      },
+      "last_active_time": "2026-09-27T23:24:19Z",
+      "settings": {},
+      "suspend_timeout_duration": "300s"
+    },
+    "uid": "ep-noisy-sky-d72wqgqr",
+    "update_time": "2026-09-27T23:29:30Z"
+  },
+  "app_before": {
+    "app_status": {
+      "message": "App status is unavailable.",
+      "state": "UNAVAILABLE"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "Start the app compute to deploy the app.",
+      "state": "STOPPED"
+    },
+    "create_time": "2026-09-23T12:59:06Z",
+    "creator": "laurent.fabre@databricks.com",
+    "default_source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "description": "Lakematch governed workflow pilot",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "name": "lakematch-mdm-dev",
+    "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "resources": [
+      {
+        "name": "postgres",
+        "postgres": {
+          "branch": "projects/lakematch-mdm-dev/branches/production",
+          "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+          "permission": "CAN_CONNECT_AND_CREATE"
+        }
+      },
+      {
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "service_principal_id": 77964494840289,
+    "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+    "thumbnail_url": "",
+    "update_time": "2026-09-27T23:27:03Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+  },
+  "warehouse_before": {
+    "auto_stop_mins": 10,
+    "cluster_size": "2X-Small",
+    "creator_name": "laurent.fabre@databricks.com",
+    "enable_photon": true,
+    "enable_serverless_compute": true,
+    "id": "ec3b6df6c1cabcd4",
+    "jdbc_url": "jdbc:spark://fevm-gdpr2.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/ec3b6df6c1cabcd4;",
+    "max_num_clusters": 1,
+    "min_num_clusters": 1,
+    "name": "lakematch-20260919-evidence-20260920T041603Z-35e82ec0",
+    "num_active_sessions": 0,
+    "num_clusters": 0,
+    "odbc_params": {
+      "hostname": "fevm-gdpr2.cloud.databricks.com",
+      "path": "/sql/1.0/warehouses/ec3b6df6c1cabcd4",
+      "port": 443,
+      "protocol": "https"
+    },
+    "spot_instance_policy": "COST_OPTIMIZED",
+    "state": "STOPPED",
+    "tags": {
+      "custom_tags": [
+        {
+          "key": "campaign",
+          "value": "lakematch-20260919"
+        }
+      ]
+    },
+    "warehouse_type": "PRO"
+  },
+  "retained_fixture": {
+    "migrations": {
+      "1": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+      "2": "93ceb067358119a6b3680a0e64aba4c98468a905c22fb2e86a51bf9316e00a60",
+      "3": "23f21310e6faaccb765986fb56035bde274cf2f027cf2472d7d4d767f16645d3",
+      "4": "08d81d140fd0722edaac120d76678670e91139bbb0a16aaea837984103d68767",
+      "5": "9dd3d1e2a6ec2b1589bff67a7b635ce4359e2d8fc01dbb4120936083b0683489",
+      "6": "b171e04f01a901081afafc806a0a73ea426ac7bedb2fadbb380ec35f332c9625"
+    },
+    "master_id": "d400ec99-003a-4b26-aa0a-de7d37d8052c",
+    "source_crosswalks": 2,
+    "access_revision": 1,
+    "access_receipt_sha256": "fec64cf0a461108f7981a31b70a9b803f36aab6b8437acc1d3ab2c63e17da199",
+    "workflow_counts": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "transaction_read_only": "on"
+  },
+  "fixture": {
+    "migrations": {
+      "1": "a5bd2066f4b6949c28648f698ab009ef73d43a9ed5369811ad2107d94f6de92d",
+      "2": "93ceb067358119a6b3680a0e64aba4c98468a905c22fb2e86a51bf9316e00a60",
+      "3": "23f21310e6faaccb765986fb56035bde274cf2f027cf2472d7d4d767f16645d3",
+      "4": "08d81d140fd0722edaac120d76678670e91139bbb0a16aaea837984103d68767",
+      "5": "9dd3d1e2a6ec2b1589bff67a7b635ce4359e2d8fc01dbb4120936083b0683489",
+      "6": "b171e04f01a901081afafc806a0a73ea426ac7bedb2fadbb380ec35f332c9625"
+    },
+    "domain_sha256": "fd913f76d5abae8f8326ecd5b7138069aa6f98739199aabb9d8307f948796bc7",
+    "master_id": "d400ec99-003a-4b26-aa0a-de7d37d8052c",
+    "principal": "databricks:7474658055368199:6729810946797236",
+    "grant": {
+      "event_id": "d16774f0-eecf-44b7-9353-34083bbdcc46",
+      "principal": "databricks:7474658055368199:6729810946797236",
+      "domain_id": "company",
+      "revision": 1,
+      "definition_sha256": "ff9f3c436b33271ef84ed0ba221d9a0dc09acee65ff869adf5a9608309a4d6c6",
+      "actor": "databricks:7474658055368199:6729810946797236",
+      "reason": "Synthetic deployment acceptance",
+      "recorded_at": "2026-09-23T14:22:31.466706+00:00",
+      "idempotency_key": "deployment-grant-v1"
+    },
+    "grants": [
+      {
+        "role": "steward",
+        "fields": null,
+        "object_ids": [
+          "d400ec99-003a-4b26-aa0a-de7d37d8052c"
+        ]
+      }
+    ]
+  },
+  "operator_tls": [
+    true,
+    "TLSv1.3",
+    "TLS_AES_256_GCM_SHA384"
+  ],
+  "review_tables": [
+    {
+      "browse_only": false,
+      "catalog_name": "gdpr2_catalog",
+      "columns": [
+        {
+          "name": "request_id",
+          "nullable": true,
+          "position": 0,
+          "type_json": "{\"name\":\"request_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        },
+        {
+          "name": "pair_id",
+          "nullable": true,
+          "position": 1,
+          "type_json": "{\"name\":\"pair_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        },
+        {
+          "name": "payload",
+          "nullable": true,
+          "position": 2,
+          "type_json": "{\"name\":\"payload\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        }
+      ],
+      "created_at": 1790173369596,
+      "created_by": "laurent.fabre@databricks.com",
+      "data_access_configuration_id": "00000000-0000-0000-0000-000000000000",
+      "data_source_format": "DELTA",
+      "delta_runtime_properties_kvpairs": {},
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_aws_eu_central_1",
+        "value": "ENABLE"
+      },
+      "enable_predictive_optimization": "INHERIT",
+      "full_name": "gdpr2_catalog.lakematch_mdm_dev.review_labels",
+      "metastore_id": "9e4a709c-7388-4208-b90f-206a61cb2c40",
+      "name": "review_labels",
+      "owner": "laurent.fabre@databricks.com",
+      "properties": {
+        "delta.lastCommitTimestamp": "1790173370000",
+        "delta.parquet.compression.codec": "zstd",
+        "delta.lastUpdateVersion": "0",
+        "delta.minWriterVersion": "7",
+        "delta.feature.rowTracking": "supported",
+        "delta.feature.appendOnly": "supported",
+        "delta.enableDeletionVectors": "true",
+        "delta.minReaderVersion": "3",
+        "delta.feature.domainMetadata": "supported",
+        "delta.checkpoint.writeStatsAsStruct": "true",
+        "delta.enableRowTracking": "true",
+        "delta.checkpoint.writeStatsAsJson": "false",
+        "delta.feature.deletionVectors": "supported",
+        "io.unitycatalog.tableId": "91afdea7-cc32-4071-be8f-56b639f67cf5",
+        "delta.rowTracking.materializedRowCommitVersionColumnName": "_row-commit-version-col-95744051-3add-40c3-9a82-e1f79cd4962b",
+        "delta.rowTracking.materializedRowIdColumnName": "_row-id-col-078e1dde-74dc-4815-821b-0eb57475f74e",
+        "delta.feature.invariants": "supported"
+      },
+      "schema_name": "lakematch_mdm_dev",
+      "storage_location": "s3://gdpr2-ext-s3-049629455384-dseifc/__unitystorage/catalogs/06dd6a1e-9714-4151-a4eb-3d116d093799/tables/91afdea7-cc32-4071-be8f-56b639f67cf5",
+      "table_id": "91afdea7-cc32-4071-be8f-56b639f67cf5",
+      "table_type": "MANAGED",
+      "updated_at": 1790173374522,
+      "updated_by": "laurent.fabre@databricks.com"
+    },
+    {
+      "browse_only": false,
+      "catalog_name": "gdpr2_catalog",
+      "columns": [
+        {
+          "name": "key",
+          "nullable": true,
+          "position": 0,
+          "type_json": "{\"name\":\"key\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        },
+        {
+          "name": "payload",
+          "nullable": true,
+          "position": 1,
+          "type_json": "{\"name\":\"payload\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        }
+      ],
+      "created_at": 1790173371577,
+      "created_by": "laurent.fabre@databricks.com",
+      "data_access_configuration_id": "00000000-0000-0000-0000-000000000000",
+      "data_source_format": "DELTA",
+      "delta_runtime_properties_kvpairs": {},
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_aws_eu_central_1",
+        "value": "ENABLE"
+      },
+      "enable_predictive_optimization": "INHERIT",
+      "full_name": "gdpr2_catalog.lakematch_mdm_dev.review_metadata",
+      "metastore_id": "9e4a709c-7388-4208-b90f-206a61cb2c40",
+      "name": "review_metadata",
+      "owner": "laurent.fabre@databricks.com",
+      "properties": {
+        "delta.lastCommitTimestamp": "1790173372000",
+        "delta.parquet.compression.codec": "zstd",
+        "delta.lastUpdateVersion": "0",
+        "delta.minWriterVersion": "7",
+        "delta.feature.rowTracking": "supported",
+        "delta.feature.appendOnly": "supported",
+        "delta.enableDeletionVectors": "true",
+        "delta.minReaderVersion": "3",
+        "delta.feature.domainMetadata": "supported",
+        "delta.checkpoint.writeStatsAsStruct": "true",
+        "delta.enableRowTracking": "true",
+        "delta.checkpoint.writeStatsAsJson": "false",
+        "delta.feature.deletionVectors": "supported",
+        "io.unitycatalog.tableId": "df7b014f-1bda-44dd-8813-d352b3e65094",
+        "delta.rowTracking.materializedRowCommitVersionColumnName": "_row-commit-version-col-f65c439c-2db1-43e3-8c18-8caaf7652c2b",
+        "delta.rowTracking.materializedRowIdColumnName": "_row-id-col-e30bb674-18a2-4fd8-a95d-f5a5f528231c",
+        "delta.feature.invariants": "supported"
+      },
+      "schema_name": "lakematch_mdm_dev",
+      "storage_location": "s3://gdpr2-ext-s3-049629455384-dseifc/__unitystorage/catalogs/06dd6a1e-9714-4151-a4eb-3d116d093799/tables/df7b014f-1bda-44dd-8813-d352b3e65094",
+      "table_id": "df7b014f-1bda-44dd-8813-d352b3e65094",
+      "table_type": "MANAGED",
+      "updated_at": 1790173375126,
+      "updated_by": "laurent.fabre@databricks.com"
+    },
+    {
+      "browse_only": false,
+      "catalog_name": "gdpr2_catalog",
+      "columns": [
+        {
+          "name": "pair_id",
+          "nullable": true,
+          "position": 0,
+          "type_json": "{\"name\":\"pair_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        },
+        {
+          "name": "a_id",
+          "nullable": true,
+          "position": 1,
+          "type_json": "{\"name\":\"a_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        },
+        {
+          "name": "b_id",
+          "nullable": true,
+          "position": 2,
+          "type_json": "{\"name\":\"b_id\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        },
+        {
+          "name": "model_version",
+          "nullable": true,
+          "position": 3,
+          "type_json": "{\"name\":\"model_version\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        },
+        {
+          "name": "uncertainty",
+          "nullable": true,
+          "position": 4,
+          "type_json": "{\"name\":\"uncertainty\",\"type\":\"double\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "DOUBLE",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "double"
+        },
+        {
+          "name": "impact",
+          "nullable": true,
+          "position": 5,
+          "type_json": "{\"name\":\"impact\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "LONG",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "bigint"
+        },
+        {
+          "name": "payload",
+          "nullable": true,
+          "position": 6,
+          "type_json": "{\"name\":\"payload\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}",
+          "type_name": "STRING",
+          "type_precision": 0,
+          "type_scale": 0,
+          "type_text": "string"
+        }
+      ],
+      "created_at": 1790173367517,
+      "created_by": "laurent.fabre@databricks.com",
+      "data_access_configuration_id": "00000000-0000-0000-0000-000000000000",
+      "data_source_format": "DELTA",
+      "delta_runtime_properties_kvpairs": {},
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_aws_eu_central_1",
+        "value": "ENABLE"
+      },
+      "enable_predictive_optimization": "INHERIT",
+      "full_name": "gdpr2_catalog.lakematch_mdm_dev.review_queue",
+      "metastore_id": "9e4a709c-7388-4208-b90f-206a61cb2c40",
+      "name": "review_queue",
+      "owner": "laurent.fabre@databricks.com",
+      "properties": {
+        "delta.lastCommitTimestamp": "1790173368000",
+        "delta.parquet.compression.codec": "zstd",
+        "delta.lastUpdateVersion": "0",
+        "delta.minWriterVersion": "7",
+        "delta.feature.rowTracking": "supported",
+        "delta.feature.appendOnly": "supported",
+        "delta.enableDeletionVectors": "true",
+        "delta.minReaderVersion": "3",
+        "delta.feature.domainMetadata": "supported",
+        "delta.checkpoint.writeStatsAsStruct": "true",
+        "delta.enableRowTracking": "true",
+        "delta.checkpoint.writeStatsAsJson": "false",
+        "delta.feature.deletionVectors": "supported",
+        "io.unitycatalog.tableId": "7d9e9e41-db94-434e-a113-88779a7bc80a",
+        "delta.rowTracking.materializedRowCommitVersionColumnName": "_row-commit-version-col-eba2aa45-c8e6-4280-bfaf-bf7fa5b29d2d",
+        "delta.rowTracking.materializedRowIdColumnName": "_row-id-col-0d1bd603-1aca-4190-b885-2c042cf4ae30",
+        "delta.feature.invariants": "supported"
+      },
+      "schema_name": "lakematch_mdm_dev",
+      "storage_location": "s3://gdpr2-ext-s3-049629455384-dseifc/__unitystorage/catalogs/06dd6a1e-9714-4151-a4eb-3d116d093799/tables/7d9e9e41-db94-434e-a113-88779a7bc80a",
+      "table_id": "7d9e9e41-db94-434e-a113-88779a7bc80a",
+      "table_type": "MANAGED",
+      "updated_at": 1790173373886,
+      "updated_by": "laurent.fabre@databricks.com"
+    }
+  ],
+  "review_grants": [
+    {
+      "type": "catalog",
+      "name": "gdpr2_catalog",
+      "permissions": {
+        "privilege_assignments": [
+          {
+            "principal": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+            "privileges": [
+              "USE_CATALOG"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "schema",
+      "name": "gdpr2_catalog.lakematch_mdm_dev",
+      "permissions": {
+        "privilege_assignments": [
+          {
+            "principal": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+            "privileges": [
+              "USE_SCHEMA"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "name": "gdpr2_catalog.lakematch_mdm_dev.review_labels",
+      "permissions": {
+        "privilege_assignments": [
+          {
+            "principal": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+            "privileges": [
+              "MODIFY",
+              "SELECT"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "name": "gdpr2_catalog.lakematch_mdm_dev.review_metadata",
+      "permissions": {
+        "privilege_assignments": [
+          {
+            "principal": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+            "privileges": [
+              "SELECT"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "name": "gdpr2_catalog.lakematch_mdm_dev.review_queue",
+      "permissions": {
+        "privilege_assignments": [
+          {
+            "principal": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+            "privileges": [
+              "SELECT"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "warehouse_running": {
+    "auto_stop_mins": 10,
+    "cluster_size": "2X-Small",
+    "creator_name": "laurent.fabre@databricks.com",
+    "enable_photon": true,
+    "enable_serverless_compute": true,
+    "health": {
+      "status": "HEALTHY"
+    },
+    "id": "ec3b6df6c1cabcd4",
+    "jdbc_url": "jdbc:spark://fevm-gdpr2.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/ec3b6df6c1cabcd4;",
+    "max_num_clusters": 1,
+    "min_num_clusters": 1,
+    "name": "lakematch-20260919-evidence-20260920T041603Z-35e82ec0",
+    "num_active_sessions": 0,
+    "num_clusters": 1,
+    "odbc_params": {
+      "hostname": "fevm-gdpr2.cloud.databricks.com",
+      "path": "/sql/1.0/warehouses/ec3b6df6c1cabcd4",
+      "port": 443,
+      "protocol": "https"
+    },
+    "spot_instance_policy": "COST_OPTIMIZED",
+    "state": "RUNNING",
+    "tags": {
+      "custom_tags": [
+        {
+          "key": "campaign",
+          "value": "lakematch-20260919"
+        }
+      ]
+    },
+    "warehouse_type": "PRO"
+  },
+  "uploaded_payload": {
+    "app.yaml": {
+      "sha256": "0d6d56a3aa60b7781a8427608688f9dfce204cec52072a06acd98af217ee8b1a",
+      "bytes": 398
+    },
+    "binding.json": {
+      "sha256": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+      "bytes": 668
+    },
+    "requirements.txt": {
+      "sha256": "d69f53c9dc1491d981b0ece7943abacc4114a704eb1ea019ef2d4d20eb50fdc1",
+      "bytes": 381
+    },
+    "dependencies-app.txt": {
+      "sha256": "c9d9c8567ba2323c79318a117bcdccc32f6706f702671b27a3fa470acba7661e",
+      "bytes": 37160
+    },
+    "dependencies-yaml.txt": {
+      "sha256": "1a93c75f001ccc68116b901bac4607e186a693ec971c6186ea8b47ec09fa254f",
+      "bytes": 6446
+    },
+    "dependencies-postgres.txt": {
+      "sha256": "ca06b24731e76418bcebd7e56c313502a9c29547f2ef42c263d9739a12d117f6",
+      "bytes": 5319
+    },
+    "wheels/lakematch_workflow_runtime-0.1.0-py3-none-any.whl": {
+      "sha256": "a949e2bf4efddf5c62492e32f6131aa23967263e20fc0372ec48756feb9c6dc3",
+      "bytes": 66200
+    },
+    "wheels/lakematch_review-0.0.0.post63.dev0+7d54837-py3-none-any.whl": {
+      "sha256": "b57171ac5dc44faaac11b9c0184fc87ac987aa7ae7eea51ef72369a389b118dd",
+      "bytes": 167966
+    }
+  },
+  "compute_ready": {
+    "active_deployment": {
+      "create_time": "2026-09-27T23:32:43Z",
+      "creator": "laurent.fabre@databricks.com",
+      "deployment_artifacts": {
+        "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512"
+      },
+      "deployment_id": "01f1bacbbccf114fa61c3ac2202dc512",
+      "mode": "SNAPSHOT",
+      "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+      "status": {
+        "message": "Downloading source code from /Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512",
+        "state": "IN_PROGRESS"
+      },
+      "update_time": "2026-09-27T23:32:46Z"
+    },
+    "app_status": {
+      "message": "App has status: App status not available yet",
+      "state": "UNAVAILABLE"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "App compute is running.",
+      "state": "ACTIVE"
+    },
+    "create_time": "2026-09-23T12:59:06Z",
+    "creator": "laurent.fabre@databricks.com",
+    "default_source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "description": "Lakematch governed workflow pilot",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "name": "lakematch-mdm-dev",
+    "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "resources": [
+      {
+        "name": "postgres",
+        "postgres": {
+          "branch": "projects/lakematch-mdm-dev/branches/production",
+          "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+          "permission": "CAN_CONNECT_AND_CREATE"
+        }
+      },
+      {
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "service_principal_id": 77964494840289,
+    "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+    "thumbnail_url": "",
+    "update_time": "2026-09-27T23:32:43Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+  },
+  "prior_deployment_idle": {
+    "active_deployment": {
+      "create_time": "2026-09-27T23:32:43Z",
+      "creator": "laurent.fabre@databricks.com",
+      "deployment_artifacts": {
+        "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbbccf114fa61c3ac2202dc512"
+      },
+      "deployment_id": "01f1bacbbccf114fa61c3ac2202dc512",
+      "mode": "SNAPSHOT",
+      "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+      "status": {
+        "message": "App started successfully",
+        "state": "SUCCEEDED"
+      },
+      "update_time": "2026-09-27T23:32:48Z"
+    },
+    "app_status": {
+      "message": "App has status: App is running",
+      "state": "RUNNING"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "App compute is running.",
+      "state": "ACTIVE"
+    },
+    "create_time": "2026-09-23T12:59:06Z",
+    "creator": "laurent.fabre@databricks.com",
+    "default_source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "description": "Lakematch governed workflow pilot",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "name": "lakematch-mdm-dev",
+    "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "resources": [
+      {
+        "name": "postgres",
+        "postgres": {
+          "branch": "projects/lakematch-mdm-dev/branches/production",
+          "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+          "permission": "CAN_CONNECT_AND_CREATE"
+        }
+      },
+      {
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "service_principal_id": 77964494840289,
+    "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+    "thumbnail_url": "",
+    "update_time": "2026-09-27T23:32:43Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+  },
+  "submitted_deployment": {
+    "create_time": "2026-09-27T23:33:03Z",
+    "creator": "laurent.fabre@databricks.com",
+    "deployment_id": "01f1bacbc8eb13738e2858e551ce7b54",
+    "mode": "SNAPSHOT",
+    "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "status": {
+      "message": "Preparing source code for new app deployment.",
+      "state": "IN_PROGRESS"
+    },
+    "update_time": "2026-09-27T23:33:03Z"
+  },
+  "running_app": {
+    "active_deployment": {
+      "create_time": "2026-09-27T23:33:03Z",
+      "creator": "laurent.fabre@databricks.com",
+      "deployment_artifacts": {
+        "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbc8eb13738e2858e551ce7b54"
+      },
+      "deployment_id": "01f1bacbc8eb13738e2858e551ce7b54",
+      "mode": "SNAPSHOT",
+      "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+      "status": {
+        "message": "App started successfully",
+        "state": "SUCCEEDED"
+      },
+      "update_time": "2026-09-27T23:33:11Z"
+    },
+    "app_status": {
+      "message": "App has status: App is running",
+      "state": "RUNNING"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "App compute is running.",
+      "state": "ACTIVE"
+    },
+    "create_time": "2026-09-23T12:59:06Z",
+    "creator": "laurent.fabre@databricks.com",
+    "default_source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "description": "Lakematch governed workflow pilot",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "name": "lakematch-mdm-dev",
+    "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "resources": [
+      {
+        "name": "postgres",
+        "postgres": {
+          "branch": "projects/lakematch-mdm-dev/branches/production",
+          "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+          "permission": "CAN_CONNECT_AND_CREATE"
+        }
+      },
+      {
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "service_principal_id": 77964494840289,
+    "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+    "thumbnail_url": "",
+    "update_time": "2026-09-27T23:33:03Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+  },
+  "snapshot_payload": {
+    "app.yaml": {
+      "sha256": "0d6d56a3aa60b7781a8427608688f9dfce204cec52072a06acd98af217ee8b1a",
+      "bytes": 398
+    },
+    "binding.json": {
+      "sha256": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+      "bytes": 668
+    },
+    "requirements.txt": {
+      "sha256": "d69f53c9dc1491d981b0ece7943abacc4114a704eb1ea019ef2d4d20eb50fdc1",
+      "bytes": 381
+    },
+    "dependencies-app.txt": {
+      "sha256": "c9d9c8567ba2323c79318a117bcdccc32f6706f702671b27a3fa470acba7661e",
+      "bytes": 37160
+    },
+    "dependencies-yaml.txt": {
+      "sha256": "1a93c75f001ccc68116b901bac4607e186a693ec971c6186ea8b47ec09fa254f",
+      "bytes": 6446
+    },
+    "dependencies-postgres.txt": {
+      "sha256": "ca06b24731e76418bcebd7e56c313502a9c29547f2ef42c263d9739a12d117f6",
+      "bytes": 5319
+    },
+    "wheels/lakematch_workflow_runtime-0.1.0-py3-none-any.whl": {
+      "sha256": "a949e2bf4efddf5c62492e32f6131aa23967263e20fc0372ec48756feb9c6dc3",
+      "bytes": 66200
+    },
+    "wheels/lakematch_review-0.0.0.post63.dev0+7d54837-py3-none-any.whl": {
+      "sha256": "b57171ac5dc44faaac11b9c0184fc87ac987aa7ae7eea51ef72369a389b118dd",
+      "bytes": 167966
+    }
+  },
+  "initial_instance_qualification": {
+    "status": "unqualified",
+    "active_instances": null,
+    "reason": "Platform omitted the active-instance count"
+  },
+  "app_url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com",
+  "session": {
+    "user": "Laurent Fabre",
+    "storage": "delta",
+    "genie_enabled": false
+  },
+  "error_type": "RetainedStateError",
+  "validation_error": "Unexpected HTTP response; see recorded status",
+  "failure_app": {
+    "active_deployment": {
+      "create_time": "2026-09-27T23:33:03Z",
+      "creator": "laurent.fabre@databricks.com",
+      "deployment_artifacts": {
+        "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bacbc8eb13738e2858e551ce7b54"
+      },
+      "deployment_id": "01f1bacbc8eb13738e2858e551ce7b54",
+      "mode": "SNAPSHOT",
+      "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+      "status": {
+        "message": "App started successfully",
+        "state": "SUCCEEDED"
+      },
+      "update_time": "2026-09-27T23:33:11Z"
+    },
+    "app_status": {
+      "message": "App has status: App is running",
+      "state": "RUNNING"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "App compute is running.",
+      "state": "ACTIVE"
+    },
+    "create_time": "2026-09-23T12:59:06Z",
+    "creator": "laurent.fabre@databricks.com",
+    "default_source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "description": "Lakematch governed workflow pilot",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "name": "lakematch-mdm-dev",
+    "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "resources": [
+      {
+        "name": "postgres",
+        "postgres": {
+          "branch": "projects/lakematch-mdm-dev/branches/production",
+          "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+          "permission": "CAN_CONNECT_AND_CREATE"
+        }
+      },
+      {
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "service_principal_id": 77964494840289,
+    "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+    "thumbnail_url": "",
+    "update_time": "2026-09-27T23:33:03Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+  },
+  "app_log_diagnostic": {
+    "command": [
+      "databricks",
+      "apps",
+      "logs",
+      "lakematch-mdm-dev",
+      "--tail-lines",
+      "150",
+      "--source",
+      "APP",
+      "--profile",
+      "fevm-gdpr2"
+    ],
+    "exit_code": 0,
+    "redacted_log": "2026-09-27T23:33:02Z [APP] INFO:     Started server process [91]\n2026-09-27T23:33:02Z [APP] INFO:     Waiting for application startup.\n2026-09-27T23:33:03Z [APP] INFO:     Application startup complete.\n2026-09-27T23:33:03Z [APP] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)\n2026-09-27T23:33:06Z [APP] INFO:     Shutting down\n2026-09-27T23:33:06Z [APP] INFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [91]\n2026-09-27T23:33:09Z [APP] INFO:     Started server process [121]\n2026-09-27T23:33:09Z [APP] INFO:     Waiting for application startup.\n2026-09-27T23:33:10Z [APP] INFO:     Application startup complete.\n2026-09-27T23:33:10Z [APP] INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)\n2026-09-27T23:33:15Z [APP] INFO:     10.121.58.16:0 - \"GET /api/session HTTP/1.1\" 200 OK\n2026-09-27T23:33:17Z [APP] INFO:     10.121.58.16:0 - \"GET /api/queue?limit=1 HTTP/1.1\" 200 OK\n2026-09-27T23:33:17Z [APP] INFO:     10.120.71.51:0 - \"POST /api/v1/domains/company/tasks HTTP/1.1\" 401 Unauthorized\n"
+  },
+  "final_warehouse": {
+    "auto_stop_mins": 10,
+    "cluster_size": "2X-Small",
+    "creator_name": "laurent.fabre@databricks.com",
+    "enable_photon": true,
+    "enable_serverless_compute": true,
+    "id": "ec3b6df6c1cabcd4",
+    "jdbc_url": "jdbc:spark://fevm-gdpr2.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/ec3b6df6c1cabcd4;",
+    "max_num_clusters": 1,
+    "min_num_clusters": 1,
+    "name": "lakematch-20260919-evidence-20260920T041603Z-35e82ec0",
+    "num_active_sessions": 0,
+    "num_clusters": 0,
+    "odbc_params": {
+      "hostname": "fevm-gdpr2.cloud.databricks.com",
+      "path": "/sql/1.0/warehouses/ec3b6df6c1cabcd4",
+      "port": 443,
+      "protocol": "https"
+    },
+    "spot_instance_policy": "COST_OPTIMIZED",
+    "state": "STOPPED",
+    "tags": {
+      "custom_tags": [
+        {
+          "key": "campaign",
+          "value": "lakematch-20260919"
+        }
+      ]
+    },
+    "warehouse_type": "PRO"
+  },
+  "final_app": {
+    "app_status": {
+      "message": "App status is unavailable.",
+      "state": "UNAVAILABLE"
+    },
+    "compute_size": "MEDIUM",
+    "compute_status": {
+      "message": "Start the app compute to deploy the app.",
+      "state": "STOPPED"
+    },
+    "create_time": "2026-09-23T12:59:06Z",
+    "creator": "laurent.fabre@databricks.com",
+    "default_source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "description": "Lakematch governed workflow pilot",
+    "effective_user_api_scopes": [
+      "iam.access-control:read",
+      "iam.current-user:read"
+    ],
+    "id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "name": "lakematch-mdm-dev",
+    "oauth2_app_client_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "oauth2_app_integration_id": "5f61de6a-8efa-4014-8d74-d9e3d1a919d0",
+    "resources": [
+      {
+        "name": "postgres",
+        "postgres": {
+          "branch": "projects/lakematch-mdm-dev/branches/production",
+          "database": "projects/lakematch-mdm-dev/branches/production/databases/databricks-postgres",
+          "permission": "CAN_CONNECT_AND_CREATE"
+        }
+      },
+      {
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "ec3b6df6c1cabcd4",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal_client_id": "7d7b1a38-c502-4958-9f63-ea846af9fa34",
+    "service_principal_id": 77964494840289,
+    "service_principal_name": "app-2nqdd8 lakematch-mdm-dev",
+    "thumbnail_url": "",
+    "update_time": "2026-09-27T23:33:32Z",
+    "updater": "laurent.fabre@databricks.com",
+    "url": "https://lakematch-mdm-dev-7474658055368199.aws.databricksapps.com"
+  },
+  "final_endpoint": {
+    "create_time": "2026-09-23T12:51:43Z",
+    "endpoint_id": "primary",
+    "name": "projects/lakematch-mdm-dev/branches/production/endpoints/primary",
+    "parent": "projects/lakematch-mdm-dev/branches/production",
+    "status": {
+      "autoscaling_limit_max_cu": 1.0,
+      "autoscaling_limit_min_cu": 0.5,
+      "current_state": "ACTIVE",
+      "disabled": false,
+      "endpoint_id": "primary",
+      "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
+      "group": {
+        "enable_readable_secondaries": false,
+        "max": 1,
+        "min": 1
+      },
+      "hosts": {
+        "host": "ep-noisy-sky-d72wqgqr.database.eu-central-1.cloud.databricks.com",
+        "read_write_pooled_host": "ep-noisy-sky-d72wqgqr-pooler.database.eu-central-1.cloud.databricks.com"
+      },
+      "last_active_time": "2026-09-27T23:30:16Z",
+      "settings": {},
+      "suspend_timeout_duration": "300s"
+    },
+    "uid": "ep-noisy-sky-d72wqgqr",
+    "update_time": "2026-09-27T23:30:30Z"
+  },
+  "ended_at": "2026-09-27T23:33:33.423745+00:00",
+  "wall_seconds": 204.557
+}

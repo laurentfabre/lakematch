@@ -7,6 +7,7 @@ Missing binding fails closed; local review identity is never used here.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
 from typing import Annotated, Any, Literal, Protocol
@@ -95,10 +96,25 @@ def authenticated_principal(request: Request) -> str:
     # through an HTTP header; actual proxy isolation remains a deployment test.
     workspace = os.environ.get('DATABRICKS_WORKSPACE_ID', '')
     users = request.headers.getlist('x-forwarded-user')
-    if (not os.environ.get('DATABRICKS_APP_NAME') or not re.fullmatch(r'[0-9]{1,24}', workspace)
-            or len(users) != 1 or not re.fullmatch(r'[A-Za-z0-9_-]{1,128}', users[0])):
+    problem = None
+    user = users[0] if len(users) == 1 else ''
+    if not os.environ.get('DATABRICKS_APP_NAME') or not re.fullmatch(r'[0-9]{1,24}', workspace):
+        problem = 'platform envelope missing or invalid'
+    elif len(users) != 1:
+        problem = 'user header missing or repeated'
+    elif '@' in user:
+        scoped = re.fullmatch(r'([0-9]{1,24})@([0-9]{1,24})', user)
+        if scoped is None or scoped[2] != workspace:
+            problem = 'workspace-qualified user invalid or mismatched'
+        else:
+            user = scoped[1]
+    elif not re.fullmatch(r'[A-Za-z0-9_-]{1,128}', user):
+        problem = 'user identifier invalid'
+    if problem:
+        # Fixed classifications only; headers may contain credentials or PII.
+        logging.getLogger(__name__).warning('Workflow identity rejected: %s', problem)
         raise HTTPException(401, 'An authenticated Databricks Apps user session is required')
-    return f'databricks:{workspace}:{users[0]}'
+    return f'databricks:{workspace}:{user}'
 
 
 def configured_api(request: Request) -> MasteringAPI:

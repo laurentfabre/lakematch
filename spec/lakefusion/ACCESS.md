@@ -36,6 +36,15 @@ email and browser-supplied role headers do not determine authorization. Local
 review identity is never accepted as a mastering identity. Request bodies forbid
 actor, role, grant and context overrides.
 
+The proxy may qualify a numeric user ID as `<user ID>@<workspace ID>`. This
+form is accepted only when both parts are numeric and its workspace exactly
+matches the injected workspace; it maps to the same canonical principal as
+the unqualified ID. Email addresses, another workspace, duplicate headers and
+malformed forms remain unauthorized. Rejection logs contain only fixed reason
+classifications, never header values. This format is illustrated in the public
+[Databricks app-template change](https://github.com/databricks/app-templates/pull/214);
+local parsing tests alone do not establish the actual deployed header format.
+
 This relies on Databricks Apps ingress authenticating the session, replacing
 identity headers and being the only network entry to the application. Setting
 an environment marker alone is not authentication. Do not expose this handler

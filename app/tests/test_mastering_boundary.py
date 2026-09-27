@@ -60,6 +60,28 @@ def test_stable_platform_id_ignores_display_name_and_roles(configured, monkeypat
     assert backend.calls[0] == backend.calls[1]
 
 
+def test_workspace_qualified_user_resolves_to_the_same_stable_principal(configured, monkeypatch):
+    client, backend = configured
+    proxy(monkeypatch)
+    for user in ('42', '42@1234'):
+        response = client.get('/api/v1/domains/company/tasks', headers={'X-Forwarded-User': user})
+        assert response.status_code == 200
+        assert response.json() == {'received_as': 'databricks:1234:42'}
+    assert backend.calls[0] == backend.calls[1]
+
+
+@pytest.mark.parametrize('user', ['42@9999', 'alice@example.invalid', '42@@1234', '42@1234 ',
+                                '42@1234,43@1234', '42@', '@1234', '42@01234'])
+def test_invalid_or_other_workspace_identity_never_reaches_workflow(configured, monkeypatch, user, caplog):
+    client, backend = configured
+    proxy(monkeypatch)
+    response = client.get('/api/v1/domains/company/tasks', headers={'X-Forwarded-User': user})
+    assert response.status_code == 401 and response.headers['cache-control'] == 'no-store'
+    assert not backend.calls
+    assert user not in caplog.text
+    assert 'workspace-qualified user invalid or mismatched' in caplog.text
+
+
 @pytest.mark.parametrize('headers', [{}, {'X-Forwarded-User': ' '}, {'X-Forwarded-User': '42,43'},
     [('X-Forwarded-User', '42'), ('X-Forwarded-User', '43')]])
 def test_missing_or_ambiguous_identity_denied(configured, monkeypatch, headers):

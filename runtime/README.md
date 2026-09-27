@@ -3,8 +3,9 @@
 This optional package assembles the accepted APX workflow routes with the
 portable PostgreSQL worker. The ordinary review app and the Spark engine keep
 their existing packages and dependency files. This is local deployment
-preparation; live Apps authentication, Lakebase OAuth/TLS, database-role mapping
-and RLS still require their own acceptance.
+preparation plus the live startup evidence in the Phase C ledger. Slot 14 proves
+Apps startup and restricted Lakebase OAuth/TLS readiness. Workflow user identity,
+instance-count telemetry and RLS remain distinct qualification gates.
 
 The alternative `lakematch-workflow-runtime` wheel contains the exact portable
 worker source under `lakematch`, its Apache-2.0 license, and all six immutable
@@ -61,12 +62,24 @@ sync and have no generated ignore file. `app.yaml` uses `valueFrom`; DAB config
 uses the API's `value_from`. A bare bundle deployment leaves the app stopped.
 The builder rejects files at 10 MiB or more and aggregate payloads at 100 MiB.
 
+In the selected workspace, CLI 1.18.0 `bundle run` reused the original inline
+environment from retained DAB state after a config-only update. The uploaded
+app.yaml was correct but the old override omitted the new endpoint. The bounded
+runner now validates/deploys the bundle, reads back every uploaded app file,
+starts compute separately, and calls named `apps deploy --source-code-path ...
+--mode SNAPSHOT --no-wait` with no command/environment override. It pins the
+returned deployment ID and verifies every snapshot hash, including after restart.
+Use the recorded continuation plans rather than rerunning first-install seeding.
+
 Workspaces that reject manual instance counts can use
 `--platform-default-instances`, which omits only the two instance-count fields.
 Medium compute and one Python worker remain configured. Check the live
 `compute_status.active_instances` before accepting a singleton deployment; an
 unreported count is unqualified, not evidence of one instance. The selected
 `fevm-gdpr2` workspace rejected manual counts during LF-C slot 7.
+The slot-15 diagnostic explicitly allows functional evidence collection with
+missing count telemetry. It still records singleton qualification as failed;
+any observed count other than one or larger compute configuration stops the run.
 
 Validate the completed binding before deployment, using the selected profile:
 
@@ -121,8 +134,8 @@ end of each request. Certifi is already hash-pinned in the app production lock;
 the runtime declares that same version directly. No verification bypass or
 personal certificate is introduced. LF-C slot 8 found that the local libpq
 `sslrootcert=system` trust source rejected the Lakebase certificate; read-only
-diagnosis with Certifi succeeded using TLS 1.3. This diagnosis does not qualify
-the deployed runtime, which still requires its own live acceptance.
+diagnosis with Certifi succeeded using TLS 1.3. Slot 14 subsequently passed the
+deployed runtime's mandatory read-only connection and permission readiness.
 Business transactions are never automatically replayed. The client may retry
 an idempotent request through the existing authorization/receipt contract.
 
