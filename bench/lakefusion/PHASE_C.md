@@ -1,6 +1,6 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 12/32 experiments under LF-DEC-008.** The local
+**In progress, 2026-09-23. LF-C has consumed 13/32 experiments under LF-DEC-008.** The local
 transactional worker and APX authorization boundary pass. Live Apps/Lakebase
 integration and the governed two-source pilot remain open. Slot 9 installs the
 database and isolated review tables; app startup times out before HTTP acceptance.
@@ -427,3 +427,32 @@ frozen/scanner inputs remain intact. LF-C is **12/32**. The
 guide's explicit endpoint mapping and tests equivalent selected-host spelling
 without allowing other origins. The host's actual spelling remains unobserved;
 the next run tests that hypothesis with every original gate retained.
+
+## Slot 13 — host binding passes; stale deployment override omits the endpoint
+
+Source **`d15ed59`**, [manifest](../../experiments/20260927T231709Z-lf-c-environment-e622d6/manifest.json)
+and [report](startup-environment-20260928.json) retain the **174.203-second failed
+attempt**. Managed hooks passed **124 runtime checks on Python 3.11 and 124 on
+3.12** before execution. The runtime now accepts the workspace host; the sole
+first-stage mismatch is `LAKEBASE_ENDPOINT=missing`. There was no HTTP request or
+workflow/policy mutation. Both owned app and warehouse are **STOPPED**.
+
+[Readback evidence](startup-environment-upload-20260928.json) verifies that both
+the uploaded source and deployment snapshot contain the new endpoint mapping,
+with identical SHA-256 `0d6d56a3aa60b7781a8427608688f9dfce204cec52072a06acd98af217ee8b1a`.
+The local DAB resource state still contains the original five environment entries,
+and the deployment metadata has those five entries without the new endpoint.
+The public CLI v1.18.0 implementation in `bundle/run/app.go` resolves configuration
+against deployment state; `bundle/appdeploy/app.go` sends that configuration as
+an environment override. The correct uploaded app.yaml therefore did not govern
+this launch. No arbitrary endpoint fallback is added.
+
+All **256 source hashes, four artifacts, the declared plan, nine payload files,
+15 frozen files and seven scanner inputs** matched before source changes. LF-C
+is **13/32**. The [slot-14 continuation](DEPLOYMENT_SOURCE_PLAN.md) retains DAB
+resource deployment and synchronization, verifies every uploaded app file, then
+submits a named Apps SNAPSHOT deployment with no command/environment override.
+It pins the returned deployment ID and verifies snapshot hashes before acceptance.
+Four local deployment-evidence tests pass, including stale-source and wrong-ID
+refusal. Database authentication, observed singleton compute and workflow HTTP
+acceptance remain open; billing is unreconciled.

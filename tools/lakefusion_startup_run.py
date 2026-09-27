@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Bounded live acceptance against a verified retained deployment, without bootstrap."""
 import argparse
+import base64
 from datetime import datetime, timezone
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -18,6 +20,7 @@ import requests
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.core import Config
 from databricks.sdk.service.sql import ExecuteStatementRequestOnWaitTimeout
+from databricks.sdk.service.workspace import ExportFormat
 
 from evidence import ROOT, sha256
 from workflow_retained import RetainedStateError, require, verify_retained_fixture
@@ -37,6 +40,33 @@ def redact_app_logs(raw):
             line = re.sub(r'(https?://)[^\s/@:]+:[^\s/@]+@', r'\1[REDACTED]@', line)
             lines.append(line)
     return '\n'.join(lines)[-16000:]
+
+
+def verify_uploaded_payload(export, source_path, files):
+    """Read back every uploaded app file; never accept a stale deployment snapshot."""
+    require(isinstance(source_path, str) and source_path.startswith('/Workspace/'),
+            'Explicit workspace source path required')
+    expected = {name[4:]: entry for name, entry in files.items() if name.startswith('app/')}
+    require('app.yaml' in expected and 'binding.json' in expected and len(expected) <= 32,
+            'Incomplete or oversized app file manifest')
+    verified = {}
+    for name, entry in expected.items():
+        require(not name.startswith('/') and '..' not in name.split('/'), 'Invalid app file path')
+        content = base64.b64decode(export(source_path+'/'+name), validate=True)
+        actual = {'sha256': hashlib.sha256(content).hexdigest(), 'bytes': len(content)}
+        require(actual == entry, 'Uploaded app file differs from the declared payload: '+name)
+        verified[name] = actual
+    return verified
+
+
+def deployment_ready(value, deployment_id=None):
+    deployment = value.get('active_deployment') or {}
+    if deployment_id is not None and deployment.get('deployment_id') != deployment_id:
+        return False
+    state = (deployment.get('status') or {}).get('state')
+    require(state not in {'FAILED', 'CANCELLED'}, 'Selected application deployment failed')
+    return (state == 'SUCCEEDED' and value.get('compute_status', {}).get('state') == 'ACTIVE'
+            and value.get('app_status', {}).get('state') == 'RUNNING')
 
 
 def main():
@@ -152,14 +182,11 @@ def main():
         latest_start = time.monotonic()
         cli('apps', 'start', config['app_name'], '--no-wait')
 
-    def ready(value):
-        state = ((value.get('active_deployment') or {}).get('status') or {}).get('state')
-        if state in {'FAILED', 'CANCELLED'}:
-            report['failed_app'] = value
-            save()
-            raise RuntimeError('Application deployment failed')
-        return (state == 'SUCCEEDED' and value.get('compute_status', {}).get('state') == 'ACTIVE'
-                and value.get('app_status', {}).get('state') == 'RUNNING')
+    def uploaded(source_path):
+        def export(path):
+            budget()
+            return w.workspace.export(path, format=ExportFormat.AUTO).content
+        return verify_uploaded_payload(export, source_path, active_payload['files'])
 
     def interrupted(*_):
         raise InterruptedError('Bounded deployment interrupted')
@@ -264,12 +291,25 @@ def main():
         app_owned = True
         cli('bundle', 'deploy', '--auto-approve', '--target', 'pilot', cwd=payload, timeout=300)
         require(app()['compute_status']['state'] == 'STOPPED', 'Bundle unexpectedly started compute')
+        source_path = ('/Workspace/Users/'+user.user_name+'/.bundle/lakematch-workflow/'
+                       +config['app_name']+'/files/app')
+        report['uploaded_payload'] = uploaded(source_path)
         stage('start compute separately from source deployment')
         begin_start()
         poll('compute_ready', app, lambda value: value.get('compute_status', {}).get('state') == 'ACTIVE', 600)
+        poll('prior_deployment_idle', app, lambda value: all(
+            ((value.get(key) or {}).get('status') or {}).get('state') != 'IN_PROGRESS'
+            for key in ('active_deployment', 'pending_deployment')), 120)
         stage('deploy source onto ready compute')
-        cli('bundle', 'run', 'workflow', '--no-wait', '--target', 'pilot', cwd=payload, timeout=120)
-        running = poll('running_app', app, ready, 600)
+        # bundle run resolves inline config against retained deployment state.
+        # Deploy the verified app.yaml without overriding it with that old config.
+        deployment = cli('apps', 'deploy', config['app_name'], '--source-code-path', source_path,
+                         '--mode', 'SNAPSHOT', '--no-wait', timeout=120)
+        require(bool(deployment.get('deployment_id')), 'Source deployment ID was not returned')
+        report['submitted_deployment'] = deployment
+        running = poll('running_app', app,
+                       lambda value: deployment_ready(value, deployment['deployment_id']), 600)
+        report['snapshot_payload'] = uploaded(running['active_deployment']['deployment_artifacts']['source_code_path'])
         require(running['compute_status'].get('active_instances') == 1, 'Singleton compute must be observed')
         url = running['url'].rstrip('/')
         report['app_url'] = url
@@ -309,7 +349,8 @@ def main():
         cli('apps', 'stop', config['app_name'], '--no-wait')
         poll('restart_stopped', app, lambda value: value['compute_status']['state'] == 'STOPPED', 180)
         begin_start()
-        restarted = poll('restarted_app', app, ready, 600)
+        restarted = poll('restarted_app', app, deployment_ready, 600)
+        report['restart_snapshot_payload'] = uploaded(restarted['active_deployment']['deployment_artifacts']['source_code_path'])
         require(restarted['compute_status'].get('active_instances') == 1, 'Restart singleton must be observed')
         api('GET', route, expected=403)
         access.replace(principal, 'company', fixture['grants'], expected_revision=2, actor=principal,

@@ -1,0 +1,31 @@
+build committed runtime payload
+bun install v1.3.8 (b64edcb4)
+
+Checked 214 installs across 249 packages (no changes) [33.00ms]
+Building project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+Skipping UI build
+✅ Python wheel built in 615ms
+Build completed
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1829 modules transformed.
+rendering chunks...
+computing gzip size...
+src/lakematch_review/__dist__/index.html                   0.48 kB │ gzip:   0.31 kB
+src/lakematch_review/__dist__/assets/index-BR7wt8sG.css   39.73 kB │ gzip:   8.47 kB
+src/lakematch_review/__dist__/assets/index-BK6WnQfz.js   399.46 kB │ gzip: 122.02 kB
+
+✓ built in 167ms
+Building project in /Users/laurent.fabre/Projects/Claude/lakematch/app
+Skipping UI build
+✅ Python wheel built in 545ms
+Build completed
+APX build: 4 files; largest 167,911 bytes
+{"status": "built; deployment not performed", "files": 9, "bytes": 286058}
+verify retained database without mutations
+verify isolated Delta metadata and grants
+validate and deploy retained payload while stopped
+start compute separately from source deployment
+deploy source onto ready compute
+Failed at deploy source onto ready compute: RuntimeError
+{"status": "failed", "stage": "deploy source onto ready compute", "cleanup": {"warehouse": "STOPPED", "app": "STOPPED", "lakebase": "Dedicated project, data and DAB state retained; idle suspension configured"}}

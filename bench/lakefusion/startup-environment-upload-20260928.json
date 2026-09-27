@@ -1,0 +1,49 @@
+{
+  "bundle": {
+    "path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app/app.yaml",
+    "sha256": "0d6d56a3aa60b7781a8427608688f9dfce204cec52072a06acd98af217ee8b1a",
+    "configuration": "command:\n- python\n- -m\n- lakematch_runtime\nenv:\n- name: LAKEMATCH_WORKFLOW_BINDING\n  value: binding.json\n- name: LAKEBASE_ENDPOINT\n  valueFrom: postgres\n- name: LAKEMATCH_REVIEW_STORE\n  value: delta\n- name: LAKEMATCH_REVIEW_WAREHOUSE_ID\n  valueFrom: sql-warehouse\n- name: LAKEMATCH_REVIEW_SCHEMA_NAME\n  value: gdpr2_catalog.lakematch_mdm_dev\n- name: LAKEMATCH_REVIEW_GENIE_ENABLED\n  value: 'false'\n"
+  },
+  "snapshot": {
+    "path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bac9dd5f1bf292da233935936071/app.yaml",
+    "sha256": "0d6d56a3aa60b7781a8427608688f9dfce204cec52072a06acd98af217ee8b1a",
+    "configuration": "command:\n- python\n- -m\n- lakematch_runtime\nenv:\n- name: LAKEMATCH_WORKFLOW_BINDING\n  value: binding.json\n- name: LAKEBASE_ENDPOINT\n  valueFrom: postgres\n- name: LAKEMATCH_REVIEW_STORE\n  value: delta\n- name: LAKEMATCH_REVIEW_WAREHOUSE_ID\n  valueFrom: sql-warehouse\n- name: LAKEMATCH_REVIEW_SCHEMA_NAME\n  value: gdpr2_catalog.lakematch_mdm_dev\n- name: LAKEMATCH_REVIEW_GENIE_ENABLED\n  value: 'false'\n"
+  },
+  "deployment": {
+    "command": [
+      "python",
+      "-m",
+      "lakematch_runtime"
+    ],
+    "create_time": "2026-09-27T23:19:19Z",
+    "creator": "laurent.fabre@databricks.com",
+    "deployment_artifacts": {
+      "source_code_path": "/Workspace/Users/7d7b1a38-c502-4958-9f63-ea846af9fa34/src/01f1bac9dd5f1bf292da233935936071"
+    },
+    "deployment_id": "01f1bac9dd5f1bf292da233935936071",
+    "env_vars": [
+      {
+        "name": "LAKEMATCH_WORKFLOW_BINDING"
+      },
+      {
+        "name": "LAKEMATCH_REVIEW_STORE"
+      },
+      {
+        "name": "LAKEMATCH_REVIEW_WAREHOUSE_ID"
+      },
+      {
+        "name": "LAKEMATCH_REVIEW_SCHEMA_NAME"
+      },
+      {
+        "name": "LAKEMATCH_REVIEW_GENIE_ENABLED"
+      }
+    ],
+    "mode": "SNAPSHOT",
+    "source_code_path": "/Workspace/Users/laurent.fabre@databricks.com/.bundle/lakematch-workflow/lakematch-mdm-dev/files/app",
+    "status": {
+      "message": "Error: app crashed unexpectedly. Please check /logz for more details",
+      "state": "FAILED"
+    },
+    "update_time": "2026-09-27T23:19:43Z"
+  }
+}

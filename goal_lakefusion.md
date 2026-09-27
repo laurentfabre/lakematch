@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (12/32 under LF-DEC-008)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (13/32 under LF-DEC-008)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -324,7 +324,7 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **12/32** slots;
+  process-death rollback and exact restart replay pass. LF-C uses **13/32** slots;
   live Apps/Lakebase integration remains pending, so LM-007 stays open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
@@ -341,7 +341,11 @@ Deliverables:
   identifies `DATABRICKS_HOST=mismatch` and `LAKEBASE_ENDPOINT=missing`.
   The [slot-13 plan](bench/lakefusion/DEPLOYMENT_ENVIRONMENT_PLAN.md) adds endpoint
   resource injection and accepts only equivalent spellings of the selected HTTPS
-  origin. No database authentication or HTTP acceptance has yet passed.
+  origin. Slot 13 resolves the host check, but stale bundle-state environment
+  overrides omit the endpoint despite correct uploaded files. The
+  [slot-14 source plan](bench/lakefusion/DEPLOYMENT_SOURCE_PLAN.md) uses the verified
+  app.yaml directly and pins the new deployment ID. Database authentication and
+  HTTP acceptance remain pending.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with
@@ -590,6 +594,8 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-23: database installation complete; app cold-start timeout | Slot 9 installs six migrations, scoped grants, the synthetic fixture and isolated review tables using verified TLS 1.3. The 120-second local startup command expires before source deployment. No HTTP acceptance; failed attempt retained. Follow-on cleanup verifies app/warehouse stopped and Lakebase idle. LF-C 9/32; 23 slots remain. [Evidence](bench/lakefusion/PHASE_C.md). | Prepare a bounded startup continuation that verifies the retained installation/payload without reseeding, preserves timeout diagnostics, and observes singleton compute before live workflow/revocation/restart checks. |
 
 | 2026-09-28: separate compute startup verified | Slot 10 verifies retained migrations/receipts and Delta grants; compute starts and packages install. Runtime initialization crashes before HTTP checks. Both owned resources stop; original payload and failed evidence retained. LF-C 10/32. | Execute the committed [slot-11 diagnostic plan](bench/lakefusion/DEPLOYMENT_LOG_CAPTURE_PLAN.md) to capture initialization logs before stopping compute. |
+
+| 2026-09-28: deployment environment diagnosis | Slots 11–13 identify and fix equivalent host spelling and missing endpoint mapping; readback proves the new app.yaml is uploaded, while bundle run uses the old retained environment override. Both resources stopped, no workflow mutation; LF-C 13/32. | Deploy the verified source directly under the [slot-14 plan](bench/lakefusion/DEPLOYMENT_SOURCE_PLAN.md); keep every binding and singleton gate. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM
