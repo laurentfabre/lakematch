@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "slot": 10,
+  "phase_limit": 32,
+  "installation_report": "bench/lakefusion/deployment-20260923-installation.json",
+  "binding": "bench/lakefusion/deployment-binding-20260923-installation.json",
+  "retained_payload": "data/test-runs/workflow-deployment-20260923-installation",
+  "payload": "data/test-runs/workflow-startup-20260928",
+  "report": "bench/lakefusion/startup-20260928.json",
+  "preserved_inputs": {
+    "bench/lakefusion/deployment-20260923-installation.json": "92fff4bbf766bacfd3849344e1099dede09a80faf5aa8ec3f38d38b9e385d34a",
+    "bench/lakefusion/deployment-binding-20260923-installation.json": "8abd152a113cf0863bcbddc09ca8d35cefacf7aeea50737665ae64462271388a",
+    "bench/lakefusion/deployment-cleanup-20260923-installation.json": "c1066976f5a05ff3f115c1c7ec0c618ecdc217e53470c53a1c7c872f8a4ef897",
+    "bench/lakefusion/deployment-verification-20260923-installation.json": "75874fdeed1354db164d531131e4ab575156bf5770af4ff89265841f83db8bca"
+  }
+}
