@@ -3,9 +3,10 @@
 This optional package assembles the accepted APX workflow routes with the
 portable PostgreSQL worker. The ordinary review app and the Spark engine keep
 their existing packages and dependency files. This is local deployment
-preparation plus the live startup evidence in the Phase C ledger. Slot 14 proves
-Apps startup and restricted Lakebase OAuth/TLS readiness. Workflow user identity,
-instance-count telemetry and RLS remain distinct qualification gates.
+preparation plus the live evidence in the Phase C ledger. Slot 14 proves Apps
+startup and restricted Lakebase OAuth/TLS readiness. Slot 16 passes the real
+current-user task/retry/revocation/restart/regrant flow. Instance-count telemetry,
+second-human approval, ingress isolation and RLS remain qualification gates.
 
 The alternative `lakematch-workflow-runtime` wheel contains the exact portable
 worker source under `lakematch`, its Apache-2.0 license, and all six immutable
@@ -70,6 +71,9 @@ starts compute separately, and calls named `apps deploy --source-code-path ...
 --mode SNAPSHOT --no-wait` with no command/environment override. It pins the
 returned deployment ID and verifies every snapshot hash, including after restart.
 Use the recorded continuation plans rather than rerunning first-install seeding.
+After slot 16 the retained fixture has one task/command and access revision 3.
+The first-use verifier intentionally rejects this state; further experiments
+must preserve those receipts in a new continuation, never empty/reseed the tables.
 
 Workspaces that reject manual instance counts can use
 `--platform-default-instances`, which omits only the two instance-count fields.

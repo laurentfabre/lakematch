@@ -1,10 +1,11 @@
 # Phase C checkpoint — stewardship and authorization
 
-**In progress, 2026-09-23. LF-C has consumed 15/32 experiments under LF-DEC-008.** The local
-transactional worker and APX authorization boundary pass. Live Apps/Lakebase
-integration and the governed two-source pilot remain open. Slot 9 installs the
-database and isolated review tables; app startup times out before HTTP acceptance.
-The app and warehouse are stopped, and Lakebase is idle after verified cleanup.
+**In progress, 2026-09-28. LF-C has consumed 16/32 experiments under LF-DEC-008.** The local
+transactional worker and APX authorization boundary pass. Slot 16 also passes the
+live current-user task/retry/revocation/restart/regrant flow. Broader Apps/Lakebase
+qualification and the governed two-source pilot remain open. Missing active-instance
+telemetry prevents an overall deployment pass. App and warehouse are stopped;
+Lakebase data is retained with a 1-CU maximum and 300-second idle suspension.
 
 Slot 1 below remains the accepted worker checkpoint. Slot 2's source-preservation
 failure is retained. The separately declared slot-3 follow-up accepts the local
@@ -515,3 +516,50 @@ All **256 source hashes, four artifacts, declared plan, nine payload files,
 15 frozen inputs and seven scanner inputs** verify before source changes.
 LF-C is **15/32**. Receipt/revocation/restart evidence and singleton qualification
 remain open, as do broader pilot gates. Billing remains unreconciled.
+
+## Slot 16 — live task retry, revocation, restart and original receipt replay pass
+
+Source **`a6e074a`**, [manifest](../../experiments/20260927T233626Z-lf-c-identity-05ae8f/manifest.json),
+[report](startup-identity-20260928.json) and
+[independent read-only verification](startup-identity-verification-20260928.json)
+retain the **321.234-second run**. Before execution, managed hooks passed **54
+app tests and 133 isolated runtime checks on each of Python 3.11 and 3.12**.
+The live actor matches the installed operator's canonical principal.
+
+| Live check | Observed result |
+|---|---|
+| Authenticated session and isolated empty review queue | Both 200 |
+| Task creation and exact retry | Both 200; identical receipt |
+| Revoked task read and write/retry | Both 403 with no-store |
+| Revoked task read after app stop/start | 403 with no-store |
+| Original command after restoring recorded grants | 200; exact original receipt |
+| Durable database reconciliation | One task and one command; HTTP receipt/hash match |
+
+**Functional workflow status is passed. Overall experiment status remains
+failed solely for unavailable instance-count telemetry**, before and after
+restart. The diagnostic does not turn that missing evidence into a pass. No
+broader package is closed: second-human approval, ingress isolation, per-user
+RLS, hour-long renewal, business apply/publication, restore/scale and customer
+installation are separate qualification requirements.
+
+Every uploaded app file, selected deployment snapshot and restart snapshot
+matches the declared **eight app-file hashes**. All **256 source hashes, four
+artifacts, nine payload files, 15 frozen inputs and seven scanner inputs** match
+before documentation updates. The independent transaction is explicitly READ
+ONLY and verifies restored original grants at **access revision 3**, immutable
+access receipts at revisions **1/2/3**, the original fixture access receipt,
+exactly one task/command and zero business operations/decisions/outbox records.
+No record is reseeded or removed.
+
+App and warehouse are both **STOPPED**, independently confirmed. Lakebase data
+and DAB state remain retained, with **1-CU maximum and 300-second suspension**;
+billing is unreconciled. LF-A stays **8/8**, LF-B **12/12**, LF-C is **16/32**
+with **16 attempts remaining**. The cap is not a blocker.
+
+**Continuation boundary:** the installed fixture has now been used. The
+first-use verifier intentionally rejects its nonempty workflow and revision-3
+access. Do not rerun slots 10–16 or reset the fixture to make them pass. A future
+live qualification must pin these saved receipts and revisions in a committed,
+receipt-aware continuation. Resolve instance observability and obtain a real
+second authenticated participant for independent-approval acceptance; implement
+business apply/publication under the existing package dependencies.

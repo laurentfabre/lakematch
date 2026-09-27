@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "kind": "read-only post-run reconciliation; not another experiment",
+  "verified_at": "2026-09-27T23:42:40.384725+00:00",
+  "run_id": "20260927T233626Z-lf-c-identity-05ae8f",
+  "source_commit": "a6e074a43a5fe531f7c414b602b1d73553133c56",
+  "input_sha256": {
+    "bench/lakefusion/startup-identity-20260928.json": "b692ca4ee458e3b99964ff45510dd738faf6902d311725ffb57e6b049220c6bc",
+    "experiments/20260927T233626Z-lf-c-identity-05ae8f/manifest.json": "ecda4688635563c73b89e2be4f4f5a7497f8a9b2239609584374497f3e693f9b"
+  },
+  "checks": {
+    "source_files": true,
+    "artifacts": true,
+    "plan": true,
+    "payload": true,
+    "upload_and_both_snapshots": true,
+    "files": true,
+    "scanner_inputs": true
+  },
+  "source_file_count": 256,
+  "artifact_count": 4,
+  "payload_file_count": 9,
+  "snapshot_file_count": 8,
+  "workflow_status": "passed",
+  "overall_status": "failed",
+  "qualification_gap": "Workflow passed; instance-count qualification remains unavailable",
+  "http_statuses": [
+    200,
+    200,
+    200,
+    200,
+    403,
+    403,
+    403,
+    200
+  ],
+  "transaction_read_only": "on",
+  "workflow_counts": {
+    "tasks": 1,
+    "commands": 1,
+    "operations": 0,
+    "decisions": 0,
+    "outbox": 0
+  },
+  "receipt_sha256": "6abf4d97246e952788389a9197c8c71857c8ffea2f370ccfb5a6e8366aa4ec0a",
+  "access_revision": 3,
+  "access_event_revisions": [
+    1,
+    2,
+    3
+  ],
+  "original_grants_restored": true,
+  "original_access_receipt_preserved": true,
+  "app_state": "STOPPED",
+  "warehouse_state": "STOPPED",
+  "lakebase_max_cu": 1.0,
+  "lakebase_suspend_timeout": "300s",
+  "cost_status": "billing unreconciled"
+}

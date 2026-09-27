@@ -1,6 +1,6 @@
 # Goal: deliver governed MDM, relationship graphs and PIM in Lakematch
 
-Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (15/32 under LF-DEC-008)**.
+Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (16/32 under LF-DEC-008)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
 Deliver the capabilities defined in the
@@ -135,7 +135,7 @@ Two reconciliation rules keep this ledger and the backlog consistent:
 |---|---|---|---|---|---|
 | LF-A | Contracts, evaluation plan and feasibility | Execution requested | Weeks 1–2 | Done | [Frozen contracts, capability evidence and limits](bench/lakefusion/PHASE_A.md) |
 | LF-B | Matching foundations and explainable golden records | LF-A; workflow schema needed for ID allocation | Weeks 3–6 | Done | [Candidates, identity, provenance, calibrated worker suggestions and synthetic UI](bench/lakefusion/PHASE_B.md) |
-| LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | In progress | [Isolated runtime: 714 checks; authorization and revocation/restart](bench/lakefusion/PHASE_C.md); live Apps/Lakebase integration pending |
+| LF-C | Governed two-source MDM pilot | LF-B; authorization and workflow foundations | Weeks 7–12, plus 4 weeks contingency | In progress | [Live eight-request workflow/revocation/restart passes](bench/lakefusion/PHASE_C.md); instance telemetry and broader pilot qualification open |
 | LF-D | Online resolution, relationships, graph and agent access | LF-C; individual package prerequisites | Weeks 13–20 | Not started | None yet |
 | LF-E | PIM catalog and editorial workflows | LF-C plus LF-D reference/nested contracts | Weeks 19–30 | Not started | None yet |
 | LF-F | Production qualification and release | Relevant phase implementations; qualification starts earlier | Through months 6–9 | Not started | None yet |
@@ -324,8 +324,9 @@ Deliverables:
   [slot-1 acceptance](bench/lakefusion/PHASE_C.md): 471 checks, including 44 new
   workflow PostgreSQL cases and 25 unchanged app tests. Lease fencing,
   independent approvals, atomic outbox enqueue, lost acknowledgements,
-  process-death rollback and exact restart replay pass. LF-C uses **15/32** slots;
-  live Apps/Lakebase integration remains pending, so LM-007 stays open.
+  process-death rollback and exact restart replay pass. LF-C uses **16/32** slots;
+  the live current-user Apps/Lakebase receipt/revocation/restart flow now passes,
+  while remaining workflow and operational qualification keeps LM-007 open.
   The [optional runtime package](runtime/README.md) now prepares isolated app
   deployment, explicit bindings, OAuth renewal and read-only readiness checks;
   the [slot-4 acceptance](bench/lakefusion/PHASE_C.md) passes all 714 checks.
@@ -354,6 +355,12 @@ Deliverables:
   creation with 401 before mutation. The [slot-16 identity plan](bench/lakefusion/DEPLOYMENT_IDENTITY_PLAN.md)
   adds strictly workspace-matched numeric identity qualification and tests the
   unchanged functional flow. The actual rejected header was not recorded.
+  Slot 16 passes all eight HTTP checks and verifies one durable task/command,
+  continued denial after restart, and the original receipt after regrant.
+  [Independent readback](bench/lakefusion/startup-identity-verification-20260928.json)
+  confirms restored access at revision 3 and preserved audit receipts. The run
+  remains overall failed solely because instance-count telemetry is unavailable;
+  app/warehouse are stopped, and all installed data is retained.
 - [ ] Enforce Viewer/Steward/Approver/Engineer/Administrator permissions with
   domain/object/action scopes and separation of proposal/approval where required.
   [Current-grant API boundary](spec/lakefusion/ACCESS.md) is implemented with
@@ -361,9 +368,11 @@ Deliverables:
   nonowner database role. [Slot-3 acceptance](bench/lakefusion/PHASE_C.md) passes
   all **545 tests** from source `b34535b`, including a fresh APX wheel and real
   PostgreSQL revocation/restart/regrant checks. Slot 2's attribution-comment
-  source drift is retained as a failed attempt. Real Apps/Lakebase/RLS
-  qualification and future field-projected entity/search/graph paths remain open;
-  platform ingress is simulated and LM-008 stays in progress.
+  source drift is retained as a failed attempt. Per-user
+  RLS qualification and future field-projected entity/search/graph paths remain
+  open. Slot 16 now proves current-user Apps identity and revocation/restart in
+  the real workspace. Ingress isolation and second-human approval remain unproved;
+  LM-008 stays in progress.
 - [ ] Add paginated entity search, task inbox, provenance, history and visible
   pending/approved/applying/published/conflict/failed operation states.
 - [ ] Implement preview/propose/approve/apply for overrides and merge/split;
@@ -600,10 +609,9 @@ remain visible. A read-only acceptance verifier must not generate its own proof.
 | 2026-09-23: LF-C cap increased | Laurent requested “Increase the cap substantially”; LF-DEC-008 implements this as 32 total LF-C attempts. Existing eight attempts remain consumed; LF-A and LF-B limits are unchanged. LF-C 8/32. | Execute the committed [slot-9 installation](bench/lakefusion/DEPLOYMENT_INSTALLATION_PLAN.md) under the unchanged finite resource/time envelope. |
 
 | 2026-09-23: database installation complete; app cold-start timeout | Slot 9 installs six migrations, scoped grants, the synthetic fixture and isolated review tables using verified TLS 1.3. The 120-second local startup command expires before source deployment. No HTTP acceptance; failed attempt retained. Follow-on cleanup verifies app/warehouse stopped and Lakebase idle. LF-C 9/32; 23 slots remain. [Evidence](bench/lakefusion/PHASE_C.md). | Prepare a bounded startup continuation that verifies the retained installation/payload without reseeding, preserves timeout diagnostics, and observes singleton compute before live workflow/revocation/restart checks. |
-
 | 2026-09-28: separate compute startup verified | Slot 10 verifies retained migrations/receipts and Delta grants; compute starts and packages install. Runtime initialization crashes before HTTP checks. Both owned resources stop; original payload and failed evidence retained. LF-C 10/32. | Execute the committed [slot-11 diagnostic plan](bench/lakefusion/DEPLOYMENT_LOG_CAPTURE_PLAN.md) to capture initialization logs before stopping compute. |
-
 | 2026-09-28: deployment environment diagnosis | Slots 11–13 identify and fix equivalent host spelling and missing endpoint mapping; readback proves the new app.yaml is uploaded, while bundle run uses the old retained environment override. Both resources stopped, no workflow mutation; LF-C 13/32. | Deploy the verified source directly under the [slot-14 plan](bench/lakefusion/DEPLOYMENT_SOURCE_PLAN.md); keep every binding and singleton gate. |
+| 2026-09-28: live workflow and restart verified | Slot 16 passes eight HTTP checks, exact retry/regrant receipt replay and post-restart denial; independent readback verifies one task/command and restored access revision 3. App/warehouse stopped. LF-C 16/32; overall qualification remains failed for missing active-instance telemetry. | Preserve the now-used fixture; any further live run needs a receipt-aware continuation. Resolve singleton telemetry and qualify second-user approval/ingress; continue business apply/publication work within package dependencies. |
 
 **Finish line:** LF-A–F pass their required gates; all 25 packages have an honest
 disposition, including conditional LM-025; the final app-to-master-to-graph/PIM
