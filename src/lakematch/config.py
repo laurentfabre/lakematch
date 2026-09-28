@@ -39,7 +39,7 @@ METHODS: dict[str, dict[str, str | None]] = {
     "decision.cardinality": {"one_to_one": None, "many_to_one": None, "unrestricted": None},
     "cluster.method": {"verified_merge": "ZR-4", "connected_components": "ZR-4", "center": "ZR-4", "star": "ZR-4"},
     "quality.engine": {"native": None, "dqx": "ZR-6", "expectations": "ZR-6"},
-    "labels.llm": {"none": None, "jev": "ZR-3", "ai_query": "ZR-6"},
+    "labels.llm": {"none": None, "jev": None, "ai_query": "ZR-6"},
     "labels.source": {"file": None, "truth_sample": None, "app": "ZR-7"},
 }
 
@@ -96,7 +96,8 @@ DEFAULTS: dict[str, Any] = {
     "decision": {"threshold": "from_validation", "cardinality": "one_to_one", "validation_share": 0.25},
     "cluster": {"method": "verified_merge", "max_rounds": 20},
     "quality": {"engine": "native", "checks": []},
-    "labels": {"source": "truth_sample", "n": 400, "path": None, "llm": "none", "llm_tau": 0.90},
+    "labels": {"source": "truth_sample", "n": 400, "path": None, "llm": "none", "llm_tau": 0.90,
+               "llm_cache": None},   # default <storage.root>/jev_cache.jsonl
     "evaluation": {"truth": None},
     "mlflow": {"tracking_uri": "sqlite:///mlflow.db", "registry": False, "registry_uri": None, "alias": None,
                "model_name": "lakematch_record"},
@@ -269,6 +270,11 @@ def validate(data: dict) -> None:
             spec = data["inputs"].get(side)
             if not spec or "path" not in spec or "id" not in spec:
                 raise ConfigError(f"inputs.{side} needs path and id")
+    if data["labels"]["llm"] != "none" and not paid.get("llm_labeller"):
+        raise ConfigError(f"labels.llm: {data['labels']['llm']} is a paid feature: set paid_features.llm_labeller: true "
+                          "(never on the laptop profile)")
+    if not 0.5 < data["labels"]["llm_tau"] <= 1:
+        raise ConfigError("labels.llm_tau must be in (0.5, 1]")
     if data["labels"]["source"] == "file" and not data["labels"]["path"]:
         raise ConfigError("labels.source: file needs labels.path")
     if data["labels"]["source"] == "truth_sample" and data["inputs"] and not data["evaluation"]["truth"]:

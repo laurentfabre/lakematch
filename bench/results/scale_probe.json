@@ -1,0 +1,62 @@
+{
+ "true_links": 250000,
+ "records": 1000000,
+ "blocks": [
+  [
+   "given_name",
+   "surname"
+  ],
+  [
+   "surname",
+   "date_of_birth"
+  ],
+  [
+   "given_name",
+   "date_of_birth"
+  ],
+  [
+   "postcode",
+   "street_number"
+  ],
+  [
+   "address_1",
+   "suburb"
+  ],
+  [
+   "soundex(surname)",
+   "postcode"
+  ]
+ ],
+ "rows": [
+  {
+   "what": "gram_topk proposals (join: grams in <= 400 right records)",
+   "pairs": 1289714,
+   "recall": 0.1178,
+   "s": 38.3
+  },
+  {
+   "what": "union(gram_topk, conjunction field_blocks) proposals",
+   "pairs": 3016303,
+   "recall": 0.9868,
+   "s": 42.9
+  },
+  {
+   "what": "union proposals -> top 5, ranking vocabulary gram_cap 400 (today)",
+   "pairs": 1846673,
+   "recall": 0.5495,
+   "s": 14.0
+  },
+  {
+   "what": "union proposals -> top 5, ranking vocabulary 5 % of right records",
+   "pairs": 1846673,
+   "recall": 0.9867,
+   "s": 33.0
+  },
+  {
+   "what": "union proposals -> top 5, ranking vocabulary 10 % of right records",
+   "pairs": 1846673,
+   "recall": 0.9867,
+   "s": 37.0
+  }
+ ]
+}

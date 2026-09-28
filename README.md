@@ -28,12 +28,15 @@ Genie agent. The full specification, the nine bounded phases ZR-1..9 and the led
 | ZR-1 | package, config, laptop engine, native quality gate | built 2026-09-26 — judge `goals/verify_zr.sh 1` |
 | ZR-2 | similarity library: a feature family per field type, optional UDF features, local embeddings, ablation | built 2026-09-26 — `goals/verify_zr.sh 2`, [`bench/ABLATION.md`](bench/ABLATION.md) |
 | ZR-3a | the four other candidate methods; every method choice compared on validation data, winners = defaults | built 2026-09-26 — `goals/verify_zr.sh 3a`, [`bench/METHODS.md`](bench/METHODS.md) |
-| ZR-3 … ZR-9 | the full benchmark table, clusters, MLflow, serverless, app, Genie, classic | not started |
+| ZR-3 | the benchmark harness: 11 corpora end to end, intervals, baselines, Zingg / Splink / published references, Jev cost | built 2026-09-29 — `goals/verify_zr.sh 3`, [`bench/BENCHMARKS.md`](bench/BENCHMARKS.md) |
+| ZR-4 … ZR-9 | clusters, MLflow, serverless, app, Genie, classic | not started |
 
 On FEBRL4 with half the partners removed (5 000 left, 2 500 right, 2 500 true links), the default config gives
 F1 0.9996 (held-out left records 0.9996) against 0.667 for "always link the nearest neighbour", with candidate
 recall 1.000, in about 27 s including Spark start-up. It gives the same result over Spark Connect and with the network
-off. These are single-run figures; the benchmark table with intervals is ZR-3.
+off. [`bench/BENCHMARKS.md`](bench/BENCHMARKS.md) has the full table: every corpus on held-out TEST data with 95 %
+bootstrap intervals, the nearest-neighbour baseline, candidate recall, wall time, Jev-only labelling and its cost,
+next to Zingg, a measured Splink run and the published figures (`lakematch bench --all`).
 
 ---
 
@@ -145,7 +148,7 @@ macOS sandbox profile the judge uses to prove a run needs no network.
 ```text
 lakematch/
 ├── LICENSE                  Apache-2.0
-├── pyproject.toml           mandatory deps: pyspark, mlflow, pyyaml; extras: connect, embeddings, dqx, bench, dev
+├── pyproject.toml           mandatory deps: pyspark, mlflow, pyyaml; extras: connect, embeddings, udf, dqx, jev, bench, reference, dev
 ├── src/lakematch/
 │   ├── config.py            defaults, profiles, method registry, validation, paid-features guard
 │   ├── runtime.py           session factory, is_remote, capability probe, materialize
@@ -154,9 +157,10 @@ lakematch/
 │   ├── features/            the families (__init__.py) · udf.py (optional Jaro-Winkler, affine gap)
 │   ├── embeddings/          providers: local model2vec | none | auto
 │   ├── pipeline.py          lakematch run
-│   └── cli.py               run · doctor · (train, bench: later phases)
+│   └── cli.py               run · doctor · bench · (train: ZR-5)
 ├── examples/febrl4.yaml     the laptop example
-├── bench/                   prepare_febrl4.py · corpora.py (loaders) · ablation.py → ABLATION.md · methods.py → METHODS.md · results/
+├── bench/                   corpora.py (11 loaders) · synthetic.py · ablation.py → ABLATION.md · methods.py → METHODS.md ·
+│                            benchmarks.py → BENCHMARKS.md · splink_reference.py · references.py · results/
 ├── scripts/                 env.sh · test.sh · offline.sb
 ├── tests/                   run twice: classic session and Spark Connect
 ├── spec/                    BRIEF.md, decisions board, research, porting study, the 2026-09-19 measurement harness

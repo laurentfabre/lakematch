@@ -83,7 +83,7 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
         if "learned_blocker" in uses:
             # the blocker learns from labelled matches: label a gram_topk seed set first (same label source)
             seed = rt.materialize(candidates.gram_topk(left, right, cfg), "seed_candidates")
-            seed_labels = rt.materialize(labels.labelled(spark, seed, cfg), "seed_labels")
+            seed_labels = rt.materialize(labels.labelled(spark, seed, cfg, left, right), "seed_labels")
         cand = rt.materialize(candidates.generate(left, right, cfg, seed_labels), "candidates")
         pairs = (cand.join(_prefixed(left, "l_", "l_id"), "l_id").join(_prefixed(right, "r_", "r_id"), "r_id"))
         pairs, feature_cols = features.compare(pairs, cfg)
@@ -92,7 +92,7 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
                                  "budget": candidates.budget_note(cfg)}
         summary["features"] = feature_cols
 
-        lab = rt.materialize(labels.labelled(spark, pairs, cfg), "labels")
+        lab = rt.materialize(labels.labelled(spark, pairs, cfg, left, right), "labels")
         train, valid_lab = labels.split(lab, cfg)
         summary["labels"] = {"train": train.count(), "train_matches": train.filter("label = 1").count(),
                              "validation": valid_lab.count()}

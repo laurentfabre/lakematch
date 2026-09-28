@@ -26,8 +26,12 @@ embeddings = ["model2vec>=0.4", "pandas>=2", "pyarrow>=11"]
 udf = ["pandas>=2", "pyarrow>=11"]
 # Databricks-licensed quality engine, imported lazily by quality/dqx_adapter.py (ZR-6). Never mandatory.
 dqx = ["databricks-labs-dqx"]
+# The Jev labeller plug-in (labels.llm: jev, labels/jev.py): TypeSafe's SDK, a paid external API, off by default.
+jev = ["typesafe-sdk>=0.7"]
 # Corpus loaders for the benchmark harness and the FEBRL4 example.
 bench = ["recordlinkage>=0.16"]
+# The measured Splink reference rows of BENCHMARKS.md (bench/splink_reference.py). Never used by the engine.
+reference = ["splink>=5"]
 dev = ["pytest>=8", "pyspark[connect]>=4.1,<5", "recordlinkage>=0.16", "model2vec>=0.4"]
 
 [project.scripts]

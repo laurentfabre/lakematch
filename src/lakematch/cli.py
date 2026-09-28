@@ -59,6 +59,22 @@ def doctor(cfg: Config, probe_session: bool) -> int:
     return 0 if not problems else 1
 
 
+def bench(args) -> int:
+    """The harness lives in the repository's bench/ (corpora are fetched there, results are committed there)."""
+    script = Path(__file__).resolve().parents[2] / "bench" / "benchmarks.py"
+    if not script.exists():
+        print("lakematch bench needs a source checkout (bench/benchmarks.py next to src/)", file=sys.stderr)
+        return 2
+    if args.render:
+        cmd = ["render"]
+    elif args.all or args.only:
+        cmd = ["all"] + (["--only", args.only] if args.only else []) + (["--skip-jev"] if args.skip_jev else [])
+    else:
+        print("lakematch bench: pass --all, --only a,b or --render", file=sys.stderr)
+        return 2
+    return subprocess.run([sys.executable, str(script), *cmd]).returncode
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="lakematch", description=__doc__)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -69,15 +85,21 @@ def main(argv: list[str] | None = None) -> int:
     d = sub.add_parser("doctor", help="print what the config would do on this machine")
     d.add_argument("--config", required=True)
     d.add_argument("--session", action="store_true", help="also start a session and probe its capabilities")
-    for name, phase in (("train", "ZR-5"), ("bench", "ZR-3")):
-        p = sub.add_parser(name, help=f"lands in {phase}")
-        p.add_argument("rest", nargs="*")
+    t = sub.add_parser("train", help="lands in ZR-5")
+    t.add_argument("rest", nargs="*")
+    b = sub.add_parser("bench", help="the benchmark harness (a source checkout: bench/benchmarks.py)")
+    b.add_argument("--all", action="store_true", help="run every corpus, one process each, then render BENCHMARKS.md")
+    b.add_argument("--only", help="comma-separated corpora; the others keep their last result")
+    b.add_argument("--skip-jev", action="store_true", help="no Jev-labelled runs (no network, no cost)")
+    b.add_argument("--render", action="store_true", help="only re-render BENCHMARKS.md from the recorded JSON")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s", stream=sys.stderr)
-    if args.cmd in ("train", "bench"):
-        print(f"lakematch {args.cmd}: not implemented yet — it lands in {'ZR-5' if args.cmd == 'train' else 'ZR-3'}; "
-              "`lakematch run` trains and scores in one go today.", file=sys.stderr)
+    if args.cmd == "train":
+        print("lakematch train: not implemented yet — it lands in ZR-5; `lakematch run` trains and scores in one go "
+              "today.", file=sys.stderr)
         return 2
+    if args.cmd == "bench":
+        return bench(args)
     try:
         cfg = load(args.config)
     except ConfigError as e:

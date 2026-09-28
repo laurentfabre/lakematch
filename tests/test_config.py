@@ -14,7 +14,16 @@ NEEDS = {
     ("runtime.mode", "classic"): {"profile": "databricks", "classic": {"profile": "paid-workspace"}},
     ("candidates.method", "union"): {"candidates": {"union_of": ["gram_topk", "field_blocks"]}},
     ("labels.source", "file"): {"labels": {"path": "labels.csv"}},
+    ("labels.llm", "jev"): {"profile": "databricks", "paid_features": {"llm_labeller": True}},
+    ("labels.llm", "ai_query"): {"profile": "databricks", "paid_features": {"llm_labeller": True}},
 }
+
+
+def test_llm_labeller_is_a_paid_feature():
+    with pytest.raises(ConfigError, match="llm_labeller"):
+        config.build({"labels": {"llm": "jev"}})
+    with pytest.raises(ConfigError, match="laptop"):
+        config.build({"labels": {"llm": "jev"}, "paid_features": {"llm_labeller": True}})
 
 
 def _user(key, value):

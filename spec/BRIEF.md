@@ -19,6 +19,7 @@ Type one of these in a fresh session opened in `~/Projects/Pro/lakematch`:
 /goal ZR-2 is landed: the research-backed similarity library is in, every default feature is a Spark SQL built-in expression with zero UDFs, Jaro-Winkler and the affine-gap alignment exist only as optional UDF features, the embedding feature for organisation and title fields runs through a local provider, and an ablation table shows what each feature family adds — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 2
 /goal ZR-3a is landed: learned_blocker, minhash_lsh, field_blocks and union are implemented as candidate methods, bench/METHODS.md compares every candidate method (candidate recall at equal pair budget), string-similarity choice, estimator and cardinality policy on validation data across FEBRL4-half-unmatched, BPID, Abt-Buy and Leipzig Affiliations, and the defaults in config.py equal the winners it names — verify: cd ~/Projects/Personal && bash goals/verify_zr.sh 3a
 /goal ZR-3 is landed: the benchmark harness runs every corpus end to end on the laptop and writes BENCHMARKS.md with precision, recall, F1 with bootstrap intervals, candidate recall, latency and Jev cost next to the recorded Zingg, Splink and published figures, every candidate, similarity, estimator and cardinality choice is compared on validation data and the shipped defaults are the winners, and FEBRL4-half-unmatched reaches F1 >= 0.97 (all fields) and >= 0.96 (SSN hidden) in under 60 s — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 3
+/goal ZR-3s is landed: synthetic_1e6 joins the validation comparison of candidate methods, the shared ranking scores proposals over a vocabulary cut relative to corpus size instead of by gram_cap, the re-decided candidate default reaches candidate recall and F1 >= 0.95 on synthetic_1e6 in under 600 s with no corpus losing candidate recall and the FEBRL4 thresholds still met — verify: cd ~/Projects/Personal && bash goals/verify_zr.sh 3s
 /goal ZR-4 is landed: clusters larger than two are resolved by the clustering method that wins the comparison (verified merge, connected components, centre, star) with a convergence test, mdm_id is stable across reruns, and the crosswalk plus merge/split log survive an incremental run with added, changed and deleted records — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 4
 /goal ZR-5 is landed: a run logs one composite MLflow model (Spark pipeline + config + label-set digest + thresholds) with signature, datasets and evaluation metrics, the laptop uses tracking only on local SQLite and resolves the model by run id with no registry, and on the fourth-pat workspace the same run registers in Unity Catalog with an alias — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 5
 /goal ZR-6 is landed: a Declarative Automation Bundle deploys lakematch to the fourth-pat workspace on serverless — SDP pipeline for candidates, features, scoring and links, job tasks for train and cluster, DQX as the default quality gate with quarantine — every paid platform feature has a config switch and the deployment still runs with all of them off, the FEBRL4 benchmark reproduces there within 0.01 F1 of the laptop, and the Photon report is written from the query profile — verify: cd ~/Projects/Pro/lakematch && bash verify_zr.sh 6
@@ -405,6 +406,20 @@ measurements: 0.978 / 0.975–0.978, 13–22 s); the trivial baseline, candidate
 recorded Zingg / Splink / published figures are present for every corpus; de-duplication across splits is asserted;
 `bench/METHODS.md` compares every candidate method (candidate recall at equal pair budget), string-similarity choice,
 estimator and cardinality policy on validation data, and the defaults in `config.py` equal the winners it names.
+
+### ZR-3s — scale-safe candidates (added 2026-09-29 from ZR-3's measurement)
+
+**Why.** ZR-3's synthetic 10^6 row (500 000 records per side) scored candidate recall 0.119 / F1 0.212 where Splink,
+blocking on field conjunctions, scores 0.992. `bench/scale_probe.py` found two defects that small corpora hide: the
+gram join keeps only grams held by <= `gram_cap` (400) right records — at this size almost none a true pair shares —
+and the shared top-k ranking scores proposals over that same capped vocabulary (most score 0). Measured:
+union(gram_topk, conjunction field_blocks) proposes 0.987 of the true links; ranked over a vocabulary cut at 5 % of
+the right records, the top 5 keep 0.987 (0.549 with today's cap).
+
+**Finish line.** `verify_zr.sh 3s`: `synthetic_1e6` is in `bench/methods.py`'s VALIDATION candidate comparison and
+the defaults equal its winners; the ranking vocabulary no longer uses the join budget; `lakematch bench --all` reruns
+after that and shows candidate recall and F1 >= 0.95 on synthetic_1e6 in <= 600 s; no corpus's candidate recall falls
+below its ZR-3 value (0.005 tolerance); the FEBRL4 thresholds still hold.
 
 ### ZR-4 — clusters and identity
 

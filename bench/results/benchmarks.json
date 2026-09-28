@@ -1,0 +1,1543 @@
+{
+ "corpora": {
+  "febrl4_half_unmatched": {
+   "kind": "linkage",
+   "records": {
+    "left": 5000,
+    "right": 2500
+   },
+   "true_pairs": 2500,
+   "test_true_pairs": 507,
+   "candidates": 25000,
+   "k": 5,
+   "candidate_recall_at_k": 1.0,
+   "trivial_baseline": {
+    "precision": 0.5142,
+    "recall": 1.0,
+    "f1": 0.6792,
+    "f1_ci95": [
+     0.6521,
+     0.706
+    ],
+    "units": 986,
+    "tp": 507,
+    "fp": 479,
+    "fn": 0
+   },
+   "gold": {
+    "precision": 1.0,
+    "recall": 0.9961,
+    "f1": 0.998,
+    "f1_ci95": [
+     0.9948,
+     1.0
+    ],
+    "units": 986,
+    "tp": 505,
+    "fp": 0,
+    "fn": 2,
+    "threshold": 0.72,
+    "labels": {
+     "train": 15325,
+     "valid": 4745
+    }
+   },
+   "cardinality": "one_to_one",
+   "split_dedup": {
+    "ok": true,
+    "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
+   },
+   "wall_s_incl_start": 22.9,
+   "jev": {
+    "usage": {
+     "requests": 0,
+     "cached": 400,
+     "errors": 0,
+     "input_tokens": 0,
+     "output_tokens": 0,
+     "usd": 0.0,
+     "label_input_tokens": 259065,
+     "label_usd": 0.010881,
+     "asked": 400,
+     "kept": 371
+    },
+    "labels_fit": 284,
+    "labels_fit_matches": 15,
+    "labels_threshold": 87,
+    "precision": 1.0,
+    "recall": 0.9014,
+    "f1": 0.9481,
+    "f1_ci95": [
+     0.9339,
+     0.9613
+    ],
+    "units": 986,
+    "tp": 457,
+    "fp": 0,
+    "fn": 50,
+    "threshold": 0.5,
+    "wall_s": 2.2
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 182.2,
+    "total_mb": 218.6
+   },
+   "records_per_s": 327.5,
+   "notes": [],
+   "precision": 1.0,
+   "recall": 0.9961,
+   "f1": 0.998,
+   "f1_ci95": [
+    0.9948,
+    1.0
+   ],
+   "references": {
+    "zingg": [
+     {
+      "what": "Zingg, perfect labels, all fields",
+      "f1": 0.841,
+      "precision": 1.0,
+      "recall": 0.726,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "Zingg, perfect labels, SSN hidden",
+      "f1": 0.862,
+      "precision": 0.999,
+      "recall": 0.758,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "Zingg, labels from Jev",
+      "f1": 0.849,
+      "precision": 1.0,
+      "recall": 0.738,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     }
+    ],
+    "published": [],
+    "recorded": [
+     {
+      "what": "prototype: classifier on Jev labels, all fields / SSN hidden",
+      "f1": [
+       0.9748,
+       0.9356
+      ],
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "prototype + Jev arbitrates, all fields / SSN hidden",
+      "f1": [
+       0.9944,
+       0.9637
+      ],
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     }
+    ],
+    "zingg_note": null,
+    "splink": {
+     "precision": 1.0,
+     "recall": 0.9992,
+     "f1": 0.9996,
+     "threshold": 0.5,
+     "oracle_best_threshold": {
+      "precision": 1.0,
+      "recall": 0.9992,
+      "f1": 0.9996,
+      "threshold": 0.05
+     },
+     "version": "5.0.0",
+     "wall_s": 1.5,
+     "what": "unsupervised Fellegi-Sunter (DuckDB), pairwise over the whole corpus, p >= 0.5",
+     "true_pairs": 2500,
+     "blocked_pairs_above_0.01": 2498,
+     "ssn_hidden": {
+      "precision": 1.0,
+      "recall": 0.9764,
+      "f1": 0.9881,
+      "threshold": 0.5,
+      "oracle_best_threshold": {
+       "precision": 1.0,
+       "recall": 0.9764,
+       "f1": 0.9881,
+       "threshold": 0.05
+      },
+      "version": "5.0.0",
+      "wall_s": 0.9,
+      "what": "unsupervised Fellegi-Sunter (DuckDB), pairwise over the whole corpus, p >= 0.5",
+      "true_pairs": 2500,
+      "blocked_pairs_above_0.01": 2441
+     }
+    }
+   },
+   "f1_all_fields": 0.998,
+   "f1_ssn_hidden": 0.999,
+   "ssn_hidden": {
+    "kind": "linkage",
+    "records": {
+     "left": 5000,
+     "right": 2500
+    },
+    "true_pairs": 2500,
+    "test_true_pairs": 507,
+    "candidates": 25000,
+    "k": 5,
+    "candidate_recall_at_k": 1.0,
+    "trivial_baseline": {
+     "precision": 0.5142,
+     "recall": 1.0,
+     "f1": 0.6792,
+     "f1_ci95": [
+      0.6521,
+      0.706
+     ],
+     "units": 986,
+     "tp": 507,
+     "fp": 479,
+     "fn": 0
+    },
+    "gold": {
+     "precision": 1.0,
+     "recall": 0.998,
+     "f1": 0.999,
+     "f1_ci95": [
+      0.9969,
+      1.0
+     ],
+     "units": 986,
+     "tp": 506,
+     "fp": 0,
+     "fn": 1,
+     "threshold": 0.16,
+     "labels": {
+      "train": 15325,
+      "valid": 4745
+     }
+    },
+    "cardinality": "one_to_one",
+    "split_dedup": {
+     "ok": true,
+     "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
+    },
+    "wall_s_incl_start": 22.5,
+    "spark": "4.1.3",
+    "shuffle": {
+     "peak_stage_mb": 168.5,
+     "total_mb": 200.1
+    },
+    "records_per_s": 333.3,
+    "notes": []
+   }
+  },
+  "febrl4_original": {
+   "kind": "linkage",
+   "records": {
+    "left": 5000,
+    "right": 5000
+   },
+   "true_pairs": 5000,
+   "test_true_pairs": 986,
+   "candidates": 25000,
+   "k": 5,
+   "candidate_recall_at_k": 1.0,
+   "trivial_baseline": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "f1_ci95": [
+     1.0,
+     1.0
+    ],
+    "units": 986,
+    "tp": 986,
+    "fp": 0,
+    "fn": 0
+   },
+   "gold": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "f1_ci95": [
+     1.0,
+     1.0
+    ],
+    "units": 986,
+    "tp": 986,
+    "fp": 0,
+    "fn": 0,
+    "threshold": 0.5,
+    "labels": {
+     "train": 15325,
+     "valid": 4745
+    }
+   },
+   "cardinality": "one_to_one",
+   "split_dedup": {
+    "ok": true,
+    "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
+   },
+   "wall_s_incl_start": 28.1,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 254118,
+     "output_tokens": 6800,
+     "usd": 0.010673,
+     "label_input_tokens": 254118,
+     "label_usd": 0.010673,
+     "asked": 400,
+     "kept": 354
+    },
+    "labels_fit": 274,
+    "labels_fit_matches": 26,
+    "labels_threshold": 80,
+    "precision": 1.0,
+    "recall": 0.9959,
+    "f1": 0.998,
+    "f1_ci95": [
+     0.9959,
+     0.9995
+    ],
+    "units": 986,
+    "tp": 982,
+    "fp": 0,
+    "fn": 4,
+    "threshold": 0.5,
+    "wall_s": 14.7
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 374.7,
+    "total_mb": 412.8
+   },
+   "records_per_s": 355.9,
+   "notes": [
+    "every left record has exactly one partner: the nearest neighbour is a strong baseline"
+   ],
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "f1_ci95": [
+    1.0,
+    1.0
+   ],
+   "references": {
+    "zingg": [
+     {
+      "what": "Zingg, labels from Jev (6 rounds)",
+      "f1": 0.853,
+      "precision": 1.0,
+      "recall": 0.744,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "Zingg, ground-truth labels (6 rounds)",
+      "f1": 0.858,
+      "precision": 1.0,
+      "recall": 0.751,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     }
+    ],
+    "published": [],
+    "recorded": [
+     {
+      "what": "nearest neighbour, always link",
+      "f1": 1.0,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "top-k candidates + classifier on Jev labels",
+      "f1": 0.9992,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     }
+    ],
+    "zingg_note": null,
+    "splink": {
+     "precision": 1.0,
+     "recall": 0.999,
+     "f1": 0.9995,
+     "threshold": 0.5,
+     "oracle_best_threshold": {
+      "precision": 1.0,
+      "recall": 0.999,
+      "f1": 0.9995,
+      "threshold": 0.15
+     },
+     "version": "5.0.0",
+     "wall_s": 1.5,
+     "what": "unsupervised Fellegi-Sunter (DuckDB), pairwise over the whole corpus, p >= 0.5",
+     "true_pairs": 5000,
+     "blocked_pairs_above_0.01": 4996
+    }
+   }
+  },
+  "febrl3": {
+   "kind": "dedupe",
+   "records": {
+    "records": 5000
+   },
+   "true_pairs": 6538,
+   "test_true_pairs": 1304,
+   "candidates": 33324,
+   "k": 10,
+   "candidate_recall_at_k": 1.0,
+   "trivial_baseline": {
+    "precision": 0.7841,
+    "recall": 0.454,
+    "f1": 0.575,
+    "f1_ci95": [
+     0.5573,
+     0.5937
+    ],
+    "units": 1027,
+    "tp": 592,
+    "fp": 163,
+    "fn": 712
+   },
+   "gold": {
+    "precision": 0.9962,
+    "recall": 0.9992,
+    "f1": 0.9977,
+    "f1_ci95": [
+     0.9949,
+     0.9996
+    ],
+    "units": 1027,
+    "tp": 1303,
+    "fp": 5,
+    "fn": 1,
+    "threshold": 0.05,
+    "labels": {
+     "train": 19508,
+     "valid": 7047
+    }
+   },
+   "cardinality": "unrestricted",
+   "split_dedup": {
+    "ok": true,
+    "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
+   },
+   "wall_s_incl_start": 29.0,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 252459,
+     "output_tokens": 6800,
+     "usd": 0.010603,
+     "label_input_tokens": 252459,
+     "label_usd": 0.010603,
+     "asked": 400,
+     "kept": 356
+    },
+    "labels_fit": 263,
+    "labels_fit_matches": 17,
+    "labels_threshold": 93,
+    "precision": 0.9966,
+    "recall": 0.9041,
+    "f1": 0.9481,
+    "f1_ci95": [
+     0.9342,
+     0.9605
+    ],
+    "units": 1027,
+    "tp": 1179,
+    "fp": 4,
+    "fn": 125,
+    "threshold": 0.5,
+    "wall_s": 14.6
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 429.3,
+    "total_mb": 487.8
+   },
+   "records_per_s": 172.4,
+   "notes": [
+    "2000 gold clusters over 5000 records, largest 6"
+   ],
+   "precision": 0.9962,
+   "recall": 0.9992,
+   "f1": 0.9977,
+   "f1_ci95": [
+    0.9949,
+    0.9996
+   ],
+   "references": {
+    "zingg": [],
+    "published": [
+     {
+      "what": "Splink on Febrl (blog figure, unverified)",
+      "f1": 0.998,
+      "source": "Splink blog, cited in the brief"
+     }
+    ],
+    "recorded": [],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "precision": 1.0,
+     "recall": 0.9838,
+     "f1": 0.9918,
+     "threshold": 0.5,
+     "oracle_best_threshold": {
+      "precision": 1.0,
+      "recall": 0.9846,
+      "f1": 0.9922,
+      "threshold": 0.05
+     },
+     "version": "5.0.0",
+     "wall_s": 1.2,
+     "what": "unsupervised Fellegi-Sunter (DuckDB), pairwise over the whole corpus, p >= 0.5",
+     "true_pairs": 6538,
+     "blocked_pairs_above_0.01": 6437
+    }
+   }
+  },
+  "bpid": {
+   "kind": "pairs",
+   "records": {
+    "left": 10000,
+    "right": 10000
+   },
+   "pairs": {
+    "train": 7019,
+    "valid": 991,
+    "test": 1990
+   },
+   "test_matches": 866,
+   "candidates": 50000,
+   "k": 5,
+   "candidate_recall_at_k": 0.9758,
+   "trivial_baseline": {
+    "precision": 0.487,
+    "recall": 0.9319,
+    "f1": 0.6397,
+    "f1_ci95": [
+     0.619,
+     0.6605
+    ],
+    "units": 1990,
+    "tp": 807,
+    "fp": 850,
+    "fn": 59
+   },
+   "gold": {
+    "precision": 0.8108,
+    "recall": 0.8464,
+    "f1": 0.8282,
+    "f1_ci95": [
+     0.8077,
+     0.8451
+    ],
+    "units": 1990,
+    "tp": 733,
+    "fp": 171,
+    "fn": 133,
+    "threshold": 0.48,
+    "labels": {
+     "train": 7019,
+     "valid": 991
+    }
+   },
+   "split_dedup": {
+    "ok": true,
+    "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
+   },
+   "wall_s_incl_start": 47.4,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 227278,
+     "output_tokens": 6800,
+     "usd": 0.009546,
+     "label_input_tokens": 227278,
+     "label_usd": 0.009546,
+     "asked": 400,
+     "kept": 23
+    },
+    "labels_fit": 16,
+    "labels_fit_matches": 11,
+    "labels_threshold": 7,
+    "precision": 0.5045,
+    "recall": 0.9099,
+    "f1": 0.6491,
+    "f1_ci95": [
+     0.6274,
+     0.6704
+    ],
+    "units": 1990,
+    "tp": 788,
+    "fp": 774,
+    "fn": 78,
+    "threshold": 0.5,
+    "wall_s": 14.7
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 1887.8,
+    "total_mb": 2012.8
+   },
+   "records_per_s": 421.9,
+   "notes": [],
+   "precision": 0.8108,
+   "recall": 0.8464,
+   "f1": 0.8282,
+   "f1_ci95": [
+    0.8077,
+    0.8451
+   ],
+   "references": {
+    "zingg": [],
+    "published": [
+     {
+      "what": "Sudowoodo (best published)",
+      "f1": 0.788,
+      "source": "BPID, EMNLP 2024 Industry"
+     },
+     {
+      "what": "Ditto",
+      "f1": 0.752,
+      "source": "BPID, EMNLP 2024 Industry"
+     },
+     {
+      "what": "Llama3-70B zero-shot",
+      "f1": 0.729,
+      "source": "BPID, EMNLP 2024 Industry"
+     },
+     {
+      "what": "GPT-4-turbo zero-shot",
+      "f1": 0.687,
+      "source": "BPID, EMNLP 2024 Industry"
+     },
+     {
+      "what": "rules",
+      "f1": 0.608,
+      "source": "BPID, EMNLP 2024 Industry"
+     }
+    ],
+    "recorded": [
+     {
+      "what": "Jev zero-shot (own 70/10/20 split)",
+      "f1": 0.813,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "classical, 7 000 gold labels (own split)",
+      "f1": 0.749,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     }
+    ],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "note": "not measured on this corpus (bench/splink_reference.py covers the person corpora with a Splink demo-style model)"
+    }
+   }
+  },
+  "abt_buy": {
+   "kind": "pairs",
+   "records": {
+    "left": 1068,
+    "right": 1035
+   },
+   "pairs": {
+    "train": 5716,
+    "valid": 1894,
+    "test": 1892
+   },
+   "test_matches": 203,
+   "candidates": 5340,
+   "k": 5,
+   "candidate_recall_at_k": 0.9606,
+   "trivial_baseline": {
+    "precision": 0.8465,
+    "recall": 0.8424,
+    "f1": 0.8444,
+    "f1_ci95": [
+     0.8042,
+     0.8794
+    ],
+    "units": 1892,
+    "tp": 171,
+    "fp": 31,
+    "fn": 32
+   },
+   "gold": {
+    "precision": 0.6783,
+    "recall": 0.7685,
+    "f1": 0.7206,
+    "f1_ci95": [
+     0.6685,
+     0.7692
+    ],
+    "units": 1892,
+    "tp": 156,
+    "fp": 74,
+    "fn": 47,
+    "threshold": 0.23,
+    "labels": {
+     "train": 5716,
+     "valid": 1894
+    }
+   },
+   "split_dedup": {
+    "ok": true,
+    "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
+   },
+   "wall_s_incl_start": 17.7,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 224233,
+     "output_tokens": 6800,
+     "usd": 0.009418,
+     "label_input_tokens": 224233,
+     "label_usd": 0.009418,
+     "asked": 400,
+     "kept": 328
+    },
+    "labels_fit": 238,
+    "labels_fit_matches": 10,
+    "labels_threshold": 90,
+    "precision": 0.5,
+    "recall": 0.5123,
+    "f1": 0.5061,
+    "f1_ci95": [
+     0.448,
+     0.5685
+    ],
+    "units": 1892,
+    "tp": 104,
+    "fp": 104,
+    "fn": 99,
+    "threshold": 0.1,
+    "wall_s": 15.6
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 55.8,
+    "total_mb": 98.9
+   },
+   "records_per_s": 118.8,
+   "notes": [
+    "73 pair(s) repeated across Ditto splits, kept once"
+   ],
+   "precision": 0.6783,
+   "recall": 0.7685,
+   "f1": 0.7206,
+   "f1_ci95": [
+    0.6685,
+    0.7692
+   ],
+   "references": {
+    "zingg": [],
+    "published": [
+     {
+      "what": "Magellan (Zingg-class)",
+      "f1": 0.436,
+      "source": "Mudgal et al., SIGMOD 2018 (Magellan, DeepMatcher)"
+     },
+     {
+      "what": "DeepMatcher",
+      "f1": 0.628,
+      "source": "Mudgal et al., SIGMOD 2018 (Magellan, DeepMatcher)"
+     },
+     {
+      "what": "Ditto",
+      "f1": 0.893,
+      "source": "Li et al., VLDB 2021 (Ditto)"
+     },
+     {
+      "what": "GPT-4 zero-shot",
+      "f1": 0.958,
+      "source": "Peeters, Steiner & Bizer, EDBT 2025 (GPT-4, best of 10 prompts, downsampled test)"
+     }
+    ],
+    "recorded": [
+     {
+      "what": "classifier (scikit-learn)",
+      "f1": 0.768,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "Jev zero-shot",
+      "f1": 0.93,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     }
+    ],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "note": "not measured on this corpus (bench/splink_reference.py covers the person corpora with a Splink demo-style model)"
+    }
+   }
+  },
+  "amazon_google": {
+   "kind": "pairs",
+   "records": {
+    "left": 1288,
+    "right": 2074
+   },
+   "pairs": {
+    "train": 6668,
+    "valid": 2164,
+    "test": 2127
+   },
+   "test_matches": 218,
+   "candidates": 6440,
+   "k": 5,
+   "candidate_recall_at_k": 0.9771,
+   "trivial_baseline": {
+    "precision": 0.6292,
+    "recall": 0.7706,
+    "f1": 0.6928,
+    "f1_ci95": [
+     0.6482,
+     0.7366
+    ],
+    "units": 2127,
+    "tp": 168,
+    "fp": 99,
+    "fn": 50
+   },
+   "gold": {
+    "precision": 0.5938,
+    "recall": 0.6972,
+    "f1": 0.6414,
+    "f1_ci95": [
+     0.5926,
+     0.6879
+    ],
+    "units": 2127,
+    "tp": 152,
+    "fp": 104,
+    "fn": 66,
+    "threshold": 0.25,
+    "labels": {
+     "train": 6668,
+     "valid": 2164
+    }
+   },
+   "split_dedup": {
+    "ok": true,
+    "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
+   },
+   "wall_s_incl_start": 16.8,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 188721,
+     "output_tokens": 6800,
+     "usd": 0.007926,
+     "label_input_tokens": 188721,
+     "label_usd": 0.007926,
+     "asked": 400,
+     "kept": 225
+    },
+    "labels_fit": 163,
+    "labels_fit_matches": 7,
+    "labels_threshold": 62,
+    "precision": 0.4228,
+    "recall": 0.289,
+    "f1": 0.3433,
+    "f1_ci95": [
+     0.2743,
+     0.4076
+    ],
+    "units": 2127,
+    "tp": 63,
+    "fp": 86,
+    "fn": 155,
+    "threshold": 0.89,
+    "wall_s": 15.9
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 31.9,
+    "total_mb": 67.1
+   },
+   "records_per_s": 200.1,
+   "notes": [
+    "501 pair(s) repeated across Ditto splits, kept once"
+   ],
+   "precision": 0.5938,
+   "recall": 0.6972,
+   "f1": 0.6414,
+   "f1_ci95": [
+    0.5926,
+    0.6879
+   ],
+   "references": {
+    "zingg": [],
+    "published": [
+     {
+      "what": "Magellan (Zingg-class)",
+      "f1": 0.491,
+      "source": "Mudgal et al., SIGMOD 2018 (Magellan, DeepMatcher)"
+     },
+     {
+      "what": "DeepMatcher",
+      "f1": 0.693,
+      "source": "Mudgal et al., SIGMOD 2018 (Magellan, DeepMatcher)"
+     },
+     {
+      "what": "Ditto",
+      "f1": 0.756,
+      "source": "Li et al., VLDB 2021 (Ditto)"
+     },
+     {
+      "what": "GPT-4 zero-shot",
+      "f1": 0.764,
+      "source": "Peeters, Steiner & Bizer, EDBT 2025 (GPT-4, best of 10 prompts, downsampled test)"
+     }
+    ],
+    "recorded": [
+     {
+      "what": "classifier (scikit-learn)",
+      "f1": 0.684,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "Jev zero-shot",
+      "f1": 0.705,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     }
+    ],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "note": "not measured on this corpus (bench/splink_reference.py covers the person corpora with a Splink demo-style model)"
+    }
+   }
+  },
+  "walmart_amazon": {
+   "kind": "pairs",
+   "records": {
+    "left": 1688,
+    "right": 5247
+   },
+   "pairs": {
+    "train": 6142,
+    "valid": 2047,
+    "test": 2047
+   },
+   "test_matches": 192,
+   "candidates": 8440,
+   "k": 5,
+   "candidate_recall_at_k": 0.9948,
+   "trivial_baseline": {
+    "precision": 0.4862,
+    "recall": 0.8281,
+    "f1": 0.6127,
+    "f1_ci95": [
+     0.5595,
+     0.6605
+    ],
+    "units": 2047,
+    "tp": 159,
+    "fp": 168,
+    "fn": 33
+   },
+   "gold": {
+    "precision": 0.8503,
+    "recall": 0.7396,
+    "f1": 0.7911,
+    "f1_ci95": [
+     0.7425,
+     0.8354
+    ],
+    "units": 2047,
+    "tp": 142,
+    "fp": 25,
+    "fn": 50,
+    "threshold": 0.28,
+    "labels": {
+     "train": 6142,
+     "valid": 2047
+    }
+   },
+   "split_dedup": {
+    "ok": true,
+    "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
+   },
+   "wall_s_incl_start": 20.7,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 214338,
+     "output_tokens": 6800,
+     "usd": 0.009002,
+     "label_input_tokens": 214338,
+     "label_usd": 0.009002,
+     "asked": 400,
+     "kept": 275
+    },
+    "labels_fit": 219,
+    "labels_fit_matches": 8,
+    "labels_threshold": 56,
+    "precision": 1.0,
+    "recall": 0.6094,
+    "f1": 0.7573,
+    "f1_ci95": [
+     0.7043,
+     0.8072
+    ],
+    "units": 2047,
+    "tp": 117,
+    "fp": 0,
+    "fn": 75,
+    "threshold": 0.5,
+    "wall_s": 14.2
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 119.7,
+    "total_mb": 280.7
+   },
+   "records_per_s": 335.0,
+   "notes": [
+    "6 pair(s) repeated across Ditto splits, kept once"
+   ],
+   "precision": 0.8503,
+   "recall": 0.7396,
+   "f1": 0.7911,
+   "f1_ci95": [
+    0.7425,
+    0.8354
+   ],
+   "references": {
+    "zingg": [],
+    "published": [
+     {
+      "what": "Magellan (Zingg-class)",
+      "f1": 0.719,
+      "source": "Mudgal et al., SIGMOD 2018 (Magellan, DeepMatcher)"
+     },
+     {
+      "what": "DeepMatcher",
+      "f1": 0.676,
+      "source": "Mudgal et al., SIGMOD 2018 (Magellan, DeepMatcher)"
+     },
+     {
+      "what": "Ditto",
+      "f1": 0.868,
+      "source": "Li et al., VLDB 2021 (Ditto)"
+     },
+     {
+      "what": "GPT-4 zero-shot",
+      "f1": 0.897,
+      "source": "Peeters, Steiner & Bizer, EDBT 2025 (GPT-4, best of 10 prompts, downsampled test)"
+     }
+    ],
+    "recorded": [
+     {
+      "what": "classifier (scikit-learn)",
+      "f1": 0.831,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     },
+     {
+      "what": "Jev zero-shot",
+      "f1": 0.916,
+      "source": "Lake/mdm/bench/README.md (recorded 2026-09-19)"
+     }
+    ],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "note": "not measured on this corpus (bench/splink_reference.py covers the person corpora with a Splink demo-style model)"
+    }
+   }
+  },
+  "dblp_acm": {
+   "kind": "pairs",
+   "records": {
+    "left": 2436,
+    "right": 2245
+   },
+   "pairs": {
+    "train": 7289,
+    "valid": 2407,
+    "test": 2407
+   },
+   "test_matches": 443,
+   "candidates": 12180,
+   "k": 5,
+   "candidate_recall_at_k": 1.0,
+   "trivial_baseline": {
+    "precision": 0.9607,
+    "recall": 0.9932,
+    "f1": 0.9767,
+    "f1_ci95": [
+     0.9657,
+     0.9862
+    ],
+    "units": 2407,
+    "tp": 440,
+    "fp": 18,
+    "fn": 3
+   },
+   "gold": {
+    "precision": 0.9888,
+    "recall": 0.9932,
+    "f1": 0.991,
+    "f1_ci95": [
+     0.9847,
+     0.9965
+    ],
+    "units": 2407,
+    "tp": 440,
+    "fp": 5,
+    "fn": 3,
+    "threshold": 0.53,
+    "labels": {
+     "train": 7289,
+     "valid": 2407
+    }
+   },
+   "split_dedup": {
+    "ok": true,
+    "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
+   },
+   "wall_s_incl_start": 21.1,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 208110,
+     "output_tokens": 6800,
+     "usd": 0.008741,
+     "label_input_tokens": 208110,
+     "label_usd": 0.008741,
+     "asked": 400,
+     "kept": 342
+    },
+    "labels_fit": 255,
+    "labels_fit_matches": 41,
+    "labels_threshold": 87,
+    "precision": 0.8671,
+    "recall": 0.9571,
+    "f1": 0.9099,
+    "f1_ci95": [
+     0.8901,
+     0.9278
+    ],
+    "units": 2407,
+    "tp": 424,
+    "fp": 65,
+    "fn": 19,
+    "threshold": 0.5,
+    "wall_s": 15.4
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 207.9,
+    "total_mb": 348.9
+   },
+   "records_per_s": 221.8,
+   "notes": [
+    "260 pair(s) repeated across Ditto splits, kept once"
+   ],
+   "precision": 0.9888,
+   "recall": 0.9932,
+   "f1": 0.991,
+   "f1_ci95": [
+    0.9847,
+    0.9965
+   ],
+   "references": {
+    "zingg": [],
+    "published": [
+     {
+      "what": "Magellan (Zingg-class)",
+      "f1": 0.984,
+      "source": "Mudgal et al., SIGMOD 2018 (Magellan, DeepMatcher)"
+     },
+     {
+      "what": "Ditto",
+      "f1": 0.99,
+      "source": "Li et al., VLDB 2021 (Ditto)"
+     }
+    ],
+    "recorded": [],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "note": "not measured on this corpus (bench/splink_reference.py covers the person corpora with a Splink demo-style model)"
+    }
+   }
+  },
+  "splink_historical_50k": {
+   "kind": "dedupe",
+   "records": {
+    "records": 50578
+   },
+   "true_pairs": 303961,
+   "test_true_pairs": 60107,
+   "candidates": 334095,
+   "k": 10,
+   "candidate_recall_at_k": 0.679,
+   "trivial_baseline": {
+    "precision": 0.9076,
+    "recall": 0.115,
+    "f1": 0.2042,
+    "f1_ci95": [
+     0.1976,
+     0.2103
+    ],
+    "units": 10059,
+    "tp": 6915,
+    "fp": 704,
+    "fn": 53192
+   },
+   "gold": {
+    "precision": 0.9781,
+    "recall": 0.6534,
+    "f1": 0.7834,
+    "f1_ci95": [
+     0.7785,
+     0.7887
+    ],
+    "units": 10059,
+    "tp": 39273,
+    "fp": 879,
+    "fn": 20834,
+    "threshold": 0.54,
+    "labels": {
+     "train": 201079,
+     "valid": 67562
+    }
+   },
+   "cardinality": "unrestricted",
+   "split_dedup": {
+    "ok": true,
+    "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
+   },
+   "wall_s_incl_start": 62.9,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 218726,
+     "output_tokens": 6800,
+     "usd": 0.009186,
+     "label_input_tokens": 218726,
+     "label_usd": 0.009186,
+     "asked": 400,
+     "kept": 102
+    },
+    "labels_fit": 77,
+    "labels_fit_matches": 33,
+    "labels_threshold": 25,
+    "precision": 0.9097,
+    "recall": 0.514,
+    "f1": 0.6568,
+    "f1_ci95": [
+     0.6503,
+     0.6637
+    ],
+    "units": 10059,
+    "tp": 30893,
+    "fp": 3066,
+    "fn": 29214,
+    "threshold": 0.5,
+    "wall_s": 14.6
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 1266.5,
+    "total_mb": 2116.3
+   },
+   "records_per_s": 804.1,
+   "notes": [
+    "5156 gold clusters over 50578 records, largest 21"
+   ],
+   "precision": 0.9781,
+   "recall": 0.6534,
+   "f1": 0.7834,
+   "f1_ci95": [
+    0.7785,
+    0.7887
+   ],
+   "references": {
+    "zingg": [],
+    "published": [],
+    "recorded": [],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "precision": 0.9709,
+     "recall": 0.5329,
+     "f1": 0.6881,
+     "threshold": 0.5,
+     "oracle_best_threshold": {
+      "precision": 0.9694,
+      "recall": 0.5336,
+      "f1": 0.6883,
+      "threshold": 0.45
+     },
+     "version": "5.0.0",
+     "wall_s": 2.4,
+     "what": "unsupervised Fellegi-Sunter (DuckDB), pairwise over the whole corpus, p >= 0.5",
+     "true_pairs": 303961,
+     "blocked_pairs_above_0.01": 206488
+    }
+   }
+  },
+  "leipzig_affiliations": {
+   "kind": "dedupe",
+   "records": {
+    "records": 2260
+   },
+   "true_pairs": 16795,
+   "test_true_pairs": 3128,
+   "candidates": 15470,
+   "k": 10,
+   "candidate_recall_at_k": 0.5141,
+   "trivial_baseline": {
+    "precision": 0.8857,
+    "recall": 0.0892,
+    "f1": 0.1621,
+    "f1_ci95": [
+     0.1387,
+     0.1853
+    ],
+    "units": 432,
+    "tp": 279,
+    "fp": 36,
+    "fn": 2849
+   },
+   "gold": {
+    "precision": 0.8468,
+    "recall": 0.4508,
+    "f1": 0.5884,
+    "f1_ci95": [
+     0.5577,
+     0.6178
+    ],
+    "units": 432,
+    "tp": 1410,
+    "fp": 255,
+    "fn": 1718,
+    "threshold": 0.52,
+    "labels": {
+     "train": 9285,
+     "valid": 3308
+    }
+   },
+   "cardinality": "unrestricted",
+   "split_dedup": {
+    "ok": true,
+    "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
+   },
+   "wall_s_incl_start": 17.8,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 178934,
+     "output_tokens": 6800,
+     "usd": 0.007515,
+     "label_input_tokens": 178934,
+     "label_usd": 0.007515,
+     "asked": 400,
+     "kept": 267
+    },
+    "labels_fit": 211,
+    "labels_fit_matches": 108,
+    "labels_threshold": 56,
+    "precision": 0.8647,
+    "recall": 0.3453,
+    "f1": 0.4935,
+    "f1_ci95": [
+     0.4618,
+     0.526
+    ],
+    "units": 432,
+    "tp": 1080,
+    "fp": 169,
+    "fn": 2048,
+    "threshold": 0.8,
+    "wall_s": 15.7
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 26.5,
+    "total_mb": 55.2
+   },
+   "records_per_s": 127.0,
+   "notes": [
+    "330 gold clusters over 2260 strings"
+   ],
+   "precision": 0.8468,
+   "recall": 0.4508,
+   "f1": 0.5884,
+   "f1_ci95": [
+    0.5577,
+    0.6178
+   ],
+   "references": {
+    "zingg": [],
+    "published": [
+     {
+      "what": "Dedupe classifier + F-MWSP clustering (whole dataset)",
+      "f1": 0.63,
+      "source": "Lokhande et al., arXiv 1909.05460 (2019); a hand-written rule classifier (Aumueller & Rahm, ICIQ 2009) is reported higher, figure not extracted"
+     }
+    ],
+    "recorded": [],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "note": "not measured on this corpus (bench/splink_reference.py covers the person corpora with a Splink demo-style model)"
+    }
+   }
+  },
+  "synthetic_1e6": {
+   "kind": "linkage",
+   "records": {
+    "left": 500000,
+    "right": 500000
+   },
+   "true_pairs": 250000,
+   "test_true_pairs": 50127,
+   "candidates": 1289714,
+   "k": 5,
+   "candidate_recall_at_k": 0.1186,
+   "trivial_baseline": {
+    "precision": 0.0775,
+    "recall": 0.0801,
+    "f1": 0.0788,
+    "f1_ci95": [
+     0.0765,
+     0.0811
+    ],
+    "units": 100222,
+    "tp": 4015,
+    "fp": 47784,
+    "fn": 46112
+   },
+   "gold": {
+    "precision": 1.0,
+    "recall": 0.1186,
+    "f1": 0.212,
+    "f1_ci95": [
+     0.2072,
+     0.2163
+    ],
+    "units": 100222,
+    "tp": 5945,
+    "fp": 0,
+    "fn": 44182,
+    "threshold": 0.24,
+    "labels": {
+     "train": 773259,
+     "valid": 257465
+    }
+   },
+   "cardinality": "one_to_one",
+   "split_dedup": {
+    "ok": true,
+    "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
+   },
+   "wall_s_incl_start": 114.9,
+   "jev": {
+    "usage": {
+     "requests": 400,
+     "cached": 0,
+     "errors": 0,
+     "input_tokens": 234277,
+     "output_tokens": 6800,
+     "usd": 0.00984,
+     "label_input_tokens": 234277,
+     "label_usd": 0.00984,
+     "asked": 400,
+     "kept": 388
+    },
+    "labels_fit": 287,
+    "labels_fit_matches": 1,
+    "labels_threshold": 101,
+    "precision": 0.9928,
+    "recall": 0.1076,
+    "f1": 0.1942,
+    "f1_ci95": [
+     0.1893,
+     0.1984
+    ],
+    "units": 100222,
+    "tp": 5395,
+    "fp": 39,
+    "fn": 44732,
+    "threshold": 0.5,
+    "wall_s": 16.7
+   },
+   "spark": "4.1.3",
+   "shuffle": {
+    "peak_stage_mb": 1185.8,
+    "total_mb": 4191.9
+   },
+   "records_per_s": 8703.2,
+   "notes": [
+    "10^6 generated records (500 000 per side), 250 000 true links, seed 1000000"
+   ],
+   "precision": 1.0,
+   "recall": 0.1186,
+   "f1": 0.212,
+   "f1_ci95": [
+    0.2072,
+    0.2163
+   ],
+   "references": {
+    "zingg": [],
+    "published": [],
+    "recorded": [],
+    "zingg_note": "not run: Zingg figures exist only for FEBRL4 (recorded 2026-09-19); Zingg is never a dependency here",
+    "splink": {
+     "precision": 1.0,
+     "recall": 0.9842,
+     "f1": 0.9921,
+     "threshold": 0.5,
+     "oracle_best_threshold": {
+      "precision": 1.0,
+      "recall": 0.9842,
+      "f1": 0.9921,
+      "threshold": 0.05
+     },
+     "version": "5.0.0",
+     "wall_s": 24.8,
+     "what": "unsupervised Fellegi-Sunter (DuckDB), pairwise over the whole corpus, p >= 0.5",
+     "true_pairs": 250000,
+     "blocked_pairs_above_0.01": 246066
+    }
+   }
+  }
+ },
+ "method_winners": {
+  "candidates.method": "gram_topk",
+  "features.string_similarity": "levenshtein",
+  "matcher.estimator": "gbt",
+  "decision.cardinality": "one_to_one"
+ },
+ "method_winners_source": "bench/results/methods.json (ZR-3a, chosen on validation)",
+ "split_dedup_asserted": true,
+ "defaults": {
+  "candidates.method": "gram_topk",
+  "features.string_similarity": "levenshtein",
+  "matcher.estimator": "gbt",
+  "decision.cardinality": "one_to_one"
+ },
+ "protocol": "(the same for every corpus, TEST is read once per labeller):\n\n  linkage / dedupe   records -> entity view -> candidates (gram_topk, k = 5; k = 10 for dedupe, self pairs dropped,\n                     pairs canonicalised) -> comparison vectors. Left records (the smaller id for dedupe) are split\n                     by xxhash64 of their id: train 60 % / valid 20 % / test 20 % \u2014 the split of bench/methods.py, so\n                     the method choices never saw TEST. Gold labeller: every TRAIN candidate labelled from the truth,\n                     model fitted on TRAIN, threshold on VALID, links on TEST under the cardinality policy\n                     (linkage: decision.cardinality; dedupe: unrestricted \u2014 clustering is ZR-4). Units = TEST left\n                     records; a true pair the candidates missed is a false negative.\n  pairs              the corpus's fixed pair splits (Ditto's for the Magellan sets, a line hash for BPID): model on\n                     TRAIN, threshold on VALID, F1 on TEST pairs. Candidate recall@k = TEST matches that gram_topk\n                     (k = 5) proposes when run over all records.\n  Jev labeller       the same run with no gold label: Jev labels 400 TRAIN candidate pairs (xxhash order), only its\n                     confident answers (tau 0.90) are kept, split 75 / 25 by left id into fit / threshold. Tokens and\n                     dollars are the requests actually sent (answers are cached under data/runs/bench/jev/).\n  trivial baseline   always link each left record's nearest neighbour (rank-1 candidate), scored on the same units.\n\nF1 intervals: 95 % percentile bootstrap over TEST units (1 000 resamples, seed 0). Peak shuffle: the largest bytes\nwritten by one stage, read from the Spark event log. De-duplication across splits is asserted per corpus.",
+ "meta": {
+  "generated": "2026-09-29T00:04:09",
+  "bootstrap": 1000,
+  "machine": "arm64 \u00b7 16 cores \u00b7 local[8]",
+  "jev_price_per_m_input_usd": 0.042
+ }
+}
