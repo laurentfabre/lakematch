@@ -91,6 +91,12 @@ computed once per record by a local model2vec model (MIT, `pip install -e ".[emb
 table, so the pair plan stays UDF-free. [`bench/ABLATION.md`](bench/ABLATION.md) measures what each family adds on
 FEBRL4, BPID, Leipzig Affiliations and Abt-Buy, with bootstrap intervals, and records the D12 decision.
 
+Seven additional built-in families are available through `features.extra_families`, off by default.
+See [optional string similarity](spec/SIMILARITY.md) for their field types, exact variants, resource limits
+and reference tests. [SIM-3](bench/SIMBEAT.md) compares all seven additions and greedy combinations
+against Levenshtein and Jaro–Winkler on four corpora, with a locked TEST confirmation. The recorded verdict is `not_beaten`; defaults remain unchanged.
+[Input isolation](spec/SIMBEAT_PROTOCOL.md) describes the separately provisioned v2 protocol for future runs.
+
 ## Configuration
 
 One YAML; [`examples/febrl4.yaml`](examples/febrl4.yaml) shows every choice. Every method of the brief is a legal
@@ -102,6 +108,8 @@ value today; a choice whose phase has not landed fails with a message naming tha
 |---|---|---|
 | `candidates.method` | gram_topk · learned_blocker · minhash_lsh · field_blocks · union | all (compared in [`bench/METHODS.md`](bench/METHODS.md)) |
 | `features.exclude` | any feature family (the ablation's lever) | all |
+| `features.extra_families` | token_sort_lev · padded_bigram_dice · weighted_jaccard · qgram_count_cosine · soft_tfidf_lev · osa · lcs_indel | all built-ins; default `[]`; [contracts](spec/SIMILARITY.md) |
+| `features.sota_max_chars` | positive integer, default 256 | OSA/LCS reject longer inputs explicitly |
 | `features.string_similarity` | levenshtein · jaro_winkler · both | all (Jaro-Winkler: UDF before Spark 4.3, needs `udf_features`) |
 | `features.multi_token` | idf_token_cosine · gram_overlap · monge_elkan_token · affine_gap_udf | all (affine gap: UDF, needs `udf_features`) |
 | `features.embeddings.provider` | auto · none · local · databricks_endpoint | auto · none · local (model2vec) — endpoint in ZR-6 |
@@ -123,6 +131,8 @@ value today; a choice whose phase has not landed fails with a message naming tha
 
 ```bash
 scripts/test.sh     # the suite twice: a classic session, then a local Spark Connect server
+bash scripts/verify_simbeat.sh 1  # research catalogue
+bash scripts/verify_simbeat.sh 3  # saved-result audit; requires the local historical artifact cache
 ```
 
 The Connect pass behaves like serverless (no SparkContext, analysis at execution), so a construct that only works in

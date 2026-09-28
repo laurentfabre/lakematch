@@ -46,9 +46,11 @@ METHODS: dict[str, dict[str, str | None]] = {
 FIELD_TYPES = ("person_name", "address", "organisation", "title", "code", "date", "number")
 
 # Feature families (features/__init__.py documents which field types each applies to). `features.exclude` drops
-# families — the ablation's lever. The last two are UDF families: optional, only with `features.udf_features: true`.
+# families — the ablation's lever. Jaro-Winkler/affine-gap UDFs require features.udf_features; extras are built-ins.
+EXTRA_FAMILIES = ("osa", "weighted_jaccard", "padded_bigram_dice", "qgram_count_cosine", "token_sort_lev",
+                  "soft_tfidf_lev", "lcs_indel")
 FAMILIES = ("candidate", "edit", "exact", "phonetic", "monge_elkan", "token_idf", "gram", "structure", "rarity",
-            "embedding", "jaro_winkler", "affine_gap")
+            "embedding", "jaro_winkler", "affine_gap", *EXTRA_FAMILIES)
 UDF_CHOICES = {"jaro_winkler", "both", "affine_gap_udf"}   # UDFs before Spark 4.3 (affine gap: always)
 
 # Everything that bills on top of plain compute. The laptop profile turns all of them off.
@@ -85,6 +87,8 @@ DEFAULTS: dict[str, Any] = {
                  "multi_token": ["idf_token_cosine", "gram_overlap", "monge_elkan_token"],
                  "udf_features": False,
                  "exclude": [],
+                 "extra_families": [],   # SIM-2 candidates remain opt-in until a SIM-3 validation winner
+                 "sota_max_chars": 256,  # OSA/LCS reject longer strings; never silently truncate
                  "token_cap": 30,         # Monge-Elkan compares at most this many tokens per side (long titles)
                  "embeddings": {"fields_of_type": ["organisation", "title"], "provider": "auto",
                                 "model": "minishlab/potion-base-32M"}},   # D12 winner, bench/ABLATION.md
@@ -206,6 +210,14 @@ def validate(data: dict) -> None:
             raise ConfigError(f"entity.fields.{name}: unknown option(s) {', '.join(sorted(set(spec) - {'type', 'multi'}))}")
         if spec.get("multi") and spec["type"] != "code":
             raise ConfigError(f"entity.fields.{name}: multi applies to code fields (a set of identifiers)")
+    extras = cfg.get("features.extra_families")
+    if not isinstance(extras, list) or any(not isinstance(f, str) or f not in EXTRA_FAMILIES for f in extras):
+        raise ConfigError(f"features.extra_families must be a list of new feature families ({', '.join(EXTRA_FAMILIES)})")
+    if len(set(extras)) != len(extras):
+        raise ConfigError("features.extra_families must not contain duplicates")
+    for key in ("features.token_cap", "features.sota_max_chars"):
+        if type(cfg.get(key)) is not int or cfg.get(key) < 1:
+            raise ConfigError(f"{key} must be a positive integer")
     for fam in cfg.get("features.exclude"):
         if fam not in FAMILIES:
             raise ConfigError(f"features.exclude: '{fam}' is not a feature family ({', '.join(FAMILIES)})")

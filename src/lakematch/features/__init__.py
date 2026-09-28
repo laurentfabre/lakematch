@@ -19,6 +19,9 @@ from "different". Families (`features.exclude` drops any of them — the ablatio
 | jaro_winkler | jw_            | person_name, organisation, code (single)      | UDF before Spark 4.3, the built-in from 4.3 — optional   |
 | affine_gap   | agp_           | address, organisation, title                  | character local alignment with affine gaps — UDF, optional |
 
+SIM-2 built-in families are opt-in through features.extra_families. Their prefixes and field types live in
+sota.PREFIXES / sota.FIELD_TYPES; definitions, limits and examples are in spec/SIMILARITY.md.
+
 Structure features: person_name -> swp_ (same tokens, other order), ini_ (an initial on one side matches a token on
 the other); address and title -> num_ (Jaccard of tokens holding a digit: house and model numbers); organisation ->
 num_, lgf_ (legal-form agreement), fpe_ / fpl_ (fingerprint without legal forms: equal / levenshtein), cnt_ (one
@@ -38,6 +41,7 @@ from pyspark.sql import Column, DataFrame, functions as F
 from .. import embeddings
 from ..config import Config, ConfigError
 from ..entity import MULTI_TOKEN_TYPES, TEXT_TYPES, qgrams
+from . import sota
 
 log = logging.getLogger("lakematch")
 MISSING = -1.0
@@ -45,7 +49,8 @@ LEGAL_FORMS = ["sa", "sas", "sasu", "sarl", "eurl", "sci", "snc", "gie", "se", "
                "limited", "inc", "incorporated", "llc", "llp", "lp", "corp", "corporation", "co", "company", "plc",
                "bv", "nv", "spa", "srl", "ab", "as", "oy", "pty", "pte", "kk"]
 MONTHS = {m: str(i + 1) for i, m in enumerate("jan feb mar apr may jun jul aug sep oct nov dec".split())}
-FAMILY_OF_PREFIX = {"cand": "candidate", "lev": "edit", "eq": "exact", "sdx": "phonetic", "sdt": "phonetic",
+FAMILY_OF_PREFIX = {**{prefix: family for family, prefix in sota.PREFIXES.items()},
+                    "cand": "candidate", "lev": "edit", "eq": "exact", "sdx": "phonetic", "sdt": "phonetic",
                     "mek": "monge_elkan", "itc": "token_idf", "gov": "gram", "rar": "rarity", "ebc": "embedding",
                     "jw": "jaro_winkler", "agp": "affine_gap",
                     **{p: "structure" for p in ("swp", "ini", "num", "lgf", "fpe", "fpl", "cnt", "yr", "dpj", "rel",
@@ -154,7 +159,7 @@ def active_families(cfg: Config) -> set[str]:
     fams |= {"gram"} if "gram_overlap" in multi else set()
     fams |= {"monge_elkan"} if "monge_elkan_token" in multi else set()
     fams |= {"affine_gap"} if "affine_gap_udf" in multi else set()
-    return fams - set(cfg.get("features.exclude"))
+    return (fams | set(cfg.get("features.extra_families"))) - set(cfg.get("features.exclude"))
 
 
 def spark_at_least(version: str, major: int, minor: int) -> bool:
@@ -186,7 +191,7 @@ def prepare_sides(left: DataFrame, right: DataFrame, cfg: Config) -> tuple[DataF
     """Record-level work done once per record, before pairs exist. Materialise the result before pairing."""
     fams = active_families(cfg)
     types = {f: s["type"] for f, s in cfg.fields.items()}
-    if fams & {"token_idf", "rarity"}:
+    if fams & {"token_idf", "rarity", "weighted_jaccard", "soft_tfidf_lev"}:
         text = [f for f, t in types.items() if t in TEXT_TYPES]
         if text:
             left, right = token_weights(left, right, text)
@@ -194,6 +199,7 @@ def prepare_sides(left: DataFrame, right: DataFrame, cfg: Config) -> tuple[DataF
         q = cfg.get("candidates.q")
         for f in cfg.fields_of_type(*MULTI_TOKEN_TYPES):
             left, right = left.withColumn(f"qg_{f}", qgrams(F.col(f), q)), right.withColumn(f"qg_{f}", qgrams(F.col(f), q))
+    left, right = sota.prepare(left, cfg, fams), sota.prepare(right, cfg, fams)
     fields = embedded_fields(cfg)
     if fields:
         provider = embeddings.resolve(cfg)
@@ -223,6 +229,7 @@ def compare(pairs: DataFrame, cfg: Config, candidates: bool = True, embedded: bo
         t, multi = spec["type"], spec.get("multi", False)
         a, b = L(f), R(f)
         ok = _present(a, b)
+        cols.update(sota.comparisons(f, t, cfg, fams))
         if "edit" in fams and t != "number":
             cols[f"lev_{f}"] = F.when(ok, _norm_lev(a, b)).otherwise(MISSING)
         if "exact" in fams:

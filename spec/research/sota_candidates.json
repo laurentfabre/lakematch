@@ -1,0 +1,1277 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-27",
+  "scope": "SIM-1 research for lakematch; Spark 4.1 built-in pair comparisons; no implementation or benchmark victory implied.",
+  "spark_target": "4.1.x; local environment inspected: 4.1.3; official function reference pinned to 4.1.0",
+  "year_policy": "Publication year of linked paper/version; null for undated documentation. Access dates are not publication years.",
+  "builtin_policy": "True means a direct built-in, a concrete composite design, or arithmetic on explicitly prepared vectors. Composite designs require SIM-2 execution proof. False with not_established means no complete built-in design established, not impossibility.",
+  "feature_contract": {
+    "missing": "Return -1.0 when either normalized field is null/empty, including both empty. Do not treat two missing fields as agreement.",
+    "units": "Unicode code points under deterministic binary string comparison, not UTF-8 bytes or grapheme clusters.",
+    "normalization": "Reuse entity normalization; no new transliteration or accent-removal UDF. Pin token boundaries and normalization in SIM-2.",
+    "idf": "Reuse a shared, positive IDF dictionary and freeze its fitting population/version. No use of VALID/TEST labels. Record any transductive unlabeled-vocabulary access.",
+    "prepared_vectors": "Only pair arithmetic is built-in; encoder generation must remain an explicit, already authorized preparation dependency.",
+    "shortlist_status": "Implemented as opt-in families through features.extra_families; off by default. See spec/SIMILARITY.md and tests/test_sota.py.",
+    "performance": "Cost entries describe algorithmic work, not measured Catalyst runtime or Photon coverage."
+  },
+  "references": [
+    {
+      "id": "cohen2003",
+      "title": "A Comparison of String Distance Metrics for Name-Matching Tasks",
+      "url": "https://wwcohen.github.io/postscript/ijcai-ws-2003.pdf",
+      "year": 2003,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Sections 2–3; Figures 1–2",
+      "note": "Name-matching experiments; historical evidence, not a 2026 leaderboard."
+    },
+    {
+      "id": "bilenko2003",
+      "title": "Adaptive Name-Matching in Information Integration",
+      "url": "https://wwcohen.github.io/postscript/intelligent-systems-2003.pdf",
+      "year": 2003,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Table 3: Census; Table 4: learned combinations",
+      "note": ""
+    },
+    {
+      "id": "christen2006",
+      "title": "A Comparison of Personal Name Matching: Techniques and Practical Issues",
+      "url": "https://users.cecs.anu.edu.au/~Peter.Christen/publications/tr-cs-06-02.pdf",
+      "year": 2006,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Sections 3–5",
+      "note": "September technical report; four name datasets, no universal winner."
+    },
+    {
+      "id": "jimenez2009",
+      "title": "Generalized Mongue-Elkan Method for Approximate Text String Comparison",
+      "url": "https://www.gelbukh.com/CV/Publications/2009/Generalized%20Mongue-Elkan%20Method%20for%20Approximate%20Text%20String.pdf",
+      "year": 2009,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Sections 3–4; Figures 4–5",
+      "note": "Published title spells Mongue; 12 datasets; plotted averages are not transcribed as precise numbers."
+    },
+    {
+      "id": "moreau2008",
+      "title": "Robust Similarity Measures for Named Entities Matching",
+      "url": "https://aclanthology.org/C08-1075.pdf",
+      "year": 2008,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Section 2.2, pp. 594–595",
+      "note": "Explains SoftTF-IDF asymmetry, target-token weighting and possible scores above one."
+    },
+    {
+      "id": "softcard2012",
+      "title": "Soft Cardinality: A Parameterized Similarity Function for Text Comparison",
+      "url": "https://aclanthology.org/S12-1061.pdf",
+      "year": 2012,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Equations 1–3; Table 1",
+      "note": ""
+    },
+    {
+      "id": "smith1981",
+      "title": "Identification of Common Molecular Subsequences",
+      "url": "https://cs.brown.edu/courses/csci1820/spring-2022/resources/Smith_Waterman_1981.pdf",
+      "year": 1981,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Local-alignment recurrence",
+      "note": "Primary paper reprint; biological sequence algorithm, not record-linkage accuracy evidence."
+    },
+    {
+      "id": "gotoh1982",
+      "title": "An improved algorithm for matching biological sequences",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7166760/",
+      "year": 1982,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Bibliographic record and abstract; DOI 10.1016/0022-2836(82)90398-9",
+      "note": "Algorithm provenance only; full text not inspected."
+    },
+    {
+      "id": "spark41",
+      "title": "Apache Spark 4.1.0 SQL built-in functions",
+      "url": "https://spark.apache.org/docs/4.1.0/sql-ref-functions-builtin.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "String, collection, map and higher-order functions",
+      "note": "Version pinned; undated documentation does not count toward recent publications."
+    },
+    {
+      "id": "rflev",
+      "title": "RapidFuzz: Levenshtein",
+      "url": "https://rapidfuzz.github.io/RapidFuzz/Usage/distance/Levenshtein.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Definitions, normalization and examples",
+      "note": "Observed documentation version 3.14.6; live page, not an immutable version pin. No linkage benchmark claim."
+    },
+    {
+      "id": "rfosa",
+      "title": "RapidFuzz: Optimal String Alignment (OSA)",
+      "url": "https://rapidfuzz.github.io/RapidFuzz/Usage/distance/OSA.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Definitions, normalization and examples",
+      "note": "Observed documentation version 3.14.6; live page, not an immutable version pin. No linkage benchmark claim."
+    },
+    {
+      "id": "rfdl",
+      "title": "RapidFuzz: Damerau Levenshtein",
+      "url": "https://rapidfuzz.github.io/RapidFuzz/Usage/distance/DamerauLevenshtein.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Definitions, normalization and examples",
+      "note": "Observed documentation version 3.14.6; live page, not an immutable version pin. No linkage benchmark claim."
+    },
+    {
+      "id": "rflcs",
+      "title": "RapidFuzz: Longest Common Subsequence",
+      "url": "https://rapidfuzz.github.io/RapidFuzz/Usage/distance/LCSseq.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Definitions, normalization and examples",
+      "note": "Observed documentation version 3.14.6; live page, not an immutable version pin. No linkage benchmark claim."
+    },
+    {
+      "id": "rfjaro",
+      "title": "RapidFuzz: Jaro",
+      "url": "https://rapidfuzz.github.io/RapidFuzz/Usage/distance/Jaro.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Definitions, normalization and examples",
+      "note": "Observed documentation version 3.14.6; live page, not an immutable version pin. No linkage benchmark claim."
+    },
+    {
+      "id": "rfjw",
+      "title": "RapidFuzz: JaroWinkler",
+      "url": "https://rapidfuzz.github.io/RapidFuzz/Usage/distance/JaroWinkler.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Definitions, normalization and examples",
+      "note": "Observed documentation version 3.14.6; live page, not an immutable version pin. No linkage benchmark claim."
+    },
+    {
+      "id": "rffuzz",
+      "title": "RapidFuzz: Fuzzy ratios",
+      "url": "https://rapidfuzz.github.io/RapidFuzz/Usage/fuzz.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Definitions, normalization and examples",
+      "note": "Observed documentation version 3.14.6; live page, not an immutable version pin. No linkage benchmark claim."
+    },
+    {
+      "id": "scipyjaccard",
+      "title": "SciPy: weighted Boolean Jaccard distance",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.jaccard.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Weighted c_ij definition",
+      "note": "Positive dimension weights; similarity is one minus distance."
+    },
+    {
+      "id": "sklearncosine",
+      "title": "scikit-learn: cosine_similarity",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Normalized dot-product definition",
+      "note": "Definition only; character-gram application is our design inference."
+    },
+    {
+      "id": "jellyfish",
+      "title": "Jellyfish: string comparison and phonetic encoding functions",
+      "url": "https://jamesturk.github.io/jellyfish/functions/",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "American Soundex and NYSIIS",
+      "note": "Worked encodings; no measured F1 advantage."
+    },
+    {
+      "id": "splinktf",
+      "title": "Splink: term-frequency adjustments",
+      "url": "https://moj-analytical-services.github.io/splink/topic_guides/comparisons/term-frequency.html",
+      "year": null,
+      "kind": "library-doc",
+      "accessed": "2026-09-27",
+      "locator": "Problem statement; low-frequency outliers",
+      "note": "Agreement weighting is not itself a string distance."
+    },
+    {
+      "id": "simcse2021",
+      "title": "SimCSE: Simple Contrastive Learning of Sentence Embeddings",
+      "url": "https://aclanthology.org/2021.emnlp-main.552/",
+      "year": 2021,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Abstract; STS evaluation",
+      "note": "Semantic textual similarity correlation is not entity-match F1."
+    },
+    {
+      "id": "sudowoodo2022",
+      "title": "Sudowoodo: Contrastive Self-supervised Learning for Multi-purpose Data Integration and Preparation",
+      "url": "https://arxiv.org/abs/2207.04122",
+      "year": 2022,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Abstract, arXiv v2",
+      "note": "Year is the linked preprint year; subsequently ICDE 2023. Abstract-level evidence only."
+    },
+    {
+      "id": "zeakis2023",
+      "title": "Pre-trained Embeddings for Entity Resolution: An Experimental Analysis",
+      "url": "https://www.vldb.org/pvldb/vol16/p2225-skoutas.pdf",
+      "year": 2023,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Abstract; experimental evaluation",
+      "note": "12 language models, 17 datasets; blocking and matching evaluated separately."
+    },
+    {
+      "id": "linktransformer2024",
+      "title": "LinkTransformer: A Unified Package for Record Linkage with Transformer Language Models",
+      "url": "https://aclanthology.org/2024.acl-demos.21.pdf",
+      "year": 2024,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Table 1, panels A–B",
+      "note": "Top-1 retrieval accuracy, not pair classification F1."
+    },
+    {
+      "id": "jrc2024",
+      "title": "JRC-Names-Retrieval: A Standardized Benchmark for Name Search",
+      "url": "https://aclanthology.org/2024.lrec-main.838.pdf",
+      "year": 2024,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Tables 4–5; Sections 5–6",
+      "note": "MAP and recall@k; personal and organisation names differ; transliteration is a separate dependency."
+    },
+    {
+      "id": "wdc2024",
+      "title": "WDC Products: A Multi-Dimensional Entity Matching Benchmark",
+      "url": "https://www.openproceedings.org/2024/conf/edbt/paper-14.pdf",
+      "year": 2024,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Benchmark dimensions and evaluation",
+      "note": "Publication year 2024; preprint appeared in 2023. External validity context, not a new similarity."
+    },
+    {
+      "id": "feds2025",
+      "title": "Can LLMs Improve Sanctions Screening in the Financial System? Evidence from a Fuzzy Matching Assessment",
+      "url": "https://www.federalreserve.gov/econres/feds/files/2025092pap.pdf",
+      "year": 2025,
+      "kind": "paper",
+      "accessed": "2026-09-27",
+      "locator": "Table 4 and Figure 5",
+      "note": "FEDS 2025-092; 400 pairwise evaluations in the runtime table; deployment-specific timing."
+    }
+  ],
+  "measures": [
+    {
+      "id": "levenshtein",
+      "name": "Normalized Levenshtein",
+      "category": "edit",
+      "field_types": [
+        "person_name",
+        "address",
+        "organisation",
+        "title",
+        "code"
+      ],
+      "refs": [
+        "rflev",
+        "bilenko2003",
+        "spark41"
+      ],
+      "evidence": "Bilenko Table 3 reports Census maximum F1 0.865 for Levenshtein versus 0.728 for Jaro. This historical result supports retaining a baseline, not predicting present-corpus performance.",
+      "evidence_type": "empirical",
+      "builtin_expressible": true,
+      "spark_support": "direct",
+      "sketch": "Use levenshtein and length; guard missing inputs and zero denominator. Thresholded levenshtein returns -1 beyond the cutoff, which must never be normalized as a real distance.",
+      "formula": "L(a,b)=1-d_lev(a,b)/max(length(a),length(b)). Unit insertion, deletion and substitution costs.",
+      "cost": "O(n*m) worst-case edit work; threshold may reduce work.",
+      "limitations": "Sensitive to token order; code-point edits are not grapheme edits.",
+      "existing_family": "edit",
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "osa",
+      "name": "Normalized optimal string alignment",
+      "category": "edit",
+      "field_types": [
+        "person_name",
+        "title",
+        "code"
+      ],
+      "refs": [
+        "rfosa",
+        "rfdl",
+        "spark41"
+      ],
+      "evidence": "RapidFuzz documents restricted adjacent-transposition distance separately from unrestricted Damerau-Levenshtein. This is definition evidence; no checked Abt-Buy F1 gain is available. Its CA/AC example appears inconsistent with the recurrence and needs runtime verification.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Nested aggregate(sequence(...)) over rows and columns. Outer struct stores the previous two rows; inner accumulator appends current-row cells. Boundary row/column are 0..length. Guard i>1 and j>1 for transpositions.",
+      "formula": "D(i,j)=min(D(i-1,j)+1,D(i,j-1)+1,D(i-1,j-1)+[a_i!=b_j],D(i-2,j-2)+1 when adjacent characters cross). Score=1-D(n,m)/max(n,m).",
+      "cost": "O(n*m) cells; immutable array appends can add O(m) copying per cell.",
+      "limitations": "OSA is not unrestricted Damerau-Levenshtein; repeated edits and overlapping transpositions differ. Cap or reject long inputs explicitly.",
+      "existing_family": null,
+      "shortlisted": true,
+      "family": "osa",
+      "prefix": "osa",
+      "rank": 6,
+      "selection_rationale": "Adds the transposition operation missing from the current edit baseline; expensive SQL state is justified only if typo slices improve.",
+      "reference_cases": [
+        {
+          "a": "CA",
+          "b": "AC",
+          "distance": 1,
+          "score": 0.5,
+          "provenance": "Derived recurrence; verify against a pinned implementation in SIM-2"
+        },
+        {
+          "a": "CA",
+          "b": "ABC",
+          "distance": 3,
+          "score": 0.0,
+          "provenance": "RapidFuzz OSA example and recurrence"
+        }
+      ],
+      "implementation": {
+        "module": "src/lakematch/features/sota.py",
+        "config": "features.extra_families",
+        "default_enabled": false,
+        "tests": "tests/test_sota.py",
+        "reference_fixture": "tests/fixtures/sota_reference.json",
+        "limit": "features.sota_max_chars=256 by default; raise on longer nonmissing strings, never truncate."
+      }
+    },
+    {
+      "id": "damerau",
+      "name": "Unrestricted Damerau-Levenshtein",
+      "category": "edit",
+      "field_types": [
+        "person_name",
+        "title",
+        "code"
+      ],
+      "refs": [
+        "rfdl",
+        "rfosa"
+      ],
+      "evidence": "The maintained RapidFuzz documentation distinguishes unrestricted edits from OSA. CA to ABC has unrestricted distance 2, whereas OSA gives 3. No local classification benchmark is claimed.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "A nested aggregate can carry the full distance matrix plus last-seen-character indices and the current-row last-match index. Arbitrary earlier-cell access is necessary; the two-row OSA sketch does not implement this measure.",
+      "formula": "Minimum unit-cost insertions, deletions, substitutions and adjacent transpositions, allowing repeated edits of the same substring.",
+      "cost": "O(n*m) logical cells and O(n*m) state; expression-array copying may be much more expensive.",
+      "limitations": "Feasibility is an algorithmic inference, not a compiled Spark plan. Defer behind OSA.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "jaro",
+      "name": "Jaro",
+      "category": "edit",
+      "field_types": [
+        "person_name",
+        "organisation",
+        "code"
+      ],
+      "refs": [
+        "rfjaro",
+        "bilenko2003",
+        "spark41"
+      ],
+      "evidence": "Bilenko Table 3 gives Census maximum F1 0.728. RapidFuzz supplies a current definition/reference implementation. Jaro is a useful comparator, but the result does not establish it as best for names.",
+      "evidence_type": "empirical",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "No named Spark 4.1 function. aggregate over left positions, select the first unused equal right position inside the window, carry used positions and matched indices, then compare matched subsequences in their original orders.",
+      "formula": "Match characters once within radius max(0,floor(max(n,m)/2)-1); t is half the mismatch count in the two matched subsequences. J=(matches/n+matches/m+(matches-t)/matches)/3, or zero with no matches.",
+      "cost": "O(n*m) scanning plus array state.",
+      "limitations": "Repeated-character tie handling and orientation must match the pinned baseline; unverified composite plan.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "jaro_winkler",
+      "name": "Jaro-Winkler",
+      "category": "edit",
+      "field_types": [
+        "person_name",
+        "organisation",
+        "code"
+      ],
+      "refs": [
+        "rfjw",
+        "christen2006",
+        "spark41"
+      ],
+      "evidence": "Christen compares personal-name methods on four datasets and finds no universally best technique. RapidFuzz documents the prefix parameter. Porting this comparator would establish parity, not a new accuracy gain.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Use the composite Jaro state reducer plus a four-position prefix comparison. Spark 4.1 has no named Jaro-Winkler function; the existing lakematch path is a UDF.",
+      "formula": "For Jaro J>0.7 use J+l*0.1*(1-J), where l is common-prefix length capped at four; otherwise use J. Pin the baseline threshold and matching convention.",
+      "cost": "Jaro cost plus constant prefix work.",
+      "limitations": "Prefix bonus may overmatch similar identifiers. Exact SQL parity remains unproved.",
+      "existing_family": "jaro_winkler",
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "token_jaccard",
+      "name": "Token-set Jaccard",
+      "category": "token",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "scipyjaccard",
+        "bilenko2003"
+      ],
+      "evidence": "Bilenko Table 3 reports Census maximum F1 0.567 for token Jaccard. SciPy documents the Boolean-set definition. This illustrates why an order-free score alone is insufficient for typo-heavy names.",
+      "evidence_type": "empirical",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "array_distinct, array_intersect, array_union and size after tokenization; guard empty union.",
+      "formula": "|A intersection B| / |A union B| for distinct nonempty tokens.",
+      "cost": "Set operations over k+l tokens; actual array implementation determines complexity.",
+      "limitations": "No typo tolerance; ignores multiplicity.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "token_dice",
+      "name": "Token-set Dice",
+      "category": "token",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "christen2006"
+      ],
+      "evidence": "Christen discusses token and q-gram comparison alternatives. For the same two sets, Dice is algebraically 2*Jaccard/(1+Jaccard), so it adds no independent ranking information; this redundancy is our deduction.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "array_distinct then array_intersect and size.",
+      "formula": "2*|A intersection B|/(|A|+|B|).",
+      "cost": "Set operations.",
+      "limitations": "Do not shortlist a monotone rescaling of an existing identical representation.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "overlap",
+      "name": "Token overlap coefficient",
+      "category": "token",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "moreau2008"
+      ],
+      "evidence": "Moreau Section 2.1.2 defines overlap using the smaller set. That makes containment score one by construction; product-model and unit-number disagreements still need separate features.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "array_intersect and least(size(A),size(B)) on distinct token arrays.",
+      "formula": "|A intersection B|/min(|A|,|B|).",
+      "cost": "Set operations.",
+      "limitations": "A short generic title can perfectly overlap a different long title; not equivalent to identity.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "weighted_jaccard",
+      "name": "IDF-weighted token Jaccard",
+      "category": "token",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "scipyjaccard",
+        "splinktf"
+      ],
+      "evidence": "SciPy defines weighted Boolean Jaccard; Splink motivates distinguishing rare from common agreements. Choosing IDF weights here is a proposed combination, with no published F1 assigned to this exact variant.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Reuse prepared token IDF maps, union their keys, and aggregate shared/union weights. Enforce the same IDF dictionary on both sides and guard a zero total.",
+      "formula": "Sum of shared-token positive IDF weights divided by sum of union-token weights; binary term presence, with one common weight per token on both sides.",
+      "cost": "O(k+l) logical weight visits after set construction; no token-pair edit calls.",
+      "limitations": "IDF fitting population and unseen-token fallback must be frozen. Distinct from existing L2-normalized IDF cosine.",
+      "existing_family": null,
+      "shortlisted": true,
+      "family": "weighted_jaccard",
+      "prefix": "wja",
+      "rank": 3,
+      "selection_rationale": "Cheap rare-model-word overlap, with a different length penalty from existing token cosine.",
+      "reference_cases": [
+        {
+          "a": [
+            "rare",
+            "common"
+          ],
+          "b": [
+            "rare"
+          ],
+          "weights": {
+            "rare": 3,
+            "common": 1
+          },
+          "score": 0.75,
+          "provenance": "Derived weighted-set example"
+        }
+      ],
+      "implementation": {
+        "module": "src/lakematch/features/sota.py",
+        "config": "features.extra_families",
+        "default_enabled": false,
+        "tests": "tests/test_sota.py",
+        "reference_fixture": "tests/fixtures/sota_reference.json"
+      }
+    },
+    {
+      "id": "idf_cosine",
+      "name": "IDF token-set cosine",
+      "category": "token",
+      "field_types": [
+        "person_name",
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "cohen2003",
+        "moreau2008"
+      ],
+      "evidence": "Cohen reports TF-IDF as strongest on average among the token measures studied. Lakematch already has binary-token IDF cosine; this differs from variants using within-record term counts.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Intersect map keys, sum products, and divide by map-value L2 norms.",
+      "formula": "dot(w_A,w_B)/(norm2(w_A)*norm2(w_B)); w(t)=IDF(t) when t occurs, otherwise zero.",
+      "cost": "Linear logical visits to sparse token weights.",
+      "limitations": "Exact token matching misses typos; IDF population matters.",
+      "existing_family": "token_idf",
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "qgram_jaccard",
+      "name": "Character q-gram set Jaccard",
+      "category": "token",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "christen2006",
+        "scipyjaccard"
+      ],
+      "evidence": "The sources support q-gram representations and the Jaccard definition. Lakematch already computes this family, so adding its name to the shortlist would not supply a new feature.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "For length>=q, transform(sequence(1,length-q+1),i->substring(s,i,q)), then distinct/intersection/union.",
+      "formula": "Jaccard over distinct contiguous character q-grams; padding and short-string behavior must be specified.",
+      "cost": "O(n+m) grams before set work.",
+      "limitations": "sequence(1,0) is descending rather than empty; guard short strings.",
+      "existing_family": "gram",
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "padded_bigram_dice",
+      "name": "Boundary-padded bigram multiset Dice",
+      "category": "token",
+      "field_types": [
+        "person_name",
+        "address",
+        "organisation",
+        "title",
+        "code"
+      ],
+      "refs": [
+        "christen2006",
+        "scipyjaccard"
+      ],
+      "evidence": "Q-gram methods are established comparison features. Boundary padding plus multiplicity is our proposed variant; no checked source establishes its F1. It differs from lakematch unpadded gram-set Jaccard in representation, not only score scaling.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Use tagged character elements for collision-free BOS/EOS, sequence/transform for adjacent pairs, count maps prepared once per record, then aggregate minima over shared keys.",
+      "formula": "Generate bigrams over BOS + characters + EOS. Let c_A(g),c_B(g) be counts. Score=2*sum_g min(c_A(g),c_B(g))/(sum_g c_A(g)+sum_g c_B(g)).",
+      "cost": "O(n+m) gram generation; count preparation and map lookups add engine-dependent costs.",
+      "limitations": "Use distinct boundary tags, not a literal character that may occur in data. Counts must not be dropped.",
+      "existing_family": null,
+      "shortlisted": true,
+      "family": "padded_bigram_dice",
+      "prefix": "pbd",
+      "rank": 2,
+      "selection_rationale": "Cheap boundary and repeated-character evidence absent from the current gram representation; useful typo hypothesis.",
+      "reference_cases": [
+        {
+          "a": "ab",
+          "b": "ac",
+          "score": 0.3333333333333333,
+          "provenance": "Derived: shared BOS-a only, three grams per side"
+        },
+        {
+          "a": "aaaa",
+          "b": "aaa",
+          "score": 0.8888888888888888,
+          "provenance": "Derived multiset counts including boundaries"
+        }
+      ],
+      "implementation": {
+        "module": "src/lakematch/features/sota.py",
+        "config": "features.extra_families",
+        "default_enabled": false,
+        "tests": "tests/test_sota.py",
+        "reference_fixture": "tests/fixtures/sota_reference.json"
+      }
+    },
+    {
+      "id": "qgram_count_cosine",
+      "name": "Character trigram count cosine",
+      "category": "token",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "sklearncosine",
+        "christen2006"
+      ],
+      "evidence": "The cosine documentation defines the normalized dot product. Applying it to character-gram counts is our design choice: unlike existing gram Jaccard it retains repeats. No new linkage accuracy measurement is claimed.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Build count maps during record preparation; shared-key product sum and squared-norm sums at comparison time.",
+      "formula": "Cosine of unpadded trigram count vectors. For a nonempty string shorter than three characters, use one tagged whole-string feature.",
+      "cost": "O(n+m) logical sparse-vector preparation/comparison; no per-token edit grid.",
+      "limitations": "Repeated boilerplate may dominate; measure ablations against existing gram and token-IDF families.",
+      "existing_family": null,
+      "shortlisted": true,
+      "family": "qgram_count_cosine",
+      "prefix": "qcc",
+      "rank": 4,
+      "selection_rationale": "Adds multiplicity-sensitive character evidence at low pair cost.",
+      "reference_cases": [
+        {
+          "a": "aaaa",
+          "b": "aaa",
+          "score": 1.0,
+          "provenance": "Derived: same sole trigram direction, different counts"
+        }
+      ],
+      "implementation": {
+        "module": "src/lakematch/features/sota.py",
+        "config": "features.extra_families",
+        "default_enabled": false,
+        "tests": "tests/test_sota.py",
+        "reference_fixture": "tests/fixtures/sota_reference.json"
+      }
+    },
+    {
+      "id": "token_sort_lev",
+      "name": "Token-sorted normalized Levenshtein",
+      "category": "hybrid",
+      "field_types": [
+        "person_name",
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "rffuzz",
+        "rflev"
+      ],
+      "evidence": "RapidFuzz motivates token sorting, but its token_sort_ratio uses normalized Indel. This proposal instead calls Spark Levenshtein after sorting; it is a distinct variant with no borrowed RapidFuzz accuracy claim.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "split/filter empty tokens, sort_array and concat_ws during record preparation; use the existing normalized levenshtein expression on sorted strings.",
+      "formula": "L(join(sort(tokens(a)), single_space), join(sort(tokens(b)), single_space)); retain duplicate tokens.",
+      "cost": "Token sorting plus one native edit-distance call per pair.",
+      "limitations": "Sorting erases meaningful word order and does not solve synonyms or model-number conflicts.",
+      "existing_family": null,
+      "shortlisted": true,
+      "family": "token_sort_lev",
+      "prefix": "tsl",
+      "rank": 1,
+      "selection_rationale": "Combines reorder tolerance with native edit cost; directly targets product titles with different word order.",
+      "reference_cases": [
+        {
+          "a": "red shoe",
+          "b": "shoe red",
+          "score": 1.0,
+          "provenance": "Derived sorted strings"
+        },
+        {
+          "a": "a b",
+          "b": "a c",
+          "score": 0.6666666666666666,
+          "provenance": "Derived unit substitution over three characters"
+        }
+      ],
+      "implementation": {
+        "module": "src/lakematch/features/sota.py",
+        "config": "features.extra_families",
+        "default_enabled": false,
+        "tests": "tests/test_sota.py",
+        "reference_fixture": "tests/fixtures/sota_reference.json"
+      }
+    },
+    {
+      "id": "token_sort_indel",
+      "name": "RapidFuzz-style token-sort Indel ratio",
+      "category": "hybrid",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "rffuzz",
+        "rflcs"
+      ],
+      "evidence": "RapidFuzz defines token_sort_ratio by sorting words then applying fuzz.ratio, whose base is normalized Indel. This definition is not normalized unit-substitution Levenshtein.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "sort_array/concat_ws followed by the LCS reducer described for lcs_indel.",
+      "formula": "2*LCS(sorted_token_string_a,sorted_token_string_b)/(length_a+length_b), scaled to [0,1].",
+      "cost": "Sorting plus O(n*m) DP cells with array-copy overhead.",
+      "limitations": "Deferred because sorted Levenshtein tests the reorder hypothesis with a cheaper native kernel.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "token_set_indel",
+      "name": "RapidFuzz-style token-set Indel ratio",
+      "category": "hybrid",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "rffuzz",
+        "rflcs"
+      ],
+      "evidence": "RapidFuzz documents a perfect score when one token set is contained in the other. This is useful for omitted words but can conceal extra product identifiers; no local benchmark is asserted.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "array_distinct/intersect/except, sort and join; compute up to three LCS-derived ratios. Pin empty-intersection behavior against the chosen library version.",
+      "formula": "Form sorted common tokens I and side-only tokens A0,B0; take the maximum normalized Indel ratio of (I,I+A0), (I,I+B0), (I+A0,I+B0), with the library nonempty-intersection special cases.",
+      "cost": "Up to three DP comparisons.",
+      "limitations": "Containment and duplicate-token removal can erase disqualifying information.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "monge_elkan",
+      "name": "Symmetric generalized token Monge-Elkan, exponent 2",
+      "category": "hybrid",
+      "field_types": [
+        "person_name",
+        "address",
+        "organisation",
+        "title",
+        "code"
+      ],
+      "refs": [
+        "jimenez2009"
+      ],
+      "evidence": "Jimenez evaluates 12 name datasets with maximum F1 and interpolated average precision; exponents above one improve the reported curves. Symmetric averaging and normalized-Levenshtein inner scoring are lakematch choices already implemented.",
+      "evidence_type": "empirical",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Nested transform over token pairs, array_max, pow, aggregate and sqrt; evaluate both directions.",
+      "formula": "M(A,B)=sqrt(mean_a((max_b L(a,b))^2)); score=(M(A,B)+M(B,A))/2.",
+      "cost": "O(k*l) token edit calls, bounded by the configured token cap.",
+      "limitations": "Many source tokens may reuse one target; do not claim optimal one-to-one matching.",
+      "existing_family": "monge_elkan",
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "soft_tfidf_lev",
+      "name": "Symmetric clipped SoftTF-IDF with Levenshtein inner score",
+      "category": "hybrid",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "cohen2003",
+        "moreau2008",
+        "bilenko2003"
+      ],
+      "evidence": "Cohen supports hybrid SoftTF-IDF, but Bilenko Census maximum F1 is only 0.685. Moreau identifies asymmetry and scores above one. Levenshtein inner scoring, symmetry and clipping below define a new variant whose gains remain unmeasured.",
+      "evidence_type": "empirical_plus_variant",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Prepare token-weight structs sorted lexically. Nested aggregate chooses the best similarity and corresponding target weight, retaining first on ties; aggregate contributions in each direction, average and least(1.0,...).",
+      "formula": "Normalize positive binary-token IDF vectors to L2. For each a choose b maximizing L(a,b), lexical tie-break; include w_A(a)*w_B(b)*L(a,b) only if L(a,b)>0.8. Average both directed sums, then clip to [0,1].",
+      "cost": "O(k*l) native token edit calls plus weight arithmetic; features.token_cap bounds distinct tokens by explicit rejection, not truncation.",
+      "limitations": "Not canonical Jaro-Winkler SoftTF-IDF. Many-to-one matches can exceed one before clipping, losing information. Keep numeric disagreement separately.",
+      "existing_family": null,
+      "shortlisted": true,
+      "family": "soft_tfidf_lev",
+      "prefix": "stl",
+      "rank": 5,
+      "selection_rationale": "Adds rarity to approximate token alignment, complementing existing exact-token cosine and unweighted Monge-Elkan.",
+      "reference_cases": [
+        {
+          "a": "cat",
+          "b": "cats",
+          "score": 0.0,
+          "provenance": "Derived: 0.75 is below strict 0.8 cutoff"
+        },
+        {
+          "a": "abcde",
+          "b": "abcdef",
+          "score": 0.8333333333333334,
+          "provenance": "Derived: single normalized token weight on each side"
+        }
+      ],
+      "implementation": {
+        "module": "src/lakematch/features/sota.py",
+        "config": "features.extra_families",
+        "default_enabled": false,
+        "tests": "tests/test_sota.py",
+        "reference_fixture": "tests/fixtures/sota_reference.json",
+        "limit": "features.token_cap=30 by default; raise on excess distinct tokens before scoring."
+      }
+    },
+    {
+      "id": "soft_cardinality",
+      "name": "Soft-cardinality token overlap",
+      "category": "hybrid",
+      "field_types": [
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "softcard2012"
+      ],
+      "evidence": "The SemEval 2012 paper reports official MSRvid.test Pearson correlation 0.8562, versus best 0.8803. This is sentence-similarity correlation, not entity-resolution F1, and does not validate a new Levenshtein-inner variant.",
+      "evidence_type": "empirical_plus_variant",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Nested transform/aggregate with a specified bounded inner comparator and positive p; shared token representation and all self-similarities must be defined.",
+      "formula": "Soft size C(A)=sum_i 1/sum_j sim(token_i,token_j)^p. A derived Dice variant uses I=C(A)+C(B)-C(A union B), then 2I/(C(A)+C(B)).",
+      "cost": "Quadratic in tokens on the union, including within-record terms.",
+      "limitations": "Inner similarity and normalization affect bounds; derived overlap is not necessarily a valid set measure. Defer until properties are tested.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "soundex",
+      "name": "Soundex-code equality",
+      "category": "phonetic",
+      "field_types": [
+        "person_name"
+      ],
+      "refs": [
+        "jellyfish",
+        "spark41"
+      ],
+      "evidence": "Jellyfish gives the worked collision Robert/Rupert -> R163. It illustrates phonetic equivalence, not identity or an F1 result. Lakematch already uses Soundex equality and token-code overlap.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "direct",
+      "sketch": "Native soundex followed by equality; token version uses transform and set comparison.",
+      "formula": "1 if soundex(a)=soundex(b), otherwise 0, for present supported names.",
+      "cost": "Linear encoding then equality.",
+      "limitations": "English-oriented coarse codes; unsupported scripts and code collisions need explicit treatment.",
+      "existing_family": "phonetic",
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "nysiis",
+      "name": "NYSIIS-code equality",
+      "category": "phonetic",
+      "field_types": [
+        "person_name"
+      ],
+      "refs": [
+        "jellyfish",
+        "christen2006"
+      ],
+      "evidence": "Jellyfish documents NYSIIS for English-pronounced names and John/Jan -> JAN. This establishes behavior, not a superior matching score. A Spark implementation needs contextual rewriting, not unordered regex substitutions.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "No named Spark 4.1 encoder. Feasible design: boundary regex rewrites, then aggregate character positions with state (cursor, previous emitted symbol, output), ordered context rules and final cleanup.",
+      "formula": "Compare complete NYSIIS codes under a pinned variant, including duplicate suppression and terminal cleanup.",
+      "cost": "Linear logical scan; repeated string assembly can be quadratic.",
+      "limitations": "Composite feasibility inferred; full rule parity not established. Phonetic language assumptions limit product-title value.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "double_metaphone",
+      "name": "Double Metaphone code overlap",
+      "category": "phonetic",
+      "field_types": [
+        "person_name",
+        "organisation"
+      ],
+      "refs": [
+        "jrc2024"
+      ],
+      "evidence": "JRC Table 4 reports Latin/Cyrillic/Arabic personal-name MAP 0.91355 with pre-transliteration for Double Metaphone; the multilingual trained model obtains 0.95 ± 0.01. This depends on the transliteration setup and is not pair F1.",
+      "evidence_type": "empirical",
+      "builtin_expressible": false,
+      "spark_support": "not_established",
+      "sketch": "Spark 4.1 has no named encoder or transliterator. A complete rule-machine expression has not been established here; external encoding is outside the proposed built-in-only preparation contract.",
+      "formula": "Overlap between nonempty primary/alternate phonetic codes, after explicitly specified transliteration.",
+      "cost": "External encoding plus cheap code comparison.",
+      "limitations": "False means no complete built-in plan established in this catalogue, not mathematical impossibility.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "lcs_indel",
+      "name": "Normalized Indel similarity from longest common subsequence",
+      "category": "alignment",
+      "field_types": [
+        "person_name",
+        "address",
+        "organisation",
+        "title",
+        "code"
+      ],
+      "refs": [
+        "rflcs",
+        "rffuzz"
+      ],
+      "evidence": "RapidFuzz distinguishes LCSseq similarity from normalized Indel (fuzz.ratio). The latter penalizes a substitution as deletion plus insertion. This is definition evidence, not a measured product-matching improvement.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Nested aggregate over character positions with zero-initialized previous row and incrementally appended current row; normalize the final cell. SQL array indices offset the mathematical zero column by one.",
+      "formula": "C(i,j)=C(i-1,j-1)+1 when a_i=b_j, else max(C(i-1,j),C(i,j-1)); score=2*C(n,m)/(n+m).",
+      "cost": "O(n*m) cells and O(m) logical live state, but repeated concat may add O(n*m*m) copying.",
+      "limitations": "Subsequence is not substring. Conservative bounded inputs and plan-depth checks are required before throughput claims.",
+      "existing_family": null,
+      "shortlisted": true,
+      "family": "lcs_indel",
+      "prefix": "lci",
+      "rank": 7,
+      "selection_rationale": "Tests an alternative edit penalty with exact Indel semantics and enables later token-ratio parity work.",
+      "reference_cases": [
+        {
+          "a": "abc",
+          "b": "axc",
+          "score": 0.6666666666666666,
+          "provenance": "Derived LCS length two"
+        },
+        {
+          "a": "ab",
+          "b": "ba",
+          "score": 0.5,
+          "provenance": "Derived LCS length one"
+        }
+      ],
+      "implementation": {
+        "module": "src/lakematch/features/sota.py",
+        "config": "features.extra_families",
+        "default_enabled": false,
+        "tests": "tests/test_sota.py",
+        "reference_fixture": "tests/fixtures/sota_reference.json",
+        "limit": "features.sota_max_chars=256 by default; raise on longer nonmissing strings, never truncate."
+      }
+    },
+    {
+      "id": "smith_waterman",
+      "name": "Smith-Waterman local alignment",
+      "category": "alignment",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "smith1981"
+      ],
+      "evidence": "Smith and Waterman introduce local biological sequence alignment. It is an algorithmic source, not evidence of better record-linkage F1. Applying it to abbreviated fields and the scoring constants below are design choices.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Nested aggregate carrying previous/current rows and running best cell; zero boundaries and nonempty denominator guard.",
+      "formula": "H(i,j)=max(0,H(i-1,j-1)+(1 if equal else -1),H(i-1,j)-1,H(i,j-1)-1). Score=max(H)/min(n,m).",
+      "cost": "O(n*m) cells plus array-copy overhead.",
+      "limitations": "Containment can score one for very different full entities; no token-reordering invariance.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "affine_gap",
+      "name": "Smith-Waterman local alignment with affine gaps",
+      "category": "alignment",
+      "field_types": [
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "gotoh1982",
+        "smith1981"
+      ],
+      "evidence": "Gotoh is the algorithmic reference for efficient affine-gap alignment. The existing lakematch affine_gap family uses a UDF. A built-in rewrite needs explicit scoring and gap conventions before parity can be claimed.",
+      "evidence_type": "definition",
+      "builtin_expressible": true,
+      "spark_support": "composite_design",
+      "sketch": "Nested aggregate with H and E row arrays, current-row F scalar and global maximum. Carry and type every state field explicitly; normalize under the pinned scoring contract.",
+      "formula": "E=max(H_above-open,E_above-extend); F=max(H_left-open,F_left-extend); H=max(0,H_diag+substitution,E,F). A length-one gap costs open; longer gaps add extend.",
+      "cost": "O(n*m) logical cells with multiple state arrays.",
+      "limitations": "Not token-level Monge-Elkan. Score normalization and historical library naming are not interchangeable.",
+      "existing_family": "affine_gap",
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "embedding_cosine",
+      "name": "Bi-encoder embedding cosine",
+      "category": "learned",
+      "field_types": [
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "linktransformer2024",
+        "zeakis2023",
+        "sklearncosine",
+        "wdc2024"
+      ],
+      "evidence": "LinkTransformer Table 1 reports multilingual company-alias top-1 accuracy 0.55/0.69/0.83 for edit distance/off-the-shelf SBERT/tuned LT, and fine-product linkage 0.54/0.79/0.84. These retrieval results do not estimate lakematch pair F1.",
+      "evidence_type": "empirical",
+      "builtin_expressible": true,
+      "spark_support": "prepared_vectors",
+      "sketch": "Pair comparison uses zip_with, aggregate and sqrt. Raw-string vector generation requires the existing materialized embedding provider; it is not a Spark 4.1 string built-in.",
+      "formula": "dot(u,v)/(norm2(u)*norm2(v)) on fixed record vectors; preserve [-1,1] unless the existing embedding contract maps it.",
+      "cost": "O(d) pair arithmetic plus separate model inference cost.",
+      "limitations": "Model/revision/normalization/dimensions must match; reject zero vectors. Existing family, not a new shortlist entry.",
+      "existing_family": "embedding",
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "byte_name_distance",
+      "name": "Learned byte-level name-vector distance",
+      "category": "learned",
+      "field_types": [
+        "person_name",
+        "organisation"
+      ],
+      "refs": [
+        "jrc2024"
+      ],
+      "evidence": "JRC-Names-Retrieval fine-tunes ByT5 with metric learning and evaluates MAP and recall@k separately for names and organisations. Performance changes substantially by script and transliteration; no universal advantage is claimed.",
+      "evidence_type": "empirical",
+      "builtin_expressible": true,
+      "spark_support": "prepared_vectors",
+      "sketch": "With prepared compatible vectors, zip_with and aggregate implement squared Euclidean distance, followed by sqrt if required. Encoder training/inference and transliteration are external preparation.",
+      "formula": "Distance between trained name vectors under the model training contract; for the paper, use Euclidean distance, not an assumed interchangeable cosine.",
+      "cost": "O(d) comparison plus external name encoder.",
+      "limitations": "This is not a built-in raw-string matcher. Provider support and model artifacts would need additional work.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "contrastive_cosine",
+      "name": "Contrastively trained representation cosine",
+      "category": "learned",
+      "field_types": [
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "simcse2021",
+        "sudowoodo2022",
+        "zeakis2023"
+      ],
+      "evidence": "SimCSE BERT-base reports mean STS Spearman correlation 76.3% unsupervised and 81.6% supervised. Sudowoodo studies contrastive data-integration representations; Zeakis compares 12 models on 17 ER datasets. STS correlation cannot be substituted for match F1.",
+      "evidence_type": "empirical",
+      "builtin_expressible": true,
+      "spark_support": "prepared_vectors",
+      "sketch": "The cosine alone is array arithmetic on prepared vectors. Contrastive training and encoding have no Spark SQL 4.1 built-in equivalent.",
+      "formula": "Cosine of vectors from a frozen contrastively trained encoder; a downstream pair classifier is a separate model.",
+      "cost": "O(d) pair arithmetic, separate training/inference costs.",
+      "limitations": "A task-specific classifier may not reduce to cosine. Tokenization, pooling and domain drift are material.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    },
+    {
+      "id": "llm_adjudication",
+      "name": "LLM pair adjudication / fuzzy-score cascade",
+      "category": "learned",
+      "field_types": [
+        "person_name",
+        "address",
+        "organisation",
+        "title"
+      ],
+      "refs": [
+        "feds2025",
+        "wdc2024"
+      ],
+      "evidence": "FEDS Table 4 reports mean LLM time for 400 comparisons falling from 179.8 seconds to 99.27 with a cascade; Figure 5 shows similar precision-recall curves. These are sanctions-screening results, not product-title F1 or portable latency.",
+      "evidence_type": "empirical",
+      "builtin_expressible": false,
+      "spark_support": "external_inference",
+      "sketch": "Not a Spark 4.1 built-in expression: pair-dependent inference needs a model service or external inference runtime. Cached outputs do not turn the string comparator into a built-in.",
+      "formula": "Model response conditioned on both records and a pinned prompt, optionally invoked only in a calibrated uncertainty interval.",
+      "cost": "Model-dependent per-pair inference and service overhead.",
+      "limitations": "Out of SIM-2 scope; network-free benchmark and deterministic reruns require frozen local artifacts and outputs.",
+      "existing_family": null,
+      "shortlisted": false,
+      "family": null,
+      "prefix": null,
+      "rank": null,
+      "selection_rationale": "",
+      "reference_cases": []
+    }
+  ]
+}
