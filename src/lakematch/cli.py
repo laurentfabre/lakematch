@@ -24,6 +24,38 @@ def _default(key: str):
     return node
 
 
+def _sample_record_chars(cfg: Config, side: str, rows: int = 200) -> float | None:
+    """Mean JSON size of one record's entity fields over the first rows of a CSV input (stdlib only: no session)."""
+    import csv
+    spec = cfg.get(f"inputs.{side}") or {}
+    path = cfg.path(spec.get("path"))
+    if not path or path.suffix.lower() != ".csv" or not path.exists():
+        return None
+    with open(path, newline="", encoding="utf-8") as fh:
+        recs = [r for _, r in zip(range(rows), csv.DictReader(fh))]
+    if not recs:
+        return None
+    return sum(len(json.dumps({f: r.get(f) or "" for f in cfg.fields}, ensure_ascii=False)) for r in recs) / len(recs)
+
+
+def jev_hint(cfg: Config) -> str:
+    """The predicted cost before a run: every labelled pair is one Jev request (cached answers are free)."""
+    from .labels import jev
+    n = cfg.get("labels.n")
+    calls = n * (2 if "learned_blocker" in {cfg.get("candidates.method"), *cfg.get("candidates.union_of")} else 1)
+    sizes = [_sample_record_chars(cfg, s) for s in ("left", "right")]
+    if all(sizes):
+        chars, how = sum(sizes) + 26, "records sized from the first 200 rows of each input"
+    else:
+        chars, how = jev.PRIOR["median_chars"], "typical record size of the benchmark corpora"
+    pred = jev._predict([int(chars)] * calls, {})
+    hi = pred["est_usd"] * (1 + jev.PRIOR["worst_error_pct"] / 100)
+    return (f"jev · at most {calls:,} requests ≈ {pred['est_input_tokens']:,} input tokens ≈ ${pred['est_usd']:.4f} "
+            f"(≤ ${hi:.4f} at the worst error seen on an unseen corpus; {how}; {pred['basis']}) · "
+            f"budget labels.llm_max_usd ${cfg.get('labels.llm_max_usd'):.2f} · cached answers cost nothing; "
+            "the exact prediction is logged before any request is sent")
+
+
 def doctor(cfg: Config, probe_session: bool) -> int:
     print(f"lakematch {__version__} · profile {cfg.get('profile')} · config base {cfg.base_dir}")
     java = os.environ.get("JAVA_HOME") or "(unset)"
@@ -44,9 +76,12 @@ def doctor(cfg: Config, probe_session: bool) -> int:
     for k, product in PAID_FEATURES.items():
         print(f"  {k:<30} {'ON ' if k in on else 'off'}  bills: {product}")
     if cfg.get("profile") == "laptop":
-        print("laptop    every paid feature is off; DQX, the registry, the app and Genie are not used")
+        print("laptop    " + ("every paid feature is off" if not on else "only the Jev labeller is on (its cost is below)")
+              + "; DQX, the registry, the app and Genie are not used")
     from .candidates import budget_note
     print(f"budget    {budget_note(cfg)}")
+    if cfg.get("labels.llm") == "jev":
+        print(f"labeller  {jev_hint(cfg)}")
     problems = cfg.runnable_problems()
     print("run       " + ("ready" if not problems else "blocked:\n  " + "\n  ".join(problems)))
     if probe_session:

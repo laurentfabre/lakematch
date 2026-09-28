@@ -63,3 +63,47 @@ def test_run_links_and_rejects(spark, tmp_path):
     assert on_disk["decision"]["links"] == summary["decision"]["links"]
     assert (tmp_path / "data" / "links").exists() and (tmp_path / "data" / "quarantine" / "right").exists()
     assert not (tmp_path / "data" / "_scratch").exists() or not any((tmp_path / "data" / "_scratch").iterdir())
+
+
+def _jev_config(tmp_path, **labels):
+    return make_cfg(tmp_path,
+                    inputs={"left": {"path": "left.csv", "id": "rid"}, "right": {"path": "right.csv", "id": "rid"}},
+                    entity={"fields": {"given": {"type": "person_name"}, "surname": {"type": "person_name"},
+                                       "street": {"type": "address"}, "postcode": {"type": "code"},
+                                       "dob": {"type": "date"}}},
+                    candidates={"k": 3}, matcher={"estimator": "logistic_regression"},
+                    labels={"source": "truth_sample", "n": 200, "llm": "jev", **labels},
+                    paid_features={"llm_labeller": True},
+                    evaluation={"truth": {"path": "truth.csv", "left_id": "l_id", "right_id": "r_id"}})
+
+
+def test_run_with_jev_on_the_laptop_predicts_then_reports_its_cost(spark, tmp_path, monkeypatch):
+    """No network: the stub answers 'same' when the surnames agree, like a confident labeller would."""
+    from lakematch.labels import jev
+    _write(tmp_path)
+    sent = []
+
+    async def fake(todo, questions, model, usage):
+        sent.extend(todo)
+        usage["requests"] += len(todo)
+        usage["input_tokens"] += 500 * len(todo)
+        same = lambda p: p["record_a"]["surname"][:3] == p["record_b"]["surname"][:3]
+        return [{"key": k, "probs": [0.0, 0.02, 0.98] if same(p) else [0.97, 0.03, 0.0], "input_tokens": 500,
+                 "chars": jev.state_chars(p)} for p, k in todo]
+    monkeypatch.setattr(jev, "_ask_all", fake)
+    cfg = _jev_config(tmp_path)
+    summary = run(cfg, rt=Runtime(cfg, spark))
+    used = summary["llm_labeller"]
+    assert used["predicted"]["to_send"] == len(sent) == used["asked"] > 0
+    assert used["predicted"]["est_usd"] > 0 and used["usd"] == round(500 * len(sent) * 0.042 / 1e6, 6)
+    assert summary["labels"]["train"] > 0 and summary["labels"]["train_matches"] > 0    # Jev's labels trained it
+
+
+def test_run_with_jev_over_budget_sends_nothing(spark, tmp_path, monkeypatch):
+    import pytest
+    from lakematch.labels import jev
+    _write(tmp_path)
+    monkeypatch.setattr(jev, "_ask_all", lambda *a: (_ for _ in ()).throw(AssertionError("nothing may be sent")))
+    cfg = _jev_config(tmp_path, llm_max_usd=0.000001)
+    with pytest.raises(jev.BudgetExceeded, match="labels.llm_max_usd"):
+        run(cfg, rt=Runtime(cfg, spark))

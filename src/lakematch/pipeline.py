@@ -92,7 +92,10 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
                                  "budget": candidates.budget_note(cfg)}
         summary["features"] = feature_cols
 
-        lab = rt.materialize(labels.labelled(spark, pairs, cfg, left, right), "labels")
+        llm_usage: dict = {}
+        lab = rt.materialize(labels.labelled(spark, pairs, cfg, left, right, llm_usage), "labels")
+        if llm_usage:
+            summary["llm_labeller"] = llm_usage
         train, valid_lab = labels.split(lab, cfg)
         summary["labels"] = {"train": train.count(), "train_matches": train.filter("label = 1").count(),
                              "validation": valid_lab.count()}

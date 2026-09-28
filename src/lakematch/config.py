@@ -97,7 +97,8 @@ DEFAULTS: dict[str, Any] = {
     "cluster": {"method": "verified_merge", "max_rounds": 20},
     "quality": {"engine": "native", "checks": []},
     "labels": {"source": "truth_sample", "n": 400, "path": None, "llm": "none", "llm_tau": 0.90,
-               "llm_cache": None},   # default <storage.root>/jev_cache.jsonl
+               "llm_cache": None,    # default <storage.root>/jev_cache.jsonl
+               "llm_max_usd": 1.0},  # refuse, before sending, when Jev's predicted cost exceeds this (USD)
     "evaluation": {"truth": None},
     "mlflow": {"tracking_uri": "sqlite:///mlflow.db", "registry": False, "registry_uri": None, "alias": None,
                "model_name": "lakematch_record"},
@@ -258,7 +259,10 @@ def validate(data: dict) -> None:
     if paid["genie_auth_mode"] not in ("user", "service_principal"):
         raise ConfigError("paid_features.genie_auth_mode must be user or service_principal")
     if data["profile"] == "laptop":
-        on = [k for k in PAID_FEATURES if paid.get(k)]
+        # Laurent, 2026-09-29: Jev may run on the laptop, provided its cost is predicted first (labels/jev.py) —
+        # the one paid switch the laptop accepts, and only for labels.llm: jev (ai_query is Model Serving).
+        on = [k for k in PAID_FEATURES if paid.get(k)
+              and not (k == "llm_labeller" and data["labels"]["llm"] == "jev")]
         if on:
             raise ConfigError(f"profile laptop turns every paid feature off; enabled here: {', '.join(on)}")
         if data["runtime"]["mode"] != "local":
@@ -272,7 +276,11 @@ def validate(data: dict) -> None:
                 raise ConfigError(f"inputs.{side} needs path and id")
     if data["labels"]["llm"] != "none" and not paid.get("llm_labeller"):
         raise ConfigError(f"labels.llm: {data['labels']['llm']} is a paid feature: set paid_features.llm_labeller: true "
-                          "(never on the laptop profile)")
+                          "(Jev is allowed on the laptop; its cost is predicted before sending, capped by "
+                          "labels.llm_max_usd)")
+    mx = data["labels"]["llm_max_usd"]
+    if not isinstance(mx, (int, float)) or isinstance(mx, bool) or mx < 0:
+        raise ConfigError("labels.llm_max_usd must be a non-negative number of US dollars")
     if not 0.5 < data["labels"]["llm_tau"] <= 1:
         raise ConfigError("labels.llm_tau must be in (0.5, 1]")
     if data["labels"]["source"] == "file" and not data["labels"]["path"]:

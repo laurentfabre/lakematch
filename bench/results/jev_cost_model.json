@@ -1,0 +1,100 @@
+{
+ "model": "input_tokens = a + b * chars (chars = JSON of both records' entity fields)",
+ "a": 386.07,
+ "b": 0.4461,
+ "n": 4399,
+ "median_chars": 399,
+ "price_per_m_input_usd": 0.042,
+ "leave_one_corpus_out": {
+  "abt_buy": {
+   "pairs": 400,
+   "actual_tokens": 224233,
+   "predicted_tokens": 255389,
+   "error_pct": 13.9,
+   "actual_usd": 0.00942,
+   "predicted_usd": 0.01073
+  },
+  "amazon_google": {
+   "pairs": 400,
+   "actual_tokens": 188721,
+   "predicted_tokens": 198030,
+   "error_pct": 4.9,
+   "actual_usd": 0.00793,
+   "predicted_usd": 0.00832
+  },
+  "bpid": {
+   "pairs": 400,
+   "actual_tokens": 227278,
+   "predicted_tokens": 217652,
+   "error_pct": -4.2,
+   "actual_usd": 0.00955,
+   "predicted_usd": 0.00914
+  },
+  "dblp_acm": {
+   "pairs": 400,
+   "actual_tokens": 208110,
+   "predicted_tokens": 225622,
+   "error_pct": 8.4,
+   "actual_usd": 0.00874,
+   "predicted_usd": 0.00948
+  },
+  "febrl3": {
+   "pairs": 400,
+   "actual_tokens": 252459,
+   "predicted_tokens": 243376,
+   "error_pct": -3.6,
+   "actual_usd": 0.0106,
+   "predicted_usd": 0.01022
+  },
+  "febrl4_half_unmatched": {
+   "pairs": 400,
+   "actual_tokens": 259065,
+   "predicted_tokens": 242190,
+   "error_pct": -6.5,
+   "actual_usd": 0.01088,
+   "predicted_usd": 0.01017
+  },
+  "febrl4_original": {
+   "pairs": 400,
+   "actual_tokens": 254118,
+   "predicted_tokens": 243057,
+   "error_pct": -4.4,
+   "actual_usd": 0.01067,
+   "predicted_usd": 0.01021
+  },
+  "leipzig_affiliations": {
+   "pairs": 399,
+   "actual_tokens": 178495,
+   "predicted_tokens": 185375,
+   "error_pct": 3.9,
+   "actual_usd": 0.0075,
+   "predicted_usd": 0.00779
+  },
+  "splink_historical_50k": {
+   "pairs": 400,
+   "actual_tokens": 218726,
+   "predicted_tokens": 207678,
+   "error_pct": -5.1,
+   "actual_usd": 0.00919,
+   "predicted_usd": 0.00872
+  },
+  "synthetic_1e6": {
+   "pairs": 400,
+   "actual_tokens": 234277,
+   "predicted_tokens": 225927,
+   "error_pct": -3.6,
+   "actual_usd": 0.00984,
+   "predicted_usd": 0.00949
+  },
+  "walmart_amazon": {
+   "pairs": 400,
+   "actual_tokens": 214338,
+   "predicted_tokens": 219686,
+   "error_pct": 2.5,
+   "actual_usd": 0.009,
+   "predicted_usd": 0.00923
+  }
+ },
+ "leave_one_corpus_out_max_abs_error_pct": 13.9,
+ "leave_one_corpus_out_median_abs_error_pct": 4.4
+}

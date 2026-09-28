@@ -1,6 +1,6 @@
 # Benchmarks (ZR-3)
 
-*Generated 2026-09-29T00:04:09 from `bench/results/benchmarks.json` by `lakematch bench --all` (`bench/benchmarks.py`). Machine: arm64 · 16 cores · local[8]. Every row ran end to end on the laptop, one process per corpus; nothing below was typed by hand.*
+*Generated 2026-09-29T01:09:35 from `bench/results/benchmarks.json` by `lakematch bench --all` (`bench/benchmarks.py`). Machine: arm64 · 16 cores · local[8]. Every row ran end to end on the laptop, one process per corpus; nothing below was typed by hand.*
 
 ## Contents
 
@@ -20,17 +20,17 @@ Gold labeller (TRAIN labels, threshold on VALID, scored once on TEST). F1 interv
 
 | Corpus | kind | P | R | F1 [95 % CI] | NN baseline F1 | candidate recall@k | wall s (incl. start) | reference to beat or match |
 |---|---|---|---|---|---|---|---|---|
-| FEBRL4, half the partners removed | linkage | 1.000 | 0.996 | **0.998** [0.995, 1.000] | 0.679 | 1.000 @5 | 22.9 | Zingg 0.841 (perfect labels, all fields); Zingg 0.862 (perfect labels, SSN hidden); Zingg 0.849 (labels from Jev); Splink 0.9996 (measured); Splink SSN hidden 0.9881 (measured) |
-| FEBRL4 original | linkage | 1.000 | 1.000 | **1.000** [1.000, 1.000] | 1.000 | 1.000 @5 | 28.1 | Zingg 0.853 (labels from Jev (6 rounds)); Zingg 0.858 (ground-truth labels (6 rounds)); Splink 0.9995 (measured) |
-| FEBRL3 (dedupe) | dedupe | 0.996 | 0.999 | **0.998** [0.995, 1.000] | 0.575 | 1.000 @10 | 29.0 | Splink 0.9918 (measured); Splink on Febrl (blog figure, unverified) 0.998 |
-| BPID | pairs | 0.811 | 0.846 | **0.828** [0.808, 0.845] | 0.640 | 0.976 @5 | 47.4 | Sudowoodo (best published) 0.788; Ditto 0.752; Llama3-70B zero-shot 0.729; GPT-4-turbo zero-shot 0.687; rules 0.608 |
-| Abt-Buy | pairs | 0.678 | 0.768 | **0.721** [0.668, 0.769] | 0.844 | 0.961 @5 | 17.7 | Magellan (Zingg-class) 0.436; DeepMatcher 0.628; Ditto 0.893; GPT-4 zero-shot 0.958 |
-| Amazon-Google | pairs | 0.594 | 0.697 | **0.641** [0.593, 0.688] | 0.693 | 0.977 @5 | 16.8 | Magellan (Zingg-class) 0.491; DeepMatcher 0.693; Ditto 0.756; GPT-4 zero-shot 0.764 |
+| FEBRL4, half the partners removed | linkage | 1.000 | 0.996 | **0.998** [0.995, 1.000] | 0.679 | 1.000 @5 | 23.6 | Zingg 0.841 (perfect labels, all fields); Zingg 0.862 (perfect labels, SSN hidden); Zingg 0.849 (labels from Jev); Splink 0.9996 (measured); Splink SSN hidden 0.9881 (measured) |
+| FEBRL4 original | linkage | 1.000 | 1.000 | **1.000** [1.000, 1.000] | 1.000 | 1.000 @5 | 28.4 | Zingg 0.853 (labels from Jev (6 rounds)); Zingg 0.858 (ground-truth labels (6 rounds)); Splink 0.9995 (measured) |
+| FEBRL3 (dedupe) | dedupe | 0.999 | 0.999 | **0.999** [0.998, 1.000] | 0.575 | 1.000 @10 | 31.0 | Splink 0.9918 (measured); Splink on Febrl (blog figure, unverified) 0.998 |
+| BPID | pairs | 0.811 | 0.846 | **0.828** [0.808, 0.845] | 0.640 | 0.976 @5 | 49.4 | Sudowoodo (best published) 0.788; Ditto 0.752; Llama3-70B zero-shot 0.729; GPT-4-turbo zero-shot 0.687; rules 0.608 |
+| Abt-Buy | pairs | 0.678 | 0.768 | **0.721** [0.668, 0.769] | 0.844 | 0.961 @5 | 19.0 | Magellan (Zingg-class) 0.436; DeepMatcher 0.628; Ditto 0.893; GPT-4 zero-shot 0.958 |
+| Amazon-Google | pairs | 0.594 | 0.697 | **0.641** [0.593, 0.688] | 0.693 | 0.977 @5 | 17.2 | Magellan (Zingg-class) 0.491; DeepMatcher 0.693; Ditto 0.756; GPT-4 zero-shot 0.764 |
 | Walmart-Amazon | pairs | 0.850 | 0.740 | **0.791** [0.743, 0.835] | 0.613 | 0.995 @5 | 20.7 | Magellan (Zingg-class) 0.719; DeepMatcher 0.676; Ditto 0.868; GPT-4 zero-shot 0.897 |
-| DBLP-ACM | pairs | 0.989 | 0.993 | **0.991** [0.985, 0.997] | 0.977 | 1.000 @5 | 21.1 | Magellan (Zingg-class) 0.984; Ditto 0.990 |
-| Splink historical_50k (dedupe) | dedupe | 0.978 | 0.653 | **0.783** [0.778, 0.789] | 0.204 | 0.679 @10 | 62.9 | Splink 0.6881 (measured) |
-| Leipzig Affiliations (dedupe) | dedupe | 0.847 | 0.451 | **0.588** [0.558, 0.618] | 0.162 | 0.514 @10 | 17.8 | Dedupe classifier + F-MWSP clustering (whole dataset) 0.630 |
-| Synthetic 10^6 | linkage | 1.000 | 0.119 | **0.212** [0.207, 0.216] | 0.079 | 0.119 @5 | 114.9 | Splink 0.9921 (measured) |
+| DBLP-ACM | pairs | 0.989 | 0.993 | **0.991** [0.985, 0.997] | 0.977 | 1.000 @5 | 21.7 | Magellan (Zingg-class) 0.984; Ditto 0.990 |
+| Splink historical_50k (dedupe) | dedupe | 0.978 | 0.653 | **0.783** [0.778, 0.789] | 0.204 | 0.679 @10 | 63.4 | Splink 0.6881 (measured) |
+| Leipzig Affiliations (dedupe) | dedupe | 0.847 | 0.451 | **0.588** [0.558, 0.618] | 0.162 | 0.514 @10 | 17.3 | Dedupe classifier + F-MWSP clustering (whole dataset) 0.630 |
+| Synthetic 10^6 | linkage | 1.000 | 0.119 | **0.212** [0.207, 0.216] | 0.079 | 0.119 @5 | 117.1 | Splink 0.9921 (measured) |
 
 ## Findings
 
@@ -49,7 +49,7 @@ Gold labeller (TRAIN labels, threshold on VALID, scored once on TEST). F1 interv
 | | all ten fields | SSN hidden | bar |
 |---|---|---|---|
 | F1 [95 % CI] | 0.998 [0.995, 1.000] | 0.999 [0.997, 1.000] | ≥ 0.97 / ≥ 0.96 |
-| wall time incl. Spark start | 22.9 s (the slower of the two runs) | | < 60 s |
+| wall time incl. Spark start | 23.6 s (the slower of the two runs) | | < 60 s |
 
 Verdict: **met**. Zingg on the same task: 0.841 (all fields) / 0.862 (SSN hidden), recall 0.73–0.76 (recorded 2026-09-19).
 
@@ -61,7 +61,7 @@ The same run with no gold label: Jev labels 400 TRAIN candidate pairs, only its 
 |---|---|---|---|---|---|---|---|
 | FEBRL4, half the partners removed | 400 | 371 | 0.948 [0.934, 0.961] | 0.998 | 259,065 | 0.0109 |  |
 | FEBRL4 original | 400 | 354 | 0.998 [0.996, 1.000] | 1.000 | 254,118 | 0.0107 |  |
-| FEBRL3 (dedupe) | 400 | 356 | 0.948 [0.934, 0.961] | 0.998 | 252,459 | 0.0106 |  |
+| FEBRL3 (dedupe) | 400 | 356 | 0.948 [0.934, 0.961] | 0.999 | 252,459 | 0.0106 |  |
 | BPID | 400 | 23 | 0.649 [0.627, 0.670] | 0.828 | 227,278 | 0.0095 |  |
 | Abt-Buy | 400 | 328 | 0.506 [0.448, 0.569] | 0.721 | 224,233 | 0.0094 |  |
 | Amazon-Google | 400 | 225 | 0.343 [0.274, 0.408] | 0.641 | 188,721 | 0.0079 |  |
@@ -73,21 +73,23 @@ The same run with no gold label: Jev labels 400 TRAIN candidate pairs, only its 
 
 Total: 2,460,259 input tokens, $0.103.
 
+**Predicting the cost before sending.** `bench/jev_calibrate.py` fits input tokens = 386 + 0.446 × characters of the two records' JSON on these 4,399 answers. Predicting each corpus from the other ten, the total is off by 4.4 % (median), 13.9 % at worst. `lakematch doctor` prints this prediction, a run logs it before any request, and `labels.llm_max_usd` refuses a run predicted above it — which is why Jev may run on the laptop profile.
+
 ## Latency and scale
 
 | Corpus | records | candidate pairs | wall s | records / s | peak shuffle (one stage, MB) | total shuffle MB |
 |---|---|---|---|---|---|---|
-| FEBRL4, half the partners removed | 7,500 | 25,000 | 22.9 | 327.5 | 182.2 | 218.6 |
-| FEBRL4 original | 10,000 | 25,000 | 28.1 | 355.9 | 374.7 | 412.8 |
-| FEBRL3 (dedupe) | 5,000 | 33,324 | 29.0 | 172.4 | 429.3 | 487.8 |
-| BPID | 20,000 | 50,000 | 47.4 | 421.9 | 1887.8 | 2012.8 |
-| Abt-Buy | 2,103 | 5,340 | 17.7 | 118.8 | 55.8 | 98.9 |
-| Amazon-Google | 3,362 | 6,440 | 16.8 | 200.1 | 31.9 | 67.1 |
+| FEBRL4, half the partners removed | 7,500 | 25,000 | 23.6 | 317.8 | 238.8 | 273.8 |
+| FEBRL4 original | 10,000 | 25,000 | 28.4 | 352.1 | 374.7 | 412.8 |
+| FEBRL3 (dedupe) | 5,000 | 33,324 | 31.0 | 161.3 | 429.3 | 487.7 |
+| BPID | 20,000 | 50,000 | 49.4 | 404.9 | 1887.8 | 2012.8 |
+| Abt-Buy | 2,103 | 5,340 | 19.0 | 110.7 | 23.9 | 63.3 |
+| Amazon-Google | 3,362 | 6,440 | 17.2 | 195.5 | 31.9 | 67.1 |
 | Walmart-Amazon | 6,935 | 8,440 | 20.7 | 335.0 | 119.7 | 280.7 |
-| DBLP-ACM | 4,681 | 12,180 | 21.1 | 221.8 | 207.9 | 348.9 |
-| Splink historical_50k (dedupe) | 50,578 | 334,095 | 62.9 | 804.1 | 1266.5 | 2116.3 |
-| Leipzig Affiliations (dedupe) | 2,260 | 15,470 | 17.8 | 127.0 | 26.5 | 55.2 |
-| Synthetic 10^6 | 1,000,000 | 1,289,714 | 114.9 | 8,703.2 | 1185.8 | 4191.9 |
+| DBLP-ACM | 4,681 | 12,180 | 21.7 | 215.7 | 207.9 | 348.9 |
+| Splink historical_50k (dedupe) | 50,578 | 334,095 | 63.4 | 797.8 | 1266.5 | 2116.3 |
+| Leipzig Affiliations (dedupe) | 2,260 | 15,470 | 17.3 | 130.6 | 26.5 | 55.2 |
+| Synthetic 10^6 | 1,000,000 | 1,289,714 | 117.1 | 8,539.7 | 1185.8 | 4191.9 |
 
 Peak shuffle is read from the Spark event log of each run. DBUs from the billing table apply on Databricks only (ZR-6).
 

@@ -172,7 +172,9 @@ flowchart LR
 ## One config file
 
 One YAML drives every runtime, with two shipped profiles. `laptop` must work with every `paid_features` entry `false`,
-no network and no Databricks packages installed. `databricks` differs only where a decision says so: DQX as the quality
+no network and no Databricks packages installed. The one exception (Laurent, 2026-09-29): `llm_labeller` with `labels.llm: jev`
+may be switched on on the laptop, because Jev's cost is predicted before anything is sent — `lakematch doctor` prints
+the estimate, the run logs it, and `labels.llm_max_usd` (default $1) refuses a run predicted above it. `databricks` differs only where a decision says so: DQX as the quality
 engine (D18), the Unity Catalog registry (D17), the app and Genie on (D19).
 
 ```yaml
@@ -224,7 +226,7 @@ mlflow:
   registry: false             # laptop: tracking only, the model is resolved by run id (D17)
   model_name: lakematch_person
 
-paid_features:                # everything that bills on top of plain compute; laptop: all false
+paid_features:                # everything that bills on top of plain compute; laptop: all false except llm_labeller for jev
   photon_on_classic: false            # runtime_engine PHOTON vs STANDARD in the classic target
   serverless_performance_mode: false  # pipelines: standard vs performance-optimised
   llm_labeller: false                 # Jev (external) or ai_query (Model Serving)

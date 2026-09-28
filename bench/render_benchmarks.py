@@ -113,7 +113,17 @@ def render(src: Path, dst: Path) -> None:
         tot_usd += usd
         L.append(f"| {TITLES[n]} | {u['asked']} | {u['kept']} | {f(j.get('f1'))} {ci(j.get('f1_ci95'))} | {f(r['f1'])} | "
                  f"{int(led):,} | {usd:.4f} | {j.get('note', '')} |")
-    L += ["", f"Total: {int(tot_tok):,} input tokens, ${tot_usd:.3f}.", "",
+    L += ["", f"Total: {int(tot_tok):,} input tokens, ${tot_usd:.3f}."]
+    cm = src.parent / "jev_cost_model.json"
+    if cm.exists():
+        m = json.loads(cm.read_text())
+        L += ["", f"**Predicting the cost before sending.** `bench/jev_calibrate.py` fits input tokens = {m['a']:.0f} + "
+              f"{m['b']:.3f} × characters of the two records' JSON on these {m['n']:,} answers. Predicting each corpus "
+              f"from the other ten, the total is off by {m['leave_one_corpus_out_median_abs_error_pct']} % (median), "
+              f"{m['leave_one_corpus_out_max_abs_error_pct']} % at worst. `lakematch doctor` prints this prediction, "
+              "a run logs it before any request, and `labels.llm_max_usd` refuses a run predicted above it — which "
+              "is why Jev may run on the laptop profile."]
+    L += ["",
           "## Latency and scale", "",
           "| Corpus | records | candidate pairs | wall s | records / s | peak shuffle (one stage, MB) | total shuffle MB |",
           "|---|---|---|---|---|---|---|"]

@@ -126,7 +126,9 @@ value today; a choice whose phase has not landed fails with a message naming tha
 </details>
 
 > **Paid features.** Everything that bills on top of plain compute has a switch under `paid_features:`. The `laptop`
-> profile refuses any of them turned on; the `databricks` profile turns on `app` and `genie` only (D19).
+> profile refuses any of them turned on, with one exception: `llm_labeller` for `labels.llm: jev`, whose cost is
+> predicted first (`lakematch doctor` prints it, the run logs it before sending, and `labels.llm_max_usd`, default $1,
+> refuses a run predicted above it). The `databricks` profile turns on `app` and `genie` only (D19).
 
 ---
 

@@ -45,7 +45,8 @@ def llm_labelled(spark: SparkSession, features: DataFrame, cfg: Config, left: Da
     what = (f"two {name} records from two sources; a duplicate may carry typos, abbreviations, missing, reordered "
             "or swapped fields")
     cache = cfg.path(cfg.get("labels.llm_cache")) or cfg.path(cfg.get("storage.root")) / "jev_cache.jsonl"
-    answers, usage = jev.ask(asked, what, name, cache, tau=cfg.get("labels.llm_tau"))
+    answers, usage = jev.ask(asked, what, name, cache, tau=cfg.get("labels.llm_tau"),
+                             max_usd=cfg.get("labels.llm_max_usd"))
     kept = [(a["l_id"], a["r_id"], a["label"]) for a in answers if a["label"] is not None]
     usage.update({"asked": len(asked), "kept": len(kept)})
     lab = spark.createDataFrame(kept, "l_id string, r_id string, label double")
@@ -53,13 +54,16 @@ def llm_labelled(spark: SparkSession, features: DataFrame, cfg: Config, left: Da
 
 
 def labelled(spark: SparkSession, features: DataFrame, cfg: Config, left: DataFrame | None = None,
-             right: DataFrame | None = None) -> DataFrame:
+             right: DataFrame | None = None, usage: dict | None = None) -> DataFrame:
     """The candidate pairs that carry a label, with a double `label` column. `left`/`right` (entity sides) are
-    needed by an LLM labeller, which reads the records."""
+    needed by an LLM labeller, which reads the records; its usage (predicted and actual cost) lands in `usage`."""
     if cfg.require("labels.llm") == "jev":
         if left is None or right is None:
             raise ValueError("labels.llm: jev needs the entity sides")
-        return llm_labelled(spark, features, cfg, left, right)[0]
+        lab, used = llm_labelled(spark, features, cfg, left, right)
+        if usage is not None:
+            usage.update(used)
+        return lab
     source = cfg.require("labels.source")
     if source == "truth_sample":
         truth = truth_pairs(spark, cfg)
