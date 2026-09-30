@@ -8,7 +8,8 @@ by pair hash, as in bench/ablation.py.
 1. candidates.method — candidate recall at an equal pair budget: every method's proposals are ranked by the same IDF
    gram cosine and cut to k per left record (k = 5; 10 for the Leipzig dedupe, self pairs removed). Recall = true
    pairs of VALID left records that survive. learned_blocker learns from the matches of TRAIN left records only.
-   Tie-break: fewer proposed pairs.
+   Tie-break: fewer proposed pairs. A method over WALL_BUDGET_S on a corpus is cancelled (recall 0 there). Compared on the four corpora below plus synthetic_1e6 (500 000 records per side,
+   ZR-3s): a candidate default must hold at 10^6.
 2. features.string_similarity, matcher.estimator, decision.cardinality — end-to-end F1 on VALID with everything else at
    its default and the candidate winner. The model is fitted on 80 % of TRAIN, the threshold picked on the other 20 %
    (by left id for linkage, by pair hash otherwise), and F1 measured on VALID. Cardinality applies to the two
@@ -25,6 +26,7 @@ import argparse
 import datetime
 import json
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -45,6 +47,12 @@ from lakematch.runtime import Runtime  # noqa: E402
 
 RESULTS = HERE / "results" / "methods.json"
 CORPORA = ("febrl4_half_unmatched", "bpid", "abt_buy", "leipzig_affiliations")
+# ZR-3s: the 10^6 corpus joins the candidate comparison (where scale changes the answer); the downstream choices stay
+# on the four corpora above
+CAND_CORPORA = CORPORA + ("synthetic_1e6",)
+# A method whose proposals + ranking take longer than this on one corpus is cancelled and scores recall 0 there: the
+# whole pipeline must fit 600 s at 10^6 (ZR-3s), so a candidate step alone above it cannot be a default.
+WALL_BUDGET_S = 600
 CAND = ["gram_topk", "learned_blocker", "minhash_lsh", "field_blocks", "union"]
 UNION_OF = ["gram_topk", "field_blocks"]
 SIMS = ["levenshtein", "jaro_winkler", "both"]
@@ -96,22 +104,38 @@ def compare_candidates(rt, c) -> dict:
     valid_truth = rt.materialize(truth.filter("split = 'valid'").select("l_id", "r_id"), "valid_truth")
     n_valid = valid_truth.count()
     out = {}
+    sc = spark.sparkContext
     for m in CAND:
         cfg = cfg_for(c, candidates={"method": m, "k": k + (1 if dedupe else 0), "union_of": UNION_OF},
                       features={"embeddings": {"provider": "none"}})
         t0 = time.time()
         uses_labels = m == "learned_blocker" or (m == "union" and "learned_blocker" in UNION_OF)
-        props = rt.materialize(candidates.propose(m, L, R, cfg, train_pos if uses_labels else None), f"props_{m}")
-        n_props = props.count()
-        kept = candidates.top_k(candidates.rescore(props, L, R, cfg), cfg.get("candidates.k"))
-        if dedupe:
-            kept = kept.filter("l_id != r_id").select(F.least("l_id", "r_id").alias("l_id"),
-                                                      F.greatest("l_id", "r_id").alias("r_id")).distinct()
-        kept = rt.materialize(kept.select("l_id", "r_id"), f"kept_{m}")
-        hit = kept.join(valid_truth, ["l_id", "r_id"]).count()
-        out[m] = {"recall_at_budget": round(hit / max(n_valid, 1), 4), "proposals": n_props,
-                  "kept": kept.count(), "wall_s": round(time.time() - t0, 1)}
-        log(f"  {c.name:<22} {m:<16} recall {out[m]['recall_at_budget']:.4f}  proposals {n_props:>9}  {out[m]['wall_s']} s")
+        group = f"cand_{c.name}_{m}"
+        sc.setJobGroup(group, f"candidates {m} on {c.name}", interruptOnCancel=True)
+        fired = threading.Event()
+        timer = threading.Timer(WALL_BUDGET_S, lambda g=group, ev=fired: (ev.set(), sc.cancelJobGroup(g)))
+        timer.start()
+        try:
+            props = rt.materialize(candidates.propose(m, L, R, cfg, train_pos if uses_labels else None), f"props_{m}")
+            n_props = props.count()
+            kept = candidates.top_k(candidates.rescore(props, L, R, cfg), cfg.get("candidates.k"))
+            if dedupe:
+                kept = kept.filter("l_id != r_id").select(F.least("l_id", "r_id").alias("l_id"),
+                                                          F.greatest("l_id", "r_id").alias("r_id")).distinct()
+            kept = rt.materialize(kept.select("l_id", "r_id"), f"kept_{m}")
+            hit = kept.join(valid_truth, ["l_id", "r_id"]).count()
+            out[m] = {"recall_at_budget": round(hit / max(n_valid, 1), 4), "proposals": n_props,
+                      "kept": kept.count(), "wall_s": round(time.time() - t0, 1)}
+        except Exception as e:   # noqa: BLE001 — only a cancelled job is expected here
+            if not fired.is_set():
+                raise
+            out[m] = {"recall_at_budget": 0.0, "proposals": None, "kept": None, "wall_s": round(time.time() - t0, 1),
+                      "over_budget": f"cancelled after {WALL_BUDGET_S} s ({type(e).__name__})"}
+        finally:
+            timer.cancel()
+            sc.setLocalProperty("spark.jobGroup.id", None)
+        log(f"  {c.name:<22} {m:<16} recall {out[m]['recall_at_budget']:.4f}  proposals {out[m]['proposals']!s:>9}  "
+            f"{out[m]['wall_s']} s{'  OVER BUDGET' if 'over_budget' in out[m] else ''}")
     return {"choices": out, "budget_per_left": k, "valid_true_pairs": n_valid}
 
 
@@ -235,17 +259,19 @@ def winner(per_corpus: dict, metric: str, current: str, tie_key=None, allowed=No
 
 def run(only: str | None) -> None:
     rt = Runtime(config.build({"storage": {"root": str(corpora.DATA / "runs" / "methods")},
-                               "runtime": {"cores": 8, "shuffle_partitions": 16}}))
+                               "runtime": {"cores": 8, "shuffle_partitions": 32, "driver_memory": "24g"}}))
     res = json.loads(RESULTS.read_text()) if RESULTS.exists() else {}
     res.setdefault("comparisons", {})
     res["selected_on"] = "validation"
-    loaded = {n: (corpora.LOADERS[n]() if n != "febrl4_half_unmatched" else corpora.febrl4_half_unmatched()) for n in CORPORA}
+    names = CAND_CORPORA if only in (None, "candidates") else CORPORA
+    loaded = {n: (corpora.LOADERS[n]() if n != "febrl4_half_unmatched" else corpora.febrl4_half_unmatched()) for n in names}
     if only in (None, "candidates"):
         per = {}
-        for n in CORPORA:
+        for n in CAND_CORPORA:
             per[n] = compare_candidates(rt, loaded[n])
             rt.close()
-        props = lambda m: np.mean([per[n]["choices"][m]["proposals"] for n in per])
+        props = lambda m: np.mean([per[n]["choices"][m]["proposals"] if per[n]["choices"][m]["proposals"] is not None
+                                   else np.inf for n in per])
         w, mean = winner(per, "recall_at_budget", DEFAULTS["candidates"]["method"], tie_key=props)
         res["comparisons"]["candidates.method"] = {
             "metric": "recall_at_budget", "per_corpus": per, "mean": mean, "winner": w,

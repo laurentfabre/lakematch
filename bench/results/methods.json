@@ -9,31 +9,31 @@
        "recall_at_budget": 1.0,
        "proposals": 25000,
        "kept": 25000,
-       "wall_s": 9.8
+       "wall_s": 10.3
       },
       "learned_blocker": {
        "recall_at_budget": 0.9815,
        "proposals": 2529,
        "kept": 2529,
-       "wall_s": 14.8
+       "wall_s": 21.8
       },
       "minhash_lsh": {
        "recall_at_budget": 1.0,
        "proposals": 2909,
        "kept": 2909,
-       "wall_s": 4.7
+       "wall_s": 5.0
       },
       "field_blocks": {
        "recall_at_budget": 1.0,
-       "proposals": 507559,
-       "kept": 24994,
-       "wall_s": 4.4
+       "proposals": 76108,
+       "kept": 22731,
+       "wall_s": 3.4
       },
       "union": {
        "recall_at_budget": 1.0,
-       "proposals": 515427,
+       "proposals": 94605,
        "kept": 25000,
-       "wall_s": 12.3
+       "wall_s": 10.7
       }
      },
      "budget_per_left": 5,
@@ -45,31 +45,31 @@
        "recall_at_budget": 0.9764,
        "proposals": 50000,
        "kept": 50000,
-       "wall_s": 32.6
+       "wall_s": 26.0
       },
       "learned_blocker": {
-       "recall_at_budget": 0.8705,
+       "recall_at_budget": 0.8716,
        "proposals": 17987,
        "kept": 13358,
-       "wall_s": 8.7
+       "wall_s": 11.9
       },
       "minhash_lsh": {
        "recall_at_budget": 0.6329,
        "proposals": 11051,
        "kept": 7176,
-       "wall_s": 13.6
+       "wall_s": 12.0
       },
       "field_blocks": {
-       "recall_at_budget": 0.5664,
-       "proposals": 60515,
-       "kept": 30325,
-       "wall_s": 2.5
+       "recall_at_budget": 0.6577,
+       "proposals": 7227,
+       "kept": 6971,
+       "wall_s": 1.9
       },
       "union": {
-       "recall_at_budget": 0.9764,
-       "proposals": 104185,
+       "recall_at_budget": 0.9786,
+       "proposals": 51277,
        "kept": 50000,
-       "wall_s": 33.2
+       "wall_s": 26.5
       }
      },
      "budget_per_left": 5,
@@ -81,13 +81,13 @@
        "recall_at_budget": 0.981,
        "proposals": 5340,
        "kept": 5340,
-       "wall_s": 4.6
+       "wall_s": 3.2
       },
       "learned_blocker": {
        "recall_at_budget": 0.9048,
        "proposals": 58792,
        "kept": 5065,
-       "wall_s": 9.1
+       "wall_s": 11.4
       },
       "minhash_lsh": {
        "recall_at_budget": 0.3619,
@@ -96,14 +96,14 @@
        "wall_s": 1.5
       },
       "field_blocks": {
-       "recall_at_budget": 0.0286,
-       "proposals": 354,
-       "kept": 354,
-       "wall_s": 0.8
+       "recall_at_budget": 0.0,
+       "proposals": 0,
+       "kept": 0,
+       "wall_s": 0.3
       },
       "union": {
        "recall_at_budget": 0.981,
-       "proposals": 5657,
+       "proposals": 5340,
        "kept": 5340,
        "wall_s": 3.3
       }
@@ -114,53 +114,91 @@
     "leipzig_affiliations": {
      "choices": {
       "gram_topk": {
-       "recall_at_budget": 0.5173,
+       "recall_at_budget": 0.519,
        "proposals": 24778,
-       "kept": 15470,
-       "wall_s": 3.8
+       "kept": 15465,
+       "wall_s": 2.8
       },
       "learned_blocker": {
-       "recall_at_budget": 0.5156,
+       "recall_at_budget": 0.517,
        "proposals": 626584,
-       "kept": 15008,
-       "wall_s": 5.0
+       "kept": 15006,
+       "wall_s": 5.4
       },
       "minhash_lsh": {
-       "recall_at_budget": 0.4824,
+       "recall_at_budget": 0.483,
        "proposals": 342470,
-       "kept": 14073,
-       "wall_s": 4.2
+       "kept": 14087,
+       "wall_s": 4.0
       },
       "field_blocks": {
        "recall_at_budget": 0.0112,
        "proposals": 2616,
        "kept": 178,
-       "wall_s": 0.7
+       "wall_s": 0.8
       },
       "union": {
-       "recall_at_budget": 0.5173,
+       "recall_at_budget": 0.519,
        "proposals": 24778,
-       "kept": 15470,
-       "wall_s": 3.8
+       "kept": 15465,
+       "wall_s": 3.0
       }
      },
      "budget_per_left": 10,
      "valid_true_pairs": 3586
+    },
+    "synthetic_1e6": {
+     "choices": {
+      "gram_topk": {
+       "recall_at_budget": 0.142,
+       "proposals": 1289714,
+       "kept": 1289714,
+       "wall_s": 71.2
+      },
+      "learned_blocker": {
+       "recall_at_budget": 0.9916,
+       "proposals": 4774226,
+       "kept": 1857788,
+       "wall_s": 448.7
+      },
+      "minhash_lsh": {
+       "recall_at_budget": 0.0,
+       "proposals": null,
+       "kept": null,
+       "wall_s": 600.2,
+       "over_budget": "cancelled after 600 s (Py4JJavaError)"
+      },
+      "field_blocks": {
+       "recall_at_budget": 0.9998,
+       "proposals": 13407753,
+       "kept": 2439714,
+       "wall_s": 146.3
+      },
+      "union": {
+       "recall_at_budget": 0.9997,
+       "proposals": 14645559,
+       "kept": 2481824,
+       "wall_s": 207.2
+      }
+     },
+     "budget_per_left": 5,
+     "valid_true_pairs": 49716
     }
    },
    "mean": {
-    "gram_topk": 0.8687,
-    "learned_blocker": 0.8181,
-    "minhash_lsh": 0.6193,
-    "field_blocks": 0.4016,
-    "union": 0.8687
+    "gram_topk": 0.7237,
+    "learned_blocker": 0.8533,
+    "minhash_lsh": 0.4956,
+    "field_blocks": 0.5337,
+    "union": 0.8957
    },
-   "winner": "gram_topk",
+   "winner": "union",
    "budget": {
     "febrl4_half_unmatched": "5 pairs per left record",
     "bpid": "5 pairs per left record",
     "abt_buy": "5 pairs per left record",
-    "leipzig_affiliations": "10 pairs per left record"
+    "leipzig_affiliations": "10 pairs per left record",
+    "synthetic_1e6": "5 pairs per left record"
    },
    "union_of": [
     "gram_topk",
@@ -175,7 +213,7 @@
       "levenshtein": {
        "valid_f1": 0.999,
        "ci95": [
-        0.9967,
+        0.9966,
         1.0
        ],
        "precision": 1.0,
@@ -185,7 +223,7 @@
       "jaro_winkler": {
        "valid_f1": 0.999,
        "ci95": [
-        0.9967,
+        0.9966,
         1.0
        ],
        "precision": 1.0,
@@ -195,7 +233,7 @@
       "both": {
        "valid_f1": 0.999,
        "ci95": [
-        0.9967,
+        0.9966,
         1.0
        ],
        "precision": 1.0,
@@ -207,34 +245,34 @@
     "bpid": {
      "choices": {
       "levenshtein": {
-       "valid_f1": 0.8079,
+       "valid_f1": 0.81,
        "ci95": [
-        0.7798,
-        0.8365
+        0.7833,
+        0.8364
        ],
-       "precision": 0.7699,
-       "recall": 0.8499,
-       "threshold": 0.49
+       "precision": 0.7938,
+       "recall": 0.8268,
+       "threshold": 0.52
       },
       "jaro_winkler": {
-       "valid_f1": 0.7992,
+       "valid_f1": 0.8029,
        "ci95": [
-        0.772,
-        0.8245
+        0.7752,
+        0.8285
        ],
-       "precision": 0.7153,
-       "recall": 0.9053,
-       "threshold": 0.38
+       "precision": 0.7288,
+       "recall": 0.8938,
+       "threshold": 0.41
       },
       "both": {
-       "valid_f1": 0.807,
+       "valid_f1": 0.8128,
        "ci95": [
-        0.78,
-        0.8346
+        0.7855,
+        0.8395
        ],
-       "precision": 0.7683,
-       "recall": 0.8499,
-       "threshold": 0.48
+       "precision": 0.7768,
+       "recall": 0.8522,
+       "threshold": 0.49
       }
      }
     },
@@ -275,42 +313,42 @@
     "leipzig_affiliations": {
      "choices": {
       "levenshtein": {
-       "valid_f1": 0.8628,
+       "valid_f1": 0.8539,
        "ci95": [
-        0.8508,
-        0.8739
+        0.8415,
+        0.8648
        ],
-       "precision": 0.8216,
-       "recall": 0.9084,
-       "threshold": 0.44
+       "precision": 0.7884,
+       "recall": 0.9312,
+       "threshold": 0.35
       },
       "jaro_winkler": {
-       "valid_f1": 0.8568,
+       "valid_f1": 0.8573,
        "ci95": [
-        0.8455,
-        0.8679
+        0.8448,
+        0.868
        ],
-       "precision": 0.7916,
-       "recall": 0.9337,
-       "threshold": 0.34
+       "precision": 0.799,
+       "recall": 0.9248,
+       "threshold": 0.38
       },
       "both": {
-       "valid_f1": 0.8639,
+       "valid_f1": 0.8576,
        "ci95": [
-        0.8526,
-        0.8747
+        0.845,
+        0.8687
        ],
-       "precision": 0.8062,
-       "recall": 0.9305,
-       "threshold": 0.37
+       "precision": 0.7955,
+       "recall": 0.9301,
+       "threshold": 0.38
       }
      }
     }
    },
    "mean": {
-    "levenshtein": 0.8307,
-    "jaro_winkler": 0.835,
-    "both": 0.8308
+    "levenshtein": 0.829,
+    "jaro_winkler": 0.836,
+    "both": 0.8307
    },
    "winner": "levenshtein",
    "best_unconstrained": "jaro_winkler",
@@ -326,7 +364,7 @@
       "gbt": {
        "valid_f1": 0.999,
        "ci95": [
-        0.9967,
+        0.9966,
         1.0
        ],
        "precision": 1.0,
@@ -336,7 +374,7 @@
       "logistic_regression": {
        "valid_f1": 0.999,
        "ci95": [
-        0.9967,
+        0.9966,
         1.0
        ],
        "precision": 1.0,
@@ -346,7 +384,7 @@
       "random_forest": {
        "valid_f1": 0.999,
        "ci95": [
-        0.9967,
+        0.9966,
         1.0
        ],
        "precision": 1.0,
@@ -358,14 +396,14 @@
     "bpid": {
      "choices": {
       "gbt": {
-       "valid_f1": 0.8079,
+       "valid_f1": 0.81,
        "ci95": [
-        0.7798,
-        0.8365
+        0.7833,
+        0.8364
        ],
-       "precision": 0.7699,
-       "recall": 0.8499,
-       "threshold": 0.49
+       "precision": 0.7938,
+       "recall": 0.8268,
+       "threshold": 0.52
       },
       "logistic_regression": {
        "valid_f1": 0.6809,
@@ -378,14 +416,14 @@
        "threshold": 0.32
       },
       "random_forest": {
-       "valid_f1": 0.7485,
+       "valid_f1": 0.7551,
        "ci95": [
-        0.7204,
-        0.7778
+        0.7242,
+        0.7845
        ],
-       "precision": 0.6551,
-       "recall": 0.873,
-       "threshold": 0.37
+       "precision": 0.7352,
+       "recall": 0.776,
+       "threshold": 0.45
       }
      }
     },
@@ -412,56 +450,56 @@
        "threshold": 0.26
       },
       "random_forest": {
-       "valid_f1": 0.6581,
+       "valid_f1": 0.6432,
        "ci95": [
-        0.607,
-        0.7124
+        0.5904,
+        0.7024
        ],
-       "precision": 0.6919,
-       "recall": 0.6275,
-       "threshold": 0.29
+       "precision": 0.7169,
+       "recall": 0.5833,
+       "threshold": 0.33
       }
      }
     },
     "leipzig_affiliations": {
      "choices": {
       "gbt": {
-       "valid_f1": 0.8628,
+       "valid_f1": 0.8539,
        "ci95": [
-        0.8508,
-        0.8739
+        0.8415,
+        0.8648
        ],
-       "precision": 0.8216,
-       "recall": 0.9084,
-       "threshold": 0.44
+       "precision": 0.7884,
+       "recall": 0.9312,
+       "threshold": 0.35
       },
       "logistic_regression": {
-       "valid_f1": 0.8581,
+       "valid_f1": 0.8502,
        "ci95": [
-        0.8471,
-        0.87
+        0.8381,
+        0.861
        ],
-       "precision": 0.8242,
-       "recall": 0.8949,
-       "threshold": 0.48
+       "precision": 0.786,
+       "recall": 0.9258,
+       "threshold": 0.36
       },
       "random_forest": {
-       "valid_f1": 0.8565,
+       "valid_f1": 0.8532,
        "ci95": [
-        0.8453,
-        0.8676
+        0.8406,
+        0.864
        ],
-       "precision": 0.7998,
-       "recall": 0.9218,
-       "threshold": 0.4
+       "precision": 0.7876,
+       "recall": 0.9307,
+       "threshold": 0.38
       }
      }
     }
    },
    "mean": {
-    "gbt": 0.8307,
-    "logistic_regression": 0.7968,
-    "random_forest": 0.8155
+    "gbt": 0.829,
+    "logistic_regression": 0.7948,
+    "random_forest": 0.8126
    },
    "winner": "gbt",
    "best_unconstrained": "gbt",
@@ -479,7 +517,7 @@
       "one_to_one": {
        "valid_f1": 0.999,
        "ci95": [
-        0.9967,
+        0.9966,
         1.0
        ],
        "precision": 1.0,
@@ -489,7 +527,7 @@
       "many_to_one": {
        "valid_f1": 0.999,
        "ci95": [
-        0.9967,
+        0.9966,
         1.0
        ],
        "precision": 1.0,
@@ -559,15 +597,15 @@
  },
  "selected_on": "validation",
  "winners": {
-  "candidates.method": "gram_topk",
+  "candidates.method": "union",
   "features.string_similarity": "levenshtein",
   "matcher.estimator": "gbt",
   "decision.cardinality": "one_to_one"
  },
  "meta": {
-  "generated": "2026-09-26T22:09:06",
+  "generated": "2026-10-01T00:26:38",
   "spark": "4.1.3",
   "bootstrap": 1000
  },
- "candidate_method_used_downstream": "gram_topk"
+ "candidate_method_used_downstream": "union"
 }

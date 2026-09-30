@@ -8,7 +8,7 @@ bench/results/methods.json (ZR-3a, chosen on VALIDATION).
 
 Protocol (the same for every corpus, TEST is read once per labeller):
 
-  linkage / dedupe   records -> entity view -> candidates (gram_topk, k = 5; k = 10 for dedupe, self pairs dropped,
+  linkage / dedupe   records -> entity view -> candidates (the default method, k = 5; k = 10 for dedupe, self pairs dropped,
                      pairs canonicalised) -> comparison vectors. Left records (the smaller id for dedupe) are split
                      by xxhash64 of their id: train 60 % / valid 20 % / test 20 % — the split of bench/methods.py, so
                      the method choices never saw TEST. Gold labeller: every TRAIN candidate labelled from the truth,
@@ -16,8 +16,8 @@ Protocol (the same for every corpus, TEST is read once per labeller):
                      (linkage: decision.cardinality; dedupe: unrestricted — clustering is ZR-4). Units = TEST left
                      records; a true pair the candidates missed is a false negative.
   pairs              the corpus's fixed pair splits (Ditto's for the Magellan sets, a line hash for BPID): model on
-                     TRAIN, threshold on VALID, F1 on TEST pairs. Candidate recall@k = TEST matches that gram_topk
-                     (k = 5) proposes when run over all records.
+                     TRAIN, threshold on VALID, F1 on TEST pairs. Candidate recall@k = TEST matches that the default
+                     candidate method (k = 5) proposes when run over all records.
   Jev labeller       the same run with no gold label: Jev labels 400 TRAIN candidate pairs (xxhash order), only its
                      confident answers (tau 0.90) are kept, split 75 / 25 by left id into fit / threshold. Tokens and
                      dollars are the requests actually sent (answers are cached under data/runs/bench/jev/).
@@ -204,7 +204,7 @@ def run_linkage(rt, c, cfg, do_jev: bool) -> dict:
     gold.update({"threshold": t, "labels": {"train": fit.count(), "valid": thr.count()}})
     out = {"kind": c.kind, "records": {"left": len(c.left), "right": len(c.right)} if not dedupe else {"records": len(c.left)},
            "true_pairs": len(truth_pd), "test_true_pairs": len(test_truth), "candidates": n_cand,
-           "k": k, "candidate_recall_at_k": round(cand_recall, 4), "trivial_baseline": baseline, "gold": gold,
+           "k": k, "candidate_method": ccfg.get("candidates.method"), "candidate_recall_at_k": round(cand_recall, 4), "trivial_baseline": baseline, "gold": gold,
            "cardinality": dcfg.get("decision.cardinality"),
            "split_dedup": {"ok": bool(dedup_ok), "check": "train/valid/test left ids disjoint; each true pair has "
                                                           "exactly one split (its left / smaller id)"}}

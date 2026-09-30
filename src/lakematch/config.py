@@ -78,8 +78,16 @@ DEFAULTS: dict[str, Any] = {
     "inputs": {},
     "entity": {"name": "record", "fields": {}},
     # Starting hypotheses (spec/BRIEF.md); ZR-3 / ZR-4 replace them with the validation winners.
-    "candidates": {"method": "gram_topk", "q": 3, "k": 5, "idf_weighted": True, "gram_cap": 400,
-                   "union_of": [], "field_blocks": [],
+    # candidates.method: the ZR-3s validation winner (bench/METHODS.md, synthetic_1e6 included): union of the gram
+    # join and the default conjunction blocks, mean recall 0.896 vs gram_topk 0.724 — gram_topk alone recalls 0.142 at 10^6
+    "candidates": {"method": "union", "q": 3, "k": 5, "idf_weighted": True, "gram_cap": 400,
+                   # the shared ranking's vocabulary drops grams held by more than this share of the right records
+                   # (relative to corpus size; gram_cap is the join budget only — ZR-3s)
+                   "rank_vocab_share": 0.1,
+                   # default field blocks: a two-field conjunction whose join would emit more than this many pairs per
+                   # left record is not selective at this corpus size and is dropped (e.g. state & postcode at 10^6)
+                   "block_pairs_per_left": 10,
+                   "union_of": ["gram_topk", "field_blocks"], "field_blocks": [],
                    # minhash_lsh: Jaccard-distance threshold and hash tables; learned_blocker: target coverage of
                    # the labelled matches and the most predicates it may pick
                    "lsh_threshold": 0.8, "lsh_tables": 5, "learned_coverage": 0.99, "learned_max_predicates": 8},
@@ -233,6 +241,12 @@ def validate(data: dict) -> None:
             raise ConfigError(f"{key} must be a positive integer")
     if not 0 < cfg.get("candidates.lsh_threshold") < 1:
         raise ConfigError("candidates.lsh_threshold is a Jaccard distance in (0, 1)")
+    share = cfg.get("candidates.rank_vocab_share")
+    if isinstance(share, bool) or not isinstance(share, (int, float)) or not 0 < share <= 1:
+        raise ConfigError("candidates.rank_vocab_share must be in (0, 1]")
+    bpl = cfg.get("candidates.block_pairs_per_left")
+    if isinstance(bpl, bool) or not isinstance(bpl, (int, float)) or bpl <= 0:
+        raise ConfigError("candidates.block_pairs_per_left must be a positive number")
     if not 0 < cfg.get("candidates.learned_coverage") <= 1:
         raise ConfigError("candidates.learned_coverage must be in (0, 1]")
     for key in ("candidates.lsh_tables", "candidates.learned_max_predicates"):

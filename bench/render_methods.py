@@ -6,7 +6,8 @@ from pathlib import Path
 
 TITLES = {"candidates.method": "Candidate generation", "features.string_similarity": "String similarity",
           "matcher.estimator": "Estimator", "decision.cardinality": "Cardinality policy"}
-SHORT = {"febrl4_half_unmatched": "FEBRL4", "bpid": "BPID", "abt_buy": "Abt-Buy", "leipzig_affiliations": "Leipzig"}
+SHORT = {"febrl4_half_unmatched": "FEBRL4", "bpid": "BPID", "abt_buy": "Abt-Buy", "leipzig_affiliations": "Leipzig",
+         "synthetic_1e6": "Synthetic 10^6"}
 
 
 def render(results: Path, dest: Path) -> None:
@@ -36,7 +37,8 @@ def render(results: Path, dest: Path) -> None:
                 cells = []
                 for c in corp:
                     r = block["per_corpus"][c]["choices"][m]
-                    cells.append(f"{r['recall_at_budget']:.4f} · {r['proposals']:,} · {r['wall_s']}")
+                    cells.append(f"{r['recall_at_budget']:.4f} · over budget · {r['wall_s']}" if r.get("over_budget")
+                                 else f"{r['recall_at_budget']:.4f} · {r['proposals']:,} · {r['wall_s']}")
                 name = f"**{m}**" if m == block["winner"] else m
                 lines.append(f"| {name} | " + " | ".join(cells) + f" | {mean:.4f} |")
         else:

@@ -10,6 +10,7 @@
    "test_true_pairs": 507,
    "candidates": 25000,
    "k": 5,
+   "candidate_method": "union",
    "candidate_recall_at_k": 1.0,
    "trivial_baseline": {
     "precision": 0.5142,
@@ -26,17 +27,17 @@
    },
    "gold": {
     "precision": 1.0,
-    "recall": 0.9961,
-    "f1": 0.998,
+    "recall": 1.0,
+    "f1": 1.0,
     "f1_ci95": [
-     0.9948,
+     1.0,
      1.0
     ],
     "units": 986,
-    "tp": 505,
+    "tp": 507,
     "fp": 0,
-    "fn": 2,
-    "threshold": 0.72,
+    "fn": 0,
+    "threshold": 0.5,
     "labels": {
      "train": 15325,
      "valid": 4745
@@ -47,30 +48,30 @@
     "ok": true,
     "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
    },
-   "wall_s_incl_start": 23.6,
+   "wall_s_incl_start": 26.3,
    "jev": {
     "usage": {
-     "requests": 0,
-     "cached": 400,
+     "requests": 30,
+     "cached": 370,
      "errors": 0,
-     "input_tokens": 0,
-     "output_tokens": 0,
+     "input_tokens": 19393,
+     "output_tokens": 510,
      "predicted": {
-      "to_send": 0,
-      "est_input_tokens": 0,
-      "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
-      "per_pair_tokens": 0.0
+      "to_send": 30,
+      "est_input_tokens": 19416,
+      "est_usd": 0.000815,
+      "basis": "fitted on this cache's 400 answers",
+      "per_pair_tokens": 647.2
      },
-     "usd": 0.0,
-     "label_input_tokens": 259065,
+     "usd": 0.000815,
+     "label_input_tokens": 259079,
      "label_usd": 0.010881,
      "asked": 400,
      "kept": 371
     },
-    "labels_fit": 284,
+    "labels_fit": 286,
     "labels_fit_matches": 15,
-    "labels_threshold": 87,
+    "labels_threshold": 85,
     "precision": 1.0,
     "recall": 0.9014,
     "f1": 0.9481,
@@ -83,20 +84,20 @@
     "fp": 0,
     "fn": 50,
     "threshold": 0.5,
-    "wall_s": 2.2
+    "wall_s": 3.5
    },
    "spark": "4.1.3",
    "shuffle": {
-    "peak_stage_mb": 238.8,
-    "total_mb": 273.8
+    "peak_stage_mb": 165.0,
+    "total_mb": 237.4
    },
-   "records_per_s": 317.8,
+   "records_per_s": 285.2,
    "notes": [],
    "precision": 1.0,
-   "recall": 0.9961,
-   "f1": 0.998,
+   "recall": 1.0,
+   "f1": 1.0,
    "f1_ci95": [
-    0.9948,
+    1.0,
     1.0
    ],
    "references": {
@@ -178,8 +179,8 @@
      }
     }
    },
-   "f1_all_fields": 0.998,
-   "f1_ssn_hidden": 0.999,
+   "f1_all_fields": 1.0,
+   "f1_ssn_hidden": 0.998,
    "ssn_hidden": {
     "kind": "linkage",
     "records": {
@@ -190,6 +191,7 @@
     "test_true_pairs": 507,
     "candidates": 25000,
     "k": 5,
+    "candidate_method": "union",
     "candidate_recall_at_k": 1.0,
     "trivial_baseline": {
      "precision": 0.5142,
@@ -206,17 +208,17 @@
     },
     "gold": {
      "precision": 1.0,
-     "recall": 0.998,
-     "f1": 0.999,
+     "recall": 0.9961,
+     "f1": 0.998,
      "f1_ci95": [
-      0.9969,
+      0.9948,
       1.0
      ],
      "units": 986,
-     "tp": 506,
+     "tp": 505,
      "fp": 0,
-     "fn": 1,
-     "threshold": 0.16,
+     "fn": 2,
+     "threshold": 0.28,
      "labels": {
       "train": 15325,
       "valid": 4745
@@ -227,13 +229,13 @@
      "ok": true,
      "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
     },
-    "wall_s_incl_start": 22.6,
+    "wall_s_incl_start": 24.1,
     "spark": "4.1.3",
     "shuffle": {
-     "peak_stage_mb": 168.5,
-     "total_mb": 200.1
+     "peak_stage_mb": 149.8,
+     "total_mb": 212.9
     },
-    "records_per_s": 331.9,
+    "records_per_s": 311.2,
     "notes": []
    }
   },
@@ -247,6 +249,7 @@
    "test_true_pairs": 986,
    "candidates": 25000,
    "k": 5,
+   "candidate_method": "union",
    "candidate_recall_at_k": 1.0,
    "trivial_baseline": {
     "precision": 1.0,
@@ -284,50 +287,50 @@
     "ok": true,
     "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
    },
-   "wall_s_incl_start": 28.4,
+   "wall_s_incl_start": 34.1,
    "jev": {
     "usage": {
-     "requests": 0,
-     "cached": 400,
+     "requests": 15,
+     "cached": 385,
      "errors": 0,
-     "input_tokens": 0,
-     "output_tokens": 0,
+     "input_tokens": 9518,
+     "output_tokens": 255,
      "predicted": {
-      "to_send": 0,
-      "est_input_tokens": 0,
-      "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
-      "per_pair_tokens": 0.0
+      "to_send": 15,
+      "est_input_tokens": 9512,
+      "est_usd": 0.0004,
+      "basis": "fitted on this cache's 400 answers",
+      "per_pair_tokens": 634.1
      },
-     "usd": 0.0,
-     "label_input_tokens": 254118,
-     "label_usd": 0.010673,
+     "usd": 0.0004,
+     "label_input_tokens": 254102,
+     "label_usd": 0.010672,
      "asked": 400,
      "kept": 354
     },
-    "labels_fit": 274,
-    "labels_fit_matches": 26,
-    "labels_threshold": 80,
+    "labels_fit": 276,
+    "labels_fit_matches": 25,
+    "labels_threshold": 78,
     "precision": 1.0,
-    "recall": 0.9959,
-    "f1": 0.998,
+    "recall": 1.0,
+    "f1": 1.0,
     "f1_ci95": [
-     0.9959,
-     0.9995
+     1.0,
+     1.0
     ],
     "units": 986,
-    "tp": 982,
+    "tp": 986,
     "fp": 0,
-    "fn": 4,
+    "fn": 0,
     "threshold": 0.5,
-    "wall_s": 2.2
+    "wall_s": 2.8
    },
    "spark": "4.1.3",
    "shuffle": {
     "peak_stage_mb": 374.7,
-    "total_mb": 412.8
+    "total_mb": 578.1
    },
-   "records_per_s": 352.1,
+   "records_per_s": 293.3,
    "notes": [
     "every left record has exactly one partner: the nearest neighbour is a strong baseline"
    ],
@@ -395,38 +398,39 @@
    },
    "true_pairs": 6538,
    "test_true_pairs": 1304,
-   "candidates": 33324,
+   "candidates": 33329,
    "k": 10,
+   "candidate_method": "union",
    "candidate_recall_at_k": 1.0,
    "trivial_baseline": {
-    "precision": 0.7841,
-    "recall": 0.454,
-    "f1": 0.575,
+    "precision": 0.7817,
+    "recall": 0.4532,
+    "f1": 0.5738,
     "f1_ci95": [
-     0.5573,
-     0.5937
+     0.5562,
+     0.5921
     ],
     "units": 1027,
-    "tp": 592,
-    "fp": 163,
-    "fn": 712
+    "tp": 591,
+    "fp": 165,
+    "fn": 713
    },
    "gold": {
     "precision": 0.9992,
-    "recall": 0.9992,
-    "f1": 0.9992,
+    "recall": 0.9985,
+    "f1": 0.9988,
     "f1_ci95": [
-     0.9981,
+     0.9974,
      1.0
     ],
     "units": 1027,
-    "tp": 1303,
+    "tp": 1302,
     "fp": 1,
-    "fn": 1,
-    "threshold": 0.05,
+    "fn": 2,
+    "threshold": 0.06,
     "labels": {
-     "train": 19508,
-     "valid": 7047
+     "train": 19510,
+     "valid": 7048
     }
    },
    "cardinality": "unrestricted",
@@ -434,24 +438,24 @@
     "ok": true,
     "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
    },
-   "wall_s_incl_start": 31.0,
+   "wall_s_incl_start": 34.5,
    "jev": {
     "usage": {
-     "requests": 0,
-     "cached": 400,
+     "requests": 16,
+     "cached": 384,
      "errors": 0,
-     "input_tokens": 0,
-     "output_tokens": 0,
+     "input_tokens": 10116,
+     "output_tokens": 272,
      "predicted": {
-      "to_send": 0,
-      "est_input_tokens": 0,
-      "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
-      "per_pair_tokens": 0.0
+      "to_send": 16,
+      "est_input_tokens": 10111,
+      "est_usd": 0.000425,
+      "basis": "fitted on this cache's 400 answers",
+      "per_pair_tokens": 631.9
      },
-     "usd": 0.0,
-     "label_input_tokens": 252459,
-     "label_usd": 0.010603,
+     "usd": 0.000425,
+     "label_input_tokens": 252524,
+     "label_usd": 0.010606,
      "asked": 400,
      "kept": 356
     },
@@ -470,22 +474,22 @@
     "fp": 4,
     "fn": 125,
     "threshold": 0.5,
-    "wall_s": 2.4
+    "wall_s": 2.8
    },
    "spark": "4.1.3",
    "shuffle": {
     "peak_stage_mb": 429.3,
-    "total_mb": 487.7
+    "total_mb": 711.7
    },
-   "records_per_s": 161.3,
+   "records_per_s": 144.9,
    "notes": [
     "2000 gold clusters over 5000 records, largest 6"
    ],
    "precision": 0.9992,
-   "recall": 0.9992,
-   "f1": 0.9992,
+   "recall": 0.9985,
+   "f1": 0.9988,
    "f1_ci95": [
-    0.9981,
+    0.9974,
     1.0
    ],
    "references": {
@@ -532,18 +536,18 @@
    "test_matches": 866,
    "candidates": 50000,
    "k": 5,
-   "candidate_recall_at_k": 0.9758,
+   "candidate_recall_at_k": 0.9781,
    "trivial_baseline": {
-    "precision": 0.487,
+    "precision": 0.4867,
     "recall": 0.9319,
-    "f1": 0.6397,
+    "f1": 0.6395,
     "f1_ci95": [
-     0.619,
-     0.6605
+     0.6184,
+     0.6596
     ],
     "units": 1990,
     "tp": 807,
-    "fp": 850,
+    "fp": 851,
     "fn": 59
    },
    "gold": {
@@ -568,7 +572,7 @@
     "ok": true,
     "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
    },
-   "wall_s_incl_start": 49.4,
+   "wall_s_incl_start": 47.6,
    "jev": {
     "usage": {
      "requests": 0,
@@ -580,7 +584,7 @@
       "to_send": 0,
       "est_input_tokens": 0,
       "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
+      "basis": "fitted on this cache's 400 answers",
       "per_pair_tokens": 0.0
      },
      "usd": 0.0,
@@ -609,9 +613,9 @@
    "spark": "4.1.3",
    "shuffle": {
     "peak_stage_mb": 1887.8,
-    "total_mb": 2012.8
+    "total_mb": 2192.2
    },
-   "records_per_s": 404.9,
+   "records_per_s": 420.2,
    "notes": [],
    "precision": 0.8108,
    "recall": 0.8464,
@@ -681,18 +685,18 @@
    "test_matches": 203,
    "candidates": 5340,
    "k": 5,
-   "candidate_recall_at_k": 0.9606,
+   "candidate_recall_at_k": 0.9704,
    "trivial_baseline": {
-    "precision": 0.8465,
+    "precision": 0.855,
     "recall": 0.8424,
-    "f1": 0.8444,
+    "f1": 0.8486,
     "f1_ci95": [
-     0.8042,
-     0.8794
+     0.8079,
+     0.8825
     ],
     "units": 1892,
     "tp": 171,
-    "fp": 31,
+    "fp": 29,
     "fn": 32
    },
    "gold": {
@@ -717,7 +721,7 @@
     "ok": true,
     "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
    },
-   "wall_s_incl_start": 19.0,
+   "wall_s_incl_start": 18.3,
    "jev": {
     "usage": {
      "requests": 0,
@@ -729,7 +733,7 @@
       "to_send": 0,
       "est_input_tokens": 0,
       "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
+      "basis": "fitted on this cache's 400 answers",
       "per_pair_tokens": 0.0
      },
      "usd": 0.0,
@@ -757,10 +761,10 @@
    },
    "spark": "4.1.3",
    "shuffle": {
-    "peak_stage_mb": 23.9,
-    "total_mb": 63.3
+    "peak_stage_mb": 35.2,
+    "total_mb": 80.6
    },
-   "records_per_s": 110.7,
+   "records_per_s": 114.9,
    "notes": [
     "73 pair(s) repeated across Ditto splits, kept once"
    ],
@@ -827,19 +831,19 @@
    "test_matches": 218,
    "candidates": 6440,
    "k": 5,
-   "candidate_recall_at_k": 0.9771,
+   "candidate_recall_at_k": 0.9817,
    "trivial_baseline": {
-    "precision": 0.6292,
-    "recall": 0.7706,
-    "f1": 0.6928,
+    "precision": 0.6255,
+    "recall": 0.7661,
+    "f1": 0.6887,
     "f1_ci95": [
-     0.6482,
-     0.7366
+     0.642,
+     0.732
     ],
     "units": 2127,
-    "tp": 168,
-    "fp": 99,
-    "fn": 50
+    "tp": 167,
+    "fp": 100,
+    "fn": 51
    },
    "gold": {
     "precision": 0.5938,
@@ -863,7 +867,7 @@
     "ok": true,
     "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
    },
-   "wall_s_incl_start": 17.2,
+   "wall_s_incl_start": 17.9,
    "jev": {
     "usage": {
      "requests": 0,
@@ -875,7 +879,7 @@
       "to_send": 0,
       "est_input_tokens": 0,
       "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
+      "basis": "fitted on this cache's 400 answers",
       "per_pair_tokens": 0.0
      },
      "usd": 0.0,
@@ -899,14 +903,14 @@
     "fp": 86,
     "fn": 155,
     "threshold": 0.89,
-    "wall_s": 3.1
+    "wall_s": 3.3
    },
    "spark": "4.1.3",
    "shuffle": {
-    "peak_stage_mb": 31.9,
-    "total_mb": 67.1
+    "peak_stage_mb": 23.9,
+    "total_mb": 61.9
    },
-   "records_per_s": 195.5,
+   "records_per_s": 187.8,
    "notes": [
     "501 pair(s) repeated across Ditto splits, kept once"
    ],
@@ -979,7 +983,7 @@
     "recall": 0.8281,
     "f1": 0.6127,
     "f1_ci95": [
-     0.5595,
+     0.5584,
      0.6605
     ],
     "units": 2047,
@@ -1009,7 +1013,7 @@
     "ok": true,
     "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
    },
-   "wall_s_incl_start": 20.7,
+   "wall_s_incl_start": 23.1,
    "jev": {
     "usage": {
      "requests": 0,
@@ -1021,7 +1025,7 @@
       "to_send": 0,
       "est_input_tokens": 0,
       "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
+      "basis": "fitted on this cache's 400 answers",
       "per_pair_tokens": 0.0
      },
      "usd": 0.0,
@@ -1045,14 +1049,14 @@
     "fp": 0,
     "fn": 75,
     "threshold": 0.5,
-    "wall_s": 1.9
+    "wall_s": 2.0
    },
    "spark": "4.1.3",
    "shuffle": {
     "peak_stage_mb": 119.7,
-    "total_mb": 280.7
+    "total_mb": 311.6
    },
-   "records_per_s": 335.0,
+   "records_per_s": 300.2,
    "notes": [
     "6 pair(s) repeated across Ditto splits, kept once"
    ],
@@ -1121,16 +1125,16 @@
    "k": 5,
    "candidate_recall_at_k": 1.0,
    "trivial_baseline": {
-    "precision": 0.9607,
+    "precision": 0.9649,
     "recall": 0.9932,
-    "f1": 0.9767,
+    "f1": 0.9789,
     "f1_ci95": [
-     0.9657,
-     0.9862
+     0.9691,
+     0.9875
     ],
     "units": 2407,
     "tp": 440,
-    "fp": 18,
+    "fp": 16,
     "fn": 3
    },
    "gold": {
@@ -1155,7 +1159,7 @@
     "ok": true,
     "check": "no (left, right) pair \u2014 records identified by content \u2014 in two splits"
    },
-   "wall_s_incl_start": 21.7,
+   "wall_s_incl_start": 21.9,
    "jev": {
     "usage": {
      "requests": 0,
@@ -1167,7 +1171,7 @@
       "to_send": 0,
       "est_input_tokens": 0,
       "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
+      "basis": "fitted on this cache's 400 answers",
       "per_pair_tokens": 0.0
      },
      "usd": 0.0,
@@ -1191,14 +1195,14 @@
     "fp": 65,
     "fn": 19,
     "threshold": 0.5,
-    "wall_s": 3.1
+    "wall_s": 3.3
    },
    "spark": "4.1.3",
    "shuffle": {
-    "peak_stage_mb": 207.9,
-    "total_mb": 348.9
+    "peak_stage_mb": 140.8,
+    "total_mb": 291.9
    },
-   "records_per_s": 215.7,
+   "records_per_s": 213.7,
    "notes": [
     "260 pair(s) repeated across Ditto splits, kept once"
    ],
@@ -1237,38 +1241,39 @@
    },
    "true_pairs": 303961,
    "test_true_pairs": 60107,
-   "candidates": 334095,
+   "candidates": 329817,
    "k": 10,
-   "candidate_recall_at_k": 0.679,
+   "candidate_method": "union",
+   "candidate_recall_at_k": 0.7591,
    "trivial_baseline": {
-    "precision": 0.9076,
-    "recall": 0.115,
-    "f1": 0.2042,
+    "precision": 0.9637,
+    "recall": 0.1258,
+    "f1": 0.2225,
     "f1_ci95": [
-     0.1976,
-     0.2103
+     0.2177,
+     0.2274
     ],
     "units": 10059,
-    "tp": 6915,
-    "fp": 704,
-    "fn": 53192
+    "tp": 7561,
+    "fp": 285,
+    "fn": 52546
    },
    "gold": {
-    "precision": 0.9781,
-    "recall": 0.6534,
-    "f1": 0.7834,
+    "precision": 0.9726,
+    "recall": 0.73,
+    "f1": 0.834,
     "f1_ci95": [
-     0.7785,
-     0.7887
+     0.8297,
+     0.8385
     ],
     "units": 10059,
-    "tp": 39273,
-    "fp": 879,
-    "fn": 20834,
-    "threshold": 0.54,
+    "tp": 43880,
+    "fp": 1237,
+    "fn": 16227,
+    "threshold": 0.58,
     "labels": {
-     "train": 201079,
-     "valid": 67562
+     "train": 198104,
+     "valid": 66496
     }
    },
    "cardinality": "unrestricted",
@@ -1276,59 +1281,59 @@
     "ok": true,
     "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
    },
-   "wall_s_incl_start": 63.4,
+   "wall_s_incl_start": 78.3,
    "jev": {
     "usage": {
-     "requests": 0,
-     "cached": 400,
+     "requests": 88,
+     "cached": 312,
      "errors": 0,
-     "input_tokens": 0,
-     "output_tokens": 0,
+     "input_tokens": 48078,
+     "output_tokens": 1496,
      "predicted": {
-      "to_send": 0,
-      "est_input_tokens": 0,
-      "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
-      "per_pair_tokens": 0.0
+      "to_send": 88,
+      "est_input_tokens": 48117,
+      "est_usd": 0.002021,
+      "basis": "fitted on this cache's 400 answers",
+      "per_pair_tokens": 546.8
      },
-     "usd": 0.0,
-     "label_input_tokens": 218726,
-     "label_usd": 0.009186,
+     "usd": 0.002019,
+     "label_input_tokens": 219076,
+     "label_usd": 0.009201,
      "asked": 400,
-     "kept": 102
+     "kept": 90
     },
-    "labels_fit": 77,
-    "labels_fit_matches": 33,
-    "labels_threshold": 25,
-    "precision": 0.9097,
-    "recall": 0.514,
-    "f1": 0.6568,
+    "labels_fit": 67,
+    "labels_fit_matches": 35,
+    "labels_threshold": 23,
+    "precision": 0.9374,
+    "recall": 0.614,
+    "f1": 0.742,
     "f1_ci95": [
-     0.6503,
-     0.6637
+     0.7356,
+     0.7473
     ],
     "units": 10059,
-    "tp": 30893,
-    "fp": 3066,
-    "fn": 29214,
+    "tp": 36905,
+    "fp": 2463,
+    "fn": 23202,
     "threshold": 0.5,
-    "wall_s": 2.5
+    "wall_s": 5.4
    },
    "spark": "4.1.3",
    "shuffle": {
     "peak_stage_mb": 1266.5,
-    "total_mb": 2116.3
+    "total_mb": 3586.6
    },
-   "records_per_s": 797.8,
+   "records_per_s": 646.0,
    "notes": [
     "5156 gold clusters over 50578 records, largest 21"
    ],
-   "precision": 0.9781,
-   "recall": 0.6534,
-   "f1": 0.7834,
+   "precision": 0.9726,
+   "recall": 0.73,
+   "f1": 0.834,
    "f1_ci95": [
-    0.7785,
-    0.7887
+    0.8297,
+    0.8385
    ],
    "references": {
     "zingg": [],
@@ -1361,38 +1366,39 @@
    },
    "true_pairs": 16795,
    "test_true_pairs": 3128,
-   "candidates": 15470,
+   "candidates": 15465,
    "k": 10,
-   "candidate_recall_at_k": 0.5141,
+   "candidate_method": "union",
+   "candidate_recall_at_k": 0.5166,
    "trivial_baseline": {
-    "precision": 0.8857,
-    "recall": 0.0892,
-    "f1": 0.1621,
+    "precision": 0.8603,
+    "recall": 0.0866,
+    "f1": 0.1574,
     "f1_ci95": [
-     0.1387,
-     0.1853
+     0.1356,
+     0.1798
     ],
     "units": 432,
-    "tp": 279,
-    "fp": 36,
-    "fn": 2849
+    "tp": 271,
+    "fp": 44,
+    "fn": 2857
    },
    "gold": {
-    "precision": 0.8468,
-    "recall": 0.4508,
-    "f1": 0.5884,
+    "precision": 0.8022,
+    "recall": 0.4757,
+    "f1": 0.5972,
     "f1_ci95": [
-     0.5577,
-     0.6178
+     0.5672,
+     0.6258
     ],
     "units": 432,
-    "tp": 1410,
-    "fp": 255,
-    "fn": 1718,
-    "threshold": 0.52,
+    "tp": 1488,
+    "fp": 367,
+    "fn": 1640,
+    "threshold": 0.41,
     "labels": {
-     "train": 9285,
-     "valid": 3308
+     "train": 9281,
+     "valid": 3302
     }
    },
    "cardinality": "unrestricted",
@@ -1400,59 +1406,59 @@
     "ok": true,
     "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
    },
-   "wall_s_incl_start": 17.3,
+   "wall_s_incl_start": 18.3,
    "jev": {
     "usage": {
-     "requests": 0,
-     "cached": 400,
+     "requests": 21,
+     "cached": 379,
      "errors": 0,
-     "input_tokens": 0,
-     "output_tokens": 0,
+     "input_tokens": 9430,
+     "output_tokens": 357,
      "predicted": {
-      "to_send": 0,
-      "est_input_tokens": 0,
-      "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
-      "per_pair_tokens": 0.0
+      "to_send": 21,
+      "est_input_tokens": 9412,
+      "est_usd": 0.000395,
+      "basis": "fitted on this cache's 399 answers",
+      "per_pair_tokens": 448.2
      },
-     "usd": 0.0,
-     "label_input_tokens": 178934,
-     "label_usd": 0.007515,
+     "usd": 0.000396,
+     "label_input_tokens": 178951,
+     "label_usd": 0.007516,
      "asked": 400,
-     "kept": 267
+     "kept": 263
     },
-    "labels_fit": 211,
-    "labels_fit_matches": 108,
+    "labels_fit": 207,
+    "labels_fit_matches": 105,
     "labels_threshold": 56,
-    "precision": 0.8647,
-    "recall": 0.3453,
-    "f1": 0.4935,
+    "precision": 0.8538,
+    "recall": 0.3306,
+    "f1": 0.4766,
     "f1_ci95": [
-     0.4618,
-     0.526
+     0.4425,
+     0.5099
     ],
     "units": 432,
-    "tp": 1080,
-    "fp": 169,
-    "fn": 2048,
-    "threshold": 0.8,
-    "wall_s": 3.1
+    "tp": 1034,
+    "fp": 177,
+    "fn": 2094,
+    "threshold": 0.79,
+    "wall_s": 4.0
    },
    "spark": "4.1.3",
    "shuffle": {
-    "peak_stage_mb": 26.5,
-    "total_mb": 55.2
+    "peak_stage_mb": 18.5,
+    "total_mb": 50.3
    },
-   "records_per_s": 130.6,
+   "records_per_s": 123.5,
    "notes": [
     "330 gold clusters over 2260 strings"
    ],
-   "precision": 0.8468,
-   "recall": 0.4508,
-   "f1": 0.5884,
+   "precision": 0.8022,
+   "recall": 0.4757,
+   "f1": 0.5972,
    "f1_ci95": [
-    0.5577,
-    0.6178
+    0.5672,
+    0.6258
    ],
    "references": {
     "zingg": [],
@@ -1478,38 +1484,39 @@
    },
    "true_pairs": 250000,
    "test_true_pairs": 50127,
-   "candidates": 1289714,
+   "candidates": 2481824,
    "k": 5,
-   "candidate_recall_at_k": 0.1186,
+   "candidate_method": "union",
+   "candidate_recall_at_k": 0.9998,
    "trivial_baseline": {
-    "precision": 0.0775,
-    "recall": 0.0801,
-    "f1": 0.0788,
+    "precision": 0.5001,
+    "recall": 0.9996,
+    "f1": 0.6667,
     "f1_ci95": [
-     0.0765,
-     0.0811
+     0.6638,
+     0.6695
     ],
     "units": 100222,
-    "tp": 4015,
-    "fp": 47784,
-    "fn": 46112
+    "tp": 50108,
+    "fp": 50084,
+    "fn": 19
    },
    "gold": {
-    "precision": 1.0,
-    "recall": 0.1186,
-    "f1": 0.212,
+    "precision": 0.9999,
+    "recall": 0.9992,
+    "f1": 0.9995,
     "f1_ci95": [
-     0.2072,
-     0.2163
+     0.9994,
+     0.9996
     ],
     "units": 100222,
-    "tp": 5945,
-    "fp": 0,
-    "fn": 44182,
-    "threshold": 0.24,
+    "tp": 50085,
+    "fp": 7,
+    "fn": 42,
+    "threshold": 0.49,
     "labels": {
-     "train": 773259,
-     "valid": 257465
+     "train": 1490055,
+     "valid": 494353
     }
    },
    "cardinality": "one_to_one",
@@ -1517,59 +1524,59 @@
     "ok": true,
     "check": "train/valid/test left ids disjoint; each true pair has exactly one split (its left / smaller id)"
    },
-   "wall_s_incl_start": 117.1,
+   "wall_s_incl_start": 306.8,
    "jev": {
     "usage": {
-     "requests": 0,
-     "cached": 400,
+     "requests": 367,
+     "cached": 33,
      "errors": 0,
-     "input_tokens": 0,
-     "output_tokens": 0,
+     "input_tokens": 214768,
+     "output_tokens": 6239,
      "predicted": {
-      "to_send": 0,
-      "est_input_tokens": 0,
-      "est_usd": 0.0,
-      "basis": "prior fitted on 0 benchmark answers (placeholder until fitted)",
-      "per_pair_tokens": 0.0
+      "to_send": 367,
+      "est_input_tokens": 214978,
+      "est_usd": 0.009029,
+      "basis": "fitted on this cache's 400 answers",
+      "per_pair_tokens": 585.8
      },
-     "usd": 0.0,
-     "label_input_tokens": 234277,
-     "label_usd": 0.00984,
+     "usd": 0.00902,
+     "label_input_tokens": 234101,
+     "label_usd": 0.009832,
      "asked": 400,
-     "kept": 388
+     "kept": 301
     },
-    "labels_fit": 287,
-    "labels_fit_matches": 1,
-    "labels_threshold": 101,
-    "precision": 0.9928,
-    "recall": 0.1076,
-    "f1": 0.1942,
+    "labels_fit": 224,
+    "labels_fit_matches": 21,
+    "labels_threshold": 77,
+    "precision": 0.9994,
+    "recall": 0.985,
+    "f1": 0.9921,
     "f1_ci95": [
-     0.1893,
-     0.1984
+     0.9916,
+     0.9926
     ],
     "units": 100222,
-    "tp": 5395,
-    "fp": 39,
-    "fn": 44732,
+    "tp": 49373,
+    "fp": 32,
+    "fn": 754,
     "threshold": 0.5,
-    "wall_s": 4.3
+    "wall_s": 15.0
    },
    "spark": "4.1.3",
    "shuffle": {
-    "peak_stage_mb": 1185.8,
-    "total_mb": 4191.9
+    "peak_stage_mb": 10513.3,
+    "total_mb": 23811.2
    },
-   "records_per_s": 8539.7,
+   "records_per_s": 3259.5,
    "notes": [
     "10^6 generated records (500 000 per side), 250 000 true links, seed 1000000"
    ],
-   "precision": 1.0,
-   "recall": 0.1186,
-   "f1": 0.212,
+   "precision": 0.9999,
+   "recall": 0.9992,
+   "f1": 0.9995,
    "f1_ci95": [
-    0.2072,
-    0.2163
+    0.9994,
+    0.9996
    ],
    "references": {
     "zingg": [],
@@ -1597,7 +1604,7 @@
   }
  },
  "method_winners": {
-  "candidates.method": "gram_topk",
+  "candidates.method": "union",
   "features.string_similarity": "levenshtein",
   "matcher.estimator": "gbt",
   "decision.cardinality": "one_to_one"
@@ -1605,14 +1612,14 @@
  "method_winners_source": "bench/results/methods.json (ZR-3a, chosen on validation)",
  "split_dedup_asserted": true,
  "defaults": {
-  "candidates.method": "gram_topk",
+  "candidates.method": "union",
   "features.string_similarity": "levenshtein",
   "matcher.estimator": "gbt",
   "decision.cardinality": "one_to_one"
  },
- "protocol": "(the same for every corpus, TEST is read once per labeller):\n\n  linkage / dedupe   records -> entity view -> candidates (gram_topk, k = 5; k = 10 for dedupe, self pairs dropped,\n                     pairs canonicalised) -> comparison vectors. Left records (the smaller id for dedupe) are split\n                     by xxhash64 of their id: train 60 % / valid 20 % / test 20 % \u2014 the split of bench/methods.py, so\n                     the method choices never saw TEST. Gold labeller: every TRAIN candidate labelled from the truth,\n                     model fitted on TRAIN, threshold on VALID, links on TEST under the cardinality policy\n                     (linkage: decision.cardinality; dedupe: unrestricted \u2014 clustering is ZR-4). Units = TEST left\n                     records; a true pair the candidates missed is a false negative.\n  pairs              the corpus's fixed pair splits (Ditto's for the Magellan sets, a line hash for BPID): model on\n                     TRAIN, threshold on VALID, F1 on TEST pairs. Candidate recall@k = TEST matches that gram_topk\n                     (k = 5) proposes when run over all records.\n  Jev labeller       the same run with no gold label: Jev labels 400 TRAIN candidate pairs (xxhash order), only its\n                     confident answers (tau 0.90) are kept, split 75 / 25 by left id into fit / threshold. Tokens and\n                     dollars are the requests actually sent (answers are cached under data/runs/bench/jev/).\n  trivial baseline   always link each left record's nearest neighbour (rank-1 candidate), scored on the same units.\n\nF1 intervals: 95 % percentile bootstrap over TEST units (1 000 resamples, seed 0). Peak shuffle: the largest bytes\nwritten by one stage, read from the Spark event log. De-duplication across splits is asserted per corpus.",
+ "protocol": "(the same for every corpus, TEST is read once per labeller):\n\n  linkage / dedupe   records -> entity view -> candidates (the default method, k = 5; k = 10 for dedupe, self pairs dropped,\n                     pairs canonicalised) -> comparison vectors. Left records (the smaller id for dedupe) are split\n                     by xxhash64 of their id: train 60 % / valid 20 % / test 20 % \u2014 the split of bench/methods.py, so\n                     the method choices never saw TEST. Gold labeller: every TRAIN candidate labelled from the truth,\n                     model fitted on TRAIN, threshold on VALID, links on TEST under the cardinality policy\n                     (linkage: decision.cardinality; dedupe: unrestricted \u2014 clustering is ZR-4). Units = TEST left\n                     records; a true pair the candidates missed is a false negative.\n  pairs              the corpus's fixed pair splits (Ditto's for the Magellan sets, a line hash for BPID): model on\n                     TRAIN, threshold on VALID, F1 on TEST pairs. Candidate recall@k = TEST matches that the default\n                     candidate method (k = 5) proposes when run over all records.\n  Jev labeller       the same run with no gold label: Jev labels 400 TRAIN candidate pairs (xxhash order), only its\n                     confident answers (tau 0.90) are kept, split 75 / 25 by left id into fit / threshold. Tokens and\n                     dollars are the requests actually sent (answers are cached under data/runs/bench/jev/).\n  trivial baseline   always link each left record's nearest neighbour (rank-1 candidate), scored on the same units.\n\nF1 intervals: 95 % percentile bootstrap over TEST units (1 000 resamples, seed 0). Peak shuffle: the largest bytes\nwritten by one stage, read from the Spark event log. De-duplication across splits is asserted per corpus.",
  "meta": {
-  "generated": "2026-09-29T01:09:35",
+  "generated": "2026-10-01T00:41:36",
   "bootstrap": 1000,
   "machine": "arm64 \u00b7 16 cores \u00b7 local[8]",
   "jev_price_per_m_input_usd": 0.042

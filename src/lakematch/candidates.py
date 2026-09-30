@@ -6,7 +6,9 @@ only in which pairs they can reach — the comparison D06 asks for (candidate re
 
 The ranking score — IDF-weighted cosine over character q-gram sets:
 
-    vocabulary  every q-gram of either side, minus the "ubiquitous" ones present in more than `gram_cap` right records
+    vocabulary  every q-gram of either side, minus the "ubiquitous" ones present in more than `rank_vocab_share` of
+                the right records (a gram held by one right record always stays) — a cut relative to corpus size, not the join budget (ZR-3s: at 500 000 right
+                records the fixed `gram_cap` of 400 left almost no gram a true pair shares, and most scores were 0)
     weight      w(g) = ln((1 + N) / (1 + df(g))) + 1 with N = |left| + |right| and df(g) = records holding g on
                 either side (smoothed IDF, always > 0); `idf_weighted: false` sets w(g) = 1 (plain set cosine)
     score       cos(l, r) = sum_{g in l ∩ r} w(g)^2 / (||l|| · ||r||), both norms over the *same* vocabulary; a
@@ -15,13 +17,17 @@ The ranking score — IDF-weighted cosine over character q-gram sets:
 
 Methods (`candidates.method`):
 
-    gram_topk        every pair sharing a kept gram. Budget: a kept gram is held by at most `gram_cap` right records,
-                     so the join emits at most sum_l G_l × gram_cap rows (G_l = grams of left record l).
-    field_blocks     equi-joins on hand-written keys: `field_blocks` is a list of blocks, each a list of Spark SQL
-                     expressions over the entity columns, all non-empty and equal (e.g. [["postcode"],
-                     ["soundex(surname)", "substring(date_of_birth, 1, 4)"]]). An empty list means one block per field
-                     on its normalised value (soundex for person names). A key held by more than `gram_cap` right
-                     records is skipped.
+    gram_topk        pairs sharing a gram held by at most `gram_cap` right records (the join budget: at most
+                     sum_l G_l × gram_cap rows, G_l = grams of left record l), pre-cut to the k best per left record
+                     on the ranking score restricted to those grams, then ranked like every other method.
+    field_blocks     equi-joins on keys: `field_blocks` is a list of blocks, each a list of Spark SQL expressions over
+                     the entity columns, all non-empty and equal (e.g. [["postcode"], ["soundex(surname)",
+                     "substring(date_of_birth, 1, 4)"]]). An empty list means the default blocks: every conjunction of
+                     two scalar fields on their normalised values (soundex for person names) — two independent fields
+                     agreeing stays selective at any size, where one field alone is shared by thousands of records at
+                     10^6 — plus one block per multi-valued field; an entity with a single scalar field blocks on it
+                     alone; a default conjunction whose join would emit more than `block_pairs_per_left` pairs per
+                     left record is dropped. A key held by more than `gram_cap` right records is skipped.
     learned_blocker  set-cover blocking learnt from labelled matches (Bilenko et al. 2006; Michelson & Knoblock 2006):
                      a pool of cheap predicates (exact value, soundex, 3-character prefix, shared token, year, and the
                      conjunctions of the ten best), then greedily the predicate with the most newly covered matches per
@@ -46,16 +52,19 @@ log = logging.getLogger("lakematch")
 
 # --- the shared ranking --------------------------------------------------------------------------------------------
 def _gram_weights(left: DataFrame, right: DataFrame, cfg: Config):
+    """Weighted grams of each side over the ranking vocabulary, their norms, and `joinable` (the grams the gram join
+    may use: held by at most `gram_cap` right records)."""
     cap, weighted = cfg.get("candidates.gram_cap"), cfg.get("candidates.idf_weighted")
+    share = cfg.get("candidates.rank_vocab_share")
     el = left.select(F.col("id").alias("l_id"), F.explode("_grams").alias("gram"))
     er = right.select(F.col("id").alias("r_id"), F.explode("_grams").alias("gram"))
     df_l = el.groupBy("gram").agg(F.count(F.lit(1)).alias("df_l"))
     df_r = er.groupBy("gram").agg(F.count(F.lit(1)).alias("df_r"))
     sizes = left.agg(F.count(F.lit(1)).alias("n_l")).crossJoin(right.agg(F.count(F.lit(1)).alias("n_r")))
-    vocab = (df_l.join(df_r, "gram", "full").fillna(0, ["df_l", "df_r"])
-                 .filter(F.col("df_r") <= cap).crossJoin(sizes))
+    vocab = (df_l.join(df_r, "gram", "full").fillna(0, ["df_l", "df_r"]).crossJoin(sizes)
+                 .filter(F.col("df_r") <= F.greatest(F.lit(share) * F.col("n_r"), F.lit(1))))
     w = (F.log((1 + F.col("n_l") + F.col("n_r")) / (1 + F.col("df_l") + F.col("df_r"))) + 1) if weighted else F.lit(1.0)
-    vocab = vocab.select("gram", w.alias("w"))
+    vocab = vocab.select("gram", w.alias("w"), (F.col("df_r") <= cap).alias("joinable"))
     wl, wr = el.join(vocab, "gram"), er.join(vocab, "gram")
     norm_l = wl.groupBy("l_id").agg(F.sqrt(F.sum(F.col("w") * F.col("w"))).alias("norm_l"))
     norm_r = wr.groupBy("r_id").agg(F.sqrt(F.sum(F.col("w") * F.col("w"))).alias("norm_r"))
@@ -77,7 +86,8 @@ def rescore(proposals: DataFrame, left: DataFrame, right: DataFrame, cfg: Config
     """IDF gram cosine for arbitrary proposed pairs (0 when they share no kept gram)."""
     wl, wr, norm_l, norm_r = _gram_weights(left, right, cfg)
     props = proposals.select("l_id", "r_id").distinct()
-    dot = (props.join(wl, "l_id").join(wr.select("r_id", "gram", F.col("w").alias("w_r")), ["r_id", "gram"])
+    dot = (props.join(wl.select("l_id", "gram", "w"), "l_id")
+                .join(wr.select("r_id", "gram", F.col("w").alias("w_r")), ["r_id", "gram"])
                 .groupBy("l_id", "r_id").agg(F.sum(F.col("w") * F.col("w_r")).alias("dot")))
     scored = _cosine(dot, norm_l, norm_r)
     return props.join(scored, ["l_id", "r_id"], "left").fillna(0.0, ["cand_score"])
@@ -85,9 +95,10 @@ def rescore(proposals: DataFrame, left: DataFrame, right: DataFrame, cfg: Config
 
 # --- proposers -----------------------------------------------------------------------------------------------------
 def _gram_all(left: DataFrame, right: DataFrame, cfg: Config) -> DataFrame:
-    """Every pair sharing a kept gram, already scored."""
+    """Every pair sharing a joinable gram, scored on the joinable grams only (the norms are the full ranking
+    vocabulary's, so the score is a lower bound of the ranking cosine; `generate` rescores the survivors)."""
     wl, wr, norm_l, norm_r = _gram_weights(left, right, cfg)
-    dot = (wl.join(wr.select("r_id", "gram"), "gram")
+    dot = (wl.filter("joinable").select("l_id", "gram", "w").join(wr.filter("joinable").select("r_id", "gram"), "gram")
              .groupBy("l_id", "r_id").agg(F.sum(F.col("w") * F.col("w")).alias("dot")))
     return _cosine(dot, norm_l, norm_r)
 
@@ -115,14 +126,52 @@ def _block_join(left: DataFrame, right: DataFrame, exprs: list[str], cap: int, i
     return kl.join(small, "k").join(kr, "k").select("l_id", "r_id").distinct()
 
 
-def default_blocks(cfg: Config) -> list[list[str]]:
-    return [[f"soundex({f})"] if s["type"] == "person_name" else [f] for f, s in cfg.fields.items()]
+def default_blocks(cfg: Config) -> tuple[list[list[str]], list[str]]:
+    """(scalar blocks, array-key expressions): every conjunction of two scalar fields (numbers excluded: their text
+    form is not a key) on normalised values, one block alone when there is a single scalar field, and one
+    share-any-item block per multi-valued field."""
+    norm = lambda f, s: f"soundex({f})" if s["type"] == "person_name" else f
+    scalar = [norm(f, s) for f, s in cfg.fields.items() if not s.get("multi") and s["type"] != "number"]
+    arrays = [f"set_{f}" for f, s in cfg.fields.items() if s.get("multi")]
+    if len(scalar) < 2:
+        return [[e] for e in scalar], arrays
+    return [[a, b] for i, a in enumerate(scalar) for b in scalar[i + 1:]], arrays
+
+
+def _multi_block_join(left: DataFrame, right: DataFrame, blocks: list[list[str]], cap: int,
+                      pairs_per_left: float | None = None) -> DataFrame:
+    """Pairs agreeing on any of `blocks`, in ONE join: each record explodes into one tagged key per block (a plan with
+    a join per block is too deep for Spark Connect's protobuf at 28 blocks). A key held by more than `cap` right
+    records is skipped, block by block. With `pairs_per_left`, a whole block whose join would emit more than that many
+    pairs per left record is dropped first (one count per block, collected: a few dozen rows)."""
+    def keyed(side: DataFrame, alias: str) -> DataFrame:
+        keys = F.array(*[F.concat(F.lit(f"{i}\u0002"), _key(list(b), False)) for i, b in enumerate(blocks)])
+        out = side.select(F.col("id").alias(alias), F.explode(keys).alias("k"))
+        return out.filter(F.col("k").isNotNull())
+    kl, kr = keyed(left, "l_id"), keyed(right, "r_id")
+    small = kr.groupBy("k").agg(F.count(F.lit(1)).alias("n_r")).filter(F.col("n_r") <= cap)
+    if pairs_per_left is not None:
+        budget = pairs_per_left * left.count()
+        block = F.substring_index("k", "\u0002", 1)
+        sizes = (kl.groupBy("k").agg(F.count(F.lit(1)).alias("n_l")).join(small, "k")
+                   .groupBy(block.alias("b")).agg(F.sum(F.col("n_l") * F.col("n_r")).alias("pairs")).collect())
+        kept = sorted(r.b for r in sizes if r.pairs <= budget)
+        dropped = {" & ".join(blocks[int(r.b)]): int(r.pairs) for r in sizes if r.pairs > budget}
+        if dropped:
+            log.info("field_blocks: dropped %d block(s) over %s pairs per left record: %s", len(dropped),
+                     pairs_per_left, dropped)
+        small = small.filter(block.isin(kept))
+    return kl.join(small.select("k"), "k").join(kr, "k").select("l_id", "r_id").distinct()
 
 
 def _field_blocks(left: DataFrame, right: DataFrame, cfg: Config) -> DataFrame:
-    blocks = cfg.get("candidates.field_blocks") or default_blocks(cfg)
     cap = cfg.get("candidates.gram_cap")
-    parts = [_block_join(left, right, list(block), cap) for block in blocks]
+    if cfg.get("candidates.field_blocks"):          # the user's own blocks: taken as written
+        blocks, arrays, per_left = cfg.get("candidates.field_blocks"), [], None
+    else:                                           # default conjunctions: only the ones selective at this size
+        (blocks, arrays), per_left = default_blocks(cfg), cfg.get("candidates.block_pairs_per_left")
+    parts = [_multi_block_join(left, right, [list(b) for b in blocks], cap, per_left)] if blocks else []
+    parts += [_block_join(left, right, [a], cap, is_array=True) for a in arrays]
     out = parts[0]
     for p in parts[1:]:
         out = out.unionByName(p)
@@ -189,16 +238,22 @@ def learn_blocker(left: DataFrame, right: DataFrame, cfg: Config, labelled: Data
         for b in singles[i + 1:]:
             if not (pool[a][1] or pool[b][1]):                     # conjunctions of scalar keys only
                 candidates[f"{a} & {b}"] = [a, b]
-    cost = {}
+    # Cost and coverage both come from the capped join itself: a match whose key is held by more than gram_cap right
+    # records is NOT covered (ZR-3s: at 10^6, single-field keys are all over the cap; counting them as covered at a
+    # cost of 1 made the cover pick predicates that propose nothing).
+    pos_ids = pos.select("l_id", "r_id").distinct().withColumn("_hit", F.lit(1))
+    cost, covered_by = {}, {}
     for name, parts in candidates.items():
         if len(parts) == 1:
             exprs, is_array = pool[parts[0]]
         else:
             exprs, is_array = pool[parts[0]][0] + pool[parts[1]][0], False
-        cost[name] = max(_block_join(left, right, exprs, cap, is_array).count(), 1)
-    covered_by = {name: {i for i, c in enumerate(covers) if all(c[p] for p in parts)}
-                  for name, parts in candidates.items()}
-    target = cfg.get("candidates.learned_coverage") * len(covers)
+        row = (_block_join(left, right, exprs, cap, is_array).join(pos_ids, ["l_id", "r_id"], "left")
+               .agg(F.count(F.lit(1)).alias("n"),
+                    F.collect_list(F.when(F.col("_hit") == 1, F.concat_ws("\u0001", "l_id", "r_id"))).alias("hits"))
+               .first())
+        cost[name], covered_by[name] = max(row.n, 1), set(row.hits)
+    target = cfg.get("candidates.learned_coverage") * pos_ids.count()
     chosen, covered = [], set()
     while len(covered) < target and len(chosen) < cfg.get("candidates.learned_max_predicates"):
         best = max(candidates, key=lambda n: (len(covered_by[n] - covered) / cost[n], -cost[n], n))
@@ -206,7 +261,8 @@ def learn_blocker(left: DataFrame, right: DataFrame, cfg: Config, labelled: Data
             break
         chosen.append(best)
         covered |= covered_by[best]
-    log.info("learned_blocker: %s cover %d of %d labelled matches", chosen, len(covered), len(covers))
+    log.info("learned_blocker: %s cover %d of %d labelled matches", chosen, len(covered),
+             round(target / cfg.get("candidates.learned_coverage")))
     return chosen
 
 
@@ -249,17 +305,16 @@ def propose(method: str, left: DataFrame, right: DataFrame, cfg: Config, labelle
 
 
 def generate(left: DataFrame, right: DataFrame, cfg: Config, labelled: DataFrame | None = None) -> DataFrame:
+    """Every method's proposals, ranked by the shared score and cut to k per left record."""
     method = cfg.require("candidates.method")
-    k = cfg.get("candidates.k")
-    if method == "gram_topk":
-        return top_k(_gram_all(left, right, cfg), k)
-    return top_k(rescore(propose(method, left, right, cfg, labelled), left, right, cfg), k)
+    return top_k(rescore(propose(method, left, right, cfg, labelled), left, right, cfg), cfg.get("candidates.k"))
 
 
 def gram_topk(left: DataFrame, right: DataFrame, cfg: Config) -> DataFrame:
-    return top_k(_gram_all(left, right, cfg), cfg.get("candidates.k"))
+    return top_k(rescore(propose("gram_topk", left, right, cfg), left, right, cfg), cfg.get("candidates.k"))
 
 
 def budget_note(cfg: Config) -> str:
     return (f"{cfg.get('candidates.method')}: at most {cfg.get('candidates.k')} pairs per left record after the "
-            f"shared ranking; gram joins <= sum over left records of (grams per record x {cfg.get('candidates.gram_cap')})")
+            f"shared ranking (vocabulary: grams in <= {cfg.get('candidates.rank_vocab_share'):.0%} of right records); "
+            f"gram and key joins <= {cfg.get('candidates.gram_cap')} right records per gram or key")

@@ -51,17 +51,26 @@ def findings(d: dict, probe_path: Path) -> list[str]:
                    + ": there it must judge, not label (the 2026-09-19 finding, reproduced).")
     if probe_path.exists():
         pr = json.loads(probe_path.read_text())["rows"]
-        out.append(f"- **Scale: the default candidate step collapses at 10^6 records** (Synthetic 10^6 candidate recall "
-                   f"{f(C.get('synthetic_1e6', {}).get('candidate_recall_at_k'))}). `bench/scale_probe.py` "
-                   "(`results/scale_probe.json`) locates it in two places:")
+        s = C.get("synthetic_1e6", {})
+        out.append("- **Scale: the ZR-3 candidate step collapsed at 10^6 records** (Synthetic 10^6 candidate recall "
+                   "0.1186, F1 0.212 on 2026-09-29). `bench/scale_probe.py` (`results/scale_probe.json`, measured "
+                   "before the fix) located it in two places:")
         for r in pr:
             out.append(f"  - {r['what']}: recall **{r['recall']:.4f}**, {r['pairs']:,} pairs, {r['s']} s")
         out.append("  Two defects, both visible only at scale: the gram join keeps grams held by at most `gram_cap` = "
                    "400 right records, which at 500 000 records leaves almost no gram a true pair shares; and the shared "
-                   "ranking scores proposals over that same capped vocabulary, so most score 0 and the top-k cut is "
-                   "arbitrary. Conjunction blocks plus a ranking vocabulary cut relative to the corpus size restore "
-                   "0.987. Changing the candidate default is a re-decision on VALIDATION data with this corpus added "
-                   "to `bench/methods.py` — the next goal, not done here.")
+                   "ranking scored proposals over that same capped vocabulary, so most scored 0 and the top-k cut was "
+                   "arbitrary.")
+        if s.get("candidate_recall_at_k", 0) >= 0.95:
+            out.append("  **Fixed in ZR-3s:** the ranking vocabulary is cut at `rank_vocab_share` of the right records "
+                       "(relative to corpus size; `gram_cap` is the join budget only), the default field blocks are "
+                       "two-field conjunctions, and the candidate default was re-decided on VALIDATION data with this "
+                       f"corpus in `bench/methods.py` (`{s.get('candidate_method', '?')}`). Synthetic 10^6 now: "
+                       f"candidate recall **{f(s.get('candidate_recall_at_k'))}**, F1 **{f(s.get('f1'))}**, "
+                       f"{s.get('wall_s_incl_start')} s end to end.")
+        else:
+            out.append("  Changing the candidate default is a re-decision on VALIDATION data with this corpus added "
+                       "to `bench/methods.py` (ZR-3s).")
     return out or ["- none"]
 
 

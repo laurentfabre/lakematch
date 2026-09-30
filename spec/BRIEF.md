@@ -200,13 +200,15 @@ entity:
 # Every method below is a choice. The value shown is the starting hypothesis; ZR-3 / ZR-4 replace it with the
 # validation winner and record the comparison in BENCHMARKS.md.
 candidates:
-  method: gram_topk           # gram_topk | learned_blocker | minhash_lsh | field_blocks | union
+  method: union               # gram_topk | learned_blocker | minhash_lsh | field_blocks | union (ZR-3s winner)
   q: 3
   k: 5
   idf_weighted: true
-  gram_cap: 400               # how common a gram may be before it stops generating pairs
-  union_of: []                # with method: union — e.g. [gram_topk, field_blocks]
-  field_blocks: []            # e.g. [[postcode], [soundex(surname), birth_year]]
+  gram_cap: 400               # join budget: how common a gram (or block key) may be before it stops generating pairs
+  rank_vocab_share: 0.1       # ranking vocabulary: grams in more than this share of right records are dropped
+  union_of: [gram_topk, field_blocks]
+  field_blocks: []            # e.g. [[postcode], [soundex(surname), birth_year]]; [] = two-field conjunctions
+  block_pairs_per_left: 10    # a default conjunction emitting more pairs per left record is dropped
 features:
   string_similarity: levenshtein   # levenshtein | jaro_winkler | both   (jaro_winkler = UDF before Spark 4.3)
   multi_token: [idf_token_cosine, gram_overlap, monge_elkan_token]   # any subset; affine_gap_udf is the optional 4th

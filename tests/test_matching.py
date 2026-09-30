@@ -27,7 +27,7 @@ def _sides(spark, left, right):
 
 def test_gram_topk_is_a_real_idf_cosine(spark):
     left, right = _sides(spark, [("a", ["x", "y"])], [("b", ["x", "z"]), ("c", ["y", "z"])])
-    cfg = make_cfg(candidates={"k": 5, "gram_cap": 10})
+    cfg = make_cfg(candidates={"k": 5, "gram_cap": 10, "rank_vocab_share": 1.0})
     got = {r.r_id: r.cand_score for r in candidates.gram_topk(left, right, cfg).collect()}
     n = 3
     w = {g: math.log((1 + n) / (1 + d)) + 1 for g, d in {"x": 2, "y": 2, "z": 2}.items()}
@@ -36,17 +36,29 @@ def test_gram_topk_is_a_real_idf_cosine(spark):
     assert got["c"] == pytest.approx(w["y"] ** 2 / (norm("xy") * norm("yz")))
 
 
-def test_capped_grams_leave_both_numerator_and_norms(spark):
-    # "z" sits in 3 right records > gram_cap 2: it must vanish from the dot product AND the norms
+def test_ubiquitous_grams_leave_both_numerator_and_norms(spark):
+    # "z" sits in 3 of 3 right records > rank_vocab_share 0.5: it must vanish from the dot product AND the norms
     left, right = _sides(spark, [("a", ["x", "z"])], [("b", ["x", "z"]), ("c", ["z"]), ("d", ["z", "q"])])
-    cfg = make_cfg(candidates={"k": 5, "gram_cap": 2, "idf_weighted": False})
+    cfg = make_cfg(candidates={"k": 5, "gram_cap": 2, "rank_vocab_share": 0.5, "idf_weighted": False})
     got = {r.r_id: r.cand_score for r in candidates.gram_topk(left, right, cfg).collect()}
     assert got == {"b": pytest.approx(1.0)}      # both reduce to {x}: cosine 1, not 1/2
 
 
+def test_join_cap_is_not_the_ranking_vocabulary(spark):
+    # ZR-3s: "z" is too common to JOIN on (gram_cap 1) but stays in the ranking vocabulary (share 1.0), so b is
+    # proposed through "x" alone and then ranked over {x, z}: identical sets, cosine 1; c and d share only "z"
+    left, right = _sides(spark, [("a", ["x", "z"])], [("b", ["x", "z"]), ("c", ["z"]), ("d", ["z", "q"])])
+    cfg = make_cfg(candidates={"k": 5, "gram_cap": 1, "rank_vocab_share": 1.0, "idf_weighted": False})
+    got = {r.r_id: r.cand_score for r in candidates.gram_topk(left, right, cfg).collect()}
+    assert got == {"b": pytest.approx(1.0)}
+    scored = {r.r_id: r.cand_score for r in candidates.rescore(
+        spark.createDataFrame([("a", r) for r in "bcd"], "l_id string, r_id string"), left, right, cfg).collect()}
+    assert scored["c"] == pytest.approx(1 / math.sqrt(2)) and scored["d"] == pytest.approx(0.5)
+
+
 def test_top_k_and_deterministic_ties(spark):
     left, right = _sides(spark, [("a", ["x"])], [(r, ["x"]) for r in ("r3", "r1", "r2")])
-    cfg = make_cfg(candidates={"k": 2, "gram_cap": 10})
+    cfg = make_cfg(candidates={"k": 2, "gram_cap": 10, "rank_vocab_share": 1.0})
     rows = sorted(candidates.gram_topk(left, right, cfg).collect(), key=lambda r: r.cand_rank)
     assert [(r.r_id, r.cand_rank, r.cand_gap) for r in rows] == [("r1", 1, 0.0), ("r2", 2, 0.0)]
 

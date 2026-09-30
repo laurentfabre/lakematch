@@ -69,7 +69,7 @@ def test_candidate_method_gram_topk(task):
 
 
 def test_candidate_method_field_blocks(task):
-    _run(task, "field_blocks", 0.9)                                     # default blocks: one per field
+    _run(task, "field_blocks", 0.9)                                     # default blocks: two-field conjunctions
     _run(task, "field_blocks", 0.9, field_blocks=[["postcode", "substring(dob, 1, 4)"], ["surname"]])
 
 
@@ -104,3 +104,23 @@ def test_rescore_gives_zero_to_pairs_without_a_shared_gram(spark):
     props = spark.createDataFrame([("a", "b"), ("a", "c")], "l_id string, r_id string")
     got = {r.r_id: r.cand_score for r in candidates.rescore(props, left, right, cfg).collect()}
     assert got["c"] == 0.0 and 0 < got["b"] <= 1
+
+
+def test_default_blocks_are_two_field_conjunctions():
+    # ZR-3s: one field alone is shared by thousands of records at 10^6; two agreeing fields stay selective
+    blocks, arrays = candidates.default_blocks(make_cfg(entity={"fields": {**FIELDS, "price": {"type": "number"},
+                                                                          "email": {"type": "code", "multi": True}}}))
+    assert len(blocks) == 10 and ["soundex(given)", "soundex(surname)"] in blocks and ["street", "dob"] in blocks
+    assert not any("price" in e for b in blocks for e in b) and arrays == ["set_email"]
+    single, _ = candidates.default_blocks(make_cfg(entity={"fields": {"affiliation": {"type": "organisation"}}}))
+    assert single == [["affiliation"]]
+
+
+def test_default_blocks_over_the_pair_budget_are_dropped(task):
+    # ZR-3s: a conjunction that is not selective at this size (e.g. state & postcode at 10^6) is dropped whole
+    L, R, truth, labelled = task
+    mk = lambda **c: make_cfg(entity={"fields": FIELDS}, candidates={"method": "field_blocks", "gram_cap": 50, **c})
+    assert candidates.propose("field_blocks", L, R, mk()).count() > 0
+    assert candidates.propose("field_blocks", L, R, mk(block_pairs_per_left=0.001)).count() == 0
+    written = mk(block_pairs_per_left=0.001, field_blocks=[["surname"]])     # the user's own blocks: no budget
+    assert candidates.propose("field_blocks", L, R, written).count() > 0
