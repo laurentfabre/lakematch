@@ -3,6 +3,8 @@
 Created: **2026-09-21**. Status: **LF-A and LF-B complete for their declared foundations; LF-B 12/12 experiments; LF-C in progress (16/32 under LF-DEC-008)**.
 Research baseline: **`a007166`**. Phase IDs: **LF-A through LF-F**.
 
+Latest handoff: [resume checkpoint saved 2026-10-01](bench/lakefusion/RESUME.md).
+
 Deliver the capabilities defined in the
 [LakeFusion assessment](spec/research/lakefusion/README.md) and
 [implementation design](spec/research/lakefusion/IMPLEMENTATION.md): a governed
