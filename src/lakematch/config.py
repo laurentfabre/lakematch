@@ -37,7 +37,7 @@ METHODS: dict[str, dict[str, str | None]] = {
     "features.embeddings.provider": {"auto": None, "none": None, "local": None, "databricks_endpoint": "ZR-6"},
     "matcher.estimator": {"gbt": None, "logistic_regression": None, "random_forest": None},
     "decision.cardinality": {"one_to_one": None, "many_to_one": None, "unrestricted": None},
-    "cluster.method": {"verified_merge": "ZR-4", "connected_components": "ZR-4", "center": "ZR-4", "star": "ZR-4"},
+    "cluster.method": {"verified_merge": None, "connected_components": None, "center": None, "star": None},
     "quality.engine": {"native": None, "dqx": "ZR-6", "expectations": "ZR-6"},
     "labels.llm": {"none": None, "jev": None, "ai_query": "ZR-6"},
     "labels.source": {"file": None, "truth_sample": None, "app": "ZR-7"},
@@ -102,7 +102,9 @@ DEFAULTS: dict[str, Any] = {
                                 "model": "minishlab/potion-base-32M"}},   # D12 winner, bench/ABLATION.md
     "matcher": {"estimator": "gbt", "max_model_mb": 100, "params": {}, "seed": 0},
     "decision": {"threshold": "from_validation", "cardinality": "one_to_one", "validation_share": 0.25},
-    "cluster": {"method": "verified_merge", "max_rounds": 20},
+    # cluster.method: the ZR-4 validation winner (bench/CLUSTERS.md); representatives: members per cluster compared
+    # pairwise by verified_merge before two clusters join (one pair below the threshold vetoes)
+    "cluster": {"method": "verified_merge", "max_rounds": 20, "representatives": 3},
     "quality": {"engine": "native", "checks": []},
     "labels": {"source": "truth_sample", "n": 400, "path": None, "llm": "none", "llm_tau": 0.90,
                "llm_cache": None,    # default <storage.root>/jev_cache.jsonl
@@ -181,10 +183,10 @@ class Config:
         return value
 
     def runnable_problems(self) -> list[str]:
-        """Every choice `lakematch run` would execute that has not landed yet (clustering is not in the ZR-1 run)."""
+        """Every choice `lakematch run` would execute that has not landed yet."""
         problems = []
         for key in ("runtime.mode", "candidates.method", "features.string_similarity", "matcher.estimator",
-                    "decision.cardinality", "quality.engine", "labels.llm", "labels.source",
+                    "decision.cardinality", "cluster.method", "quality.engine", "labels.llm", "labels.source",
                     "features.embeddings.provider"):
             try:
                 self.require(key)
@@ -236,7 +238,8 @@ def validate(data: dict) -> None:
     for t in cfg.get("features.embeddings.fields_of_type"):
         if t not in FIELD_TYPES:
             raise ConfigError(f"features.embeddings.fields_of_type: '{t}' is not a field type")
-    for key in ("candidates.q", "candidates.k", "candidates.gram_cap", "cluster.max_rounds", "labels.n"):
+    for key in ("candidates.q", "candidates.k", "candidates.gram_cap", "cluster.max_rounds", "cluster.representatives",
+                "labels.n"):
         if not isinstance(cfg.get(key), int) or cfg.get(key) < 1:
             raise ConfigError(f"{key} must be a positive integer")
     if not 0 < cfg.get("candidates.lsh_threshold") < 1:

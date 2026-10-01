@@ -63,6 +63,14 @@ def test_run_links_and_rejects(spark, tmp_path):
     assert on_disk["decision"]["links"] == summary["decision"]["links"]
     assert (tmp_path / "data" / "links").exists() and (tmp_path / "data" / "quarantine" / "right").exists()
     assert not (tmp_path / "data" / "_scratch").exists() or not any((tmp_path / "data" / "_scratch").iterdir())
+    # ZR-4: identity — every record has an mdm_id, and a second run on unchanged input changes none of them
+    ident = summary["identity"]
+    assert ident["reconciles"] and ident["records"] == sum(1 for _ in json.loads(
+        (tmp_path / "data" / "identity" / "crosswalk.json").read_text()))
+    first = json.loads((tmp_path / "data" / "identity" / "crosswalk.json").read_text())
+    again = run(cfg, rt=Runtime(cfg, spark))
+    second = json.loads((tmp_path / "data" / "identity" / "crosswalk.json").read_text())
+    assert second == first and again["identity"]["events"] == {}
 
 
 def _jev_config(tmp_path, **labels):

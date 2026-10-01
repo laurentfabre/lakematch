@@ -1,0 +1,238 @@
+{
+ "febrl3": {
+  "records": 5000,
+  "links": 6553,
+  "threshold": 0.14,
+  "gold_clusters": 2000,
+  "largest_gold_cluster": 6,
+  "verified_merge": {
+   "pairwise_precision": 0.9964,
+   "pairwise_recall": 1.0,
+   "pairwise_f1": 0.9982,
+   "b_cubed_precision": 0.999,
+   "b_cubed_recall": 1.0,
+   "b_cubed_f1": 0.9995,
+   "records": 1027,
+   "predicted_clusters": 804,
+   "gold_clusters": 805,
+   "largest_predicted": 5,
+   "valid_pairwise_f1": 1.0,
+   "valid_b_cubed_f1": 1.0,
+   "wall_s": 2.1,
+   "stats": {
+    "rounds": 3,
+    "merges": 3000,
+    "vetoes": 8,
+    "scored_pairs": 28,
+    "converged": true
+   }
+  },
+  "connected_components": {
+   "pairwise_precision": 0.9856,
+   "pairwise_recall": 1.0,
+   "pairwise_f1": 0.9927,
+   "b_cubed_precision": 0.9976,
+   "b_cubed_recall": 1.0,
+   "b_cubed_f1": 0.9988,
+   "records": 1027,
+   "predicted_clusters": 803,
+   "gold_clusters": 805,
+   "largest_predicted": 5,
+   "valid_pairwise_f1": 0.9943,
+   "valid_b_cubed_f1": 0.9988,
+   "wall_s": 0.0
+  },
+  "center": {
+   "pairwise_precision": 0.9961,
+   "pairwise_recall": 0.9414,
+   "pairwise_f1": 0.968,
+   "b_cubed_precision": 0.999,
+   "b_cubed_recall": 0.9857,
+   "b_cubed_f1": 0.9923,
+   "records": 1027,
+   "predicted_clusters": 818,
+   "gold_clusters": 805,
+   "largest_predicted": 5,
+   "valid_pairwise_f1": 0.9786,
+   "valid_b_cubed_f1": 0.9952,
+   "wall_s": 0.0
+  },
+  "star": {
+   "pairwise_precision": 0.9964,
+   "pairwise_recall": 1.0,
+   "pairwise_f1": 0.9982,
+   "b_cubed_precision": 0.999,
+   "b_cubed_recall": 1.0,
+   "b_cubed_f1": 0.9995,
+   "records": 1027,
+   "predicted_clusters": 804,
+   "gold_clusters": 805,
+   "largest_predicted": 5,
+   "valid_pairwise_f1": 0.9943,
+   "valid_b_cubed_f1": 0.9988,
+   "wall_s": 0.0
+  }
+ },
+ "splink_historical_50k": {
+  "records": 50578,
+  "links": 227551,
+  "threshold": 0.58,
+  "gold_clusters": 5156,
+  "largest_gold_cluster": 21,
+  "verified_merge": {
+   "pairwise_precision": 0.9449,
+   "pairwise_recall": 0.8796,
+   "pairwise_f1": 0.9111,
+   "b_cubed_precision": 0.9828,
+   "b_cubed_recall": 0.9269,
+   "b_cubed_f1": 0.9541,
+   "records": 10059,
+   "predicted_clusters": 4584,
+   "gold_clusters": 4140,
+   "largest_predicted": 22,
+   "valid_pairwise_f1": 0.9097,
+   "valid_b_cubed_f1": 0.9522,
+   "wall_s": 11.0,
+   "stats": {
+    "rounds": 5,
+    "merges": 42962,
+    "vetoes": 4114,
+    "scored_pairs": 28234,
+    "converged": true
+   }
+  },
+  "connected_components": {
+   "pairwise_precision": 0.0038,
+   "pairwise_recall": 0.9746,
+   "pairwise_f1": 0.0076,
+   "b_cubed_precision": 0.6247,
+   "b_cubed_recall": 0.9824,
+   "b_cubed_f1": 0.7637,
+   "records": 10059,
+   "predicted_clusters": 2779,
+   "gold_clusters": 4140,
+   "largest_predicted": 2458,
+   "valid_pairwise_f1": 0.0084,
+   "valid_b_cubed_f1": 0.7697,
+   "wall_s": 1.3
+  },
+  "center": {
+   "pairwise_precision": 0.9933,
+   "pairwise_recall": 0.4371,
+   "pairwise_f1": 0.6071,
+   "b_cubed_precision": 0.997,
+   "b_cubed_recall": 0.6878,
+   "b_cubed_f1": 0.814,
+   "records": 10059,
+   "predicted_clusters": 6388,
+   "gold_clusters": 4140,
+   "largest_predicted": 8,
+   "valid_pairwise_f1": 0.6265,
+   "valid_b_cubed_f1": 0.8203,
+   "wall_s": 0.4
+  },
+  "star": {
+   "pairwise_precision": 0.9113,
+   "pairwise_recall": 0.8497,
+   "pairwise_f1": 0.8794,
+   "b_cubed_precision": 0.9689,
+   "b_cubed_recall": 0.911,
+   "b_cubed_f1": 0.9391,
+   "records": 10059,
+   "predicted_clusters": 4564,
+   "gold_clusters": 4140,
+   "largest_predicted": 26,
+   "valid_pairwise_f1": 0.8824,
+   "valid_b_cubed_f1": 0.9395,
+   "wall_s": 0.5
+  }
+ },
+ "winner": "verified_merge",
+ "mean_valid_b_cubed_f1": {
+  "verified_merge": 0.9761,
+  "connected_components": 0.8842,
+  "center": 0.9078,
+  "star": 0.9691
+ },
+ "convergence_test": {
+  "passed": true,
+  "rule": "verified_merge reaches a round with nothing left to propose before cluster.max_rounds",
+  "per_corpus": {
+   "febrl3": {
+    "rounds": 3,
+    "merges": 3000,
+    "vetoes": 8,
+    "scored_pairs": 28,
+    "converged": true
+   },
+   "splink_historical_50k": {
+    "rounds": 5,
+    "merges": 42962,
+    "vetoes": 4114,
+    "scored_pairs": 28234,
+    "converged": true
+   }
+  }
+ },
+ "rerun": {
+  "febrl3": {
+   "changed_ids": 0,
+   "events": 0,
+   "ids_equal_without_history": true,
+   "entities": 2000
+  },
+  "splink_historical_50k": {
+   "changed_ids": 0,
+   "events": 0,
+   "ids_equal_without_history": true,
+   "entities": 7616
+  }
+ },
+ "rerun_changed_ids": 0,
+ "incremental": {
+  "febrl3": {
+   "added": 48,
+   "deleted": 51,
+   "changed": 67,
+   "base_records": 4952,
+   "next_records": 4949,
+   "events": {
+    "split": 2,
+    "create": 6,
+    "merge": 1,
+    "move": 1,
+    "retire": 4
+   },
+   "records_whose_id_changed": 6,
+   "reconciles": true,
+   "problems": [],
+   "deleted_absent": true,
+   "added_present": true
+  },
+  "splink_historical_50k": {
+   "added": 519,
+   "deleted": 509,
+   "changed": 534,
+   "base_records": 50059,
+   "next_records": 50069,
+   "events": {
+    "merge": 352,
+    "split": 286,
+    "move": 147,
+    "create": 22,
+    "retire": 25
+   },
+   "records_whose_id_changed": 1520,
+   "reconciles": true,
+   "problems": [],
+   "deleted_absent": true,
+   "added_present": true
+  }
+ },
+ "incremental_log_reconciles": true,
+ "meta": {
+  "generated": "2026-10-01T11:32:38",
+  "spark": "4.1.3",
+  "default_cluster_method": "verified_merge"
+ }
+}

@@ -100,11 +100,10 @@ def test_field_types_and_numbers_are_checked():
         config.build({"decision": {"threshold": 1.5}})
 
 
-def test_defaults_are_runnable_and_clustering_waits_for_zr4():
+def test_defaults_are_runnable_including_clustering():
     cfg = config.build({})
     assert cfg.runnable_problems() == []
-    with pytest.raises(MethodNotReady, match="ZR-4"):
-        cfg.require("cluster.method")
+    assert cfg.require("cluster.method") == config.DEFAULTS["cluster"]["method"]
 
 
 def test_unimplemented_choice_blocks_the_run_with_its_phase():
