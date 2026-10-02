@@ -1564,5 +1564,16 @@
         "`workspace`.`alfred`.`genie_spa`"
       ]
     }
+  },
+  "expectations_engine_live": {
+    "config": "examples/febrl4_databricks_expectations.yaml",
+    "update": "b76ec812",
+    "measured": "2026-10-02T22:12+02:00",
+    "lm_left_valid": 5000,
+    "lm_right_valid": 2500,
+    "lm_left_quarantine": 4,
+    "lm_right_quarantine": 2,
+    "seeded_rows_in_valid": 0,
+    "note": "Lakeflow accepted expect_all_or_drop / expect_all; the event log carried no data_quality block for these MVs"
   }
 }
