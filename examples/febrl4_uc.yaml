@@ -1,6 +1,7 @@
-# FEBRL4 with half the partners removed — the laptop example and the ZR-1 end-to-end run.
+# FEBRL4 with half the partners removed, registered in Unity Catalog on fourth-pat (ZR-5). Same run as febrl4.yaml:
+# laptop compute, local Spark; only the model store differs — MLflow tracking and the UC registry on the workspace.
 # Inputs: python bench/prepare_febrl4.py (writes data/febrl4/, offline).
-# Run:    lakematch run --config examples/febrl4.yaml [--connect] [--root /tmp/somewhere]
+# Run:    lakematch run --config examples/febrl4_uc.yaml --root /tmp/somewhere   (needs the network and fourth-pat)
 profile: laptop
 
 storage:
@@ -41,11 +42,14 @@ labels:     {source: truth_sample, n: 400, llm: none}
 evaluation:
   truth: {path: ../data/febrl4/truth.csv, left_id: l_id, right_id: r_id}
 
-# The model store: tracking only, no registry (D17). Paths resolve against this file: the repository's mlflow.db and
-# models/current.json (the accepted run's id; scoring loads runs:/<id>/model). --root redirects both under the root.
+# The model store: Databricks tracking + Unity Catalog registry on the fourth-pat profile (D17). The accepted run is
+# registered as workspace.lakematch.lakematch_person and @champion moves to the new version; scoring resolves the
+# alias to that immutable version. No warehouse and no cluster are used: only the MLflow REST API.
 mlflow:
-  tracking_uri: "sqlite:///../mlflow.db"
-  experiment: lakematch
-  registry: false
-  model_name: lakematch_person
-  pointer: ../models/current.json
+  tracking_uri: "databricks://fourth-pat"
+  experiment: /Shared/lakematch
+  registry: true
+  registry_uri: "databricks-uc://fourth-pat"
+  alias: champion
+  model_name: workspace.lakematch.lakematch_person
+  dfs_tmp: /Volumes/workspace/lakematch/mlflow_tmp

@@ -29,7 +29,10 @@ Genie agent. The full specification, the nine bounded phases ZR-1..9 and the led
 | ZR-2 | similarity library: a feature family per field type, optional UDF features, local embeddings, ablation | built 2026-09-26 — `goals/verify_zr.sh 2`, [`bench/ABLATION.md`](bench/ABLATION.md) |
 | ZR-3a | the four other candidate methods; every method choice compared on validation data, winners = defaults | built 2026-09-26 — `goals/verify_zr.sh 3a`, [`bench/METHODS.md`](bench/METHODS.md) |
 | ZR-3 | the benchmark harness: 11 corpora end to end, intervals, baselines, Zingg / Splink / published references, Jev cost | built 2026-09-29 — `goals/verify_zr.sh 3`, [`bench/BENCHMARKS.md`](bench/BENCHMARKS.md) |
-| ZR-4 … ZR-9 | clusters, MLflow, serverless, app, Genie, classic | not started |
+| ZR-3s | scale-safe candidates: union(gram_topk, field_blocks) re-decided at 10^6 records | built 2026-10-01 — `goals/verify_zr.sh 3s` |
+| ZR-4 | clusters (verified merge) and stable identity: mdm_id, crosswalk, merge/split log | built 2026-10-01 — `goals/verify_zr.sh 4`, [`bench/CLUSTERS.md`](bench/CLUSTERS.md) |
+| ZR-5 | MLflow: one composite model per run, datasets, evaluation; run id locally, Unity Catalog `@champion` on Databricks | built 2026-10-02 — `goals/verify_zr.sh 5`, [`bench/results/mlflow.json`](bench/results/mlflow.json) |
+| ZR-6 … ZR-9 | serverless, app, Genie, classic | not started |
 
 On FEBRL4 with half the partners removed (5 000 left, 2 500 right, 2 500 true links), the default config gives
 F1 0.9996 (held-out left records 0.9996) against 0.667 for "always link the nearest neighbour", with candidate
@@ -52,6 +55,32 @@ lakematch run --config examples/febrl4.yaml    # add --connect to run over a loc
 
 `run` writes `data/runs/febrl4/links/` (Parquet: `l_id`, `r_id`, `p`), `quarantine/<side>/` when the quality gate
 rejected rows, and `run_summary.json` (counts, threshold, metrics against the truth file, timings).
+
+Every run also logs one MLflow model (below). `--root` redirects every output, the model store included, so a scratch
+run never becomes the accepted model.
+
+## The model (MLflow)
+
+A run logs **one composite pyfunc** ([`model_code.py`](src/lakematch/model_code.py), models-from-code) whose artifacts
+are the whole bundle: the fitted Spark pipeline, the run's config (feature and candidate spec), the label-set digest
+(sha256 of the sorted labelled pairs) and the thresholds. Its signature is pair-level: `l_id`, `r_id` and the
+comparison vector in; `l_id`, `r_id`, `p`, `above_threshold` out. The run also logs every method choice as a param,
+both inputs, the training and validation labels as `mlflow.data` datasets, and an `mlflow.models.evaluate` pass over
+the scored candidate pairs with custom pairwise metrics (precision, recall over *every* true pair, F1, candidate
+recall). Before a run is accepted, the logged model is reloaded from the store and must reproduce the run's own
+validation scores exactly; it must also fit under `matcher.max_model_mb` and, when set, reach `mlflow.accept_min_f1`.
+
+| | Laptop ([`examples/febrl4.yaml`](examples/febrl4.yaml)) | Databricks ([`examples/febrl4_uc.yaml`](examples/febrl4_uc.yaml)) |
+|---|---|---|
+| tracking | SQLite, `mlflow.db` next to the repository | `databricks://fourth-pat`, experiment `/Shared/lakematch` |
+| registry | none (D17) | Unity Catalog: `workspace.lakematch.lakematch_person` |
+| accepted run | its id goes to `models/current.json` | a new version is registered and `@champion` moves to it |
+| scoring loads | `runs:/<id>/model` | the version `@champion` names, by its immutable version URI |
+
+The logging code is the same for both; `tracking.register()` is the only registry-specific function, and
+`tracking.load_current(cfg)` is what scoring calls. `python bench/mlflow_evidence.py` re-reads both stores and writes
+[`bench/results/mlflow.json`](bench/results/mlflow.json): the same label set, and identical scores from the laptop model
+and the UC model.
 
 ## How it works
 
@@ -158,9 +187,12 @@ lakematch/
 │   ├── entity.py · candidates.py · labels/ · matcher.py · decision.py · evaluate.py
 │   ├── features/            the families (__init__.py) · udf.py (optional Jaro-Winkler, affine gap)
 │   ├── embeddings/          providers: local model2vec | none | auto
+│   ├── cluster.py · identity.py  clusters, mdm_id, crosswalk, merge/split log
+│   ├── tracking.py          MLflow: log_run, register (registry only), load_current
+│   ├── model_code.py        the composite pyfunc (models-from-code; imports pyspark and mlflow only)
 │   ├── pipeline.py          lakematch run
-│   └── cli.py               run · doctor · bench · (train: ZR-5)
-├── examples/febrl4.yaml     the laptop example
+│   └── cli.py               run · doctor · bench
+├── examples/                febrl4.yaml (laptop) · febrl4_uc.yaml (same run, UC registry on fourth-pat)
 ├── bench/                   corpora.py (11 loaders) · synthetic.py · ablation.py → ABLATION.md · methods.py → METHODS.md ·
 │                            benchmarks.py → BENCHMARKS.md · splink_reference.py · references.py · results/
 ├── scripts/                 env.sh · test.sh · offline.sb

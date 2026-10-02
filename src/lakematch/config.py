@@ -110,8 +110,14 @@ DEFAULTS: dict[str, Any] = {
                "llm_cache": None,    # default <storage.root>/jev_cache.jsonl
                "llm_max_usd": 1.0},  # refuse, before sending, when Jev's predicted cost exceeds this (USD)
     "evaluation": {"truth": None},
-    "mlflow": {"tracking_uri": "sqlite:///mlflow.db", "registry": False, "registry_uri": None, "alias": None,
-               "model_name": "lakematch_record"},
+    # mlflow (ZR-5, tracking.py): relative sqlite URIs and the pointer resolve against the config's directory.
+    # model_name null = lakematch_<entity.name>; with a UC registry it is registered as <storage.catalog>.<name>.
+    # pointer: the accepted run's id when there is no registry (D17). accept_min_f1: optional acceptance floor.
+    # eval_max_pairs: mlflow.models.evaluate scores every candidate pair up to this many, else the validation labels.
+    # dfs_tmp: MLFLOW_DFS_TMP, a UC volume path on Databricks.
+    "mlflow": {"enabled": True, "tracking_uri": "sqlite:///mlflow.db", "experiment": "lakematch", "registry": False,
+               "registry_uri": None, "alias": None, "model_name": None, "pointer": "models/current.json",
+               "accept_min_f1": None, "eval_max_pairs": 500_000, "dfs_tmp": None},
     "paid_features": {**{k: False for k in PAID_FEATURES}, "genie_auth_mode": "user"},
 }
 
@@ -120,7 +126,8 @@ DATABRICKS_PROFILE: dict[str, Any] = {
     "runtime": {"mode": "serverless"},
     "storage": {"catalog": "workspace.lakematch"},
     "quality": {"engine": "dqx"},
-    "mlflow": {"tracking_uri": "databricks", "registry": True, "registry_uri": "databricks-uc", "alias": "champion"},
+    "mlflow": {"tracking_uri": "databricks", "registry": True, "registry_uri": "databricks-uc", "alias": "champion",
+               "experiment": "/Shared/lakematch", "dfs_tmp": "/Volumes/workspace/lakematch/mlflow_tmp"},
     "paid_features": {"app": True, "genie": True},
 }
 
@@ -286,6 +293,17 @@ def validate(data: dict) -> None:
             raise ConfigError("profile laptop runs runtime.mode: local")
     if data["runtime"]["mode"] == "classic" and not data["classic"].get("profile"):
         raise ConfigError("runtime.mode classic needs classic.profile, set by hand — it is never guessed")
+    ml = data["mlflow"]
+    if not isinstance(ml["tracking_uri"], str) or not ml["tracking_uri"]:
+        raise ConfigError("mlflow.tracking_uri must be a URI (sqlite:///mlflow.db on the laptop, databricks on Databricks)")
+    if ml["registry"] and not (ml["registry_uri"] and ml["alias"]):
+        raise ConfigError("mlflow.registry: true needs mlflow.registry_uri and mlflow.alias")
+    if not ml["registry"] and not ml["pointer"]:
+        raise ConfigError("mlflow.pointer: without a registry the accepted run id is resolved through this file (D17)")
+    if ml["accept_min_f1"] is not None and not 0 <= ml["accept_min_f1"] <= 1:
+        raise ConfigError("mlflow.accept_min_f1 must be null or in [0, 1]")
+    if not isinstance(ml["eval_max_pairs"], int) or ml["eval_max_pairs"] < 1:
+        raise ConfigError("mlflow.eval_max_pairs must be a positive integer")
     if data["inputs"]:
         for side in ("left", "right"):
             spec = data["inputs"].get(side)

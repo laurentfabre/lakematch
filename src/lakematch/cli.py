@@ -120,7 +120,7 @@ def main(argv: list[str] | None = None) -> int:
     d = sub.add_parser("doctor", help="print what the config would do on this machine")
     d.add_argument("--config", required=True)
     d.add_argument("--session", action="store_true", help="also start a session and probe its capabilities")
-    t = sub.add_parser("train", help="lands in ZR-5")
+    t = sub.add_parser("train", help="train-only job task: lands with ZR-6 (`run` trains and logs the model today)")
     t.add_argument("rest", nargs="*")
     b = sub.add_parser("bench", help="the benchmark harness (a source checkout: bench/benchmarks.py)")
     b.add_argument("--all", action="store_true", help="run every corpus, one process each, then render BENCHMARKS.md")
@@ -130,8 +130,8 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s", stream=sys.stderr)
     if args.cmd == "train":
-        print("lakematch train: not implemented yet — it lands in ZR-5; `lakematch run` trains and scores in one go "
-              "today.", file=sys.stderr)
+        print("lakematch train: the train-only job task lands with ZR-6; `lakematch run` trains, logs the MLflow model "
+              "and publishes an accepted run (models/current.json, or the registry alias) today.", file=sys.stderr)
         return 2
     if args.cmd == "bench":
         return bench(args)

@@ -160,6 +160,13 @@ class Runtime:
         df.createOrReplaceTempView(name)
         return name
 
+    def save_ml(self, model, path: Path) -> None:
+        """Save a fitted Spark ML model where this process can read it back (the MLflow artifact upload). A local
+        session or a local Connect server writes the local filesystem; serverless needs a UC volume (ZR-6)."""
+        if not self.caps.local_filesystem:
+            raise RuntimeError("save_ml: the session cannot write the local filesystem — a UC volume path lands in ZR-6")
+        model.write().overwrite().save(str(path))
+
     def close(self, stop: bool = False) -> None:
         for df in self._cached:
             try:

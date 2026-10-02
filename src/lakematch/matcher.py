@@ -1,7 +1,7 @@
 """The pair classifier: an MLlib estimator over the comparison vector (`matcher.estimator`).
 
 Training is a job-task step (MLlib `fit` is an action, refused inside a pipeline flow); scoring is a lazy
-`model.transform`, usable in a flow once the model is loaded. Logging the model to MLflow is ZR-5.
+`model.transform`, usable in a flow once the model is loaded. tracking.py logs it to MLflow (ZR-5).
 """
 from __future__ import annotations
 

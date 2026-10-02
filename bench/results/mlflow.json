@@ -1,0 +1,75 @@
+{
+  "generated": "2026-10-02T19:22:28+02:00",
+  "laptop": {
+    "config": "examples/febrl4.yaml",
+    "tracking_uri": "sqlite:////Users/lf/Projects/Pro/lakematch/mlflow.db",
+    "resolved_uri": "runs:/7d1a368cd8bd4a94ae1e0d5c6f6467e7/model",
+    "run_id": "7d1a368cd8bd4a94ae1e0d5c6f6467e7",
+    "signature_inputs": 53,
+    "signature_outputs": [
+      "l_id",
+      "r_id",
+      "p",
+      "above_threshold"
+    ],
+    "label_set_sha256": "f511667183bd8b8e18646ffdda3ca670e5833ff1a22f7b681b366841558423a9",
+    "dataset_contexts": [
+      "input_left",
+      "input_right",
+      "training",
+      "validation"
+    ],
+    "metrics": {
+      "candidate_recall": 1.0,
+      "pairwise_f1": 0.972,
+      "pairwise_precision": 0.9925,
+      "pairwise_recall": 0.9524,
+      "reload_max_abs_diff_p": 0.0
+    },
+    "accepted": true,
+    "model_mb": 0.019,
+    "mlflow_seconds": 4.8
+  },
+  "fourth_pat": {
+    "config": "examples/febrl4_uc.yaml",
+    "tracking_uri": "databricks://fourth-pat",
+    "resolved_uri": "models:/workspace.lakematch.lakematch_person/2",
+    "run_id": "5343b863e8874018bd23e0b1fd4fca99",
+    "signature_inputs": 53,
+    "signature_outputs": [
+      "l_id",
+      "r_id",
+      "p",
+      "above_threshold"
+    ],
+    "label_set_sha256": "f511667183bd8b8e18646ffdda3ca670e5833ff1a22f7b681b366841558423a9",
+    "dataset_contexts": [
+      "input_left",
+      "input_right",
+      "training",
+      "validation"
+    ],
+    "metrics": {
+      "candidate_recall": 1.0,
+      "pairwise_f1": 0.972,
+      "pairwise_precision": 0.9925,
+      "pairwise_recall": 0.9524,
+      "reload_max_abs_diff_p": 0.0
+    },
+    "accepted": true,
+    "model_mb": 0.019,
+    "mlflow_seconds": 67.3,
+    "registered": {
+      "name": "workspace.lakematch.lakematch_person",
+      "alias": "champion",
+      "version": "2",
+      "source_run_id": "5343b863e8874018bd23e0b1fd4fca99",
+      "versions": [
+        1,
+        2
+      ]
+    }
+  },
+  "same_label_set": true,
+  "probe_max_abs_diff_p": 0.0
+}

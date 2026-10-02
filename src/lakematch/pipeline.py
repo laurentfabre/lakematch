@@ -95,7 +95,11 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
     if problems:
         raise SystemExit("config names choices that have not landed yet:\n  " + "\n  ".join(problems))
     if root is not None:
+        # --root redirects every output, the model store included: a scratch run never becomes the accepted model
         cfg.data["storage"]["root"] = str(root)
+        if not cfg.get("mlflow.registry") and cfg.get("mlflow.tracking_uri").startswith("sqlite:///"):
+            cfg.data["mlflow"]["tracking_uri"] = f"sqlite:///{Path(root) / 'mlflow.db'}"
+            cfg.data["mlflow"]["pointer"] = str(Path(root) / "models" / "current.json")
     out_dir = cfg.path(cfg.get("storage.root"))
     log_paid_features(cfg)
     features.check(cfg)
@@ -111,10 +115,10 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
                                                          "decision.cardinality", "quality.engine")}}
     try:
         gate = quality.engine(cfg)
-        sides = {}
+        sides, raws = {}, {}
         for side in ("left", "right"):
             spec = cfg.get(f"inputs.{side}")
-            raw = read_table(spark, cfg, spec)
+            raw = raws[side] = read_table(spark, cfg, spec)
             valid, quarantined = gate.apply_and_split(raw, quality.input_checks(cfg, spec["id"], side))
             n_bad = quarantined.count()
             summary.setdefault("quarantined", {})[side] = n_bad
@@ -146,7 +150,8 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
         summary["labels"] = {"train": train.count(), "train_matches": train.filter("label = 1").count(),
                              "validation": valid_lab.count()}
         model = matcher.train(train, feature_cols, cfg)
-        threshold = decision.pick_threshold(matcher.score(model, valid_lab), cfg)
+        valid_scored = matcher.score(model, valid_lab)
+        threshold = decision.pick_threshold(valid_scored, cfg)
         scored = matcher.score(model, pairs)
         linked = rt.materialize(decision.links(scored, threshold, cfg).select("l_id", "r_id", "p"), "links")
         linked.write.mode("overwrite").parquet(str(out_dir / "links"))
@@ -180,6 +185,15 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
         if truth is not None:
             summary["evaluation"] = evaluate.pairwise(linked, truth, cand, lab.select("l_id").distinct())
             summary["evaluation"]["nearest_neighbour_baseline"] = evaluate.trivial_baseline(cand, truth)
+
+        if cfg.get("mlflow.enabled"):
+            from . import tracking                       # MLflow is imported only when a run logs
+            t_ml = time.time()
+            summary["mlflow"] = tracking.log_run(
+                rt, cfg, run_name=run_id, model=model, feature_cols=feature_cols, threshold=threshold, lab=lab,
+                train=train, valid_scored=valid_scored, scored=scored, linked=linked, truth=truth, raw_inputs=raws,
+                summary=summary)
+            summary["mlflow"]["seconds"] = round(time.time() - t_ml, 1)
     finally:
         rt.close()
     now = time.time()

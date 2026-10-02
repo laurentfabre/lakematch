@@ -12,3 +12,4 @@ spec/bench/work/
 .pytest_cache/
 *.egg-info/
 build/
+models/
