@@ -28,6 +28,20 @@ class LakematchPairModel(PythonModel):
         self.feature_cols = self.thresholds["feature_cols"]
         self._pipeline = None
 
+    def _shared_path(self):
+        """Where the Spark server can read the pipeline. MLflow downloads artifacts to the driver's disk; on
+        Databricks the server cannot read it (DBFS root disabled), so the pipeline is copied to the UC volume in
+        MLFLOW_DFS_TMP first. Locally the download directory is fine."""
+        import os
+        import shutil
+        import uuid
+        tmp = os.environ.get("MLFLOW_DFS_TMP")
+        if "DATABRICKS_RUNTIME_VERSION" not in os.environ or not tmp:
+            return self._pipeline_path
+        dest = os.path.join(tmp, f"lm_load_{uuid.uuid4().hex[:12]}", "spark_pipeline")
+        shutil.copytree(self._pipeline_path, dest)
+        return dest
+
     def _spark(self):
         from pyspark.sql import SparkSession
         active = SparkSession.getActiveSession()
@@ -46,7 +60,7 @@ class LakematchPairModel(PythonModel):
 
         spark = self._spark()
         if self._pipeline is None:
-            self._pipeline = PipelineModel.load(self._pipeline_path)
+            self._pipeline = PipelineModel.load(self._shared_path())
         cols = ["l_id", "r_id", *self.feature_cols]
         pdf = model_input[cols].astype({c: "float64" for c in self.feature_cols})
         pdf = pdf.astype({"l_id": "str", "r_id": "str"})

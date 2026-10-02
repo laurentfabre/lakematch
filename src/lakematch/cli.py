@@ -1,4 +1,4 @@
-"""lakematch run | doctor | train | bench."""
+"""lakematch run | doctor | task | train | bench."""
 from __future__ import annotations
 
 import time
@@ -120,8 +120,13 @@ def main(argv: list[str] | None = None) -> int:
     d = sub.add_parser("doctor", help="print what the config would do on this machine")
     d.add_argument("--config", required=True)
     d.add_argument("--session", action="store_true", help="also start a session and probe its capabilities")
-    t = sub.add_parser("train", help="train-only job task: lands with ZR-6 (`run` trains and logs the model today)")
-    t.add_argument("rest", nargs="*")
+    t = sub.add_parser("task", help="one job task of the Databricks deployment (jobs.py): plan, train, cluster, "
+                                     "quality, explain — what bundle/resources.yml runs")
+    t.add_argument("task", choices=["plan", "train", "cluster", "quality", "explain"])
+    t.add_argument("--config", required=True)
+    t.add_argument("--expect", help="quality: JSON of the seeded bad rows per side")
+    tr = sub.add_parser("train", help="= task train: labels, fit, MLflow model, registry alias, pipeline handoff")
+    tr.add_argument("--config", required=True)
     b = sub.add_parser("bench", help="the benchmark harness (a source checkout: bench/benchmarks.py)")
     b.add_argument("--all", action="store_true", help="run every corpus, one process each, then render BENCHMARKS.md")
     b.add_argument("--only", help="comma-separated corpora; the others keep their last result")
@@ -129,10 +134,11 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--render", action="store_true", help="only re-render BENCHMARKS.md from the recorded JSON")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s", stream=sys.stderr)
-    if args.cmd == "train":
-        print("lakematch train: the train-only job task lands with ZR-6; `lakematch run` trains, logs the MLflow model "
-              "and publishes an accepted run (models/current.json, or the registry alias) today.", file=sys.stderr)
-        return 2
+    if args.cmd in ("task", "train"):
+        from .jobs import main as task_main
+        name = args.task if args.cmd == "task" else "train"
+        extra = ["--expect", args.expect] if getattr(args, "expect", None) else []
+        return task_main([name, "--config", args.config, *extra])
     if args.cmd == "bench":
         return bench(args)
     try:

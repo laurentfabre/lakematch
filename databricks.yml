@@ -1,0 +1,41 @@
+# lakematch on Databricks (ZR-6) — the bundle root (the CLI looks for this file upward from the working directory);
+# resources live in bundle/resources.yml. Targets: serverless (fourth-pat, Free Edition) | classic (ZR-9).
+#
+# One pipeline (Free Edition: one active pipeline per type) holds every lazy stage as a materialized view
+# (src/lakematch/pipelines/flows.py); the steps that need actions are job tasks (src/lakematch/jobs.py):
+#
+#   plan -> pipeline [valid .. features] -> train -> pipeline [scores, links] -> cluster -> explain
+#                                        \-> quality
+#
+# Feature switches travel in the engine's YAML (bundles have no conditional resources): `config_file` picks it.
+# examples/febrl4_databricks.yaml is the default Databricks profile (app and genie on, D19);
+# examples/febrl4_databricks_free.yaml turns every paid switch off. bench/serverless.py deploys and runs both.
+bundle:
+  name: lakematch
+
+include:
+  - bundle/*.yml
+
+sync:                          # only what the tasks and the pipeline import or read (.gitignore applies too)
+  exclude: [spec/**, tests/**, bench/**, tools/**, scripts/**, "*.md", "*.db", models/**, mlruns/**, CODE_REVIEW.md]
+
+variables:
+  catalog: {default: workspace}
+  schema: {default: lakematch}
+  config_file:
+    description: the lakematch YAML under examples/ that drives every task and the pipeline
+    default: febrl4_databricks.yaml
+  performance_target:
+    description: serverless jobs — STANDARD, or PERFORMANCE_OPTIMIZED when paid_features.serverless_performance_mode
+    default: STANDARD
+  seeded_rows:
+    description: the seeded bad rows the quality task expects in quarantine (written by bench/serverless.py)
+    default: /Volumes/workspace/lakematch/data/febrl4_seeded/seeded_bad_rows.json
+
+targets:
+  serverless:
+    default: true
+    mode: development
+    workspace:
+      profile: fourth-pat
+

@@ -32,7 +32,8 @@ Genie agent. The full specification, the nine bounded phases ZR-1..9 and the led
 | ZR-3s | scale-safe candidates: union(gram_topk, field_blocks) re-decided at 10^6 records | built 2026-10-01 — `goals/verify_zr.sh 3s` |
 | ZR-4 | clusters (verified merge) and stable identity: mdm_id, crosswalk, merge/split log | built 2026-10-01 — `goals/verify_zr.sh 4`, [`bench/CLUSTERS.md`](bench/CLUSTERS.md) |
 | ZR-5 | MLflow: one composite model per run, datasets, evaluation; run id locally, Unity Catalog `@champion` on Databricks | built 2026-10-02 — `goals/verify_zr.sh 5`, [`bench/results/mlflow.json`](bench/results/mlflow.json) |
-| ZR-6 … ZR-9 | serverless, app, Genie, classic | not started |
+| ZR-6 | Databricks serverless: one bundle, one SDP pipeline, job tasks, DQX gate, every paid switch, Photon report | built 2026-10-02 — `goals/verify_zr.sh 6`, [`bench/results/serverless.json`](bench/results/serverless.json), [`bench/PHOTON.md`](bench/PHOTON.md) |
+| ZR-7 … ZR-9 | app, Genie, classic | not started |
 
 On FEBRL4 with half the partners removed (5 000 left, 2 500 right, 2 500 true links), the default config gives
 F1 0.9996 (held-out left records 0.9996) against 0.667 for "always link the nearest neighbour", with candidate
@@ -81,6 +82,43 @@ The logging code is the same for both; `tracking.register()` is the only registr
 `tracking.load_current(cfg)` is what scoring calls. `python bench/mlflow_evidence.py` re-reads both stores and writes
 [`bench/results/mlflow.json`](bench/results/mlflow.json): the same label set, and identical scores from the laptop model
 and the UC model.
+
+## On Databricks
+
+One bundle ([`databricks.yml`](databricks.yml), resources in [`bundle/resources.yml`](bundle/resources.yml)) deploys
+one serverless Spark Declarative Pipeline and one job to the `fourth-pat` workspace (Free Edition: one active pipeline
+per type, so every lazy stage is a materialized view of the same pipeline):
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#1a1a2e', 'primaryTextColor': '#e0e0e0', 'primaryBorderColor': '#00d4ff', 'lineColor': '#00d4ff', 'secondaryColor': '#16213e', 'tertiaryColor': '#0f3460', 'fontFamily': 'monospace'}}}%%
+flowchart LR
+  plan["plan (job task)<br/>schema hygiene · candidate plan"] --> p1["pipeline refresh<br/>valid · quarantine · entity<br/>candidates · features"]
+  p1 --> train["train (job task)<br/>MLlib fit · MLflow · UC @champion<br/>compiled scoring expression"]
+  p1 --> quality["quality (job task)<br/>DQX vs native split"]
+  train --> p2["pipeline refresh<br/>scores · links"]
+  p2 --> cluster["cluster (job task)<br/>identity · evaluation"]
+  cluster --> explain["explain (job task)<br/>physical plans"]
+```
+
+- **The pipeline** ([`pipelines/flows.py`](src/lakematch/pipelines/flows.py)) uses the open-source pipelines API only
+  and runs unchanged on open-source Spark: `tests/test_flows_oss.py` runs it with `spark-pipelines` and gets the same
+  links as `lakematch run`. Its code never runs an action or analyses a plan inside a dataset function (the plan task
+  makes the data-dependent candidate choices beforehand: `candidates.resolve_plan`).
+- **Scoring inside the pipeline is one Spark SQL expression.** Importing `pyspark.ml` or MLflow in a serverless
+  pipeline crashes it, so the train task compiles the fitted classifier (GBT, random forest or logistic regression)
+  into a built-in expression ([`scoring_sql.py`](src/lakematch/scoring_sql.py)), checks it reproduces the model's
+  probabilities, and hands it over with the version `@champion` names; the cluster task refuses links scored by any
+  other version.
+- **The quality gate is DQX** on Databricks (D18, [`quality/dqx_adapter.py`](src/lakematch/quality/dqx_adapter.py),
+  imported lazily: Databricks License). `quality.engine: expectations` turns the same checks into Lakeflow
+  expectations instead; `native` remains the reference all three agree with.
+- **Paid switches** travel in the YAML: [`examples/febrl4_databricks.yaml`](examples/febrl4_databricks.yaml) is the
+  default Databricks profile (app and Genie on), [`examples/febrl4_databricks_free.yaml`](examples/febrl4_databricks_free.yaml)
+  turns every paid switch off; predictive optimisation is disabled on the schema unless its switch is on.
+
+```bash
+python bench/serverless.py all     # both profiles deployed and run, laptop twin, quality, Photon report (~40 min)
+```
 
 ## How it works
 
@@ -144,13 +182,13 @@ value today; a choice whose phase has not landed fails with a message naming tha
 | `features.sota_max_chars` | positive integer, default 256 | OSA/LCS reject longer inputs explicitly |
 | `features.string_similarity` | levenshtein · jaro_winkler · both | all (Jaro-Winkler: UDF before Spark 4.3, needs `udf_features`) |
 | `features.multi_token` | idf_token_cosine · gram_overlap · monge_elkan_token · affine_gap_udf | all (affine gap: UDF, needs `udf_features`) |
-| `features.embeddings.provider` | auto · none · local · databricks_endpoint | auto · none · local (model2vec) — endpoint in ZR-6 |
+| `features.embeddings.provider` | auto · none · local · databricks_endpoint | all (endpoint: `ai_query`, paid `embedding_endpoint`) |
 | `matcher.estimator` | gbt · logistic_regression · random_forest | all three |
 | `decision.cardinality` | one_to_one · many_to_one · unrestricted | all three |
 | `cluster.method` | verified_merge · connected_components · center · star | ZR-4 |
-| `quality.engine` | native · dqx · expectations | native |
+| `quality.engine` | native · dqx · expectations | all three (DQX: Databricks only; expectations: inside a Lakeflow pipeline) |
 | `labels.source` | file · truth_sample · app | file · truth_sample |
-| `runtime.mode` | local (± `connect`) · serverless · classic | local, local + connect |
+| `runtime.mode` | local (± `connect`) · serverless · classic | local, local + connect, serverless (job tasks, pipeline, Databricks Connect) — classic in ZR-9 |
 
 </details>
 
@@ -191,8 +229,12 @@ lakematch/
 │   ├── tracking.py          MLflow: log_run, register (registry only), load_current
 │   ├── model_code.py        the composite pyfunc (models-from-code; imports pyspark and mlflow only)
 │   ├── pipeline.py          lakematch run
-│   └── cli.py               run · doctor · bench
-├── examples/                febrl4.yaml (laptop) · febrl4_uc.yaml (same run, UC registry on fourth-pat)
+│   ├── pipelines/flows.py   the Databricks pipeline (open-source SDP API): gate → entity → candidates → features → scores → links
+│   ├── jobs.py              the job tasks around it: plan · train · cluster · quality · explain
+│   ├── scoring_sql.py       a fitted GBT / random forest / logistic regression as one Spark SQL expression
+│   └── cli.py               run · doctor · task · train · bench
+├── examples/                febrl4.yaml (laptop) · febrl4_uc.yaml (UC registry) · febrl4_databricks[_free].yaml (serverless)
+├── databricks.yml · bundle/ the bundle: resources.yml, tasks/lakematch_task.py
 ├── bench/                   corpora.py (11 loaders) · synthetic.py · ablation.py → ABLATION.md · methods.py → METHODS.md ·
 │                            benchmarks.py → BENCHMARKS.md · splink_reference.py · references.py · results/
 ├── scripts/                 env.sh · test.sh · offline.sb

@@ -62,9 +62,26 @@ def session(cfg: Config) -> SparkSession:
         if not is_remote(spark):
             spark.sparkContext.setLogLevel("ERROR")
         return spark
-    # serverless / classic: Databricks Connect, imported lazily — never a dependency of the laptop engine.
-    raise MethodNotReady(f"runtime.mode: '{mode}' is reached through Databricks Connect, wired in "
-                         f"{'ZR-6' if mode == 'serverless' else 'ZR-9'}")
+    if mode == "serverless":
+        if on_databricks():                 # a job task or a pipeline on serverless: the platform's own session
+            return SparkSession.builder.getOrCreate()
+        # from the laptop: Databricks Connect, imported lazily — never a dependency of the laptop engine, and it
+        # conflicts with pyspark, so it lives in its own virtualenv
+        try:
+            from databricks.connect import DatabricksSession
+        except ImportError as e:
+            raise RuntimeError("runtime.mode serverless from outside Databricks needs databricks-connect (a separate "
+                               "virtualenv: it replaces pyspark)") from e
+        builder = DatabricksSession.builder.serverless()
+        if cfg.get("runtime.databricks_profile"):
+            builder = builder.profile(cfg.get("runtime.databricks_profile"))
+        return builder.getOrCreate()
+    raise MethodNotReady(f"runtime.mode: '{mode}' is reached through Databricks Connect, wired in ZR-9")
+
+
+def on_databricks() -> bool:
+    """True inside a Databricks job task, notebook or pipeline (the driver sets DATABRICKS_RUNTIME_VERSION)."""
+    return "DATABRICKS_RUNTIME_VERSION" in os.environ
 
 
 @dataclass
@@ -92,11 +109,13 @@ def probe(spark: SparkSession) -> Capabilities:
     try:
         spark.range(1).localCheckpoint(eager=True).count()
         can_checkpoint = True
-    except Exception as e:   # serverless: checkpoint() and localCheckpoint() raise
+    except Exception as e:   # serverless allowed it on 2026-10-02 (Spark 4.2.0, client.4.10); measured, not assumed
         can_checkpoint = False
         notes.append(f"localCheckpoint() refused: {type(e).__name__}")
     # A local Connect server shares this machine's filesystem; a Databricks session does not.
-    local_fs = not type(spark).__module__.startswith("databricks.connect")
+    # Inside a Databricks job the session is a plain pyspark Connect client, yet /tmp is not the server's filesystem
+    # (DBFS root disabled): only UC volume paths are shared there.
+    local_fs = not type(spark).__module__.startswith("databricks.connect") and not on_databricks()
     return Capabilities(remote, can_cache, can_checkpoint, local_fs, spark.version, notes)
 
 
@@ -160,12 +179,20 @@ class Runtime:
         df.createOrReplaceTempView(name)
         return name
 
-    def save_ml(self, model, path: Path) -> None:
-        """Save a fitted Spark ML model where this process can read it back (the MLflow artifact upload). A local
-        session or a local Connect server writes the local filesystem; serverless needs a UC volume (ZR-6)."""
+    def save_ml(self, model, path: Path) -> Path:
+        """Save a fitted Spark ML model where this process can read it back (the MLflow artifact upload) and return
+        where it went. A local session or a local Connect server writes `path`; on Databricks the Spark server
+        cannot write the driver's /tmp (DBFS root disabled), so the model goes to the UC volume `mlflow.dfs_tmp`,
+        which the driver reads through /Volumes; close() deletes it."""
         if not self.caps.local_filesystem:
-            raise RuntimeError("save_ml: the session cannot write the local filesystem — a UC volume path lands in ZR-6")
+            vol = self.cfg.get("mlflow.dfs_tmp")
+            if not vol:
+                raise RuntimeError("save_ml: this session cannot write the local filesystem — set mlflow.dfs_tmp to a "
+                                   "UC volume path (/Volumes/<catalog>/<schema>/<volume>)")
+            path = Path(vol) / f"lm_{self.run_id}" / Path(path).name
+            self._scratch.append(("path", str(path.parent)))
         model.write().overwrite().save(str(path))
+        return Path(path)
 
     def close(self, stop: bool = False) -> None:
         for df in self._cached:

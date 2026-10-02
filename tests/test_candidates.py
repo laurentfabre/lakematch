@@ -124,3 +124,19 @@ def test_default_blocks_over_the_pair_budget_are_dropped(task):
     assert candidates.propose("field_blocks", L, R, mk(block_pairs_per_left=0.001)).count() == 0
     written = mk(block_pairs_per_left=0.001, field_blocks=[["surname"]])     # the user's own blocks: no budget
     assert candidates.propose("field_blocks", L, R, written).count() > 0
+
+
+@pytest.mark.parametrize("method,cand", [("union", {"union_of": ["gram_topk", "field_blocks", "learned_blocker"]}),
+                                         ("field_blocks", {"block_pairs_per_left": 0.5})])
+def test_a_resolved_plan_gives_the_same_candidates_with_no_action(task, method, cand):
+    # ZR-6: the plan is made once (job task); generate(plan=...) then builds the same pairs with no action (a flow)
+    L, R, truth, labelled = task
+    cfg = make_cfg(entity={"fields": FIELDS}, candidates={"method": method, "k": 3, "gram_cap": 50, **cand})
+    plan = candidates.resolve_plan(L, R, cfg, labelled)
+    import json
+    assert json.loads(json.dumps(plan)) == plan                               # travels as JSON (model bundle, volume)
+    inline = sorted(tuple(r) for r in candidates.generate(L, R, cfg, labelled).select("l_id", "r_id", "cand_rank").collect())
+    planned = candidates.generate(L, R, cfg, None, plan=plan)                 # no labels needed any more
+    assert sorted(tuple(r) for r in planned.select("l_id", "r_id", "cand_rank").collect()) == inline
+    with pytest.raises(ValueError):
+        candidates.generate(L, R, make_cfg(entity={"fields": FIELDS}, candidates={"method": "gram_topk"}), plan=plan)

@@ -41,14 +41,18 @@ def pick_threshold(validation_scored: DataFrame, cfg: Config) -> float:
     return best
 
 
-def links(scored: DataFrame, threshold: float, cfg: Config) -> DataFrame:
+def links(scored: DataFrame, threshold: float, cfg: Config, columns: list[str] | None = None) -> DataFrame:
+    """With `columns`, the result is exactly those columns, selected by name: no drop() of the helper columns
+    (Spark Connect plans drop() by analysing its input, which a pipeline flow cannot afford)."""
     policy = cfg.require("decision.cardinality")
+    finish = (lambda df: df.select(*columns)) if columns else (lambda df: df.drop(*[c for c in ("_r", "_l")
+                                                                                      if c in df.columns]))
     kept = scored.filter(F.col("p") >= threshold)
     if policy == "unrestricted":
-        return kept
+        return kept.select(*columns) if columns else kept
     best_r = Window.partitionBy("l_id").orderBy(F.desc("p"), F.asc("r_id"))
-    kept = kept.withColumn("_r", F.row_number().over(best_r)).filter("_r = 1").drop("_r")
+    kept = kept.withColumn("_r", F.row_number().over(best_r)).filter("_r = 1")
     if policy == "many_to_one":
-        return kept
+        return finish(kept)
     best_l = Window.partitionBy("r_id").orderBy(F.desc("p"), F.asc("l_id"))
-    return kept.withColumn("_l", F.row_number().over(best_l)).filter("_l = 1").drop("_l")
+    return finish(kept.withColumn("_l", F.row_number().over(best_l)).filter("_l = 1"))

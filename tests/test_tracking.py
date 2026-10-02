@@ -54,7 +54,8 @@ def test_run_logs_one_composite_model_resolved_by_run_id(spark, tmp_path):
     assert {"pairwise_precision", "pairwise_recall", "pairwise_f1", "candidate_recall"} <= set(r.data.metrics)
     art = mlflow.artifacts.download_artifacts(f"runs:/{ml['run_id']}/model/artifacts", dst_path=str(tmp_path / "dl"))
     names = {p.name for p in __import__("pathlib").Path(art).iterdir()}
-    assert names == {"spark_pipeline", "config.json", "label_set.json", "thresholds.json"}
+    assert names == {"spark_pipeline", "config.json", "label_set.json", "thresholds.json", "scoring.json"}
+    assert ml["expression_parity"]["max_abs_diff_p"] < 1e-9           # ZR-6: the compiled scoring expression
 
     # the bundle scores a pair the way the run did: above_threshold follows the logged threshold
     row = {c: 0.0 for c in summary["features"]} | {"l_id": "x", "r_id": "y"}

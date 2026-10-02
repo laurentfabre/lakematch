@@ -16,6 +16,9 @@ NEEDS = {
     ("labels.source", "file"): {"labels": {"path": "labels.csv"}},
     ("labels.llm", "jev"): {"paid_features": {"llm_labeller": True}},
     ("labels.llm", "ai_query"): {"profile": "databricks", "paid_features": {"llm_labeller": True}},
+    ("quality.engine", "dqx"): {"profile": "databricks"},
+    ("features.embeddings.provider", "databricks_endpoint"): {"profile": "databricks",
+                                                              "paid_features": {"embedding_endpoint": True}},
 }
 
 
@@ -107,9 +110,14 @@ def test_defaults_are_runnable_including_clustering():
 
 
 def test_unimplemented_choice_blocks_the_run_with_its_phase():
-    cfg = config.build({"features": {"embeddings": {"provider": "databricks_endpoint"}}})
+    cfg = config.build({"labels": {"source": "app"}})
     problems = cfg.runnable_problems()
-    assert len(problems) == 1 and "ZR-6" in problems[0]
+    assert len(problems) == 1 and "ZR-7" in problems[0]
+
+
+def test_the_endpoint_embedding_is_a_paid_feature():
+    with pytest.raises(ConfigError, match="embedding_endpoint"):
+        config.build({"profile": "databricks", "features": {"embeddings": {"provider": "databricks_endpoint"}}})
 
 
 def test_example_config_loads():

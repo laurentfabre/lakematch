@@ -1,0 +1,75 @@
+# Resources of the lakematch bundle (root: ../databricks.yml). Paths are relative to this file.
+resources:
+  pipelines:
+    lakematch_pipeline:
+      name: lakematch_pipeline
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      serverless: true
+      channel: current
+      root_path: ../src
+      environment:
+        dependencies:
+          - databricks-labs-dqx==0.16.0
+          - pyyaml
+      libraries:
+        - file: {path: ../src/lakematch/pipelines/flows.py}
+      configuration:
+        lakematch.config: ${workspace.file_path}/examples/${var.config_file}
+
+  jobs:
+    lakematch_run:
+      name: lakematch_run
+      performance_target: ${var.performance_target}
+      max_concurrent_runs: 1
+      tasks:
+        - task_key: plan
+          environment_key: lm
+          spark_python_task:
+            python_file: ./tasks/lakematch_task.py
+            parameters: [plan, --config, "${workspace.file_path}/examples/${var.config_file}", --src, "${workspace.file_path}/src"]
+        - task_key: refresh_features
+          depends_on: [{task_key: plan}]
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.lakematch_pipeline.id}
+            full_refresh_selection: [lm_left_valid, lm_right_valid, lm_left_quarantine, lm_right_quarantine,
+                                     lm_left_entity, lm_right_entity, lm_candidates, lm_features]
+        - task_key: train
+          depends_on: [{task_key: refresh_features}]
+          environment_key: lm
+          spark_python_task:
+            python_file: ./tasks/lakematch_task.py
+            parameters: [train, --config, "${workspace.file_path}/examples/${var.config_file}", --src, "${workspace.file_path}/src"]
+        - task_key: quality
+          depends_on: [{task_key: refresh_features}]
+          environment_key: lm
+          spark_python_task:
+            python_file: ./tasks/lakematch_task.py
+            parameters: [quality, --config, "${workspace.file_path}/examples/${var.config_file}", --src, "${workspace.file_path}/src",
+                         --expect, "${var.seeded_rows}"]
+        - task_key: refresh_scores
+          depends_on: [{task_key: train}]
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.lakematch_pipeline.id}
+            full_refresh_selection: [lm_scores, lm_links]
+        - task_key: cluster
+          depends_on: [{task_key: refresh_scores}]
+          environment_key: lm
+          spark_python_task:
+            python_file: ./tasks/lakematch_task.py
+            parameters: [cluster, --config, "${workspace.file_path}/examples/${var.config_file}", --src, "${workspace.file_path}/src"]
+        - task_key: explain
+          depends_on: [{task_key: cluster}]
+          environment_key: lm
+          spark_python_task:
+            python_file: ./tasks/lakematch_task.py
+            parameters: [explain, --config, "${workspace.file_path}/examples/${var.config_file}", --src, "${workspace.file_path}/src"]
+      environments:
+        - environment_key: lm
+          spec:
+            environment_version: "4"
+            dependencies:
+              # environment 4 ships mlflow-skinny 2.22: the composite model and evaluation need MLflow 3 (brief)
+              - mlflow==3.16.1
+              - databricks-labs-dqx==0.16.0
+              - pyyaml

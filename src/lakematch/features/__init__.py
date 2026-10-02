@@ -210,11 +210,13 @@ def prepare_sides(left: DataFrame, right: DataFrame, cfg: Config) -> tuple[DataF
 
 
 # --- the comparison vector -------------------------------------------------------------------------------------------
-def compare(pairs: DataFrame, cfg: Config, candidates: bool = True, embedded: bool | None = None) -> tuple[DataFrame, list[str]]:
+def compare(pairs: DataFrame, cfg: Config, candidates: bool = True, embedded: bool | None = None,
+            spark_version: str | None = None) -> tuple[DataFrame, list[str]]:
     """`pairs` holds l_<col> and r_<col> for every entity column (and cand_* when `candidates`); returns it with the
     feature columns added, and their names. `embedded` says whether prepare_sides added embeddings (default: whether a
-    provider resolves now)."""
-    version = pairs.sparkSession.version
+    provider resolves now). `spark_version`: pass it from outside a pipeline flow (asking the session is a request a
+    flow may refuse)."""
+    version = spark_version or pairs.sparkSession.version
     check(cfg, version)
     fams = active_families(cfg)
     cap = cfg.get("features.token_cap")

@@ -1,0 +1,1568 @@
+{
+  "generated": "2026-10-02T20:57:34+02:00",
+  "runs": {
+    "febrl4_databricks.yaml": {
+      "config_file": "febrl4_databricks.yaml",
+      "paid_features_enabled": [
+        "app",
+        "genie"
+      ],
+      "performance_target": "STANDARD",
+      "deploy_s": 10.5,
+      "job_id": "467651002386537",
+      "pipeline_id": "98b66672-be97-43c9-aa17-d913264b1571",
+      "job": {
+        "run_id": 47785074595039,
+        "result": "SUCCESS",
+        "url": "<workspace>#job/467651002386537/run/47785074595039",
+        "start_ms": 1790967507830,
+        "end_ms": 1790969627119,
+        "tasks": {
+          "explain": {
+            "run_id": 18997464199111,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 56.1
+          },
+          "plan": {
+            "run_id": 1082944815353420,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 310.0
+          },
+          "train": {
+            "run_id": 462131923956953,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 344.7
+          },
+          "refresh_scores": {
+            "run_id": 444670665186010,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 614.4
+          },
+          "quality": {
+            "run_id": 850939720530213,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 261.6
+          },
+          "refresh_features": {
+            "run_id": 78757628534231,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 483.6
+          },
+          "cluster": {
+            "run_id": 644817504798171,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 302.8
+          }
+        }
+      },
+      "tasks": {
+        "cluster": {
+          "task": "cluster",
+          "seconds": 69.3,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "model_version": "2",
+          "threshold": 0.5,
+          "links": 2399,
+          "identity": {
+            "method": "verified_merge",
+            "entities": 5101,
+            "records": 7500,
+            "events": {},
+            "cluster_stats": {
+              "rounds": 2,
+              "merges": 2399,
+              "vetoes": 0,
+              "scored_pairs": 0,
+              "converged": true
+            },
+            "reconciles": true
+          },
+          "evaluation": {
+            "all": {
+              "links": 2399,
+              "tp": 2381,
+              "fp": 18,
+              "fn": 119,
+              "precision": 0.9925,
+              "recall": 0.9524,
+              "f1": 0.972
+            },
+            "candidate_recall": 1.0,
+            "held_out": {
+              "links": 2215,
+              "tp": 2201,
+              "fp": 14,
+              "fn": 105,
+              "precision": 0.9937,
+              "recall": 0.9545,
+              "f1": 0.9737
+            },
+            "nearest_neighbour_baseline": {
+              "links": 5000,
+              "tp": 2500,
+              "fp": 2500,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6667
+            }
+          }
+        },
+        "explain": {
+          "task": "explain",
+          "seconds": 39.1,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "gate": {
+            "chars": 20383,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/gate.txt"
+          },
+          "entity": {
+            "chars": 27262,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/entity.txt"
+          },
+          "candidates": {
+            "chars": 286242,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/candidates.txt"
+          },
+          "features": {
+            "chars": 66265,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/features.txt"
+          },
+          "scores": {
+            "chars": 9394,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/scores.txt"
+          },
+          "links": {
+            "chars": 4334,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/links.txt"
+          }
+        },
+        "plan": {
+          "task": "plan",
+          "seconds": 38.5,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "schema": {
+            "statement": "ALTER SCHEMA workspace.lakematch DISABLE PREDICTIVE OPTIMIZATION",
+            "ok": true
+          },
+          "plan": {
+            "method": "union",
+            "field_blocks": [
+              [
+                "soundex(given_name)",
+                "soundex(surname)"
+              ],
+              [
+                "soundex(given_name)",
+                "street_number"
+              ],
+              [
+                "soundex(given_name)",
+                "address_1"
+              ],
+              [
+                "soundex(given_name)",
+                "address_2"
+              ],
+              [
+                "soundex(given_name)",
+                "suburb"
+              ],
+              [
+                "soundex(given_name)",
+                "postcode"
+              ],
+              [
+                "soundex(given_name)",
+                "state"
+              ],
+              [
+                "soundex(given_name)",
+                "date_of_birth"
+              ],
+              [
+                "soundex(given_name)",
+                "soc_sec_id"
+              ],
+              [
+                "soundex(surname)",
+                "street_number"
+              ],
+              [
+                "soundex(surname)",
+                "address_1"
+              ],
+              [
+                "soundex(surname)",
+                "address_2"
+              ],
+              [
+                "soundex(surname)",
+                "suburb"
+              ],
+              [
+                "soundex(surname)",
+                "postcode"
+              ],
+              [
+                "soundex(surname)",
+                "state"
+              ],
+              [
+                "soundex(surname)",
+                "date_of_birth"
+              ],
+              [
+                "soundex(surname)",
+                "soc_sec_id"
+              ],
+              [
+                "street_number",
+                "address_1"
+              ],
+              [
+                "street_number",
+                "address_2"
+              ],
+              [
+                "street_number",
+                "suburb"
+              ],
+              [
+                "street_number",
+                "postcode"
+              ],
+              [
+                "street_number",
+                "state"
+              ],
+              [
+                "street_number",
+                "date_of_birth"
+              ],
+              [
+                "street_number",
+                "soc_sec_id"
+              ],
+              [
+                "address_1",
+                "address_2"
+              ],
+              [
+                "address_1",
+                "suburb"
+              ],
+              [
+                "address_1",
+                "postcode"
+              ],
+              [
+                "address_1",
+                "state"
+              ],
+              [
+                "address_1",
+                "date_of_birth"
+              ],
+              [
+                "address_1",
+                "soc_sec_id"
+              ],
+              [
+                "address_2",
+                "suburb"
+              ],
+              [
+                "address_2",
+                "postcode"
+              ],
+              [
+                "address_2",
+                "state"
+              ],
+              [
+                "address_2",
+                "date_of_birth"
+              ],
+              [
+                "address_2",
+                "soc_sec_id"
+              ],
+              [
+                "suburb",
+                "postcode"
+              ],
+              [
+                "suburb",
+                "state"
+              ],
+              [
+                "suburb",
+                "date_of_birth"
+              ],
+              [
+                "suburb",
+                "soc_sec_id"
+              ],
+              [
+                "postcode",
+                "state"
+              ],
+              [
+                "postcode",
+                "date_of_birth"
+              ],
+              [
+                "postcode",
+                "soc_sec_id"
+              ],
+              [
+                "state",
+                "date_of_birth"
+              ],
+              [
+                "state",
+                "soc_sec_id"
+              ],
+              [
+                "date_of_birth",
+                "soc_sec_id"
+              ]
+            ],
+            "field_blocks_kept": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44
+            ]
+          }
+        },
+        "quality": {
+          "task": "quality",
+          "seconds": 26.7,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "left": {
+            "native_valid": 5000,
+            "dqx_valid": 5000,
+            "native_quarantined": 4,
+            "dqx_quarantined": 4,
+            "pipeline_quarantined": 4,
+            "same_split": true,
+            "pipeline_is_dqx_split": true,
+            "seeded": 4,
+            "seeded_rows_quarantined": true
+          },
+          "right": {
+            "native_valid": 2500,
+            "dqx_valid": 2500,
+            "native_quarantined": 2,
+            "dqx_quarantined": 2,
+            "pipeline_quarantined": 2,
+            "same_split": true,
+            "pipeline_is_dqx_split": true,
+            "seeded": 2,
+            "seeded_rows_quarantined": true
+          },
+          "native_same_split": true,
+          "dqx_quarantine_ok": true
+        },
+        "train": {
+          "task": "train",
+          "seconds": 110.3,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "methods": {
+            "candidates.method": "union",
+            "features.string_similarity": "levenshtein",
+            "features.multi_token": [
+              "idf_token_cosine",
+              "gram_overlap",
+              "monge_elkan_token"
+            ],
+            "matcher.estimator": "gbt",
+            "decision.cardinality": "one_to_one",
+            "quality.engine": "dqx"
+          },
+          "labels": {
+            "train": 317,
+            "train_matches": 29,
+            "validation": 83
+          },
+          "candidates": {
+            "pairs": 25000
+          },
+          "features": [
+            "cand_score",
+            "cand_rank",
+            "cand_gap",
+            "lev_given_name",
+            "eq_given_name",
+            "sdx_given_name",
+            "sdt_given_name",
+            "mek_given_name",
+            "itc_given_name",
+            "rar_given_name",
+            "swp_given_name",
+            "ini_given_name",
+            "lev_surname",
+            "eq_surname",
+            "sdx_surname",
+            "sdt_surname",
+            "mek_surname",
+            "itc_surname",
+            "rar_surname",
+            "swp_surname",
+            "ini_surname",
+            "lev_street_number",
+            "eq_street_number",
+            "lev_address_1",
+            "eq_address_1",
+            "mek_address_1",
+            "itc_address_1",
+            "gov_address_1",
+            "num_address_1",
+            "lev_address_2",
+            "eq_address_2",
+            "mek_address_2",
+            "itc_address_2",
+            "gov_address_2",
+            "num_address_2",
+            "lev_suburb",
+            "eq_suburb",
+            "mek_suburb",
+            "itc_suburb",
+            "gov_suburb",
+            "num_suburb",
+            "lev_postcode",
+            "eq_postcode",
+            "lev_state",
+            "eq_state",
+            "lev_date_of_birth",
+            "eq_date_of_birth",
+            "yr_date_of_birth",
+            "dpj_date_of_birth",
+            "lev_soc_sec_id",
+            "eq_soc_sec_id"
+          ],
+          "decision": {
+            "threshold": 0.5,
+            "links": 2399
+          },
+          "mlflow": {
+            "tracking_uri": "databricks",
+            "experiment": "/Shared/lakematch",
+            "run_id": "5c4be2906f7a4d4d91f2a10215c5c962",
+            "model_uri": "runs:/5c4be2906f7a4d4d91f2a10215c5c962/model",
+            "model_id": "m-5984db0c87074442a3a8e3209db44112",
+            "model_mb": 0.02,
+            "label_set": {
+              "sha256": "f511667183bd8b8e18646ffdda3ca670e5833ff1a22f7b681b366841558423a9",
+              "pairs": 400,
+              "matches": 34,
+              "source": "truth_sample",
+              "llm": "none",
+              "n": 400
+            },
+            "evaluation_dataset": "candidates_vs_truth",
+            "evaluation_pairs": 25000,
+            "metrics": {
+              "candidate_recall": 1.0,
+              "pairwise_f1": 0.972,
+              "pairwise_precision": 0.9925,
+              "pairwise_recall": 0.9524
+            },
+            "reload_parity": {
+              "pairs": 50,
+              "max_abs_diff_p": 0.0
+            },
+            "expression_parity": {
+              "pairs": 83,
+              "max_abs_diff_p": 1.3877787807814457e-16
+            },
+            "accepted": true,
+            "registered": {
+              "name": "workspace.lakematch.lakematch_febrl4",
+              "version": "2",
+              "alias": "champion"
+            },
+            "handoff": "/Volumes/workspace/lakematch/runs/febrl4/champion.json"
+          }
+        }
+      },
+      "ok": true,
+      "f1": 0.972,
+      "spark": "4.2.0",
+      "photon": {
+        "task:explain": {
+          "statements": 1,
+          "task_ms": 940,
+          "photon_ms": 0,
+          "photon_share": 0.0
+        },
+        "task:cluster": {
+          "statements": 16,
+          "task_ms": 14119,
+          "photon_ms": 7071,
+          "photon_share": 0.501
+        },
+        "links": {
+          "statements": 2,
+          "task_ms": 660,
+          "photon_ms": 314,
+          "photon_share": 0.476
+        },
+        "scores": {
+          "statements": 2,
+          "task_ms": 1209,
+          "photon_ms": 797,
+          "photon_share": 0.659
+        },
+        "features": {
+          "statements": 2,
+          "task_ms": 43254,
+          "photon_ms": 3943,
+          "photon_share": 0.091
+        },
+        "candidates": {
+          "statements": 2,
+          "task_ms": 79804,
+          "photon_ms": 76865,
+          "photon_share": 0.963
+        },
+        "entity": {
+          "statements": 4,
+          "task_ms": 5396,
+          "photon_ms": 3788,
+          "photon_share": 0.702
+        },
+        "gate": {
+          "statements": 8,
+          "task_ms": 10679,
+          "photon_ms": 4297,
+          "photon_share": 0.402
+        },
+        "task:train": {
+          "statements": 20,
+          "task_ms": 4319,
+          "photon_ms": 340,
+          "photon_share": 0.079
+        },
+        "task:quality": {
+          "statements": 11,
+          "task_ms": 3164,
+          "photon_ms": 64,
+          "photon_share": 0.02
+        },
+        "task:plan": {
+          "statements": 5,
+          "task_ms": 1924,
+          "photon_ms": 0,
+          "photon_share": 0.0
+        }
+      },
+      "plans": {
+        "candidates": {
+          "operators": 712,
+          "photon": [
+            "PhotonBroadcastHashJoin",
+            "PhotonBroadcastNestedLoopJoin",
+            "PhotonColumnarToRow",
+            "PhotonFilter",
+            "PhotonGenerate",
+            "PhotonGroupingAgg",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonRowToColumnar",
+            "PhotonScan",
+            "PhotonShuffleExchangeSink",
+            "PhotonShuffleExchangeSource",
+            "PhotonShuffleMapStage",
+            "PhotonShuffledHashJoin",
+            "PhotonTopK",
+            "PhotonUnion",
+            "PhotonWindow"
+          ],
+          "fell_back": [],
+          "unsupported_expressions": [],
+          "fully_supported": true
+        },
+        "entity": {
+          "operators": 61,
+          "photon": [
+            "PhotonBroadcastHashJoin",
+            "PhotonBroadcastNestedLoopJoin",
+            "PhotonColumnarToRow",
+            "PhotonFilter",
+            "PhotonGenerate",
+            "PhotonGroupingAgg",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonRowToColumnar",
+            "PhotonScan",
+            "PhotonShuffleExchangeSink",
+            "PhotonShuffleExchangeSource",
+            "PhotonShuffleMapStage",
+            "PhotonShuffledHashJoin",
+            "PhotonUnion"
+          ],
+          "fell_back": [],
+          "unsupported_expressions": [],
+          "fully_supported": true
+        },
+        "features": {
+          "operators": 18,
+          "photon": [
+            "PhotonBroadcastHashJoin",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonScan",
+            "PhotonShuffleExchangeSink",
+            "PhotonShuffleExchangeSource",
+            "PhotonShuffleMapStage"
+          ],
+          "fell_back": [
+            "Project"
+          ],
+          "unsupported_expressions": [
+            "aggregate"
+          ],
+          "fully_supported": false
+        },
+        "gate": {
+          "operators": 12,
+          "photon": [
+            "PhotonResultStage",
+            "PhotonRowToColumnar",
+            "PhotonShuffleExchangeSink",
+            "PhotonShuffleExchangeSource",
+            "PhotonShuffleMapStage",
+            "PhotonSort",
+            "PhotonWindow"
+          ],
+          "fell_back": [
+            "Filter",
+            "Project",
+            "Scan"
+          ],
+          "unsupported_expressions": [
+            "cast(struct -> struct with collations)"
+          ],
+          "fully_supported": false
+        },
+        "links": {
+          "operators": 15,
+          "photon": [
+            "PhotonColumnarToRow",
+            "PhotonFilter",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonScan",
+            "PhotonTopK",
+            "PhotonWindow"
+          ],
+          "fell_back": [],
+          "unsupported_expressions": [],
+          "fully_supported": true
+        },
+        "scores": {
+          "operators": 4,
+          "photon": [
+            "PhotonColumnarToRow",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonScan"
+          ],
+          "fell_back": [],
+          "unsupported_expressions": [],
+          "fully_supported": true
+        }
+      }
+    },
+    "febrl4_databricks_free.yaml": {
+      "config_file": "febrl4_databricks_free.yaml",
+      "paid_features_enabled": [],
+      "performance_target": "STANDARD",
+      "deploy_s": 10.3,
+      "job_id": "467651002386537",
+      "pipeline_id": "98b66672-be97-43c9-aa17-d913264b1571",
+      "job": {
+        "run_id": 535685207344622,
+        "result": "SUCCESS",
+        "url": "<workspace>#job/467651002386537/run/535685207344622",
+        "start_ms": 1790969643434,
+        "end_ms": 1790971631895,
+        "tasks": {
+          "explain": {
+            "run_id": 796340004406279,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 58.0
+          },
+          "plan": {
+            "run_id": 486828225309127,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 215.7
+          },
+          "train": {
+            "run_id": 250836888241320,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 321.6
+          },
+          "refresh_scores": {
+            "run_id": 1076919647131956,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 624.3
+          },
+          "quality": {
+            "run_id": 93469812242635,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 231.1
+          },
+          "refresh_features": {
+            "run_id": 568861805103630,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 523.6
+          },
+          "cluster": {
+            "run_id": 419557554215714,
+            "state": "SUCCESS",
+            "message": "",
+            "seconds": 237.5
+          }
+        }
+      },
+      "tasks": {
+        "cluster": {
+          "task": "cluster",
+          "seconds": 74.0,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "model_version": "3",
+          "threshold": 0.5,
+          "links": 2399,
+          "identity": {
+            "method": "verified_merge",
+            "entities": 5101,
+            "records": 7500,
+            "events": {},
+            "cluster_stats": {
+              "rounds": 2,
+              "merges": 2399,
+              "vetoes": 0,
+              "scored_pairs": 0,
+              "converged": true
+            },
+            "reconciles": true
+          },
+          "evaluation": {
+            "all": {
+              "links": 2399,
+              "tp": 2381,
+              "fp": 18,
+              "fn": 119,
+              "precision": 0.9925,
+              "recall": 0.9524,
+              "f1": 0.972
+            },
+            "candidate_recall": 1.0,
+            "held_out": {
+              "links": 2215,
+              "tp": 2201,
+              "fp": 14,
+              "fn": 105,
+              "precision": 0.9937,
+              "recall": 0.9545,
+              "f1": 0.9737
+            },
+            "nearest_neighbour_baseline": {
+              "links": 5000,
+              "tp": 2500,
+              "fp": 2500,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6667
+            }
+          }
+        },
+        "explain": {
+          "task": "explain",
+          "seconds": 40.2,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "gate": {
+            "chars": 20383,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/gate.txt"
+          },
+          "entity": {
+            "chars": 27262,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/entity.txt"
+          },
+          "candidates": {
+            "chars": 286242,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/candidates.txt"
+          },
+          "features": {
+            "chars": 66265,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/features.txt"
+          },
+          "scores": {
+            "chars": 9394,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/scores.txt"
+          },
+          "links": {
+            "chars": 4334,
+            "path": "/Volumes/workspace/lakematch/runs/febrl4/explain/links.txt"
+          }
+        },
+        "plan": {
+          "task": "plan",
+          "seconds": 36.2,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "schema": {
+            "statement": "ALTER SCHEMA workspace.lakematch DISABLE PREDICTIVE OPTIMIZATION",
+            "ok": true
+          },
+          "plan": {
+            "method": "union",
+            "field_blocks": [
+              [
+                "soundex(given_name)",
+                "soundex(surname)"
+              ],
+              [
+                "soundex(given_name)",
+                "street_number"
+              ],
+              [
+                "soundex(given_name)",
+                "address_1"
+              ],
+              [
+                "soundex(given_name)",
+                "address_2"
+              ],
+              [
+                "soundex(given_name)",
+                "suburb"
+              ],
+              [
+                "soundex(given_name)",
+                "postcode"
+              ],
+              [
+                "soundex(given_name)",
+                "state"
+              ],
+              [
+                "soundex(given_name)",
+                "date_of_birth"
+              ],
+              [
+                "soundex(given_name)",
+                "soc_sec_id"
+              ],
+              [
+                "soundex(surname)",
+                "street_number"
+              ],
+              [
+                "soundex(surname)",
+                "address_1"
+              ],
+              [
+                "soundex(surname)",
+                "address_2"
+              ],
+              [
+                "soundex(surname)",
+                "suburb"
+              ],
+              [
+                "soundex(surname)",
+                "postcode"
+              ],
+              [
+                "soundex(surname)",
+                "state"
+              ],
+              [
+                "soundex(surname)",
+                "date_of_birth"
+              ],
+              [
+                "soundex(surname)",
+                "soc_sec_id"
+              ],
+              [
+                "street_number",
+                "address_1"
+              ],
+              [
+                "street_number",
+                "address_2"
+              ],
+              [
+                "street_number",
+                "suburb"
+              ],
+              [
+                "street_number",
+                "postcode"
+              ],
+              [
+                "street_number",
+                "state"
+              ],
+              [
+                "street_number",
+                "date_of_birth"
+              ],
+              [
+                "street_number",
+                "soc_sec_id"
+              ],
+              [
+                "address_1",
+                "address_2"
+              ],
+              [
+                "address_1",
+                "suburb"
+              ],
+              [
+                "address_1",
+                "postcode"
+              ],
+              [
+                "address_1",
+                "state"
+              ],
+              [
+                "address_1",
+                "date_of_birth"
+              ],
+              [
+                "address_1",
+                "soc_sec_id"
+              ],
+              [
+                "address_2",
+                "suburb"
+              ],
+              [
+                "address_2",
+                "postcode"
+              ],
+              [
+                "address_2",
+                "state"
+              ],
+              [
+                "address_2",
+                "date_of_birth"
+              ],
+              [
+                "address_2",
+                "soc_sec_id"
+              ],
+              [
+                "suburb",
+                "postcode"
+              ],
+              [
+                "suburb",
+                "state"
+              ],
+              [
+                "suburb",
+                "date_of_birth"
+              ],
+              [
+                "suburb",
+                "soc_sec_id"
+              ],
+              [
+                "postcode",
+                "state"
+              ],
+              [
+                "postcode",
+                "date_of_birth"
+              ],
+              [
+                "postcode",
+                "soc_sec_id"
+              ],
+              [
+                "state",
+                "date_of_birth"
+              ],
+              [
+                "state",
+                "soc_sec_id"
+              ],
+              [
+                "date_of_birth",
+                "soc_sec_id"
+              ]
+            ],
+            "field_blocks_kept": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44
+            ]
+          }
+        },
+        "quality": {
+          "task": "quality",
+          "seconds": 65.7,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "left": {
+            "native_valid": 5000,
+            "dqx_valid": 5000,
+            "native_quarantined": 4,
+            "dqx_quarantined": 4,
+            "pipeline_quarantined": 4,
+            "same_split": true,
+            "pipeline_is_dqx_split": true,
+            "seeded": 4,
+            "seeded_rows_quarantined": true
+          },
+          "right": {
+            "native_valid": 2500,
+            "dqx_valid": 2500,
+            "native_quarantined": 2,
+            "dqx_quarantined": 2,
+            "pipeline_quarantined": 2,
+            "same_split": true,
+            "pipeline_is_dqx_split": true,
+            "seeded": 2,
+            "seeded_rows_quarantined": true
+          },
+          "native_same_split": true,
+          "dqx_quarantine_ok": true
+        },
+        "train": {
+          "task": "train",
+          "seconds": 157.3,
+          "runtime": {
+            "spark": "4.2.0",
+            "remote": true,
+            "materialize": "checkpoint"
+          },
+          "methods": {
+            "candidates.method": "union",
+            "features.string_similarity": "levenshtein",
+            "features.multi_token": [
+              "idf_token_cosine",
+              "gram_overlap",
+              "monge_elkan_token"
+            ],
+            "matcher.estimator": "gbt",
+            "decision.cardinality": "one_to_one",
+            "quality.engine": "dqx"
+          },
+          "labels": {
+            "train": 317,
+            "train_matches": 29,
+            "validation": 83
+          },
+          "candidates": {
+            "pairs": 25000
+          },
+          "features": [
+            "cand_score",
+            "cand_rank",
+            "cand_gap",
+            "lev_given_name",
+            "eq_given_name",
+            "sdx_given_name",
+            "sdt_given_name",
+            "mek_given_name",
+            "itc_given_name",
+            "rar_given_name",
+            "swp_given_name",
+            "ini_given_name",
+            "lev_surname",
+            "eq_surname",
+            "sdx_surname",
+            "sdt_surname",
+            "mek_surname",
+            "itc_surname",
+            "rar_surname",
+            "swp_surname",
+            "ini_surname",
+            "lev_street_number",
+            "eq_street_number",
+            "lev_address_1",
+            "eq_address_1",
+            "mek_address_1",
+            "itc_address_1",
+            "gov_address_1",
+            "num_address_1",
+            "lev_address_2",
+            "eq_address_2",
+            "mek_address_2",
+            "itc_address_2",
+            "gov_address_2",
+            "num_address_2",
+            "lev_suburb",
+            "eq_suburb",
+            "mek_suburb",
+            "itc_suburb",
+            "gov_suburb",
+            "num_suburb",
+            "lev_postcode",
+            "eq_postcode",
+            "lev_state",
+            "eq_state",
+            "lev_date_of_birth",
+            "eq_date_of_birth",
+            "yr_date_of_birth",
+            "dpj_date_of_birth",
+            "lev_soc_sec_id",
+            "eq_soc_sec_id"
+          ],
+          "decision": {
+            "threshold": 0.5,
+            "links": 2399
+          },
+          "mlflow": {
+            "tracking_uri": "databricks",
+            "experiment": "/Shared/lakematch",
+            "run_id": "18d92fce45fd4da1a475e9c8e0532717",
+            "model_uri": "runs:/18d92fce45fd4da1a475e9c8e0532717/model",
+            "model_id": "m-8b0ac17a0efa4cb4ace827f0aba7d53a",
+            "model_mb": 0.02,
+            "label_set": {
+              "sha256": "f511667183bd8b8e18646ffdda3ca670e5833ff1a22f7b681b366841558423a9",
+              "pairs": 400,
+              "matches": 34,
+              "source": "truth_sample",
+              "llm": "none",
+              "n": 400
+            },
+            "evaluation_dataset": "candidates_vs_truth",
+            "evaluation_pairs": 25000,
+            "metrics": {
+              "candidate_recall": 1.0,
+              "pairwise_f1": 0.972,
+              "pairwise_precision": 0.9925,
+              "pairwise_recall": 0.9524
+            },
+            "reload_parity": {
+              "pairs": 50,
+              "max_abs_diff_p": 0.0
+            },
+            "expression_parity": {
+              "pairs": 83,
+              "max_abs_diff_p": 1.3877787807814457e-16
+            },
+            "accepted": true,
+            "registered": {
+              "name": "workspace.lakematch.lakematch_febrl4",
+              "version": "3",
+              "alias": "champion"
+            },
+            "handoff": "/Volumes/workspace/lakematch/runs/febrl4/champion.json"
+          }
+        }
+      },
+      "ok": true,
+      "f1": 0.972,
+      "spark": "4.2.0",
+      "photon": {
+        "task:explain": {
+          "statements": 1,
+          "task_ms": 745,
+          "photon_ms": 0,
+          "photon_share": 0.0
+        },
+        "task:cluster": {
+          "statements": 16,
+          "task_ms": 14882,
+          "photon_ms": 7542,
+          "photon_share": 0.507
+        },
+        "links": {
+          "statements": 2,
+          "task_ms": 695,
+          "photon_ms": 345,
+          "photon_share": 0.496
+        },
+        "scores": {
+          "statements": 2,
+          "task_ms": 1338,
+          "photon_ms": 823,
+          "photon_share": 0.615
+        },
+        "features": {
+          "statements": 2,
+          "task_ms": 47218,
+          "photon_ms": 3910,
+          "photon_share": 0.083
+        },
+        "candidates": {
+          "statements": 2,
+          "task_ms": 91675,
+          "photon_ms": 89261,
+          "photon_share": 0.974
+        },
+        "entity": {
+          "statements": 4,
+          "task_ms": 6201,
+          "photon_ms": 4318,
+          "photon_share": 0.696
+        },
+        "gate": {
+          "statements": 8,
+          "task_ms": 11039,
+          "photon_ms": 4145,
+          "photon_share": 0.375
+        },
+        "task:train": {
+          "statements": 20,
+          "task_ms": 5716,
+          "photon_ms": 738,
+          "photon_share": 0.129
+        },
+        "task:quality": {
+          "statements": 11,
+          "task_ms": 9787,
+          "photon_ms": 574,
+          "photon_share": 0.059
+        },
+        "task:plan": {
+          "statements": 5,
+          "task_ms": 1799,
+          "photon_ms": 0,
+          "photon_share": 0.0
+        }
+      },
+      "plans": {
+        "candidates": {
+          "operators": 712,
+          "photon": [
+            "PhotonBroadcastHashJoin",
+            "PhotonBroadcastNestedLoopJoin",
+            "PhotonColumnarToRow",
+            "PhotonFilter",
+            "PhotonGenerate",
+            "PhotonGroupingAgg",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonRowToColumnar",
+            "PhotonScan",
+            "PhotonShuffleExchangeSink",
+            "PhotonShuffleExchangeSource",
+            "PhotonShuffleMapStage",
+            "PhotonShuffledHashJoin",
+            "PhotonTopK",
+            "PhotonUnion",
+            "PhotonWindow"
+          ],
+          "fell_back": [],
+          "unsupported_expressions": [],
+          "fully_supported": true
+        },
+        "entity": {
+          "operators": 61,
+          "photon": [
+            "PhotonBroadcastHashJoin",
+            "PhotonBroadcastNestedLoopJoin",
+            "PhotonColumnarToRow",
+            "PhotonFilter",
+            "PhotonGenerate",
+            "PhotonGroupingAgg",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonRowToColumnar",
+            "PhotonScan",
+            "PhotonShuffleExchangeSink",
+            "PhotonShuffleExchangeSource",
+            "PhotonShuffleMapStage",
+            "PhotonShuffledHashJoin",
+            "PhotonUnion"
+          ],
+          "fell_back": [],
+          "unsupported_expressions": [],
+          "fully_supported": true
+        },
+        "features": {
+          "operators": 18,
+          "photon": [
+            "PhotonBroadcastHashJoin",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonScan",
+            "PhotonShuffleExchangeSink",
+            "PhotonShuffleExchangeSource",
+            "PhotonShuffleMapStage"
+          ],
+          "fell_back": [
+            "Project"
+          ],
+          "unsupported_expressions": [
+            "aggregate"
+          ],
+          "fully_supported": false
+        },
+        "gate": {
+          "operators": 12,
+          "photon": [
+            "PhotonResultStage",
+            "PhotonRowToColumnar",
+            "PhotonShuffleExchangeSink",
+            "PhotonShuffleExchangeSource",
+            "PhotonShuffleMapStage",
+            "PhotonSort",
+            "PhotonWindow"
+          ],
+          "fell_back": [
+            "Filter",
+            "Project",
+            "Scan"
+          ],
+          "unsupported_expressions": [
+            "cast(struct -> struct with collations)"
+          ],
+          "fully_supported": false
+        },
+        "links": {
+          "operators": 15,
+          "photon": [
+            "PhotonColumnarToRow",
+            "PhotonFilter",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonScan",
+            "PhotonTopK",
+            "PhotonWindow"
+          ],
+          "fell_back": [],
+          "unsupported_expressions": [],
+          "fully_supported": true
+        },
+        "scores": {
+          "operators": 4,
+          "photon": [
+            "PhotonColumnarToRow",
+            "PhotonProject",
+            "PhotonResultStage",
+            "PhotonScan"
+          ],
+          "fell_back": [],
+          "unsupported_expressions": [],
+          "fully_supported": true
+        }
+      }
+    }
+  },
+  "seeded": {
+    "left": 4,
+    "right": 2
+  },
+  "laptop": {
+    "f1": 0.972,
+    "evaluation": {
+      "all": {
+        "links": 2399,
+        "tp": 2381,
+        "fp": 18,
+        "fn": 119,
+        "precision": 0.9925,
+        "recall": 0.9524,
+        "f1": 0.972
+      },
+      "candidate_recall": 1.0,
+      "held_out": {
+        "links": 2215,
+        "tp": 2201,
+        "fp": 14,
+        "fn": 105,
+        "precision": 0.9937,
+        "recall": 0.9545,
+        "f1": 0.9737
+      },
+      "nearest_neighbour_baseline": {
+        "links": 5000,
+        "tp": 2500,
+        "fp": 2500,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667
+      }
+    },
+    "quarantined": {
+      "left": 4,
+      "right": 2
+    },
+    "wall_s": 32.6
+  },
+  "febrl4_f1_laptop": 0.972,
+  "febrl4_f1_serverless": 0.972,
+  "febrl4_f1_delta_vs_laptop": 0.0,
+  "dqx_quarantine_ok": true,
+  "native_same_split": true,
+  "all_paid_off_ran": true,
+  "default_profile_deployed": true,
+  "default_profile_ran": true,
+  "predictive_optimization": {
+    "statement": "ALTER SCHEMA workspace.lakematch DISABLE PREDICTIVE OPTIMIZATION",
+    "ok": true
+  },
+  "warehouse_after": "STOPPED",
+  "warehouse_use": {
+    "febrl4_databricks.yaml": {
+      "warehouse_statements_in_window": 59,
+      "lakematch_statements_on_warehouse": 0,
+      "other_sources": [
+        "`workspace`.`alfred`.`genie_experiences`",
+        "`workspace`.`alfred`.`genie_restaurants`",
+        "workspace.alfred.genie_restaurants",
+        "workspace.alfred.genie_spa"
+      ]
+    },
+    "febrl4_databricks_free.yaml": {
+      "warehouse_statements_in_window": 66,
+      "lakematch_statements_on_warehouse": 0,
+      "other_sources": [
+        "DESCRIBE",
+        "SELECT",
+        "`workspace`.`alfred`.`genie_event_venues",
+        "`workspace`.`alfred`.`genie_experiences`",
+        "`workspace`.`alfred`.`genie_spa`"
+      ]
+    }
+  }
+}

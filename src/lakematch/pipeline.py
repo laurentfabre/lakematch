@@ -119,7 +119,7 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
         for side in ("left", "right"):
             spec = cfg.get(f"inputs.{side}")
             raw = raws[side] = read_table(spark, cfg, spec)
-            valid, quarantined = gate.apply_and_split(raw, quality.input_checks(cfg, spec["id"], side))
+            valid, quarantined = gate.split(raw, quality.input_specs(cfg, spec["id"], side))
             n_bad = quarantined.count()
             summary.setdefault("quarantined", {})[side] = n_bad
             if n_bad:

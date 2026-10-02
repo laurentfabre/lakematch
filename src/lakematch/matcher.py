@@ -1,7 +1,8 @@
 """The pair classifier: an MLlib estimator over the comparison vector (`matcher.estimator`).
 
-Training is a job-task step (MLlib `fit` is an action, refused inside a pipeline flow); scoring is a lazy
-`model.transform`, usable in a flow once the model is loaded. tracking.py logs it to MLflow (ZR-5).
+Training is a job-task step (MLlib `fit` is an action, refused inside a pipeline flow). Scoring is lazy: either
+`model.transform`, or the same model compiled to one Spark SQL expression (scoring_sql.py) — what the Databricks
+pipeline uses, since importing pyspark.ml there crashes the runtime. tracking.py logs both to MLflow (ZR-5, ZR-6).
 """
 from __future__ import annotations
 
@@ -31,7 +32,10 @@ def train(labelled: DataFrame, feature_cols: list[str], cfg: Config) -> Pipeline
     return Pipeline(stages=[VectorAssembler(inputCols=feature_cols, outputCol="features"), est]).fit(labelled)
 
 
-def score(model: PipelineModel, pairs: DataFrame) -> DataFrame:
-    """Adds `p`, the probability of a match; drops MLlib's working columns."""
+def score(model: PipelineModel | str, pairs: DataFrame) -> DataFrame:
+    """Adds `p`, the probability of a match; drops MLlib's working columns. `model` may be the compiled SQL
+    expression of a fitted model (scoring_sql.compile_saved): same p, no MLlib."""
+    if isinstance(model, str):
+        return pairs.withColumn("p", F.expr(model))
     out = model.transform(pairs).withColumn("p", vector_to_array("probability")[1])
     return out.drop("features", "rawPrediction", "probability", "prediction")

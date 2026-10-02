@@ -1,0 +1,42 @@
+# FEBRL4 (half the partners removed) on Databricks serverless, fourth-pat (ZR-6) — every paid feature off
+# Deployed by bundle/databricks.yml; inputs uploaded by bench/serverless.py (public data, plus seeded bad rows).
+# The laptop twin of this run is built from this file by bench/serverless.py (profile laptop, native gate, local paths).
+profile: databricks
+
+storage:
+  catalog: workspace.lakematch
+  root: /Volumes/workspace/lakematch/runs/febrl4
+
+inputs:
+  left:  {path: /Volumes/workspace/lakematch/data/febrl4_seeded/left.csv,  id: rec_id}
+  right: {path: /Volumes/workspace/lakematch/data/febrl4_seeded/right.csv, id: rec_id}
+
+entity:
+  name: person
+  fields:
+    given_name:    {type: person_name}
+    surname:       {type: person_name}
+    street_number: {type: code}
+    address_1:     {type: address}
+    address_2:     {type: address}
+    suburb:        {type: address}
+    postcode:      {type: code}
+    state:         {type: code}
+    date_of_birth: {type: date}
+    soc_sec_id:    {type: code}
+
+quality:
+  checks:
+    # ids in FEBRL4 are rec-<n>-org / rec-<n>-dup-<k>; bench/serverless.py seeds rows that break this rule, rows with
+    # no id and a duplicated id: exactly those must land in quarantine (with the built-in is_not_null / is_unique)
+    - {check: sql, name: rec_id_shape, fails_when: "rec_id IS NOT NULL AND NOT rec_id RLIKE '^rec-[0-9]+-(org|dup-[0-9]+)$'"}
+
+labels:     {source: truth_sample, n: 400, llm: none}
+evaluation:
+  truth: {path: /Volumes/workspace/lakematch/data/febrl4_seeded/truth.csv, left_id: l_id, right_id: r_id}
+
+mlflow:
+  model_name: lakematch_febrl4          # registered as workspace.lakematch.lakematch_febrl4, @champion
+
+# every paid switch off: the deployment must still deploy and run (brief, ZR-6)
+paid_features: {app: false, genie: false}

@@ -7,7 +7,9 @@ product.
         auto                 the local provider if the `embeddings` extra is installed AND the model is already on
                              this machine; otherwise skipped with a warning (a laptop run never downloads)
         local                a model2vec static model (MIT), loaded from the Hugging Face cache or downloaded once
-        databricks_endpoint  Model Serving embeddings behind paid_features.embedding_endpoint (ZR-6)
+        databricks_endpoint  a Databricks embedding endpoint (features.embeddings.model, e.g. databricks-gte-large-en)
+                             through the built-in SQL function ai_query: no Python UDF, so it also runs inside a
+                             pipeline flow. Paid (Model Serving): needs paid_features.embedding_endpoint (ZR-6)
 
 model2vec static models are a token -> vector table plus a mean: no GPU, no torch, a few thousand records per second
 on one core. The model (features.embeddings.model) is picked by validation F1 in bench/ablation.py.
@@ -82,6 +84,20 @@ class LocalProvider:
         return df.withColumn(f"emb_{field}", F.when(F.length(col) > 0, self.udf()(col)))
 
 
+class EndpointProvider:
+    """ai_query(<endpoint>, text) -> array<float>, normalised to unit length with built-ins."""
+    kind = "databricks_endpoint"
+
+    def __init__(self, endpoint: str):
+        self.model = endpoint
+
+    def add_column(self, df: DataFrame, field: str) -> DataFrame:
+        name = self.model.replace("'", "")
+        raw = F.expr(f"ai_query('{name}', CAST(`{field}` AS STRING))").cast("array<float>")
+        unit = F.transform(raw, lambda x: x / F.sqrt(F.aggregate(raw, F.lit(0.0), lambda a, y: a + y * y)))
+        return df.withColumn(f"emb_{field}", F.when(F.length(F.col(field)) > 0, unit.cast("array<float>")))
+
+
 def resolve(cfg: Config, quiet: bool = False):
     """The provider the config asks for, or None when the embedding feature is off or unavailable."""
     kind = cfg.require("features.embeddings.provider")
@@ -90,6 +106,11 @@ def resolve(cfg: Config, quiet: bool = False):
     if key in _RESOLVED:
         return _RESOLVED[key]
     provider = None
+    if kind == "databricks_endpoint":
+        if not cfg.get("paid_features.embedding_endpoint"):
+            raise ProviderUnavailable("features.embeddings.provider databricks_endpoint is a paid feature: set "
+                                      "paid_features.embedding_endpoint: true")
+        provider = EndpointProvider(model)
     if kind in ("auto", "local"):
         try:
             provider = LocalProvider(model, cached_only=(kind == "auto"))

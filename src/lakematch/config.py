@@ -28,18 +28,18 @@ class MethodNotReady(NotImplementedError):
 # --- method registry ----------------------------------------------------------------------------------------------
 # config path -> {choice: None if implemented, else the phase that lands it}
 METHODS: dict[str, dict[str, str | None]] = {
-    "runtime.mode": {"local": None, "serverless": "ZR-6", "classic": "ZR-9"},
+    "runtime.mode": {"local": None, "serverless": None, "classic": "ZR-9"},
     "candidates.method": {"gram_topk": None, "learned_blocker": None, "minhash_lsh": None,
                           "field_blocks": None, "union": None},
     "features.string_similarity": {"levenshtein": None, "jaro_winkler": None, "both": None},
     "features.multi_token": {"idf_token_cosine": None, "gram_overlap": None, "monge_elkan_token": None,
                              "affine_gap_udf": None},
-    "features.embeddings.provider": {"auto": None, "none": None, "local": None, "databricks_endpoint": "ZR-6"},
+    "features.embeddings.provider": {"auto": None, "none": None, "local": None, "databricks_endpoint": None},
     "matcher.estimator": {"gbt": None, "logistic_regression": None, "random_forest": None},
     "decision.cardinality": {"one_to_one": None, "many_to_one": None, "unrestricted": None},
     "cluster.method": {"verified_merge": None, "connected_components": None, "center": None, "star": None},
-    "quality.engine": {"native": None, "dqx": "ZR-6", "expectations": "ZR-6"},
-    "labels.llm": {"none": None, "jev": None, "ai_query": "ZR-6"},
+    "quality.engine": {"native": None, "dqx": None, "expectations": None},
+    "labels.llm": {"none": None, "jev": None, "ai_query": None},
     "labels.source": {"file": None, "truth_sample": None, "app": "ZR-7"},
 }
 
@@ -108,7 +108,9 @@ DEFAULTS: dict[str, Any] = {
     "quality": {"engine": "native", "checks": []},
     "labels": {"source": "truth_sample", "n": 400, "path": None, "llm": "none", "llm_tau": 0.90,
                "llm_cache": None,    # default <storage.root>/jev_cache.jsonl
-               "llm_max_usd": 1.0},  # refuse, before sending, when Jev's predicted cost exceeds this (USD)
+               "llm_max_usd": 1.0,   # refuse, before sending, when Jev's predicted cost exceeds this (USD)
+               # labels.llm ai_query: the Databricks serving endpoint asked (Model Serving, paid llm_labeller)
+               "llm_endpoint": "databricks-meta-llama-3-3-70b-instruct"},
     "evaluation": {"truth": None},
     # mlflow (ZR-5, tracking.py): relative sqlite URIs and the pointer resolve against the config's directory.
     # model_name null = lakematch_<entity.name>; with a UC registry it is registered as <storage.catalog>.<name>.
@@ -291,6 +293,9 @@ def validate(data: dict) -> None:
             raise ConfigError(f"profile laptop turns every paid feature off; enabled here: {', '.join(on)}")
         if data["runtime"]["mode"] != "local":
             raise ConfigError("profile laptop runs runtime.mode: local")
+        if data["quality"]["engine"] == "dqx":
+            raise ConfigError("quality.engine dqx runs on Databricks only (Databricks License, D18); the laptop "
+                              "engine is native")
     if data["runtime"]["mode"] == "classic" and not data["classic"].get("profile"):
         raise ConfigError("runtime.mode classic needs classic.profile, set by hand — it is never guessed")
     ml = data["mlflow"]
@@ -309,6 +314,9 @@ def validate(data: dict) -> None:
             spec = data["inputs"].get(side)
             if not spec or "path" not in spec or "id" not in spec:
                 raise ConfigError(f"inputs.{side} needs path and id")
+    if data["features"]["embeddings"]["provider"] == "databricks_endpoint" and not paid.get("embedding_endpoint"):
+        raise ConfigError("features.embeddings.provider databricks_endpoint is a paid feature (Model Serving): set "
+                          "paid_features.embedding_endpoint: true")
     if data["labels"]["llm"] != "none" and not paid.get("llm_labeller"):
         raise ConfigError(f"labels.llm: {data['labels']['llm']} is a paid feature: set paid_features.llm_labeller: true "
                           "(Jev is allowed on the laptop; its cost is predicted before sending, capped by "

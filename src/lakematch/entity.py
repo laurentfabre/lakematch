@@ -56,9 +56,11 @@ def qgrams(text: Column, q: int) -> Column:
     return F.array_distinct(F.filter(F.transform(idx, lambda i: F.substring(text, i, q)), lambda g: F.length(g) > 0))
 
 
-def prepare(df: DataFrame, cfg: Config, id_column: str) -> DataFrame:
+def prepare(df: DataFrame, cfg: Config, id_column: str, check: bool = True) -> DataFrame:
+    """`check: False` skips the missing-column check: it analyses the plan (df.columns), which an open-source
+    pipeline flow refuses — pipelines/flows.py checks once at import instead."""
     fields = cfg.fields
-    missing = [c for c in [id_column, *fields] if c not in df.columns]
+    missing = [c for c in [id_column, *fields] if c not in df.columns] if check else []
     if missing:
         raise ValueError(f"input lacks column(s) {', '.join(missing)}")
     cols = [F.col(id_column).cast("string").alias("id")]

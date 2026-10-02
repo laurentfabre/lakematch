@@ -150,7 +150,8 @@ def evaluation_frame(cfg: Config, scored: DataFrame, linked: DataFrame, threshol
 
 def log_run(rt, cfg: Config, *, run_name: str, model, feature_cols: list[str], threshold: float, lab: DataFrame,
             train: DataFrame, valid_scored: DataFrame, scored: DataFrame, linked: DataFrame,
-            truth: DataFrame | None, raw_inputs: dict[str, DataFrame], summary: dict) -> dict:
+            truth: DataFrame | None, raw_inputs: dict[str, DataFrame], summary: dict,
+            plan: dict | None = None) -> dict:
     import mlflow
     import pyspark
 
@@ -179,8 +180,7 @@ def log_run(rt, cfg: Config, *, run_name: str, model, feature_cols: list[str], t
             mlflow.log_input(mlflow.data.from_pandas(valid_pdf, targets="label", name=f"labels_validation_{digest['sha256'][:12]}"), context="validation")
 
             # the bundle: Spark pipeline + config + label-set digest + thresholds
-            pipe_dir = tmp / "spark_pipeline"
-            rt.save_ml(model, pipe_dir)
+            pipe_dir = rt.save_ml(model, tmp / "spark_pipeline")
             model_mb = _dir_mb(pipe_dir)
             (tmp / "config.json").write_text(json.dumps(cfg.data, indent=2, sort_keys=True, default=str) + "\n")
             (tmp / "label_set.json").write_text(json.dumps(digest, indent=2) + "\n")
@@ -188,10 +188,17 @@ def log_run(rt, cfg: Config, *, run_name: str, model, feature_cols: list[str], t
                 {"threshold": threshold, "rule": cfg.get("decision.threshold"),
                  "cardinality": cfg.get("decision.cardinality"), "cluster_method": cfg.get("cluster.method"),
                  "feature_cols": feature_cols}, indent=2) + "\n")
+            # the same classifier as one Spark SQL expression: what a pipeline flow scores with (no MLlib there)
+            from .scoring_sql import compile_saved
+            expr = compile_saved(pipe_dir, feature_cols)
+            scoring = {"expr": expr, "feature_cols": feature_cols, "threshold": threshold,
+                       "cardinality": cfg.get("decision.cardinality"), "candidate_plan": plan}
+            (tmp / "scoring.json").write_text(json.dumps(scoring, indent=2) + "\n")
             info = mlflow.pyfunc.log_model(
                 name="model", python_model=str(MODEL_CODE),
                 artifacts={"spark_pipeline": str(pipe_dir), "config": str(tmp / "config.json"),
-                           "label_set": str(tmp / "label_set.json"), "thresholds": str(tmp / "thresholds.json")},
+                           "label_set": str(tmp / "label_set.json"), "thresholds": str(tmp / "thresholds.json"),
+                           "scoring": str(tmp / "scoring.json")},
                 signature=signature(feature_cols),
                 pip_requirements=[f"mlflow=={mlflow.__version__}", f"pyspark=={pyspark.__version__}"],
                 metadata={"lakematch_label_set_sha256": digest["sha256"]})
@@ -218,10 +225,16 @@ def log_run(rt, cfg: Config, *, run_name: str, model, feature_cols: list[str], t
             drift = float((reloaded["p"].to_numpy() - sample["p"].to_numpy()).__abs__().max()) if len(sample) else 0.0
             out["reload_parity"] = {"pairs": len(sample), "max_abs_diff_p": drift}
             mlflow.log_metric("reload_max_abs_diff_p", drift)
+            # the compiled expression must give the model's p on every validation pair
+            expr_drift = valid_scored.select(F.max(F.abs(F.col("p") - F.expr(expr)))).first()[0] or 0.0
+            out["expression_parity"] = {"pairs": len(valid_pdf), "max_abs_diff_p": float(expr_drift)}
+            mlflow.log_metric("expression_max_abs_diff_p", float(expr_drift))
 
             problems = []
             if drift > 1e-9:
                 problems.append(f"the reloaded model differs from the run's scores by up to {drift:.3g}")
+            if expr_drift > 1e-9:
+                problems.append(f"the compiled scoring expression differs from the model by up to {expr_drift:.3g}")
             if model_mb > cfg.get("matcher.max_model_mb"):
                 problems.append(f"model {model_mb:.1f} MB > matcher.max_model_mb {cfg.get('matcher.max_model_mb')}")
             floor = cfg.get("mlflow.accept_min_f1")
@@ -237,6 +250,7 @@ def log_run(rt, cfg: Config, *, run_name: str, model, feature_cols: list[str], t
     if out["accepted"]:
         if cfg.get("mlflow.registry"):
             out["registered"] = register(cfg, out["model_uri"])
+            out["handoff"] = write_handoff(cfg, out, scoring)
         else:
             pointer = cfg.path(cfg.get("mlflow.pointer"))
             pointer.parent.mkdir(parents=True, exist_ok=True)
@@ -247,6 +261,21 @@ def log_run(rt, cfg: Config, *, run_name: str, model, feature_cols: list[str], t
                 indent=2) + "\n")
             out["pointer"] = str(pointer)
     return out
+
+
+def handoff_path(cfg: Config) -> Path:
+    return cfg.path(cfg.get("storage.root")) / "champion.json"
+
+
+def write_handoff(cfg: Config, out: dict, scoring: dict) -> str:
+    """What a pipeline flow needs from the version the alias now names, written next to the run's outputs: the
+    compiled scoring expression, threshold, cardinality and candidate plan, stamped with the registered version.
+    The flow cannot ask the registry itself (importing MLflow in a serverless pipeline crashes it), so the job task
+    that moved the alias writes this, and the cluster task checks the links carry the version @alias still names."""
+    path = handoff_path(cfg)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({**out["registered"], "run_id": out["run_id"], **scoring}, indent=2) + "\n")
+    return str(path)
 
 
 def register(cfg: Config, model_uri: str) -> dict:
