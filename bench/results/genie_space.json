@@ -1,0 +1,75 @@
+{
+  "profile": "fourth-pat",
+  "instructions_version": 1,
+  "comments_version": 1,
+  "questions": 10,
+  "eval_truth_rows": 2500,
+  "comments_applied": [
+    {
+      "table": "workspace.lakematch.lm_left_valid",
+      "columns": 11
+    },
+    {
+      "table": "workspace.lakematch.lm_right_valid",
+      "columns": 11
+    },
+    {
+      "table": "workspace.lakematch.lm_left_quarantine",
+      "columns": 2
+    },
+    {
+      "table": "workspace.lakematch.lm_right_quarantine",
+      "columns": 2
+    },
+    {
+      "table": "workspace.lakematch.lm_candidates",
+      "columns": 5
+    },
+    {
+      "table": "workspace.lakematch.lm_scores",
+      "columns": 4
+    },
+    {
+      "table": "workspace.lakematch.lm_links",
+      "columns": 4
+    },
+    {
+      "table": "workspace.lakematch.lm_crosswalk",
+      "columns": 2
+    },
+    {
+      "table": "workspace.lakematch.lm_eval_truth",
+      "columns": 2
+    },
+    {
+      "table": "workspace.lakematch.lm_labels",
+      "columns": 3
+    },
+    {
+      "table": "workspace.lakematch.lm_review_queue",
+      "columns": 6
+    },
+    {
+      "table": "workspace.lakematch.lm_review_labels",
+      "columns": 7
+    },
+    {
+      "table": "workspace.lakematch.lm_review_runs",
+      "columns": 8
+    }
+  ],
+  "action": "created",
+  "space_id": "01f1bf1afbed10f68a409c3dec4b8132",
+  "title": "lakematch \u2014 entity resolution results",
+  "space_check": {
+    "tables": 13,
+    "benchmarks": 10,
+    "examples": 3,
+    "column_descriptions": 67
+  },
+  "granted": [
+    "<user>"
+  ],
+  "warehouse": "stop requested",
+  "at": "2026-10-03T13:10:09+0200"
+}

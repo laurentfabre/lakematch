@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './../routes/__root'
 import { Route as IndexRouteImport } from './../routes/index'
 import { Route as SidebarRouteRouteImport } from './../routes/_sidebar/route'
+import { Route as SidebarGenieRouteImport } from './../routes/_sidebar/genie'
 import { Route as SidebarLabelsRouteImport } from './../routes/_sidebar/labels'
 import { Route as SidebarReviewRouteImport } from './../routes/_sidebar/review'
 import { Route as SidebarStatsRouteImport } from './../routes/_sidebar/stats'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const SidebarRouteRoute = SidebarRouteRouteImport.update({
   id: '/_sidebar',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SidebarGenieRoute = SidebarGenieRouteImport.update({
+  id: '/genie',
+  path: '/genie',
+  getParentRoute: () => SidebarRouteRoute,
 } as any)
 const SidebarLabelsRoute = SidebarLabelsRouteImport.update({
   id: '/labels',
@@ -42,12 +48,14 @@ const SidebarStatsRoute = SidebarStatsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/genie': typeof SidebarGenieRoute
   '/labels': typeof SidebarLabelsRoute
   '/review': typeof SidebarReviewRoute
   '/stats': typeof SidebarStatsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/genie': typeof SidebarGenieRoute
   '/labels': typeof SidebarLabelsRoute
   '/review': typeof SidebarReviewRoute
   '/stats': typeof SidebarStatsRoute
@@ -56,19 +64,21 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_sidebar': typeof SidebarRouteRouteWithChildren
+  '/_sidebar/genie': typeof SidebarGenieRoute
   '/_sidebar/labels': typeof SidebarLabelsRoute
   '/_sidebar/review': typeof SidebarReviewRoute
   '/_sidebar/stats': typeof SidebarStatsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/labels' | '/review' | '/stats'
+  fullPaths: '/' | '/genie' | '/labels' | '/review' | '/stats'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/labels' | '/review' | '/stats'
+  to: '/' | '/genie' | '/labels' | '/review' | '/stats'
   id:
     | '__root__'
     | '/'
     | '/_sidebar'
+    | '/_sidebar/genie'
     | '/_sidebar/labels'
     | '/_sidebar/review'
     | '/_sidebar/stats'
@@ -95,6 +105,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SidebarRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_sidebar/genie': {
+      id: '/_sidebar/genie'
+      path: '/genie'
+      fullPath: '/genie'
+      preLoaderRoute: typeof SidebarGenieRouteImport
+      parentRoute: typeof SidebarRouteRoute
+    }
     '/_sidebar/labels': {
       id: '/_sidebar/labels'
       path: '/labels'
@@ -120,12 +137,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface SidebarRouteRouteChildren {
+  SidebarGenieRoute: typeof SidebarGenieRoute
   SidebarLabelsRoute: typeof SidebarLabelsRoute
   SidebarReviewRoute: typeof SidebarReviewRoute
   SidebarStatsRoute: typeof SidebarStatsRoute
 }
 
 const SidebarRouteRouteChildren: SidebarRouteRouteChildren = {
+  SidebarGenieRoute: SidebarGenieRoute,
   SidebarLabelsRoute: SidebarLabelsRoute,
   SidebarReviewRoute: SidebarReviewRoute,
   SidebarStatsRoute: SidebarStatsRoute,

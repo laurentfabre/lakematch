@@ -1,0 +1,28 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q03_precision_by_completeness
+question: What is the precision of the links by the number of empty fields in the left record?
+expected:
+  tables:
+  - lm_links
+  - lm_eval_truth
+  - lm_left_valid
+  aggregates:
+  - COUNT
+  mentions:
+  - GROUP\s+BY
+  - IS\s+NULL|=\s*''|coalesce|nvl|isnull
+reference_sql: |
+  SELECT empty_fields, COUNT(*) AS links, SUM(is_true) AS true_links, ROUND(SUM(is_true) / COUNT(*), 3) AS precision
+  FROM (SELECT k.l_id,
+          (CASE WHEN t.l_id IS NULL THEN 0 ELSE 1 END) AS is_true,
+          (CASE WHEN coalesce(trim(a.given_name), '') = '' THEN 1 ELSE 0 END + CASE WHEN coalesce(trim(a.surname), '') = '' THEN 1 ELSE 0 END
+           + CASE WHEN coalesce(trim(a.street_number), '') = '' THEN 1 ELSE 0 END + CASE WHEN coalesce(trim(a.address_1), '') = '' THEN 1 ELSE 0 END
+           + CASE WHEN coalesce(trim(a.address_2), '') = '' THEN 1 ELSE 0 END + CASE WHEN coalesce(trim(a.suburb), '') = '' THEN 1 ELSE 0 END
+           + CASE WHEN coalesce(trim(a.postcode), '') = '' THEN 1 ELSE 0 END + CASE WHEN coalesce(trim(a.state), '') = '' THEN 1 ELSE 0 END
+           + CASE WHEN coalesce(trim(a.date_of_birth), '') = '' THEN 1 ELSE 0 END + CASE WHEN coalesce(trim(a.soc_sec_id), '') = '' THEN 1 ELSE 0 END) AS empty_fields
+        FROM workspace.lakematch.lm_links k
+        JOIN workspace.lakematch.lm_left_valid a ON a.rec_id = k.l_id
+        LEFT JOIN workspace.lakematch.lm_eval_truth t ON t.l_id = k.l_id AND t.r_id = k.r_id)
+  GROUP BY empty_fields ORDER BY empty_fields

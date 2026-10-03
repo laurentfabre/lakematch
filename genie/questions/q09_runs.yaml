@@ -1,0 +1,15 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q09_runs
+question: Show precision, recall and F1 for every model version in the run history.
+expected:
+  tables:
+  - lm_review_runs
+  aggregates: []
+  mentions:
+  - precision
+  - recall
+  - \bf1\b
+reference_sql: |
+  SELECT model_version, created_at, precision, recall, f1 FROM workspace.lakematch.lm_review_runs ORDER BY created_at

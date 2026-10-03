@@ -1,0 +1,23 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q01_surname_disagreement
+question: Which states have the most linked pairs whose two sources disagree on surname?
+expected:
+  tables:
+  - lm_links
+  - lm_left_valid
+  - lm_right_valid
+  aggregates:
+  - COUNT
+  mentions:
+  - \bstate\b
+  - surname
+  - GROUP\s+BY
+reference_sql: |
+  SELECT a.state, COUNT(*) AS links_disagreeing
+  FROM workspace.lakematch.lm_links k
+  JOIN workspace.lakematch.lm_left_valid a ON a.rec_id = k.l_id
+  JOIN workspace.lakematch.lm_right_valid b ON b.rec_id = k.r_id
+  WHERE a.surname IS NOT NULL AND b.surname IS NOT NULL AND lower(trim(a.surname)) <> lower(trim(b.surname))
+  GROUP BY a.state ORDER BY links_disagreeing DESC

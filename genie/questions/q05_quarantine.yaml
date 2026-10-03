@@ -1,0 +1,15 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q05_quarantine
+question: How many rows were quarantined in each source?
+expected:
+  tables:
+  - lm_left_quarantine
+  - lm_right_quarantine
+  aggregates:
+  - COUNT
+  mentions: []
+reference_sql: |
+  SELECT 'left' AS source, COUNT(*) AS rows FROM workspace.lakematch.lm_left_quarantine
+  UNION ALL SELECT 'right', COUNT(*) FROM workspace.lakematch.lm_right_quarantine

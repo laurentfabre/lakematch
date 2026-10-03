@@ -1,0 +1,19 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q08_queue_pending
+question: How many pairs in the review queue have no label yet, by queue reason?
+expected:
+  tables:
+  - lm_review_queue
+  - lm_review_labels
+  aggregates:
+  - COUNT
+  mentions:
+  - queue_reason
+  - GROUP\s+BY
+reference_sql: |
+  SELECT q.queue_reason, COUNT(*) AS pending
+  FROM workspace.lakematch.lm_review_queue q
+  LEFT ANTI JOIN workspace.lakematch.lm_review_labels l ON l.l_id = q.l_id AND l.r_id = q.r_id
+  GROUP BY q.queue_reason ORDER BY pending DESC

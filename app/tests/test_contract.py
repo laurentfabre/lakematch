@@ -16,7 +16,9 @@ ENGINE_STORE = Path(__file__).resolve().parents[2] / "src" / "lakematch" / "labe
 def test_label_columns_match_the_engine():
     tree = ast.parse(ENGINE_STORE.read_text())
     node = next(n for n in tree.body if isinstance(n, ast.AnnAssign) and getattr(n.target, "id", "") == "STORE_COLUMNS")
-    engine = [tuple(e.value for e in t.elts) for t in node.value.elts]
+    assert isinstance(node.value, ast.List)
+    engine = [tuple(e.value for e in t.elts if isinstance(e, ast.Constant)) for t in node.value.elts
+              if isinstance(t, ast.Tuple)]
     assert engine == LABEL_COLUMNS
 
 

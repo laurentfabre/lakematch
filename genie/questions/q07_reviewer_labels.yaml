@@ -1,0 +1,16 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q07_reviewer_labels
+question: How many labels has each reviewer given in the arbitration app, by decision?
+expected:
+  tables:
+  - lm_review_labels
+  aggregates:
+  - COUNT
+  mentions:
+  - reviewer
+  - decision
+  - GROUP\s+BY
+reference_sql: |
+  SELECT reviewer, decision, COUNT(*) AS labels FROM workspace.lakematch.lm_review_labels GROUP BY reviewer, decision ORDER BY reviewer, decision

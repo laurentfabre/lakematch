@@ -1,0 +1,14 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q04_links_overview
+question: How many links did the model make and what is their average match probability?
+expected:
+  tables:
+  - lm_links
+  aggregates:
+  - COUNT
+  - AVG
+  mentions: []
+reference_sql: |
+  SELECT COUNT(*) AS links, AVG(p) AS avg_p FROM workspace.lakematch.lm_links

@@ -8,6 +8,8 @@ app runs on the laptop against local files and as a Databricks App against Unity
                label store labels/ (a Delta directory) next to them
     warehouse  LAKEMATCH_APP_SCHEMA (workspace.lakematch): lm_review_queue, lm_review_runs and, for a Delta store,
                lm_review_labels, through the SQL warehouse DATABRICKS_SQL_WAREHOUSE_ID (the app's sql-warehouse resource)
+    genie      LAKEMATCH_APP_GENIE (paid_features.genie) and LAKEMATCH_APP_GENIE_SPACE_ID: the Genie panel, which asks
+               the space as the signed-in user (genie.py), never as the app's service principal
     lakebase   the table LAKEMATCH_APP_LAKEBASE_TABLE in the app's Lakebase database (PG* variables of its database
                resource; under `apx dev` the dev server's embedded Postgres)
 
@@ -39,6 +41,9 @@ class ReviewSettings(BaseSettings):
     lakebase_table: str = "lakematch.review_labels"
     lakebase_database: str = "databricks_postgres"
     local_user: str | None = None          # the reviewer's name on a laptop (no Databricks Apps header there)
+    # paid_features.genie (written by scripts/deploy.sh from the engine config): the Genie panel and /api/genie/*
+    genie: bool = False
+    genie_space_id: str | None = None      # the app's genie-space resource on Databricks
 
     def local_reviewer(self) -> str:
         return self.local_user or f"{getpass.getuser()}@{socket.gethostname().split('.')[0]}"

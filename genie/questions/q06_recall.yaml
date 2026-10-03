@@ -1,0 +1,16 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q06_recall
+question: What share of the true pairs in the evaluation sample did the model link?
+expected:
+  tables:
+  - lm_eval_truth
+  - lm_links
+  aggregates:
+  - COUNT
+  mentions: []
+reference_sql: |
+  SELECT ROUND(COUNT(k.l_id) / COUNT(*), 3) AS recall
+  FROM workspace.lakematch.lm_eval_truth t
+  LEFT JOIN workspace.lakematch.lm_links k ON k.l_id = t.l_id AND k.r_id = t.r_id

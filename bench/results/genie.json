@@ -1,0 +1,379 @@
+{
+  "space_id": "01f1bf1afbed10f68a409c3dec4b8132",
+  "asked_as": "<user>",
+  "auth_mode": "user (the profile's own user)",
+  "questions_asked": 10,
+  "questions_passed": 10,
+  "questions": [
+    {
+      "id": "q01_surname_disagreement",
+      "question": "Which states have the most linked pairs whose two sources disagree on surname?",
+      "expected": {
+        "tables": [
+          "lm_links",
+          "lm_left_valid",
+          "lm_right_valid"
+        ],
+        "aggregates": [
+          "COUNT"
+        ],
+        "mentions": [
+          "\\bstate\\b",
+          "surname",
+          "GROUP\\s+BY"
+        ]
+      },
+      "status": "COMPLETED",
+      "text": "The states with the most linked pairs whose two sources disagree on surname are **NSW** (241 pairs), **VIC** (199 pairs), and **QLD** (134 pairs), all where both records are from the same state. Other notable states include **WA** (62 pairs) and **SA** (60 pairs).\n\nMost disagreements occur within the same state, with NSW having the highest count.",
+      "sql": "SELECT a.state AS left_state, b.state AS right_state, COUNT(*) AS disagree_links\nFROM workspace.lakematch.lm_links k\nJOIN workspace.lakematch.lm_left_valid a ON a.rec_id = k.l_id\nJOIN workspace.lakematch.lm_right_valid b ON b.rec_id = k.r_id\nWHERE a.surname IS NOT NULL AND b.surname IS NOT NULL\n  AND a.state IS NOT NULL AND b.state IS NOT NULL\n  AND lower(trim(a.surname)) <> lower(trim(b.surname))\nGROUP BY a.state, b.state\nORDER BY disagree_links DESC",
+      "description": "You want to see which combinations of states from the left and right sources have the highest number of linked pairs where the surnames disagree between the two sources.",
+      "rows": 30,
+      "first_rows": [
+        [
+          "nsw",
+          "nsw",
+          "241"
+        ],
+        [
+          "vic",
+          "vic",
+          "199"
+        ],
+        [
+          "qld",
+          "qld",
+          "134"
+        ],
+        [
+          "wa",
+          "wa",
+          "62"
+        ],
+        [
+          "sa",
+          "sa",
+          "60"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b156d1722bf686c78f110bfdb",
+      "seconds": 33.6
+    },
+    {
+      "id": "q02_big_merges",
+      "question": "How many merges in the last run produced entities of more than 5 records?",
+      "expected": {
+        "tables": [
+          "lm_crosswalk"
+        ],
+        "aggregates": [
+          "COUNT"
+        ],
+        "mentions": [
+          "mdm_id",
+          ">\\s*5|>=\\s*6"
+        ]
+      },
+      "status": "COMPLETED",
+      "text": "In the last run, there were **0 merges** that produced entities with more than 5 records. This means no entity contained more than 5 records after merging.",
+      "sql": "SELECT COUNT(*) AS merges_over_5_records\nFROM (\n  SELECT mdm_id\n  FROM workspace.lakematch.lm_crosswalk\n  WHERE mdm_id IS NOT NULL\n  GROUP BY mdm_id\n  HAVING COUNT(record_key) > 5\n)",
+      "description": "You want to know how many resolved entities (merges) have more than 5 records in total.",
+      "rows": 1,
+      "first_rows": [
+        [
+          "0"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b29671fb58781d5db6db9cb95",
+      "seconds": 19.5
+    },
+    {
+      "id": "q03_precision_by_completeness",
+      "question": "What is the precision of the links by the number of empty fields in the left record?",
+      "expected": {
+        "tables": [
+          "lm_links",
+          "lm_eval_truth",
+          "lm_left_valid"
+        ],
+        "aggregates": [
+          "COUNT"
+        ],
+        "mentions": [
+          "GROUP\\s+BY",
+          "IS\\s+NULL|=\\s*''|coalesce|nvl|isnull"
+        ]
+      },
+      "status": "COMPLETED",
+      "text": "The precision of the links by the number of empty fields in the left record is as follows:\n- **0 empty fields**: precision is **0.994** (1,932 links)\n- **1 empty field**: precision is **0.984** (434 links)\n- **2 empty fields**: precision is **1.000** (32 links)\n- **3 empty fields**: precision is **1.000** (1 link)\n\nPrecision remains very high across all groups, with perfect precision observed for records with 2 or 3 empty fields.",
+      "sql": "WITH left_fields AS (\n  SELECT rec_id,\n    (CASE WHEN given_name IS NULL OR trim(given_name) = '' THEN 1 ELSE 0 END +\n     CASE WHEN surname IS NULL OR trim(surname) = '' THEN 1 ELSE 0 END +\n     CASE WHEN street_number IS NULL OR trim(street_number) = '' THEN 1 ELSE 0 END +\n     CASE WHEN address_1 IS NULL OR trim(address_1) = '' THEN 1 ELSE 0 END +\n     CASE WHEN address_2 IS NULL OR trim(address_2) = '' THEN 1 ELSE 0 END +\n     CASE WHEN suburb IS NULL OR trim(suburb) = '' THEN 1 ELSE 0 END +\n     CASE WHEN postcode IS NULL OR trim(postcode) = '' THEN 1 ELSE 0 END +\n     CASE WHEN state IS NULL OR trim(state) = '' THEN 1 ELSE 0 END +\n     CASE WHEN date_of_birth IS NULL OR trim(date_of_birth) = '' THEN 1 ELSE 0 END +\n     CASE WHEN soc_sec_id IS NULL OR trim(soc_sec_id) = '' THEN 1 ELSE 0 END\n    ) AS empty_fields\n  FROM workspace.lakematch.lm_left_valid\n)\n, links_with_empty AS (\n  SELECT l.l_id, l.r_id, lf.empty_fields\n  FROM workspace.lakematch.lm_links l\n  JOIN left_fields lf ON l.l_id = lf.rec_id\n)\n, true_links AS (\n  SELECT l.l_id, l.r_id, lf.empty_fields\n  FROM workspace.lakematch.lm_links l\n  JOIN left_fields lf ON l.l_id = lf.rec_id\n  JOIN workspace.lakematch.lm_eval_truth t ON l.l_id = t.l_id AND l.r_id = t.r_id\n)\nSELECT le.empty_fields,\n  ROUND(try_divide(COUNT(tl.l_id) * 1.0,COUNT(le.l_id)), 3) AS precision,\n  COUNT(le.l_id) AS total_links\nFROM links_with_empty le\nLEFT JOIN true_links tl ON le.l_id = tl.l_id AND le.r_id = tl.r_id\nGROUP BY le.empty_fields\nORDER BY le.empty_fields ASC",
+      "description": "You want to see the precision of the links grouped by how many empty fields the left record has.",
+      "rows": 4,
+      "first_rows": [
+        [
+          "0",
+          "0.994",
+          "1932"
+        ],
+        [
+          "1",
+          "0.984",
+          "434"
+        ],
+        [
+          "2",
+          "1.000",
+          "32"
+        ],
+        [
+          "3",
+          "1.000",
+          "1"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b35011eecb9b0eaeff96ce0da",
+      "seconds": 25.3
+    },
+    {
+      "id": "q04_links_overview",
+      "question": "How many links did the model make and what is their average match probability?",
+      "expected": {
+        "tables": [
+          "lm_links"
+        ],
+        "aggregates": [
+          "COUNT",
+          "AVG"
+        ],
+        "mentions": []
+      },
+      "status": "COMPLETED",
+      "text": "The model made **2,399 links** with an **average match probability of 0.982**. This average is calculated from all links where the match probability was present.",
+      "sql": "SELECT COUNT(*) AS total_links, AVG(p) AS avg_match_probability FROM workspace.lakematch.lm_links WHERE p IS NOT NULL",
+      "description": "You want to know the total number of links the model has made and the average match probability of those links.",
+      "rows": 1,
+      "first_rows": [
+        [
+          "2399",
+          "0.9816072954588833"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b4419139ea990b8b01b8bdcbf",
+      "seconds": 13.8
+    },
+    {
+      "id": "q05_quarantine",
+      "question": "How many rows were quarantined in each source?",
+      "expected": {
+        "tables": [
+          "lm_left_quarantine",
+          "lm_right_quarantine"
+        ],
+        "aggregates": [
+          "COUNT"
+        ],
+        "mentions": []
+      },
+      "status": "COMPLETED",
+      "text": "There were **4 rows quarantined** in the left source and **2 rows quarantined** in the right source. The left source had twice as many quarantined rows as the right source.",
+      "sql": "SELECT 'left' AS source, COUNT(*) AS quarantined_rows FROM workspace.lakematch.lm_left_quarantine\nUNION ALL\nSELECT 'right' AS source, COUNT(*) AS quarantined_rows FROM workspace.lakematch.lm_right_quarantine",
+      "description": "You want to know the number of rows that were quarantined in each data source, left and right.",
+      "rows": 2,
+      "first_rows": [
+        [
+          "left",
+          "4"
+        ],
+        [
+          "right",
+          "2"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b4c4c1dce8927d47fe2dcfd2d",
+      "seconds": 14.0
+    },
+    {
+      "id": "q06_recall",
+      "question": "What share of the true pairs in the evaluation sample did the model link?",
+      "expected": {
+        "tables": [
+          "lm_eval_truth",
+          "lm_links"
+        ],
+        "aggregates": [
+          "COUNT"
+        ],
+        "mentions": []
+      },
+      "status": "COMPLETED",
+      "text": "The model linked **95.2%** of the true pairs in the evaluation sample. This means that out of all true pairs, 95.2% were successfully identified by the model.",
+      "sql": "SELECT ROUND(try_divide(COUNT(linked.l_id) * 1.0,COUNT(truth.l_id)), 3) AS recall\nFROM workspace.lakematch.lm_eval_truth truth\nLEFT JOIN workspace.lakematch.lm_links linked\n  ON truth.l_id = linked.l_id AND truth.r_id = linked.r_id",
+      "description": "You want to know the proportion of true pairs from the evaluation sample that the model successfully linked, which is the recall metric.",
+      "rows": 1,
+      "first_rows": [
+        [
+          "0.952"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b54a11c308150190970ab2b48",
+      "seconds": 13.7
+    },
+    {
+      "id": "q07_reviewer_labels",
+      "question": "How many labels has each reviewer given in the arbitration app, by decision?",
+      "expected": {
+        "tables": [
+          "lm_review_labels"
+        ],
+        "aggregates": [
+          "COUNT"
+        ],
+        "mentions": [
+          "reviewer",
+          "decision",
+          "GROUP\\s+BY"
+        ]
+      },
+      "status": "COMPLETED",
+      "text": "There is one reviewer (ID starting with fbb39591) who has given **3 'retract'** decisions and **3 'unsure'** decisions in the arbitration app. This data covers only these two decision types for this reviewer.",
+      "sql": "SELECT `reviewer`, `decision`, COUNT(*) AS label_count\nFROM `workspace`.`lakematch`.`lm_review_labels`\nWHERE `reviewer` IS NOT NULL AND `decision` IS NOT NULL\nGROUP BY `reviewer`, `decision`\nORDER BY `reviewer`, `decision`",
+      "description": "You want to see how many labels each reviewer has given in the arbitration app, broken down by the type of decision they made.",
+      "rows": 2,
+      "first_rows": [
+        [
+          "fbb39591-ae9c-4982-8cb3-bae33f6148fa",
+          "retract",
+          "3"
+        ],
+        [
+          "fbb39591-ae9c-4982-8cb3-bae33f6148fa",
+          "unsure",
+          "3"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b5ccb1992a331d45a59b7e651",
+      "seconds": 14.2
+    },
+    {
+      "id": "q08_queue_pending",
+      "question": "How many pairs in the review queue have no label yet, by queue reason?",
+      "expected": {
+        "tables": [
+          "lm_review_queue",
+          "lm_review_labels"
+        ],
+        "aggregates": [
+          "COUNT"
+        ],
+        "mentions": [
+          "queue_reason",
+          "GROUP\\s+BY"
+        ]
+      },
+      "status": "COMPLETED",
+      "text": "There are **1,997 pairs** in the review queue with **no label yet** and the queue reason is **\"other\"**. This is the only queue reason represented in the data.",
+      "sql": "SELECT q.queue_reason, COUNT(*) AS pairs_no_label\nFROM workspace.lakematch.lm_review_queue q\nLEFT JOIN (\n  SELECT l_id, r_id, MAX(labelled_at) AS latest_labelled_at\n  FROM workspace.lakematch.lm_review_labels\n  GROUP BY l_id, r_id\n) r ON q.l_id = r.l_id AND q.r_id = r.r_id\nWHERE r.latest_labelled_at IS NULL\nGROUP BY q.queue_reason",
+      "description": "You want to see the number of pairs in the review queue that do not have any label yet, grouped by the reason they are in the queue.",
+      "rows": 1,
+      "first_rows": [
+        [
+          "other",
+          "1997"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b65481edb98120eaeb21531f3",
+      "seconds": 18.0
+    },
+    {
+      "id": "q09_runs",
+      "question": "Show precision, recall and F1 for every model version in the run history.",
+      "expected": {
+        "tables": [
+          "lm_review_runs"
+        ],
+        "aggregates": [],
+        "mentions": [
+          "precision",
+          "recall",
+          "\\bf1\\b"
+        ]
+      },
+      "status": "COMPLETED",
+      "text": "For model version **workspace.lakematch.lakematch_febrl4 v3**, the precision is **0.9925**, recall is **0.9524**, and F1 score is **0.972**. This is the only model version in the run history with all three metrics available.",
+      "sql": "SELECT model_version, precision, recall, f1 FROM workspace.lakematch.lm_review_runs WHERE precision IS NOT NULL AND recall IS NOT NULL AND f1 IS NOT NULL ORDER BY created_at",
+      "description": "You want to see the precision, recall, and F1 score for each model version in the history of evaluation runs.",
+      "rows": 1,
+      "first_rows": [
+        [
+          "workspace.lakematch.lakematch_febrl4 v3",
+          "0.9925",
+          "0.9524",
+          "0.972"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b700a1c85af2e1f64834bf8b6",
+      "seconds": 15.0
+    },
+    {
+      "id": "q10_probability_bands",
+      "question": "How are the candidate pairs distributed across match-probability bands of 0.1?",
+      "expected": {
+        "tables": [
+          "lm_scores"
+        ],
+        "aggregates": [
+          "COUNT"
+        ],
+        "mentions": [
+          "FLOOR|ROUND|CASE|width_bucket|CAST|\\bdiv\\b|bin",
+          "GROUP\\s+BY"
+        ]
+      },
+      "status": "COMPLETED",
+      "text": "Candidate pairs are distributed across match-probability bands as follows: the **0.0 band** contains **22,553 pairs**, while the **0.9 band** contains **2,447 pairs**. Only these two bands are represented in the sample data. The majority of candidate pairs fall into the lowest probability band, with a much smaller number in the highest band.",
+      "sql": "SELECT try_divide(FLOOR(`p`*10),10) AS p_band, COUNT(*) AS candidate_count\nFROM `workspace`.`lakematch`.`lm_scores`\nWHERE `p` IS NOT NULL\nGROUP BY try_divide(FLOOR(`p`*10),10)\nORDER BY p_band ASC",
+      "description": "You want to see how candidate pairs are distributed across different match probability ranges, grouped in bands of 0.1 from 0 to 1.",
+      "rows": 2,
+      "first_rows": [
+        [
+          "0.0",
+          "22553"
+        ],
+        [
+          "0.9",
+          "2447"
+        ]
+      ],
+      "passed": true,
+      "reasons": [],
+      "conversation_id": "01f1bf1b78fd1ef6aa16af3f9059f46e",
+      "seconds": 19.1
+    }
+  ],
+  "asked_at": "2026-10-03T13:13:52+0200",
+  "panel_hidden_when_off": true,
+  "panel_tests": {
+    "command": "cd app && uv run pytest tests/test_genie.py",
+    "returncode": 0,
+    "tail": [
+      "....                                                                     [100%]"
+    ]
+  }
+}

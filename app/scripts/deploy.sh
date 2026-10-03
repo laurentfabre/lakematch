@@ -15,13 +15,25 @@ wh="79dfcc5bc7019dd3"
 
 on="$("$here/../.venv/bin/python" -c 'import sys; from lakematch.config import load; print(load(sys.argv[1]).get("paid_features.app"))' "$cfg")"
 [[ "$on" == True ]] || { echo "paid_features.app is off in $cfg: not deploying (Databricks Apps compute is billed)"; exit 3; }
+genie="$("$here/../.venv/bin/python" -c 'import sys; from lakematch.config import load; print(str(load(sys.argv[1]).get("paid_features.genie")).lower())' "$cfg")"
+space="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["space_id"])' "$here/../bench/results/genie_space.json")"
+echo "paid_features.genie: $genie · Genie space $space"
 
 cd "$here"
 apx build < /dev/null
+# the panel switch travels in the built app.yml (the app never reads the engine config)
+python3 - "$genie" <<'PY'
+import re, sys
+p = ".build/app.yml"
+s = open(p).read()
+s, n = re.subn(r'(- name: LAKEMATCH_APP_GENIE\n\s+value: )"(true|false)"', rf'\1"{sys.argv[1]}"', s)
+assert n == 1, "LAKEMATCH_APP_GENIE not found in .build/app.yml"
+open(p, "w").write(s)
+PY
 mb="$(du -sk .build | awk '{printf "%.2f", $1/1024}')"
 echo "bundle .build: ${mb} MB (limit 10 MB)"
-databricks bundle deploy -t dev --profile "$profile"
-databricks bundle run lakematch -t dev --profile "$profile"
+databricks bundle deploy -t dev --profile "$profile" --var "genie_space_id=$space"
+databricks bundle run lakematch -t dev --profile "$profile" --var "genie_space_id=$space"
 
 sp="$(databricks apps get lakematch --profile "$profile" -o json | python3 -c 'import json,sys; print(json.load(sys.stdin)["service_principal_client_id"])')"
 was="$(databricks warehouses get "$wh" --profile "$profile" -o json | python3 -c 'import json,sys; print(json.load(sys.stdin)["state"])')"

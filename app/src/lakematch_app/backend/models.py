@@ -146,3 +146,26 @@ class StatsOut(BaseModel):
     model_versions: list[ModelVersionOut]
     queue: QueueDepthOut
     quarantine: QuarantineOut
+
+
+class GenieConfigOut(BaseModel):
+    enabled: bool
+    space_id: str | None = None
+    auth: str
+
+
+class GenieAskIn(BaseModel):
+    question: str = Field(min_length=1, max_length=1000)
+    conversation_id: str | None = None
+
+
+class GenieAnswerOut(BaseModel):
+    asked_as: str
+    auth: str
+    conversation_id: str | None = None
+    status: str | None = None
+    sql: str | None = None
+    text: str | None = None
+    columns: list[str]
+    rows: list[list[str | None]]
+    error: str | None = None

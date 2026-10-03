@@ -10,3 +10,7 @@ env:
     value: workspace.lakematch
   - name: DATABRICKS_SQL_WAREHOUSE_ID
     valueFrom: sql-warehouse
+  - name: LAKEMATCH_APP_GENIE
+    value: "false"                     # scripts/deploy.sh sets it from paid_features.genie of the engine config
+  - name: LAKEMATCH_APP_GENIE_SPACE_ID
+    valueFrom: genie-space

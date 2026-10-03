@@ -2,9 +2,10 @@ from typing import Annotated
 
 from fastapi import HTTPException, Query
 
-from . import review, stores
+from . import genie, review, stores
 from .core import Dependencies, create_router
-from .models import LabelIn, LabelOut, LabelsOut, NextOut, RetractIn, SessionOut, StatsOut, VersionOut
+from .models import (GenieAnswerOut, GenieAskIn, GenieConfigOut, LabelIn, LabelOut, LabelsOut, NextOut, RetractIn,
+                     SessionOut, StatsOut, VersionOut)
 from .settings import settings
 
 router = create_router()
@@ -78,3 +79,24 @@ def list_labels(limit: Annotated[int, Query(ge=1, le=1000)] = 100):
 def get_stats():
     source, store = _stores()
     return review.stats(source, store)
+
+
+@router.get("/genie/config", response_model=GenieConfigOut, operation_id="genieConfig")
+def genie_config():
+    """Whether the Genie panel exists (paid_features.genie) — the UI shows it only when enabled."""
+    cfg = settings()
+    on = bool(cfg.genie and cfg.genie_space_id)
+    return GenieConfigOut(enabled=on, space_id=cfg.genie_space_id if on else None,
+                          auth="on_behalf_of_user" if genie.on_databricks() else "local_profile")
+
+
+@router.post("/genie/ask", response_model=GenieAnswerOut, operation_id="genieAsk")
+def genie_ask(body: GenieAskIn, headers: Dependencies.Headers):
+    cfg = settings()
+    if not (cfg.genie and cfg.genie_space_id):
+        raise HTTPException(status_code=404, detail="Genie is off (paid_features.genie)")
+    token = headers.token.get_secret_value() if headers.token else None
+    try:
+        return genie.ask(cfg.genie_space_id, body.question, token, body.conversation_id)
+    except genie.NoUserToken as e:
+        raise HTTPException(status_code=401, detail=str(e)) from e

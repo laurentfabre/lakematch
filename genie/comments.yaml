@@ -1,0 +1,100 @@
+# Table and column comments, applied to Unity Catalog (COMMENT ON TABLE / COMMENT ON COLUMN, which also works on the
+# pipeline's materialized views) and copied into the Genie space as column descriptions. Version with instructions.md.
+version: 1
+schema: workspace.lakematch
+tables:
+  lm_left_valid:
+    comment: Left-source person records that passed the quality gate (FEBRL4 synthetic data).
+    columns: &person
+      rec_id: Record id within its source (rec-<n>-org on the left, rec-<n>-dup-<k> on the right).
+      given_name: First name as recorded by the source; may carry typos.
+      surname: Family name as recorded by the source; may carry typos.
+      street_number: Street number of the address.
+      address_1: First address line (street).
+      address_2: Second address line (building, complex); often empty.
+      suburb: Suburb (locality) of the address.
+      postcode: Australian postcode, four digits.
+      state: Australian state code (nsw, vic, qld, sa, wa, tas, act, nt).
+      date_of_birth: Date of birth as YYYYMMDD text.
+      soc_sec_id: Social security number (synthetic); the strongest identifier.
+  lm_right_valid:
+    comment: Right-source person records that passed the quality gate; duplicates of left records with errors.
+    columns: *person
+  lm_left_quarantine:
+    comment: Left-source rows rejected by the quality gate, with the failed checks.
+    columns:
+      rec_id: "Record id (may be NULL or duplicated: that is why the row was rejected)."
+      _errors: The error-level checks the row failed.
+  lm_right_quarantine:
+    comment: Right-source rows rejected by the quality gate, with the failed checks.
+    columns:
+      rec_id: "Record id (may be NULL or duplicated: that is why the row was rejected)."
+      _errors: The error-level checks the row failed.
+  lm_candidates:
+    comment: Candidate pairs proposed for comparison, at most k right records per left record.
+    columns:
+      l_id: Left record id (lm_left_valid.rec_id).
+      r_id: Right record id (lm_right_valid.rec_id).
+      cand_score: Candidate ranking score (IDF-weighted q-gram similarity), higher = more alike.
+      cand_rank: Rank of this right record among the left record's candidates, 1 = best.
+      cand_gap: Best candidate score of the left record minus this pair's score.
+  lm_scores:
+    comment: Match probability of every candidate pair, from the registered model version.
+    columns:
+      l_id: Left record id.
+      r_id: Right record id.
+      p: Match probability between 0 and 1.
+      model_version: Registered model version that scored the pair.
+  lm_links:
+    comment: Links, the candidate pairs decided to be the same person (p at or above the threshold, one-to-one).
+    columns:
+      l_id: Left record id of the link.
+      r_id: Right record id of the link.
+      p: Match probability of the link.
+      model_version: Registered model version that produced the link.
+  lm_crosswalk:
+    comment: Resolved entities. Records sharing an mdm_id are one person; the entity size is its record count.
+    columns:
+      record_key: "left:<rec_id> or right:<rec_id>."
+      mdm_id: Stable entity id; kept across runs.
+  lm_eval_truth:
+    comment: Evaluation sample, the known true pairs between the two sources (FEBRL4 ground truth).
+    columns:
+      l_id: Left record id of a true pair.
+      r_id: Right record id of a true pair.
+  lm_labels:
+    comment: Labels the current model was trained and validated on.
+    columns:
+      l_id: Left record id.
+      r_id: Right record id.
+      label: 1 = same person, 0 = different persons.
+  lm_review_queue:
+    comment: Pairs waiting for a human reviewer in the arbitration app, most uncertain first.
+    columns:
+      rank: Queue position, 1 = first to review.
+      queue_reason: "Why the pair is queued: llm_unsure, near_threshold, high_impact or other."
+      p: Match probability of the pair.
+      linked: True when the pair is currently a link.
+      impact: Number of records the merge decision affects.
+      llm_label: The LLM's opinion (same, different, unsure), when asked.
+  lm_review_labels:
+    comment: Every reviewer decision from the arbitration app, append-only; a pair's label is its latest row.
+    columns:
+      decision: match, no_match, unsure, or retract (withdraws the previous decision).
+      is_match: 1 for match, 0 for no_match, NULL otherwise.
+      reviewer: The signed-in user who decided.
+      labelled_at: When the decision was recorded (UTC).
+      model_version: Model version whose score the reviewer saw.
+      reason: Why the reviewer decided so.
+      queue_reason: Why the pair was in the queue.
+  lm_review_runs:
+    comment: One row per run, with its evaluation metrics and counts.
+    columns:
+      model_version: Registered model version of the run.
+      created_at: When the run finished (UTC, ISO text).
+      threshold: Decision threshold on p.
+      precision: Link precision on the evaluation sample.
+      recall: Link recall on the evaluation sample.
+      f1: Harmonic mean of precision and recall.
+      quarantined_left: Rows quarantined on the left source.
+      quarantined_right: Rows quarantined on the right source.

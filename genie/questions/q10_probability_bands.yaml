@@ -1,0 +1,15 @@
+# Reference question (evaluation set: sent to the space as a benchmark, never as an example).
+# expected: every table must appear in the generated SQL, every aggregate function must be called,
+# every `mentions` regex must match (case-insensitive).
+id: q10_probability_bands
+question: How are the candidate pairs distributed across match-probability bands of 0.1?
+expected:
+  tables:
+  - lm_scores
+  aggregates:
+  - COUNT
+  mentions:
+  - FLOOR|ROUND|CASE|width_bucket|CAST|\bdiv\b|bin
+  - GROUP\s+BY
+reference_sql: |
+  SELECT FLOOR(p * 10) / 10 AS band, COUNT(*) AS pairs FROM workspace.lakematch.lm_scores GROUP BY 1 ORDER BY 1

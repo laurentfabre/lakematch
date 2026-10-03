@@ -1,0 +1,18 @@
+# Worked examples given to Genie as example SQL. Deliberately NOT the reference questions in questions/ (those are
+# the evaluation set, sent to the space only as benchmarks).
+version: 1
+examples:
+  - question: How many candidate pairs does each left record have on average?
+    sql: |
+      SELECT AVG(n) AS avg_candidates FROM (SELECT l_id, COUNT(*) AS n FROM workspace.lakematch.lm_candidates GROUP BY l_id)
+  - question: Which links have the lowest match probability?
+    sql: |
+      SELECT l.l_id, l.r_id, l.p FROM workspace.lakematch.lm_links l ORDER BY l.p ASC LIMIT 20
+  - question: How many links disagree on date of birth?
+    sql: |
+      SELECT COUNT(*) AS links_disagreeing
+      FROM workspace.lakematch.lm_links k
+      JOIN workspace.lakematch.lm_left_valid a ON a.rec_id = k.l_id
+      JOIN workspace.lakematch.lm_right_valid b ON b.rec_id = k.r_id
+      WHERE a.date_of_birth IS NOT NULL AND b.date_of_birth IS NOT NULL
+        AND lower(trim(a.date_of_birth)) <> lower(trim(b.date_of_birth))

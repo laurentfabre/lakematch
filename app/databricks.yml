@@ -20,6 +20,8 @@ variables:
   warehouse_id:
     description: the SQL warehouse the app reads and writes through (fourth-pat's only warehouse on Free Edition)
     default: 79dfcc5bc7019dd3
+  genie_space_id:
+    description: the lakematch Genie agent (genie/space.py; bench/results/genie_space.json), set by scripts/deploy.sh
 
 resources:
   apps:
@@ -27,12 +29,20 @@ resources:
       name: lakematch
       description: "lakematch arbitration: review queue, keyboard-first labels with provenance, run statistics"
       source_code_path: ./.build
+      # user authorization: the app calls Genie (and its SQL) with the signed-in user's token, never its own
+      user_api_scopes: [dashboards.genie, sql]
       resources:
         - name: sql-warehouse
           description: queue, run history and Delta label store in workspace.lakematch
           sql_warehouse:
             id: ${var.warehouse_id}
             permission: CAN_USE
+        - name: genie-space
+          description: the lakematch Genie agent the Genie panel asks (only when paid_features.genie is on)
+          genie_space:
+            name: lakematch
+            space_id: ${var.genie_space_id}
+            permission: CAN_RUN
 
 targets:
   dev:
