@@ -12,9 +12,8 @@ sync:
   include:
     - .build
 
-artifacts:
-  default:
-    build: apx build
+# no `artifacts` build here: scripts/deploy.sh runs `apx build` and then sets the paid switches in .build/app.yml;
+# a bundle-side build would regenerate .build/ and silently drop them.
 
 variables:
   warehouse_id:

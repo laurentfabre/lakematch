@@ -375,5 +375,40 @@
     "tail": [
       "....                                                                     [100%]"
     ]
+  },
+  "app_obo": {
+    "app_scopes": [
+      "dashboards.genie",
+      "iam.access-control:read",
+      "iam.current-user:read",
+      "sql"
+    ],
+    "config": {
+      "enabled": true,
+      "space_id": "01f1bf1afbed10f68a409c3dec4b8132",
+      "auth": "on_behalf_of_user"
+    },
+    "answer": {
+      "asked_as": "<user>",
+      "status": "COMPLETED",
+      "sql": "SELECT COUNT(*) AS num_links, AVG(p) AS avg_match_probability FROM workspace.lakematch.lm_links WHERE p IS NOT NULL",
+      "text": "The model created a total of **2,399 links**, with an average match probability of **0.982** across these links. This indicates a high level of confidence in the matches made by the model.",
+      "columns": [
+        "num_links",
+        "avg_match_probability"
+      ],
+      "rows": [
+        [
+          "2399",
+          "0.9816072954588833"
+        ]
+      ],
+      "error": null,
+      "conversation_id": "01f1bf655c891d3d85d6ee2d9fba7458"
+    },
+    "seconds": 20.6,
+    "ok": true,
+    "auth": "on_behalf_of_user",
+    "at": "2026-10-03T22:02:49+0200"
   }
 }
