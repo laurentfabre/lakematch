@@ -64,6 +64,12 @@ resources:
           spark_python_task:
             python_file: ./tasks/lakematch_task.py
             parameters: [explain, --config, "${workspace.file_path}/examples/${var.config_file}", --src, "${workspace.file_path}/src"]
+        - task_key: review
+          depends_on: [{task_key: cluster}]
+          environment_key: lm
+          spark_python_task:
+            python_file: ./tasks/lakematch_task.py
+            parameters: [review, --config, "${workspace.file_path}/examples/${var.config_file}", --src, "${workspace.file_path}/src"]
       environments:
         - environment_key: lm
           spec:

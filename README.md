@@ -10,7 +10,7 @@ classic compute. Apache-2.0. Public repository; no PyPI release.*
 ## Contents
 
 - [What / why](#what--why) · [State](#state) · [Quick start](#quick-start) · [How it works](#how-it-works)
-- [Configuration](#configuration) · [Tests](#tests) · [What is here](#what-is-here) · [License](#license)
+- [The arbitration app](#the-arbitration-app) · [Configuration](#configuration) · [Tests](#tests) · [What is here](#what-is-here) · [License](#license)
 
 ---
 
@@ -33,7 +33,8 @@ Genie agent. The full specification, the nine bounded phases ZR-1..9 and the led
 | ZR-4 | clusters (verified merge) and stable identity: mdm_id, crosswalk, merge/split log | built 2026-10-01 — `goals/verify_zr.sh 4`, [`bench/CLUSTERS.md`](bench/CLUSTERS.md) |
 | ZR-5 | MLflow: one composite model per run, datasets, evaluation; run id locally, Unity Catalog `@champion` on Databricks | built 2026-10-02 — `goals/verify_zr.sh 5`, [`bench/results/mlflow.json`](bench/results/mlflow.json) |
 | ZR-6 | Databricks serverless: one bundle, one SDP pipeline, job tasks, DQX gate, every paid switch, Photon report | built 2026-10-02 — `goals/verify_zr.sh 6`, [`bench/results/serverless.json`](bench/results/serverless.json), [`bench/PHOTON.md`](bench/PHOTON.md) |
-| ZR-7 … ZR-9 | app, Genie, classic | not started |
+| ZR-7 | arbitration app (APX): review queue, keyboard-first labels with provenance, statistics; labels train the next run | built 2026-10-03 — `goals/verify_zr.sh 7`, [`app/`](app/README.md), [`bench/results/app_e2e.json`](bench/results/app_e2e.json) |
+| ZR-8, ZR-9 | Genie, classic | not started |
 
 On FEBRL4 with half the partners removed (5 000 left, 2 500 right, 2 500 true links), the default config gives
 F1 0.9996 (held-out left records 0.9996) against 0.667 for "always link the nearest neighbour", with candidate
@@ -98,6 +99,7 @@ flowchart LR
   train --> p2["pipeline refresh<br/>scores · links"]
   p2 --> cluster["cluster (job task)<br/>identity · evaluation"]
   cluster --> explain["explain (job task)<br/>physical plans"]
+  cluster --> review["review (job task)<br/>the app's queue · run history"]
 ```
 
 - **The pipeline** ([`pipelines/flows.py`](src/lakematch/pipelines/flows.py)) uses the open-source pipelines API only
@@ -167,6 +169,24 @@ and reference tests. [SIM-3](bench/SIMBEAT.md) compares all seven additions and 
 against Levenshtein and Jaro–Winkler on four corpora, with a locked TEST confirmation. The recorded verdict is `not_beaten`; defaults remain unchanged.
 [Input isolation](spec/SIMBEAT_PROTOCOL.md) describes the separately provisioned v2 protocol for future runs.
 
+## The arbitration app
+
+[`app/`](app/README.md) is a separate sub-project built with APX (FastAPI + React; Databricks License, so the engine never
+imports it). Every run writes a review queue — uncertain pairs first (the LLM's "cannot tell", probability nearest the
+threshold, then the candidate ranking's disagreement with the decision), then high-impact merges — and a line of run
+history. A reviewer labels from the keyboard; each label records who, when, the model version and its probability,
+and why. With `labels.source: app` the next run trains on those decisions, over the labels of `labels.app_base`.
+It runs on the laptop under `apx dev` against local files (Delta label store) and as the Databricks App `lakematch`
+on `fourth-pat` through a SQL-warehouse resource (Delta table; Lakebase behind `paid_features.lakebase_label_store`).
+
+On FEBRL4, 20 decisions on the head of the queue (answered from the truth file by `bench/app_e2e.py`) take the next
+run from F1 0.972 to 0.999 (recall 0.952 → 0.997): the queue surfaces exactly the true pairs the model rejected.
+
+```bash
+lakematch run --config examples/febrl4_review.yaml && (cd app && cp .env.example .env && apx dev start)
+python bench/app_e2e.py            # run, 20+ labels over HTTP, restart, next run, bundle size -> bench/results/app_e2e.json
+```
+
 ## Configuration
 
 One YAML; [`examples/febrl4.yaml`](examples/febrl4.yaml) shows every choice. Every method of the brief is a legal
@@ -187,7 +207,7 @@ value today; a choice whose phase has not landed fails with a message naming tha
 | `decision.cardinality` | one_to_one · many_to_one · unrestricted | all three |
 | `cluster.method` | verified_merge · connected_components · center · star | ZR-4 |
 | `quality.engine` | native · dqx · expectations | all three (DQX: Databricks only; expectations: inside a Lakeflow pipeline) |
-| `labels.source` | file · truth_sample · app | file · truth_sample |
+| `labels.source` | file · truth_sample · app | all three (app: over `labels.app_base`) |
 | `runtime.mode` | local (± `connect`) · serverless · classic | local, local + connect, serverless (job tasks, pipeline, Databricks Connect) — classic in ZR-9 |
 
 </details>
@@ -217,7 +237,7 @@ macOS sandbox profile the judge uses to prove a run needs no network.
 ```text
 lakematch/
 ├── LICENSE                  Apache-2.0
-├── pyproject.toml           mandatory deps: pyspark, mlflow, pyyaml; extras: connect, embeddings, udf, dqx, jev, bench, reference, dev
+├── pyproject.toml           mandatory deps: pyspark, mlflow, pyyaml; extras: connect, embeddings, udf, dqx, jev, review, bench, reference, dev
 ├── src/lakematch/
 │   ├── config.py            defaults, profiles, method registry, validation, paid-features guard
 │   ├── runtime.py           session factory, is_remote, capability probe, materialize
@@ -230,13 +250,15 @@ lakematch/
 │   ├── model_code.py        the composite pyfunc (models-from-code; imports pyspark and mlflow only)
 │   ├── pipeline.py          lakematch run
 │   ├── pipelines/flows.py   the Databricks pipeline (open-source SDP API): gate → entity → candidates → features → scores → links
-│   ├── jobs.py              the job tasks around it: plan · train · cluster · quality · explain
+│   ├── jobs.py              the job tasks around it: plan · train · cluster · quality · explain · review
+│   ├── review.py            the arbitration app's queue and run history (labels/store.py: the label store the next run reads)
 │   ├── scoring_sql.py       a fitted GBT / random forest / logistic regression as one Spark SQL expression
 │   └── cli.py               run · doctor · task · train · bench
-├── examples/                febrl4.yaml (laptop) · febrl4_uc.yaml (UC registry) · febrl4_databricks[_free].yaml (serverless)
+├── app/                     the arbitration app (APX, Databricks License): FastAPI backend, React UI, its own bundle
+├── examples/                febrl4.yaml (laptop) · febrl4_review.yaml (app labels) · febrl4_uc.yaml (UC registry) · febrl4_databricks[_free].yaml (serverless)
 ├── databricks.yml · bundle/ the bundle: resources.yml, tasks/lakematch_task.py
 ├── bench/                   corpora.py (11 loaders) · synthetic.py · ablation.py → ABLATION.md · methods.py → METHODS.md ·
-│                            benchmarks.py → BENCHMARKS.md · splink_reference.py · references.py · results/
+│                            benchmarks.py → BENCHMARKS.md · splink_reference.py · references.py · app_e2e.py · app_deploy.py · results/
 ├── scripts/                 env.sh · test.sh · offline.sb
 ├── tests/                   run twice: classic session and Spark Connect
 ├── spec/                    BRIEF.md, decisions board, research, porting study, the 2026-09-19 measurement harness

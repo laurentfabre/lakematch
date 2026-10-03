@@ -40,7 +40,8 @@ METHODS: dict[str, dict[str, str | None]] = {
     "cluster.method": {"verified_merge": None, "connected_components": None, "center": None, "star": None},
     "quality.engine": {"native": None, "dqx": None, "expectations": None},
     "labels.llm": {"none": None, "jev": None, "ai_query": None},
-    "labels.source": {"file": None, "truth_sample": None, "app": "ZR-7"},
+    "labels.source": {"file": None, "truth_sample": None, "app": None},
+    "review.llm": {"none": None, "jev": None},
 }
 
 FIELD_TYPES = ("person_name", "address", "organisation", "title", "code", "date", "number")
@@ -110,7 +111,18 @@ DEFAULTS: dict[str, Any] = {
                "llm_cache": None,    # default <storage.root>/jev_cache.jsonl
                "llm_max_usd": 1.0,   # refuse, before sending, when Jev's predicted cost exceeds this (USD)
                # labels.llm ai_query: the Databricks serving endpoint asked (Model Serving, paid llm_labeller)
-               "llm_endpoint": "databricks-meta-llama-3-3-70b-instruct"},
+               "llm_endpoint": "databricks-meta-llama-3-3-70b-instruct",
+               # labels.source app (ZR-7): the arbitration app's label store (labels/store.py). app_base: the source
+               # whose labels lie beneath the app's (none | truth_sample | file); on a pair both name, the app wins.
+               # store: {path} (a Delta directory) or {table}; unset = <storage.catalog>.lm_review_labels on
+               # Databricks, <storage.root>/review/labels on the laptop. With paid_features.lakebase_label_store the
+               # table is the Lakebase table registered in Unity Catalog (a database catalog).
+               "app_base": "none", "store": {"path": None, "table": None}},
+    # review (ZR-7): every run writes the arbitration app's queue and one line of run history (review.py).
+    # band: |p - threshold| that counts as uncertain; impact_min: a linked pair whose merge yields an entity of at
+    # least this many records is a high-impact merge; llm: an LLM's opinion on the llm_pairs most uncertain pairs
+    # (a paid feature, paid_features.llm_labeller; Jev allowed on the laptop like labels.llm)
+    "review": {"enabled": True, "max_pairs": 2000, "band": 0.25, "impact_min": 3, "llm": "none", "llm_pairs": 100},
     "evaluation": {"truth": None},
     # mlflow (ZR-5, tracking.py): relative sqlite URIs and the pointer resolve against the config's directory.
     # model_name null = lakematch_<entity.name>; with a UC registry it is registered as <storage.catalog>.<name>.
@@ -196,7 +208,7 @@ class Config:
         problems = []
         for key in ("runtime.mode", "candidates.method", "features.string_similarity", "matcher.estimator",
                     "decision.cardinality", "cluster.method", "quality.engine", "labels.llm", "labels.source",
-                    "features.embeddings.provider"):
+                    "features.embeddings.provider", "review.llm"):
             try:
                 self.require(key)
             except MethodNotReady as e:
@@ -286,9 +298,9 @@ def validate(data: dict) -> None:
         raise ConfigError("paid_features.genie_auth_mode must be user or service_principal")
     if data["profile"] == "laptop":
         # Laurent, 2026-09-29: Jev may run on the laptop, provided its cost is predicted first (labels/jev.py) —
-        # the one paid switch the laptop accepts, and only for labels.llm: jev (ai_query is Model Serving).
+        # the one paid switch the laptop accepts, and only for Jev (labels.llm or review.llm; ai_query is Model Serving).
         on = [k for k in PAID_FEATURES if paid.get(k)
-              and not (k == "llm_labeller" and data["labels"]["llm"] == "jev")]
+              and not (k == "llm_labeller" and "jev" in (data["labels"]["llm"], data["review"]["llm"]))]
         if on:
             raise ConfigError(f"profile laptop turns every paid feature off; enabled here: {', '.join(on)}")
         if data["runtime"]["mode"] != "local":
@@ -330,6 +342,32 @@ def validate(data: dict) -> None:
         raise ConfigError("labels.source: file needs labels.path")
     if data["labels"]["source"] == "truth_sample" and data["inputs"] and not data["evaluation"]["truth"]:
         raise ConfigError("labels.source: truth_sample needs evaluation.truth")
+    lab = data["labels"]
+    if lab["app_base"] not in ("none", "truth_sample", "file"):
+        raise ConfigError("labels.app_base must be none, truth_sample or file (the labels beneath the app's)")
+    if lab["source"] == "app" and lab["app_base"] == "file" and not lab["path"]:
+        raise ConfigError("labels.app_base: file needs labels.path")
+    if lab["source"] == "app" and lab["app_base"] == "truth_sample" and data["inputs"] and not data["evaluation"]["truth"]:
+        raise ConfigError("labels.app_base: truth_sample needs evaluation.truth")
+    store = lab["store"]
+    if not isinstance(store, dict) or set(store) - {"path", "table"} or (store.get("path") and store.get("table")):
+        raise ConfigError("labels.store is {path: <Delta directory>} or {table: <table name>}, not both")
+    if paid.get("lakebase_label_store") and not store.get("table"):
+        raise ConfigError("paid_features.lakebase_label_store: labels.store.table must name the label table of the "
+                          "Lakebase database catalog registered in Unity Catalog (<catalog>.<schema>.<table>)")
+    rv = data["review"]
+    if not isinstance(rv["enabled"], bool):
+        raise ConfigError("review.enabled must be true or false")
+    for key in ("max_pairs", "impact_min"):
+        if type(rv[key]) is not int or rv[key] < 1:
+            raise ConfigError(f"review.{key} must be a positive integer")
+    if type(rv["llm_pairs"]) is not int or rv["llm_pairs"] < 0:
+        raise ConfigError("review.llm_pairs must be a non-negative integer")
+    if isinstance(rv["band"], bool) or not isinstance(rv["band"], (int, float)) or not 0 < rv["band"] <= 0.5:
+        raise ConfigError("review.band must be in (0, 0.5]")
+    if rv["llm"] != "none" and not paid.get("llm_labeller"):
+        raise ConfigError(f"review.llm: {rv['llm']} is a paid feature: set paid_features.llm_labeller: true (Jev is "
+                          "allowed on the laptop; its cost is predicted before sending, capped by labels.llm_max_usd)")
 
 
 def build(user: dict | None = None, base_dir: Path | None = None) -> Config:

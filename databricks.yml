@@ -5,6 +5,7 @@
 # (src/lakematch/pipelines/flows.py); the steps that need actions are job tasks (src/lakematch/jobs.py):
 #
 #   plan -> pipeline [valid .. features] -> train -> pipeline [scores, links] -> cluster -> explain
+#                                                                    \-> review (the app queue)
 #                                        \-> quality
 #
 # Feature switches travel in the engine's YAML (bundles have no conditional resources): `config_file` picks it.
@@ -17,7 +18,7 @@ include:
   - bundle/*.yml
 
 sync:                          # only what the tasks and the pipeline import or read (.gitignore applies too)
-  exclude: [spec/**, tests/**, bench/**, tools/**, scripts/**, "*.md", "*.db", models/**, mlruns/**, CODE_REVIEW.md]
+  exclude: [spec/**, tests/**, bench/**, tools/**, scripts/**, app/**, "*.md", "*.db", models/**, mlruns/**, CODE_REVIEW.md]
 
 variables:
   catalog: {default: workspace}

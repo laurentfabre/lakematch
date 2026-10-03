@@ -32,7 +32,9 @@ jev = ["typesafe-sdk>=0.7"]
 bench = ["recordlinkage>=0.16"]
 # The measured Splink reference rows of BENCHMARKS.md (bench/splink_reference.py). Never used by the engine.
 reference = ["splink>=5"]
-dev = ["pytest>=8", "pyspark[connect]>=4.1,<5", "recordlinkage>=0.16", "model2vec>=0.4"]
+# labels.source: app on the laptop: the arbitration app's label store is a Delta directory, read without a Delta jar.
+review = ["deltalake>=1", "pandas>=2", "pyarrow>=11"]
+dev = ["pytest>=8", "deltalake>=1", "pyspark[connect]>=4.1,<5", "recordlinkage>=0.16", "model2vec>=0.4"]
 
 [project.scripts]
 lakematch = "lakematch.cli:main"

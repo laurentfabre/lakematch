@@ -1,0 +1,47 @@
+# FEBRL4 (half the partners removed) with the arbitration app (ZR-7): the same run as examples/febrl4.yaml, whose
+# labels are the reviewers' decisions from the app over the truth sample (labels.app_base), and whose review queue
+# carries Jev's opinion on its 100 most uncertain pairs (review.llm: jev — cents, predicted and logged before sending).
+# Run:  lakematch run --config examples/febrl4_review.yaml [--root DIR]
+# App:  cd app && LAKEMATCH_APP_REVIEW_DIR=<storage.root>/review apx dev start    (app/README.md)
+# Every run reads the label store <storage.root>/review/labels, so labels given in the app change the next run.
+profile: laptop
+
+storage:
+  root: ../data/runs/febrl4_review
+
+inputs:
+  left:  {path: ../data/febrl4/left.csv,  id: rec_id}
+  right: {path: ../data/febrl4/right.csv, id: rec_id}
+
+entity:
+  name: person
+  fields:
+    given_name:    {type: person_name}
+    surname:       {type: person_name}
+    street_number: {type: code}
+    address_1:     {type: address}
+    address_2:     {type: address}
+    suburb:        {type: address}
+    postcode:      {type: code}
+    state:         {type: code}
+    date_of_birth: {type: date}
+    soc_sec_id:    {type: code}
+
+candidates: {method: gram_topk}          # as examples/febrl4.yaml, so the two runs compare
+quality:
+  engine: native
+  checks:
+    - {check: max_length, column: surname, n: 60, criticality: warn}
+
+labels: {source: app, app_base: truth_sample, n: 400, llm: none, llm_cache: ../data/runs/jev_cache_febrl4_review.jsonl}
+review: {llm: jev, llm_pairs: 100}
+paid_features: {llm_labeller: true}      # Jev only (the laptop's one paid switch); the predicted cost is logged first
+evaluation:
+  truth: {path: ../data/febrl4/truth.csv, left_id: l_id, right_id: r_id}
+
+mlflow:
+  tracking_uri: "sqlite:///../mlflow.db"
+  experiment: lakematch
+  registry: false
+  model_name: lakematch_person
+  pointer: ../models/current.json

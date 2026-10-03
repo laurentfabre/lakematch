@@ -1,0 +1,640 @@
+{
+  "config": "examples/febrl4_review.yaml",
+  "root": "data/runs/zr7_e2e",
+  "reviewer": "e2e-reviewer@laptop",
+  "started_at": "2026-10-03T11:55:15+0200",
+  "dev_server": {
+    "url": "http://localhost:9001",
+    "session": {
+      "reviewer": "e2e-reviewer@laptop",
+      "source": "local files /Users/lf/Projects/Pro/lakematch/data/runs/zr7_e2e/review",
+      "label_store": "Delta directory /Users/lf/Projects/Pro/lakematch/data/runs/zr7_e2e/review/labels",
+      "app_version": "0.0.0.post14.dev0+6c0d1f8"
+    },
+    "ui_served": true
+  },
+  "labelled_via_http": 23,
+  "decisions": {
+    "match_or_no_match": 20,
+    "unsure": 2,
+    "matches": 16
+  },
+  "label_rows": 24,
+  "http_calls": 51,
+  "labels": [
+    {
+      "l_id": "rec-1873-org",
+      "r_id": "rec-1873-dup-0",
+      "rank": 1,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "dd043601-5e7b-45a6-937f-820a06e72281"
+    },
+    {
+      "l_id": "rec-932-org",
+      "r_id": "rec-932-dup-0",
+      "rank": 2,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "c605e09f-dd7b-4917-ab2b-127f8e9722f9"
+    },
+    {
+      "l_id": "rec-3876-org",
+      "r_id": "rec-3876-dup-0",
+      "rank": 3,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "af23e56a-96eb-473f-bed9-850d2ed62e0a"
+    },
+    {
+      "l_id": "rec-4242-org",
+      "r_id": "rec-4242-dup-0",
+      "rank": 4,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "cd4c906d-2982-4e5d-8815-4e113ccace15"
+    },
+    {
+      "l_id": "rec-4490-org",
+      "r_id": "rec-4490-dup-0",
+      "rank": 5,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "b574a893-ded0-452a-81e8-f5e220a38d8f"
+    },
+    {
+      "l_id": "rec-4723-org",
+      "r_id": "rec-4723-dup-0",
+      "rank": 6,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "eda33a38-1f64-4a1d-8e22-e2f0b1c3c0e4"
+    },
+    {
+      "l_id": "rec-3824-org",
+      "r_id": "rec-3824-dup-0",
+      "rank": 7,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "66d73988-261e-4ea2-ac8d-28c9a3982cc2"
+    },
+    {
+      "l_id": "rec-4016-org",
+      "r_id": "rec-4016-dup-0",
+      "rank": 8,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "b2e69d0f-ffab-4ad7-b81f-cc28c29cd8c1"
+    },
+    {
+      "l_id": "rec-1349-org",
+      "r_id": "rec-1349-dup-0",
+      "rank": 9,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "924b7a26-6d8a-41a5-89b5-1bc3b13321fd"
+    },
+    {
+      "l_id": "rec-704-org",
+      "r_id": "rec-704-dup-0",
+      "rank": 10,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "852f86f8-78ec-46cb-a290-8d19c1c2247e"
+    },
+    {
+      "l_id": "rec-2647-org",
+      "r_id": "rec-2647-dup-0",
+      "rank": 11,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "unsure",
+      "label_id": "a7fee665-b4de-4516-8203-31ac06dd16d0"
+    },
+    {
+      "l_id": "rec-3996-org",
+      "r_id": "rec-3996-dup-0",
+      "rank": 12,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "unsure",
+      "label_id": "94942e08-f76e-4b89-a050-8099a0c68ae9"
+    },
+    {
+      "l_id": "rec-2813-org",
+      "r_id": "rec-2813-dup-0",
+      "rank": 13,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "85b2fe8d-eab3-4a34-a7a7-0345142c9148"
+    },
+    {
+      "l_id": "rec-1105-org",
+      "r_id": "rec-1105-dup-0",
+      "rank": 14,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "85d18921-8d7c-436d-a211-7cb1991fb729"
+    },
+    {
+      "l_id": "rec-3223-org",
+      "r_id": "rec-3223-dup-0",
+      "rank": 15,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "c4096e63-b84c-48be-b95e-8bca43bc3316"
+    },
+    {
+      "l_id": "rec-3613-org",
+      "r_id": "rec-3613-dup-0",
+      "rank": 16,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "34c43f3c-9827-4e27-ad35-78cc139f7119"
+    },
+    {
+      "l_id": "rec-3312-org",
+      "r_id": "rec-3312-dup-0",
+      "rank": 17,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "c59d9e8c-4f8a-46fd-a578-18bd96671712"
+    },
+    {
+      "l_id": "rec-4122-org",
+      "r_id": "rec-4122-dup-0",
+      "rank": 18,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "match",
+      "label_id": "ddc4a48e-9761-421b-8296-5e0f0c530be6"
+    },
+    {
+      "l_id": "rec-3860-org",
+      "r_id": "rec-4279-dup-0",
+      "rank": 19,
+      "queue_reason": "llm_unsure",
+      "llm_label": "unsure",
+      "p": 0.018392704541114302,
+      "decision": "no_match",
+      "label_id": "3c82e3c6-b0f9-431e-97f3-aee149414046"
+    },
+    {
+      "l_id": "rec-1334-org",
+      "r_id": "rec-3854-dup-0",
+      "rank": 20,
+      "queue_reason": "other",
+      "llm_label": "different",
+      "p": 0.018392704541114302,
+      "decision": "no_match",
+      "label_id": "e1ddf98f-cb78-437d-b655-4dcb8e989a33"
+    },
+    {
+      "l_id": "rec-3555-org",
+      "r_id": "rec-3623-dup-0",
+      "rank": 21,
+      "queue_reason": "other",
+      "llm_label": "different",
+      "p": 0.018392704541114302,
+      "decision": "no_match",
+      "label_id": "4aeb861a-7df0-434e-b79d-64c446ce2de4"
+    },
+    {
+      "l_id": "rec-3854-org",
+      "r_id": "rec-1334-dup-0",
+      "rank": 22,
+      "queue_reason": "other",
+      "llm_label": "different",
+      "p": 0.018392704541114302,
+      "decision": "no_match",
+      "label_id": "e545106e-c4c5-4ebf-8156-8d5b4fef03ca"
+    }
+  ],
+  "provenance_complete": true,
+  "provenance_fields": [
+    "reviewer",
+    "labelled_at",
+    "model_version",
+    "reason",
+    "p",
+    "threshold",
+    "run_id",
+    "queue_reason"
+  ],
+  "undo_returns_pair_to_queue": true,
+  "stats_page_complete": true,
+  "restart_clean": true,
+  "local_dev_server_ok": true,
+  "run1": {
+    "model_version": "run 8c587abe334c4d37b523d0b6fd07d256",
+    "labels": {
+      "train": 317,
+      "train_matches": 29,
+      "validation": 83,
+      "app": {
+        "store": {
+          "path": "/Users/lf/Projects/Pro/lakematch/data/runs/zr7_e2e/review/labels"
+        },
+        "base": "truth_sample",
+        "decisions": 0,
+        "used": 0,
+        "not_candidates": 0,
+        "overrode_base": 0
+      }
+    },
+    "evaluation": {
+      "links": 2399,
+      "tp": 2381,
+      "fp": 18,
+      "fn": 119,
+      "precision": 0.9925,
+      "recall": 0.9524,
+      "f1": 0.972
+    },
+    "label_set_sha256": "f511667183bd8b8e18646ffdda3ca670e5833ff1a22f7b681b366841558423a9",
+    "queue": {
+      "pairs": 2000,
+      "by_reason": {
+        "llm_unsure": 19,
+        "other": 1981
+      }
+    },
+    "jev_usd": 0.002634
+  },
+  "run2": {
+    "model_version": "run c6c3938b5a58408aafbc9a7fd9c20d54",
+    "labels": {
+      "train": 332,
+      "train_matches": 41,
+      "validation": 88,
+      "app": {
+        "store": {
+          "path": "/Users/lf/Projects/Pro/lakematch/data/runs/zr7_e2e/review/labels"
+        },
+        "base": "truth_sample",
+        "decisions": 20,
+        "used": 20,
+        "not_candidates": 0,
+        "overrode_base": 0
+      }
+    },
+    "evaluation": {
+      "links": 2493,
+      "tp": 2493,
+      "fp": 0,
+      "fn": 7,
+      "precision": 1.0,
+      "recall": 0.9972,
+      "f1": 0.9986
+    },
+    "label_set_sha256": "eaa96509bd4d3c9a0a3e05ab6323d50420069cdffbe80560e8694ecd8a89237b",
+    "queue": {
+      "pairs": 2000,
+      "by_reason": {
+        "llm_unsure": 9,
+        "other": 1991
+      }
+    }
+  },
+  "reviewer_matches_linked_by_run2": "16 of 16",
+  "next_train_consumed_labels": true,
+  "stats_after_run2": {
+    "labels": {
+      "events": 24,
+      "retracted": 1,
+      "current": {
+        "match": 16,
+        "unsure": 2,
+        "no_match": 4
+      },
+      "by_reviewer": {
+        "e2e-reviewer@laptop": 22
+      },
+      "complete_provenance": 24
+    },
+    "agreement": {
+      "pairs": 3,
+      "agree": 3,
+      "rate": 1.0,
+      "confusion": {
+        "no_match/different": 3
+      },
+      "llm_unsure_on_labelled": 17,
+      "llm_opinions_in_queue": 100
+    },
+    "model_versions": [
+      {
+        "model_version": "run 8c587abe334c4d37b523d0b6fd07d256",
+        "run_id": "20261003T115537",
+        "created_at": "2026-10-03T09:55:46Z",
+        "threshold": 0.5,
+        "evaluation": "truth",
+        "precision": 0.9925,
+        "recall": 0.9524,
+        "f1": 0.972,
+        "label_source": "app",
+        "app_labels_used": 0,
+        "labels_train": 317,
+        "human_labelled": 20,
+        "human_precision": null,
+        "human_recall": 0.0
+      },
+      {
+        "model_version": "run c6c3938b5a58408aafbc9a7fd9c20d54",
+        "run_id": "20261003T115623",
+        "created_at": "2026-10-03T09:56:29Z",
+        "threshold": 0.5,
+        "evaluation": "truth",
+        "precision": 1.0,
+        "recall": 0.9972,
+        "f1": 0.9986,
+        "label_source": "app",
+        "app_labels_used": 20,
+        "labels_train": 332,
+        "human_labelled": 0,
+        "human_precision": null,
+        "human_recall": null
+      }
+    ],
+    "queue": {
+      "total": 2000,
+      "pending": 1996,
+      "labelled": 4,
+      "pending_by_reason": {
+        "llm_unsure": 8,
+        "other": 1988
+      },
+      "total_by_reason": {
+        "llm_unsure": 9,
+        "other": 1991
+      },
+      "model_version": "run c6c3938b5a58408aafbc9a7fd9c20d54"
+    },
+    "quarantine": {
+      "latest": {
+        "run_id": "20261003T115623",
+        "model_version": "run c6c3938b5a58408aafbc9a7fd9c20d54",
+        "created_at": "2026-10-03T09:56:29Z",
+        "left": 0,
+        "right": 0
+      },
+      "history": [
+        {
+          "run_id": "20261003T115537",
+          "model_version": "run 8c587abe334c4d37b523d0b6fd07d256",
+          "created_at": "2026-10-03T09:55:46Z",
+          "left": 0,
+          "right": 0
+        },
+        {
+          "run_id": "20261003T115623",
+          "model_version": "run c6c3938b5a58408aafbc9a7fd9c20d54",
+          "created_at": "2026-10-03T09:56:29Z",
+          "left": 0,
+          "right": 0
+        }
+      ]
+    }
+  },
+  "bundle": {
+    "files": {
+      "requirements.txt": 52,
+      ".gitignore": 2,
+      "lakematch_app-0.0.0+20261003095639-py3-none-any.whl": 185550,
+      "app.yml": 71
+    },
+    "mb": 0.177,
+    "limit_mb": 10.0
+  },
+  "bundle_under_10mb": true,
+  "finished_at": "2026-10-03T11:56:39+0200",
+  "apx": {
+    "cli": "apx 0.3.8",
+    "checked_at": "2026-10-03",
+    "repository": {
+      "archived": false,
+      "open_issues_count": 19,
+      "pushed_at": "2026-04-07T17:22:25Z",
+      "updated_at": "2026-09-28T08:13:22Z"
+    },
+    "latest_release": {
+      "published_at": "2026-02-26T17:26:41Z",
+      "tag_name": "v0.3.8"
+    },
+    "last_commit": {
+      "date": "2026-03-31T18:19:53Z",
+      "sha": "a88ee32"
+    },
+    "days_since_push": 179,
+    "verdict": "not archived, but no push since 2026-04-07 (179 days): treat as slow-moving; the generated code is vendored in app/, so the app does not depend on new APX releases",
+    "license": "Databricks License (app/ is a separate sub-project; the engine never imports it)"
+  },
+  "deployed": {
+    "name": "lakematch",
+    "url": "<app url>",
+    "app_status": "RUNNING",
+    "compute_status": "ACTIVE",
+    "resources": [
+      {
+        "description": "queue, run history and Delta label store in workspace.lakematch",
+        "name": "sql-warehouse",
+        "sql_warehouse": {
+          "id": "79dfcc5bc7019dd3",
+          "permission": "CAN_USE"
+        }
+      }
+    ],
+    "service_principal": "app-2orliv lakematch",
+    "active_deployment": "01f1bf1273071bcf950f27c5dac945c0",
+    "session": {
+      "reviewer": "fbb39591-ae9c-4982-8cb3-bae33f6148fa",
+      "source": "workspace.lakematch.lm_review_queue via SQL warehouse 79dfcc5bc7019dd3",
+      "label_store": "Delta table workspace.lakematch.lm_review_labels via SQL warehouse 79dfcc5bc7019dd3",
+      "app_version": "0.0.0+20261003100309"
+    },
+    "labelled_via_http": 3,
+    "label_rows": [
+      {
+        "l_id": "rec-2598-org",
+        "r_id": "rec-2598-dup-0",
+        "decision": "unsure",
+        "is_match": null,
+        "reviewer": "fbb39591-ae9c-4982-8cb3-bae33f6148fa",
+        "labelled_at": "2026-10-03T10:09:41.857050+00:00",
+        "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+        "p": 0.018392704541114163,
+        "threshold": 0.5,
+        "reason": "deployment check (bench/app_deploy.py): unsure, never a training label; retracted next",
+        "queue_reason": "other",
+        "llm_label": null,
+        "run_id": "18d92fce45fd4da1a475e9c8e0532717",
+        "label_id": "b693ea1f-daab-4354-84ad-c9e29230f727"
+      },
+      {
+        "l_id": "rec-3298-org",
+        "r_id": "rec-3298-dup-0",
+        "decision": "unsure",
+        "is_match": null,
+        "reviewer": "fbb39591-ae9c-4982-8cb3-bae33f6148fa",
+        "labelled_at": "2026-10-03T10:09:46.563898+00:00",
+        "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+        "p": 0.018392704541114163,
+        "threshold": 0.5,
+        "reason": "deployment check (bench/app_deploy.py): unsure, never a training label; retracted next",
+        "queue_reason": "other",
+        "llm_label": null,
+        "run_id": "18d92fce45fd4da1a475e9c8e0532717",
+        "label_id": "1d61ce37-5cbb-432e-a875-00103d7d7c02"
+      },
+      {
+        "l_id": "rec-2378-org",
+        "r_id": "rec-2378-dup-0",
+        "decision": "unsure",
+        "is_match": null,
+        "reviewer": "fbb39591-ae9c-4982-8cb3-bae33f6148fa",
+        "labelled_at": "2026-10-03T10:09:49.795716+00:00",
+        "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+        "p": 0.018392704541114163,
+        "threshold": 0.5,
+        "reason": "deployment check (bench/app_deploy.py): unsure, never a training label; retracted next",
+        "queue_reason": "other",
+        "llm_label": null,
+        "run_id": "18d92fce45fd4da1a475e9c8e0532717",
+        "label_id": "245ba279-0467-4578-a544-6a40d753ccc1"
+      }
+    ],
+    "stats": {
+      "labels": {
+        "events": 3,
+        "retracted": 0,
+        "current": {
+          "unsure": 3
+        },
+        "by_reviewer": {
+          "fbb39591-ae9c-4982-8cb3-bae33f6148fa": 3
+        },
+        "complete_provenance": 3
+      },
+      "agreement": {
+        "pairs": 0,
+        "agree": 0,
+        "rate": null,
+        "confusion": {},
+        "llm_unsure_on_labelled": 0,
+        "llm_opinions_in_queue": 0
+      },
+      "model_versions": [
+        {
+          "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+          "run_id": "18d92fce45fd4da1a475e9c8e0532717",
+          "created_at": "2026-10-03T10:02:23Z",
+          "threshold": 0.5,
+          "evaluation": "truth",
+          "precision": 0.9925,
+          "recall": 0.9524,
+          "f1": 0.972,
+          "label_source": "truth_sample",
+          "app_labels_used": 0,
+          "labels_train": 317,
+          "human_labelled": 0,
+          "human_precision": null,
+          "human_recall": null
+        }
+      ],
+      "queue": {
+        "total": 2000,
+        "pending": 1997,
+        "labelled": 3,
+        "pending_by_reason": {
+          "other": 1997
+        },
+        "total_by_reason": {
+          "other": 2000
+        },
+        "model_version": "workspace.lakematch.lakematch_febrl4 v3"
+      },
+      "quarantine": {
+        "latest": {
+          "run_id": "18d92fce45fd4da1a475e9c8e0532717",
+          "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+          "created_at": "2026-10-03T10:02:23Z",
+          "left": 4,
+          "right": 2
+        },
+        "history": [
+          {
+            "run_id": "18d92fce45fd4da1a475e9c8e0532717",
+            "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+            "created_at": "2026-10-03T10:02:23Z",
+            "left": 4,
+            "right": 2
+          }
+        ]
+      }
+    },
+    "rows_in_delta_table": [
+      {
+        "label_id": "245ba279-0467-4578-a544-6a40d753ccc1",
+        "labelled_at": "2026-10-03T10:09:49.795Z",
+        "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+        "reason": "deployment check (bench/app_deploy.py): unsure, never a training label; retracted next",
+        "reviewer": "fbb39591-ae9c-4982-8cb3-bae33f6148fa"
+      },
+      {
+        "label_id": "b693ea1f-daab-4354-84ad-c9e29230f727",
+        "labelled_at": "2026-10-03T10:09:41.857Z",
+        "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+        "reason": "deployment check (bench/app_deploy.py): unsure, never a training label; retracted next",
+        "reviewer": "fbb39591-ae9c-4982-8cb3-bae33f6148fa"
+      },
+      {
+        "label_id": "1d61ce37-5cbb-432e-a875-00103d7d7c02",
+        "labelled_at": "2026-10-03T10:09:46.563Z",
+        "model_version": "workspace.lakematch.lakematch_febrl4 v3",
+        "reason": "deployment check (bench/app_deploy.py): unsure, never a training label; retracted next",
+        "reviewer": "fbb39591-ae9c-4982-8cb3-bae33f6148fa"
+      }
+    ],
+    "provenance_complete": true,
+    "ok": true,
+    "stopped_after": {
+      "app": "stop requested",
+      "warehouse": "stop requested"
+    },
+    "http_calls": 9,
+    "checked_at": "2026-10-03T12:10:09+0200"
+  }
+}

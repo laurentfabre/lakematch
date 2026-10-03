@@ -1,0 +1,12 @@
+# Databricks Apps runtime (copied into .build/ by `apx build`). The same code runs on a laptop with
+# LAKEMATCH_APP_SOURCE=local (README.md); here it reads Unity Catalog through the app's SQL-warehouse resource.
+command: ["uvicorn", "lakematch_app.backend.app:app", "--workers", "2"]
+env:
+  - name: LAKEMATCH_APP_SOURCE
+    value: warehouse
+  - name: LAKEMATCH_APP_LABEL_STORE
+    value: delta                       # lakebase with paid_features.lakebase_label_store (and a database resource)
+  - name: LAKEMATCH_APP_SCHEMA
+    value: workspace.lakematch
+  - name: DATABRICKS_SQL_WAREHOUSE_ID
+    valueFrom: sql-warehouse

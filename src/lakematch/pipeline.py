@@ -89,6 +89,15 @@ def resolve(cfg: Config, left_ids: list[str], right_ids: list[str] | None, links
     return cluster.run(method, nodes, edges, threshold, score=keyed_score if score else None, allowed=allowed, **kw)
 
 
+def model_version(summary: dict, run_id: str) -> str:
+    """What the review queue and the label store call the model: the registered version when there is a registry,
+    else the MLflow run (D17), else the lakematch run."""
+    ml = summary.get("mlflow") or {}
+    if ml.get("registered"):
+        return f"{ml['registered']['name']} v{ml['registered']['version']}"
+    return f"run {ml['run_id']}" if ml.get("run_id") else f"run {run_id}"
+
+
 def run(cfg: Config, root: Path | None = None, t_process: float | None = None, rt: Runtime | None = None) -> dict:
     t_start = t_process or time.time()
     problems = cfg.runnable_problems()
@@ -115,11 +124,12 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
                                                          "decision.cardinality", "quality.engine")}}
     try:
         gate = quality.engine(cfg)
-        sides, raws = {}, {}
+        sides, raws, valids = {}, {}, {}
         for side in ("left", "right"):
             spec = cfg.get(f"inputs.{side}")
             raw = raws[side] = read_table(spark, cfg, spec)
             valid, quarantined = gate.split(raw, quality.input_specs(cfg, spec["id"], side))
+            valids[side] = valid
             n_bad = quarantined.count()
             summary.setdefault("quarantined", {})[side] = n_bad
             if n_bad:
@@ -144,11 +154,14 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
 
         llm_usage: dict = {}
         lab = rt.materialize(labels.labelled(spark, pairs, cfg, left, right, llm_usage), "labels")
+        app_usage = llm_usage.pop("app_labels", None)
         if llm_usage:
             summary["llm_labeller"] = llm_usage
         train, valid_lab = labels.split(lab, cfg)
         summary["labels"] = {"train": train.count(), "train_matches": train.filter("label = 1").count(),
                              "validation": valid_lab.count()}
+        if app_usage:
+            summary["labels"]["app"] = app_usage
         model = matcher.train(train, feature_cols, cfg)
         valid_scored = matcher.score(model, valid_lab)
         threshold = decision.pick_threshold(valid_scored, cfg)
@@ -194,6 +207,16 @@ def run(cfg: Config, root: Path | None = None, t_process: float | None = None, r
                 train=train, valid_scored=valid_scored, scored=scored, linked=linked, truth=truth, raw_inputs=raws,
                 summary=summary)
             summary["mlflow"]["seconds"] = round(time.time() - t_ml, 1)
+
+        if cfg.get("review.enabled"):                   # the arbitration app's queue and run history (ZR-7)
+            from . import review
+            version = model_version(summary, run_id)
+            queue, qstats = review.build_queue(
+                spark, cfg, scored=scored, linked=linked, threshold=threshold, model_version=version, run_id=run_id,
+                crosswalk=crosswalk, raws=valids, left=left, right=right)
+            record = review.run_record(run_id=run_id, model_version=version, threshold=threshold, summary=summary,
+                                       queue_stats=qstats, cfg=cfg)
+            summary["review"] = {**qstats, "model_version": version, **review.write(spark, cfg, queue, record)}
     finally:
         rt.close()
     now = time.time()

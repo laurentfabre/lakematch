@@ -1,0 +1,43 @@
+# The arbitration app as a Databricks App (ZR-7) — its own bundle, separate from the engine's (../databricks.yml):
+# APX carries the Databricks License, so app/ is a sub-project the Apache-2.0 engine never imports.
+#
+#   scripts/deploy.sh            checks paid_features.app in the engine config, builds, deploys, starts, grants
+#
+# Free Edition: three apps per account, app compute bills while the app runs, an app stops after 24 h. Stop it when
+# you are done: databricks apps stop lakematch --profile fourth-pat
+bundle:
+  name: lakematch-app
+
+sync:
+  include:
+    - .build
+
+artifacts:
+  default:
+    build: apx build
+
+variables:
+  warehouse_id:
+    description: the SQL warehouse the app reads and writes through (fourth-pat's only warehouse on Free Edition)
+    default: 79dfcc5bc7019dd3
+
+resources:
+  apps:
+    lakematch:
+      name: lakematch
+      description: "lakematch arbitration: review queue, keyboard-first labels with provenance, run statistics"
+      source_code_path: ./.build
+      resources:
+        - name: sql-warehouse
+          description: queue, run history and Delta label store in workspace.lakematch
+          sql_warehouse:
+            id: ${var.warehouse_id}
+            permission: CAN_USE
+
+targets:
+  dev:
+    mode: production
+    default: true
+    workspace:
+      profile: fourth-pat
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}

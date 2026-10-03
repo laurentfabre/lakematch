@@ -13,6 +13,8 @@
     quality   the gate's two engines on the same inputs: DQX (what the pipeline ran) and native must give the same
               split, and the seeded bad rows must be exactly the quarantined ones -> <storage.root>/quality.json
     explain   the physical plan of every stage on this compute (Photon or not, per operator) -> <storage.root>/explain/
+    review    the arbitration app's queue and one line of run history (review.py) -> lm_review_queue, lm_review_runs
+              (the train task creates the empty label table lm_review_labels the app appends to)
 
 Every task: `python lakematch_task.py <task> --config <yaml>`; each writes its own JSON under storage.root.
 """
@@ -114,8 +116,14 @@ def task_train(cfg: Config, rt: Runtime) -> dict:
                      "labels": {"train": train.count(), "train_matches": train.filter("label = 1").count(),
                                 "validation": valid_lab.count()},
                      "candidates": {"pairs": pairs.count()}, "features": feature_cols}
+    app_usage = usage.pop("app_labels", None)
+    if app_usage:
+        summary["labels"]["app"] = app_usage
     if usage:
         summary["llm_labeller"] = usage
+    if cfg.get("review.enabled"):
+        from .review import ensure_label_table
+        summary["label_table"] = ensure_label_table(spark, cfg)    # the app writes it; it never creates it
     model = matcher.train(train, feature_cols, cfg)
     valid_scored = matcher.score(model, valid_lab)
     threshold = decision.pick_threshold(valid_scored, cfg)
@@ -266,8 +274,44 @@ def _features_plan(cfg: Config, spark):
     return df.select("l_id", "r_id", *cols)
 
 
+def task_review(cfg: Config, rt: Runtime) -> dict:
+    """The arbitration app's queue and one line of run history (review.py) from what train and cluster wrote:
+    lm_scores (p, model_version), lm_links, lm_crosswalk, the gate's valid rows and quarantine counts."""
+    from . import review, tracking
+    spark = rt.spark
+    if not cfg.get("review.enabled"):
+        return {"skipped": "review.enabled is false"}
+    champion = _read(cfg, "champion.json")
+    train, clustered = _read(cfg, "tasks/train.json") or {}, _read(cfg, "tasks/cluster.json") or {}
+    if champion is None or not clustered:
+        raise RuntimeError("review needs champion.json (train) and tasks/cluster.json (cluster)")
+    scores = spark.read.table(_table(cfg, "lm_scores"))
+    versions = sorted(r[0] for r in scores.select("model_version").distinct().collect())
+    if versions != [str(champion["version"])]:
+        raise RuntimeError(f"lm_scores holds version(s) {versions}, champion.json names {champion['version']}")
+    version = f"{tracking.registered_name(cfg)} v{champion['version']}"
+    crosswalk = {r.record_key: r.mdm_id for r in spark.read.table(_table(cfg, "lm_crosswalk")).collect()}
+    raws = {s: spark.read.table(_table(cfg, f"lm_{s}_valid")) for s in ("left", "right")}
+    left = right = None
+    if cfg.get("review.llm") != "none":
+        left, right = spark.read.table(_table(cfg, "lm_left_entity")), spark.read.table(_table(cfg, "lm_right_entity"))
+    run_id = str(champion.get("run_id") or time.strftime("%Y%m%dT%H%M%S"))
+    queue, stats = review.build_queue(
+        spark, cfg, scored=scores.join(spark.read.table(_table(cfg, "lm_features"))
+                                       .select("l_id", "r_id", "cand_score", "cand_rank"), ["l_id", "r_id"], "left"),
+        linked=spark.read.table(_table(cfg, "lm_links")), threshold=champion["threshold"],
+        model_version=version, run_id=run_id, crosswalk=crosswalk, raws=raws, left=left, right=right)
+    summary = {"candidates": train.get("candidates"), "labels": train.get("labels"),
+               "decision": {"links": clustered.get("links")}, "evaluation": clustered.get("evaluation"),
+               "mlflow": train.get("mlflow"),
+               "quarantined": {s: spark.read.table(_table(cfg, f"lm_{s}_quarantine")).count() for s in ("left", "right")}}
+    record = review.run_record(run_id=run_id, model_version=version, threshold=champion["threshold"],
+                               summary=summary, queue_stats=stats, cfg=cfg)
+    return {"model_version": version, **stats, **review.write(spark, cfg, queue, record), "record": record}
+
+
 TASKS = {"plan": task_plan, "train": task_train, "cluster": task_cluster, "quality": task_quality,
-         "explain": task_explain}
+         "explain": task_explain, "review": task_review}
 
 
 def main(argv: list[str] | None = None) -> int:

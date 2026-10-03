@@ -15,6 +15,7 @@ NEEDS = {
     ("candidates.method", "union"): {"candidates": {"union_of": ["gram_topk", "field_blocks"]}},
     ("labels.source", "file"): {"labels": {"path": "labels.csv"}},
     ("labels.llm", "jev"): {"paid_features": {"llm_labeller": True}},
+    ("review.llm", "jev"): {"paid_features": {"llm_labeller": True}},
     ("labels.llm", "ai_query"): {"profile": "databricks", "paid_features": {"llm_labeller": True}},
     ("quality.engine", "dqx"): {"profile": "databricks"},
     ("features.embeddings.provider", "databricks_endpoint"): {"profile": "databricks",
@@ -110,9 +111,10 @@ def test_defaults_are_runnable_including_clustering():
 
 
 def test_unimplemented_choice_blocks_the_run_with_its_phase():
-    cfg = config.build({"labels": {"source": "app"}})
+    cfg = config.build({"runtime": {"mode": "classic"}, "profile": "databricks",
+                        "classic": {"profile": "paid-workspace"}})
     problems = cfg.runnable_problems()
-    assert len(problems) == 1 and "ZR-7" in problems[0]
+    assert len(problems) == 1 and "ZR-9" in problems[0]
 
 
 def test_the_endpoint_embedding_is_a_paid_feature():

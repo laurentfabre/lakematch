@@ -1,0 +1,58 @@
+[project]
+name = "lakematch-app"
+dynamic = ["version"]
+description = "lakematch arbitration app: review queue, keyboard-first labelling, label provenance, run statistics"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.119.0",
+    "pydantic-settings>=2.11.0",
+    "uvicorn>=0.37.0",
+    "databricks-sdk>=0.74.0",
+    "deltalake>=1",
+    "pyarrow>=15",
+    "psycopg[binary]>=3.2",
+]
+
+[dependency-groups]
+dev = [
+    "ty>=0.0.12",
+    "pytest>=8",
+    "httpx>=0.27",
+]
+
+[tool.apx.metadata]
+app-name = "lakematch-app"
+app-slug = "lakematch_app"
+app-entrypoint = "lakematch_app.backend.app:app"
+api-prefix = "/api"
+metadata-path = "src/lakematch_app/_metadata.py"
+
+[tool.apx.ui]
+root = "src/lakematch_app/ui"
+
+[tool.apx.ui.registries]
+"@animate-ui" = "https://animate-ui.com/r/{name}.json"
+"@ai-elements" = "https://registry.ai-sdk.dev/{name}.json"
+"@svgl" = "https://svgl.app/r/{name}.json"
+
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning>=0.7.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+fallback-version = "0.0.0"
+
+[tool.hatch.build.hooks.version]
+path = "src/lakematch_app/_version.py"
+template = '''
+version = "{version}"
+'''
+
+[tool.hatch.build]
+artifacts = ["src/lakematch_app/__dist__", "src/lakematch_app/_metadata.py"]
+exclude = ["src/lakematch_app/ui"]

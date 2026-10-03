@@ -3,7 +3,8 @@
     labels.source: file          a CSV or Parquet of (l_id, r_id, is_match) written by a person or a tool
     labels.source: truth_sample  benchmarks only: `labels.n` candidate pairs drawn in a fixed pseudo-random order
                                  (xxhash64 of the pair) and labelled from evaluation.truth
-    labels.source: app           the arbitration app's label store (ZR-7)
+    labels.source: app           the arbitration app's label store (ZR-7, labels/store.py): the reviewers' current
+                                 match / no-match decisions, over the labels of `labels.app_base` (none by default)
     labels.llm                   the LLM labeller plug-in: none, jev (labels/jev.py), ai_query (Databricks Model
                                  Serving through the built-in SQL function, labels.llm_endpoint). The same `labels.n`
                                  sample is labelled by the LLM instead of a truth file; with jev only the confident
@@ -36,12 +37,11 @@ def sample(features: DataFrame, cfg: Config) -> DataFrame:
     return features.orderBy(F.xxhash64("l_id", "r_id"), "l_id", "r_id").limit(cfg.get("labels.n"))
 
 
-def llm_labelled(spark: SparkSession, features: DataFrame, cfg: Config, left: DataFrame, right: DataFrame,
-                 pairs: DataFrame | None = None) -> tuple[DataFrame, dict]:
-    """Jev's confident labels on `pairs` (default: the `labels.n` sample). Returns (labelled pairs, usage)."""
+def jev_answers(cfg: Config, todo: DataFrame, left: DataFrame, right: DataFrame) -> tuple[list[dict], dict]:
+    """Jev's answer on each (l_id, r_id) of `todo` over the entity sides: one row per pair {l_id, r_id, probs,
+    label (1.0 / 0.0 / None = cannot tell or below labels.llm_tau)}, and usage. Cached, budgeted (labels/jev.py)."""
     from . import jev
     fields = list(cfg.fields)
-    todo = (sample(features, cfg) if pairs is None else pairs).select("l_id", "r_id")
     rec = lambda side, p: side.select(F.col("id").alias(f"{p}_id"), F.struct(*fields).alias(f"{p}_rec"))
     rows = todo.join(rec(left, "l"), "l_id").join(rec(right, "r"), "r_id").orderBy("l_id", "r_id").collect()
     asked = [{"l_id": r.l_id, "r_id": r.r_id, "record_a": r.l_rec.asDict(), "record_b": r.r_rec.asDict()} for r in rows]
@@ -49,10 +49,16 @@ def llm_labelled(spark: SparkSession, features: DataFrame, cfg: Config, left: Da
     what = (f"two {name} records from two sources; a duplicate may carry typos, abbreviations, missing, reordered "
             "or swapped fields")
     cache = cfg.path(cfg.get("labels.llm_cache")) or cfg.path(cfg.get("storage.root")) / "jev_cache.jsonl"
-    answers, usage = jev.ask(asked, what, name, cache, tau=cfg.get("labels.llm_tau"),
-                             max_usd=cfg.get("labels.llm_max_usd"))
+    return jev.ask(asked, what, name, cache, tau=cfg.get("labels.llm_tau"), max_usd=cfg.get("labels.llm_max_usd"))
+
+
+def llm_labelled(spark: SparkSession, features: DataFrame, cfg: Config, left: DataFrame, right: DataFrame,
+                 pairs: DataFrame | None = None) -> tuple[DataFrame, dict]:
+    """Jev's confident labels on `pairs` (default: the `labels.n` sample). Returns (labelled pairs, usage)."""
+    todo = (sample(features, cfg) if pairs is None else pairs).select("l_id", "r_id")
+    answers, usage = jev_answers(cfg, todo, left, right)
     kept = [(a["l_id"], a["r_id"], a["label"]) for a in answers if a["label"] is not None]
-    usage.update({"asked": len(asked), "kept": len(kept)})
+    usage.update({"asked": len(answers), "kept": len(kept)})
     lab = spark.createDataFrame(kept, "l_id string, r_id string, label double")
     return features.join(lab, ["l_id", "r_id"]), usage
 
@@ -100,6 +106,12 @@ def labelled(spark: SparkSession, features: DataFrame, cfg: Config, left: DataFr
             usage.update(used)
         return lab
     source = cfg.require("labels.source")
+    if source == "app":
+        return app_labelled(spark, features, cfg, usage)
+    return _source_labelled(spark, features, cfg, source)
+
+
+def _source_labelled(spark: SparkSession, features: DataFrame, cfg: Config, source: str) -> DataFrame:
     if source == "truth_sample":
         truth = truth_pairs(spark, cfg)
         if truth is None:
@@ -110,6 +122,27 @@ def labelled(spark: SparkSession, features: DataFrame, cfg: Config, left: DataFr
     lab = read_table(spark, cfg, spec).select(F.col("l_id").cast("string"), F.col("r_id").cast("string"),
                                               F.col("is_match").cast("double").alias("label"))
     return features.join(lab, ["l_id", "r_id"])
+
+
+def app_labelled(spark: SparkSession, features: DataFrame, cfg: Config, usage: dict | None = None) -> DataFrame:
+    """The arbitration app's current match / no-match decisions (labels/store.py) over the `labels.app_base` labels:
+    on a pair both name, the reviewer's decision wins. A decision on a pair that is no longer a candidate is counted
+    and left out (the features are the candidates'). Counts land in usage["app_labels"]."""
+    from . import store
+    app = store.training_labels(spark, cfg)
+    base_name = cfg.get("labels.app_base")
+    base = None if base_name == "none" else _source_labelled(spark, features, cfg, base_name).select(
+        "l_id", "r_id", "label")
+    merged = app if base is None else base.join(app.select("l_id", "r_id"), ["l_id", "r_id"], "left_anti") \
+        .unionByName(app)
+    out = features.join(merged, ["l_id", "r_id"])
+    if usage is not None:
+        n_app, n_used = app.count(), out.join(app.select("l_id", "r_id"), ["l_id", "r_id"]).count()
+        usage["app_labels"] = {"store": {k: str(v) for k, v in store.location(cfg).items()}, "base": base_name,
+                               "decisions": n_app, "used": n_used, "not_candidates": n_app - n_used,
+                               "overrode_base": 0 if base is None else
+                               base.join(app.select("l_id", "r_id"), ["l_id", "r_id"]).count()}
+    return out
 
 
 def split(labels: DataFrame, cfg: Config) -> tuple[DataFrame, DataFrame]:
