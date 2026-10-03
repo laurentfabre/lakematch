@@ -31,6 +31,8 @@ import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact import redact  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 APP = REPO / "app"
@@ -213,7 +215,7 @@ def main() -> int:
     for k in ("apx", "deployed"):                  # written by the APX check and the deployment step
         if k in prev:
             result[k] = prev[k]
-    OUT.write_text(json.dumps(result, indent=2, default=str) + "\n")
+    OUT.write_text(redact(json.dumps(result, indent=2, default=str)) + "\n")
     print(json.dumps({k: result[k] for k in ("labelled_via_http", "provenance_complete", "next_train_consumed_labels",
                                              "local_dev_server_ok", "bundle_under_10mb", "restart_clean",
                                              "reviewer_matches_linked_by_run2")}, indent=1))

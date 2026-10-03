@@ -32,6 +32,8 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact import redact  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -240,7 +242,7 @@ def stop_warehouse() -> str:
 
 def report(results: dict) -> None:
     RESULTS.parent.mkdir(parents=True, exist_ok=True)
-    RESULTS.write_text(json.dumps(results, indent=2, default=str) + "\n")
+    RESULTS.write_text(redact(json.dumps(results, indent=2, default=str)) + "\n")
     free = results["runs"].get("febrl4_databricks_free.yaml", {})
     lines = ["# Photon on serverless — lakematch FEBRL4 (ZR-6)", "",
              f"Measured {results['generated']} on fourth-pat (Free Edition, serverless, Spark "

@@ -16,6 +16,8 @@ Every SQL statement goes through the warehouse, which this script stops when it 
 """
 from __future__ import annotations
 
+import sys
+
 import argparse
 import hashlib
 import json
@@ -24,6 +26,8 @@ import time
 from pathlib import Path
 
 import yaml
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'bench'))
+from redact import redact  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent
@@ -152,7 +156,7 @@ def main() -> int:
         out["warehouse"] = "stop requested"
     out["at"] = time.strftime("%Y-%m-%dT%H:%M:%S%z")
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(out, indent=2) + "\n")
+    OUT.write_text(redact(json.dumps(out, indent=2)) + "\n")
     print(json.dumps(out, indent=1))
     return 0
 

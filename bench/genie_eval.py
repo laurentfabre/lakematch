@@ -27,6 +27,8 @@ import urllib.request
 from pathlib import Path
 
 import yaml
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact import redact  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 OUT = REPO / "bench" / "results" / "genie.json"
@@ -37,7 +39,7 @@ WAREHOUSE = "79dfcc5bc7019dd3"
 def save(update: dict) -> dict:
     d = json.loads(OUT.read_text()) if OUT.exists() else {}
     d.update(update)
-    OUT.write_text(json.dumps(d, indent=2, default=str) + "\n")
+    OUT.write_text(redact(json.dumps(d, indent=2, default=str)) + "\n")
     return d
 
 

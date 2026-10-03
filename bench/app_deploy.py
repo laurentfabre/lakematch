@@ -19,6 +19,8 @@ import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact import redact  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 OUT = REPO / "bench" / "results" / "app_e2e.json"
@@ -39,7 +41,7 @@ def cli(*args: str) -> dict | list | str:
 def save(section: str, payload: dict) -> None:
     d = json.loads(OUT.read_text()) if OUT.exists() else {}
     d[section] = payload
-    OUT.write_text(json.dumps(d, indent=2, default=str) + "\n")
+    OUT.write_text(redact(json.dumps(d, indent=2, default=str)) + "\n")
     print(json.dumps(payload, indent=1, default=str)[:4000])
 
 
